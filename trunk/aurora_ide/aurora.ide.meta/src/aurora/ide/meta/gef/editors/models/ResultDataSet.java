@@ -1,13 +1,13 @@
 package aurora.ide.meta.gef.editors.models;
 
+import java.util.Arrays;
+
+import org.eclipse.ui.views.properties.IPropertyDescriptor;
+
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.IntegerPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.QueryContainerEditDialog;
-
-import java.util.Arrays;
-
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class ResultDataSet extends Dataset {
 
@@ -22,7 +22,7 @@ public class ResultDataSet extends Dataset {
 	private static final String[] selectionModes = { SELECT_NONE, SELECT_MULTI,
 			SELECT_SINGLE };
 	private static final IPropertyDescriptor PD_SELECTION_MODE = new ComboPropertyDescriptor(
-			SELECTION_MODE, "SelectionModel", selectionModes);
+			SELECTION_MODE, "*SelectionModel", selectionModes);
 
 	private QueryContainer queryContainer = new QueryContainer();
 	public static final String QUERY_CONTAINER = "queryContainer";
@@ -42,9 +42,9 @@ public class ResultDataSet extends Dataset {
 
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
 			PD_SELECTION_MODE,
-			new IntegerPropertyDescriptor(PAGE_SIZE, "pageSize"),
+			new IntegerPropertyDescriptor(PAGE_SIZE, "*pageSize"),
 			// new BooleanPropertyDescriptor(SELECTABLE, "selectable"),
-			new DialogPropertyDescriptor(QUERY_CONTAINER, "queryDataSet",
+			new DialogPropertyDescriptor(QUERY_CONTAINER, "*queryDataSet",
 					QueryContainerEditDialog.class) };
 
 	public ResultDataSet() {

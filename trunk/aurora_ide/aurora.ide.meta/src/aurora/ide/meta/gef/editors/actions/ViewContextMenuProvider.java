@@ -1,22 +1,34 @@
-
 package aurora.ide.meta.gef.editors.actions;
 
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.ui.actions.ActionFactory;
+
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.parts.ComponentPart;
+import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
 
 /**
  * Provides a context menu for the flow editor.
  * 
- * @author 
+ * @author
  */
 public class ViewContextMenuProvider extends ContextMenuProvider {
 
 	private ActionRegistry actionRegistry;
+	private ISelection selection;
+	private CommandStack commandStack;
 
 	/**
 	 * Creates a new FlowContextMenuProvider assoicated with the given viewer
@@ -30,6 +42,14 @@ public class ViewContextMenuProvider extends ContextMenuProvider {
 	public ViewContextMenuProvider(EditPartViewer viewer,
 			ActionRegistry registry) {
 		super(viewer);
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+
+			public void selectionChanged(SelectionChangedEvent event) {
+				selection = event.getSelection();
+
+			}
+		});
+		commandStack = viewer.getEditDomain().getCommandStack();
 		setActionRegistry(registry);
 	}
 
@@ -49,6 +69,22 @@ public class ViewContextMenuProvider extends ContextMenuProvider {
 		action = getActionRegistry().getAction(ActionFactory.DELETE.getId());
 		if (action.isEnabled())
 			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection ss = (IStructuredSelection) selection;
+			Object ele = ss.getFirstElement();
+			if (ele instanceof ComponentPart) {
+				if (ele instanceof ViewDiagramPart)
+					return;
+				MenuManager typeManager = new MenuManager("TypeChange");
+				menu.appendToGroup(GEFActionConstants.GROUP_EDIT, typeManager);
+				AuroraComponent model = (AuroraComponent) ((ComponentPart) ele)
+						.getModel();
+				TypeChangeUtil tc = new TypeChangeUtil(commandStack);
+				for (Action a : tc.getActionFor(model))
+					typeManager.add(a);
+
+			}
+		}
 
 	}
 

@@ -10,6 +10,7 @@ public class TabBody extends Container {
 	private static Class[] unsupported = { Toolbar.class, Navbar.class,
 			GridColumn.class, TabItem.class, TabBody.class };
 	private boolean visible = false;
+	private TabItem tabItem;
 
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -37,6 +38,14 @@ public class TabBody extends Container {
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		return NONE_PROPS;
+	}
+
+	public TabItem getTabItem() {
+		return tabItem;
+	}
+
+	public void setTabItem(TabItem tabItem) {
+		this.tabItem = tabItem;
 	}
 
 }
