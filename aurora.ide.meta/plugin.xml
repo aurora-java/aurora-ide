@@ -5,7 +5,7 @@
         <wizard category="aurora.ide.wizard" 
             class="aurora.ide.meta.project.CreateMetaProjectWizard" 
             finalPerspective="aurora.ide.perspectives.AuroraPerspective" 
-            icon="icons/aurora.png" id="aurora.ide.wizard.meta.ProjectWizard" 
+            icon="icons/aurora.gif" id="aurora.ide.wizard.meta.ProjectWizard" 
             name="Aurora 原型工程" project="true"/>
         <wizard category="aurora.ide.wizard" 
             class="aurora.ide.meta.gef.editors.wizard.CreateMetaWizard" 
@@ -39,7 +39,7 @@
 		<page
 			adaptable="true"
          	class="aurora.ide.project.propertypage.MetaProjectPropertyPage"
-         	icon="icons/aurora.png"
+         	icon="icons/aurora.gif"
          	id="aurora.ide.meta.project.property"
          	name="Meta Aurora工程设置"
          	objectClass="org.eclipse.core.resources.IProject">
@@ -47,7 +47,7 @@
 		</page>
 	</extension>
 	
-    <extension  
+    <extension
       id="nature"  
       point="org.eclipse.core.resources.natures">  
        <runtime>  
