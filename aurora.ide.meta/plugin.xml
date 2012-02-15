@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension point="org.eclipse.ui.newWizards">
+        <wizard category="aurora.ide.wizard" 
+            class="aurora.ide.meta.project.CreateMetaProjectWizard" 
+            finalPerspective="aurora.ide.perspectives.AuroraPerspective" 
+            icon="icons/aurora.png" id="aurora.ide.wizard.meta.ProjectWizard" 
+            name="Aurora 原型工程" project="true"/>
+        <wizard category="aurora.ide.wizard" 
+            class="aurora.ide.meta.gef.editors.wizard.CreateMetaWizard" 
+            id="aurora.ide.wizard.CreateFormGridWizard" 
+            name="Meta文件">
+        </wizard>
+    </extension>
+     
+	<extension
+         id="aurora.meta.gef.editor"
+         point="org.eclipse.ui.editors">
+      <editor
+            default="true"
+            name="Aurora UI Designer"
+            extensions="meta"
+            class="aurora.ide.meta.gef.editors.VScreenEditor"
+            id="aurora.ide.meta.gef.editors.VScreenEditor">
+      </editor>
+      <!--
+      <editor
+            class="aurora.ide.editor.CollaborateEditor"
+            filenames="*.service,*.screen,*.svc,*.bm"
+            icon="icons/service.gif"
+            id="aurora.ide.editor.CollaborateEditor"
+            default="false"
+            name="远程协作编辑器"/>
+       -->   
+	</extension>
+  
+    <extension point="org.eclipse.ui.propertyPages">
+		<page
+			adaptable="true"
+         	class="aurora.ide.project.propertypage.MetaProjectPropertyPage"
+         	icon="icons/aurora.png"
+         	id="aurora.ide.meta.project.property"
+         	name="Meta Aurora工程设置"
+         	objectClass="org.eclipse.core.resources.IProject">
+			<filter name="nature" value="aurora.ide.meta.nature"/>
+		</page>
+	</extension>
+	
+    <extension  
+      id="nature"  
+      point="org.eclipse.core.resources.natures">  
+       <runtime>  
+          <run  
+                class="aurora.ide.meta.project.AuroraMetaProjectNature">  
+          </run>  
+       </runtime>
+    </extension>
+    <extension point="org.eclipse.ui.ide.projectNatureImages">
+  		<image 
+  		 id="aurora.project.nature.image"
+    	 natureId="aurora.ide.meta.nature"
+    	 icon="icons/aurora8x8.png">
+  		</image>
+ 	</extension>
+    
+</plugin>
