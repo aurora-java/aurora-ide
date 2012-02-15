@@ -5,7 +5,6 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.UUID;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -193,7 +192,15 @@ public class AuroraComponent implements Cloneable, Serializable, IProperties,
 	}
 
 	public boolean isPropertySet(Object propName) {
-		return true;
+		if (PROMPT.equals(propName))
+			return true;
+		else if (WIDTH.equals(propName))
+			return true;
+		else if (HEIGHT.equals(propName))
+			return true;
+		else if (NAME.equals(propName))
+			return true;
+		return false;
 	}
 
 	public void resetPropertyValue(Object propName) {

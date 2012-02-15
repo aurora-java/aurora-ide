@@ -12,11 +12,13 @@ public class TabItem extends AuroraComponent {
 	private TabBody body = new TabBody();
 	static int idx = 0;
 	boolean current = false;
+	private String templateRef = "";
 
 	public TabItem() {
 		setWidth(65);
 		this.setType("tab");
 		setPrompt("tabItem" + idx++);
+		body.setTabItem(this);
 	}
 
 	public void setSize(Dimension dim) {
@@ -77,6 +79,15 @@ public class TabItem extends AuroraComponent {
 	@Override
 	public void setPropertyValue(Object propName, Object val) {
 		super.setPropertyValue(propName, val);
+	}
+
+	public String getTemplateRef() {
+		return templateRef;
+	}
+
+	public void setTemplateRef(String templateRef) {
+		this.templateRef = templateRef;
+		// TODO 显示模板预览图
 	}
 
 }

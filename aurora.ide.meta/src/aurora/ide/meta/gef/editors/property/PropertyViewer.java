@@ -1,7 +1,5 @@
 package aurora.ide.meta.gef.editors.property;
 
-import aurora.ide.meta.gef.editors.figures.ColorConstants;
-
 import java.util.ArrayList;
 
 import org.eclipse.draw2d.FigureUtilities;
@@ -14,6 +12,7 @@ import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
@@ -21,6 +20,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.views.properties.IPropertySheetEntry;
+
+import aurora.ide.meta.gef.editors.figures.ColorConstants;
 
 public class PropertyViewer extends Canvas implements PaintListener,
 		MouseListener, MouseMoveListener, MouseTrackListener {
@@ -124,6 +125,11 @@ public class PropertyViewer extends Canvas implements PaintListener,
 
 	private void drawString(GC gc, String text, int x, int y, int height,
 			int width) {
+		Color fgc = ColorConstants.BLACK;
+		if (text.charAt(0) == '*') {
+			text = text.substring(1);
+			fgc = new Color(null, 4, 168, 118);
+		}
 		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
 		StringBuilder sb = new StringBuilder(text.length() + 3);
 		sb.append(text);
@@ -133,6 +139,7 @@ public class PropertyViewer extends Canvas implements PaintListener,
 			dim = FigureUtilities.getTextExtents(sb.toString(), getFont());
 			text = sb.toString();
 		}
+		gc.setForeground(fgc);
 		gc.drawString(text, x, y + (height - dim.height) / 2);
 	}
 

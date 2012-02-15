@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 
 import aurora.ide.meta.gef.editors.figures.InputField;
 import aurora.ide.meta.gef.editors.models.Input;
@@ -24,7 +25,11 @@ public class InputPart extends ComponentPart {
 	 */
 	protected void refreshVisuals() {
 		super.refreshVisuals();
+		getFigure().setToolTip(new Label(getModel().getType()));
+	}
 
+	public Input getModel() {
+		return (Input) super.getModel();
 	}
 
 	public String getType() {

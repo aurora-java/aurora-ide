@@ -108,6 +108,8 @@ public class BOX extends RowCol {
 		if (component instanceof Toolbar || component instanceof Navbar
 				|| component instanceof GridColumn)
 			return false;
+		if (component instanceof TabItem)
+			return false;
 		return super.isResponsibleChild(component);
 	}
 
