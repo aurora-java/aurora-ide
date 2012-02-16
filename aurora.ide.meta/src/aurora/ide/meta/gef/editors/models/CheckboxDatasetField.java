@@ -1,8 +1,8 @@
 package aurora.ide.meta.gef.editors.models;
 
-import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
-
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
+
+import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
 
 public class CheckboxDatasetField extends DatasetField {
 	/**
@@ -15,9 +15,9 @@ public class CheckboxDatasetField extends DatasetField {
 	private static final long serialVersionUID = -4619018857153616914L;
 
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
-			new StringPropertyDescriptor(UNCHECKED_VALUE, "uncheckedValue"),
-			new StringPropertyDescriptor(CHECKED_VALUE, "checkedValue"),
-			new StringPropertyDescriptor(DEFAULT_VALUE, "defaultValue") };
+			new StringPropertyDescriptor(UNCHECKED_VALUE, "*uncheckedValue"),
+			new StringPropertyDescriptor(CHECKED_VALUE, "*checkedValue"),
+			new StringPropertyDescriptor(DEFAULT_VALUE, "*defaultValue") };
 
 	private String checkedValue = "Y";
 	private String uncheckedValue = "N";

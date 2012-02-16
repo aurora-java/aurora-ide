@@ -1,9 +1,9 @@
 package aurora.ide.meta.gef.editors.models;
 
+import org.eclipse.ui.views.properties.IPropertyDescriptor;
+
 import aurora.ide.meta.gef.editors.property.IntegerPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
-
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class LovDatasetField extends DatasetField {
 	/**
@@ -16,12 +16,12 @@ public class LovDatasetField extends DatasetField {
 	private static final long serialVersionUID = -4619018857153616914L;
 
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
-			new IntegerPropertyDescriptor(LOV_GRID_HEIGHT, "lovGridHeight"),
-			new IntegerPropertyDescriptor(LOV_HEIGHT, "lovHeight"),
-			new StringPropertyDescriptor(LOV_SERVICE, "lovService"),
-			new StringPropertyDescriptor(LOV_URL, "lovUrl"),
-			new IntegerPropertyDescriptor(LOV_WIDTH, "lovWidth"),
-			new StringPropertyDescriptor(TITLE, "title") };
+			new IntegerPropertyDescriptor(LOV_GRID_HEIGHT, "*lovGridHeight"),
+			new IntegerPropertyDescriptor(LOV_HEIGHT, "*lovHeight"),
+			new StringPropertyDescriptor(LOV_SERVICE, "*lovService"),
+			new StringPropertyDescriptor(LOV_URL, "*lovUrl"),
+			new IntegerPropertyDescriptor(LOV_WIDTH, "*lovWidth"),
+			new StringPropertyDescriptor(TITLE, "*title") };
 
 	private int lovGridHeight;
 	private int lovHeight;

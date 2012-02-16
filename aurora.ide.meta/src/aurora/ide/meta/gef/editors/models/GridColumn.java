@@ -7,11 +7,12 @@ import java.util.List;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
+import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.RendererEditDialog;
 
-public class GridColumn extends RowCol {
+public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 
 	/**
 	 * 
@@ -28,11 +29,14 @@ public class GridColumn extends RowCol {
 	private int rowHight = 25;
 	private String editor = editors[0];
 	private Renderer renderer = new Renderer();
+	private DatasetField dsField = new DatasetField();
 
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
 			PD_PROMPT,
 			PD_WIDTH,
 			PD_NAME,
+			new BooleanPropertyDescriptor(READONLY, "readOnly"),
+			new BooleanPropertyDescriptor(REQUIRED, "required"),
 			new ComboPropertyDescriptor(EDITOR, "editor", editors),
 			new DialogPropertyDescriptor(RENDERER, "renderer",
 					RendererEditDialog.class) };
@@ -80,6 +84,10 @@ public class GridColumn extends RowCol {
 			return Arrays.asList(editors).indexOf(getEditor());
 		else if (RENDERER.equals(propName))
 			return getRenderer();
+		else if (READONLY.equals(propName)) {
+			return getDatasetField().isReadOnly();
+		} else if (REQUIRED.equals(propName))
+			return getDatasetField().isRequired();
 		return super.getPropertyValue(propName);
 	}
 
@@ -89,7 +97,12 @@ public class GridColumn extends RowCol {
 			setEditor(editors[(Integer) val]);
 		else if (RENDERER.equals(propName))
 			setRenderer((Renderer) val);
-		super.setPropertyValue(propName, val);
+		else if (READONLY.equals(propName)) {
+			getDatasetField().setReadOnly((Boolean) val);
+		} else if (REQUIRED.equals(propName)) {
+			getDatasetField().setRequired((Boolean) val);
+		} else
+			super.setPropertyValue(propName, val);
 	}
 
 	public void setRenderer(Renderer r) {
@@ -116,4 +129,13 @@ public class GridColumn extends RowCol {
 		this.headHight = h;
 	}
 
+	@Override
+	public DatasetField getDatasetField() {
+		return dsField;
+	}
+
+	@Override
+	public void setDatasetField(DatasetField field) {
+		this.dsField = field;
+	}
 }

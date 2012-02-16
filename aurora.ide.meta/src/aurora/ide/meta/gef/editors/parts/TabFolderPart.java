@@ -85,13 +85,13 @@ public class TabFolderPart extends ContainerPart {
 			// TabItem被添加,现在添加对应的TabBody
 			getModel().addChild(body, idx + 1 + list.size() / 2);
 			ti.setCurrent(true);
-			// System.out.println("------");
-			// for (int i = 0; i < list.size() / 2; i++) {
-			// TabItem t = (TabItem) list.get(i);
-			// System.out.printf("%-12s%s   %s\n", t.getPrompt(),
-			// t.getBody().hashCode() == list.get(list.size() / 2 + i)
-			// .hashCode(), t.isCurrent() ? "*" : "");
-			// }
+			System.out.println("------");
+			for (int i = 0; i < list.size() / 2; i++) {
+				TabItem t = (TabItem) list.get(i);
+				System.out.printf("%-12s%s   %s\n", t.getPrompt(),
+						t.getBody().hashCode() == list.get(list.size() / 2 + i)
+								.hashCode(), t.isCurrent() ? "*" : "");
+			}
 		}
 	}
 

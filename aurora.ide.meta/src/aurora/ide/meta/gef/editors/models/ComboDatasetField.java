@@ -12,10 +12,10 @@ public class ComboDatasetField extends DatasetField {
 	private static final long serialVersionUID = -4619018857153616914L;
 
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
-			new StringPropertyDescriptor(OPTIONS, "options"),
-			new StringPropertyDescriptor(DISPLAY_FIELD, "displayField"),
-			new StringPropertyDescriptor(VALUE_FIELD, "valueField"),
-			new StringPropertyDescriptor(RETURN_FIELD, "returnField") };
+			new StringPropertyDescriptor(OPTIONS, "*options"),
+			new StringPropertyDescriptor(DISPLAY_FIELD, "*displayField"),
+			new StringPropertyDescriptor(VALUE_FIELD, "*valueField"),
+			new StringPropertyDescriptor(RETURN_FIELD, "*returnField") };
 
 	private String displayField = "";
 	private String options = "";

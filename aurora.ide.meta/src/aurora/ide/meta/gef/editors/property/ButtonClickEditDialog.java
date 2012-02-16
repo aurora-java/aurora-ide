@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.property;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.source.SourceViewer;
@@ -39,6 +40,7 @@ import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.TabBody;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.core.Util;
 
 public class ButtonClickEditDialog extends EditWizard {
@@ -57,6 +59,7 @@ public class ButtonClickEditDialog extends EditWizard {
 	private String tmpPath;
 	private String tmpWindowID;
 	private String tmpFunction;
+	private IProject auroraProject = null;
 
 	public ButtonClickEditDialog() {
 		setWindowTitle("Click");
@@ -216,13 +219,29 @@ public class ButtonClickEditDialog extends EditWizard {
 			text.setText(tmpPath);
 			Button btn = new Button(stackComposites[index], SWT.FLAT);
 			btn.setText("选择(&O)");
-			btn.addSelectionListener(new SelectionListener() {
 
+			IProject proj = AuroraPlugin.getActiveIFile().getProject();
+			AuroraMetaProject mProj = new AuroraMetaProject(proj);
+			try {
+				auroraProject = mProj.getAuroraProject();
+			} catch (Exception e1) {
+				auroraProject = null;
+			}
+			if (auroraProject == null) {
+				text.setEnabled(false);
+				btn.setEnabled(false);
+				Label l = new Label(stackComposites[index], SWT.NONE);
+				l = new Label(stackComposites[index], SWT.NONE);
+				l.setForeground(new Color(null, 255, 0, 0));
+				l.setText("当前工程没有正确设置关联Aurora工程.");
+				return;
+			}
+
+			btn.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
 					@SuppressWarnings("restriction")
 					OpenResourceDialog ord = new OpenResourceDialog(
-							stackComposites[index].getShell(), AuroraPlugin
-									.getActiveIFile().getProject(),
+							stackComposites[index].getShell(), auroraProject,
 							OpenResourceDialog.CARET_BEGINNING);
 					ord.setInitialPattern("*.screen");
 					ord.open();
@@ -296,7 +315,7 @@ public class ButtonClickEditDialog extends EditWizard {
 		jsEditor.getControl().setLayoutData(
 				new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		jsEditor.configure(new JavaScriptConfiguration(new ColorManager()));
-		jsEditor.getTextWidget().setFont(new Font(null, "Courier New", 10, 0));
+		jsEditor.getTextWidget().setFont(new Font(null, "Consolas", 10, 0));
 		Document document = new Document();
 		jsEditor.setDocument(document);
 		tmpFunction = clicker.getFunction();

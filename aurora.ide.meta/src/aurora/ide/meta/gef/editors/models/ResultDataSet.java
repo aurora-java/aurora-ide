@@ -94,7 +94,7 @@ public class ResultDataSet extends Dataset {
 		return "";
 	}
 
-	public AuroraComponent getQueryContainer() {
+	public QueryContainer getQueryContainer() {
 		return queryContainer;
 	}
 
