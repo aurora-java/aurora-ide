@@ -1,15 +1,15 @@
 package aurora.ide.meta.gef.editors.models;
 
-import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
-import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
-import aurora.ide.meta.gef.editors.property.RendererEditDialog;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
+
+import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
+import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
+import aurora.ide.meta.gef.editors.property.RendererEditDialog;
 
 public class GridColumn extends RowCol {
 
@@ -24,7 +24,7 @@ public class GridColumn extends RowCol {
 	public static final String RENDERER = "renderer";
 
 	private List<GridColumn> cols = new ArrayList<GridColumn>();
-	// 界面默认的行高 25
+	// default row height 25
 	private int rowHight = 25;
 	private String editor = editors[0];
 	private Renderer renderer = new Renderer();
@@ -64,11 +64,8 @@ public class GridColumn extends RowCol {
 		this.addChild(col);
 	}
 
-	/**
-	 * 
-	 * 仅允许增加 GridColumn
-	 * */
 	public boolean isResponsibleChild(AuroraComponent child) {
+		// only allow add GridColumn
 		return child.getClass().equals(GridColumn.class);
 	}
 

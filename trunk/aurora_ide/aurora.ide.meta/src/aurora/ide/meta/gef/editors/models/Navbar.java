@@ -20,7 +20,9 @@ public class Navbar extends RowCol {
 	}
 
 	@Override
-	// navBarType = "complex" 或者 "simple";
+	/**
+	 * Grid.NAVBAR_SIMPLE or Grid.NAVBAR_COMPLEX
+	 */
 	public void setType(String type) {
 		super.setType(type);
 	}
@@ -30,12 +32,8 @@ public class Navbar extends RowCol {
 		return NONE_PROPS;
 	}
 
-	/**
-	 * 
-	 * 不允许增加child，外观使用图片显示
-	 * 
-	 * */
 	public boolean isResponsibleChild(AuroraComponent component) {
+		// not allow any child
 		return false;
 	}
 

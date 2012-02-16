@@ -11,20 +11,16 @@ import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
 import aurora.ide.search.core.Util;
 
 public class Dataset extends AuroraComponent {
-	/**
-	 *  
-	 */
 	private static final long serialVersionUID = -4619018857153616914L;
-	// model a.b.c形式
+	// model a.b.c
 	private String model = "";
 
 	private boolean autoQuery = false;
-	// private String queryUrl;
-	// 自动生成
+	// auto generated
 	private String id = "";
-	// 是否只是QueryDS,如果true，生成的代码将不设置model
+	/** whether the dataset is used as query dataset(no binding bm) */
 	private boolean isUse4Query;
-	// 是否使用父的BM
+	/** use parent binded bm */
 	private boolean isUseParentBM = true;
 
 	public static final String AUTO_QUERY = "autoQuery";
@@ -39,7 +35,6 @@ public class Dataset extends AuroraComponent {
 	// new BooleanPropertyDescriptor("USEPARENTBM", "isUseParentBM")
 
 	public Dataset() {
-		// 暂时不显示
 		// this.setSize(new Dimension(50, 20));
 		this.setType("dataSet");
 	}
