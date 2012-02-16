@@ -1,9 +1,9 @@
 package aurora.ide.meta.gef.editors.models;
 
+import org.eclipse.ui.views.properties.IPropertyDescriptor;
+
 import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
-
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class DatasetField extends AuroraComponent {
 	/**
@@ -12,42 +12,35 @@ public class DatasetField extends AuroraComponent {
 
 	private static final long serialVersionUID = -4619018857153616914L;
 
-	// 默认值
+	/** defaultValue */
 	public static final String DEFAULT_VALUE = "defaultValue";
 
-	// checkbox选中的值
+	/** the checkedValue of CheckBox */
 	public static final String CHECKED_VALUE = "checkedValue";
-	// checkbox未选中的值
+	/** the unchekedValue of CheckBox */
 	public static final String UNCHECKED_VALUE = "uncheckedValue";
 
-	// ComboBox的displayField
+	/** the displayField of ComboBox */
 	public static final String DISPLAY_FIELD = "displayField";
-	// ComboBox的options,对应DataSet的id
+	/** the options of ComboBox , point to a dataset id */
 	public static final String OPTIONS = "options";
-	// ComboBox的valueField
+	/** the valueField of ComboBox */
 	public static final String VALUE_FIELD = "valueField";
-	// ComboBox选中值的返回name
+	/** the returnField of ComboBox */
 	public static final String RETURN_FIELD = "returnField";
 
-	// Lov窗口中grid的高度
+	/** LOV grid height */
 	public static final String LOV_GRID_HEIGHT = "lovGridHeight";
-	// lov弹出窗口的高度
+	/** the height of LOV popup window */
 	public static final String LOV_HEIGHT = "lovHeight";
-	// Lov对应的model
+	/** the model of LOV popup window */
 	public static final String LOV_SERVICE = "lovService";
-	// 自定义URL
+	/** user defined LOV screen */
 	public static final String LOV_URL = "lovUrl";
-	// lov弹出窗口的宽度
+	/** the width of LOV popup window */
 	public static final String LOV_WIDTH = "lovWidth";
-	// Lov弹出窗口的title
+	/** the title of LOV popup window */
 	public static final String TITLE = "title";
-
-	// validator : String
-	// 自定义校验函数
-	// 函数参数为 function(record,name,value)
-	// 返回值:
-	// (1)校验成功返回true
-	// (2)校验失败返回错误的描述信息(文本格式)
 
 	private String defaultValue = "";
 

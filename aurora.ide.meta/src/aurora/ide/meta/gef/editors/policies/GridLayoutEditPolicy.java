@@ -130,8 +130,9 @@ public class GridLayoutEditPolicy extends FlowLayoutEditPolicy {
 	@Override
 	protected Command createMoveChildCommand(EditPart child, EditPart after) {
 		MoveChildCmpCmd cmd = new MoveChildCmpCmd();
-		cmd.setEditPartToMove(child);
-		cmd.setReferenceEditPart(after);
+		cmd.setComponentToMove((AuroraComponent) child.getModel());
+		cmd.setReferenceComponent(after == null ? null
+				: (AuroraComponent) after.getModel());
 		return cmd;
 	}
 

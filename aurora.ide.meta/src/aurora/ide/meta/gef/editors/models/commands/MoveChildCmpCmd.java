@@ -2,7 +2,6 @@ package aurora.ide.meta.gef.editors.models.commands;
 
 import java.util.List;
 
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
@@ -11,7 +10,6 @@ import aurora.ide.meta.gef.editors.models.TabBody;
 
 public class MoveChildCmpCmd extends Command {
 	private Container container;
-	private EditPart epParent;
 	private AuroraComponent acToMove;
 	private AuroraComponent acRel = null;
 	private int oriIndex = -1;
@@ -19,15 +17,13 @@ public class MoveChildCmpCmd extends Command {
 	public MoveChildCmpCmd() {
 	}
 
-	public void setEditPartToMove(EditPart child) {
-		epParent = child.getParent();
-		container = (Container) epParent.getModel();
-		acToMove = (AuroraComponent) child.getModel();
+	public void setComponentToMove(AuroraComponent child) {
+		container = child.getParent();
+		acToMove = child;
 	}
 
-	public void setReferenceEditPart(EditPart reference) {
-		if (reference != null)
-			acRel = (AuroraComponent) reference.getModel();
+	public void setReferenceComponent(AuroraComponent ac) {
+		acRel = ac;
 	}
 
 	@Override

@@ -19,7 +19,8 @@ public class AuroraComponent implements Cloneable, Serializable, IProperties,
 		IPropertySource2 {
 
 	/**
-	 * 此id仅用于存储xml时标记引用关系,以便读取时根据引用关系重新建立引用关系
+	 * the markeid is only used in model io operation,to mark the component
+	 * reference relation
 	 */
 	public transient String markid = Integer.toHexString(hashCode());
 	transient protected PropertyChangeSupport listeners = new PropertyChangeSupport(
