@@ -12,6 +12,7 @@ public class AuroraMetaProject {
 
 	private IProject project;
 
+	// meta project
 	public AuroraMetaProject(IProject project) {
 		super();
 		this.project = project;
@@ -63,10 +64,14 @@ public class AuroraMetaProject {
 	private String getPersistentProperty(QualifiedName key)
 			throws ResourceNotFoundException {
 		try {
-			return this.getProject().getPersistentProperty(key);
+			String persistentProperty = this.getProject()
+					.getPersistentProperty(key);
+			if (null != persistentProperty && !"".equals(persistentProperty)) {
+				return persistentProperty;
+			}
 		} catch (CoreException e) {
-			throw new ResourceNotFoundException();
 		}
+		throw new ResourceNotFoundException();
 	}
 
 }
