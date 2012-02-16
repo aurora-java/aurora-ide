@@ -6,26 +6,18 @@ import java.util.List;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class ViewDiagram extends Container {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -9196440587781890208L;
 	public static final int DLabelWidth = 80;
-	private static Class[] unsupported = { Toolbar.class, Navbar.class,
+	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class,
 			GridColumn.class, TabItem.class };
 
 	private List<Dataset> datasets = new ArrayList<Dataset>();
+	private String bindTemplate = "";
 
 	@Override
 	public boolean isResponsibleChild(AuroraComponent component) {
-		// if (component instanceof Grid)
-		// return true;
-		// if (component instanceof Toolbar || component instanceof Navbar
-		// || component instanceof GridColumn)
-		// return false;
-		Class cls = component.getClass();
-		for (Class c : unsupported)
+		Class<?> cls = component.getClass();
+		for (Class<?> c : unsupported)
 			if (c.equals(cls))
 				return false;
 		return super.isResponsibleChild(component);
@@ -52,6 +44,14 @@ public class ViewDiagram extends Container {
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		return new IPropertyDescriptor[0];
+	}
+
+	public String getBindTemplate() {
+		return bindTemplate;
+	}
+
+	public void setBindTemplate(String bindTemplate) {
+		this.bindTemplate = bindTemplate;
 	}
 
 }
