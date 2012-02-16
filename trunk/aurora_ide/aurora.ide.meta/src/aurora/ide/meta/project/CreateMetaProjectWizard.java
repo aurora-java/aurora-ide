@@ -37,7 +37,6 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import aurora.ide.AuroraMetaProjectNature;
 import aurora.ide.AuroraProjectNature;
 import aurora.ide.meta.MetaPlugin;
-import aurora.ide.project.propertypage.MetaProjectPropertyPage;
 
 public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 

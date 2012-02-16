@@ -87,7 +87,7 @@ public class TabItem extends AuroraComponent {
 
 	public void setTemplateRef(String templateRef) {
 		this.templateRef = templateRef;
-		// TODO 显示模板预览图
+	
 	}
 
 }

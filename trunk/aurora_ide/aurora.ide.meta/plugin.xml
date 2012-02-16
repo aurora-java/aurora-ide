@@ -38,7 +38,7 @@
     <extension point="org.eclipse.ui.propertyPages">
 		<page
 			adaptable="true"
-         	class="aurora.ide.project.propertypage.MetaProjectPropertyPage"
+         	class="aurora.ide.meta.project.MetaProjectPropertyPage"
          	icon="icons/aurora.gif"
          	id="aurora.ide.meta.project.property"
          	name="Meta Aurora工程设置"
