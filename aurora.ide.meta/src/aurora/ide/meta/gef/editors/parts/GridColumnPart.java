@@ -1,6 +1,5 @@
 package aurora.ide.meta.gef.editors.parts;
 
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 
@@ -12,7 +11,8 @@ public class GridColumnPart extends ContainerPart {
 
 	@Override
 	protected IFigure createFigure() {
-		Figure figure = new GridColumnFigure();
+		GridColumnFigure figure = new GridColumnFigure();
+		figure.setModel(getModel());
 		return figure;
 	}
 
@@ -28,11 +28,9 @@ public class GridColumnPart extends ContainerPart {
 	protected void createEditPolicies() {
 		super.createEditPolicies();
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new GridLayoutEditPolicy());
-
 	}
 
 	protected void refreshVisuals() {
-		getFigure().setModel(getModel());
 		super.refreshVisuals();
 	}
 
