@@ -34,6 +34,7 @@ public class TabFolderLayout extends BackLayout {
 				tip.getFigure().setBounds(bounds);
 			} else if (cp instanceof TabBodyPart) {
 				Rectangle rect = part.getFigure().getBounds().getCopy();
+				// new ScreenGraphLayout((ContainerPart) cp).layout();
 				rect.y += TabItem.HEIGHT + 2;
 				rect.height -= TabItem.HEIGHT + 2;
 				cp.getFigure().setBounds(rect);
@@ -42,7 +43,9 @@ public class TabFolderLayout extends BackLayout {
 				int x = PADDING.left, y = PADDING.top;
 				for (Object obj : cp.getChildren()) {
 					ComponentPart object = (ComponentPart) obj;
-					Dimension size = object.getFigure().getSize();
+					Rectangle newRect = GraphLayoutManager.layout(object);
+					object.getFigure().setSize(newRect.getSize());
+					Dimension size = newRect.getSize();
 					x = Math.max(x, size.width + PADDING.left);
 					y += size.height + PADDING.top;
 				}
