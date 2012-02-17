@@ -51,6 +51,12 @@ public class Grid extends GridColumn {
 		return (ResultDataSet) super.getDataset();
 	}
 
+	@Override
+	public void setDataset(Dataset dataset) {
+		super.setDataset(dataset);
+		setSelectionMode(getDataset().getSelectionMode());
+	}
+
 	public void setSelectionMode(String sm) {
 		if (gsc.getSelectionMode().equals(sm))
 			return;
@@ -148,7 +154,7 @@ public class Grid extends GridColumn {
 			return this.getFirstChild(child.getClass()) == null;
 		else if (child instanceof GridSelectionCol)
 			return true;
-		else if(child instanceof Grid)
+		else if (child instanceof Grid)
 			return false;
 		return super.isResponsibleChild(child);
 	}

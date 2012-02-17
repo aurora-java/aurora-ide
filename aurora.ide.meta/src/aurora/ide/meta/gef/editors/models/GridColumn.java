@@ -35,11 +35,11 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 			PD_PROMPT,
 			PD_WIDTH,
 			PD_NAME,
-			new BooleanPropertyDescriptor(READONLY, "readOnly"),
-			new BooleanPropertyDescriptor(REQUIRED, "required"),
 			new ComboPropertyDescriptor(EDITOR, "editor", editors),
 			new DialogPropertyDescriptor(RENDERER, "renderer",
-					RendererEditDialog.class) };
+					RendererEditDialog.class),
+			new BooleanPropertyDescriptor(READONLY, "*readOnly"),
+			new BooleanPropertyDescriptor(REQUIRED, "*required") };
 
 	public int getRowHight() {
 		return rowHight;
