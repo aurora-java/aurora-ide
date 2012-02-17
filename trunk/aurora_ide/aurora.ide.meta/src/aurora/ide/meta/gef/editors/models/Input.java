@@ -58,20 +58,21 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate {
 	// /
 
 	private static final IPropertyDescriptor PD_REQUIRED = new BooleanPropertyDescriptor(
-			REQUIRED, "Required");
+			REQUIRED, "*Required");
 	private static final IPropertyDescriptor PD_READONLY = new BooleanPropertyDescriptor(
-			READONLY, "ReadOnly");
+			READONLY, "*ReadOnly");
 	private static final IPropertyDescriptor PD_EMPYTEXT = new StringPropertyDescriptor(
 			EMPTYTEXT, "EmptyText");
 	private static final IPropertyDescriptor PD_TYPECASE = new ComboPropertyDescriptor(
 			TYPECASE, "TypeCase", new String[] { "任意", "大写", "小写" });
 	private static final IPropertyDescriptor[] pds_text = { PD_PROMPT, PD_NAME,
-			PD_REQUIRED, PD_READONLY, PD_WIDTH, PD_EMPYTEXT, PD_TYPECASE };
+			PD_WIDTH, PD_EMPYTEXT, PD_TYPECASE, PD_REQUIRED, PD_READONLY };
 	private static final IPropertyDescriptor[] pds_number = { PD_PROMPT,
-			PD_NAME, PD_REQUIRED, PD_READONLY, PD_WIDTH, PD_EMPYTEXT,
+			PD_NAME, PD_WIDTH, PD_EMPYTEXT,
 			new BooleanPropertyDescriptor(ALLOWDECIMALS, "AllowDecimals"),
 			new BooleanPropertyDescriptor(ALLOWNEGATIVE, "AllowNegative"),
-			new BooleanPropertyDescriptor(ALLOWFORMAT, "AllowFormat") };
+			new BooleanPropertyDescriptor(ALLOWFORMAT, "AllowFormat"),
+			PD_REQUIRED, PD_READONLY };
 	private static final IPropertyDescriptor[] pds_datepicker = new IPropertyDescriptor[] {
 			PD_PROMPT,
 			PD_WIDTH,
@@ -79,7 +80,7 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate {
 			new ComboPropertyDescriptor(ENABLE_BESIDE_DAYS, "EnableBesideDays",
 					CAL_ENABLES),
 			new ComboPropertyDescriptor(ENABLE_MONTH_BTN, "EnableMonthBtn",
-					CAL_ENABLES) };
+					CAL_ENABLES), PD_REQUIRED, PD_READONLY };
 
 	public Input() {
 		this.setSize(new Dimension(120, 20));
