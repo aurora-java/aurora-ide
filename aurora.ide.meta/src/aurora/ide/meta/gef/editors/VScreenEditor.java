@@ -1,12 +1,12 @@
 package aurora.ide.meta.gef.editors;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.EventObject;
 
 import org.eclipse.core.resources.IFile;
@@ -40,9 +40,12 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
 
+import uncertain.composite.CompositeLoader;
+import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.parts.AuroraPartFactory;
 import aurora.ide.meta.gef.editors.parts.DatasetPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
@@ -66,7 +69,8 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	public void commandStackChanged(EventObject event) {
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 		super.commandStackChanged(event);
-//		this.getSite().registerContextMenu(menuId, menuManager, selectionProvider)
+		// this.getSite().registerContextMenu(menuId, menuManager,
+		// selectionProvider)
 	}
 
 	/**
@@ -76,7 +80,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		super.createActions();
 		ActionRegistry registry = getActionRegistry();
 		IAction action;
-		
 
 		action = new DirectEditAction((IWorkbenchPart) this);
 		registry.registerAction(action);
@@ -92,9 +95,16 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	 * @throws IOException
 	 */
 	protected void createOutputStream(OutputStream os) throws IOException {
-		ObjectOutputStream out = new ObjectOutputStream(os);
-		out.writeObject(diagram);
-		out.close();
+		// ObjectOutputStream out = new ObjectOutputStream(os);
+		// out.writeObject(diagram);
+		// out.close();
+		ModelIOManager mim = ModelIOManager.getNewInstance();
+		CompositeMap rootMap = mim.toCompositeMap(diagram);
+		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+				+ rootMap.toXML();
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
+		bw.write(xml);
+		bw.close();
 	}
 
 	/**
@@ -180,8 +190,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	private void createScreen() {
 		ScreenGenerator sg = new ScreenGenerator();
 		sg.genFile(this.diagram);
-
-		
 
 	}
 
@@ -269,9 +277,15 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		IFile file = ((IFileEditorInput) input).getFile();
 		try {
 			InputStream is = file.getContents(false);
-			ObjectInputStream ois = new ObjectInputStream(is);
-			diagram = (ViewDiagram) ois.readObject();
-			ois.close();
+
+			CompositeLoader parser = new CompositeLoader();
+			CompositeMap rootMap = parser.loadFromStream(is);
+			ModelIOManager mim = ModelIOManager.getNewInstance();
+			diagram = mim.fromCompositeMap(rootMap);
+			is.close();
+			// ObjectInputStream ois = new ObjectInputStream(is);
+			// diagram = (ViewDiagram) ois.readObject();
+			// ois.close();
 		} catch (Exception e) {
 			// This is just an example. All exceptions caught here.
 			// e.printStackTrace();
