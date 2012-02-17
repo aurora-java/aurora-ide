@@ -4,6 +4,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.DatasetField;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 
 public class GridColumnHandler extends DefaultIOHandler {
@@ -18,6 +19,10 @@ public class GridColumnHandler extends DefaultIOHandler {
 
 	@Override
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
+		GridColumn gc = (GridColumn) ac;
+		DatasetFieldHandler dsf = new DatasetFieldHandler();
+		CompositeMap dsMap = dsf.toCompositeMap(gc.getDatasetField(), mic);
+		map.addChild(dsMap);
 	}
 
 	@Override
@@ -31,7 +36,11 @@ public class GridColumnHandler extends DefaultIOHandler {
 
 	@Override
 	protected void restoreComplexAttribute(AuroraComponent ac, CompositeMap map) {
-
+		GridColumn gc = (GridColumn) ac;
+		CompositeMap dfMap = map.getChild(DatasetField.class.getSimpleName());
+		DatasetField df = new DatasetFieldHandler()
+				.fromCompositeMap(dfMap, mic);
+		gc.setDatasetField(df);
 	}
 
 	@Override

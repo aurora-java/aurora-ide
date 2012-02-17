@@ -98,9 +98,9 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 		else if (RENDERER.equals(propName))
 			setRenderer((Renderer) val);
 		else if (READONLY.equals(propName)) {
-			getDatasetField().setReadOnly((Boolean) val);
+			setReadOnly((Boolean) val);
 		} else if (REQUIRED.equals(propName)) {
-			getDatasetField().setRequired((Boolean) val);
+			setRequired((Boolean) val);
 		} else
 			super.setPropertyValue(propName, val);
 	}
@@ -137,5 +137,19 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 	@Override
 	public void setDatasetField(DatasetField field) {
 		this.dsField = field;
+	}
+
+	public void setReadOnly(boolean readOnly) {
+		if (dsField.isReadOnly() == readOnly)
+			return;
+		dsField.setReadOnly(readOnly);
+		firePropertyChange(READONLY, !readOnly, readOnly);
+	}
+
+	public void setRequired(boolean required) {
+		if (dsField.isRequired() == required)
+			return;
+		dsField.setRequired(required);
+		firePropertyChange(REQUIRED, !required, required);
 	}
 }

@@ -1,15 +1,15 @@
 package aurora.ide.meta.gef.editors.figures;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.CheckBox;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.Input;
-
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
+
+import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.models.CheckBox;
+import aurora.ide.meta.gef.editors.models.GridColumn;
+import aurora.ide.meta.gef.editors.models.Input;
 
 public class GridColumnFigure extends Figure {
 	private static Image checkImg = ImagesUtils
@@ -68,9 +68,18 @@ public class GridColumnFigure extends Figure {
 					copy.y + 5 + columnHight);
 			return;
 		}
-		graphics.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
-		graphics.drawRectangle(copy.x + 2, copy.y + columnHight + 2,
+		graphics.setBackgroundColor(ColorConstants.WHITE);
+		if (gridColumn.getDatasetField().isRequired()) {
+			graphics.setBackgroundColor(ColorConstants.REQUIRED_BG);
+		}
+		if (gridColumn.getDatasetField().isReadOnly()) {
+			graphics.setBackgroundColor(ColorConstants.READONLY_BG);
+		}
+		Rectangle rect = new Rectangle(copy.x + 2, copy.y + columnHight + 2,
 				copy.width - 5, gridColumn.getRowHight() - 4);
+		graphics.fillRectangle(rect);
+		graphics.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
+		graphics.drawRectangle(rect);
 		Image img = null;
 		if (Input.Combo.equals(editor))
 			img = ImagesUtils.getImage("palette/itembar_01.png");
