@@ -22,7 +22,8 @@ public class TabItemHandler extends DefaultIOHandler {
 		TabItem ti = (TabItem) ac;
 		ti.setPrompt(map.getString(TabItem.PROMPT));
 		ti.setWidth(map.getInt(TabItem.WIDTH));
-		ti.setCurrent(map.getBoolean(TabItem.CURRENT));
+		// ti.setCurrent(map.getBoolean(TabItem.CURRENT));
+		// setCurrent will be called in TabHandler.restoreChildren(..)
 	}
 
 	@Override
