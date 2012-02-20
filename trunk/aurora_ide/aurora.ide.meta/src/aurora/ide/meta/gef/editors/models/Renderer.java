@@ -60,7 +60,11 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 	}
 
 	public String getDescripition() {
-		return labelText;
+		if (PAGE_REDIRECT.equals(rendererType))
+			return labelText;
+		else if (INNER_FUNCTION.equals(rendererType))
+			return functionName;
+		return "[function]";
 	}
 
 	public Object getContextInfo() {
