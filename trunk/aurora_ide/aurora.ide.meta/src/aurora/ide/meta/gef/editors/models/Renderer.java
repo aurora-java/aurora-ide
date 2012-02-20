@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.models;
 
 import org.eclipse.swt.graphics.Image;
 
+import aurora.ide.api.javascript.JavascriptRhino;
 import aurora.ide.meta.gef.editors.property.DialogEditableObject;
 
 public class Renderer extends AuroraComponent implements DialogEditableObject {
@@ -64,7 +65,8 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 			return labelText;
 		else if (INNER_FUNCTION.equals(rendererType))
 			return functionName;
-		return "[function]";
+		JavascriptRhino js = new JavascriptRhino(function);
+		return "[ " + js.getFirstFunctionName() + " ]";
 	}
 
 	public Object getContextInfo() {
