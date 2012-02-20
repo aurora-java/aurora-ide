@@ -18,6 +18,7 @@ public class InputHandler extends DefaultIOHandler {
 		map.put(Input.TYPE, type);
 		map.put(Input.WIDTH, input.getSize().width);
 		map.put(Input.EMPTYTEXT, input.getEmptyText());
+		map.put(Input.TYPECASE, input.getTypeCase());
 		if (input instanceof CheckBox) {
 			map.put(CheckBox.TEXT, ((CheckBox) input).getText());
 		}
@@ -39,6 +40,7 @@ public class InputHandler extends DefaultIOHandler {
 		input.setSize(new Dimension(map.getInt(Input.WIDTH),
 				input.getSize().height));
 		input.setEmptyText(map.getString(Input.EMPTYTEXT));
+		input.setTypeCase(map.getString(Input.TYPECASE));
 		if (input instanceof CheckBox) {
 			((CheckBox) input).setText(map.getString(CheckBox.TEXT));
 		}

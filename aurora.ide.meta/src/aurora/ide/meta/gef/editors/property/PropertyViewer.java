@@ -194,6 +194,9 @@ public class PropertyViewer extends Canvas implements PaintListener,
 			return;
 		}
 		PropertyItem pi = als.get(idx);
-		setToolTipText(pi.getLabel());
+		String label = pi.getLabel();
+		if (label.charAt(0) == '*')
+			label = label.substring(1);
+		setToolTipText(label);
 	}
 }
