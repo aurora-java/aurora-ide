@@ -152,6 +152,7 @@ public class ButtonClickEditDialog extends EditWizard {
 			TreeItem rootItem = new TreeItem(tree, SWT.NONE);
 			rootItem.setText("screenBody");
 			rootItem.setForeground(new Color(null, 200, 200, 200));
+			section_type_filter = Container.SECTION_TYPE_RESULT;
 			createSubTree(tree, rootItem, root);
 
 			for (TreeItem ti : tree.getItems())
@@ -169,6 +170,13 @@ public class ButtonClickEditDialog extends EditWizard {
 			});
 		}
 
+		/**
+		 * <i>section_type_filter</i> should be setted before call this method
+		 * 
+		 * @param tree
+		 * @param ti
+		 * @param container
+		 */
 		private void createSubTree(Tree tree, TreeItem ti, Container container) {
 			for (AuroraComponent ac : container.getChildren()) {
 				if ((ac instanceof Container) && !(ac instanceof TabBody)) {

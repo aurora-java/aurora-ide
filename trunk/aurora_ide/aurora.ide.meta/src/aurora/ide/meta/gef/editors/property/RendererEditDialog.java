@@ -222,8 +222,7 @@ public class RendererEditDialog extends EditWizard {
 			jsEditor.getControl().setLayoutData(
 					new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			jsEditor.configure(new JavaScriptConfiguration(new ColorManager()));
-			jsEditor.getTextWidget().setFont(
-					new Font(null, "Courier New", 10, 0));
+			jsEditor.getTextWidget().setFont(new Font(null, "Consolas", 10, 0));
 			Document document = new Document();
 			jsEditor.setDocument(document);
 			tmpFunction = renderer.getFunction();

@@ -8,10 +8,9 @@ import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridSelectionCol;
 import aurora.ide.meta.gef.editors.models.Navbar;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 
-public class GridHandler extends DefaultIOHandler {
+public class GridHandler extends ContainerHandler {
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
@@ -43,8 +42,8 @@ public class GridHandler extends DefaultIOHandler {
 
 	@Override
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
+		super.storeComplexAttribute(map, ac);
 		Grid g = (Grid) ac;
-		scaDataset(map, g);
 		if (!g.hasToolbar())
 			return;
 		List<Button> btns = g.getToobarButtons();
@@ -55,17 +54,10 @@ public class GridHandler extends DefaultIOHandler {
 		map.addChild(tbMap);
 	}
 
-	private void scaDataset(CompositeMap map, Grid grid) {
-		ResultDataSet rds = grid.getDataset();
-		CompositeMap dsMap = new ResultDataSetHandler()
-				.toCompositeMap(rds, mic);
-		map.addChild(dsMap);
-	}
-
 	@Override
 	protected void restoreComplexAttribute(AuroraComponent ac, CompositeMap map) {
+		super.restoreComplexAttribute(ac, map);
 		Grid g = (Grid) ac;
-		rcaDataset(g, map);
 		CompositeMap tbMap = map.getChild(Toolbar.class.getSimpleName());
 		if (tbMap == null)
 			return;
@@ -76,14 +68,5 @@ public class GridHandler extends DefaultIOHandler {
 			tb.addChild(new ButtonHandler().fromCompositeMap(m, mic));
 		}
 		g.addChild(tb);
-	}
-
-	private void rcaDataset(Grid grid, CompositeMap map) {
-		CompositeMap dsMap = map.getChild(ResultDataSet.class.getSimpleName());
-		if (dsMap == null)
-			return;
-		ResultDataSetHandler rdsh = new ResultDataSetHandler();
-		ResultDataSet rds = (ResultDataSet) rdsh.fromCompositeMap(dsMap, mic);
-		grid.setDataset(rds);
 	}
 }
