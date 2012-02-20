@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.ide.dialogs.OpenResourceDialog;
 
 import aurora.ide.AuroraPlugin;
+import aurora.ide.api.javascript.JavascriptRhino;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
@@ -66,12 +67,26 @@ public class RendererEditDialog extends EditWizard {
 
 	@Override
 	public boolean performFinish() {
+		if (Renderer.USER_FUNCTION.equals(tmpRendererType)) {
+			if (validateFunction(tmpFunction).length() > 0)
+				return false;
+		}
 		renderer.setRendererType(tmpRendererType);
 		renderer.setOpenPath(tmpOpenPath);
 		renderer.setLabelText(tmpLabelText);
 		renderer.setFunctionName(tmpFunctionName);
 		renderer.setFunction(tmpFunction);
 		return true;
+	}
+
+	private String validateFunction(String jsf) {
+		try {
+			JavascriptRhino js = new JavascriptRhino(jsf);
+			js.createAST();
+			return "";
+		} catch (Exception e1) {
+			return e1.getMessage();
+		}
 	}
 
 	private class InnerPage extends WizardPage implements SelectionListener {
@@ -219,6 +234,10 @@ public class RendererEditDialog extends EditWizard {
 			l.setText("在下面写一个函数");
 			final SourceViewer jsEditor = new SourceViewer(stackComposites[2],
 					null, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
+			final Label errorMsgLabel = new Label(stackComposites[2], SWT.WRAP);
+			errorMsgLabel.setForeground(new Color(null, 255, 0, 0));
+			errorMsgLabel.setLayoutData(new GridData(GridData.FILL,
+					GridData.CENTER, true, false));
 			jsEditor.getControl().setLayoutData(
 					new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			jsEditor.configure(new JavaScriptConfiguration(new ColorManager()));
@@ -234,6 +253,7 @@ public class RendererEditDialog extends EditWizard {
 
 				public void modifyText(ModifyEvent e) {
 					tmpFunction = jsEditor.getTextWidget().getText();
+					errorMsgLabel.setText(validateFunction(tmpFunction));
 				}
 			});
 		}
