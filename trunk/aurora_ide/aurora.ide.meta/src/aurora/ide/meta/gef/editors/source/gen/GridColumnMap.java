@@ -44,6 +44,7 @@ public class GridColumnMap extends AbstractComponentMap {
 
 		{
 			this.add(GridColumn.EDITOR);
+			this.add(GridColumn.RENDERER);
 			this.add(ResultDataSet.READONLY);
 			this.add(ResultDataSet.REQUIRED);
 		}

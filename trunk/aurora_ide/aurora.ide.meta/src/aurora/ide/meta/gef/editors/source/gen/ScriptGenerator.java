@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.Path;
 
 import uncertain.composite.CompositeMap;
 import uncertain.composite.XMLOutputter;
+import aurora.ide.api.javascript.JavascriptRhino;
 import aurora.ide.editor.textpage.format.JSBeautifier;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
@@ -23,7 +24,7 @@ public class ScriptGenerator {
 
 	private List<String> functionNames = new ArrayList<String>();
 
-	private Map<ButtonClicker, String> linkIDs = new HashMap<ButtonClicker, String>();
+	private Map<Object, String> linkIDs = new HashMap<Object, String>();
 
 	private StringBuilder script = new StringBuilder();
 	private ScreenGenerator sg;
@@ -55,14 +56,16 @@ public class ScriptGenerator {
 		return jsCodeNew;
 	}
 
-	public Map<ButtonClicker, String> getLinkIDs() {
+	public Map<Object, String> getLinkIDs() {
 		return linkIDs;
 	}
 
 	public String genButtonClicker(ButtonClicker bc) {
 		String functionName = getFunctionName(bc);
-		functionName = genID(functionName, 0);
 		String actionID = bc.getActionID();
+		if (!ButtonClicker.DEFAULT.equals(actionID)) {
+			functionName = uniqueID(functionName, 0);
+		}
 		String script = "";
 		if (ButtonClicker.B_SEARCH.equals(actionID)) {
 			String datasetID = this.getDatasetID(bc);
@@ -87,19 +90,19 @@ public class ScriptGenerator {
 			script = this.closeScript(functionName, windowID);
 		}
 		if (ButtonClicker.DEFAULT.equals(actionID)) {
-			// custom
+			script = bc.getFunction();
 		}
 		this.script.append(script);
 		return functionName;
 	}
 
-	private String genID(String id, int i) {
+	private String uniqueID(String id, int i) {
 		if (i > 0) {
 			id = id + "_" + i;
 		}
 		if (functionNames.contains(id)) {
 			i++;
-			return genID(id, i);
+			return uniqueID(id, i);
 		} else {
 			functionNames.add(id);
 			return id;
@@ -121,6 +124,24 @@ public class ScriptGenerator {
 			linkIDs.put(bc, genLinkID);
 		}
 		return genLinkID;
+	}
+
+	private String getLinkID(Renderer bc) {
+		String genLinkID = linkIDs.get(bc);
+		if (genLinkID == null) {
+			// modules/debug/bm.screen
+			String fileName = getOpenFileName(bc);
+			genLinkID = sg.getIdGenerator().genLinkID(fileName);
+			linkIDs.put(bc, genLinkID);
+		}
+		return genLinkID;
+	}
+
+	public String getOpenFileName(Renderer bc) {
+		String openPath = bc.getOpenPath();
+		Path path = new Path(openPath);
+		String fileName = path.removeFileExtension().lastSegment();
+		return fileName;
 	}
 
 	private String getDatasetID(ButtonClicker bc) {
@@ -152,6 +173,11 @@ public class ScriptGenerator {
 		}
 		if (ButtonClicker.B_CLOSE.equals(actionID)) {
 			suffix = this.getWindowID(bc);
+		}
+		if (ButtonClicker.DEFAULT.equals(actionID)) {
+			JavascriptRhino js = new JavascriptRhino(bc.getFunction());
+			suffix = js.getFirstFunctionName();
+			return suffix;
 		}
 		String javaBeanName = toJavaBeanName("_" + suffix);
 		return pre + javaBeanName;
@@ -202,7 +228,48 @@ public class ScriptGenerator {
 
 	public String genRenderer(Renderer renderer) {
 		String functionName = "";
+		String script = "";
+		String type = renderer.getRendererType();
+		if (Renderer.INNER_FUNCTION.equals(type)) {
+			functionName = renderer.getFunctionName();
+		}
+		if (Renderer.PAGE_REDIRECT.equals(type)) {
+			String linkID = this.getLinkID(renderer);
+			String javaBeanName = toJavaBeanName("_" + linkID);
+			String openName = "open" + javaBeanName;
+			openName = this.uniqueID(openName, 0);
+
+			this.functionNames.add(openName);
+			String openScript = this.openScript(openName, linkID);
+
+			String openFileName = this.getOpenFileName(renderer);
+			javaBeanName = toJavaBeanName("_" + openFileName);
+			functionName = "assign" + javaBeanName;
+			functionName = this.uniqueID(openName, 0);
+
+			String hrefScript = this.hrefScript(functionName,
+					renderer.getLabelText(), openName);
+
+			this.script.append(hrefScript);
+			this.script.append(openScript);
+		}
+		if (Renderer.USER_FUNCTION.equals(type)) {
+			script = renderer.getFunction();
+			JavascriptRhino js = new JavascriptRhino(renderer.getFunction());
+			functionName = js.getFirstFunctionName();
+			this.script.append(script);
+		}
+		this.functionNames.add(functionName);
 		return functionName;
+	}
+
+	public String hrefScript(String functionName, String labelText,
+			String newWindowName) {
+		String s = "function functionName(value,record, name){return '<a href=\"javascript:newWindowName()\">LabelText</a>'}";
+		s = s.replace("functionName", functionName);
+		s = s.replace("newWindowName", newWindowName);
+		s = s.replace("LabelText", labelText);
+		return s;
 	}
 
 	public String searchScript(String functionName, String datasetId) {
@@ -238,10 +305,6 @@ public class ScriptGenerator {
 		s = s.replace("functionName", functionName);
 		s = s.replace("windowId", windowId);
 		return s;
-	}
-
-	public String customScript() {
-		return "";
 	}
 
 }

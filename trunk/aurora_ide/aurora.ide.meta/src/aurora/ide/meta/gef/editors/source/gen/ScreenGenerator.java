@@ -20,6 +20,7 @@ import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
 import aurora.ide.meta.gef.editors.models.QueryContainer;
+import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -74,6 +75,7 @@ public class ScreenGenerator {
 
 			if (ac instanceof GridColumn) {
 				genColumnEditor((GridColumn) ac, childMap, containerMap);
+				genColumnRenderer((GridColumn) ac, childMap, containerMap);
 			}
 			if (ac instanceof Button) {
 				fillButton((Button) ac, childMap);
@@ -91,11 +93,25 @@ public class ScreenGenerator {
 		}
 	}
 
+	private void genColumnRenderer(GridColumn ac, CompositeMap childMap,
+			CompositeMap containerMap) {
+		Renderer renderer = ac.getRenderer();
+		String functionName = this.scriptGenerator.genRenderer(renderer);
+		childMap.put(GridColumn.RENDERER, functionName);
+	}
+
 	private void fillLinks(CompositeMap view) {
-		Map<ButtonClicker, String> linkIDs = scriptGenerator.getLinkIDs();
-		Set<ButtonClicker> keySet = linkIDs.keySet();
-		for (ButtonClicker bc : keySet) {
-			String openPath = bc.getOpenPath();
+		Map<Object, String> linkIDs = scriptGenerator.getLinkIDs();
+		Set<Object> keySet = linkIDs.keySet();
+		for (Object bc : keySet) {
+			String openPath = "";
+			if (bc instanceof Renderer) {
+				openPath = ((Renderer) bc).getOpenPath();
+			} else if (bc instanceof ButtonClicker) {
+				openPath = ((ButtonClicker) bc).getOpenPath();
+			} else {
+				continue;
+			}
 			IPath requestPath = new Path("${/request/@context_path}");
 			IPath path = requestPath.append(openPath);
 			CompositeMap link = createCompositeMap("link");
@@ -137,7 +153,7 @@ public class ScreenGenerator {
 				editorMap.put("id", id);
 				editors.addChild(editorMap);
 			}
-			colmunMap.put("editor", editorMap.get("id"));
+			colmunMap.put(GridColumn.EDITOR, editorMap.get("id"));
 		}
 	}
 
@@ -253,8 +269,10 @@ public class ScreenGenerator {
 					ac.getPropertyValue(AuroraComponent.NAME));
 		}
 		if (ac instanceof IDatasetFieldDelegate) {
-			field.put(AuroraComponent.READONLY, ac.getPropertyValue(AuroraComponent.READONLY));
-			field.put(AuroraComponent.REQUIRED, ac.getPropertyValue(AuroraComponent.REQUIRED));
+			field.put(AuroraComponent.READONLY,
+					ac.getPropertyValue(AuroraComponent.READONLY));
+			field.put(AuroraComponent.REQUIRED,
+					ac.getPropertyValue(AuroraComponent.REQUIRED));
 		}
 
 		// lov,combox 特殊处理
