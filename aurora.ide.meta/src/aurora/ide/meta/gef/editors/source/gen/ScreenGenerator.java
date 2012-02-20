@@ -19,7 +19,6 @@ import aurora.ide.meta.gef.editors.models.DatasetBinder;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.QueryContainer;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.Toolbar;
@@ -238,7 +237,6 @@ public class ScreenGenerator {
 
 	private void fillDataset(Dataset dataset, CompositeMap datasets,
 			AuroraComponent ac) {
-		// TODO
 		CompositeMap dsMap = fillDatasets(datasets, dataset);
 		if (dsMap == null) {
 			return;
@@ -254,9 +252,9 @@ public class ScreenGenerator {
 			field.put(AuroraComponent.NAME,
 					ac.getPropertyValue(AuroraComponent.NAME));
 		}
-		if (ac instanceof Input) {
-			field.put(AuroraComponent.READONLY, ((Input) ac).isReadOnly());
-			field.put(AuroraComponent.REQUIRED, ((Input) ac).isRequired());
+		if (ac instanceof IDatasetFieldDelegate) {
+			field.put(AuroraComponent.READONLY, ac.getPropertyValue(AuroraComponent.READONLY));
+			field.put(AuroraComponent.REQUIRED, ac.getPropertyValue(AuroraComponent.REQUIRED));
 		}
 
 		// lov,combox 特殊处理

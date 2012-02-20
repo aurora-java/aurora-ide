@@ -1,10 +1,13 @@
 package aurora.ide.meta.gef.editors.source.gen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import uncertain.composite.CompositeMap;
-import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
+import aurora.ide.meta.gef.editors.models.ResultDataSet;
 
 public class GridColumnMap extends AbstractComponentMap {
 
@@ -33,8 +36,20 @@ public class GridColumnMap extends AbstractComponentMap {
 		}
 		return map;
 	}
+	static private List<String> keys = new ArrayList<String>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		{
+			this.add(GridColumn.EDITOR);
+			this.add(ResultDataSet.READONLY);
+			this.add(ResultDataSet.REQUIRED);
+		}
+	};
 
 	public boolean isCompositMapKey(String key) {
-		return !GridColumn.EDITOR.equals(key);
+		return !keys.contains(key);
 	}
 }

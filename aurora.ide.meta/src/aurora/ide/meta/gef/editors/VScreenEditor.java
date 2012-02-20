@@ -42,6 +42,7 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.exception.TemplateNotBindedException;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -189,7 +190,11 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 
 	private void createScreen() {
 		ScreenGenerator sg = new ScreenGenerator();
-		sg.genFile(this.diagram);
+		try {
+			sg.genFile(this.diagram);
+		} catch (TemplateNotBindedException e) {
+			e.printStackTrace();
+		}
 
 	}
 

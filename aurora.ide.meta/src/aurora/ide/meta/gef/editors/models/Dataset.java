@@ -118,11 +118,12 @@ public class Dataset extends AuroraComponent {
 	}
 
 	public boolean isUseParentBM() {
-		return isUseParentBM;
+		// TODO
+		return null == this.model || "".equals(model.trim());
+		// return isUseParentBM;
 	}
 
 	public void setUseParentBM(boolean isUseParentBM) {
 		this.isUseParentBM = isUseParentBM;
 	}
-
 }
