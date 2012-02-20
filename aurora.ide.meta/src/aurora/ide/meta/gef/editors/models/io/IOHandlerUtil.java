@@ -20,12 +20,12 @@ public class IOHandlerUtil {
 	private static final HashMap<Class<? extends AuroraComponent>, Class<? extends IOHandler>> handlerMapper = new HashMap<Class<? extends AuroraComponent>, Class<? extends IOHandler>>();
 
 	static {
-		handlerMapper.put(Form.class, FormHandler.class);
-		handlerMapper.put(FieldSet.class, FieldSetHandler.class);
-		handlerMapper.put(Input.class, InputHandler.class);
-		handlerMapper.put(CheckBox.class, InputHandler.class);
+		handlerMapper.put(Form.class, BoxHandler.class);
+		handlerMapper.put(FieldSet.class, BoxHandler.class);
 		handlerMapper.put(HBox.class, BoxHandler.class);
 		handlerMapper.put(VBox.class, BoxHandler.class);
+		handlerMapper.put(Input.class, InputHandler.class);
+		handlerMapper.put(CheckBox.class, InputHandler.class);
 		handlerMapper.put(TabFolder.class, TabHandler.class);
 		handlerMapper.put(TabItem.class, TabItemHandler.class);
 		handlerMapper.put(Grid.class, GridHandler.class);
