@@ -1,12 +1,5 @@
 package aurora.ide.meta.gef.editors.property;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.BOX;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.QueryContainer;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
-
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -16,7 +9,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.BOX;
+import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.QueryContainer;
+import aurora.ide.meta.gef.editors.models.TabItem;
+import aurora.ide.meta.gef.editors.models.ViewDiagram;
+
 public class QueryContainerEditDialog extends EditWizard {
+	private String section_type_filter = Container.SECTION_TYPE_QUERY;
 	private QueryContainer queryContainer = null;
 	private Container tmpTarget = null;
 
@@ -87,7 +88,10 @@ public class QueryContainerEditDialog extends EditWizard {
 
 		private void createSubTree(Tree tree, TreeItem ti, Container container) {
 			for (AuroraComponent ac : container.getChildren()) {
-				if (ac instanceof BOX) {
+				if ((ac instanceof BOX) ) {
+					Container cont = (Container) ac;
+					if (!section_type_filter.equals(cont.getSectionType()))
+						continue;
 					TreeItem t = new TreeItem(ti, SWT.NONE);
 					t.setData(ac);
 					if (ac == queryContainer.getTarget())
