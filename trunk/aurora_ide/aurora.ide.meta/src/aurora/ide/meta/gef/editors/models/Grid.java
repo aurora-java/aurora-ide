@@ -9,7 +9,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 
-public class Grid extends GridColumn {
+public class Grid extends GridColumn implements DatasetBinder  {
 
 	/**
 	 * 

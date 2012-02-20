@@ -129,12 +129,10 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 		this.headHight = h;
 	}
 
-	@Override
 	public DatasetField getDatasetField() {
 		return dsField;
 	}
 
-	@Override
 	public void setDatasetField(DatasetField field) {
 		this.dsField = field;
 	}
