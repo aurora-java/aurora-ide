@@ -54,6 +54,7 @@ public class GridMap extends AbstractComponentMap {
 			this.add(ResultDataSet.AUTO_QUERY);
 			this.add(ResultDataSet.MODEL);
 			this.add(ResultDataSet.ID);
+			this.add(Grid.RENDERER);
 		}
 	};
 

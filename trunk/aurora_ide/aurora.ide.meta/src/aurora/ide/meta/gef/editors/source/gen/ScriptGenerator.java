@@ -62,6 +62,8 @@ public class ScriptGenerator {
 
 	public String genButtonClicker(ButtonClicker bc) {
 		String functionName = getFunctionName(bc);
+		if (null == functionName || "".equals(functionName))
+			return "";
 		String actionID = bc.getActionID();
 		if (!ButtonClicker.DEFAULT.equals(actionID)) {
 			functionName = uniqueID(functionName, 0);
@@ -97,12 +99,13 @@ public class ScriptGenerator {
 	}
 
 	private String uniqueID(String id, int i) {
+		String oldID = id;
 		if (i > 0) {
 			id = id + "_" + i;
 		}
 		if (functionNames.contains(id)) {
 			i++;
-			return uniqueID(id, i);
+			return uniqueID(oldID, i);
 		} else {
 			functionNames.add(id);
 			return id;
@@ -120,6 +123,8 @@ public class ScriptGenerator {
 			String openPath = bc.getOpenPath();
 			Path path = new Path(openPath);
 			String fileName = path.removeFileExtension().lastSegment();
+			if (fileName == null)
+				return null;
 			genLinkID = sg.getIdGenerator().genLinkID(fileName);
 			linkIDs.put(bc, genLinkID);
 		}
@@ -129,8 +134,9 @@ public class ScriptGenerator {
 	private String getLinkID(Renderer bc) {
 		String genLinkID = linkIDs.get(bc);
 		if (genLinkID == null) {
-			// modules/debug/bm.screen
 			String fileName = getOpenFileName(bc);
+			if (fileName == null)
+				return null;
 			genLinkID = sg.getIdGenerator().genLinkID(fileName);
 			linkIDs.put(bc, genLinkID);
 		}
@@ -179,6 +185,8 @@ public class ScriptGenerator {
 			suffix = js.getFirstFunctionName();
 			return suffix;
 		}
+		if (null == suffix || "".equals(suffix))
+			return null;
 		String javaBeanName = toJavaBeanName("_" + suffix);
 		return pre + javaBeanName;
 	}
@@ -234,6 +242,10 @@ public class ScriptGenerator {
 			functionName = renderer.getFunctionName();
 		}
 		if (Renderer.PAGE_REDIRECT.equals(type)) {
+			String openPath = renderer.getOpenPath();
+			if (null == openPath || "".equals(openPath)) {
+				return functionName;
+			}
 			String linkID = this.getLinkID(renderer);
 			String javaBeanName = toJavaBeanName("_" + linkID);
 			String openName = "open" + javaBeanName;
@@ -245,11 +257,9 @@ public class ScriptGenerator {
 			String openFileName = this.getOpenFileName(renderer);
 			javaBeanName = toJavaBeanName("_" + openFileName);
 			functionName = "assign" + javaBeanName;
-			functionName = this.uniqueID(openName, 0);
-
+			functionName = this.uniqueID(functionName, 0);
 			String hrefScript = this.hrefScript(functionName,
 					renderer.getLabelText(), openName);
-
 			this.script.append(hrefScript);
 			this.script.append(openScript);
 		}

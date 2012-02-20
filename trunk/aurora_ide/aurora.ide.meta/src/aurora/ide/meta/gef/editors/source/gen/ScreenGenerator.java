@@ -66,7 +66,6 @@ public class ScreenGenerator {
 				continue;
 			}
 			if (ac instanceof GridColumn && container instanceof Grid) {
-
 				CompositeMap columns = getColumns(containerMap);
 				columns.addChild(childMap);
 			} else {
@@ -97,6 +96,8 @@ public class ScreenGenerator {
 			CompositeMap containerMap) {
 		Renderer renderer = ac.getRenderer();
 		String functionName = this.scriptGenerator.genRenderer(renderer);
+		if(null == functionName|| "".equals(functionName))
+			return;
 		childMap.put(GridColumn.RENDERER, functionName);
 	}
 
@@ -135,6 +136,8 @@ public class ScreenGenerator {
 		}
 		ButtonClicker bc = ((Button) ac).getButtonClicker();
 		String functionName = this.scriptGenerator.genButtonClicker(bc);
+		if(null == functionName|| "".equals(functionName))
+			return;
 		buttonMap.put("click", functionName);
 	}
 

@@ -24,6 +24,8 @@ public class IDGenerator {
 	}
 
 	public String genLinkID(String fileName) {
+		if(fileName ==null)
+			return null;
 		return genID(fileName + "_link", 0);
 	}
 
@@ -35,12 +37,13 @@ public class IDGenerator {
 	}
 
 	private String genID(String id, int i) {
+		String oldID = id;
 		if (i > 0) {
 			id = id + "_" + i;
 		}
 		if (ids.contains(id)) {
 			i++;
-			return genID(id, i);
+			return genID(oldID, i);
 		} else {
 			ids.add(id);
 			return id;
