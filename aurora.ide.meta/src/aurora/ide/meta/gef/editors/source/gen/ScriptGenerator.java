@@ -13,6 +13,7 @@ import aurora.ide.editor.textpage.format.JSBeautifier;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Renderer;
 
 public class ScriptGenerator {
@@ -129,7 +130,9 @@ public class ScriptGenerator {
 				|| ButtonClicker.B_RESET.equals(actionID)) {
 			AuroraComponent targetComponent = bc.getTargetComponent();
 			if (targetComponent instanceof Container) {
-				return ((Container) targetComponent).getDataset().getId();
+				Dataset dataset = ((Container) targetComponent).getDataset();
+				CompositeMap dsMap = this.sg.fillDatasets(dataset);
+				return dsMap.get("id").toString();
 			}
 		}
 		return null;

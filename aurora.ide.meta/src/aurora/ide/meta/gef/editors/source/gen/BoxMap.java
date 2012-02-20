@@ -1,9 +1,13 @@
 package aurora.ide.meta.gef.editors.source.gen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.BOX;
+import aurora.ide.meta.gef.editors.models.ResultDataSet;
 
 public class BoxMap extends AbstractComponentMap {
 
@@ -32,8 +36,27 @@ public class BoxMap extends AbstractComponentMap {
 		return map;
 	}
 
+
+	static private List<String> keys = new ArrayList<String>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		{
+			this.add(ResultDataSet.SELECTION_MODE);
+			this.add(ResultDataSet.PAGE_SIZE);
+			this.add(ResultDataSet.SELECTABLE);
+			this.add(ResultDataSet.QUERY_DATASET);
+			this.add(ResultDataSet.QUERY_CONTAINER);
+			this.add(ResultDataSet.AUTO_QUERY);
+			this.add(ResultDataSet.MODEL);
+			this.add(ResultDataSet.ID);
+		}
+	};
+
 	public boolean isCompositMapKey(String key) {
-		return true;
+		return !keys.contains(key);
 	}
 
 }

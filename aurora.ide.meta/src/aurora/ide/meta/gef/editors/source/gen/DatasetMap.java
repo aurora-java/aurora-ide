@@ -1,5 +1,8 @@
 package aurora.ide.meta.gef.editors.source.gen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import uncertain.composite.CompositeMap;
@@ -24,10 +27,6 @@ public class DatasetMap extends AbstractComponentMap {
 
 			boolean isKey = this.isCompositMapKey(id.toString());
 			if (isKey) {
-				if (ResultDataSet.QUERY_CONTAINER.equals(id)) {
-					id = ResultDataSet.QUERY_DATASET;
-					//TODO autocreate = true;
-				}
 				Object value = c.getPropertyValue(id);
 				if (ResultDataSet.SELECTION_MODE.equals(id)
 						&& c instanceof ResultDataSet) {
@@ -40,9 +39,22 @@ public class DatasetMap extends AbstractComponentMap {
 		}
 		return map;
 	}
+	static private List<String> keys = new ArrayList<String>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		{
+			this.add(ResultDataSet.QUERY_CONTAINER);
+			this.add(ResultDataSet.MODEL);
+		}
+	};
 
 	public boolean isCompositMapKey(String key) {
-		return true;
+		return !keys.contains(key);
 	}
+
+	
 
 }

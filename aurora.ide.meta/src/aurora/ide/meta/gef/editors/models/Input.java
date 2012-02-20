@@ -7,7 +7,7 @@ import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
 
-public class Input extends AuroraComponent implements IDatasetFieldDelegate {
+public class Input extends AuroraComponent implements IDatasetFieldDelegate,DatasetBinder {
 
 	/**
 	 * 
