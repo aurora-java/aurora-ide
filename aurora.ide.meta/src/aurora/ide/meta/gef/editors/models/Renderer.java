@@ -42,7 +42,7 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 	/**
 	 * 自定义函数模板(范例)
 	 */
-	public static final String FUNCTION_MODEL = "function(value,record,name){\n\treturn 'rendererText';\n}";
+	public static final String FUNCTION_MODEL = "function myRenderer(value,record,name){\n\treturn 'rendererText';\n}";
 
 	private GridColumn column;
 	private String rendererType = PAGE_REDIRECT;
