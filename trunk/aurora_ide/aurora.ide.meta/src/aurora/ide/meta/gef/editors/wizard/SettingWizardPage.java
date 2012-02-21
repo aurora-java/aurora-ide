@@ -60,14 +60,12 @@ public class SettingWizardPage extends WizardPage {
 		setting.setText("<a>详细设置</a>");
 		setting.setEnabled(false);
 		setting.addSelectionListener(new SelectionListener() {
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
 				StyleSettingDialog dialog = new StyleSettingDialog(getShell(), template);
 				dialog.open();
 			}
 
-			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
@@ -116,7 +114,6 @@ public class SettingWizardPage extends WizardPage {
 				Button btn = new Button(composite, SWT.None);
 				btn.setText("选择Model");
 				btn.addSelectionListener(new SelectionListener() {
-					@Override
 					public void widgetSelected(SelectionEvent e) {
 						// TODO Auto-generated method stubAuroraMetaProject
 						AuroraMetaProject metaPro = new AuroraMetaProject(((NewWizardPage) getPreviousPage()).getMetaProject());
@@ -134,7 +131,6 @@ public class SettingWizardPage extends WizardPage {
 						}
 					}
 
-					@Override
 					public void widgetDefaultSelected(SelectionEvent e) {
 					}
 				});
@@ -151,7 +147,6 @@ public class SettingWizardPage extends WizardPage {
 					new Label(composite, SWT.NONE);
 				}
 				txtModel.addModifyListener(new ModifyListener() {
-					@Override
 					public void modifyText(ModifyEvent e) {
 						for (Text t : txts) {
 							t.setText(txtModel.getText());
