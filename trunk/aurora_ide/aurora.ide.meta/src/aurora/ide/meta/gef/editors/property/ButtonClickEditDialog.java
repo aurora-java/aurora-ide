@@ -124,9 +124,10 @@ public class ButtonClickEditDialog extends EditWizard {
 				c.dispose();
 			setErrorMessage(null);
 			setPageComplete(true);
-			if (index == 0)
+			if (index == 0) {
+				section_type_filter = Container.SECTION_TYPE_RESULT;
 				create_query();
-			else if (index == 1)
+			} else if (index == 1)
 				create_reset();
 			else if (index == 2)
 				create_save();
@@ -159,7 +160,7 @@ public class ButtonClickEditDialog extends EditWizard {
 			TreeItem rootItem = new TreeItem(tree, SWT.NONE);
 			rootItem.setText("screenBody");
 			rootItem.setForeground(new Color(null, 200, 200, 200));
-			section_type_filter = Container.SECTION_TYPE_RESULT;
+
 			createSubTree(tree, rootItem, root);
 			if (tree.getSelection().length == 0) {
 				setErrorMessage("please select a node");
