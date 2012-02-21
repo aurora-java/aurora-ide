@@ -59,9 +59,8 @@ public class BMViewer {
 		IFile parent;
 		CompositeMap fieldMap;
 		String editor;
-
 		public String getName() {
-			return fieldMap.getName();
+			return fieldMap.get("name").toString();
 		}
 	}
 
@@ -288,6 +287,14 @@ public class BMViewer {
 				}
 			}
 		}
+		try {
+			IResource bm = BMUtil.getBMResourceFromClassPath(
+					getAuroraProject(), "demo.hand_test");
+			files.add((IFile) bm);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return files;
 	}
 
@@ -321,7 +328,9 @@ public class BMViewer {
 					CompositeMap qf = (CompositeMap) childIterator.next();
 					if ("field".equals(qf.getName()) && qf.get("name") != null) {
 						ModelField field = new ModelField();
-						field.editor = qf.get("defaultEditor").toString();
+						Object de = qf.get("defaultEditor");
+						if (de != null)
+							field.editor = de.toString();
 						field.parent = model;
 						field.fieldMap = qf;
 						result.add(field);
