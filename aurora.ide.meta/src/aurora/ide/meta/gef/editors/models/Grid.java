@@ -9,7 +9,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 
-public class Grid extends GridColumn implements DatasetBinder  {
+public class Grid extends GridColumn implements DatasetBinder {
 
 	/**
 	 * 
@@ -54,6 +54,7 @@ public class Grid extends GridColumn implements DatasetBinder  {
 	@Override
 	public void setDataset(Dataset dataset) {
 		super.setDataset(dataset);
+		((ResultDataSet) dataset).setOwner(this);
 		setSelectionMode(getDataset().getSelectionMode());
 	}
 
