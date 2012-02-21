@@ -2,13 +2,13 @@ package aurora.ide.meta.gef.editors.property;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -20,24 +20,24 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.ide.dialogs.OpenResourceDialog;
 
 import aurora.ide.AuroraPlugin;
-import aurora.ide.api.javascript.JavascriptRhino;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.models.Renderer;
+import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.core.Util;
 
 public class RendererEditDialog extends EditWizard {
 
 	private static final Color SELECTION_BG = new Color(null, 109, 187, 242);
 	private Button[] radios = new Button[Renderer.RENDERER_TYPES.length];
-	private Composite[] stackComposites = new Composite[radios.length];
 	private Composite composite_right;
 	private Renderer renderer;
 	private String tmpOpenPath;
@@ -47,6 +47,7 @@ public class RendererEditDialog extends EditWizard {
 
 	private String tmpRendererType;
 	private InnerPage page;
+	public IProject auroraProject;
 
 	public RendererEditDialog() {
 		super();
@@ -67,10 +68,6 @@ public class RendererEditDialog extends EditWizard {
 
 	@Override
 	public boolean performFinish() {
-		if (Renderer.USER_FUNCTION.equals(tmpRendererType)) {
-			if (validateFunction(tmpFunction).length() > 0)
-				return false;
-		}
 		renderer.setRendererType(tmpRendererType);
 		renderer.setOpenPath(tmpOpenPath);
 		renderer.setLabelText(tmpLabelText);
@@ -79,18 +76,7 @@ public class RendererEditDialog extends EditWizard {
 		return true;
 	}
 
-	private String validateFunction(String jsf) {
-		try {
-			JavascriptRhino js = new JavascriptRhino(jsf);
-			js.createAST();
-			return "";
-		} catch (Exception e1) {
-			return e1.getMessage();
-		}
-	}
-
 	private class InnerPage extends WizardPage implements SelectionListener {
-		private StackLayout slLayout = new StackLayout();
 		private String[] displayTexts = { "页面跳转", "内置函数", "自定义函数" };
 
 		protected InnerPage(String pageName) {
@@ -109,39 +95,42 @@ public class RendererEditDialog extends EditWizard {
 			rw.spacing = 5;
 			composite_left.setLayout(rw);
 			composite_right = new Composite(sashForm, SWT.NONE);
-			composite_right.setLayout(slLayout);
 
 			for (int i = 0; i < radios.length; i++) {
 				radios[i] = new Button(composite_left, SWT.RADIO);
 				radios[i].setText(displayTexts[i]);
-				// radios[i].setBounds(10, 10 + 24 * i, 200, 24);
 				radios[i].addSelectionListener(this);
-				stackComposites[i] = new Composite(composite_right, SWT.NONE);
 				tmpRendererType = renderer.getRendererType();
 				if (Renderer.RENDERER_TYPES[i].equals(tmpRendererType)) {
 					radios[i].setSelection(true);
 					radios[i].setBackground(SELECTION_BG);
-					slLayout.topControl = stackComposites[i];
-					setDescription(Renderer.INNER_RENDERER_DESC[i]);
+					createRight(i);
 				}
-			}
-			create_0();
-			create_1();
-			create_2();
-			composite_right.layout();
-			if (slLayout.topControl != null) {
-				slLayout.topControl.forceFocus();
 			}
 
 			sashForm.setWeights(new int[] { 1, 3 });
 			setControl(sashForm);
 		}
 
+		private void createRight(int idx) {
+			for (Control c : composite_right.getChildren())
+				c.dispose();
+			setErrorMessage(null);
+			setPageComplete(true);
+			if (idx == 0)
+				create_0();
+			else if (idx == 1)
+				create_1();
+			else
+				create_2();
+			composite_right.layout();
+		}
+
 		private void create_0() {
-			stackComposites[0].setLayout(new GridLayout(3, false));
-			Label label = new Label(stackComposites[0], SWT.NONE);
+			composite_right.setLayout(new GridLayout(3, false));
+			Label label = new Label(composite_right, SWT.NONE);
 			label.setText("显示文本 : ");
-			final Text text1 = new Text(stackComposites[0], SWT.BORDER);
+			final Text text1 = new Text(composite_right, SWT.BORDER);
 			text1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 					1, 1));
 			tmpLabelText = renderer.getLabelText();
@@ -155,31 +144,53 @@ public class RendererEditDialog extends EditWizard {
 				}
 			});
 			text1.setText(tmpLabelText);
-			new Label(stackComposites[0], SWT.NONE);
-			label = new Label(stackComposites[0], SWT.NONE);
+			new Label(composite_right, SWT.NONE);
+			label = new Label(composite_right, SWT.NONE);
 			label.setText("目标 : ");
-			final Text text = new Text(stackComposites[0], SWT.BORDER);
+			final Text text = new Text(composite_right, SWT.BORDER);
 			text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 					1, 1));
 			tmpOpenPath = renderer.getOpenPath();
-			if (tmpOpenPath == null)
+			if (tmpOpenPath == null || tmpOpenPath == "") {
 				tmpOpenPath = "";
+				setPageComplete(false);
+				setErrorMessage("please select a screen file");
+			}
 			text.setText(tmpOpenPath);
-			Button btn = new Button(stackComposites[0], SWT.FLAT);
+			text.setEditable(false);
+			Button btn = new Button(composite_right, SWT.FLAT);
 			btn.setText("选择(&O)");
+
+			IProject proj = AuroraPlugin.getActiveIFile().getProject();
+			AuroraMetaProject mProj = new AuroraMetaProject(proj);
+			try {
+				auroraProject = mProj.getAuroraProject();
+			} catch (Exception e1) {
+				auroraProject = null;
+			}
+			if (auroraProject == null) {
+				btn.setEnabled(false);
+				setErrorMessage("当前工程没有正确设置关联Aurora工程.");
+				setPageComplete(false);
+				return;
+			}
 			btn.addSelectionListener(new SelectionListener() {
 
 				public void widgetSelected(SelectionEvent e) {
 					@SuppressWarnings("restriction")
 					OpenResourceDialog ord = new OpenResourceDialog(
-							stackComposites[0].getShell(), AuroraPlugin
-									.getActiveIFile().getProject(),
+							composite_right.getShell(), auroraProject,
 							OpenResourceDialog.CARET_BEGINNING);
 					ord.setInitialPattern("*.screen");
 					ord.open();
 					Object obj = ord.getFirstResult();
-					if (!(obj instanceof IFile))
+					if (!(obj instanceof IFile)) {
+						setPageComplete(false);
+						setErrorMessage("the selection is not a valid screen file");
 						return;
+					}
+					setPageComplete(true);
+					setErrorMessage(null);
 					IFile file = (IFile) obj;
 					IPath path = file.getFullPath();
 					IContainer web = Util.findWebInf(file).getParent();
@@ -196,11 +207,11 @@ public class RendererEditDialog extends EditWizard {
 		}
 
 		private void create_1() {
-			stackComposites[1].setLayout(new GridLayout(1, false));
-			final Label l = new Label(stackComposites[1], SWT.WRAP);
+			composite_right.setLayout(new GridLayout(1, false));
+			final Label l = new Label(composite_right, SWT.WRAP);
 			l.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true,
 					false));
-			final List list = new List(stackComposites[1], SWT.BORDER);
+			final List list = new List(composite_right, SWT.BORDER);
 			list.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true,
 					true));
 			list.setItems(Renderer.INNER_FUNCTIONS);
@@ -211,6 +222,8 @@ public class RendererEditDialog extends EditWizard {
 					int idx = list.getSelectionIndex();
 					l.setText(Renderer.INNER_RENDERER_DESC[idx]);
 					tmpFunctionName = Renderer.INNER_FUNCTIONS[idx];
+					setErrorMessage(null);
+					setPageComplete(true);
 				}
 
 				public void widgetDefaultSelected(SelectionEvent e) {
@@ -224,20 +237,20 @@ public class RendererEditDialog extends EditWizard {
 					break;
 				}
 			}
+			if (list.getSelection().length == 0) {
+				setErrorMessage("please select a renderer funtion");
+				setPageComplete(false);
+			}
 		}
 
 		private void create_2() {
-			stackComposites[2].setLayout(new GridLayout(1, false));
-			Label l = new Label(stackComposites[2], SWT.NONE);
+			composite_right.setLayout(new GridLayout(1, false));
+			Label l = new Label(composite_right, SWT.NONE);
 			l.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true,
 					false));
 			l.setText("在下面写一个函数");
-			final SourceViewer jsEditor = new SourceViewer(stackComposites[2],
+			final SourceViewer jsEditor = new SourceViewer(composite_right,
 					null, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
-			final Label errorMsgLabel = new Label(stackComposites[2], SWT.WRAP);
-			errorMsgLabel.setForeground(new Color(null, 255, 0, 0));
-			errorMsgLabel.setLayoutData(new GridData(GridData.FILL,
-					GridData.CENTER, true, false));
 			jsEditor.getControl().setLayoutData(
 					new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			jsEditor.configure(new JavaScriptConfiguration(new ColorManager()));
@@ -253,7 +266,10 @@ public class RendererEditDialog extends EditWizard {
 
 				public void modifyText(ModifyEvent e) {
 					tmpFunction = jsEditor.getTextWidget().getText();
-					errorMsgLabel.setText(validateFunction(tmpFunction));
+					String msg = validateFunction(tmpFunction);
+					setErrorMessage(msg.length() == 0 ? null
+							: validateFunction(tmpFunction));
+					setPageComplete(msg.length() == 0);
 				}
 			});
 		}
@@ -262,11 +278,10 @@ public class RendererEditDialog extends EditWizard {
 			for (int i = 0; i < radios.length; i++) {
 				if (radios[i] == e.getSource()) {
 					if (radios[i].getSelection()) {
-						slLayout.topControl = stackComposites[i];
+						createRight(i);
 						tmpRendererType = Renderer.RENDERER_TYPES[i];
-						composite_right.layout();
 						radios[i].setBackground(SELECTION_BG);
-						setDescription(Renderer.RENDERER_TYPES[i]);
+						setDescription(displayTexts[i]);
 					} else
 						radios[i].setBackground(radios[i].getParent()
 								.getBackground());
