@@ -54,6 +54,7 @@ import aurora.ide.meta.gef.editors.source.gen.ScreenGenerator;
 
 public class VScreenEditor extends FlayoutBMGEFEditor {
 
+	public static final String CONTEXT_MENU_KEY = "aurora.ide.meta.gef.editor.contextmenu";
 	ViewDiagram diagram;
 	private PaletteRoot root;
 	private KeyHandler sharedKeyHandler;
@@ -62,6 +63,11 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	public VScreenEditor() {
 		DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
 		setEditDomain(defaultEditDomain);
+	}
+
+	public void setDiagram(ViewDiagram diagram) {
+		GraphicalViewer gv = getGraphicalViewer();
+		gv.setContents(diagram);
 	}
 
 	/**
@@ -122,8 +128,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		ContextMenuProvider provider = new ViewContextMenuProvider(
 				getGraphicalViewer(), getActionRegistry());
 		getGraphicalViewer().setContextMenu(provider);
-		getSite().registerContextMenu(
-				"org.eclipse.gef.examples.flow.editor.contextmenu", //$NON-NLS-1$
+		getSite().registerContextMenu(CONTEXT_MENU_KEY, //$NON-NLS-1$
 				provider, getGraphicalViewer());
 		getGraphicalViewer().addSelectionChangedListener(propertyViewer);
 
