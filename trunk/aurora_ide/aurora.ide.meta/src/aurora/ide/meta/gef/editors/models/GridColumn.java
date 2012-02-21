@@ -107,6 +107,7 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 
 	public void setRenderer(Renderer r) {
 		this.renderer = r;
+		r.setColumn(this);
 	}
 
 	public Renderer getRenderer() {

@@ -1,9 +1,6 @@
 package aurora.ide.meta.gef.editors.models;
 
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import aurora.ide.meta.gef.editors.property.DialogEditableObject;
 import aurora.ide.meta.gef.editors.property.PropertySourceUtil;
@@ -22,15 +19,16 @@ public class ButtonClicker extends AuroraComponent implements
 	static final public String B_SAVE = "b_save";
 	static final public String B_CLOSE = "b_close";
 	static final public String B_OPEN = "b_open";
+	static final public String B_CUSTOM = "b_custom";
 
 	public static final String[] action_ids = { B_SEARCH, B_RESET, B_SAVE,
-			B_OPEN, B_CLOSE, DEFAULT };
+			B_OPEN, B_CLOSE, B_CUSTOM };
 
 	public static final String[] action_texts = { "查询", "重置", "保存", "打开", "关闭",
 			"自定义" };
 
-	private String actionID = action_ids[5];
-	private String actionText = action_texts[5];
+	private String actionID = DEFAULT;
+	private String actionText = "";
 
 	// b_open
 	private String openPath;
@@ -48,40 +46,12 @@ public class ButtonClicker extends AuroraComponent implements
 
 	}
 
-	@Override
-	public void setSize(Dimension dim) {
-
-	}
-
-	@Override
-	public void setBounds(Rectangle bounds) {
-	}
-
 	public AuroraComponent getTargetComponent() {
 		return targetComponent;
 	}
 
 	public void setTargetComponent(AuroraComponent targetComponent) {
 		this.targetComponent = targetComponent;
-	}
-
-	@Override
-	public Object getEditableValue() {
-		return null;
-	}
-
-	@Override
-	public IPropertyDescriptor[] getPropertyDescriptors() {
-		return null;
-	}
-
-	@Override
-	public Object getPropertyValue(Object propName) {
-		return null;
-	}
-
-	@Override
-	public void setPropertyValue(Object propName, Object val) {
 	}
 
 	public String getActionID() {
@@ -154,7 +124,8 @@ public class ButtonClicker extends AuroraComponent implements
 	}
 
 	public Image getDisplayImage() {
-		if (targetComponent == null || DEFAULT.equals(actionID))
+		if (targetComponent == null || DEFAULT.equals(actionID)
+				|| B_CUSTOM.equals(actionID))
 			return null;
 		return PropertySourceUtil.getImageOf(targetComponent);
 	}

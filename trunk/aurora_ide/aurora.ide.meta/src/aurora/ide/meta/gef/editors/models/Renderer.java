@@ -46,7 +46,7 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 	public static final String FUNCTION_MODEL = "function myRenderer(value,record,name){\n\treturn 'rendererText';\n}";
 
 	private GridColumn column;
-	private String rendererType = PAGE_REDIRECT;
+	private String rendererType = "";
 
 	public Renderer() {
 
@@ -65,8 +65,11 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 			return labelText;
 		else if (INNER_FUNCTION.equals(rendererType))
 			return functionName;
-		JavascriptRhino js = new JavascriptRhino(function);
-		return "[ " + js.getFirstFunctionName() + " ]";
+		else if (USER_FUNCTION.equals(rendererType)) {
+			JavascriptRhino js = new JavascriptRhino(function);
+			return "[ " + js.getFirstFunctionName() + " ]";
+		}
+		return "";
 	}
 
 	public Object getContextInfo() {
