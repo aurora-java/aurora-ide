@@ -14,12 +14,12 @@ public class ButtonClicker extends AuroraComponent implements
 
 	public static final String DEFAULT = "";
 
-	static final public String B_SEARCH = "b_search";
-	static final public String B_RESET = "b_reset";
-	static final public String B_SAVE = "b_save";
-	static final public String B_CLOSE = "b_close";
-	static final public String B_OPEN = "b_open";
-	static final public String B_CUSTOM = "b_custom";
+	static final public String B_SEARCH = "query";
+	static final public String B_RESET = "reset";
+	static final public String B_SAVE = "save";
+	static final public String B_CLOSE = "close";
+	static final public String B_OPEN = "open";
+	static final public String B_CUSTOM = "custom";
 
 	public static final String[] action_ids = { B_SEARCH, B_RESET, B_SAVE,
 			B_OPEN, B_CLOSE, B_CUSTOM };
