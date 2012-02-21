@@ -66,6 +66,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	}
 
 	public void setDiagram(ViewDiagram diagram) {
+		this.diagram = diagram;
 		GraphicalViewer gv = getGraphicalViewer();
 		gv.setContents(diagram);
 	}
