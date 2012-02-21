@@ -12,7 +12,6 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStackListener;
 
 import aurora.ide.meta.gef.editors.figures.ViewDiagramLayout;
-import aurora.ide.meta.gef.editors.policies.AutoCreateFormGridEditPolicy;
 import aurora.ide.meta.gef.editors.policies.DiagramLayoutEditPolicy;
 
 public class ViewDiagramPart extends ContainerPart {
@@ -56,7 +55,7 @@ public class ViewDiagramPart extends ContainerPart {
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new DiagramLayoutEditPolicy());
-		installEditPolicy("Drop BM", new AutoCreateFormGridEditPolicy());
+//		installEditPolicy("Drop BM", new AutoCreateFormGridEditPolicy());
 
 	}
 

@@ -10,6 +10,7 @@ import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.IProperties;
+import aurora.ide.meta.gef.editors.policies.BindDropModelEditPolicy;
 import aurora.ide.meta.gef.editors.policies.DiagramLayoutEditPolicy;
 
 public abstract class ContainerPart extends ComponentPart {
@@ -32,6 +33,7 @@ public abstract class ContainerPart extends ComponentPart {
 	protected void createEditPolicies() {
 		super.createEditPolicies();
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new DiagramLayoutEditPolicy());
+		installEditPolicy("Drop BM", new BindDropModelEditPolicy());
 	}
 
 	@Override

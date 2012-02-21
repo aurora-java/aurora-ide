@@ -1,17 +1,26 @@
 package aurora.ide.meta.gef.editors.policies;
 
+import java.util.List;
+
+import org.eclipse.core.resources.IFile;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
+import uncertain.composite.CompositeMap;
+
+import aurora.ide.meta.gef.editors.BMViewer;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.models.commands.AutoCreateFormGridCommand;
+import aurora.ide.meta.gef.editors.models.commands.BindDropModelCommand;
 import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
 import aurora.ide.meta.gef.editors.request.DropBMRequest;
 
-public class AutoCreateFormGridEditPolicy extends AbstractEditPolicy {
+public class BindDropModelEditPolicy extends AbstractEditPolicy {
 
 	@Override
 	public Command getCommand(Request request) {
@@ -21,13 +30,39 @@ public class AutoCreateFormGridEditPolicy extends AbstractEditPolicy {
 	}
 
 	protected Command getBindCommand(DropBMRequest request) {
-		AutoCreateFormGridCommand cmd = new AutoCreateFormGridCommand();
-		cmd.setBm(request.getBm());
+		Container container = getContainer();
+		Object data = request.getData();
+//		String sectionType = container.getSectionType();
+//		if(data instanceof List && ((List) data).size()>1){
+//			if (!Container.SECTION_TYPE_QUERY.equals(sectionType)
+//					&& !Container.SECTION_TYPE_RESULT.equals(sectionType)) {
+//				Shell shell = Display.getDefault().getActiveShell();
+//				MessageDialog.openInformation(shell, "Info", "无法添加！");
+//				return null;
+//			}
+//		}
+
+		if (data instanceof List) {
+			Shell shell = Display.getDefault().getActiveShell();
+			boolean openConfirm = MessageDialog.openConfirm(shell, "模型绑定",
+					"是否增加新的field？");
+			if (openConfirm == false) {
+				return null;
+			}
+		}
+
+		BindDropModelCommand cmd = new BindDropModelCommand();
+		cmd.setData(data);
+
 		ViewDiagramPart diagramPart = this.getDiagramPart(getHost());
 		cmd.setDiagram((ViewDiagram) diagramPart.getComponent());
-		Container container = (Container) this.getHost().getModel();
+
 		cmd.setContainer(container);
 		return cmd;
+	}
+
+	public Container getContainer() {
+		return (Container) this.getHost().getModel();
 	}
 
 	protected ViewDiagramPart getDiagramPart(EditPart ep) {

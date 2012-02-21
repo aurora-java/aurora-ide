@@ -28,8 +28,8 @@ public class BMTransferDropTargetListener extends
 	protected Request createTargetRequest() {
 		DropBMRequest request = new DropBMRequest();
 		// Create factory
-		IFile bm = BMTransfer.getInstance().getBM();
-		request.setBm(bm);
+		Object data = BMTransfer.getInstance().getObject();
+		request.setData(data);
 
 		return request;
 	}

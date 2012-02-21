@@ -1,15 +1,14 @@
 package aurora.ide.meta.gef.editors.parts;
 
-import aurora.ide.meta.gef.editors.figures.BoxFigure;
-import aurora.ide.meta.gef.editors.models.BOX;
-import aurora.ide.meta.gef.editors.models.IProperties;
-import aurora.ide.meta.gef.editors.policies.BindFormPartEditPolicy;
-
 import java.beans.PropertyChangeEvent;
 
 import org.eclipse.draw2d.AbstractLabeledBorder;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.IFigure;
+
+import aurora.ide.meta.gef.editors.figures.BoxFigure;
+import aurora.ide.meta.gef.editors.models.BOX;
+import aurora.ide.meta.gef.editors.models.IProperties;
 
 public class BoxPart extends ContainerPart {
 
@@ -24,7 +23,7 @@ public class BoxPart extends ContainerPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy("Bind_Form", new BindFormPartEditPolicy());
+//		installEditPolicy("Bind_Form", new BindFormPartEditPolicy());
 	}
 
 	protected void refreshVisuals() {

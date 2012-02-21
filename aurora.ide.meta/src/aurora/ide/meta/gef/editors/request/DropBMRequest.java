@@ -1,6 +1,5 @@
 package aurora.ide.meta.gef.editors.request;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.requests.DropRequest;
@@ -10,7 +9,7 @@ public class DropBMRequest extends org.eclipse.gef.Request implements
 
 
 
-	private IFile bm;
+	private Object data;
 
 	private Dimension size;
 	private Point location;
@@ -31,14 +30,12 @@ public class DropBMRequest extends org.eclipse.gef.Request implements
 		return location;
 	}
 
-	
-
-	public IFile getBm() {
-		return bm;
+	public Object getData() {
+		return data;
 	}
 
-	public void setBm(IFile bm) {
-		this.bm = bm;
+	public void setData(Object data) {
+		this.data = data;
 	}
 
 	/**
