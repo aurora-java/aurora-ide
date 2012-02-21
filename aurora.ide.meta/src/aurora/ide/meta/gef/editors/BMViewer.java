@@ -1,68 +1,109 @@
 package aurora.ide.meta.gef.editors;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.util.DelegatingDragAdapter;
 import org.eclipse.jface.util.TransferDragSourceListener;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
-import aurora.ide.AuroraPlugin;
+import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.dnd.BMTransfer;
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.project.propertypage.ProjectPropertyPage;
 
 public class BMViewer {
 
 	private VScreenEditor vse;
-	private String bmHome;
 	private IProject project;
+	private TreeViewer viewer;
+
+	private class ContentProvider implements ITreeContentProvider {
+
+		public void dispose() {
+		}
+
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
+
+		public Object[] getElements(Object inputElement) {
+			if(inputElement instanceof ViewDiagram){
+				
+			}
+
+			return null;
+		}
+
+		public Object[] getChildren(Object parentElement) {
+			return null;
+		}
+
+		public Object getParent(Object element) {
+			return null;
+		}
+
+		public boolean hasChildren(Object element) {
+			return false;
+		}
+
+	}
+
+	private class LabelProvider extends WorkbenchLabelProvider {
+
+	}
 
 	public BMViewer(Composite c, VScreenEditor vScreenEditor) {
 		vse = vScreenEditor;
 		init();
-		if (bmHome != null)
-			configrueTreeViewer(c);
+		configrueTreeViewer(c);
 	}
 
 	private void init() {
 		Object file = vse.getEditorInput().getAdapter(IFile.class);
 		if (file instanceof IFile) {
 			project = ((IFile) file).getProject();
-			try {
-				bmHome = project
-						.getPersistentProperty(ProjectPropertyPage.BMQN);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
-	// protected void configureTableViewer(TableViewer viewer) {
-	// SearchLabelProvider lp = new SearchLabelProvider(this,
-	// SearchLabelProvider.SHOW_LABEL_PATH);
-	// viewer.setLabelProvider(new DecoratingSearchLabelProvider(lp));
-	// viewer.setComparator(new DecoratorIgnoringViewerSorter(lp));
-	// TableContentProvider provider = new TableContentProvider(this, viewer);
-	// viewer.setContentProvider(provider);
-	// this.provider = provider;
-	// }
+	public String getBMHome() {
+		AuroraMetaProject amp = new AuroraMetaProject(project);
+		IProject auroraProject;
+		try {
+			auroraProject = amp.getAuroraProject();
+			return auroraProject
+					.getPersistentProperty(ProjectPropertyPage.BMQN);
+		} catch (ResourceNotFoundException e) {
+		} catch (CoreException e) {
+		}
+		return null;
+	}
+
+	public IProject getAuroraProject() {
+		AuroraMetaProject amp = new AuroraMetaProject(project);
+		try {
+			return amp.getAuroraProject();
+
+		} catch (ResourceNotFoundException e) {
+		}
+		return null;
+	}
+
 	private void configrueTreeViewer(Composite c) {
-		final TreeViewer tv = new TreeViewer(c, SWT.NONE);
+		viewer = new TreeViewer(c, SWT.NONE);
 		DelegatingDragAdapter dragAdapter = new DelegatingDragAdapter();
 		dragAdapter.addDragSourceListener(new TransferDragSourceListener() {
 			public Transfer getTransfer() {
@@ -80,7 +121,7 @@ public class BMViewer {
 			}
 
 			private IFile getBM() {
-				TreeSelection selection = (TreeSelection) tv.getSelection();
+				TreeSelection selection = (TreeSelection) viewer.getSelection();
 				Object obj = selection.getFirstElement();
 				if (obj instanceof IFile)
 					return (IFile) obj;
@@ -95,47 +136,74 @@ public class BMViewer {
 				BMTransfer.getInstance().setBM(null);
 			}
 		});
-		tv.addDragSupport(DND.DROP_COPY, dragAdapter.getTransfers(),
+		viewer.addDragSupport(DND.DROP_COPY, dragAdapter.getTransfers(),
 				dragAdapter);
-		tv.setContentProvider(new WorkbenchContentProvider());
-		tv.setLabelProvider(new WorkbenchLabelProvider());
-		IFolder folder = AuroraPlugin.getWorkspace().getRoot()
-				.getFolder(new Path(bmHome));
-		if (!folder.exists())
-			return;
-		tv.setInput(folder);
-		tv.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
-		tv.addFilter(new ViewerFilter() {
+		viewer.setContentProvider(new ContentProvider());
+		viewer.setLabelProvider(new LabelProvider());
+		refreshInput();
+		viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+//		viewer.addFilter(new ViewerFilter() {
+//
+//			@Override
+//			public boolean select(Viewer viewer, Object parentElement,
+//					Object element) {
+//				if (element instanceof IResource) {
+//					IResource resource = (IResource) element;
+//					boolean sameProject = isInAuroraProject(resource);
+//					String bmHome = getBMHome();
+//					if (bmHome == null || "".equals(bmHome.trim()))
+//						return false;
+//					if (sameProject) {
+//						Path path = new Path(bmHome);
+//						IPath fullPath = resource.getFullPath();
+//						if (resource instanceof IFile) {
+//							return "bm".equalsIgnoreCase(resource
+//									.getFileExtension())
+//									&& path.isPrefixOf(fullPath);
+//						}
+//						return fullPath.isPrefixOf(path)
+//								|| path.isPrefixOf(fullPath);
+//					}
+//				}
+//				return true;
+//			}
+//
+//			protected boolean isInAuroraProject(IResource resource) {
+//				IProject auroraProject = getAuroraProject();
+//				return auroraProject != null && auroraProject.exists()
+//						&& auroraProject.equals(resource.getProject());
+//			}
+//
+//		});
+	}
 
-			@Override
-			public boolean select(Viewer viewer, Object parentElement,
-					Object element) {
-				if (element instanceof IResource) {
-					IResource resource = (IResource) element;
-					boolean sameProject = isSameProject(resource);
-					if (sameProject && bmHome != null) {
+	public void refreshInput() {
+//		String bmHome = getBMHome();
+//		if (bmHome == null || "".equals(bmHome.trim()))
+//			return;
+//		IFolder folder = AuroraPlugin.getWorkspace().getRoot()
+//				.getFolder(new Path(bmHome));
+//		if (!folder.exists())
+//			return;
+		viewer.setInput(getViewDiagram());
+	}
 
-						Path path = new Path(bmHome);
-						IPath fullPath = resource.getFullPath();
-						if (resource instanceof IFile) {
-							return "bm".equalsIgnoreCase(resource
-									.getFileExtension())
-									&& path.isPrefixOf(fullPath);
-						}
-						return fullPath.isPrefixOf(path)
-								|| path.isPrefixOf(fullPath);
-						// return true;
-					}
-				}
-				return false;
-			}
-
-			protected boolean isSameProject(IResource resource) {
-				return project != null && project.exists()
-						&& project.equals(resource.getProject());
-			}
-
-		});
+	private List<IFile> getModelFiles(ViewDiagram viewDiagram){
+		if(viewDiagram.isBindTemplate()){
+			
+		}
+		
+		
+		return null;
+	}
+	
+	
+	private ViewDiagram getViewDiagram() {
+		Object model = vse.getGraphicalViewer().getContents().getModel();
+		if(model instanceof ViewDiagram){
+			return (ViewDiagram)model;
+		}
+		return null;
 	}
 
 }
