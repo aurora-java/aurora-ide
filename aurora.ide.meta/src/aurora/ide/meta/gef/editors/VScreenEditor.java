@@ -172,7 +172,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 
 	@Override
 	public GraphicalViewer getGraphicalViewer() {
-		// TODO Auto-generated method stub
 		return super.getGraphicalViewer();
 	}
 
@@ -191,7 +190,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		createScreen();
 	}
 
@@ -312,7 +310,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 
 	protected void createBMViewer(Composite c) {
 		BMViewer bmViewer = new BMViewer(c, this);
-
 	}
 
 	public ViewDiagram getDiagram() {
