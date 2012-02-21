@@ -1,16 +1,54 @@
 package aurora.ide.meta.gef.editors.template;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Template {
 
-	List<Region> regions;
-	List<Model> models;
-	String name;
-	String iconPath;
-	String description;
-	
-	
-	
-	
+	private List<Region> regions = new ArrayList<Region>();
+	private List<Model> models = new ArrayList<Model>();
+	private String name;
+	private String icon;
+	private String description;
+
+	public List<Region> getRegions() {
+		return regions;
+	}
+
+	public void setRegions(List<Region> regions) {
+		this.regions = regions;
+	}
+
+	public List<Model> getModels() {
+		return models;
+	}
+
+	public void setModels(List<Model> models) {
+		this.models = models;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 }
