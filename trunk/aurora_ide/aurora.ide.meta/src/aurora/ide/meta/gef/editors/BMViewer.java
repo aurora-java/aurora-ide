@@ -33,21 +33,17 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.model.IWorkbenchAdapter;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 import uncertain.composite.CompositeMap;
-
 import aurora.ide.bm.BMUtil;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.dnd.BMTransfer;
-import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.project.propertypage.ProjectPropertyPage;
 import aurora.ide.search.cache.CacheManager;
-import aurora.ide.search.core.Util;
 
 public class BMViewer {
 
@@ -56,9 +52,10 @@ public class BMViewer {
 	private TreeViewer viewer;
 
 	private class ModelField {
-		IFile parent;
-		CompositeMap fieldMap;
-		String editor;
+		public IFile parent;
+		public CompositeMap fieldMap;
+		public String editor;
+
 		public String getName() {
 			return fieldMap.get("name").toString();
 		}
@@ -236,28 +233,56 @@ public class BMViewer {
 
 			public void dragStart(DragSourceEvent event) {
 				// enable drag listener if there is a viewer selection
-				IFile bm = getBM();
-				if (bm == null)
+
+				List<CompositeMap> data = getData();
+				if (data == null)
 					return;
 				event.detail = DND.DROP_COPY;
 				event.doit = true;
-				BMTransfer.getInstance().setBM(bm);
+				BMTransfer.getInstance().setObject(data);
 			}
 
-			private IFile getBM() {
+			protected List<CompositeMap> getFields(Object data)
+					throws CoreException, ApplicationException {
+				List<CompositeMap> fs = new ArrayList<CompositeMap>();
+				if (data instanceof IFile) {
+					CompositeMap model = CacheManager
+							.getCompositeMap((IFile) data);
+					CompositeMap fields = model.getChild("fields");
+					if (fields != null) {
+						Iterator childIterator = fields.getChildIterator();
+						while (childIterator != null && childIterator.hasNext()) {
+							CompositeMap qf = (CompositeMap) childIterator
+									.next();
+							if ("field".equals(qf.getName())) {
+								fs.add(qf);
+							}
+						}
+					}
+				}
+				if (data instanceof BMViewer.ModelField) {
+					fs.add(((BMViewer.ModelField) data).fieldMap);
+				}
+				return fs;
+			}
+
+			private List<CompositeMap> getData() {
 				TreeSelection selection = (TreeSelection) viewer.getSelection();
 				Object obj = selection.getFirstElement();
-				if (obj instanceof IFile)
-					return (IFile) obj;
+				try {
+					return getFields(obj);
+				} catch (CoreException e) {
+				} catch (ApplicationException e) {
+				}
 				return null;
 			}
 
 			public void dragSetData(DragSourceEvent event) {
-				event.data = getBM();
+				event.data = getData();
 			}
 
 			public void dragFinished(DragSourceEvent event) {
-				BMTransfer.getInstance().setBM(null);
+				BMTransfer.getInstance().setObject(null);
 			}
 		});
 		viewer.addDragSupport(DND.DROP_COPY, dragAdapter.getTransfers(),

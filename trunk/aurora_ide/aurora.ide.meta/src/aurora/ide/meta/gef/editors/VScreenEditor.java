@@ -157,7 +157,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		datasetView.setRootEditPart(new ScalableRootEditPart());
 		datasetView.setEditPartFactory(new DatasetPartFactory());
 		this.getDatasetView().setContents(diagram);
-
 	}
 
 	// /**
