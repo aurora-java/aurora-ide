@@ -99,7 +99,7 @@ public class MetaProjectPropertyPage extends PropertyPage {
 		projectLabel.setFont(parent.getFont());
 
 		// aurora project name entry field
-		auroraProjectNameField = new Combo(content, SWT.BORDER);
+		auroraProjectNameField = new Combo(content, SWT.READ_ONLY);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		auroraProjectNameField.setLayoutData(data);
 		auroraProjectNameField.setFont(parent.getFont());
@@ -143,7 +143,6 @@ public class MetaProjectPropertyPage extends PropertyPage {
 					MetaProjectPropertyPage.AURORA_PROJECT_QN,
 					auroraProjectNameField.getText());
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

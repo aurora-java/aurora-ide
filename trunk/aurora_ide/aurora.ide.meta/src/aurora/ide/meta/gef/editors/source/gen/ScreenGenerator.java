@@ -36,8 +36,8 @@ public class ScreenGenerator {
 
 	public void genFile(ViewDiagram view) throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
-		// if (bindTemplate == null || "".equals(bindTemplate))
-		// throw new TemplateNotBindedException();
+		if (bindTemplate == null || "".equals(bindTemplate))
+			throw new TemplateNotBindedException();
 		idGenerator = new IDGenerator(view);
 		a2Map = new AuroraComponent2CompositMap(this);
 		CompositeMap screen = AuroraComponent2CompositMap
@@ -96,7 +96,7 @@ public class ScreenGenerator {
 			CompositeMap containerMap) {
 		Renderer renderer = ac.getRenderer();
 		String functionName = this.scriptGenerator.genRenderer(renderer);
-		if(null == functionName|| "".equals(functionName))
+		if (null == functionName || "".equals(functionName))
 			return;
 		childMap.put(GridColumn.RENDERER, functionName);
 	}
@@ -136,7 +136,7 @@ public class ScreenGenerator {
 		}
 		ButtonClicker bc = ((Button) ac).getButtonClicker();
 		String functionName = this.scriptGenerator.genButtonClicker(bc);
-		if(null == functionName|| "".equals(functionName))
+		if (null == functionName || "".equals(functionName))
 			return;
 		buttonMap.put("click", functionName);
 	}
