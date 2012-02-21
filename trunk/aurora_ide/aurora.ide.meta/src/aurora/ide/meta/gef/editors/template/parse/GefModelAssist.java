@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.wizard.template;
+package aurora.ide.meta.gef.editors.template.parse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +27,11 @@ public class GefModelAssist {
 		}
 		return Input.TEXT;
 	}
-	
-	public static CompositeMap getModel(Object obj) {
+
+	public static CompositeMap getModel(IFile file) {
 		try {
-			if (obj instanceof IFile) {
-				CompositeMap model = CacheManager.getCompositeMap((IFile) obj);
-				return model;
-			}
+			CompositeMap model = CacheManager.getCompositeMap(file);
+			return model;
 		} catch (CoreException e1) {
 			e1.printStackTrace();
 		} catch (ApplicationException e1) {
@@ -41,10 +39,10 @@ public class GefModelAssist {
 		}
 		return null;
 	}
-	
+
 	public static List<CompositeMap> getQueryFields(CompositeMap model) {
 		if (model == null) {
-			return null;
+			return new ArrayList<CompositeMap>();
 		}
 		CompositeMap qfs = model.getChild("query-fields");
 		if (qfs != null) {
@@ -54,12 +52,12 @@ public class GefModelAssist {
 			}
 			return fields;
 		}
-		return null;
+		return new ArrayList<CompositeMap>();
 	}
-	
+
 	public static List<CompositeMap> getFields(CompositeMap model) {
 		if (model == null) {
-			return null;
+			return new ArrayList<CompositeMap>();
 		}
 		CompositeMap fs = model.getChild("fields");
 		if (fs != null) {
@@ -69,6 +67,6 @@ public class GefModelAssist {
 			}
 			return fields;
 		}
-		return null;
+		return new ArrayList<CompositeMap>();
 	}
 }

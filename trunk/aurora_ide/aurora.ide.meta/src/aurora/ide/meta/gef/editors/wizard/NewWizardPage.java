@@ -14,47 +14,63 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
+import org.eclipse.ui.dialogs.ISelectionValidator;
 import org.xml.sax.SAXException;
 
-import aurora.ide.AuroraPlugin;
-import aurora.ide.helpers.LocaleMessage;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.wizard.template.Temlpate;
-import aurora.ide.meta.gef.editors.wizard.template.TemplateParsing;
+import aurora.ide.meta.gef.editors.template.Template;
+import aurora.ide.meta.gef.editors.template.parse.TemplateParse;
 
 public class NewWizardPage extends WizardPage {
 	private Text txtPath;
 	private Text txtFile;
-	private List list;
+	private Label lblTpName;
+	private Canvas canvas;
+	private Button btnRight;
+	private Button btnLeft;
 
-	private java.util.List<Temlpate> templates = new ArrayList<Temlpate>();
-	private Temlpate template;
-
-	private ViewDiagram viewDiagram = new ViewDiagram();
+	private IProject metaProject;
+	private java.util.List<Template> templates = new ArrayList<Template>();
+	private Template template;
+	private int index;
 
 	public NewWizardPage() {
 		super("aurora.wizard.new.Page");
-		setTitle("新建");
-		setDescription("新建文件");
+		setTitle("meta文件向导");
+		setDescription("通过模板创建meta文件");
 		setPageComplete(false);
+		try {
+			IFile file = (IFile) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
+			if (file.getProject().hasNature("aurora.ide.meta.nature")) {
+				metaProject = file.getProject();
+				initTemplates();
+			}
+		} catch (NullPointerException e) {
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String getPath() {
@@ -69,6 +85,10 @@ public class NewWizardPage extends WizardPage {
 		return fileName;
 	}
 
+	public IProject getMetaProject() {
+		return metaProject;
+	}
+
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		setControl(composite);
@@ -76,7 +96,13 @@ public class NewWizardPage extends WizardPage {
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		createTextFieldPart(composite);
-		createListPart(composite);
+		createImagePart(composite);
+
+		if (template != null) {
+			((SettingWizardPage) getNextPage()).setTemplate(template);
+			lblTpName.setText(template.getName());
+			btnRight.setEnabled(true);
+		}
 	}
 
 	private void createTextFieldPart(Composite parent) {
@@ -98,97 +124,151 @@ public class NewWizardPage extends WizardPage {
 		txtFile.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		new Label(composite, SWT.NONE);
 
+		if (metaProject != null) {
+			txtPath.setText(metaProject.getName() + "/screen");
+		}
+
 		txtPath.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				dialogChanged();
+				try {
+					dialogChanged();
+					if (metaProject == null) {
+						templates.clear();
+						btnLeft.setEnabled(false);
+					} else {
+						initTemplates();
+					}
+					index = 0;
+				} catch (CoreException e1) {
+					e1.printStackTrace();
+				}
+				refresh();
 			}
 		});
 
 		txtFile.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				dialogChanged();
+				try {
+					dialogChanged();
+				} catch (CoreException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 
-		btnBrower.addSelectionListener(new SelectionListener() {
+		btnBrower.addSelectionListener(new ClickButtonBrower());
+	}
+
+	private void createImagePart(Composite parent) {
+		Group composite = new Group(parent, SWT.NONE);
+		composite.setLayout(new GridLayout(3, false));
+		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		composite.setText("模板");
+
+		canvas = new Canvas(composite, SWT.BORDER);
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		gd.horizontalSpan = 3;
+		gd.heightHint = 240;
+		canvas.setLayoutData(gd);
+		canvas.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+
+		btnLeft = new Button(composite, SWT.NONE);
+		btnLeft.setText("Previous");
+		btnLeft.setEnabled(false);
+		gd = new GridData();
+		gd.widthHint = 80;
+		btnLeft.setLayoutData(gd);
+
+		lblTpName = new Label(composite, SWT.CENTER);
+		lblTpName.setText("");
+		lblTpName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		btnRight = new Button(composite, SWT.NONE);
+		btnRight.setText("Next");
+		btnRight.setEnabled(false);
+		gd = new GridData();
+		gd.horizontalAlignment = GridData.END;
+		gd.widthHint = 80;
+		btnRight.setLayoutData(gd);
+
+		btnLeft.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
-				ContainerSelectionDialog dialog = new ContainerSelectionDialog(getShell(), ResourcesPlugin.getWorkspace().getRoot().getProject(), true, "");
-				dialog.setHelpAvailable(true);
-				dialog.setTitle("选择目录");
-				if (dialog.open() == Dialog.OK) {
-					if (dialog.getResult().length != 0) {
-						txtPath.setText(dialog.getResult()[0].toString());
-						IProject p = AuroraPlugin.getWorkspace().getRoot().getProject(getPath());
-						IFolder f = p.getFolder("template");
-						try {
-							for (IResource r : f.members()) {
-								if (r instanceof IFile) {
-									IFile file = (IFile) r;
-									if (file.getFileExtension().equalsIgnoreCase("xml")) {
-										SAXParserFactory factory = SAXParserFactory.newInstance();
-										SAXParser parser = factory.newSAXParser();
-										TemplateParsing tp = new TemplateParsing();
-										parser.parse(file.getContents(), tp);
-										Temlpate tm = tp.getTemplate();
-										templates.add(tm);
-										list.add(tm.getName());
-									}
-								}
-							}
-						} catch (CoreException e1) {
-							e1.printStackTrace();
-						} catch (SAXException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (ParserConfigurationException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
+				index--;
+				btnRight.setEnabled(true);
+				if (index <= 0) {
+					index = 0;
+					refresh();
+					btnLeft.setEnabled(false);
+				} else {
+					refresh();
 				}
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
+
+		btnRight.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				index++;
+				btnLeft.setEnabled(true);
+				if (index >= templates.size() - 1) {
+					index = templates.size() - 1;
+					refresh();
+					btnRight.setEnabled(false);
+				} else {
+					refresh();
+				}
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
+
+		canvas.addPaintListener(new PaintListener() {
+			public void paintControl(PaintEvent e) {
+				if (template != null && template.getIcon() != null) {
+					try {
+						IFolder folder = metaProject.getFolder("template/thumbnails");
+						if (folder.getFile(template.getIcon()).exists()) {
+							Image image = new Image(getShell().getDisplay(), folder.getFile(template.getIcon()).getContents());
+							e.gc.drawImage(image, (e.width - image.getImageData().width) / 2, (e.height - image.getImageData().height) / 2);
+							image.dispose();
+						}
+					} catch (NullPointerException e1) {
+						// TODO
+					} catch (CoreException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 	}
 
-	private void createListPart(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayout(new GridLayout(2, false));
-		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-		list = new List(composite, SWT.BORDER | SWT.DROP_DOWN | SWT.READ_ONLY);
-		list.setLayoutData(new GridData(GridData.FILL_VERTICAL));
-		Canvas canvas = new Canvas(composite, SWT.BORDER);
-		canvas.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-		list.addSelectionListener(new SelectionListener() {
-			public void widgetSelected(SelectionEvent e) {
-				template = templates.get(list.getSelectionIndex());
-				setDescription(template.getDescription());
-				dialogChanged();
-				SettingWizardPage settingPage = ((SettingWizardPage) getNextPage());
-				settingPage.deleteArea();
-				settingPage.setTemplate(template);
-				for(AuroraComponent a:template.getModels()){
-					viewDiagram.addChild(a);
-				}
-				setPageComplete(true);
-				// for (String s : template.getAreas()) {
-				// if (s.equals(TemlpateModel.QUERY_AREA)) {
-				// settingPage.createQueryArea();
-				// }
-				// }
-
-			}
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-		});
+	private void refresh() {
+		if (templates.size() > 0) {
+			template = templates.get(index);
+			lblTpName.setText(template.getName());
+			canvas.redraw();
+			btnRight.setEnabled(true);
+			((SettingWizardPage) getNextPage()).setTemplate(template);
+			((SettingWizardPage) getNextPage()).createRegiog();
+			setDescription(template.getDescription());
+		} else {
+			lblTpName.setText("");
+			canvas.redraw();
+			btnRight.setEnabled(false);
+			setDescription("通过模板创建meta文件");
+		}
+		try {
+			dialogChanged();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void updateStatus(String message) {
@@ -196,59 +276,99 @@ public class NewWizardPage extends WizardPage {
 		setPageComplete(message == null);
 	}
 
-	private void dialogChanged() {
+	private void dialogChanged() throws CoreException {
 		IResource container = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(getPath()));
 		String fileName = getFileName();
-
-		if (getPath().length() == 0) {
-			updateStatus(LocaleMessage.getString("file.container.must.be.specified"));
-			return;
-		}
-		if (container == null || (container.getType() & (IResource.PROJECT | IResource.FOLDER)) == 0) {
-			updateStatus(LocaleMessage.getString("file.container.must.exist"));
-			return;
-		}
-		if (fileName != null && !fileName.equals("") && ((IContainer) container).getFile(new Path(fileName)).exists()) {
-			updateStatus(LocaleMessage.getString("filename.used"));
-			return;
-		}
-		if (!container.isAccessible()) {
-			updateStatus(LocaleMessage.getString("project.must.be.writable"));
-			return;
-		}
-		if (fileName.length() == 0) {
-			updateStatus(LocaleMessage.getString("file.name.must.be.specified"));
-			return;
-		}
-		if (fileName.replace('\\', '/').indexOf('/', 1) > 0) {
-			updateStatus(LocaleMessage.getString("file.name.must.be.valid"));
-			return;
-		}
 		int dotLoc = fileName.lastIndexOf('.');
-		if (dotLoc != -1) {
-			String ext = fileName.substring(dotLoc + 1);
-			if (ext.equalsIgnoreCase("meta") == false) {
+		if (getPath().length() == 0) {
+			updateStatus("必须为文件指定目录");
+		} else if (container == null || (container.getType() & (IResource.PROJECT | IResource.FOLDER)) == 0) {
+			updateStatus("目录必须有效");
+		} else if (!container.isAccessible()) {
+			updateStatus("工程必须可写");
+		} else if (!container.getProject().hasNature("aurora.ide.meta.nature")) {
+			updateStatus("该工程不是一个有效的Aurora原型工程");
+		} else if (getPath().lastIndexOf("screen") == -1) {
+			updateStatus("文件须位于screen目录下");
+		} else {
+			metaProject = container.getProject();
+			if (fileName != null && !fileName.equals("") && ((IContainer) container).getFile(new Path(fileName)).exists()) {
+				updateStatus("此文件名已经被使用！");
+			} else if (fileName.length() == 0) {
+				updateStatus("必须指定文件名");
+			} else if (fileName.replace('\\', '/').indexOf('/', 1) > 0) {
+				updateStatus("文件名无效");
+			} else if (dotLoc != -1 && (!fileName.substring(dotLoc + 1).equalsIgnoreCase("meta"))) {
 				updateStatus("文件扩展名必须是meta");
-				return;
+			} else {
+				setDescription(template.getDescription());
+				updateStatus(null);
+			}
+			return;
+		}
+		metaProject = null;
+	}
+
+	private void initTemplates() {
+		templates.clear();
+		IFolder folder = metaProject.getFolder("template");
+		try {
+			for (IResource r : folder.members()) {
+				if ((r instanceof IFile) && ((IFile) r).getFileExtension().equalsIgnoreCase("xml")) {
+					SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+					TemplateParse tp = new TemplateParse();
+					parser.parse(((IFile) r).getContents(), tp);
+					Template tm = tp.getTemplate();
+					templates.add(tm);
+				}
+			}
+			template = templates.get(index);
+		} catch (CoreException e1) {
+			e1.printStackTrace();
+		} catch (SAXException e1) {
+			e1.printStackTrace();
+		} catch (ParserConfigurationException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	class ClickButtonBrower implements SelectionListener {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			ContainerSelectionDialog dialog = new ContainerSelectionDialog(getShell(), ResourcesPlugin.getWorkspace().getRoot().getProject(), true, "");
+			dialog.setValidator(new ISelectionValidator() {
+				@Override
+				public String isValid(Object selection) {
+					try {
+						metaProject = ResourcesPlugin.getWorkspace().getRoot().getFolder((IPath) selection).getProject();
+					} catch (IllegalArgumentException e) {
+						metaProject = ResourcesPlugin.getWorkspace().getRoot().getProject(selection.toString());
+					}
+					try {
+						if (metaProject.hasNature("aurora.ide.meta.nature")) {
+							if (((IPath) selection).toString().indexOf("screen") != -1) {
+								return null;
+							}
+							return "文件须位于screen目录下";
+						}
+					} catch (CoreException e) {
+						e.printStackTrace();
+					}
+					return "该工程不是一个有效的Aurora原型工程";
+				}
+			});
+			dialog.setTitle("选择目录");
+			if (dialog.open() == Dialog.OK && dialog.getResult().length != 0) {
+				txtPath.setText(dialog.getResult()[0].toString());
+				index = 0;
+				initTemplates();
+				btnLeft.setEnabled(false);
 			}
 		}
-		if (template == null) {
-			updateStatus("必须选择一个模板");
-			return;
+
+		public void widgetDefaultSelected(SelectionEvent e) {
 		}
-		updateStatus(null);
 	}
-
-	public Temlpate getTemplate() {
-		return template;
-	}
-
-	public ViewDiagram getViewDiagram() {
-		return viewDiagram;
-	}
-
-	public void setViewDiagram(ViewDiagram viewDiagram) {
-		this.viewDiagram = viewDiagram;
-	}
-
 }
