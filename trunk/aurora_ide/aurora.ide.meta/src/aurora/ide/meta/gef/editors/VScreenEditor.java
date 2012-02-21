@@ -69,6 +69,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		this.diagram = diagram;
 		GraphicalViewer gv = getGraphicalViewer();
 		gv.setContents(diagram);
+		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
 
 	/**
