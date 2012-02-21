@@ -6,8 +6,11 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.DatasetField;
 import aurora.ide.meta.gef.editors.models.GridColumn;
+import aurora.ide.meta.gef.editors.models.Renderer;
 
 public class GridColumnHandler extends DefaultIOHandler {
+	public static final String COMMENT_COLUMN = "column";
+	public static final String RENDERER_TYPE = "rendererType";
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
@@ -23,6 +26,9 @@ public class GridColumnHandler extends DefaultIOHandler {
 		DatasetFieldHandler dsf = new DatasetFieldHandler();
 		CompositeMap dsMap = dsf.toCompositeMap(gc.getDatasetField(), mic);
 		map.addChild(dsMap);
+		CompositeMap rMap = new RendererHandler().toCompositeMap(
+				gc.getRenderer(), mic);
+		map.addChild(rMap);
 	}
 
 	@Override
@@ -38,9 +44,17 @@ public class GridColumnHandler extends DefaultIOHandler {
 	protected void restoreComplexAttribute(AuroraComponent ac, CompositeMap map) {
 		GridColumn gc = (GridColumn) ac;
 		CompositeMap dfMap = map.getChild(DatasetField.class.getSimpleName());
-		DatasetField df = new DatasetFieldHandler()
-				.fromCompositeMap(dfMap, mic);
-		gc.setDatasetField(df);
+		if (dfMap != null) {
+			DatasetField df = new DatasetFieldHandler().fromCompositeMap(dfMap,
+					mic);
+			gc.setDatasetField(df);
+		}
+		CompositeMap rMap = map.getChild(Renderer.class.getSimpleName());
+		if (rMap != null) {
+			Renderer r = (Renderer) new RendererHandler().fromCompositeMap(
+					rMap, mic);
+			gc.setRenderer(r);
+		}
 	}
 
 	@Override
