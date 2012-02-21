@@ -315,4 +315,8 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 
 	}
 
+	public ViewDiagram getDiagram() {
+		return diagram;
+	}
+
 }
