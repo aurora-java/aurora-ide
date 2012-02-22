@@ -32,7 +32,7 @@ public class ButtonMap extends AbstractComponentMap {
 				Object id = iPropertyDescriptor.getId();
 				boolean isKey = this.isCompositMapKey(id.toString());
 				if (isKey) {
-					Object value = c.getPropertyValue(id).toString();
+					Object value = c.getPropertyValue(id);
 					
 					if (value != null && !("".equals(value)))
 						map.putString(id, value.toString());
