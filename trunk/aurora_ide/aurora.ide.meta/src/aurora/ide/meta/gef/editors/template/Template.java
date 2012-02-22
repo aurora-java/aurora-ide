@@ -10,6 +10,7 @@ public class Template {
 	private String name;
 	private String icon;
 	private String description;
+	private String path;
 
 	public List<Region> getRegions() {
 		return regions;
@@ -49,6 +50,14 @@ public class Template {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }

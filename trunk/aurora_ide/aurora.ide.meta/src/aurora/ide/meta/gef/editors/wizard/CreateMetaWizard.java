@@ -59,7 +59,6 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			}
 			VScreenEditor editor = (VScreenEditor) editorOpener.open(workbench.getActiveWorkbenchWindow().getActivePage(), file, true);
 			editor.setDiagram(createView());
-			// editor.doSave(new NullProgressMonitor());
 			return true;
 		} catch (Exception e) {
 			DialogUtil.showExceptionMessageBox(e);
@@ -90,6 +89,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		for (Button btn : bRelation.keySet()) {
 			btn.getButtonClicker().setTargetComponent(rRelation.get(bRelation.get(btn)));
 		}
+		viewDiagram.setBindTemplate(template.getPath());
 		return viewDiagram;
 	}
 
@@ -98,7 +98,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			Container container = AuroraModelFactory.createModel(region.getContainer());
 			for (int i = 0; i < region.getButtons().size(); i++) {
 				Button btn = new Button();
-				btn.getButtonClicker().setActionText(region.getButtons().get(i).getType());
+				btn.getButtonClicker().setActionID(region.getButtons().get(i).getType());
 				btn.setText(region.getButtons().get(i).getText());
 				bRelation.put(btn, region.getButtons().get(i).getTarget());
 				container.addChild(btn);
@@ -119,6 +119,8 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			for (CompositeMap map : GefModelAssist.getQueryFields(GefModelAssist.getModel(region.getModel().getModel()))) {
 				Input input = new Input();
 				input.setType(GefModelAssist.getType(map));
+				input.setName(map.getString("name"));
+				input.setPrompt(map.getString("prompt"));
 				container.addChild(input);
 			}
 			return container;
@@ -131,18 +133,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	private Container createResultRegion(ResultRegion region) {
 		try {
 			if ("Grid".equalsIgnoreCase(region.getContainer())) {
-				Grid grid = AuroraModelFactory.createModel(region.getContainer());
-				grid.setNavbarType(Grid.NAVBAR_COMPLEX);
-				grid.addChild(new Toolbar());
-				ResultDataSet dataset = new ResultDataSet();
-				dataset.setModel(Util.toPKG(region.getModel().getModel().getFullPath()));
-				grid.setDataset(dataset);
-				for (CompositeMap map : GefModelAssist.getQueryFields(GefModelAssist.getModel(region.getModel().getModel()))) {
-					GridColumn gc = new GridColumn();
-					gc.setPrompt(map.getString("name"));
-					grid.addChild(gc);
-				}
-				return grid;
+				return createGrid(region);
 			} else {
 				Container container = AuroraModelFactory.createModel(region.getContainer());
 				QueryDataSet dataset = new QueryDataSet();
@@ -151,6 +142,8 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				for (CompositeMap map : GefModelAssist.getQueryFields(GefModelAssist.getModel(region.getModel().getModel()))) {
 					Input input = new Input();
 					input.setType(GefModelAssist.getType(map));
+					input.setName(map.getString("name") == null ? "" : map.getString("name"));
+					input.setPrompt(map.getString("prompt") == null ? "prompt" : map.getString("prompt"));
 					container.addChild(input);
 				}
 				return container;
@@ -160,6 +153,29 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		}
 
 		return null;
+	}
+
+	private Container createGrid(ResultRegion region) {
+		Grid grid = AuroraModelFactory.createModel(region.getContainer());
+		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
+		Toolbar tool = new Toolbar();
+		String[] buttonType = { Button.ADD, Button.SAVE, Button.DELETE, Button.CLEAR, Button.EXCEL };
+		for (String s : buttonType) {
+			Button btn = new Button();
+			btn.setButtonType(s);
+			tool.addChild(btn);
+		}
+		grid.addChild(tool);
+		ResultDataSet dataset = new ResultDataSet();
+		dataset.setModel(Util.toPKG(region.getModel().getModel().getFullPath()));
+		grid.setDataset(dataset);
+		for (CompositeMap map : GefModelAssist.getQueryFields(GefModelAssist.getModel(region.getModel().getModel()))) {
+			GridColumn gc = new GridColumn();
+			gc.setName(map.getString("name"));
+			gc.setPrompt(map.getString("prompt"));
+			grid.addChild(gc);
+		}
+		return grid;
 	}
 
 	public boolean canFinish() {

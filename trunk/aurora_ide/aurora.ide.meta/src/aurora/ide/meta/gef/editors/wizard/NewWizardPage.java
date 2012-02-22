@@ -315,6 +315,8 @@ public class NewWizardPage extends WizardPage {
 					TemplateParse tp = new TemplateParse();
 					parser.parse(((IFile) r).getContents(), tp);
 					Template tm = tp.getTemplate();
+					String path = r.getLocation().toString();
+					tm.setPath(path.substring(path.indexOf("template") + "template".length() + 1));
 					templates.add(tm);
 				}
 			}
