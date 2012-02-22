@@ -33,7 +33,6 @@ public class ButtonHandler extends DefaultIOHandler {
 					ButtonClicker.class.getSimpleName());
 			String aid = bc.getActionID();
 			bcMap.put("id", bc.getActionID());
-			bcMap.put("text", bc.getActionText());
 			if (ButtonClicker.B_SEARCH.equals(aid)
 					|| ButtonClicker.B_SAVE.equals(aid)
 					|| ButtonClicker.B_RESET.equals(aid)) {
@@ -86,7 +85,6 @@ public class ButtonHandler extends DefaultIOHandler {
 				return;
 			String aid = bcMap.getString("id");
 			bc.setActionID(aid);
-			bc.setActionText(bcMap.getString("text"));
 			if (ButtonClicker.B_SEARCH.equals(aid)
 					|| ButtonClicker.B_SAVE.equals(aid)
 					|| ButtonClicker.B_RESET.equals(aid)) {
