@@ -32,7 +32,7 @@ public class InputMap extends AbstractComponentMap {
 				else if (Input.ENABLE_MONTH_BTN.equals(id))
 					value = input.getEnableMonthBtn();
 				else {
-					value = input.getPropertyValue(id).toString();
+					value = input.getPropertyValue(id);
 				}
 				if (value != null && !("".equals(value)))
 					map.putString(id, value.toString());
