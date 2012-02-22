@@ -45,9 +45,11 @@ public class HBox extends BOX {
 
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
+		String sectionType = getSectionType();
+		if (sectionType == null || sectionType.equals(SECTION_TYPE_BUTTON))
+			return pds;
 		return mergePropertyDescriptor(pds, getDataset()
 				.getPropertyDescriptors());
-		// return pds;
 	}
 
 }

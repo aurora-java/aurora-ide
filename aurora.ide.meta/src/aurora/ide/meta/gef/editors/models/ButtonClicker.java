@@ -28,8 +28,6 @@ public class ButtonClicker extends AuroraComponent implements
 			"自定义" };
 
 	private String actionID = DEFAULT;
-	private String actionText = "";
-
 	// b_open
 	private String openPath;
 	// b_close
@@ -63,11 +61,10 @@ public class ButtonClicker extends AuroraComponent implements
 	}
 
 	public String getActionText() {
-		return actionText;
-	}
-
-	public void setActionText(String actionText) {
-		this.actionText = actionText;
+		for (int i = 0; i < action_ids.length; i++)
+			if (action_ids[i].equals(actionID))
+				return action_texts[i];
+		return "";
 	}
 
 	public String getOpenPath() {
@@ -114,7 +111,6 @@ public class ButtonClicker extends AuroraComponent implements
 	public ButtonClicker clone() {
 		ButtonClicker bc = new ButtonClicker();
 		bc.actionID = actionID;
-		bc.actionText = actionText;
 		bc.button = button;
 		bc.closeWindowID = closeWindowID;
 		bc.openPath = openPath;
@@ -124,9 +120,10 @@ public class ButtonClicker extends AuroraComponent implements
 	}
 
 	public Image getDisplayImage() {
-		if (targetComponent == null || DEFAULT.equals(actionID)
-				|| B_CUSTOM.equals(actionID))
-			return null;
-		return PropertySourceUtil.getImageOf(targetComponent);
+		if (targetComponent != null
+				&& (B_SEARCH.equals(actionID) || B_SAVE.equals(actionID) || B_RESET
+						.equals(actionID)))
+			return PropertySourceUtil.getImageOf(targetComponent);
+		return null;
 	}
 }

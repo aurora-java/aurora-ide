@@ -62,6 +62,9 @@ public class BOX extends RowCol {
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		// return pds;
+		String sectionType = getSectionType();
+		if (sectionType == null || sectionType.equals(SECTION_TYPE_BUTTON))
+			return pds;
 		return mergePropertyDescriptor(pds, getDataset()
 				.getPropertyDescriptors());
 	}

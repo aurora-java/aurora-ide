@@ -21,6 +21,7 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
@@ -96,6 +97,7 @@ public class RendererEditDialog extends EditWizard {
 			composite_left.setLayout(rw);
 			composite_right = new Composite(sashForm, SWT.NONE);
 
+			boolean created = false;
 			for (int i = 0; i < radios.length; i++) {
 				radios[i] = new Button(composite_left, SWT.RADIO);
 				radios[i].setText(displayTexts[i]);
@@ -105,7 +107,12 @@ public class RendererEditDialog extends EditWizard {
 					radios[i].setSelection(true);
 					radios[i].setBackground(SELECTION_BG);
 					createRight(i);
+					created = true;
 				}
+			}
+			if (!created) {
+				radios[0].setSelection(true);
+				radios[0].notifyListeners(SWT.Selection, new Event());
 			}
 
 			sashForm.setWeights(new int[] { 1, 3 });

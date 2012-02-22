@@ -17,6 +17,7 @@ public abstract class DefaultIOHandler implements IOHandler {
 		CompositeMap map = new CompositeMap();
 		map.setName(ac.getClass().getSimpleName());
 		map.put(MARKID, ac.markid);
+		map.put(AuroraComponent.NAME, ac.getName());
 		storeSimpleAttribute(map, ac);
 		storeComplexAttribute(map, ac);
 		if (ac instanceof Container) {
@@ -81,6 +82,7 @@ public abstract class DefaultIOHandler implements IOHandler {
 		AuroraComponent ac = getNewObject(map);
 		ac.markid = map.getString(MARKID);
 		mic.markMap.put(ac.markid, ac);
+		ac.setName(notNull(map.getString(AuroraComponent.NAME)));
 		restoreSimpleAttribute(ac, map);
 		restoreComplexAttribute(ac, map);
 		if (ac instanceof Container) {
@@ -140,5 +142,9 @@ public abstract class DefaultIOHandler implements IOHandler {
 		} else if (prefix.equals(map.getPrefix()))
 			return map;
 		return null;
+	}
+
+	private String notNull(String s) {
+		return s == null ? "" : s;
 	}
 }

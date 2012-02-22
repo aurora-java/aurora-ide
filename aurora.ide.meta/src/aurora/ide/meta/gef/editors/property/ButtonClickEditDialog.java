@@ -22,6 +22,7 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -103,6 +104,7 @@ public class ButtonClickEditDialog extends EditWizard {
 			composite_left.setLayout(rw);
 			composite_right = new Composite(sashForm, SWT.NONE);
 
+			boolean created = false;
 			for (int i = 0; i < ButtonClicker.action_texts.length; i++) {
 				radios[i] = new Button(composite_left, SWT.RADIO);
 				radios[i].setText(ButtonClicker.action_texts[i]);
@@ -112,7 +114,12 @@ public class ButtonClickEditDialog extends EditWizard {
 					radios[i].setBackground(SELECTION_BG);
 					setDescription(descriptions[i]);
 					createRight(i);
+					created = true;
 				}
+			}
+			if (!created) {
+				radios[0].setSelection(true);
+				radios[0].notifyListeners(SWT.Selection, new Event());
 			}
 
 			sashForm.setWeights(new int[] { 1, 3 });
@@ -285,7 +292,6 @@ public class ButtonClickEditDialog extends EditWizard {
 				}
 
 				public void widgetDefaultSelected(SelectionEvent e) {
-
 				}
 
 			});
@@ -345,10 +351,7 @@ public class ButtonClickEditDialog extends EditWizard {
 				if (radios[i] == e.getSource()) {
 					if (radios[i].getSelection()) {
 						createRight(i);
-						// slLayout.topControl = stackComposites[i];
-						clicker.setActionText(ButtonClicker.action_texts[i]);
 						clicker.setActionID(ButtonClicker.action_ids[i]);
-						// composite_right.layout();
 						radios[i].setBackground(SELECTION_BG);
 						setDescription(descriptions[i]);
 					} else
@@ -359,7 +362,7 @@ public class ButtonClickEditDialog extends EditWizard {
 		}
 
 		public void widgetDefaultSelected(SelectionEvent e) {
-
+			// never called on radio
 		}
 	}
 
