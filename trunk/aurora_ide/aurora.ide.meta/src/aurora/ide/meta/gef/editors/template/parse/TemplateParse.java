@@ -39,6 +39,7 @@ public class TemplateParse extends DefaultHandler {
 			template.getRegions().add(getRegion(region, attributes));
 		} else if (qName.equals("result")) {
 			ResultRegion region = new ResultRegion();
+			region.setQueryRegion(attributes.getValue(attributes.getIndex("query")));
 			template.getRegions().add(getRegion(region, attributes));
 		} else if (qName.equals("button")) {
 			Button btn = new Button();

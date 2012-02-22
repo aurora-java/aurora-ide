@@ -1,13 +1,14 @@
 package aurora.ide.meta.gef.editors.template;
 
 public class ResultRegion extends Region {
-	private QueryRegion query;
+	private String queryRegion;
 
-	public QueryRegion getQuery() {
-		return query;
+	public String getQueryRegion() {
+		return queryRegion;
 	}
 
-	public void setQuery(QueryRegion query) {
-		this.query = query;
+	public void setQueryRegion(String queryRegion) {
+		this.queryRegion = queryRegion;
 	}
+
 }
