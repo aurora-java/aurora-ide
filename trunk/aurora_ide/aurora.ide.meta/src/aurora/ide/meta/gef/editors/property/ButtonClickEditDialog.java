@@ -22,7 +22,6 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -119,7 +118,7 @@ public class ButtonClickEditDialog extends EditWizard {
 			}
 			if (!created) {
 				radios[0].setSelection(true);
-				radios[0].notifyListeners(SWT.Selection, new Event());
+				radios[0].notifyListeners(SWT.Selection, null);
 			}
 
 			sashForm.setWeights(new int[] { 1, 3 });
