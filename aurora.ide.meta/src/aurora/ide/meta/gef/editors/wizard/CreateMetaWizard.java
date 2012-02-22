@@ -42,6 +42,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	private IWorkbench workbench;
 	private Template template;
 	private Map<Button, String> bRelation = new HashMap<Button, String>();
+	private Map<Grid, String> gRelation = new HashMap<Grid, String>();
 	private Map<String, AuroraComponent> rRelation = new HashMap<String, AuroraComponent>();
 
 	public void addPages() {
@@ -72,14 +73,17 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		Container container = null;
 		for (Region region : template.getRegions()) {
 			if (region instanceof ButtonRegion) {
-				container = createButtonRegion((ButtonRegion) region);
-				container.setSectionType(Container.SECTION_TYPE_BUTTON);
+				if ((container = createButtonRegion((ButtonRegion) region)) != null) {
+					container.setSectionType(Container.SECTION_TYPE_BUTTON);
+				}
 			} else if (region instanceof QueryRegion) {
-				container = createQueryRegion((QueryRegion) region);
-				container.setSectionType(Container.SECTION_TYPE_QUERY);
+				if ((container = createQueryRegion((QueryRegion) region)) != null) {
+					container.setSectionType(Container.SECTION_TYPE_QUERY);
+				}
 			} else if (region instanceof ResultRegion) {
-				container = createResultRegion((ResultRegion) region);
-				container.setSectionType(Container.SECTION_TYPE_RESULT);
+				if ((container = createResultRegion((ResultRegion) region)) != null) {
+					container.setSectionType(Container.SECTION_TYPE_RESULT);
+				}
 			}
 			if (container != null) {
 				viewDiagram.addChild(container);
@@ -88,6 +92,10 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		}
 		for (Button btn : bRelation.keySet()) {
 			btn.getButtonClicker().setTargetComponent(rRelation.get(bRelation.get(btn)));
+		}
+		// TODO
+		for (Grid grid : gRelation.keySet()) {
+			grid.getDataset().setQueryContainer((Container) rRelation.get(gRelation.get(grid)));
 		}
 		viewDiagram.setBindTemplate(template.getPath());
 		return viewDiagram;
@@ -121,6 +129,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				input.setType(GefModelAssist.getType(map));
 				input.setName(map.getString("name"));
 				input.setPrompt(map.getString("prompt"));
+				input.setType(map.getString("defaultEditor"));
 				container.addChild(input);
 			}
 			return container;
@@ -139,7 +148,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				QueryDataSet dataset = new QueryDataSet();
 				dataset.setModel(Util.toPKG(region.getModel().getModel().getFullPath()));
 				container.setDataset(dataset);
-				for (CompositeMap map : GefModelAssist.getQueryFields(GefModelAssist.getModel(region.getModel().getModel()))) {
+				for (CompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(region.getModel().getModel()))) {
 					Input input = new Input();
 					input.setType(GefModelAssist.getType(map));
 					input.setName(map.getString("name") == null ? "" : map.getString("name"));
@@ -157,7 +166,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 
 	private Container createGrid(ResultRegion region) {
 		Grid grid = AuroraModelFactory.createModel(region.getContainer());
-		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
+		gRelation.put(grid, region.getQueryRegion());
 		Toolbar tool = new Toolbar();
 		String[] buttonType = { Button.ADD, Button.SAVE, Button.DELETE, Button.CLEAR, Button.EXCEL };
 		for (String s : buttonType) {
@@ -166,15 +175,18 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			tool.addChild(btn);
 		}
 		grid.addChild(tool);
-		ResultDataSet dataset = new ResultDataSet();
-		dataset.setModel(Util.toPKG(region.getModel().getModel().getFullPath()));
-		grid.setDataset(dataset);
-		for (CompositeMap map : GefModelAssist.getQueryFields(GefModelAssist.getModel(region.getModel().getModel()))) {
+		for (CompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(region.getModel().getModel()))) {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));
 			gc.setPrompt(map.getString("prompt"));
-			grid.addChild(gc);
+			gc.setEditor(map.getString("defaultEditor"));
+			grid.addCol(gc);
 		}
+		ResultDataSet dataset = new ResultDataSet();
+		dataset.setModel(Util.toPKG(region.getModel().getModel().getFullPath()));
+		grid.setDataset(dataset);
+		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
+		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
 		return grid;
 	}
 

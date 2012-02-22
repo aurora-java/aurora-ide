@@ -192,6 +192,7 @@ public class NewWizardPage extends WizardPage {
 		btnRight.setLayoutData(gd);
 
 		btnLeft.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				index--;
 				btnRight.setEnabled(true);
@@ -204,11 +205,13 @@ public class NewWizardPage extends WizardPage {
 				}
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
 
 		btnRight.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				index++;
 				btnLeft.setEnabled(true);
@@ -221,6 +224,7 @@ public class NewWizardPage extends WizardPage {
 				}
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
@@ -333,9 +337,11 @@ public class NewWizardPage extends WizardPage {
 	}
 
 	class ClickButtonBrower implements SelectionListener {
+		@Override
 		public void widgetSelected(SelectionEvent e) {
 			ContainerSelectionDialog dialog = new ContainerSelectionDialog(getShell(), ResourcesPlugin.getWorkspace().getRoot().getProject(), true, "");
 			dialog.setValidator(new ISelectionValidator() {
+				@Override
 				public String isValid(Object selection) {
 					try {
 						metaProject = ResourcesPlugin.getWorkspace().getRoot().getFolder((IPath) selection).getProject();

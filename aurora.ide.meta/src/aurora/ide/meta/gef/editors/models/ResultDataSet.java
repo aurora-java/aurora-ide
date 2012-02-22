@@ -102,8 +102,8 @@ public class ResultDataSet extends Dataset {
 		this.queryContainer = queryContainer;
 	}
 
-	public void setQueryContainer(BOX box) {
-		queryContainer.setTarget(box);
+	public void setQueryContainer(Container container) {
+		queryContainer.setTarget(container);
 	}
 
 	public int getPageSize() {

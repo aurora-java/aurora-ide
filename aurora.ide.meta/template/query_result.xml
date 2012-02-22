@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="查询和显示模板"  iconPath="query_result.jpg">
+	<models>
+		<model id="model.id" name="model.name"/>
+	</models>
+	
+	<query name="head" id="query.id" container="form" model="model.id"/>
+
+	<buttons name="buttons.name" id="buttons.id" container="hbox" model="model.id">
+		<button type="query" text="查询" target="result.id"/>
+		<button type="reset" text="重置" target="query.id"/>
+	</buttons>
+
+	<result name="row" id="result.id"  container="Grid" model="model.id" query="query.id"/>
+
+	<description><![CDATA[
+		创建一个查询和显示结果的视图
+	]]></description>
+</template>
