@@ -305,7 +305,7 @@ public class BMViewer {
 				try {
 					IResource bm = BMUtil.getBMResourceFromClassPath(
 							getAuroraProject(), classPath);
-					if (bm.exists() && bm instanceof IFile) {
+					if (bm instanceof IFile && bm.exists()) {
 						files.add((IFile) bm);
 					}
 				} catch (ApplicationException e) {
