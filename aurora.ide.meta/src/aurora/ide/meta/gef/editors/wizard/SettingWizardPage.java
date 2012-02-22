@@ -23,7 +23,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.dialogs.ResourceSelectionDialog;
 
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.template.ButtonRegion;
@@ -32,6 +31,7 @@ import aurora.ide.meta.gef.editors.template.QueryRegion;
 import aurora.ide.meta.gef.editors.template.Region;
 import aurora.ide.meta.gef.editors.template.ResultRegion;
 import aurora.ide.meta.gef.editors.template.Template;
+import aurora.ide.meta.gef.editors.wizard.dialog.SelectModelDialog;
 import aurora.ide.meta.gef.editors.wizard.dialog.StyleSettingDialog;
 import aurora.ide.meta.project.AuroraMetaProject;
 
@@ -115,14 +115,13 @@ public class SettingWizardPage extends WizardPage {
 				btn.setText("选择Model");
 				btn.addSelectionListener(new SelectionListener() {
 					public void widgetSelected(SelectionEvent e) {
-						// TODO Auto-generated method stubAuroraMetaProject
 						AuroraMetaProject metaPro = new AuroraMetaProject(((NewWizardPage) getPreviousPage()).getMetaProject());
 						try {
 							IProject pro = metaPro.getAuroraProject();
 							IFolder folder = pro.getFolder("web/WEB-INF/classes");
-							ResourceSelectionDialog dialog = new ResourceSelectionDialog(getShell(), folder, pro.getName());
+							SelectModelDialog dialog = new SelectModelDialog(getShell(), folder, pro.getName());
 							if (Dialog.OK == dialog.open()) {
-								IFile file = (IFile) dialog.getResult()[0];
+								IFile file = (IFile) dialog.getResult();
 								txtModel.setText(file.getName());
 								model.setModel(file);
 							}
