@@ -12,7 +12,7 @@ public class CheckBox extends Input {
 	private String text = "text";
 	public static final String CHECKBOX = "checkBox";
 
-	private DatasetField dsField = new CheckboxDatasetField();
+	private DatasetField dsField = new CommonDatasetField();
 
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
 			PD_PROMPT, new StringPropertyDescriptor(TEXT, "Text"), PD_NAME };
@@ -36,7 +36,7 @@ public class CheckBox extends Input {
 
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
-		IPropertyDescriptor[] pds_dsf = dsField.getPropertyDescriptors();
+		IPropertyDescriptor[] pds_dsf = ((CommonDatasetField)dsField).getPropertyDescriptors(CHECKBOX);
 		return mergePropertyDescriptor(pds, pds_dsf);
 	}
 
@@ -47,7 +47,7 @@ public class CheckBox extends Input {
 		if (DatasetField.UNCHECKED_VALUE.equals(propName)
 				|| DatasetField.CHECKED_VALUE.equals(propName)
 				|| DatasetField.DEFAULT_VALUE.equals(propName)) {
-			return dsField.getPropertyValue(propName);
+			return ((CommonDatasetField)dsField).getPropertyValue(CHECKBOX, propName);
 		}
 		return super.getPropertyValue(propName);
 	}
