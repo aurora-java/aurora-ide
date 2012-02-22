@@ -11,17 +11,23 @@ public class CommonDatasetField extends DatasetField {
 	private LovDatasetField lovDatasetField = new LovDatasetField();
 	private ComboDatasetField comboDatasetField = new ComboDatasetField();
 	private CheckboxDatasetField checkDatasetField = new CheckboxDatasetField();
+	private IPropertyDescriptor[] lovPDS = lovDatasetField
+			.getPropertyDescriptors();
+	private IPropertyDescriptor[] comboPDS = comboDatasetField
+			.getPropertyDescriptors();
+	private IPropertyDescriptor[] checkBoxPDS = checkDatasetField
+			.getPropertyDescriptors();
 
 	public IPropertyDescriptor[] getPropertyDescriptors(String inputType) {
 
 		if (Input.LOV.equals(inputType)) {
-			return lovDatasetField.getPropertyDescriptors();
+			return lovPDS;
 		}
 		if (Input.Combo.equals(inputType)) {
-			return comboDatasetField.getPropertyDescriptors();
+			return comboPDS;
 		}
 		if (CheckBox.CHECKBOX.equals(inputType)) {
-			return checkDatasetField.getPropertyDescriptors();
+			return checkBoxPDS;
 		}
 		return super.getPropertyDescriptors();
 	}
@@ -37,28 +43,37 @@ public class CommonDatasetField extends DatasetField {
 		if (CheckBox.CHECKBOX.equals(inputType)) {
 			return checkDatasetField.getPropertyValue(propName);
 		}
-
 		return super.getPropertyValue(propName);
 	}
 
-	/**
-	 * @deprecated
-	 * */
 	public IPropertyDescriptor[] getPropertyDescriptors() {
-		return null;
+		IPropertyDescriptor[] mpd = this.mergePropertyDescriptor(
+				lovDatasetField.getPropertyDescriptors(),
+				super.getPropertyDescriptors());
+		IPropertyDescriptor[] mpd2 = this.mergePropertyDescriptor(mpd,
+				comboDatasetField.getPropertyDescriptors());
+		IPropertyDescriptor[] mergePropertyDescriptor = this
+				.mergePropertyDescriptor(mpd2,
+						checkDatasetField.getPropertyDescriptors());
+		return mergePropertyDescriptor;
 	}
 
-	/**
-	 * @deprecated
-	 * */
 	public Object getPropertyValue(Object propName) {
-		return null;
+		Object propertyValue = super.getPropertyValue(propName);
+		if (propertyValue == null || "".equals(propertyValue))
+			propertyValue = this.getPropertyValue(Input.LOV, propName);
+		if (propertyValue == null || "".equals(propertyValue))
+			propertyValue = this.getPropertyValue(Input.Combo, propName);
+		if (propertyValue == null || "".equals(propertyValue))
+			propertyValue = this.getPropertyValue(CheckBox.CHECKBOX, propName);
+		return propertyValue;
 	}
 
-	/**
-	 * @deprecated
-	 * */
 	public void setPropertyValue(Object propName, Object val) {
+		this.setPropertyValue("", propName, val);
+		this.setPropertyValue(Input.LOV, propName, val);
+		this.setPropertyValue(Input.Combo, propName, val);
+		this.setPropertyValue(CheckBox.CHECKBOX, propName, val);
 	}
 
 	public void setPropertyValue(String inputType, Object propName, Object val) {
@@ -70,6 +85,30 @@ public class CommonDatasetField extends DatasetField {
 			checkDatasetField.setPropertyValue(propName, val);
 		} else
 			super.setPropertyValue(propName, val);
+	}
+
+	public LovDatasetField getLovDatasetField() {
+		return lovDatasetField;
+	}
+
+	public ComboDatasetField getComboDatasetField() {
+		return comboDatasetField;
+	}
+
+	public CheckboxDatasetField getCheckDatasetField() {
+		return checkDatasetField;
+	}
+
+	public IPropertyDescriptor[] getLovPDS() {
+		return lovPDS;
+	}
+
+	public IPropertyDescriptor[] getComboPDS() {
+		return comboPDS;
+	}
+
+	public IPropertyDescriptor[] getCheckBoxPDS() {
+		return checkBoxPDS;
 	}
 
 }
