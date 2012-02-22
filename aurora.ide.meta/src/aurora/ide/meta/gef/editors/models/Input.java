@@ -7,7 +7,8 @@ import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
 
-public class Input extends AuroraComponent implements IDatasetFieldDelegate,DatasetBinder {
+public class Input extends AuroraComponent implements IDatasetFieldDelegate,
+		DatasetBinder {
 
 	/**
 	 * 
@@ -51,28 +52,51 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,Data
 	private String enableBesideDays = CAL_ENABLES[3];
 	private String enableMonthBtn = CAL_ENABLES[3];
 
-	private DatasetField dfField = new DatasetField();
-	private DatasetField lovField = new LovDatasetField();
-	private DatasetField comboField = new ComboDatasetField();
+	private DatasetField dsField = new DatasetField();
 
 	// /
 
-	private static final IPropertyDescriptor PD_REQUIRED = new BooleanPropertyDescriptor(
-			REQUIRED, "*Required");
-	private static final IPropertyDescriptor PD_READONLY = new BooleanPropertyDescriptor(
-			READONLY, "*ReadOnly");
 	private static final IPropertyDescriptor PD_EMPYTEXT = new StringPropertyDescriptor(
 			EMPTYTEXT, "EmptyText");
 	private static final IPropertyDescriptor PD_TYPECASE = new ComboPropertyDescriptor(
 			TYPECASE, "TypeCase", new String[] { "任意", "大写", "小写" });
 	private static final IPropertyDescriptor[] pds_text = { PD_PROMPT, PD_NAME,
-			PD_WIDTH, PD_EMPYTEXT, PD_TYPECASE, PD_REQUIRED, PD_READONLY };
+			PD_WIDTH, PD_EMPYTEXT, PD_TYPECASE, DatasetField.PD_REQUIRED,
+			DatasetField.PD_READONLY };
 	private static final IPropertyDescriptor[] pds_number = { PD_PROMPT,
 			PD_NAME, PD_WIDTH, PD_EMPYTEXT,
 			new BooleanPropertyDescriptor(ALLOWDECIMALS, "AllowDecimals"),
 			new BooleanPropertyDescriptor(ALLOWNEGATIVE, "AllowNegative"),
 			new BooleanPropertyDescriptor(ALLOWFORMAT, "AllowFormat"),
-			PD_REQUIRED, PD_READONLY };
+			DatasetField.PD_REQUIRED, DatasetField.PD_READONLY };
+
+	private static final IPropertyDescriptor[] pds_combo = {
+			PD_PROMPT,
+			PD_NAME,
+			PD_WIDTH,
+			PD_EMPYTEXT,
+			PD_TYPECASE,
+			DatasetField.PD_REQUIRED,
+			DatasetField.PD_READONLY,
+			new StringPropertyDescriptor(DatasetField.OPTIONS, "*options", true),
+			new StringPropertyDescriptor(DatasetField.DISPLAY_FIELD,
+					"*displayField", true),
+			new StringPropertyDescriptor(DatasetField.VALUE_FIELD,
+					"*valueField", true),
+			new StringPropertyDescriptor(DatasetField.RETURN_FIELD,
+					"*returnField", true) };
+
+	private static final IPropertyDescriptor[] pds_lov = {
+			PD_PROMPT,
+			PD_NAME,
+			PD_WIDTH,
+			PD_EMPYTEXT,
+			PD_TYPECASE,
+			DatasetField.PD_REQUIRED,
+			DatasetField.PD_READONLY,
+			new StringPropertyDescriptor(DatasetField.LOV_SERVICE,
+					"*lovService"),
+			new StringPropertyDescriptor(DatasetField.TITLE, "*title") };
 	private static final IPropertyDescriptor[] pds_datepicker = new IPropertyDescriptor[] {
 			PD_PROMPT,
 			PD_WIDTH,
@@ -80,7 +104,8 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,Data
 			new ComboPropertyDescriptor(ENABLE_BESIDE_DAYS, "EnableBesideDays",
 					CAL_ENABLES),
 			new ComboPropertyDescriptor(ENABLE_MONTH_BTN, "EnableMonthBtn",
-					CAL_ENABLES), PD_REQUIRED, PD_READONLY };
+					CAL_ENABLES), DatasetField.PD_REQUIRED,
+			DatasetField.PD_READONLY };
 
 	public Input() {
 		this.setSize(new Dimension(120, 20));
@@ -88,14 +113,14 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,Data
 	}
 
 	public boolean isRequired() {
-		return this.getDatasetField().isRequired();
+		return dsField.isRequired();
 	}
 
 	public void setRequired(boolean required) {
 		if (this.getDatasetField().isRequired() == required)
 			return;
 		boolean oldV = this.getDatasetField().isRequired();
-		this.getDatasetField().setRequired(required);
+		dsField.setRequired(required);
 		firePropertyChange(REQUIRED, oldV, required);
 	}
 
@@ -117,9 +142,10 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,Data
 			return pds_number;
 		else if (CAL.equals(type) || DATETIMEPICKER.equals(type))
 			return pds_datepicker;
-		else if (Combo.equals(type) || LOV.equals(type))
-			return mergePropertyDescriptor(pds_text, getDatasetField()
-					.getPropertyDescriptors());
+		else if (Combo.equals(type))
+			return pds_combo;
+		else if (LOV.equals(type))
+			return pds_lov;
 		return pds_text;
 	}
 
@@ -152,7 +178,7 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,Data
 				|| DatasetField.LOV_URL.equals(propName)
 				|| DatasetField.LOV_WIDTH.equals(propName)
 				|| DatasetField.TITLE.equals(propName))
-			return getDatasetField().getPropertyValue(propName);
+			return dsField.getPropertyValue(propName);
 		return super.getPropertyValue(propName);
 	}
 
@@ -221,8 +247,9 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,Data
 				|| DatasetField.LOV_URL.equals(propName)
 				|| DatasetField.LOV_WIDTH.equals(propName)
 				|| DatasetField.TITLE.equals(propName))
-			getDatasetField().setPropertyValue(propName, val);
-		super.setPropertyValue(propName, val);
+			dsField.setPropertyValue(propName, val);
+		else
+			super.setPropertyValue(propName, val);
 	}
 
 	/**
@@ -319,24 +346,10 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,Data
 	}
 
 	public DatasetField getDatasetField() {
-		String type = this.getType();
-		if (LOV.equals(type)) {
-			return this.lovField;
-		}
-		if (Combo.equals(type)) {
-			return this.comboField;
-		}
-		return this.dfField;
+		return this.dsField;
 	}
 
 	public void setDatasetField(DatasetField field) {
-		// this.dsField = field;
-		String type = this.getType();
-		if (LOV.equals(type)) {
-			lovField = (LovDatasetField) field;
-		} else if (Combo.equals(type)) {
-			comboField = (ComboDatasetField) field;
-		} else
-			dfField = field;
+		dsField = field;
 	}
 }

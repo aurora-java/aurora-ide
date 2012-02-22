@@ -1,9 +1,9 @@
 package aurora.ide.meta.gef.editors.models;
 
-import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
-
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
+
+import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
 
 public class CheckBox extends Input {
 
@@ -12,10 +12,17 @@ public class CheckBox extends Input {
 	private String text = "text";
 	public static final String CHECKBOX = "checkBox";
 
-	private DatasetField dsField = new CommonDatasetField();
+	private DatasetField dsField = new DatasetField();
+	public static final IPropertyDescriptor PD_TEXT = new StringPropertyDescriptor(
+			TEXT, TEXT);
+	public static final IPropertyDescriptor PD_CHECKED_VALUE = new StringPropertyDescriptor(
+			DatasetField.CHECKED_VALUE, "*" + DatasetField.CHECKED_VALUE);
+	public static final IPropertyDescriptor PD_UNCHECKED_VALUE = new StringPropertyDescriptor(
+			DatasetField.UNCHECKED_VALUE, "*" + DatasetField.UNCHECKED_VALUE);
 
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
-			PD_PROMPT, new StringPropertyDescriptor(TEXT, "Text"), PD_NAME };
+			PD_PROMPT, PD_NAME, PD_TEXT, DatasetField.PD_READONLY,
+			DatasetField.PD_REQUIRED, PD_CHECKED_VALUE, PD_UNCHECKED_VALUE };
 
 	public CheckBox() {
 		setSize(new Dimension(120, 20));
@@ -36,18 +43,17 @@ public class CheckBox extends Input {
 
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
-		IPropertyDescriptor[] pds_dsf = ((CommonDatasetField)dsField).getPropertyDescriptors(CHECKBOX);
-		return mergePropertyDescriptor(pds, pds_dsf);
+		return pds;
 	}
 
 	@Override
 	public Object getPropertyValue(Object propName) {
 		if (TEXT.equals(propName))
 			return getText();
-		if (DatasetField.UNCHECKED_VALUE.equals(propName)
+		else if (DatasetField.UNCHECKED_VALUE.equals(propName)
 				|| DatasetField.CHECKED_VALUE.equals(propName)
 				|| DatasetField.DEFAULT_VALUE.equals(propName)) {
-			return ((CommonDatasetField)dsField).getPropertyValue(CHECKBOX, propName);
+			return dsField.getPropertyValue(propName);
 		}
 		return super.getPropertyValue(propName);
 	}
@@ -66,7 +72,6 @@ public class CheckBox extends Input {
 
 	@Override
 	public DatasetField getDatasetField() {
-
 		return dsField;
 	}
 
@@ -74,5 +79,4 @@ public class CheckBox extends Input {
 	public void setDatasetField(DatasetField field) {
 		dsField = field;
 	}
-
 }
