@@ -4,6 +4,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
+import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 
 public class CheckBox extends Input {
 
@@ -75,8 +76,16 @@ public class CheckBox extends Input {
 		return dsField;
 	}
 
-	@Override
+
+	public void setParent(Container part) {
+		super.setParent(part);
+		if (dsField != null)
+			dsField.setDataset(DataSetFieldUtil.findDataset(getParent()));
+	}
+
 	public void setDatasetField(DatasetField field) {
 		dsField = field;
+		dsField.setName(getName());
+		dsField.setDataset(DataSetFieldUtil.findDataset(getParent()));
 	}
 }

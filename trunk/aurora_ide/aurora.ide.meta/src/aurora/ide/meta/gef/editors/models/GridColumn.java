@@ -11,6 +11,7 @@ import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.RendererEditDialog;
+import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 
 public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 
@@ -134,10 +135,6 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 		return dsField;
 	}
 
-	public void setDatasetField(DatasetField field) {
-		this.dsField = field;
-	}
-
 	public void setReadOnly(boolean readOnly) {
 		if (dsField.isReadOnly() == readOnly)
 			return;
@@ -150,5 +147,17 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 			return;
 		dsField.setRequired(required);
 		firePropertyChange(REQUIRED, !required, required);
+	}
+
+	public void setParent(Container part) {
+		super.setParent(part);
+		if (dsField != null)
+			dsField.setDataset(DataSetFieldUtil.findDataset(getParent()));
+	}
+
+	public void setDatasetField(DatasetField field) {
+		dsField = field;
+		dsField.setName(getName());
+		dsField.setDataset(DataSetFieldUtil.findDataset(getParent()));
 	}
 }

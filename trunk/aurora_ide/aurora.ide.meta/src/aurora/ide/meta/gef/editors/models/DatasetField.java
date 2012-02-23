@@ -1,9 +1,14 @@
 package aurora.ide.meta.gef.editors.models;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
+import uncertain.composite.CompositeMap;
+import aurora.ide.AuroraPlugin;
 import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
+import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 
 public class DatasetField extends AuroraComponent {
 
@@ -65,6 +70,10 @@ public class DatasetField extends AuroraComponent {
 	private int lovWidth;
 	private String title = "";
 
+	private Dataset dataset;
+
+	private DataSetFieldUtil dsfUtil = null;
+
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		return NONE_PROPS;
@@ -109,40 +118,47 @@ public class DatasetField extends AuroraComponent {
 	@Override
 	public void setPropertyValue(Object propName, Object val) {
 		if (NAME.equals(propName)) {
-			setName(nlStr(val));
+			setName(nns(val));
 		} else if (READONLY.equals(propName)) {
 			setReadOnly((Boolean) val);
 		} else if (REQUIRED.equals(propName)) {
 			setRequired((Boolean) val);
 		} else if (DEFAULT_VALUE.equals(propName)) {
-			setDefaultValue(nlStr(val));
+			setDefaultValue(nns(val));
 		} else if (CHECKED_VALUE.equals(propName)) {
-			setCheckedValue(nlStr(val));
+			setCheckedValue(nns(val));
 		} else if (UNCHECKED_VALUE.equals(propName)) {
-			setUncheckedValue(nlStr(val));
+			setUncheckedValue(nns(val));
 		} else if (DISPLAY_FIELD.equals(propName)) {
-			setDisplayField(nlStr(val));
+			setDisplayField(nns(val));
 		} else if (OPTIONS.equals(propName)) {
-			setOptions(nlStr(val));
+			setOptions(nns(val));
 		} else if (VALUE_FIELD.equals(propName)) {
-			setValueField(nlStr(val));
+			setValueField(nns(val));
 		} else if (RETURN_FIELD.equals(propName)) {
-			setReturnField(nlStr(val));
+			setReturnField(nns(val));
 		} else if (LOV_GRID_HEIGHT.equals(propName)) {
 			setLovGridHeight((Integer) val);
 		} else if (LOV_HEIGHT.equals(propName)) {
 			setLovHeight((Integer) val);
 		} else if (LOV_SERVICE.equals(propName)) {
-			setLovService(nlStr(val));
+			setLovService(nns(val));
 		} else if (LOV_URL.equals(propName)) {
-			setLovUrl(nlStr(val));
+			setLovUrl(nns(val));
 		} else if (TITLE.equals(propName)) {
-			setTitle(nlStr(val));
+			setTitle(nns(val));
 		}
 	}
 
-	private String nlStr(Object val) {
-		return val == null ? "" : (String) val;
+	/**
+	 * not null string
+	 * 
+	 * @param val
+	 * @return if val is null returns ""<br/>
+	 *         else returns val.toString()
+	 */
+	private String nns(Object val) {
+		return val == null ? "" : val.toString();
 	}
 
 	public String getCheckedValue() {
@@ -162,7 +178,13 @@ public class DatasetField extends AuroraComponent {
 	}
 
 	public String getDisplayField() {
-		return displayField;
+		DataSetFieldUtil dsfu = getNewDsfUtil();
+		CompositeMap opMap = dsfu.getOptionsMap();
+		if (opMap != null) {
+			return opMap.getString("defaultDisplayField");
+		}
+		return "";
+		// return displayField;
 	}
 
 	public void setDisplayField(String displayField) {
@@ -170,7 +192,8 @@ public class DatasetField extends AuroraComponent {
 	}
 
 	public String getOptions() {
-		return options;
+		return nns(getNewDsfUtil().getOptions());
+		// return options;
 	}
 
 	public void setOptions(String options) {
@@ -178,7 +201,13 @@ public class DatasetField extends AuroraComponent {
 	}
 
 	public String getValueField() {
-		return valueField;
+		// TODO pk
+		DataSetFieldUtil dsfu = getNewDsfUtil();
+		CompositeMap opMap = dsfu.getOptionsMap();
+		if (opMap != null)
+			return nns(dsfu.getPK(opMap));
+		return "";
+		// return valueField;
 	}
 
 	public void setValueField(String valueField) {
@@ -186,7 +215,8 @@ public class DatasetField extends AuroraComponent {
 	}
 
 	public String getReturnField() {
-		return returnField;
+		return getName();
+		// return returnField;
 	}
 
 	public void setReturnField(String returnField) {
@@ -210,7 +240,8 @@ public class DatasetField extends AuroraComponent {
 	}
 
 	public String getLovService() {
-		return lovService;
+		return nns(getNewDsfUtil().getOptions());
+		// return lovService;
 	}
 
 	public void setLovService(String lovService) {
@@ -267,6 +298,25 @@ public class DatasetField extends AuroraComponent {
 
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
+	}
+
+	public void setDataset(Dataset dataset) {
+		dsfUtil = null;
+		this.dataset = dataset;
+	}
+
+	public void setName(String name) {
+		super.setName(name);
+		dsfUtil = null;
+	}
+
+	private DataSetFieldUtil getNewDsfUtil() {
+		if (dsfUtil == null) {
+			IFile file = AuroraPlugin.getActiveIFile();
+			IProject proj = file.getProject();
+			dsfUtil = new DataSetFieldUtil(proj, getName(), dataset.getModel());
+		}
+		return dsfUtil;
 	}
 
 }

@@ -6,6 +6,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
+import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 
 public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 		DatasetBinder {
@@ -95,7 +96,7 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 			DatasetField.PD_REQUIRED,
 			DatasetField.PD_READONLY,
 			new StringPropertyDescriptor(DatasetField.LOV_SERVICE,
-					"*lovService"),
+					"*lovService", true),
 			new StringPropertyDescriptor(DatasetField.TITLE, "*title") };
 	private static final IPropertyDescriptor[] pds_datepicker = new IPropertyDescriptor[] {
 			PD_PROMPT,
@@ -110,6 +111,7 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 	public Input() {
 		this.setSize(new Dimension(120, 20));
 		this.setType(TEXT);
+		setDatasetField(dsField);
 	}
 
 	public boolean isRequired() {
@@ -338,6 +340,11 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 		this.enableMonthBtn = enableMonthBtn;
 	}
 
+	public void setName(String name) {
+		super.setName(name);
+		getDatasetField().setName(name);
+	}
+
 	private int indexOf(Object[] objs, Object o) {
 		for (int i = 0; i < objs.length; i++)
 			if (objs[i].equals(o))
@@ -349,7 +356,16 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 		return this.dsField;
 	}
 
+	public void setParent(Container part) {
+		super.setParent(part);
+		if (dsField != null)
+			dsField.setDataset(DataSetFieldUtil.findDataset(getParent()));
+	}
+
 	public void setDatasetField(DatasetField field) {
 		dsField = field;
+		dsField.setName(getName());
+		dsField.setDataset(DataSetFieldUtil.findDataset(getParent()));
 	}
+
 }
