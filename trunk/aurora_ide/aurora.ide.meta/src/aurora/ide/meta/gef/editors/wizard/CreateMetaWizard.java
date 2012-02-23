@@ -5,15 +5,16 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PartInitException;
 
 import uncertain.composite.CompositeMap;
-import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.gef.editors.VScreenEditor;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
@@ -55,17 +56,22 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		EditorOpener editorOpener = new EditorOpener();
 		try {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(newPage.getPath() + "/" + newPage.getFileName()));
+			// ModelIOManager mim = ModelIOManager.getNewInstance();
+			// CompositeMap rootMap = mim.toCompositeMap(createView());
+			// String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
+			// rootMap.toXML();
 			if (!file.exists()) {
 				file.create(null, true, null);
 			}
 			VScreenEditor editor = (VScreenEditor) editorOpener.open(workbench.getActiveWorkbenchWindow().getActivePage(), file, true);
 			editor.setDiagram(createView());
 			return true;
-		} catch (Exception e) {
-			DialogUtil.showExceptionMessageBox(e);
+		} catch (PartInitException e) {
 			e.printStackTrace();
-			return false;
+		} catch (CoreException e) {
+			e.printStackTrace();
 		}
+		return false;
 	}
 
 	private ViewDiagram createView() {
@@ -102,66 +108,66 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	}
 
 	private Container createButtonRegion(ButtonRegion region) {
-		try {
-			Container container = AuroraModelFactory.createModel(region.getContainer());
-			for (int i = 0; i < region.getButtons().size(); i++) {
-				Button btn = new Button();
-				btn.getButtonClicker().setActionID(region.getButtons().get(i).getType());
-				btn.setText(region.getButtons().get(i).getText());
-				bRelation.put(btn, region.getButtons().get(i).getTarget());
-				container.addChild(btn);
-			}
-			return container;
-		} catch (Exception e) {
-			DialogUtil.showExceptionMessageBox(e);
+		Container container = AuroraModelFactory.createModel(region.getContainer());
+		for (int i = 0; i < region.getButtons().size(); i++) {
+			Button btn = new Button();
+			btn.getButtonClicker().setActionID(region.getButtons().get(i).getType());
+			btn.setText(region.getButtons().get(i).getText());
+			bRelation.put(btn, region.getButtons().get(i).getTarget());
+			container.addChild(btn);
 		}
-		return null;
+		return container;
 	}
 
 	private Container createQueryRegion(QueryRegion region) {
-		try {
-			Container container = AuroraModelFactory.createModel(region.getContainer());
-			QueryDataSet dataset = new QueryDataSet();
-			dataset.setModel(Util.toPKG(region.getModel().getModel().getFullPath()));
-			container.setDataset(dataset);
-			for (CompositeMap map : GefModelAssist.getQueryFields(GefModelAssist.getModel(region.getModel().getModel()))) {
-				Input input = new Input();
-				input.setType(GefModelAssist.getType(map));
-				input.setName(map.getString("name"));
-				input.setPrompt(map.getString("prompt"));
-				input.setType(map.getString("defaultEditor"));
-				container.addChild(input);
-			}
-			return container;
-		} catch (Exception e) {
-			DialogUtil.showExceptionMessageBox(e);
+		Container container = AuroraModelFactory.createModel(region.getContainer());
+		QueryDataSet dataset = new QueryDataSet();
+		String s = Util.toPKG(region.getModel().getModel().getFullPath());
+		if (s.endsWith(".bm")) {
+			s = s.substring(0, s.lastIndexOf(".bm"));
 		}
-		return null;
+		dataset.setModel(s);
+		container.setDataset(dataset);
+		for (CompositeMap map : GefModelAssist.getQueryFields(GefModelAssist.getModel(region.getModel().getModel()))) {
+			Input input = createInput(region, map);
+			container.addChild(input);
+		}
+		return container;
 	}
 
 	private Container createResultRegion(ResultRegion region) {
-		try {
-			if ("Grid".equalsIgnoreCase(region.getContainer())) {
-				return createGrid(region);
-			} else {
-				Container container = AuroraModelFactory.createModel(region.getContainer());
-				QueryDataSet dataset = new QueryDataSet();
-				dataset.setModel(Util.toPKG(region.getModel().getModel().getFullPath()));
-				container.setDataset(dataset);
-				for (CompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(region.getModel().getModel()))) {
-					Input input = new Input();
-					input.setType(GefModelAssist.getType(map));
-					input.setName(map.getString("name") == null ? "" : map.getString("name"));
-					input.setPrompt(map.getString("prompt") == null ? "prompt" : map.getString("prompt"));
-					container.addChild(input);
-				}
-				return container;
+		if ("Grid".equalsIgnoreCase(region.getContainer())) {
+			return createGrid(region);
+		} else {
+			Container container = AuroraModelFactory.createModel(region.getContainer());
+			QueryDataSet dataset = new QueryDataSet();
+			String s = Util.toPKG(region.getModel().getModel().getFullPath());
+			if (s.endsWith(".bm")) {
+				s = s.substring(0, s.lastIndexOf(".bm"));
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			dataset.setModel(s);
+			container.setDataset(dataset);
+			for (CompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(region.getModel().getModel()))) {
+				Input input = createInput(region, map);
+				container.addChild(input);
+			}
+			return container;
 		}
+	}
 
-		return null;
+	private Input createInput(Region region, CompositeMap map) {
+		Input input = new Input();
+		if (map.getString("defaultEditor") != null) {
+			input.setType(map.getString("defaultEditor"));
+		} else {
+			input.setType(GefModelAssist.getType(map));
+		}
+		CompositeMap fieldMap = GefModelAssist.getCompositeMap(GefModelAssist.getModel(region.getModel().getModel()).getChild("fields"), "name", map.getString("field"));
+		if (fieldMap != null) {
+			input.setName(fieldMap.getString("name"));
+			input.setPrompt(fieldMap.getString("prompt"));
+		}
+		return input;
 	}
 
 	private Container createGrid(ResultRegion region) {
@@ -179,11 +185,17 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));
 			gc.setPrompt(map.getString("prompt"));
-			gc.setEditor(map.getString("defaultEditor"));
+			if (map.getString("defaultEditor") != null) {
+				gc.setEditor(map.getString("defaultEditor"));
+			}
 			grid.addCol(gc);
 		}
 		ResultDataSet dataset = new ResultDataSet();
-		dataset.setModel(Util.toPKG(region.getModel().getModel().getFullPath()));
+		String s = Util.toPKG(region.getModel().getModel().getFullPath());
+		if (s.endsWith(".bm")) {
+			s = s.substring(0, s.lastIndexOf(".bm"));
+		}
+		dataset.setModel(s);
 		grid.setDataset(dataset);
 		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
 		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);

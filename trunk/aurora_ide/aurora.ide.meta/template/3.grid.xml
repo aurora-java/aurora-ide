@@ -4,7 +4,7 @@
 		<model id="model.id" name="model.name"/>
 	</models>
 	
-	<result name="result.name" id="result.id"  container="Grid" model="model.id" />
+	<result name="数据显示" id="result.id"  container="Grid" model="model.id" />
 
 	<description><![CDATA[
 		创建一个Grid显示数据

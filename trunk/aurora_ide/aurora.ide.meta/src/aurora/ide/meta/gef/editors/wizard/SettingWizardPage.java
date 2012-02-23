@@ -104,7 +104,16 @@ public class SettingWizardPage extends WizardPage {
 		Map<Model, List<Region>> relation = getRelation(template);
 		for (final Model model : template.getModels()) {
 			if (relation.get(model) != null && relation.get(model).size() > 0) {
-				Region r = relation.get(model).get(0);
+				Region r = null;
+				for (int i = 0; i < relation.get(model).size(); i++) {
+					if (!(relation.get(model).get(i) instanceof ButtonRegion)) {
+						r = relation.get(model).get(i);
+						break;
+					}
+				}
+				if (r == null) {
+					continue;
+				}
 				Label lbl = new Label(composite, SWT.NONE);
 				lbl.setText(r.getName());
 				lbl = new Label(composite, SWT.NONE);
@@ -136,6 +145,9 @@ public class SettingWizardPage extends WizardPage {
 				final List<Text> txts = new ArrayList<Text>();
 				for (int i = 1; i < relation.get(model).size(); i++) {
 					r = relation.get(model).get(i);
+					if (r instanceof ButtonRegion) {
+						continue;
+					}
 					lbl = new Label(composite, SWT.NONE);
 					lbl.setText(r.getName());
 					lbl = new Label(composite, SWT.NONE);
