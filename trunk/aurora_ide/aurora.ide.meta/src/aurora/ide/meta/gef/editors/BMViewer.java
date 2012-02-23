@@ -55,7 +55,6 @@ public class BMViewer {
 		public IFile parent;
 		public CompositeMap fieldMap;
 		public String editor;
-
 		public String getName() {
 			return fieldMap.get("name").toString();
 		}
@@ -70,7 +69,16 @@ public class BMViewer {
 		}
 
 		public Object[] getElements(Object inputElement) {
+			IProject auroraProject = getAuroraProject();
+			if (auroraProject == null) {
+				return new String[] { "未设置关联aurora工程" };
+			}
+
 			if (inputElement instanceof ViewDiagram) {
+				if (!((ViewDiagram) inputElement).isBindTemplate()) {
+					return new String[] { "未绑定模版" };
+				}
+
 				List<IFile> modelFiles = getModelFiles((ViewDiagram) inputElement);
 				return modelFiles.toArray(new IFile[modelFiles.size()]);
 			}
@@ -183,6 +191,9 @@ public class BMViewer {
 			}
 			if (element instanceof ModelField) {
 				return ((ModelField) element).getName();
+			}
+			if (element instanceof String) {
+				return element.toString();
 			}
 			return null;
 		}

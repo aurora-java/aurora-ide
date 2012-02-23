@@ -81,7 +81,7 @@ public class ScreenGenerator {
 			}
 			if (ac instanceof Container) {
 				fill((Container) ac, childMap);
-				fillDatasets((Container) ac, datasets);
+				fillDatasets((Container) ac);
 			}
 			if (ac instanceof DatasetBinder) {
 				bindDataset(container, ac, childMap, datasets);
@@ -194,16 +194,13 @@ public class ScreenGenerator {
 		return columns;
 	}
 
-	private void fillDatasets(Container ac, CompositeMap datasets) {
-		if (Container.SECTION_TYPE_QUERY.equals(ac.getSectionType())
-				|| Container.SECTION_TYPE_RESULT.equals(ac.getSectionType())) {
-			Dataset dataset = ac.getDataset();
-			fillDatasets(datasets, dataset);
-		}
+	public CompositeMap fillDatasets(Container ac) {
+		Dataset dataset = findDataset(ac);
+		return fillDatasets(datasets, dataset);
 	}
 
-	public CompositeMap fillDatasets(CompositeMap datasets, Dataset dataset) {
-		if (dataset == null || dataset.isUseParentBM())
+	private CompositeMap fillDatasets(CompositeMap datasets, Dataset dataset) {
+		if (dataset == null)
 			return null;
 		String dsID = this.datasetMap.get(dataset);
 		if (dsID == null) {
@@ -223,7 +220,7 @@ public class ScreenGenerator {
 			QueryContainer qs = (QueryContainer) dataset
 					.getPropertyValue(ResultDataSet.QUERY_CONTAINER);
 			if (qs != null) {
-				Dataset ds = qs.getTarget().getDataset();
+				Dataset ds = this.findDataset(qs.getTarget());
 				Object qds = this.fillDatasets(ds).get("id");
 				rds.put(ResultDataSet.QUERY_DATASET, qds.toString());
 			}
@@ -234,7 +231,7 @@ public class ScreenGenerator {
 		return dsMap;
 	}
 
-	public CompositeMap fillDatasets(Dataset dataset) {
+	private CompositeMap fillDatasets(Dataset dataset) {
 		return this.fillDatasets(datasets, dataset);
 	}
 
@@ -293,11 +290,20 @@ public class ScreenGenerator {
 		Dataset dataset = container.getDataset();
 		if (dataset == null)
 			return null;
-		boolean useParentBM = dataset.isUseParentBM();
+		boolean useParentBM = isUseParentBM(container, dataset);
 		if (useParentBM) {
 			return findDataset(container.getParent());
 		}
 		return dataset;
+	}
+
+	private boolean isUseParentBM(Container container, Dataset dataset) {
+		if (Container.SECTION_TYPE_QUERY.equals(container.getSectionType())
+				|| Container.SECTION_TYPE_RESULT.equals(container
+						.getSectionType())) {
+			return false;
+		}
+		return dataset == null;
 	}
 
 	public IDGenerator getIdGenerator() {

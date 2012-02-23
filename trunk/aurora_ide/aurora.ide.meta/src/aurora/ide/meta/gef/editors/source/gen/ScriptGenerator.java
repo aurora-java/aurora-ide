@@ -157,9 +157,10 @@ public class ScriptGenerator {
 				|| ButtonClicker.B_RESET.equals(actionID)) {
 			AuroraComponent targetComponent = bc.getTargetComponent();
 			if (targetComponent instanceof Container) {
-				Dataset dataset = ((Container) targetComponent).getDataset();
-				CompositeMap dsMap = this.sg.fillDatasets(dataset);
-				return dsMap.get("id").toString();
+				CompositeMap dsMap = this.sg
+						.fillDatasets((Container) targetComponent);
+				if (dsMap != null)
+					return dsMap.getString("id");
 			}
 		}
 		return null;
