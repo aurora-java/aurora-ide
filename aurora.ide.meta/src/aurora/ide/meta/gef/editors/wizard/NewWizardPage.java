@@ -68,7 +68,7 @@ public class NewWizardPage extends WizardPage {
 			r = (IResource) ts.getFirstElement();
 		}
 		try {
-			if (r != null) {
+			if (r == null) {
 				r = (IResource) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
 			}
 		} catch (NullPointerException e) {
