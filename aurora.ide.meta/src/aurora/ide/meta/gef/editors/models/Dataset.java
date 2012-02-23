@@ -71,7 +71,7 @@ public class Dataset extends AuroraComponent {
 		} else if ("USE4QUERY".equals(propName)) {
 			setUse4Query((Boolean) val);
 		} else if ("USEPARENTBM".equals(propName)) {
-			setUseParentBM((Boolean) val);
+//			setUseParentBM((Boolean) val);
 		}
 	}
 
@@ -117,13 +117,13 @@ public class Dataset extends AuroraComponent {
 		this.isUse4Query = isUse4Query;
 	}
 
-	public boolean isUseParentBM() {
-		// TODO
-		return null == this.model || "".equals(model.trim());
-		// return isUseParentBM;
-	}
-
-	public void setUseParentBM(boolean isUseParentBM) {
-		this.isUseParentBM = isUseParentBM;
-	}
+//	public boolean isUseParentBM() {
+//		// TODO
+//		return null == this.model || "".equals(model.trim());
+//		// return isUseParentBM;
+//	}
+//
+//	public void setUseParentBM(boolean isUseParentBM) {
+//		this.isUseParentBM = isUseParentBM;
+//	}
 }

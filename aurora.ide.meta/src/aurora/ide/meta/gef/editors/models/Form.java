@@ -8,7 +8,7 @@ public class Form extends BOX {
 
 	public Form() {
 		setTitle("Form");
-		this.getDataset().setUseParentBM(false);
+//		this.getDataset().setUseParentBM(false);
 		this.setType("form");
 	}
 
