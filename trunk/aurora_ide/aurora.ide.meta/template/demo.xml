@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<templates>
-	<template name="%screenName" description="%screenDesc" id="aurora.ide.new_screen" context="aurora.ide.new_screen" enabled="true">%Templates.new_screen</template>
-	<template name="%signName" description="%signDesc" id="aurora.ide.sign" context="aurora.ide.sign" enabled="true">%template.sign</template>
-</templates>
