@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -63,16 +64,22 @@ public class NewWizardPage extends WizardPage {
 		setDescription("通过模板创建meta文件");
 		setPageComplete(false);
 		IResource r = null;
-		TreeSelection ts = (TreeSelection) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
-		if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
-			r = (IResource) ts.getFirstElement();
+		try {
+			StructuredSelection ts = (StructuredSelection) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
+			if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
+				r = (IResource) ts.getFirstElement();
+			}
+		} catch (NullPointerException e1) {
+			r = null;
 		}
 		try {
-			if (r == null) {
+			if (r == null || (r != null && !r.getProject().hasNature("aurora.ide.meta.nature"))) {
 				r = (IResource) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
 			}
 		} catch (NullPointerException e) {
 			r = null;
+		} catch (CoreException e) {
+			e.printStackTrace();
 		}
 		try {
 			if (r != null && r.getProject().hasNature("aurora.ide.meta.nature")) {
