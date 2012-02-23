@@ -4,14 +4,14 @@
 		<model id="model.id" name="model.name"/>
 	</models>
 	
-	<query name="head" id="query.id" container="form" model="model.id"/>
+	<query name="查询" id="query.id" container="form" model="model.id"/>
 
-	<buttons name="buttons.name" id="buttons.id" container="hbox" model="model.id">
+	<buttons name="按钮" id="buttons.id" container="hbox" model="model.id">
 		<button type="query" text="查询" target="result.id"/>
 		<button type="reset" text="重置" target="query.id"/>
 	</buttons>
 
-	<result name="row" id="result.id"  container="Grid" model="model.id" query="query.id"/>
+	<result name="结果显示" id="result.id"  container="Grid" model="model.id" query="query.id"/>
 
 	<description><![CDATA[
 		创建一个查询和显示结果的视图

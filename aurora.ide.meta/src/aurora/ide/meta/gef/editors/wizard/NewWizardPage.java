@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -61,13 +62,23 @@ public class NewWizardPage extends WizardPage {
 		setTitle("meta文件向导");
 		setDescription("通过模板创建meta文件");
 		setPageComplete(false);
+		IResource r = null;
+		TreeSelection ts = (TreeSelection) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
+		if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
+			r = (IResource) ts.getFirstElement();
+		}
 		try {
-			IFile file = (IFile) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
-			if (file.getProject().hasNature("aurora.ide.meta.nature")) {
-				metaProject = file.getProject();
-				initTemplates();
+			if (r != null) {
+				r = (IResource) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
 			}
 		} catch (NullPointerException e) {
+			r = null;
+		}
+		try {
+			if (r != null && r.getProject().hasNature("aurora.ide.meta.nature")) {
+				metaProject = r.getProject();
+				initTemplates();
+			}
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}

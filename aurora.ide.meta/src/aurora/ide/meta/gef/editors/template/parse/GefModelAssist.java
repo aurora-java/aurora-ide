@@ -12,6 +12,7 @@ import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.search.cache.CacheManager;
 
 public class GefModelAssist {
+
 	public static String getType(CompositeMap field) {
 		if (field == null) {
 			return Input.TEXT;
@@ -68,5 +69,15 @@ public class GefModelAssist {
 			return fields;
 		}
 		return new ArrayList<CompositeMap>();
+	}
+
+	public static CompositeMap getCompositeMap(CompositeMap parent, String name, String value) {
+		for (Object obj : parent.getChildsNotNull()) {
+			CompositeMap map = (CompositeMap) obj;
+			if (map.getString(name) != null && (map).getString(name).equals(value)) {
+				return map;
+			}
+		}
+		return null;
 	}
 }
