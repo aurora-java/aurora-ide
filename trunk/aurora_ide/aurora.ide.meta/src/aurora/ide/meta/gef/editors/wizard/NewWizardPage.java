@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -54,6 +53,7 @@ public class NewWizardPage extends WizardPage {
 	private Button btnLeft;
 
 	private IProject metaProject;
+	private IFolder metaFolder;
 	private java.util.List<Template> templates = new ArrayList<Template>();
 	private Template template;
 	private int index;
@@ -68,9 +68,14 @@ public class NewWizardPage extends WizardPage {
 			StructuredSelection ts = (StructuredSelection) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
 			if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
 				r = (IResource) ts.getFirstElement();
+				if (r.getProject().hasNature("aurora.ide.meta.nature") && (r instanceof IFolder) && r.getFullPath().toString().indexOf("screen") != -1) {
+					metaFolder = (IFolder) r;
+				}
 			}
 		} catch (NullPointerException e1) {
 			r = null;
+		} catch (CoreException e) {
+			e.printStackTrace();
 		}
 		try {
 			if (r == null || (r != null && !r.getProject().hasNature("aurora.ide.meta.nature"))) {
@@ -141,8 +146,9 @@ public class NewWizardPage extends WizardPage {
 		txtFile = new Text(composite, SWT.BORDER);
 		txtFile.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		new Label(composite, SWT.NONE);
-
-		if (metaProject != null) {
+		if (metaFolder != null) {
+			txtPath.setText(metaFolder.getFullPath().toString());
+		} else if (metaProject != null) {
 			txtPath.setText(metaProject.getName() + "/screen");
 		}
 
