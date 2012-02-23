@@ -269,10 +269,12 @@ public class ScreenGenerator {
 					ac.getPropertyValue(AuroraComponent.NAME));
 		}
 		if (ac instanceof IDatasetFieldDelegate) {
-			field.put(AuroraComponent.READONLY,
-					ac.getPropertyValue(AuroraComponent.READONLY));
-			field.put(AuroraComponent.REQUIRED,
-					ac.getPropertyValue(AuroraComponent.REQUIRED));
+			Object readonly = ac.getPropertyValue(AuroraComponent.READONLY);
+			if (Boolean.TRUE.equals(readonly))
+				field.put(AuroraComponent.READONLY, readonly);
+			Object required = ac.getPropertyValue(AuroraComponent.REQUIRED);
+			if (Boolean.TRUE.equals(required))
+				field.put(AuroraComponent.REQUIRED, required);
 		}
 
 		// lov,combox 特殊处理
