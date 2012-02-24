@@ -20,8 +20,7 @@ public class BOX extends RowCol {
 	protected static final IPropertyDescriptor PD_LABELWIDTH = new IntegerPropertyDescriptor(
 			LABELWIDTH, "LabelWidth");
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
-			PD_PROMPT, PD_TITLE, PD_WIDTH, PD_HEIGHT, PD_ROW, PD_COL,
-			PD_LABELWIDTH };
+			PD_PROMPT, PD_TITLE, PD_WIDTH, PD_HEIGHT, PD_COL, PD_LABELWIDTH };
 	/**
 	 * 
 	 */
