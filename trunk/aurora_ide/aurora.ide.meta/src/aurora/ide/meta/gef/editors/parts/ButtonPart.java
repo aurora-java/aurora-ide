@@ -1,14 +1,13 @@
 package aurora.ide.meta.gef.editors.parts;
 
-import aurora.ide.meta.gef.editors.figures.ButtonFigure;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.policies.NodeDirectEditPolicy;
-import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.gef.EditPolicy;
+
+import aurora.ide.meta.gef.editors.figures.ButtonFigure;
+import aurora.ide.meta.gef.editors.models.Button;
+import aurora.ide.meta.gef.editors.policies.NodeDirectEditPolicy;
+import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
 
 public class ButtonPart extends ComponentPart {
 
@@ -21,7 +20,6 @@ public class ButtonPart extends ComponentPart {
 		ButtonFigure buttonFigure = new ButtonFigure();
 		Button model = getModel();
 		buttonFigure.setModel(model);
-		model.setParent((AuroraComponent) getParent().getModel());
 		return buttonFigure;
 	}
 
