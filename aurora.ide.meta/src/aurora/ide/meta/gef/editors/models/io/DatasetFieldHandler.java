@@ -5,11 +5,8 @@ import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.DatasetField;
 
 public class DatasetFieldHandler implements IOHandler {
-	static final String[] keys = { DatasetField.DISPLAY_FIELD,
-			DatasetField.VALUE_FIELD, DatasetField.RETURN_FIELD,
-			DatasetField.OPTIONS, DatasetField.LOV_GRID_HEIGHT,
-			DatasetField.LOV_HEIGHT, DatasetField.LOV_SERVICE,
-			DatasetField.LOV_URL, DatasetField.TITLE,
+	static final String[] keys = { DatasetField.LOV_GRID_HEIGHT,
+			DatasetField.LOV_HEIGHT, DatasetField.LOV_URL, DatasetField.TITLE,
 			DatasetField.CHECKED_VALUE, DatasetField.UNCHECKED_VALUE };
 
 	public CompositeMap toCompositeMap(AuroraComponent ac, ModelIOContext mic) {
