@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -65,11 +66,14 @@ public class NewWizardPage extends WizardPage {
 		setPageComplete(false);
 		IResource r = null;
 		try {
-			StructuredSelection ts = (StructuredSelection) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
-			if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
-				r = (IResource) ts.getFirstElement();
-				if (r.getProject().hasNature("aurora.ide.meta.nature") && (r instanceof IFolder) && r.getFullPath().toString().indexOf("screen") != -1) {
-					metaFolder = (IFolder) r;
+			ISelection obj = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
+			if (obj instanceof StructuredSelection) {
+				StructuredSelection ts = (StructuredSelection) obj;
+				if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
+					r = (IResource) ts.getFirstElement();
+					if (r.getProject().hasNature("aurora.ide.meta.nature") && (r instanceof IFolder) && r.getFullPath().toString().indexOf("screen") != -1) {
+						metaFolder = (IFolder) r;
+					}
 				}
 			}
 		} catch (NullPointerException e1) {
