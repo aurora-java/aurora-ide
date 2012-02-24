@@ -7,10 +7,12 @@
             finalPerspective="aurora.ide.perspectives.AuroraPerspective" 
             icon="icons/aurora.gif" id="aurora.ide.wizard.meta.ProjectWizard" 
             name="Aurora 原型工程" project="true"/>
-        <wizard category="aurora.ide.wizard" 
-            class="aurora.ide.meta.gef.editors.wizard.CreateMetaWizard" 
-            id="aurora.ide.wizard.CreateFormGridWizard" 
-            name="Meta文件">
+        <wizard
+              category="aurora.ide.wizard"
+              class="aurora.ide.meta.gef.editors.wizard.CreateMetaWizard"
+              icon="icons/meta.png"
+              id="aurora.ide.wizard.CreateFormGridWizard"
+              name="Meta文件">
         </wizard>
     </extension>
      
@@ -18,11 +20,12 @@
          id="aurora.meta.gef.editor"
          point="org.eclipse.ui.editors">
       <editor
-            default="true"
-            name="Aurora UI Designer"
-            extensions="meta"
             class="aurora.ide.meta.gef.editors.VScreenEditor"
-            id="aurora.ide.meta.gef.editors.VScreenEditor">
+            default="true"
+            extensions="meta"
+            icon="icons/meta.png"
+            id="aurora.ide.meta.gef.editors.VScreenEditor"
+            name="Aurora UI Designer">
       </editor>
       <!--
       <editor
