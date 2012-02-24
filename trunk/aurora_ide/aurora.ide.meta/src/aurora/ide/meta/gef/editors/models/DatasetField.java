@@ -179,6 +179,8 @@ public class DatasetField extends AuroraComponent {
 
 	public String getDisplayField() {
 		DataSetFieldUtil dsfu = getNewDsfUtil();
+		if (dsfu == null)
+			return "";
 		CompositeMap opMap = dsfu.getOptionsMap();
 		if (opMap != null) {
 			return opMap.getString("defaultDisplayField");
@@ -192,7 +194,10 @@ public class DatasetField extends AuroraComponent {
 	}
 
 	public String getOptions() {
-		return nns(getNewDsfUtil().getOptions());
+		DataSetFieldUtil dsfu = getNewDsfUtil();
+		if (dsfu != null)
+			return nns(getNewDsfUtil().getOptions());
+		return "";
 		// return options;
 	}
 
@@ -203,6 +208,8 @@ public class DatasetField extends AuroraComponent {
 	public String getValueField() {
 		// TODO pk
 		DataSetFieldUtil dsfu = getNewDsfUtil();
+		if (dsfu == null)
+			return "";
 		CompositeMap opMap = dsfu.getOptionsMap();
 		if (opMap != null)
 			return nns(dsfu.getPK(opMap));
@@ -240,7 +247,10 @@ public class DatasetField extends AuroraComponent {
 	}
 
 	public String getLovService() {
-		return nns(getNewDsfUtil().getOptions());
+		DataSetFieldUtil dsfu = getNewDsfUtil();
+		if (dsfu != null)
+			return nns(dsfu.getOptions());
+		return "";
 		// return lovService;
 	}
 
@@ -313,6 +323,8 @@ public class DatasetField extends AuroraComponent {
 	private DataSetFieldUtil getNewDsfUtil() {
 		if (dsfUtil == null) {
 			IFile file = AuroraPlugin.getActiveIFile();
+			if (file == null)
+				return null;
 			IProject proj = file.getProject();
 			dsfUtil = new DataSetFieldUtil(proj, getName(), dataset.getModel());
 		}

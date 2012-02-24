@@ -1,11 +1,14 @@
 package aurora.ide.meta.gef.editors.source.gen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
@@ -14,6 +17,8 @@ import uncertain.composite.IterationHandle;
 import uncertain.schema.Attribute;
 import aurora.ide.bm.BMUtil;
 import aurora.ide.builder.SxsdUtil;
+import aurora.ide.helpers.ApplicationException;
+import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.project.AuroraMetaProject;
@@ -53,7 +58,15 @@ public class DataSetFieldUtil {
 						.parseStream(file.getContents());
 				return map;
 			}
-		} catch (Exception e) {
+		} catch (ResourceNotFoundException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
 		return null;
