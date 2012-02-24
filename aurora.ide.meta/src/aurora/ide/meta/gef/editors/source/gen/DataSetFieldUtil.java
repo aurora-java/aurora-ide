@@ -119,7 +119,6 @@ public class DataSetFieldUtil {
 		final String pk[] = { null };
 		bmMap.iterate(new IterationHandle() {
 
-			@Override
 			public int process(CompositeMap map) {
 				if (map.getName().equalsIgnoreCase("pk-field")) {
 					pk[0] = map.getString("name");
@@ -135,7 +134,6 @@ public class DataSetFieldUtil {
 		final ArrayList<CompositeMap> als = new ArrayList<CompositeMap>();
 		bmMap.iterate(new IterationHandle() {
 
-			@Override
 			public int process(CompositeMap map) {
 				try {
 					List<Attribute> list = SxsdUtil.getAttributesNotNull(map);
