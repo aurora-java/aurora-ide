@@ -312,8 +312,8 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 		return true;
 	}
 
-	private static final String[] copyFiles = { "query_result.xml", "grid.xml",
-			"query.xml", "thumbnails/grid.png", "thumbnails/query_result.jpg",
+	private static final String[] copyFiles = { "1.query_result.xml", "2.grid.xml",
+			"3.query.xml", "thumbnails/grid.png", "thumbnails/query_result.jpg",
 			"thumbnails/query.png" };
 
 	private void copyTemplateFile() {
