@@ -63,5 +63,23 @@
     	 icon="icons/aurora8x8.png">
   		</image>
  	</extension>
+ 	
+ 	<extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="Aurora原型工程"
+            visible="true"
+            id="aurora.meta.project.actionset">
+        
+         <action
+               label="生成Aurora代码"
+               icon="icons/aurora.gif"
+               class="aurora.ide.meta.action.SourceCodeGenerator"
+               tooltip="生成Aurora代码"
+               toolbarPath="Aurora\meta"
+               id="aurora.ide.meta.action.SourceCodeGenerator">
+         </action>
+      </actionSet>
+   </extension>
     
 </plugin>

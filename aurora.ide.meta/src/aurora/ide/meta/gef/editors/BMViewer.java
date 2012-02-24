@@ -181,7 +181,7 @@ public class BMViewer {
 				return ImagesUtils.getImage("palette/itembar_04.png");
 			if (Input.NUMBER.equalsIgnoreCase(type))
 				return ImagesUtils.getImage("palette/itembar_05.png");
-			return null;
+			return  ImagesUtils.getImage("palette/itembar_04.png");
 		}
 
 		public final String getText(Object element) {
