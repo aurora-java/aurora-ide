@@ -1,21 +1,27 @@
 package aurora.ide.meta.gef.editors.wizard;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.ide.undo.CreateFileOperation;
+import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
 import uncertain.composite.CompositeMap;
-import aurora.ide.meta.gef.editors.VScreenEditor;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.Container;
@@ -26,6 +32,7 @@ import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.template.ButtonRegion;
 import aurora.ide.meta.gef.editors.template.QueryRegion;
 import aurora.ide.meta.gef.editors.template.Region;
@@ -54,21 +61,29 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	@Override
 	public boolean performFinish() {
 		EditorOpener editorOpener = new EditorOpener();
-		try {
-			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(newPage.getPath() + "/" + newPage.getFileName()));
-			// ModelIOManager mim = ModelIOManager.getNewInstance();
-			// CompositeMap rootMap = mim.toCompositeMap(createView());
-			// String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
-			// rootMap.toXML();
-			if (!file.exists()) {
-				file.create(null, true, null);
+		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(newPage.getPath() + "/" + newPage.getFileName()));
+		CompositeMap rootMap = ModelIOManager.getNewInstance().toCompositeMap(createView());
+		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + rootMap.toXML();
+		InputStream is = new ByteArrayInputStream(xml.getBytes());
+		final CreateFileOperation cfo = new CreateFileOperation(file, null, is, "create template.");
+		IRunnableWithProgress op = new IRunnableWithProgress() {
+			public void run(IProgressMonitor monitor) {
+				try {
+					cfo.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
 			}
-			VScreenEditor editor = (VScreenEditor) editorOpener.open(workbench.getActiveWorkbenchWindow().getActivePage(), file, true);
-			editor.setDiagram(createView());
+		};
+		try {
+			getContainer().run(true, true, op);
+			editorOpener.open(workbench.getActiveWorkbenchWindow().getActivePage(), file, true);
 			return true;
-		} catch (PartInitException e) {
+		} catch (InvocationTargetException e) {
 			e.printStackTrace();
-		} catch (CoreException e) {
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (PartInitException e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -166,6 +181,9 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		if (fieldMap != null) {
 			input.setName(fieldMap.getString("name"));
 			input.setPrompt(fieldMap.getString("prompt"));
+		} else {
+			input.setName(map.getString("name"));
+			input.setPrompt(map.getString("prompt"));
 		}
 		return input;
 	}
