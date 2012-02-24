@@ -29,7 +29,8 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 	private static final String[] CASE_TYPES = { CASE_ANY, CASE_UPPER,
 			CASE_LOWER };
 	private static final String[] CAL_ENABLES = { "pre", "next", "both", "none" };
-
+	public static final String[] INPUT_TYPES = { TEXT, NUMBER, Combo, LOV, CAL,
+		DATETIMEPICKER, CheckBox.CHECKBOX };
 	// property key
 	// number
 	public static final String ALLOWDECIMALS = "allowDecimals";
