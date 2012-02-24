@@ -221,9 +221,14 @@ public class ScreenGenerator {
 			QueryContainer qs = (QueryContainer) dataset
 					.getPropertyValue(ResultDataSet.QUERY_CONTAINER);
 			if (qs != null) {
-				Dataset ds = this.findDataset(qs.getTarget());
-				Object qds = this.fillDatasets(ds).get("id");
-				rds.put(ResultDataSet.QUERY_DATASET, qds.toString());
+				Container target = qs.getTarget();
+				if (target != null) {
+					Dataset ds = this.findDataset(target);
+					Object qds = this.fillDatasets(ds).get("id");
+					rds.put(ResultDataSet.QUERY_DATASET, qds.toString());
+				} else {
+					rds.put("loadData", true);
+				}
 			}
 
 			datasets.addChild(rds);
@@ -275,6 +280,8 @@ public class ScreenGenerator {
 	}
 
 	private Dataset findDataset(Container container) {
+		if (container == null)
+			return null;
 		Dataset dataset = container.getDataset();
 		if (dataset == null)
 			return null;
@@ -305,6 +312,5 @@ public class ScreenGenerator {
 	public void setProject(IProject project) {
 		this.project = project;
 	}
-	
-	
+
 }
