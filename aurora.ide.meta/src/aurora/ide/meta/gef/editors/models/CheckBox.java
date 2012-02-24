@@ -13,7 +13,6 @@ public class CheckBox extends Input {
 	private String text = "text";
 	public static final String CHECKBOX = "checkBox";
 
-	private DatasetField dsField = new DatasetField();
 	public static final IPropertyDescriptor PD_TEXT = new StringPropertyDescriptor(
 			TEXT, TEXT);
 	public static final IPropertyDescriptor PD_CHECKED_VALUE = new StringPropertyDescriptor(
@@ -54,7 +53,7 @@ public class CheckBox extends Input {
 		else if (DatasetField.UNCHECKED_VALUE.equals(propName)
 				|| DatasetField.CHECKED_VALUE.equals(propName)
 				|| DatasetField.DEFAULT_VALUE.equals(propName)) {
-			return dsField.getPropertyValue(propName);
+			return getDatasetField().getPropertyValue(propName);
 		}
 		return super.getPropertyValue(propName);
 	}
@@ -66,26 +65,24 @@ public class CheckBox extends Input {
 		else if (DatasetField.UNCHECKED_VALUE.equals(propName)
 				|| DatasetField.CHECKED_VALUE.equals(propName)
 				|| DatasetField.DEFAULT_VALUE.equals(propName)) {
-			dsField.setPropertyValue(propName, val);
+			getDatasetField().setPropertyValue(propName, val);
 		} else
 			super.setPropertyValue(propName, val);
 	}
 
-	@Override
-	public DatasetField getDatasetField() {
-		return dsField;
-	}
-
-
 	public void setParent(Container part) {
 		super.setParent(part);
-		if (dsField != null)
-			dsField.setDataset(DataSetFieldUtil.findDataset(getParent()));
+		if (getDatasetField() != null)
+			getDatasetField().setDataset(
+					DataSetFieldUtil.findDataset(getParent()));
 	}
 
 	public void setDatasetField(DatasetField field) {
-		dsField = field;
-		dsField.setName(getName());
-		dsField.setDataset(DataSetFieldUtil.findDataset(getParent()));
+		field.setName(getName());
+		field.setDataset(DataSetFieldUtil.findDataset(getParent()));
+		field.setCheckedValue("Y");
+		field.setUncheckedValue("N");
+		field.setDefaultValue("N");
+		super.setDatasetField(field);
 	}
 }
