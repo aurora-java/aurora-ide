@@ -101,7 +101,6 @@ public class ProjectGenerator {
 					}
 				}
 				return Status.OK_STATUS;
-
 			}
 
 			private void updateMonitor(final IProgressMonitor monitor,
@@ -184,7 +183,7 @@ public class ProjectGenerator {
 	private void processFile(IFile fCurrentFile, IProgressMonitor monitor)
 			throws InvocationTargetException {
 		ViewDiagram loadFile = this.loadFile(fCurrentFile);
-		ScreenGenerator sg = new ScreenGenerator();
+		ScreenGenerator sg = new ScreenGenerator(project);
 		try {
 
 			String genFile = sg.genFile(loadFile);

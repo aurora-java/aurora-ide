@@ -7,6 +7,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.GridColumn;
+import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 
 public class GridColumnMap extends AbstractComponentMap {
@@ -28,14 +29,33 @@ public class GridColumnMap extends AbstractComponentMap {
 
 			boolean isKey = this.isCompositMapKey(id.toString());
 			if (isKey) {
-				Object value = c.getPropertyValue(id).toString();
+				Object value = c.getPropertyValue(id);
 
 				if (value != null && !("".equals(value)))
 					map.putString(id, value.toString());
 			}
 		}
+		if (isCombo() || isLov()) {
+			map.putString("name", c.getName() + "_display");
+		}
 		return map;
 	}
+
+	private boolean isCombo() {
+
+		if (c instanceof GridColumn) {
+			return Input.Combo.equals(((GridColumn) c).getEditor());
+		}
+		return false;
+	}
+
+	private boolean isLov() {
+		if (c instanceof GridColumn) {
+			return Input.Combo.equals(((GridColumn) c).getEditor());
+		}
+		return false;
+	}
+
 	static private List<String> keys = new ArrayList<String>() {
 		/**
 		 * 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
@@ -33,6 +34,11 @@ public class ScreenGenerator {
 	private CompositeMap datasets;
 
 	private Map<Dataset, String> datasetMap = new HashMap<Dataset, String>();
+	private IProject project;
+
+	public ScreenGenerator(IProject project) {
+		this.project = project;
+	}
 
 	public String genFile(ViewDiagram view) throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
@@ -64,7 +70,6 @@ public class ScreenGenerator {
 		for (AuroraComponent ac : children) {
 			CompositeMap childMap = a2Map.toCompositMap(ac);
 			if (childMap == null) {
-				System.out.println(ac.getType());
 				continue;
 			}
 			if (ac instanceof GridColumn && container instanceof Grid) {
@@ -172,12 +177,6 @@ public class ScreenGenerator {
 		return findGridMap(containerMap.getParent());
 	}
 
-	// <a:editors>
-	// <a:textField id="editor_tf_2"/>
-	// <a:datePicker id="editor_dp_2"/>
-	// <a:comboBox id="editor_cb_2"/>
-	// <a:lov id="editor_lov_2"/>
-	// </a:editors>
 	public CompositeMap getEditors(CompositeMap gridMap) {
 		CompositeMap editors = gridMap.getChild("editors");
 		if (editors == null) {
@@ -263,6 +262,7 @@ public class ScreenGenerator {
 		if (fields == null) {
 			fields = dsMap.createChild("fields");
 		}
+
 		CompositeMap field = fields.getChildByAttrib(AuroraComponent.NAME,
 				ac.getPropertyValue(AuroraComponent.NAME));
 		if (field == null) {
@@ -270,23 +270,7 @@ public class ScreenGenerator {
 			field.put(AuroraComponent.NAME,
 					ac.getPropertyValue(AuroraComponent.NAME));
 		}
-		if (ac instanceof IDatasetFieldDelegate) {
-			Object readonly = ac.getPropertyValue(AuroraComponent.READONLY);
-			if (Boolean.TRUE.equals(readonly))
-				field.put(AuroraComponent.READONLY, readonly);
-			Object required = ac.getPropertyValue(AuroraComponent.REQUIRED);
-			if (Boolean.TRUE.equals(required))
-				field.put(AuroraComponent.REQUIRED, required);
-		}
-
-		// lov,combox 特殊处理
-		// column 的 required,readonly
-		// AuroraComponent.REQUIRED
-		// <a:fields>
-		// <a:field name="policy_code" required="true"/>
-		// <a:field name="policy_name"/>
-		// <a:field name="description"/>
-		// </a:fields>
+		this.a2Map.bindDatasetField(field, dataset, ac);
 
 	}
 
@@ -314,27 +298,13 @@ public class ScreenGenerator {
 		return idGenerator;
 	}
 
-	// IFile newFileHandle = AuroraPlugin.getWorkspace().getRoot()
-	// .getFile(new Path("/hr_aurora/web/a0.screen"));
-	// CompositeMap cm = new CompositeMap("xx");
-	// cm.put("x", "bb");
-	// InputStream is = new ByteArrayInputStream(cm.toXML().getBytes());
-	// CreateFileOperation op = new CreateFileOperation(newFileHandle, null,
-	// is, "Create New File");
-	// try {
-	// PlatformUI
-	// .getWorkbench()
-	// .getOperationSupport()
-	// .getOperationHistory()
-	// .execute(
-	// op,
-	// null,
-	// WorkspaceUndoUtil.getUIInfoAdapter(this.getSite()
-	// .getShell()));
-	// } catch (final ExecutionException e) {
-	// // handle exceptions
-	// e.printStackTrace();
-	// }
-	// xmlns:a="http://www.aurora-framework.org/application"
+	public IProject getProject() {
+		return project;
+	}
 
+	public void setProject(IProject project) {
+		this.project = project;
+	}
+	
+	
 }

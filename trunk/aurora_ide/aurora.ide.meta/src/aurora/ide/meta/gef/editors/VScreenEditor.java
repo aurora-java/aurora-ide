@@ -191,17 +191,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		createScreen();
-	}
-
-	private void createScreen() {
-		ScreenGenerator sg = new ScreenGenerator();
-		try {
-			sg.genFile(this.diagram);
-		} catch (TemplateNotBindedException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	/**
