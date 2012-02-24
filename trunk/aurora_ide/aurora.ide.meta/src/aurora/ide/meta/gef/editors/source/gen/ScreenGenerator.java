@@ -34,7 +34,7 @@ public class ScreenGenerator {
 
 	private Map<Dataset, String> datasetMap = new HashMap<Dataset, String>();
 
-	public void genFile(ViewDiagram view) throws TemplateNotBindedException {
+	public String genFile(ViewDiagram view) throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
@@ -54,7 +54,9 @@ public class ScreenGenerator {
 		fill(view, screenBody);
 		fillLinks(viewMap);
 		script.setText(scriptGenerator.getScript());
-		System.out.println(screen.toXML());
+		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+				+ screen.toXML();
+		return xml;
 	}
 
 	private void fill(Container container, CompositeMap containerMap) {

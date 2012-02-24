@@ -31,8 +31,9 @@ public class BindDropModelCommand extends DropBMCommand {
 			String name = f.getString("name");
 			name = name == null ? "" : name;
 			gc.setName(name);
-			// TODO lov?combox?
-			gc.setEditor(getType(f));
+			String object = f.getString("defaultEditor");
+			if (supportEditor(object) != null)
+				gc.setEditor(getType(f));
 			container.addChild(gc);
 		}
 
@@ -45,7 +46,6 @@ public class BindDropModelCommand extends DropBMCommand {
 			name = name == null ? "" : name;
 			Input input = new Input();
 			input.setName(name);
-			// TODO lov?combox?
 			input.setPrompt(getPrompt(field));
 			input.setType(getType(field));
 			container.addChild(input);

@@ -1,69 +1,50 @@
-package aurora.ide.meta.project;
+package aurora.ide.meta.action.gen;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
 
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
-import org.eclipse.ui.ide.undo.CreateFileOperation;
-import org.eclipse.ui.ide.undo.CreateFolderOperation;
-import org.eclipse.ui.ide.undo.CreateProjectOperation;
-import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
-import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 
 import aurora.ide.AuroraMetaProjectNature;
-import aurora.ide.AuroraProjectNature;
-import aurora.ide.meta.MetaPlugin;
+import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.editors.source.gen.ProjectGenerator;
+import aurora.ide.meta.project.AuroraMetaProject;
 
-public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
+public class SourceCodeGeneratorWizard extends Wizard {
 
 	public static final String copyright = "(c) Copyright HAND Enterprise Solutions Company Ltd.";
 
-	private WizardNewProjectCreationPage mainPage;
+	private WizardPage mainPage;
 	// cache of newly-created project
-	private IProject newProject;
-	private Combo auroraProjectNameField;
+	private Text auroraProjectNameField;
+	private Combo projectNameField;
+	private Button overlap;
 
 	public void addPages() {
 
-		mainPage = new WizardNewProjectCreationPage("basicNewProjectPage") {
+		mainPage = new WizardPage("gensource") {
 
 			// initial value stores
 			private String initialProjectFieldValue;
 
 			// widgets
-			Text projectNameField;
-
-			private Listener nameModifyListener = new Listener() {
-				public void handleEvent(Event e) {
-					boolean valid = validatePage();
-					setPageComplete(valid);
-
-				}
-			};
 
 			// constants
 			private static final int SIZING_TEXT_FIELD_WIDTH = 250;
@@ -88,6 +69,9 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 				createProjectNameGroup(projectGroup);
 				createAruoraProjectNameGroup(projectGroup);
 
+				overlap = new Button(projectGroup, SWT.CHECK);
+				overlap.setText("覆盖存在的文件");
+
 				setPageComplete(validatePage());
 				// Show description on opening
 				setErrorMessage(null);
@@ -111,7 +95,7 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 				projectLabel.setFont(projectGroup.getFont());
 
 				// new project name entry field
-				projectNameField = new Text(projectGroup, SWT.BORDER);
+				projectNameField = new Combo(projectGroup, SWT.READ_ONLY);
 				GridData data = new GridData(GridData.FILL_HORIZONTAL);
 				data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 				projectNameField.setLayoutData(data);
@@ -122,7 +106,43 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 				if (initialProjectFieldValue != null) {
 					projectNameField.setText(initialProjectFieldValue);
 				}
-				projectNameField.addListener(SWT.Modify, nameModifyListener);
+				projectNameField.addSelectionListener(new SelectionListener() {
+
+					public void widgetSelected(SelectionEvent e) {
+						IWorkspace workspace = ResourcesPlugin.getWorkspace();
+						IProject project = workspace.getRoot().getProject(
+								projectNameField.getText());
+						AuroraMetaProject amp = new AuroraMetaProject(project);
+						try {
+							String name = amp.getAuroraProject().getName();
+							auroraProjectNameField.setText(name);
+						} catch (ResourceNotFoundException e1) {
+							auroraProjectNameField.setText("");
+						}
+						setPageComplete(validatePage());
+					}
+
+					public void widgetDefaultSelected(SelectionEvent e) {
+					}
+
+				});
+
+				projectNameField.select(0);
+				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				IProject[] projects = workspace.getRoot().getProjects();
+				projectNameField.add("");
+				for (IProject p : projects) {
+					boolean hasAuroraNature = false;
+					try {
+						hasAuroraNature = AuroraMetaProjectNature
+								.hasAuroraNature(p);
+					} catch (CoreException e) {
+					}
+					if (hasAuroraNature) {
+						projectNameField.add(p.getName());
+					}
+				}
+
 			}
 
 			private final void createAruoraProjectNameGroup(
@@ -135,27 +155,12 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 				projectLabel.setFont(projectGroup.getFont());
 
 				// aurora project name entry field
-				auroraProjectNameField = new Combo(projectGroup, SWT.READ_ONLY);
+				auroraProjectNameField = new Text(projectGroup, SWT.BORDER);
 				GridData data = new GridData(GridData.FILL_HORIZONTAL);
 				data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 				auroraProjectNameField.setLayoutData(data);
+				auroraProjectNameField.setEditable(false);
 				auroraProjectNameField.setFont(projectGroup.getFont());
-				auroraProjectNameField.select(0);
-
-				IWorkspace workspace = ResourcesPlugin.getWorkspace();
-				IProject[] projects = workspace.getRoot().getProjects();
-				auroraProjectNameField.add("");
-				for (IProject p : projects) {
-					boolean hasAuroraNature = false;
-					try {
-						hasAuroraNature = AuroraProjectNature
-								.hasAuroraNature(p);
-					} catch (CoreException e) {
-					}
-					if (hasAuroraNature) {
-						auroraProjectNameField.add(p.getName());
-					}
-				}
 			}
 
 			/**
@@ -186,7 +191,6 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 				if (projectNameField == null) {
 					return initialProjectFieldValue;
 				}
-
 				return getProjectNameFieldValue();
 			}
 
@@ -235,25 +239,9 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 			 *         <code>false</code> if at least one is invalid
 			 */
 			protected boolean validatePage() {
-				IWorkspace workspace = ResourcesPlugin.getWorkspace();
-
-				String projectFieldContents = getProjectNameFieldValue();
-				if (projectFieldContents.equals("")) { //$NON-NLS-1$
-					setErrorMessage(null);
-					setMessage("Project name must be specified.");
-					return false;
-				}
-
-				IStatus nameStatus = workspace.validateName(
-						projectFieldContents, IResource.PROJECT);
-				if (!nameStatus.isOK()) {
-					setErrorMessage(nameStatus.getMessage());
-					return false;
-				}
-
-				IProject handle = getProjectHandle();
-				if (handle.exists()) {
-					setErrorMessage("A project with that name already exists in the workspace.");
+				IProject handle = getAuroraProjectHandle();
+				if (handle == null || !handle.exists()) {
+					setErrorMessage("关联的Aurora Project不存在");
 					return false;
 				}
 				setErrorMessage(null);
@@ -277,9 +265,8 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 			}
 		};
 		mainPage.setTitle("Project");
-		mainPage.setDescription("Create an aurora meta project.");
+		mainPage.setDescription("将原型工程生成，可以运行的代码");
 		this.addPage(mainPage);
-
 	}
 
 	public IProject getAuroraProjectHandle() {
@@ -293,154 +280,31 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 	}
 
 	public boolean performFinish() {
-
-		createNewProject();
-		if (newProject == null) {
-			return false;
-		}
-		createFolders();
-		copyTemplateFile();
-
-		IProject auroraProjectHandle = this.getAuroraProjectHandle();
-		String name = auroraProjectHandle == null ? "" : auroraProjectHandle
-				.getName();
-		MetaProjectPropertyPage.savePersistentProperty(newProject, name);
-
-		updatePerspective();
-		selectAndReveal(newProject);
-
-		return true;
-	}
-
-	private static final String[] copyFiles = { "query_result.xml", "grid.xml",
-			"query.xml", "thumbnails/grid.png", "thumbnails/query_result.jpg",
-			"thumbnails/query.png" };
-
-	private void copyTemplateFile() {
-		if (newProject == null) {
-			return;
-		}
-		final IFolder tplt = newProject.getFolder("template");
-
-		boolean exists = tplt.exists();
-		if (exists) {
-			IRunnableWithProgress op = new IRunnableWithProgress() {
-				public void run(IProgressMonitor monitor)
-						throws InvocationTargetException {
-					try {
-						for (String f : copyFiles) {
-
-							IFile file = tplt.getFile(f);
-							InputStream ifs = MetaPlugin
-									.openFileStream("template/" + f);
-
-							CreateFileOperation cfo = new CreateFileOperation(
-									file, null, ifs, "create template.");
-							try {
-								cfo.execute(monitor, WorkspaceUndoUtil
-										.getUIInfoAdapter(getShell()));
-							} catch (ExecutionException e) {
-								throw new InvocationTargetException(e);
-							}
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			};
-
-			// run the new folder creation operation
-			try {
-				getContainer().run(true, true, op);
-			} catch (InterruptedException e) {
-			} catch (InvocationTargetException e) {
-			}
-		}
-	}
-
-	private void createFolders() {
-		if (newProject == null) {
-			return;
-		}
-
-		// create the new project operation
-		IRunnableWithProgress op = new IRunnableWithProgress() {
-			public void run(IProgressMonitor monitor)
-					throws InvocationTargetException {
-				IFolder model = newProject.getFolder("model");
-				IFolder screen = newProject.getFolder("screen");
-				IFolder tplt = newProject.getFolder("template");
-				IFolder[] fs = new IFolder[] { model, screen, tplt };
-				for (IFolder iFolder : fs) {
-					CreateFolderOperation op = new CreateFolderOperation(
-							iFolder, null, "new folder");
-					try {
-						op.execute(monitor,
-								WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
-					} catch (ExecutionException e) {
-						throw new InvocationTargetException(e);
-					}
-				}
-			}
-		};
-
-		// run the new folder creation operation
-		try {
-			getContainer().run(true, true, op);
-		} catch (InterruptedException e) {
-		} catch (InvocationTargetException e) {
-		}
-
-	}
-
-	private IProject createNewProject() {
-		if (newProject != null) {
-			return newProject;
-		}
-
-		// get a project handle
-		final IProject newProjectHandle = mainPage.getProjectHandle();
-
-		// get a project descriptor
-		URI location = null;
-		if (!mainPage.useDefaults()) {
-			location = mainPage.getLocationURI();
-		}
-
+		final String text = projectNameField.getText();
+		final boolean selection = overlap.getSelection();
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		final IProjectDescription description = workspace
-				.newProjectDescription(newProjectHandle.getName());
-		description.setLocationURI(location);
-
-		description.setNatureIds(new String[] { AuroraMetaProjectNature.ID });
-
-		// create the new project operation
+		IProject project = workspace.getRoot().getProject(text);
+		final ProjectGenerator pg = new ProjectGenerator(project, selection,
+				getShell());
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor)
 					throws InvocationTargetException {
-				CreateProjectOperation op = new CreateProjectOperation(
-						description, "new aurora meta project");
-				try {
-					op.execute(monitor,
-							WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
-				} catch (ExecutionException e) {
-					throw new InvocationTargetException(e);
-				}
+				pg.go(monitor);
 			}
 		};
 
 		// run the new project creation operation
 		try {
 			getContainer().run(true, true, op);
-		} catch (InterruptedException e) {
-			return null;
 		} catch (InvocationTargetException e) {
-			return null;
+			e.printStackTrace();
+			this.mainPage.setErrorMessage(pg.getErrorMessage());
+			return false;
+		} catch (InterruptedException e) {
+			return true;
 		}
 
-		newProject = newProjectHandle;
-
-		return newProject;
+		return true;
 	}
 
 	public void createPageControls(Composite pageContainer) {

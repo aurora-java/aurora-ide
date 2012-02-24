@@ -59,6 +59,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	private PaletteRoot root;
 	private KeyHandler sharedKeyHandler;
 	private MetaPropertyViewer propertyViewer;
+	private BMViewer bmViewer;
 
 	public VScreenEditor() {
 		DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
@@ -69,6 +70,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		this.diagram = diagram;
 		GraphicalViewer gv = getGraphicalViewer();
 		gv.setContents(diagram);
+		bmViewer.refreshInput();
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
 
@@ -308,7 +310,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	}
 
 	protected void createBMViewer(Composite c) {
-		BMViewer bmViewer = new BMViewer(c, this);
+		bmViewer = new BMViewer(c, this);
 	}
 
 	public ViewDiagram getDiagram() {
