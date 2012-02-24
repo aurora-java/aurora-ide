@@ -55,6 +55,7 @@ public class BMViewer {
 		public IFile parent;
 		public CompositeMap fieldMap;
 		public String editor;
+
 		public String getName() {
 			return fieldMap.get("name").toString();
 		}
@@ -181,7 +182,7 @@ public class BMViewer {
 				return ImagesUtils.getImage("palette/itembar_04.png");
 			if (Input.NUMBER.equalsIgnoreCase(type))
 				return ImagesUtils.getImage("palette/itembar_05.png");
-			return  ImagesUtils.getImage("palette/itembar_04.png");
+			return ImagesUtils.getImage("palette/itembar_04.png");
 		}
 
 		public final String getText(Object element) {
@@ -316,21 +317,15 @@ public class BMViewer {
 				try {
 					IResource bm = BMUtil.getBMResourceFromClassPath(
 							getAuroraProject(), classPath);
-					if (bm instanceof IFile && bm.exists()) {
+					if (bm instanceof IFile && bm.exists()
+							&& !files.contains((IFile) bm)) {
 						files.add((IFile) bm);
 					}
 				} catch (ApplicationException e) {
 				}
 			}
 		}
-		try {
-			IResource bm = BMUtil.getBMResourceFromClassPath(
-					getAuroraProject(), "demo.hand_test");
-			files.add((IFile) bm);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		return files;
 	}
 

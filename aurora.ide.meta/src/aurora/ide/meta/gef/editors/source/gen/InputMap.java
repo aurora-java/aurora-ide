@@ -3,6 +3,8 @@ package aurora.ide.meta.gef.editors.source.gen;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.editors.models.DatasetField;
+import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
 
 public class InputMap extends AbstractComponentMap {
@@ -38,12 +40,38 @@ public class InputMap extends AbstractComponentMap {
 					map.putString(id, value.toString());
 			}
 		}
+
+		if (isCombo() || isLov()) {
+			map.putString("name", input.getName() + "_display");
+		}
 		return map;
+	}
+
+	private boolean isCombo() {
+		if (input instanceof Input) {
+			return Input.Combo.equals(input.getType());
+		}
+		return false;
+	}
+
+	private boolean isLov() {
+		if (input instanceof Input) {
+			return Input.LOV.equals(input.getType());
+		}
+		return false;
 	}
 
 	@Override
 	public boolean isCompositMapKey(String key) {
-		if (Input.READONLY.equals(key) || Input.REQUIRED.equals(key)) {
+		if (Input.READONLY.equals(key) || Input.REQUIRED.equals(key)
+				|| DatasetField.DISPLAY_FIELD.equals(key)
+				|| DatasetField.VALUE_FIELD.equals(key)
+				|| DatasetField.LOV_SERVICE.equals(key)
+				|| DatasetField.OPTIONS.equals(key)
+				|| DatasetField.CHECKED_VALUE.equals(key)
+				|| DatasetField.UNCHECKED_VALUE.equals(key)
+				|| DatasetField.DEFAULT_VALUE.equals(key)
+				|| DatasetField.RETURN_FIELD.equals(key)) {
 			return false;
 		}
 		return true;
