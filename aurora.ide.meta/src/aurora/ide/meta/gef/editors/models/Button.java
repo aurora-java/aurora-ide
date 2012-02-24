@@ -32,18 +32,6 @@ public class Button extends AuroraComponent {
 	public static final String BUTTON_CLICKER = "click";
 	public static final String TOOLTIP = "title";
 
-	// static final public String B_SEARCH = "b_search";
-	// static final public String B_RESET = "b_reset";
-	// static final public String B_SAVE = "b_save";
-	// static final public String B_CLOSE = "b_close";
-	// static final public String B_RUN = "b_run";
-	// static final public String B_OPEN = "b_open";
-
-	// private static final String[] inner_types = { DEFAULT, B_SEARCH, B_RESET,
-	// B_SAVE, B_OPEN, B_CLOSE, B_RUN };
-
-	// private static final String[] inner_types_names = { "自定义", "查询", "重置",
-	// "保存", "打开", "关闭", "运行" };
 	private static final IPropertyDescriptor[] std_pds = new IPropertyDescriptor[] {
 			new StringPropertyDescriptor(BUTTON_TEXT, "Text"), PD_NAME,
 			new IntegerPropertyDescriptor(WIDTH, "Width"),
@@ -66,7 +54,6 @@ public class Button extends AuroraComponent {
 	private AuroraComponent targetComponent;
 
 	private ButtonClicker buttonClicker = new ButtonClicker();
-	private AuroraComponent parent = null;
 
 	public Button() {
 		setSize(new Dimension(80, 20));
@@ -124,7 +111,6 @@ public class Button extends AuroraComponent {
 		return title;
 	}
 
-	
 	/**
 	 * 
 	 * @deprecated
@@ -209,11 +195,7 @@ public class Button extends AuroraComponent {
 	}
 
 	public boolean isOnToolBar() {
-		return parent instanceof Toolbar;
-	}
-
-	public void setParent(AuroraComponent auroraComponent) {
-		this.parent = auroraComponent;
+		return getParent() instanceof Toolbar;
 	}
 
 	public ButtonClicker getButtonClicker() {
