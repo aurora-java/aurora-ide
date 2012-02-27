@@ -40,7 +40,7 @@ import aurora.ide.search.core.Util;
  * be created by the workbench and shown in the UI. When the user tries to use
  * the action, this delegate will be created and execution will be delegated to
  * it.
- * 
+ * 2222222222222222222222222222222
  * @see IWorkbenchWindowActionDelegate
  */
 public class Gem_PKG_PRoc implements IWorkbenchWindowActionDelegate {
