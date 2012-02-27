@@ -265,13 +265,15 @@ public class ScreenGenerator {
 		}
 		CompositeMap fields = dsMap.getChild("fields");
 		if (fields == null) {
-			fields = dsMap.createChild("fields");
+			dsMap.addChild(createCompositeMap("fields"));
+			// fields = dsMap.createChild("fields");
 		}
 
 		CompositeMap field = fields.getChildByAttrib(AuroraComponent.NAME,
 				ac.getPropertyValue(AuroraComponent.NAME));
 		if (field == null) {
-			field = fields.createChild("field");
+			field = createCompositeMap("field");
+			fields.addChild(field);
 			field.put(AuroraComponent.NAME,
 					ac.getPropertyValue(AuroraComponent.NAME));
 		}
