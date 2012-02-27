@@ -50,7 +50,7 @@ public class ScreenGenerator {
 				.createScreenCompositeMap();
 		CompositeMap viewMap = a2Map.toCompositMap(view);
 		CompositeMap script = viewMap.createChild("script");
-		datasets = createCompositeMap("datasets");
+		datasets = createCompositeMap("dataSets");
 		CompositeMap screenBody = createCompositeMap("screenBody");
 		screen.addChild(viewMap);
 		viewMap.addChild(datasets);

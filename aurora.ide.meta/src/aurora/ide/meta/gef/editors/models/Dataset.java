@@ -36,7 +36,7 @@ public class Dataset extends AuroraComponent {
 
 	public Dataset() {
 		// this.setSize(new Dimension(50, 20));
-		this.setType("dataset");
+		this.setType("dataSet");
 	}
 
 	@Override
