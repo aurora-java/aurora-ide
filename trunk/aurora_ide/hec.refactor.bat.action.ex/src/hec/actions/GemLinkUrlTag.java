@@ -64,7 +64,7 @@ import aurora.ide.search.reference.NamedMapFinder;
  * be created by the workbench and shown in the UI. When the user tries to use
  * the action, this delegate will be created and execution will be delegated to
  * it.
- * 
+ * 1111111111111111111111111111111111
  * @see IWorkbenchWindowActionDelegate
  */
 public class GemLinkUrlTag implements IWorkbenchWindowActionDelegate {
