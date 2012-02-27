@@ -1,14 +1,11 @@
 package aurora.ide.meta.gef.editors.source.gen;
 
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Dataset;
-import aurora.ide.meta.gef.editors.models.DatasetField;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.GridSelectionCol;
@@ -30,10 +27,6 @@ public class AuroraComponent2CompositMap {
 	}
 
 	private ScreenGenerator screenGenerator;
-
-	private AuroraComponent2CompositMap() {
-
-	}
 
 	public AuroraComponent2CompositMap(ScreenGenerator screenGenerator) {
 		this.screenGenerator = screenGenerator;
@@ -91,12 +84,12 @@ public class AuroraComponent2CompositMap {
 	public void bindDatasetField(CompositeMap field, Dataset dataset,
 			AuroraComponent ac) {
 		if (ac instanceof IDatasetFieldDelegate) {
-			Object readonly = ac.getPropertyValue(AuroraComponent.READONLY);
-			if (Boolean.TRUE.equals(readonly))
-				field.put(AuroraComponent.READONLY, readonly);
-			Object required = ac.getPropertyValue(AuroraComponent.REQUIRED);
-			if (Boolean.TRUE.equals(required))
-				field.put(AuroraComponent.REQUIRED, required);
+//			Object readonly = ac.getPropertyValue(AuroraComponent.READONLY);
+//			if (Boolean.TRUE.equals(readonly))
+//				field.put(AuroraComponent.READONLY, readonly);
+//			Object required = ac.getPropertyValue(AuroraComponent.REQUIRED);
+//			if (Boolean.TRUE.equals(required))
+//				field.put(AuroraComponent.REQUIRED, required);
 			DatasetFieldMap dfm = new DatasetFieldMap(field, dataset, ac,
 					this.screenGenerator);
 			dfm.toCompositMap();
