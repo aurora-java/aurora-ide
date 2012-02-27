@@ -172,11 +172,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 
 	private Input createInput(Region region, CompositeMap map) {
 		Input input = new Input();
-		if (map.getString("defaultEditor") != null) {
-			input.setType(map.getString("defaultEditor"));
-		} else {
-			input.setType(GefModelAssist.getType(map));
-		}
+		input.setType(GefModelAssist.getTypeNotNull(map));
 		CompositeMap fieldMap = GefModelAssist.getCompositeMap(GefModelAssist.getModel(region.getModel().getModel()).getChild("fields"), "name", map.getString("field"));
 		if (fieldMap != null) {
 			input.setName(fieldMap.getString("name"));
@@ -203,8 +199,8 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));
 			gc.setPrompt(map.getString("prompt"));
-			if (map.getString("defaultEditor") != null) {
-				gc.setEditor(map.getString("defaultEditor"));
+			if (GefModelAssist.getType(map) != null) {
+				gc.setEditor(GefModelAssist.getType(map));
 			}
 			grid.addCol(gc);
 		}

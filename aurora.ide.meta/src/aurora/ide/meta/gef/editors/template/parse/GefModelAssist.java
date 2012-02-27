@@ -14,19 +14,38 @@ import aurora.ide.search.cache.CacheManager;
 public class GefModelAssist {
 
 	public static String getType(CompositeMap field) {
-		if (field == null) {
-			return Input.TEXT;
+		String object = field.getString("defaultEditor");
+		if (supportEditor(object) != null) {
+			return object;
+		} else {
+			return null;
 		}
-		if ("java.lang.Long".equals(field.getString("datatype"))) {
-			return Input.NUMBER;
-		}
-		if ("java.lang.String".equals(field.getString("datatype"))) {
-			return Input.TEXT;
-		}
-		if ("java.util.Date".equals(field.getString("datatype"))) {
-			return Input.CAL;
+	}
+
+	public static String getTypeNotNull(CompositeMap field) {
+		String object = field.getString("defaultEditor");
+		if (supportEditor(object) != null) {
+			return object;
+		} else {
+			if ("java.lang.Long".equals(field.getString("datatype"))) {
+				return Input.NUMBER;
+			}
+			if ("java.lang.String".equals(field.getString("datatype"))) {
+				return Input.TEXT;
+			}
+			if ("java.util.Date".equals(field.getString("datatype"))) {
+				return Input.CAL;
+			}
 		}
 		return Input.TEXT;
+	}
+
+	private static String supportEditor(String object) {
+		for (String t : Input.INPUT_TYPES) {
+			if (t.equalsIgnoreCase(object))
+				return t;
+		}
+		return null;
 	}
 
 	public static CompositeMap getModel(IFile file) {
