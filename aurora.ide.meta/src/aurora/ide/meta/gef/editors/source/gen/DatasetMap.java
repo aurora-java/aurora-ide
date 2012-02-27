@@ -7,7 +7,6 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.Dataset;
-import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 
 public class DatasetMap extends AbstractComponentMap {
@@ -33,12 +32,18 @@ public class DatasetMap extends AbstractComponentMap {
 					value = ((ResultDataSet) c).getSelectionMode();
 				}
 
-				if (value != null && !("".equals(value)))
+				if (value != null && !("".equals(value))) {
 					map.putString(id, value.toString());
+					if (ResultDataSet.SELECTION_MODE.equals(id)
+							&& c instanceof ResultDataSet) {
+						map.put(ResultDataSet.SELECTABLE, Boolean.TRUE);
+					}
+				}
 			}
 		}
 		return map;
 	}
+
 	static private List<String> keys = new ArrayList<String>() {
 		/**
 		 * 
@@ -54,7 +59,5 @@ public class DatasetMap extends AbstractComponentMap {
 	public boolean isCompositMapKey(String key) {
 		return !keys.contains(key);
 	}
-
-	
 
 }
