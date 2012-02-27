@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Fffff
 Bundle-SymbolicName: hec.refactor.bat.action.ex;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: fffff.Activator
+Bundle-Activator: hec.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources;bundle-version="3.7.100",
