@@ -38,6 +38,7 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.bm.BMUtil;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.dnd.BMTransfer;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -359,9 +360,7 @@ public class BMViewer {
 					CompositeMap qf = (CompositeMap) childIterator.next();
 					if ("field".equals(qf.getName()) && qf.get("name") != null) {
 						ModelField field = new ModelField();
-						Object de = qf.get("defaultEditor");
-						if (de != null)
-							field.editor = de.toString();
+						field.editor = Util.getType(qf);
 						field.parent = model;
 						field.fieldMap = qf;
 						result.add(field);

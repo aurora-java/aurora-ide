@@ -14,7 +14,6 @@ public class SourceCodeGenerator implements IWorkbenchWindowActionDelegate {
 	private Shell shell;
 
 	public void run(IAction action) {
-		System.out.println("生成代码啦");
 		SourceCodeGeneratorWizard wizard = new SourceCodeGeneratorWizard();
 		WizardDialog wd = new WizardDialog(shell, wizard);
 		wd.open();

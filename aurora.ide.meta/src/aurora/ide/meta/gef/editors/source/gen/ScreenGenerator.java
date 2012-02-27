@@ -284,23 +284,21 @@ public class ScreenGenerator {
 	private Dataset findDataset(Container container) {
 		if (container == null)
 			return null;
-		Dataset dataset = container.getDataset();
-		if (dataset == null)
-			return null;
-		boolean useParentBM = isUseParentBM(container, dataset);
+		boolean useParentBM = isUseParentBM(container);
 		if (useParentBM) {
 			return findDataset(container.getParent());
 		}
+		Dataset dataset = container.getDataset();
 		return dataset;
 	}
 
-	private boolean isUseParentBM(Container container, Dataset dataset) {
+	private boolean isUseParentBM(Container container) {
 		if (Container.SECTION_TYPE_QUERY.equals(container.getSectionType())
 				|| Container.SECTION_TYPE_RESULT.equals(container
 						.getSectionType())) {
 			return false;
 		}
-		return dataset == null;
+		return true;
 	}
 
 	public IDGenerator getIdGenerator() {
