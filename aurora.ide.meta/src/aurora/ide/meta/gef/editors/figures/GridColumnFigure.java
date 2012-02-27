@@ -92,8 +92,9 @@ public class GridColumnFigure extends Figure {
 			img = ImagesUtils.getImage("palette/itembar_04.png");
 		else if (Input.NUMBER.equals(editor))
 			img = ImagesUtils.getImage("palette/itembar_05.png");
-		graphics.drawImage(img, copy.x + copy.width - 20, copy.y + 5
-				+ columnHight);
+		if (img != null)
+			graphics.drawImage(img, copy.x + copy.width - 20, copy.y + 5
+					+ columnHight);
 		// super.paintFigure(graphics);
 	}
 
