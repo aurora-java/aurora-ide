@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.editors.models.commands;
 import java.util.List;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.GridColumn;
@@ -32,8 +33,8 @@ public class BindDropModelCommand extends DropBMCommand {
 			name = name == null ? "" : name;
 			gc.setName(name);
 			String object = f.getString("defaultEditor");
-			if (supportEditor(object) != null)
-				gc.setEditor(getType(f));
+			if (Util.supportEditor(object) != null)
+				gc.setEditor(Util.getType(f));
 			container.addChild(gc);
 		}
 
@@ -47,7 +48,7 @@ public class BindDropModelCommand extends DropBMCommand {
 			Input input = new Input();
 			input.setName(name);
 			input.setPrompt(getPrompt(field));
-			input.setType(getType(field));
+			input.setType(Util.getType(field));
 			container.addChild(input);
 		}
 	}

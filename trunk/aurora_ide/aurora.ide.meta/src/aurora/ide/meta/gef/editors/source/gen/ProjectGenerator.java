@@ -188,8 +188,17 @@ public class ProjectGenerator {
 
 			String genFile = sg.genFile(loadFile);
 			InputStream is = new ByteArrayInputStream(genFile.getBytes());
-			CreateFileOperation cfo = new CreateFileOperation(
-					getNewFile(fCurrentFile), null, is, "create file.") {
+
+			IFile newFile = getNewFile(fCurrentFile);
+			if (isOverlap && newFile.exists()) {
+				try {
+					newFile.delete(true, monitor);
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
+			}
+			CreateFileOperation cfo = new CreateFileOperation(newFile, null,
+					is, "create file.") {
 				@Override
 				protected void setResourceDescriptions(
 						ResourceDescription[] descriptions) {
@@ -201,7 +210,7 @@ public class ProjectGenerator {
 					if (status.isOK()) {
 						// Overwrite is not allowed when we are creating a new
 						// file
-						status = computeCreateStatus(true);
+						status = computeCreateStatus(false);
 					}
 					return status;
 				}
@@ -251,8 +260,8 @@ public class ProjectGenerator {
 	private IFile getNewFile(IFile file) {
 		IPath makeRelativeTo = file.getProjectRelativePath().makeRelativeTo(
 				screenFolder.getProjectRelativePath());
-		makeRelativeTo =makeRelativeTo.removeFileExtension();
-		makeRelativeTo =makeRelativeTo.addFileExtension("screen");
+		makeRelativeTo = makeRelativeTo.removeFileExtension();
+		makeRelativeTo = makeRelativeTo.addFileExtension("screen");
 		return auroraWebFolder.getFile(makeRelativeTo);
 	}
 }

@@ -25,6 +25,7 @@ public class Container extends AuroraComponent implements IDatasetDelegate {
 
 	public Container() {
 		this.setSize(new Dimension(600, 80));
+		this.setPrompt("");
 	}
 
 	public void addChild(AuroraComponent child) {

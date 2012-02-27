@@ -29,8 +29,6 @@ import aurora.ide.meta.project.AuroraMetaProject;
 
 public class SourceCodeGeneratorWizard extends Wizard {
 
-	public static final String copyright = "(c) Copyright HAND Enterprise Solutions Company Ltd.";
-
 	private WizardPage mainPage;
 	// cache of newly-created project
 	private Text auroraProjectNameField;
@@ -78,6 +76,11 @@ public class SourceCodeGeneratorWizard extends Wizard {
 				setMessage(null);
 				setControl(composite);
 				Dialog.applyDialogFont(composite);
+
+				int count = projectNameField.getItemCount();
+				projectNameField.select(count > 0 ? 1 : 0);
+				this.selecttionChanged();
+
 			}
 
 			/**
@@ -109,17 +112,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 				projectNameField.addSelectionListener(new SelectionListener() {
 
 					public void widgetSelected(SelectionEvent e) {
-						IWorkspace workspace = ResourcesPlugin.getWorkspace();
-						IProject project = workspace.getRoot().getProject(
-								projectNameField.getText());
-						AuroraMetaProject amp = new AuroraMetaProject(project);
-						try {
-							String name = amp.getAuroraProject().getName();
-							auroraProjectNameField.setText(name);
-						} catch (ResourceNotFoundException e1) {
-							auroraProjectNameField.setText("");
-						}
-						setPageComplete(validatePage());
+						selecttionChanged();
 					}
 
 					public void widgetDefaultSelected(SelectionEvent e) {
@@ -127,7 +120,6 @@ public class SourceCodeGeneratorWizard extends Wizard {
 
 				});
 
-				projectNameField.select(0);
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
 				IProject[] projects = workspace.getRoot().getProjects();
 				projectNameField.add("");
@@ -164,74 +156,6 @@ public class SourceCodeGeneratorWizard extends Wizard {
 			}
 
 			/**
-			 * Creates a project resource handle for the current project name
-			 * field value. The project handle is created relative to the
-			 * workspace root.
-			 * <p>
-			 * This method does not create the project resource; this is the
-			 * responsibility of <code>IProject::create</code> invoked by the
-			 * new project resource wizard.
-			 * </p>
-			 * 
-			 * @return the new project resource handle
-			 */
-			public IProject getProjectHandle() {
-				return ResourcesPlugin.getWorkspace().getRoot()
-						.getProject(getProjectName());
-			}
-
-			/**
-			 * Returns the current project name as entered by the user, or its
-			 * anticipated initial value.
-			 * 
-			 * @return the project name, its anticipated initial value, or
-			 *         <code>null</code> if no project name is known
-			 */
-			public String getProjectName() {
-				if (projectNameField == null) {
-					return initialProjectFieldValue;
-				}
-				return getProjectNameFieldValue();
-			}
-
-			/**
-			 * Returns the value of the project name field with leading and
-			 * trailing spaces removed.
-			 * 
-			 * @return the project name in the field
-			 */
-			private String getProjectNameFieldValue() {
-				if (projectNameField == null) {
-					return ""; //$NON-NLS-1$
-				}
-
-				return projectNameField.getText().trim();
-			}
-
-			/**
-			 * Sets the initial project name that this page will use when
-			 * created. The name is ignored if the createControl(Composite)
-			 * method has already been called. Leading and trailing spaces in
-			 * the name are ignored. Providing the name of an existing project
-			 * will not necessarily cause the wizard to warn the user. Callers
-			 * of this method should first check if the project name passed
-			 * already exists in the workspace.
-			 * 
-			 * @param name
-			 *            initial project name for this page
-			 * 
-			 * @see IWorkspace#validateName(String, int)
-			 * 
-			 */
-			public void setInitialProjectName(String name) {
-				if (name == null) {
-					initialProjectFieldValue = null;
-				} else {
-					initialProjectFieldValue = name.trim();
-				}
-			}
-
-			/**
 			 * Returns whether this page's controls currently all contain valid
 			 * values.
 			 * 
@@ -249,10 +173,6 @@ public class SourceCodeGeneratorWizard extends Wizard {
 				return true;
 			}
 
-			public boolean useDefaults() {
-				return true;
-			}
-
 			/*
 			 * see @DialogPage.setVisible(boolean)
 			 */
@@ -262,6 +182,20 @@ public class SourceCodeGeneratorWizard extends Wizard {
 				if (visible) {
 					projectNameField.setFocus();
 				}
+			}
+
+			public void selecttionChanged() {
+				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				IProject project = workspace.getRoot().getProject(
+						projectNameField.getText());
+				AuroraMetaProject amp = new AuroraMetaProject(project);
+				try {
+					String name = amp.getAuroraProject().getName();
+					auroraProjectNameField.setText(name);
+				} catch (ResourceNotFoundException e1) {
+					auroraProjectNameField.setText("");
+				}
+				setPageComplete(validatePage());
 			}
 		};
 		mainPage.setTitle("Project");
