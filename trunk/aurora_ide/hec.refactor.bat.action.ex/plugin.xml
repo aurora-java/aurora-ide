@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="hec批量修改目录"
+            visible="true"
+            id="hec.refactor.bat.actionSet">
+         
+         <action
+               label="&amp;Sample Action"
+               icon="icons/sample.gif"
+               class="hec.actions.SampleAction"
+               tooltip="hec批量修改目录"
+               toolbarPath="sampleGroup"
+               id="hec.actions.SampleAction">
+         </action>
+      </actionSet>
+   </extension>
+
+</plugin>
