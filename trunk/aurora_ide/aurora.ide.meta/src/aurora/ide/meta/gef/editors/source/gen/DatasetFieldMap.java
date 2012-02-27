@@ -1,7 +1,5 @@
 package aurora.ide.meta.gef.editors.source.gen;
 
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Dataset;
@@ -34,6 +32,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 	public CompositeMap toCompositMap() {
 		if (this.isCombo() || this.isLov()) {
 			field = field.getParent().createChild("field");
+			field.setPrefix(field.getParent().getPrefix());
 			field.put("name", ac.getName() + "_display");
 		}
 		String[]  keys = DatasetField.keys;
