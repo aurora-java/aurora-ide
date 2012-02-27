@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -34,6 +37,7 @@ import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.wizard.dialog.SelectModelDialog;
 import aurora.ide.meta.gef.editors.wizard.dialog.StyleSettingDialog;
 import aurora.ide.meta.project.AuroraMetaProject;
+import aurora.ide.project.propertypage.ProjectPropertyPage;
 
 public class SettingWizardPage extends WizardPage {
 
@@ -127,7 +131,12 @@ public class SettingWizardPage extends WizardPage {
 						AuroraMetaProject metaPro = new AuroraMetaProject(((NewWizardPage) getPreviousPage()).getMetaProject());
 						try {
 							IProject pro = metaPro.getAuroraProject();
-							IFolder folder = pro.getFolder("web/WEB-INF/classes");
+							IResource folder = pro;
+							try {
+								folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(pro.getPersistentProperty(ProjectPropertyPage.BMQN)));
+							} catch (CoreException e1) {
+								folder = pro;
+							}
 							SelectModelDialog dialog = new SelectModelDialog(getShell(), folder, pro.getName());
 							if (Dialog.OK == dialog.open()) {
 								IFile file = (IFile) dialog.getResult();
