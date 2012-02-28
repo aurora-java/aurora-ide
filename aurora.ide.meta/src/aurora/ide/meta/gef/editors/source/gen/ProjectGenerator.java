@@ -190,11 +190,15 @@ public class ProjectGenerator {
 			InputStream is = new ByteArrayInputStream(genFile.getBytes());
 
 			IFile newFile = getNewFile(fCurrentFile);
-			if (isOverlap && newFile.exists()) {
-				try {
-					newFile.delete(true, monitor);
-				} catch (CoreException e) {
-					e.printStackTrace();
+
+			if (newFile.exists()) {
+				if (isOverlap) {
+					try {
+						newFile.delete(true, monitor);
+					} catch (CoreException e) {
+					}
+				} else {
+					return;
 				}
 			}
 			CreateFileOperation cfo = new CreateFileOperation(newFile, null,
