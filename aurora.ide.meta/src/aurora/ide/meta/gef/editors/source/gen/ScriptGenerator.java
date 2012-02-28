@@ -181,7 +181,7 @@ public class ScriptGenerator {
 		if (ButtonClicker.B_CLOSE.equals(actionID)) {
 			suffix = this.getWindowID(bc);
 		}
-		if (ButtonClicker.DEFAULT.equals(actionID)) {
+		if (ButtonClicker.B_CUSTOM.equals(actionID)) {
 			JavascriptRhino js = new JavascriptRhino(bc.getFunction());
 			suffix = js.getFirstFunctionName();
 			return suffix;
@@ -209,7 +209,7 @@ public class ScriptGenerator {
 		if (ButtonClicker.B_CLOSE.equals(actionID)) {
 			return "close";
 		}
-		if (ButtonClicker.DEFAULT.equals(actionID)) {
+		if (ButtonClicker.B_CUSTOM.equals(actionID)) {
 			return "";
 		}
 

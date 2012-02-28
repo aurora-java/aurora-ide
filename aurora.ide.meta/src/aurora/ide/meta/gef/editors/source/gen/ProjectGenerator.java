@@ -206,7 +206,7 @@ public class ProjectGenerator {
 			InputStream is = new ByteArrayInputStream(genFile.getBytes());
 
 			IFile newFile = getNewFile(fCurrentFile);
-
+//			newFile.setc
 			if (newFile.exists()) {
 				if (isOverlap) {
 					try {
