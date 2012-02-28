@@ -61,8 +61,8 @@ public class NewWizardPage extends WizardPage {
 
 	public NewWizardPage() {
 		super("aurora.wizard.new.Page");
-		setTitle("meta文件向导");
-		setDescription("通过模板创建meta文件");
+		setTitle("UI Prototype文件向导");
+		setDescription("通过模板创建UI Prototype文件");
 		setPageComplete(false);
 		IResource r = null;
 		try {
@@ -107,7 +107,7 @@ public class NewWizardPage extends WizardPage {
 	public String getFileName() {
 		String fileName = txtFile.getText().trim();
 		if (fileName.length() > 0 && fileName.indexOf(".") == -1) {
-			fileName = fileName + ".meta";
+			fileName = fileName + ".uip";
 		}
 		return fileName;
 	}
@@ -322,8 +322,8 @@ public class NewWizardPage extends WizardPage {
 				updateStatus("必须指定文件名");
 			} else if (fileName.replace('\\', '/').indexOf('/', 1) > 0) {
 				updateStatus("文件名无效");
-			} else if (dotLoc != -1 && (!fileName.substring(dotLoc + 1).equalsIgnoreCase("meta"))) {
-				updateStatus("文件扩展名必须是meta");
+			} else if (dotLoc != -1 && (!fileName.substring(dotLoc + 1).equalsIgnoreCase("uip"))) {
+				updateStatus("文件扩展名必须是uip");
 			} else {
 				setDescription(template.getDescription());
 				updateStatus(null);
