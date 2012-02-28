@@ -68,6 +68,18 @@ public class DatasetFieldMap extends AbstractComponentMap {
 				}
 				if (DatasetField.OPTIONS.equals(key)) {
 					value = dataSetFieldUtil.getOptions();
+					if (value != null) {
+						Dataset ds = new Dataset();
+						ds.setUse4Query(false);
+						ds.setModel(value.toString());
+						CompositeMap fillDatasets = sg.fillDatasets(ds);
+						if (fillDatasets != null) {
+							value = fillDatasets.get("id");
+							CompositeMap dsParent = fillDatasets.getParent();
+							dsParent.removeChild(fillDatasets);
+							dsParent.addChild(0, fillDatasets);
+						}
+					}
 				}
 
 				if (DatasetField.DISPLAY_FIELD.equals(key)) {
@@ -87,6 +99,27 @@ public class DatasetFieldMap extends AbstractComponentMap {
 				}
 				if (DatasetField.LOV_SERVICE.equals(key)) {
 					value = dataSetFieldUtil.getOptions();
+
+					CompositeMap mappingMap = sg.createCompositeMap("mapping");
+
+					CompositeMap idMap = sg.createCompositeMap("map");
+					CompositeMap optionsMap = dataSetFieldUtil.getOptionsMap();
+					if (optionsMap != null) {
+						String pk = dataSetFieldUtil.getPK(optionsMap);
+						idMap.put("from", pk);
+						idMap.put("to", ac.getName());
+					}
+
+					CompositeMap valueMap = sg.createCompositeMap("map");
+					if (optionsMap != null) {
+						String dsValue = optionsMap
+								.getString("defaultDisplayField");
+						valueMap.put("from", dsValue);
+						valueMap.put("to", ac.getName() + "_display");
+					}
+					mappingMap.addChild(idMap);
+					mappingMap.addChild(valueMap);
+					field.addChild(mappingMap);
 				}
 			}
 			if (isCheckBox()) {

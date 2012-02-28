@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.text.DateFormat;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -46,6 +47,7 @@ public class ProjectGenerator {
 	private IFolder screenFolder;
 	private IFolder auroraWebFolder;
 	private String errorMessage;
+	private String header;
 
 	public IProject getProject() {
 		return project;
@@ -83,6 +85,9 @@ public class ProjectGenerator {
 		} catch (CoreException e1) {
 			e1.printStackTrace();
 		}
+
+		header = createHeader();
+
 		List<IResource> files = fileFinder.getResult();
 		fNumberOfFilesToScan = files.size();
 		Job monitorUpdateJob = new Job("source generator") {
@@ -137,6 +142,17 @@ public class ProjectGenerator {
 
 	}
 
+	private String createHeader() {
+		String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
+		String date = DateFormat.getDateInstance().format(new java.util.Date());
+		String user = System.getProperty("user.name");
+		String comment = "<!-- \n  $Author: " + user + " \n  $Date: "
+				+ date + " \n"
+				+ "  $Revision: 1.0 \n  $add by aurora_ide team.\n-->\n\r ";
+
+		return s+comment;
+	}
+
 	public boolean validate() {
 		auroraProject = this.getAuroraProject();
 		screenFolder = this.getScreenFolder();
@@ -186,7 +202,7 @@ public class ProjectGenerator {
 		ScreenGenerator sg = new ScreenGenerator(project);
 		try {
 
-			String genFile = sg.genFile(loadFile);
+			String genFile = sg.genFile(header, loadFile);
 			InputStream is = new ByteArrayInputStream(genFile.getBytes());
 
 			IFile newFile = getNewFile(fCurrentFile);

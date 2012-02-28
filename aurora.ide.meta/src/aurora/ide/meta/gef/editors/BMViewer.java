@@ -82,6 +82,10 @@ public class BMViewer {
 				}
 
 				List<IFile> modelFiles = getModelFiles((ViewDiagram) inputElement);
+				
+				if(modelFiles.size()==0){
+					return new String[] { "未发现绑定的Model" };
+				}
 				return modelFiles.toArray(new IFile[modelFiles.size()]);
 			}
 			return null;
