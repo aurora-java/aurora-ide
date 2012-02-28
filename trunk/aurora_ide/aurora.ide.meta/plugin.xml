@@ -12,7 +12,7 @@
               class="aurora.ide.meta.gef.editors.wizard.CreateMetaWizard"
               icon="icons/meta.png"
               id="aurora.ide.wizard.CreateFormGridWizard"
-              name="Meta文件">
+              name="UI Prototype文件">
         </wizard>
     </extension>
      
@@ -22,7 +22,7 @@
       <editor
             class="aurora.ide.meta.gef.editors.VScreenEditor"
             default="true"
-            extensions="meta"
+            extensions="uip"
             icon="icons/meta.png"
             id="aurora.ide.meta.gef.editors.VScreenEditor"
             name="Aurora UI Designer">
@@ -44,7 +44,7 @@
          	class="aurora.ide.meta.project.MetaProjectPropertyPage"
          	icon="icons/aurora.gif"
          	id="aurora.ide.meta.project.property"
-         	name="Meta Aurora工程设置"
+         	name="Aurora原型工程设置"
          	objectClass="org.eclipse.core.resources.IProject">
 			<filter name="nature" value="aurora.ide.meta.nature"/>
 		</page>
@@ -76,7 +76,7 @@
         
          <action
                label="生成Aurora代码"
-               icon="icons/aurora.gif"
+               icon="icons/screen_gen.png"
                class="aurora.ide.meta.action.SourceCodeGenerator"
                tooltip="生成Aurora代码"
                toolbarPath="Aurora\meta"
