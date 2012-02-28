@@ -58,8 +58,8 @@ public class DatasetField extends AuroraComponent {
 	private boolean readOnly = false;
 
 	private String defaultValue = "";
-	private String checkedValue = "";
-	private String uncheckedValue = "";
+	private String checkedValue = "Y";
+	private String uncheckedValue = "N";
 
 	private String displayField = "";
 	private String options = "";
