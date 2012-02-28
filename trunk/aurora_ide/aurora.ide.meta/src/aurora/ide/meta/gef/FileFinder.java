@@ -33,6 +33,6 @@ public class FileFinder implements IResourceVisitor {
 	private boolean checkExtension(IResource resource) {
 		IFile file = (IFile) resource;
 		String fileExtension = file.getFileExtension();
-		return "meta".equalsIgnoreCase(fileExtension);
+		return "uip".equalsIgnoreCase(fileExtension);
 	}
 }
