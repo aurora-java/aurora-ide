@@ -28,14 +28,13 @@ public class BoxMap extends AbstractComponentMap {
 
 			boolean isKey = this.isCompositMapKey(id.toString());
 			if (isKey) {
-				Object value = box.getPropertyValue(id).toString();
+				Object value = box.getPropertyValue(id);
 				if (value != null && !("".equals(value)))
 					map.putString(id, value.toString());
 			}
 		}
 		return map;
 	}
-
 
 	static private List<String> keys = new ArrayList<String>() {
 		/**
