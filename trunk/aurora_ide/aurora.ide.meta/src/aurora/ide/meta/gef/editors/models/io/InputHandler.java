@@ -50,9 +50,11 @@ public class InputHandler extends DefaultIOHandler {
 	protected void restoreComplexAttribute(AuroraComponent ac, CompositeMap map) {
 		Input input = (Input) ac;
 		CompositeMap dfMap = map.getChild(DatasetField.class.getSimpleName());
-		DatasetField df = new DatasetFieldHandler()
-				.fromCompositeMap(dfMap, mic);
-		input.setDatasetField(df);
+		if (dfMap != null) {
+			DatasetField df = new DatasetFieldHandler().fromCompositeMap(dfMap,
+					mic);
+			input.setDatasetField(df);
+		}
 	}
 
 	@Override
