@@ -47,7 +47,7 @@ public class ButtonHandler extends DefaultIOHandler {
 				bcMap.put("openPath", bc.getOpenPath());
 			} else if (ButtonClicker.B_CLOSE.equals(aid)) {
 				bcMap.put("closeWindowID", bc.getCloseWindowID());
-			} else if ("".equals(aid)) {
+			} else if (ButtonClicker.B_CUSTOM.equals(aid)) {
 				CompositeMap fMap = new CompositeMap("function");
 				fMap.setText(bc.getFunction());
 				bcMap.addChild(fMap);
@@ -109,7 +109,7 @@ public class ButtonHandler extends DefaultIOHandler {
 				bc.setOpenPath(bcMap.getString("openPath"));
 			} else if (ButtonClicker.B_CLOSE.equals(aid)) {
 				bc.setCloseWindowID(bcMap.getString("closeWindowID"));
-			} else if ("".equals(aid)) {
+			} else if (ButtonClicker.B_CUSTOM.equals(aid)) {
 				CompositeMap fMap = bcMap.getChild("function");
 				if (fMap != null) {
 					bc.setFunction(fMap.getText());
