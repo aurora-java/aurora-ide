@@ -146,11 +146,11 @@ public class ProjectGenerator {
 		String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
 		String date = DateFormat.getDateInstance().format(new java.util.Date());
 		String user = System.getProperty("user.name");
-		String comment = "<!-- \n  $Author: " + user + " \n  $Date: "
-				+ date + " \n"
+		String comment = "<!-- \n  $Author: " + user + " \n  $Date: " + date
+				+ " \n"
 				+ "  $Revision: 1.0 \n  $add by aurora_ide team.\n-->\n\r ";
 
-		return s+comment;
+		return s + comment;
 	}
 
 	public boolean validate() {
@@ -206,11 +206,12 @@ public class ProjectGenerator {
 			InputStream is = new ByteArrayInputStream(genFile.getBytes());
 
 			IFile newFile = getNewFile(fCurrentFile);
-//			newFile.setc
 			if (newFile.exists()) {
 				if (isOverlap) {
 					try {
-						newFile.delete(true, monitor);
+						// newFile.delete(true, monitor);
+						newFile.setContents(is, true, false, monitor);
+						return;
 					} catch (CoreException e) {
 					}
 				} else {
