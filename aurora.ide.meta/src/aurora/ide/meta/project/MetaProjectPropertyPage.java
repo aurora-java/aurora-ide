@@ -23,13 +23,13 @@ public class MetaProjectPropertyPage extends PropertyPage {
 	}
 
 	public static final String PROPERTY_ID = "aurora.ide.meta.project.property";
-	private static final String MODEL = "LOCAL_WEB_URL";
-	private static final String SCREEN = "WEB_HOME";
+	private static final String MODEL_PROTOTYPE = "LOCAL_WEB_URL";
+	private static final String UI_PROTOTYPE= "WEB_HOME";
 	private static final String TEMPLATE = "BM_HOME";
 	public static final QualifiedName MODEL_QN = new QualifiedName(PROPERTY_ID,
-			MODEL);
+			MODEL_PROTOTYPE);
 	public static final QualifiedName SCREEN_QN = new QualifiedName(
-			PROPERTY_ID, SCREEN);
+			PROPERTY_ID, UI_PROTOTYPE);
 	public static final QualifiedName TEMPLATE_QN = new QualifiedName(
 			PROPERTY_ID, TEMPLATE);
 	public static final QualifiedName AURORA_PROJECT_QN = new QualifiedName(
@@ -49,7 +49,7 @@ public class MetaProjectPropertyPage extends PropertyPage {
 		content.setLayout(layout);
 
 		Label label = new Label(content, SWT.NONE);
-		label.setText("Model folder: ");
+		label.setText("Model Prototype Folder: ");
 		model = new Text(content, SWT.BORDER);
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
 		model.setLayoutData(gridData);
@@ -64,7 +64,7 @@ public class MetaProjectPropertyPage extends PropertyPage {
 		}
 
 		label = new Label(content, SWT.NONE);
-		label.setText("Screen folder: ");
+		label.setText("UI Prototype Folder: ");
 		screen = new Text(content, SWT.BORDER);
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
 		screen.setLayoutData(gridData);
@@ -79,7 +79,7 @@ public class MetaProjectPropertyPage extends PropertyPage {
 		}
 
 		label = new Label(content, SWT.NONE);
-		label.setText("Template folder: ");
+		label.setText("Template Folder: ");
 		this.template = new Text(content, SWT.BORDER);
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
 		template.setLayoutData(gridData);
@@ -95,7 +95,7 @@ public class MetaProjectPropertyPage extends PropertyPage {
 
 		// new project label
 		Label projectLabel = new Label(content, SWT.NONE);
-		projectLabel.setText("Aurora Project name: ");
+		projectLabel.setText("Aurora Project Name: ");
 		projectLabel.setFont(parent.getFont());
 
 		// aurora project name entry field
@@ -163,9 +163,9 @@ public class MetaProjectPropertyPage extends PropertyPage {
 			String auroraProjectName) {
 		try {
 			newProject.setPersistentProperty(MetaProjectPropertyPage.MODEL_QN,
-					"model");
+					"model_prototype");
 			newProject.setPersistentProperty(MetaProjectPropertyPage.SCREEN_QN,
-					"screen");
+					"ui_prototype");
 			newProject.setPersistentProperty(
 					MetaProjectPropertyPage.TEMPLATE_QN, "template");
 			newProject.setPersistentProperty(

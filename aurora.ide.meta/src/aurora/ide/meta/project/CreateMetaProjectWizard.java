@@ -40,7 +40,6 @@ import aurora.ide.meta.MetaPlugin;
 
 public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 
-	public static final String copyright = "(c) Copyright HAND Enterprise Solutions Company Ltd.";
 
 	private WizardNewProjectCreationPage mainPage;
 	// cache of newly-created project
@@ -367,8 +366,8 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor)
 					throws InvocationTargetException {
-				IFolder model = newProject.getFolder("model");
-				IFolder screen = newProject.getFolder("screen");
+				IFolder model = newProject.getFolder("model_prototype");
+				IFolder screen = newProject.getFolder("ui_prototype");
 				IFolder tplt = newProject.getFolder("template");
 				IFolder[] fs = new IFolder[] { model, screen, tplt };
 				for (IFolder iFolder : fs) {
