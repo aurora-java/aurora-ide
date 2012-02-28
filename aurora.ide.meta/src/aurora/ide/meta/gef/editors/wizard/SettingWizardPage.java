@@ -47,8 +47,8 @@ public class SettingWizardPage extends WizardPage {
 
 	public SettingWizardPage() {
 		super("aurora.wizard.setting.Page");
-		setTitle("meta文件向导");
-		setDescription("选择模型绑定至meta文件");
+		setTitle("UI Prototype文件向导");
+		setDescription("选择模型绑定至UI Prototype文件");
 	}
 
 	public void createControl(Composite parent) {
