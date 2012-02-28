@@ -16,7 +16,7 @@ public interface IProperties {
 	String TYPE = "type";
 	String PROMPT = "prompt";
 	String ROW = "row";
-	String COL = "col";
+	String COL = "column";
 	String TITLE = "title";
 	String LABELWIDTH = "labelWidth";
 	String REQUIRED = "required";
