@@ -91,7 +91,7 @@ public class ScriptGenerator {
 			String windowID = this.getWindowID(bc);
 			script = this.closeScript(functionName, windowID);
 		}
-		if (ButtonClicker.DEFAULT.equals(actionID)) {
+		if (ButtonClicker.B_CUSTOM.equals(actionID)) {
 			script = bc.getFunction();
 		}
 		this.script.append(script);
