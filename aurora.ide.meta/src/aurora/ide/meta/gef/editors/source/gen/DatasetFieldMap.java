@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.source.gen;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.DatasetField;
 import aurora.ide.meta.gef.editors.models.GridColumn;
@@ -35,7 +36,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 			field.setPrefix(field.getParent().getPrefix());
 			field.put("name", ac.getName() + "_display");
 		}
-		String[]  keys = DatasetField.keys;
+		String[] keys = DatasetField.keys;
 		for (String key : keys) {
 			Object value = "";
 			boolean isKey = this.isCompositMapKey(key);
@@ -81,6 +82,14 @@ public class DatasetFieldMap extends AbstractComponentMap {
 					value = dataSetFieldUtil.getOptions();
 				}
 			}
+			if (isCheckBox()) {
+				if (DatasetField.CHECKED_VALUE.equals(key)) {
+					value = ac.getPropertyValue(key);
+				}
+				if (DatasetField.UNCHECKED_VALUE.equals(key)) {
+					value = ac.getPropertyValue(key);
+				}
+			}
 			if (value != null && !("".equals(value)))
 				field.putString(key, value.toString());
 		}
@@ -107,6 +116,16 @@ public class DatasetFieldMap extends AbstractComponentMap {
 		return false;
 	}
 
+	private boolean isCheckBox() {
+		if (ac instanceof Input) {
+			return CheckBox.CHECKBOX.equals(ac.getType());
+		}
+		if (ac instanceof GridColumn) {
+			return CheckBox.CHECKBOX.equals(((GridColumn) ac).getEditor());
+		}
+		return false;
+	}
+
 	@Override
 	public boolean isCompositMapKey(String key) {
 		if (DatasetField.DISPLAY_FIELD.equals(key)
@@ -114,7 +133,9 @@ public class DatasetFieldMap extends AbstractComponentMap {
 				|| DatasetField.LOV_SERVICE.equals(key)
 				|| DatasetField.OPTIONS.equals(key)
 				|| DatasetField.RETURN_FIELD.equals(key)
-				|| DatasetField.TITLE.equals(key)) {
+				|| DatasetField.TITLE.equals(key)
+				|| DatasetField.CHECKED_VALUE.equals(key)
+				|| DatasetField.UNCHECKED_VALUE.equals(key)) {
 			return false;
 		}
 		return true;
