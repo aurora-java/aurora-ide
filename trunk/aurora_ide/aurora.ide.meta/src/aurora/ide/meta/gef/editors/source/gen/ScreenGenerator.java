@@ -40,7 +40,8 @@ public class ScreenGenerator {
 		this.project = project;
 	}
 
-	public String genFile(ViewDiagram view) throws TemplateNotBindedException {
+	public String genFile(String header, ViewDiagram view)
+			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
@@ -59,9 +60,9 @@ public class ScreenGenerator {
 		scriptGenerator = new ScriptGenerator(this, script);
 		fill(view, screenBody);
 		fillLinks(viewMap);
+		
 		script.setText(scriptGenerator.getScript());
-		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-				+ screen.toXML();
+		String xml = header + screen.toXML();
 		return xml;
 	}
 
@@ -200,6 +201,10 @@ public class ScreenGenerator {
 		return fillDatasets(datasets, dataset);
 	}
 
+	protected CompositeMap fillDatasets(Dataset dataset) {
+		return fillDatasets(datasets, dataset);
+	}
+
 	private CompositeMap fillDatasets(CompositeMap datasets, Dataset dataset) {
 		if (dataset == null)
 			return null;
@@ -237,10 +242,6 @@ public class ScreenGenerator {
 		return dsMap;
 	}
 
-	private CompositeMap fillDatasets(Dataset dataset) {
-		return this.fillDatasets(datasets, dataset);
-	}
-
 	private void bindDataset(Container root, AuroraComponent ac,
 			CompositeMap child, CompositeMap datasets) {
 		if (ac instanceof DatasetBinder) {
@@ -265,7 +266,7 @@ public class ScreenGenerator {
 		}
 		CompositeMap fields = dsMap.getChild("fields");
 		if (fields == null) {
-			 fields = createCompositeMap("fields");
+			fields = createCompositeMap("fields");
 			dsMap.addChild(fields);
 		}
 

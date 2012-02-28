@@ -51,7 +51,7 @@ public class GridColumnMap extends AbstractComponentMap {
 
 	private boolean isLov() {
 		if (c instanceof GridColumn) {
-			return Input.Combo.equals(((GridColumn) c).getEditor());
+			return Input.LOV.equals(((GridColumn) c).getEditor());
 		}
 		return false;
 	}

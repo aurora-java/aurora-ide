@@ -153,7 +153,7 @@ public class NewWizardPage extends WizardPage {
 		if (metaFolder != null) {
 			txtPath.setText(metaFolder.getFullPath().toString());
 		} else if (metaProject != null) {
-			txtPath.setText(metaProject.getName() + "/screen");
+			txtPath.setText(metaProject.getName() + "/ui_prototype");
 		}
 
 		txtPath.addModifyListener(new ModifyListener() {
@@ -312,8 +312,8 @@ public class NewWizardPage extends WizardPage {
 			updateStatus("工程必须可写");
 		} else if (!container.getProject().hasNature("aurora.ide.meta.nature")) {
 			updateStatus("该工程不是一个有效的Aurora原型工程");
-		} else if (getPath().lastIndexOf("screen") == -1) {
-			updateStatus("文件须位于screen目录下");
+		} else if (getPath().lastIndexOf("ui_prototype") == -1) {
+			updateStatus("文件须位于ui_prototype目录下");
 		} else {
 			metaProject = container.getProject();
 			if (fileName != null && !fileName.equals("") && ((IContainer) container).getFile(new Path(fileName)).exists()) {
@@ -372,10 +372,10 @@ public class NewWizardPage extends WizardPage {
 					}
 					try {
 						if (metaProject.hasNature("aurora.ide.meta.nature")) {
-							if (((IPath) selection).toString().indexOf("screen") != -1) {
+							if (((IPath) selection).toString().indexOf("ui_prototype") != -1) {
 								return null;
 							}
-							return "文件须位于screen目录下";
+							return "文件须位于ui_prototype目录下";
 						}
 					} catch (CoreException e) {
 						e.printStackTrace();
