@@ -15,6 +15,7 @@ public class BoxHandler extends ContainerHandler {
 		BOX box = (BOX) ac;
 		map.put(BOX.TITLE, box.getTitle());
 		map.put(BOX.PROMPT, box.getPrompt());
+		map.put(BOX.LABELWIDTH, box.getLabelWidth());
 		if (!(box instanceof HBox || box instanceof VBox)) {
 			map.put(BOX.ROW, box.getRow());
 			map.put(BOX.COL, box.getCol());
@@ -26,6 +27,7 @@ public class BoxHandler extends ContainerHandler {
 		BOX box = (BOX) ac;
 		box.setTitle(map.getString(BOX.TITLE));
 		box.setPrompt(map.getString(BOX.PROMPT));
+		box.setLabelWidth(map.getInt(BOX.LABELWIDTH));
 		if (!(box instanceof HBox || box instanceof VBox)) {
 			box.setRow(map.getInt(BOX.ROW));
 			box.setCol(map.getInt(BOX.COL));
