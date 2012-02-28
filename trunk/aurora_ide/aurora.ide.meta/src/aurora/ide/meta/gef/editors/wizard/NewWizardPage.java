@@ -286,7 +286,7 @@ public class NewWizardPage extends WizardPage {
 			lblTpName.setText("");
 			canvas.redraw();
 			btnRight.setEnabled(false);
-			setDescription("通过模板创建meta文件");
+			setDescription("通过模板创建UI Prototype文件");
 		}
 		try {
 			dialogChanged();
@@ -385,9 +385,9 @@ public class NewWizardPage extends WizardPage {
 			});
 			dialog.setTitle("选择目录");
 			if (dialog.open() == Dialog.OK && dialog.getResult().length != 0) {
+				initTemplates();
 				txtPath.setText(dialog.getResult()[0].toString());
 				index = 0;
-				initTemplates();
 				btnLeft.setEnabled(false);
 			}
 		}

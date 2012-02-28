@@ -30,6 +30,7 @@ import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
+import aurora.ide.meta.gef.editors.models.RowCol;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
@@ -155,7 +156,11 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			return createGrid(region);
 		} else {
 			Container container = AuroraModelFactory.createModel(region.getContainer());
-			QueryDataSet dataset = new QueryDataSet();
+			if (container instanceof RowCol) {
+				((RowCol) container).setCol(1);
+				((RowCol) container).setRow(10);
+			}
+			ResultDataSet dataset = new ResultDataSet();
 			String s = Util.toPKG(region.getModel().getModel().getFullPath());
 			if (s.endsWith(".bm")) {
 				s = s.substring(0, s.lastIndexOf(".bm"));
