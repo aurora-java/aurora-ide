@@ -32,9 +32,16 @@ public class DatasetFieldMap extends AbstractComponentMap {
 	@Override
 	public CompositeMap toCompositMap() {
 		if (this.isCombo() || this.isLov()) {
-			field = field.getParent().createChild("field");
-			field.setPrefix(field.getParent().getPrefix());
-			field.put("name", ac.getName() + "_display");
+			CompositeMap fields = field.getParent();
+			CompositeMap childByAttrib = fields.getChildByAttrib("name",
+					ac.getName() + "_display");
+			if (childByAttrib == null) {
+				field = fields.createChild("field");
+				field.setPrefix(fields.getPrefix());
+				field.put("name", ac.getName() + "_display");
+			} else {
+				field = childByAttrib;
+			}
 		}
 		String[] keys = DatasetField.keys;
 		for (String key : keys) {
