@@ -182,9 +182,11 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		if (fieldMap != null) {
 			input.setName(fieldMap.getString("name"));
 			input.setPrompt(fieldMap.getString("prompt"));
+			input.setType(GefModelAssist.getTypeNotNull(fieldMap));
 		} else {
 			input.setName(map.getString("name"));
 			input.setPrompt(map.getString("prompt"));
+			input.setType(GefModelAssist.getTypeNotNull(map));
 		}
 		return input;
 	}
