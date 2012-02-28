@@ -89,6 +89,22 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 			return getDatasetField().isReadOnly();
 		} else if (REQUIRED.equals(propName))
 			return getDatasetField().isRequired();
+		if (DatasetField.DISPLAY_FIELD.equals(propName)
+				|| DatasetField.VALUE_FIELD.equals(propName)
+				|| DatasetField.RETURN_FIELD.equals(propName)
+				|| DatasetField.OPTIONS.equals(propName)
+				|| DatasetField.LOV_GRID_HEIGHT.equals(propName)
+				|| DatasetField.LOV_HEIGHT.equals(propName)
+				|| DatasetField.LOV_SERVICE.equals(propName)
+				|| DatasetField.LOV_URL.equals(propName)
+				|| DatasetField.LOV_WIDTH.equals(propName)
+				|| DatasetField.TITLE.equals(propName))
+			return dsField.getPropertyValue(propName);
+		if (DatasetField.UNCHECKED_VALUE.equals(propName)
+				|| DatasetField.CHECKED_VALUE.equals(propName)
+				|| DatasetField.DEFAULT_VALUE.equals(propName)) {
+			return getDatasetField().getPropertyValue(propName);
+		}
 		return super.getPropertyValue(propName);
 	}
 
@@ -102,6 +118,21 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 			setReadOnly((Boolean) val);
 		} else if (REQUIRED.equals(propName)) {
 			setRequired((Boolean) val);
+		} else if (DatasetField.DISPLAY_FIELD.equals(propName)
+				|| DatasetField.VALUE_FIELD.equals(propName)
+				|| DatasetField.RETURN_FIELD.equals(propName)
+				|| DatasetField.OPTIONS.equals(propName)
+				|| DatasetField.LOV_GRID_HEIGHT.equals(propName)
+				|| DatasetField.LOV_HEIGHT.equals(propName)
+				|| DatasetField.LOV_SERVICE.equals(propName)
+				|| DatasetField.LOV_URL.equals(propName)
+				|| DatasetField.LOV_WIDTH.equals(propName)
+				|| DatasetField.TITLE.equals(propName))
+			dsField.setPropertyValue(propName, val);
+		else if (DatasetField.UNCHECKED_VALUE.equals(propName)
+				|| DatasetField.CHECKED_VALUE.equals(propName)
+				|| DatasetField.DEFAULT_VALUE.equals(propName)) {
+			getDatasetField().setPropertyValue(propName, val);
 		} else
 			super.setPropertyValue(propName, val);
 	}
