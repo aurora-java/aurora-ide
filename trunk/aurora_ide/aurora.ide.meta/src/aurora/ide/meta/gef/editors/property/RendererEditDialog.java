@@ -15,6 +15,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -77,7 +78,7 @@ public class RendererEditDialog extends EditWizard {
 	}
 
 	private class InnerPage extends WizardPage implements SelectionListener {
-		private String[] displayTexts = { "页面跳转", "内置函数", "自定义函数" };
+		private String[] displayTexts = { "不使用", "页面跳转", "内置函数", "自定义函数" };
 
 		protected InnerPage(String pageName) {
 			super(pageName);
@@ -127,12 +128,21 @@ public class RendererEditDialog extends EditWizard {
 				create_0();
 			else if (idx == 1)
 				create_1();
-			else
+			else if (idx == 2)
 				create_2();
+			else
+				create_3();
 			composite_right.layout();
 		}
 
 		private void create_0() {
+			composite_right.setLayout(new FillLayout());
+			Label l = new Label(composite_right, SWT.CENTER);
+			l.setForeground(ColorConstants.EDITOR_BORDER);
+			l.setText("disable renderer");
+		}
+
+		private void create_1() {
 			composite_right.setLayout(new GridLayout(3, false));
 			Label label = new Label(composite_right, SWT.NONE);
 			label.setText("显示文本 : ");
@@ -212,7 +222,7 @@ public class RendererEditDialog extends EditWizard {
 			});
 		}
 
-		private void create_1() {
+		private void create_2() {
 			composite_right.setLayout(new GridLayout(1, false));
 			final Label l = new Label(composite_right, SWT.WRAP);
 			l.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true,
@@ -249,7 +259,7 @@ public class RendererEditDialog extends EditWizard {
 			}
 		}
 
-		private void create_2() {
+		private void create_3() {
 			composite_right.setLayout(new GridLayout(1, false));
 			Label l = new Label(composite_right, SWT.NONE);
 			l.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true,
