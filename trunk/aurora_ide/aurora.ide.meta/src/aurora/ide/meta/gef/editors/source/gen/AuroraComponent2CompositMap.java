@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.source.gen;
 
+import java.util.List;
+
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
@@ -84,15 +86,34 @@ public class AuroraComponent2CompositMap {
 	public void bindDatasetField(CompositeMap field, Dataset dataset,
 			AuroraComponent ac) {
 		if (ac instanceof IDatasetFieldDelegate) {
-//			Object readonly = ac.getPropertyValue(AuroraComponent.READONLY);
-//			if (Boolean.TRUE.equals(readonly))
-//				field.put(AuroraComponent.READONLY, readonly);
-//			Object required = ac.getPropertyValue(AuroraComponent.REQUIRED);
-//			if (Boolean.TRUE.equals(required))
-//				field.put(AuroraComponent.REQUIRED, required);
 			DatasetFieldMap dfm = new DatasetFieldMap(field, dataset, ac,
 					this.screenGenerator);
 			dfm.toCompositMap();
+		}
+	}
+
+	public void doLovMap( Dataset ds,
+			AuroraComponent ac, CompositeMap lovMap) {
+		CompositeMap containerMap = lovMap.getParent();
+		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
+				screenGenerator.getProject(), ac.getName(), ds.getModel());
+		CompositeMap bmMap = dataSetFieldUtil.getBmMap();
+		MapFinder mf = new MapFinder();
+		CompositeMap relation = mf.lookupRelation(lovMap.getString("name", ""),
+				bmMap);
+		if (relation != null) {
+			String rName = relation.getString("name", "");
+			List<CompositeMap> lovFields = mf.lookupLovFields(rName, bmMap);
+			for (CompositeMap compositeMap : lovFields) {
+				CompositeMap clone = (CompositeMap) lovMap.clone();
+				String string = compositeMap.getString("name");
+				if (null != string && !"".equals(string)) {
+					clone.put("name", string);
+					containerMap.addChild(clone);
+				}
+			}
+			containerMap.removeChild(lovMap);
+			return;
 		}
 	}
 }

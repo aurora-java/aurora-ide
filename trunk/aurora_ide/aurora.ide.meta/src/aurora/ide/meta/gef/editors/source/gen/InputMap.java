@@ -4,7 +4,6 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.DatasetField;
-import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
 
 public class InputMap extends AbstractComponentMap {
@@ -41,7 +40,7 @@ public class InputMap extends AbstractComponentMap {
 			}
 		}
 
-		if (isCombo() || isLov()) {
+		if (isCombo()) {
 			map.putString("name", input.getName() + "_display");
 		}
 		return map;
@@ -54,12 +53,7 @@ public class InputMap extends AbstractComponentMap {
 		return false;
 	}
 
-	private boolean isLov() {
-		if (input instanceof Input) {
-			return Input.LOV.equals(input.getType());
-		}
-		return false;
-	}
+
 
 	@Override
 	public boolean isCompositMapKey(String key) {
