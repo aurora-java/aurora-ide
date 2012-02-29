@@ -24,7 +24,7 @@ public class IDGenerator {
 	}
 
 	public String genLinkID(String fileName) {
-		if(fileName ==null)
+		if (fileName == null)
 			return null;
 		return genID(fileName + "_link", 0);
 	}
@@ -33,7 +33,7 @@ public class IDGenerator {
 		String[] split = dataset.getModel().split("\\.");
 		String name = split[split.length - 1];
 		name = dataset.isUse4Query() ? name + QS : name + RS;
-		return genID(name,0);
+		return genID(name, 0);
 	}
 
 	private String genID(String id, int i) {
@@ -48,5 +48,11 @@ public class IDGenerator {
 			ids.add(id);
 			return id;
 		}
+	}
+
+	public String genWindowID(String linkId) {
+		if (linkId == null)
+			linkId = "";
+		return genID(linkId + "_window", 0);
 	}
 }
