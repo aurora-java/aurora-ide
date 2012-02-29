@@ -20,6 +20,7 @@ import aurora.ide.meta.gef.editors.models.DatasetBinder;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
+import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.QueryContainer;
 import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
@@ -60,7 +61,7 @@ public class ScreenGenerator {
 		scriptGenerator = new ScriptGenerator(this, script);
 		fill(view, screenBody);
 		fillLinks(viewMap);
-		
+
 		script.setText(scriptGenerator.getScript());
 		String xml = header + screen.toXML();
 		return xml;
@@ -72,12 +73,6 @@ public class ScreenGenerator {
 			CompositeMap childMap = a2Map.toCompositMap(ac);
 			if (childMap == null) {
 				continue;
-			}
-			if (ac instanceof GridColumn && container instanceof Grid) {
-				CompositeMap columns = getColumns(containerMap);
-				columns.addChild(childMap);
-			} else {
-				containerMap.addChild(childMap);
 			}
 
 			if (ac instanceof GridColumn) {
@@ -97,7 +92,27 @@ public class ScreenGenerator {
 			if (ac instanceof IDatasetFieldDelegate) {
 				fillDataset(findDataset(ac.getParent()), datasets, ac);
 			}
+			if (ac instanceof GridColumn && container instanceof Grid) {
+				CompositeMap columns = getColumns(containerMap);
+				columns.addChild(childMap);
+			} else {
+				containerMap.addChild(childMap);
+			}
+			if (isLov(ac)) {
+				a2Map.doLovMap(findDataset(ac.getParent()), ac,childMap);
+			}
+			
 		}
+	}
+
+	private boolean isLov(AuroraComponent ac) {
+		if (ac instanceof GridColumn) {
+			return Input.LOV.equals(((GridColumn) ac).getEditor());
+		}
+		if (ac instanceof Input) {
+			return Input.LOV.equals(ac.getType());
+		}
+		return false;
 	}
 
 	private void genColumnRenderer(GridColumn ac, CompositeMap childMap,

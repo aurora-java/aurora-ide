@@ -35,7 +35,7 @@ public class GridColumnMap extends AbstractComponentMap {
 					map.putString(id, value.toString());
 			}
 		}
-		if (isCombo() || isLov()) {
+		if (isCombo()) {
 			map.putString("name", c.getName() + "_display");
 		}
 		return map;
@@ -49,13 +49,7 @@ public class GridColumnMap extends AbstractComponentMap {
 		return false;
 	}
 
-	private boolean isLov() {
-		if (c instanceof GridColumn) {
-			return Input.LOV.equals(((GridColumn) c).getEditor());
-		}
-		return false;
-	}
-
+	
 	static private List<String> keys = new ArrayList<String>() {
 		/**
 		 * 

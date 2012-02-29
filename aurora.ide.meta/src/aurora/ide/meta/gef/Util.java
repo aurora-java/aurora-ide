@@ -2,6 +2,7 @@ package aurora.ide.meta.gef;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -17,6 +18,7 @@ import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
 
 import uncertain.composite.CompositeMap;
+import uncertain.composite.IterationHandle;
 import aurora.ide.meta.gef.editors.models.Input;
 
 public class Util {
@@ -138,6 +140,16 @@ public class Util {
 			}
 		}
 		return new String[0];
+	}
+
+	public static String getCompositeValue(String key, CompositeMap map) {
+		Set keySet = map.keySet();
+		for (Object object : keySet) {
+			if (key.equalsIgnoreCase(object.toString())) {
+				return map.getString(object);
+			}
+		}
+		return null;
 	}
 
 }

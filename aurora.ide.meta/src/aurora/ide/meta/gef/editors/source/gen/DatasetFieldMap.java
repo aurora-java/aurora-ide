@@ -1,6 +1,9 @@
 package aurora.ide.meta.gef.editors.source.gen;
 
+import java.util.List;
+
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Dataset;
@@ -32,7 +35,10 @@ public class DatasetFieldMap extends AbstractComponentMap {
 
 	@Override
 	public CompositeMap toCompositMap() {
-		if (this.isCombo() || this.isLov()) {
+		if (this.isLov()) {
+			return bindLov();
+		}
+		if (this.isCombo()) {
 			CompositeMap fields = field.getParent();
 			CompositeMap childByAttrib = fields.getChildByAttrib("name",
 					ac.getName() + "_display");
@@ -93,35 +99,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 						value = dataSetFieldUtil.getPK(optionsMap);
 				}
 			}
-			if (isLov()) {
-				if (DatasetField.TITLE.equals(key)) {
-					value = ac.getPropertyValue(key);
-				}
-				if (DatasetField.LOV_SERVICE.equals(key)) {
-					value = dataSetFieldUtil.getOptions();
 
-					CompositeMap mappingMap = sg.createCompositeMap("mapping");
-
-					CompositeMap idMap = sg.createCompositeMap("map");
-					CompositeMap optionsMap = dataSetFieldUtil.getOptionsMap();
-					if (optionsMap != null) {
-						String pk = dataSetFieldUtil.getPK(optionsMap);
-						idMap.put("from", pk);
-						idMap.put("to", ac.getName());
-					}
-
-					CompositeMap valueMap = sg.createCompositeMap("map");
-					if (optionsMap != null) {
-						String dsValue = optionsMap
-								.getString("defaultDisplayField");
-						valueMap.put("from", dsValue);
-						valueMap.put("to", ac.getName() + "_display");
-					}
-					mappingMap.addChild(idMap);
-					mappingMap.addChild(valueMap);
-					field.addChild(mappingMap);
-				}
-			}
 			if (isCheckBox()) {
 				if (DatasetField.CHECKED_VALUE.equals(key)) {
 					value = ac.getPropertyValue(key);
@@ -134,6 +112,106 @@ public class DatasetFieldMap extends AbstractComponentMap {
 				field.putString(key, value.toString());
 		}
 		return field;
+	}
+
+	private CompositeMap bindLov() {
+		List<CompositeMap> lovMaps = getLovMaps();
+		if (lovMaps == null) {
+			return bindLov(field);
+		} else {
+			for (CompositeMap lovMap : lovMaps) {
+				CompositeMap fields = field.getParent();
+				CompositeMap fieldMap;
+				String name = lovMap.getString("name", "");
+				CompositeMap childByAttrib = fields.getChildByAttrib("name",
+						name);
+				if (childByAttrib == null) {
+					fieldMap = fields.createChild("field");
+					fieldMap.setPrefix(fields.getPrefix());
+					fieldMap.put("name", name);
+				} else {
+					fieldMap = childByAttrib;
+				}
+				bindLov(fieldMap);
+				bindMapping(fieldMap, lovMaps);
+
+			}
+		}
+		return null;
+	}
+
+	private void bindMapping(CompositeMap fieldMap, List<CompositeMap> lovMaps) {
+		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
+				sg.getProject(), ac.getName(), dataset.getModel());
+		CompositeMap bmMap = dataSetFieldUtil.getBmMap();
+		MapFinder mf = new MapFinder();
+		CompositeMap relation = mf.lookupRelation(ac.getName(), bmMap);
+		CompositeMap refMap = relation.getChild("reference");
+		CompositeMap mappingMap = sg.createCompositeMap("mapping");
+
+		String foreignField = Util.getCompositeValue("foreignField", refMap);
+		String localField = Util.getCompositeValue("localField", refMap);
+		if (localField != null && foreignField != null) {
+			CompositeMap idMap = sg.createCompositeMap("map");
+			idMap.put("from", foreignField);
+			idMap.put("to", localField);
+			mappingMap.addChild(idMap);
+		}
+		// <ns1:ref-field name="service_name" relationName="ss"
+		// sourceField="service_name"/>
+		for (CompositeMap lovMap : lovMaps) {
+			String source = Util.getCompositeValue("sourceField", lovMap);
+			String name = Util.getCompositeValue("name", lovMap);
+			if (source != null && name != null) {
+				CompositeMap m = sg.createCompositeMap("map");
+				m.put("from", source);
+				m.put("to", name);
+				mappingMap.addChild(m);
+			}
+		}
+		fieldMap.addChild(mappingMap);
+	}
+
+	private CompositeMap bindLov(CompositeMap field) {
+		Object value = "";
+		String[] keys = DatasetField.lov_keys;
+		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
+				sg.getProject(), ac.getName(), dataset.getModel());
+		for (String key : keys) {
+			
+			if (AuroraComponent.READONLY.equals(key)) {
+				if (Boolean.TRUE.equals(value))
+					field.put(AuroraComponent.READONLY, value);
+				continue;
+			}
+			if (AuroraComponent.REQUIRED.equals(key)) {
+				if (Boolean.TRUE.equals(value))
+					field.put(AuroraComponent.REQUIRED, value);
+				continue;
+			}
+			if (DatasetField.LOV_SERVICE.equals(key)) {
+				value = dataSetFieldUtil.getOptions();
+			}else{
+				value = ac.getPropertyValue(key);
+			}
+			if (value != null && !("".equals(value)))
+				field.putString(key, value.toString());
+		}
+		return field;
+	}
+
+	public List<CompositeMap> getLovMaps() {
+		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
+				sg.getProject(), ac.getName(), dataset.getModel());
+		CompositeMap bmMap = dataSetFieldUtil.getBmMap();
+		MapFinder mf = new MapFinder();
+		CompositeMap relation = mf.lookupRelation(ac.getName(), bmMap);
+		if (relation != null) {
+			String rName = relation.getString("name", "");
+			List<CompositeMap> lovFields = mf.lookupLovFields(rName, bmMap);
+			return lovFields;
+		}
+		return null;
 	}
 
 	private boolean isCombo() {
