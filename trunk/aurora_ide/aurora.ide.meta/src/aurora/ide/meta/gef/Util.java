@@ -51,7 +51,7 @@ public class Util {
 		return null;
 	}
 
-	public IEditorPart getActiveEditor(IWorkbenchWindow fWorkbenchWindow) {
+	static public IEditorPart getActiveEditor(IWorkbenchWindow fWorkbenchWindow) {
 		IWorkbenchPage activePage = fWorkbenchWindow.getActivePage();
 		if (activePage != null) {
 			IEditorPart activeEditor = activePage.getActiveEditor();
@@ -70,6 +70,11 @@ public class Util {
 		return window.getSelectionService().getSelection();
 	}
 
+	public static String[] evaluateEnclosingProject(
+			IWorkbenchWindow fWorkbenchWindow) {
+		return evaluateEnclosingProject(getSelection(fWorkbenchWindow),
+				getActiveEditor(fWorkbenchWindow));
+	}
 
 	public static String evaluateEnclosingProject(IAdaptable adaptable) {
 		IProject project = (IProject) adaptable.getAdapter(IProject.class);

@@ -8,7 +8,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -21,9 +23,12 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchWindow;
 
 import aurora.ide.AuroraMetaProjectNature;
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.source.gen.ProjectGenerator;
 import aurora.ide.meta.project.AuroraMetaProject;
 
@@ -34,6 +39,14 @@ public class SourceCodeGeneratorWizard extends Wizard {
 	private Text auroraProjectNameField;
 	private Combo projectNameField;
 	private Button overlap;
+	private IWorkbenchWindow window;
+
+	public final static String DIALOG_SETTING_SECTION = "aurora.ide.uip.action.SourceCodeGenerator";
+	private final static String IS_OVERLAP = "isOverlap";
+
+	public SourceCodeGeneratorWizard(IWorkbenchWindow window) {
+		this.window = window;
+	}
 
 	public void addPages() {
 
@@ -76,11 +89,22 @@ public class SourceCodeGeneratorWizard extends Wizard {
 				setMessage(null);
 				setControl(composite);
 				Dialog.applyDialogFont(composite);
+				initPage();
+			}
 
+			public void initPage() {
+				overlap.setSelection(isOverlap());
 				int count = projectNameField.getItemCount();
 				projectNameField.select(count > 0 ? 1 : 0);
+				String[] pNames = Util.evaluateEnclosingProject(window);
+				for (String name : pNames) {
+					int indexOf = projectNameField.indexOf(name);
+					if (indexOf != -1) {
+						projectNameField.select(indexOf);
+						break;
+					}
+				}
 				this.selecttionChanged();
-
 			}
 
 			/**
@@ -216,6 +240,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 	public boolean performFinish() {
 		final String text = projectNameField.getText();
 		final boolean selection = overlap.getSelection();
+		saveOverlap(selection);
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IProject project = workspace.getRoot().getProject(text);
 		final ProjectGenerator pg = new ProjectGenerator(project, selection,
@@ -244,4 +269,19 @@ public class SourceCodeGeneratorWizard extends Wizard {
 	public void createPageControls(Composite pageContainer) {
 		super.createPageControls(pageContainer);
 	}
+
+	public IDialogSettings getDialogSettings() {
+		IDialogSettings dialogSettingsSection = MetaPlugin.getDefault()
+				.getDialogSettingsSection(DIALOG_SETTING_SECTION);
+		return dialogSettingsSection;
+	}
+
+	private boolean isOverlap() {
+		return getDialogSettings().getBoolean(IS_OVERLAP);
+	}
+
+	private void saveOverlap(boolean value) {
+		getDialogSettings().put(IS_OVERLAP, value);
+	}
+
 }
