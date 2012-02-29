@@ -80,7 +80,9 @@
                class="aurora.ide.meta.action.SourceCodeGenerator"
                tooltip="生成Aurora代码"
                toolbarPath="Aurora\meta"
-               id="aurora.ide.meta.action.SourceCodeGenerator">
+               id="aurora.ide.meta.action.SourceCodeGenerator"
+               style="pulldown"
+               >
          </action>
       </actionSet>
    </extension>

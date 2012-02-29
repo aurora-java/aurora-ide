@@ -201,21 +201,19 @@ public class ProjectGenerator {
 		ViewDiagram loadFile = this.loadFile(fCurrentFile);
 		ScreenGenerator sg = new ScreenGenerator(project);
 		try {
+			IFile newFile = getNewFile(fCurrentFile);
+			if (newFile.exists() && !isOverlap) {
+				return;
+			}
 
 			String genFile = sg.genFile(header, loadFile);
 			InputStream is = new ByteArrayInputStream(genFile.getBytes());
-
-			IFile newFile = getNewFile(fCurrentFile);
-			if (newFile.exists()) {
-				if (isOverlap) {
-					try {
-						// newFile.delete(true, monitor);
-						newFile.setContents(is, true, false, monitor);
-						return;
-					} catch (CoreException e) {
-					}
-				} else {
+			if (newFile.exists() && isOverlap) {
+				try {
+					// newFile.delete(true, monitor);
+					newFile.setContents(is, true, false, monitor);
 					return;
+				} catch (CoreException e) {
 				}
 			}
 			CreateFileOperation cfo = new CreateFileOperation(newFile, null,
