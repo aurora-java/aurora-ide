@@ -8,11 +8,12 @@ import aurora.ide.meta.gef.editors.property.DialogEditableObject;
 public class Renderer extends AuroraComponent implements DialogEditableObject {
 
 	private static final long serialVersionUID = -3218999047690358423L;
+	public static final String NONE_RENDERER = "NONE_RENDERER";
 	public static final String PAGE_REDIRECT = "PAGE_REDIRECT";
 	public static final String INNER_FUNCTION = "INNER_FUNCTION";
 	public static final String USER_FUNCTION = "USER_FUNCTION";
-	public static final String[] RENDERER_TYPES = { PAGE_REDIRECT,
-			INNER_FUNCTION, USER_FUNCTION };
+	public static final String[] RENDERER_TYPES = { NONE_RENDERER,
+			PAGE_REDIRECT, INNER_FUNCTION, USER_FUNCTION };
 
 	// PAGE_REDIRECT
 	private String openPath = "";
@@ -46,7 +47,7 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 	public static final String FUNCTION_MODEL = "function myRenderer(value,record,name){\n\treturn 'rendererText';\n}";
 
 	private GridColumn column;
-	private String rendererType = "";
+	private String rendererType = NONE_RENDERER;
 
 	public Renderer() {
 
