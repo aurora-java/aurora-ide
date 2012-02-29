@@ -14,7 +14,6 @@ import aurora.ide.editor.textpage.format.JSBeautifier;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Renderer;
 
 public class ScriptGenerator {
@@ -276,7 +275,7 @@ public class ScriptGenerator {
 
 	public String hrefScript(String functionName, String labelText,
 			String newWindowName) {
-		String s = "function functionName(value,record, name){return '<a href=\"javascript:newWindowName()\">LabelText</a>'}";
+		String s = "function functionName(value,record, name){return '<a href=\"javascript:newWindowName()\">LabelText</a>';}";
 		s = s.replace("functionName", functionName);
 		s = s.replace("newWindowName", newWindowName);
 		s = s.replace("LabelText", labelText);
@@ -305,9 +304,12 @@ public class ScriptGenerator {
 	}
 
 	public String openScript(String functionName, String linkId) {
-		String s = " function functionName() {new Aurora.Window({id: 'linkId',url:$('linkId').getUrl(),title: 'Title',height: 435,width: 620});}";
+		String s = " function functionName() {new Aurora.Window({id: 'windowID',url:$('linkId').getUrl(),title: 'Title',height: 435,width: 620});}";
 		s = s.replace("functionName", functionName);
+		String windowID = sg.getIdGenerator().genWindowID(linkId);
+		s = s.replaceAll("windowID", windowID);
 		s = s.replaceAll("linkId", linkId);
+		
 		return s;
 	}
 
