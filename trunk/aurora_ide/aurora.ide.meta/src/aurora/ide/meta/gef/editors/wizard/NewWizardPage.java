@@ -71,7 +71,7 @@ public class NewWizardPage extends WizardPage {
 				StructuredSelection ts = (StructuredSelection) obj;
 				if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
 					r = (IResource) ts.getFirstElement();
-					if (r.getProject().hasNature("aurora.ide.meta.nature") && (r instanceof IFolder) && r.getFullPath().toString().indexOf("screen") != -1) {
+					if (r.getProject().hasNature("aurora.ide.meta.nature") && (r instanceof IFolder) && r.getFullPath().toString().indexOf("ui_prototype") != -1) {
 						metaFolder = (IFolder) r;
 					}
 				}
