@@ -2,6 +2,8 @@ package aurora.ide.meta.gef.editors.models.io;
 
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Dimension;
+
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
@@ -16,6 +18,8 @@ public class GridHandler extends ContainerHandler {
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
 		Grid g = (Grid) ac;
 		map.put(Grid.NAVBAR_TYPE, g.getNavBarType());
+		map.put(Grid.WIDTH, g.getSize().width);
+		map.put(Grid.HEIGHT, g.getSize().height);
 	}
 
 	@Override
@@ -27,6 +31,9 @@ public class GridHandler extends ContainerHandler {
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
 		Grid g = (Grid) ac;
 		g.setNavbarType(map.getString(Grid.NAVBAR_TYPE));
+		int w = map.getInt(Grid.WIDTH);
+		int h = map.getInt(Grid.HEIGHT);
+		g.setSize(new Dimension(w, h));
 	}
 
 	@Override
