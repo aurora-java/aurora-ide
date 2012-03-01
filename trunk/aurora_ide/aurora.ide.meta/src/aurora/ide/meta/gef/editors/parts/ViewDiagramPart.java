@@ -1,10 +1,12 @@
 package aurora.ide.meta.gef.editors.parts;
 
 import java.util.EventObject;
+import java.util.List;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -23,29 +25,31 @@ public class ViewDiagramPart extends ContainerPart {
 			while (GraphAnimation.step())
 				getFigure().getUpdateManager().performUpdate();
 			GraphAnimation.end();
+			applyToModel();
 		}
 	};
+
 
 	@Override
 	protected IFigure createFigure() {
 		Figure figure = new FreeformLayer() {
-//			protected boolean isValid() {
-//				System.out.println("isValid");
-//				return super.isValid();
-//				// return false;
-//			}
-//
-//			public void invalidate() {
-//				System.out.println("invalidate");
-//				
-//				super.invalidate();
-//			}
-//
-//			public void revalidate() {
-//				
-//				System.out.println("revalidate");
-//				super.revalidate();
-//			}
+			// protected boolean isValid() {
+			// System.out.println("isValid");
+			// return super.isValid();
+			// // return false;
+			// }
+			//
+			// public void invalidate() {
+			// System.out.println("invalidate");
+			//
+			// super.invalidate();
+			// }
+			//
+			// public void revalidate() {
+			//
+			// System.out.println("revalidate");
+			// super.revalidate();
+			// }
 		};
 		ViewDiagramLayout manager = new ViewDiagramLayout(false, this);
 		figure.setLayoutManager(manager);
@@ -55,7 +59,7 @@ public class ViewDiagramPart extends ContainerPart {
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new DiagramLayoutEditPolicy());
-//		installEditPolicy("Drop BM", new AutoCreateFormGridEditPolicy());
+		// installEditPolicy("Drop BM", new AutoCreateFormGridEditPolicy());
 
 	}
 

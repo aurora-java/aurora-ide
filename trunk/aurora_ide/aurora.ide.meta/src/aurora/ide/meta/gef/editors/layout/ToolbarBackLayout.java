@@ -42,7 +42,7 @@ public class ToolbarBackLayout extends BackLayout {
 			col = 100;
 			row = 1;
 			Rectangle fBounds = parent.getFigure().getBounds();
-			selfRectangle = fBounds.isEmpty() ? box.getBounds() : fBounds;
+			selfRectangle = fBounds.isEmpty() ? box.getBoundsCopy() : fBounds;
 			titleHight = 2;
 			location.x = 2;
 			location.y = titleHight + 0;

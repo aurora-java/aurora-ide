@@ -27,7 +27,7 @@ public class TabFolderLayout extends BackLayout {
 		for (ComponentPart cp : list) {
 			if (cp instanceof TabItemPart) {
 				TabItemPart tip = (TabItemPart) cp;
-				Rectangle bounds = tip.getModel().getBounds();
+				Rectangle bounds = tip.getModel().getBoundsCopy();
 				bounds.setLocation(pos);
 				pos.x += bounds.width + 2;
 				tabItemTotalWidth = pos.x;

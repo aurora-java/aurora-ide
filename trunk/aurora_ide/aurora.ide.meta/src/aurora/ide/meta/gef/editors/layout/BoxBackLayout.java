@@ -44,7 +44,7 @@ public class BoxBackLayout extends BackLayout {
 			col = box.getCol();
 			row = box.getRow();
 			Rectangle fBounds = parent.getFigure().getBounds();
-			selfRectangle = fBounds.isEmpty() ? box.getBounds() : fBounds;
+			selfRectangle = fBounds.isEmpty() ? box.getBoundsCopy() : fBounds;
 			titleHight = box.getHeadHight();
 			location.x = PADDING.left;
 			location.y = titleHight + PADDING.top;
@@ -146,7 +146,7 @@ public class BoxBackLayout extends BackLayout {
 		if (!selfRectangle.isEmpty()) {
 			return selfRectangle.expand(5, 5);
 		}
-		selfRectangle = parent.getComponent().getBounds();
+		selfRectangle = parent.getComponent().getBoundsCopy();
 		return selfRectangle;
 	}
 	private Rectangle calculateFormRectangle(ComponentPart parent) {
@@ -161,7 +161,7 @@ public class BoxBackLayout extends BackLayout {
 			// return selfRectangle.expand(1, 1);
 			return this.selfRectangle.getCopy().setWidth(selfRectangle.width+50);
 		}
-		selfRectangle = parent.getComponent().getBounds();
+		selfRectangle = parent.getComponent().getBoundsCopy();
 		return this.selfRectangle.setWidth(selfRectangle.width);
 	}
 

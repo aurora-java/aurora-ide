@@ -53,7 +53,7 @@ public class GridBackLayout extends BackLayout {
 			col = 100;
 			row = 1;
 			Rectangle fBounds = parent.getFigure().getBounds();
-			selfRectangle = fBounds.isEmpty() ? box.getBounds() : fBounds;
+			selfRectangle = fBounds.isEmpty() ? box.getBoundsCopy() : fBounds;
 			titleHight = this.hasToolbar() ? 25 : 0;
 			location.x = 0;
 			location.y = titleHight;
@@ -266,7 +266,7 @@ public class GridBackLayout extends BackLayout {
 		// selfRectangle.width, 35));
 		// horizontalScrollBar.setVisible(true);
 
-		selfRectangle = parent.getComponent().getBounds();
+		selfRectangle = parent.getComponent().getBoundsCopy();
 		return this.selfRectangle.setWidth(selfRectangle.width);
 	}
 
