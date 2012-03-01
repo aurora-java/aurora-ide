@@ -157,8 +157,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 			idMap.put("to", localField);
 			mappingMap.addChild(idMap);
 		}
-		// <ns1:ref-field name="service_name" relationName="ss"
-		// sourceField="service_name"/>
+		
 		for (CompositeMap lovMap : lovMaps) {
 			String source = Util.getCompositeValue("sourceField", lovMap);
 			String name = Util.getCompositeValue("name", lovMap);
