@@ -13,7 +13,8 @@ public class DatasetFieldHandler implements IOHandler {
 			{ DatasetField.LOV_URL, String.class },
 			{ DatasetField.TITLE, String.class },
 			{ DatasetField.CHECKED_VALUE, String.class },
-			{ DatasetField.UNCHECKED_VALUE, String.class } };
+			{ DatasetField.UNCHECKED_VALUE, String.class },
+			{ DatasetField.DEFAULT_VALUE, String.class } };
 
 	public CompositeMap toCompositeMap(AuroraComponent ac, ModelIOContext mic) {
 		DatasetField df = (DatasetField) ac;
