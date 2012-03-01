@@ -33,7 +33,7 @@ public class ViewDiagramLayout extends AbstractLayout {
 	@Override
 	protected Dimension calculatePreferredSize(IFigure container, int wHint,
 			int hHint) {
-		container.validate();
+//		container.validate();
 		List children = container.getChildren();
 		Rectangle result = new Rectangle().setLocation(container
 				.getClientArea().getLocation());

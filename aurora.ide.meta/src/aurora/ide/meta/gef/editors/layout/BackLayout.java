@@ -8,12 +8,14 @@ public class BackLayout {
 //	protected static final Insets PADDING = new Insets(8, 16, 8, 6);//8,6,8,6
 
 	public Rectangle layout(ComponentPart ep) {
-		Rectangle bounds = ep.getComponent().getBounds();
+		Rectangle bounds = ep.getComponent().getBoundsCopy();
 		return bounds;
 	}
 
 	protected void applyToFigure(ComponentPart ep, Rectangle layout) {
 		ep.getFigure().setBounds(layout);
-//		ep.getComponent().resetSize(layout.getSize());
+	}
+	protected void applyToModel(ComponentPart ep, Rectangle layout) {
+		ep.getComponent().applyToModel(layout);
 	}
 }

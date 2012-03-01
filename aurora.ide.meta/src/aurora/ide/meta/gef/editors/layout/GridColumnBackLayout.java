@@ -43,7 +43,7 @@ public class GridColumnBackLayout extends BackLayout {
 			col = 100;
 			row = 1;
 			Rectangle fBounds = parent.getFigure().getBounds();
-			selfRectangle = fBounds.isEmpty() ? box.getBounds() : fBounds;
+			selfRectangle = fBounds.isEmpty() ? box.getBoundsCopy() : fBounds;
 			titleHight = 25;
 			location.x = 0;
 			location.y = titleHight + 0 - 1;
@@ -145,7 +145,7 @@ public class GridColumnBackLayout extends BackLayout {
 			// return selfRectangle.expand(1, 1);
 			return selfRectangle;
 		}
-		selfRectangle = parent.getComponent().getBounds();
+		selfRectangle = parent.getComponent().getBoundsCopy();
 		return selfRectangle;
 	}
 

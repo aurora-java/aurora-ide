@@ -14,7 +14,7 @@ public class InputFieldLayout extends BackLayout {
 
 		if (parent instanceof InputPart) {
 			// layout.width += box.getLabelWidth();
-			Rectangle bounds = parent.getComponent().getBounds();
+			Rectangle bounds = parent.getComponent().getBoundsCopy();
 			int labelWidth = 0;
 			IFigure parentf = (((ComponentPart) parent.getParent()).getFigure());
 			if (parentf instanceof BoxFigure) {

@@ -25,8 +25,8 @@ public class ResizeCmpCmd extends Command {
 
 	@Override
 	public void execute() {
-		oldBounds = hostModel.getBounds().getCopy();
-		hostModel.setBounds(hostModel.getBounds().getCopy().resize(sizeDelta));
+		oldBounds = hostModel.getBoundsCopy();
+		hostModel.setBounds(hostModel.getBoundsCopy().resize(sizeDelta));
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
@@ -42,5 +43,13 @@ public abstract class ContainerPart extends ComponentPart {
 		String prop = evt.getPropertyName();
 		if (IProperties.CHILDREN.equals(prop))
 			refreshChildren();
+	}
+	protected void applyToModel(){
+		List children = this.getChildren();
+		for (Object child : children) {
+			if(child instanceof ContainerPart){
+				((ContainerPart) child).applyToModel();
+			}
+		}
 	}
 }

@@ -5,6 +5,7 @@ import java.beans.PropertyChangeEvent;
 import org.eclipse.draw2d.AbstractLabeledBorder;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.models.BOX;
@@ -23,7 +24,6 @@ public class BoxPart extends ContainerPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-//		installEditPolicy("Bind_Form", new BindFormPartEditPolicy());
 	}
 
 	protected void refreshVisuals() {
@@ -34,7 +34,13 @@ public class BoxPart extends ContainerPart {
 			((AbstractLabeledBorder) border).setLabel(model.getTitle());
 		}
 		super.refreshVisuals();
+	}
 
+	@Override
+	protected void applyToModel() {
+		super.applyToModel();
+		Rectangle bounds = this.getFigure().getBounds();
+		this.getComponent().applyToModel(bounds);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {

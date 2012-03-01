@@ -100,10 +100,16 @@ public class AuroraComponent implements Cloneable, Serializable, IProperties,
 		firePropertyChange(SIZE, oldSize, size);
 	}
 
-	public Rectangle getBounds() {
+	public Rectangle getBoundsCopy() {
 		return bounds.getCopy();
 	}
-
+	public Rectangle getBounds() {
+		return bounds;
+	}
+	
+	public void applyToModel(Rectangle bounds){
+		this.bounds.setBounds(bounds);
+	}
 	public void setBounds(Rectangle bounds) {
 		if (eq(this.bounds, bounds)) {
 			return;
