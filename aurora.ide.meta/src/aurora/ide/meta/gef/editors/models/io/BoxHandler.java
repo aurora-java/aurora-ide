@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.models.io;
 
+import org.eclipse.draw2d.geometry.Dimension;
+
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
@@ -16,6 +18,8 @@ public class BoxHandler extends ContainerHandler {
 		map.put(BOX.TITLE, box.getTitle());
 		map.put(BOX.PROMPT, box.getPrompt());
 		map.put(BOX.LABELWIDTH, box.getLabelWidth());
+		map.put(BOX.WIDTH, box.getSize().width);
+		map.put(BOX.HEIGHT, box.getSize().height);
 		if (!(box instanceof HBox || box instanceof VBox)) {
 			map.put(BOX.ROW, box.getRow());
 			map.put(BOX.COL, box.getCol());
@@ -28,6 +32,9 @@ public class BoxHandler extends ContainerHandler {
 		box.setTitle(map.getString(BOX.TITLE));
 		box.setPrompt(map.getString(BOX.PROMPT));
 		box.setLabelWidth(map.getInt(BOX.LABELWIDTH));
+		int w = map.getInt(BOX.WIDTH);
+		int h = map.getInt(BOX.HEIGHT);
+		box.setSize(new Dimension(w, h));
 		if (!(box instanceof HBox || box instanceof VBox)) {
 			box.setRow(map.getInt(BOX.ROW));
 			box.setCol(map.getInt(BOX.COL));
