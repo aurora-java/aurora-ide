@@ -5,8 +5,8 @@ import java.util.List;
 import org.eclipse.gef.commands.Command;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.TabBody;
 
@@ -31,11 +31,14 @@ public class CreateComponentCommand extends Command {
 			return false;
 		String sType = container.getSectionType();
 		if (Container.SECTION_TYPE_QUERY.equals(sType)) {
-			if (!(child instanceof Input))
-				return false;
+			return !(child instanceof Grid);
 		} else if (Container.SECTION_TYPE_BUTTON.equals(sType)) {
-			if (!(child instanceof Button))
+			if ((child instanceof Grid))
 				return false;
+			else if (child instanceof Input)
+				return false;
+		} else if (Container.SECTION_TYPE_RESULT.equals(sType)) {
+			return !(container instanceof Grid);
 		}
 		return true;
 	}
