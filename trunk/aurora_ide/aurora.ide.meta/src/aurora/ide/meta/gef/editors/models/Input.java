@@ -30,7 +30,7 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 			CASE_LOWER };
 	private static final String[] CAL_ENABLES = { "pre", "next", "both", "none" };
 	public static final String[] INPUT_TYPES = { TEXT, NUMBER, Combo, LOV, CAL,
-		DATETIMEPICKER, CheckBox.CHECKBOX };
+			DATETIMEPICKER, CheckBox.CHECKBOX };
 	// property key
 	// number
 	public static final String ALLOWDECIMALS = "allowDecimals";
@@ -180,7 +180,8 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 				|| DatasetField.LOV_SERVICE.equals(propName)
 				|| DatasetField.LOV_URL.equals(propName)
 				|| DatasetField.LOV_WIDTH.equals(propName)
-				|| DatasetField.TITLE.equals(propName))
+				|| DatasetField.TITLE.equals(propName)
+				|| DatasetField.DEFAULT_VALUE.equals(propName))
 			return dsField.getPropertyValue(propName);
 		return super.getPropertyValue(propName);
 	}
