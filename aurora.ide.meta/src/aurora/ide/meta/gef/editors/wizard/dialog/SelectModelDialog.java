@@ -100,7 +100,6 @@ public class SelectModelDialog extends Dialog {
 		});
 
 		tree.getTree().addPaintListener(new PaintListener() {
-			@Override
 			public void paintControl(PaintEvent e) {
 				e.gc.setForeground(getShell().getDisplay().getSystemColor(SWT.COLOR_GRAY));
 				e.gc.drawLine(0, 0, e.width, 0);
@@ -108,7 +107,6 @@ public class SelectModelDialog extends Dialog {
 		});
 		
 		txtFileName.addModifyListener(new ModifyListener() {
-			@Override
 			public void modifyText(ModifyEvent e) {
 				tree.removeFilter(filter);
 				filter = new ModelFilter(txtFileName.getText());
