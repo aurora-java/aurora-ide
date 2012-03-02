@@ -38,7 +38,10 @@ public class CreateComponentCommand extends Command {
 			else if (child instanceof Input)
 				return false;
 		} else if (Container.SECTION_TYPE_RESULT.equals(sType)) {
-			return !(container instanceof Grid);
+			if (container instanceof Grid) {
+				return container.isResponsibleChild(child);
+			}
+			return false;
 		}
 		return true;
 	}
