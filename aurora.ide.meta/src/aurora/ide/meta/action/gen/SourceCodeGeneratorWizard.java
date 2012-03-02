@@ -153,7 +153,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 								.hasAuroraNature(p);
 					} catch (CoreException e) {
 					}
-					if (hasAuroraNature) {
+					if (hasAuroraNature && p.isAccessible()) {
 						projectNameField.add(p.getName());
 					}
 				}
@@ -208,9 +208,11 @@ public class SourceCodeGeneratorWizard extends Wizard {
 			}
 
 			public void selecttionChanged() {
+				String text = projectNameField.getText();
+				if (text == null || "".equals(text))
+					return;
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
-				IProject project = workspace.getRoot().getProject(
-						projectNameField.getText());
+				IProject project = workspace.getRoot().getProject(text);
 				AuroraMetaProject amp = new AuroraMetaProject(project);
 				try {
 					String name = amp.getAuroraProject().getName();
