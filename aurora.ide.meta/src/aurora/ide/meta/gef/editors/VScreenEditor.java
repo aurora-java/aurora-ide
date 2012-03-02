@@ -39,10 +39,10 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
+import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
-import aurora.ide.meta.exception.TemplateNotBindedException;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -50,7 +50,6 @@ import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.parts.AuroraPartFactory;
 import aurora.ide.meta.gef.editors.parts.DatasetPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
-import aurora.ide.meta.gef.editors.source.gen.ScreenGenerator;
 
 public class VScreenEditor extends FlayoutBMGEFEditor {
 
@@ -273,23 +272,36 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	 */
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
+		if (!(input instanceof IFileEditorInput)) {
+			diagram = new ViewDiagram();
+			return;
+		}
 
 		IFile file = ((IFileEditorInput) input).getFile();
+		this.setPartName(file.getName());
+		InputStream is = null;
 		try {
-			InputStream is = file.getContents(false);
-
+			is = file.getContents(false);
 			CompositeLoader parser = new CompositeLoader();
 			CompositeMap rootMap = parser.loadFromStream(is);
 			ModelIOManager mim = ModelIOManager.getNewInstance();
 			diagram = mim.fromCompositeMap(rootMap);
-			is.close();
-			// ObjectInputStream ois = new ObjectInputStream(is);
-			// diagram = (ViewDiagram) ois.readObject();
-			// ois.close();
-		} catch (Exception e) {
-			// This is just an example. All exceptions caught here.
-			// e.printStackTrace();
-			diagram = new ViewDiagram();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (is != null)
+					is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (diagram == null) {
+				diagram = new ViewDiagram();
+			}
 		}
 	}
 
