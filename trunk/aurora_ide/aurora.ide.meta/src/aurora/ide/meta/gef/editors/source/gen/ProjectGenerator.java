@@ -45,7 +45,7 @@ public class ProjectGenerator {
 	private Shell shell;
 	private IProject auroraProject;
 	private IFolder screenFolder;
-	private IFolder auroraWebFolder;
+	private IContainer auroraWebFolder;
 	private String errorMessage;
 	private String header;
 
@@ -263,9 +263,9 @@ public class ProjectGenerator {
 		return null;
 	}
 
-	private IFolder getAuroraWebFolder() {
+	private IContainer getAuroraWebFolder() {
 		IContainer findWebInf = Util.findWebInf(auroraProject);
-		return (IFolder) (findWebInf == null ? null : findWebInf.getParent());
+		return (IContainer) (findWebInf == null ? null : findWebInf.getParent());
 	}
 
 	public String getErrorMessage() {
