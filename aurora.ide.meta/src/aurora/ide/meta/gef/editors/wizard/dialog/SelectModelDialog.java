@@ -1,7 +1,5 @@
 package aurora.ide.meta.gef.editors.wizard.dialog;
 
-import java.util.regex.Pattern;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.action.Action;
@@ -31,6 +29,7 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 import aurora.ide.meta.MetaPlugin;
+import aurora.ide.search.core.Util;
 
 public class SelectModelDialog extends Dialog {
 
@@ -78,17 +77,10 @@ public class SelectModelDialog extends Dialog {
 		treeViewer.setLayoutData(gd);
 		treeViewer.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
-		final ToolBar toolBar = new ToolBar(treeViewer, SWT.FLAT);
-		toolBar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		toolBar.addPaintListener(new PaintListener() {
-			@Override
-			public void paintControl(PaintEvent e) {
-				e.gc.setForeground(getShell().getDisplay().getSystemColor(SWT.COLOR_GRAY));
-				e.gc.drawLine(0, e.height - 1, e.width, e.height - 1);
-			}
-		});
+		final ToolBar toolBar = new ToolBar(treeViewer, SWT.FLAT|SWT.RIGHT_TO_LEFT);
+		toolBar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.END));
 
-		final TreeViewer tree = new TreeViewer(treeViewer, SWT.None);
+		final TreeViewer tree = new TreeViewer(treeViewer, SWT.RIGHT_TO_LEFT);
 		tree.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
 		tree.setContentProvider(new WorkbenchContentProvider());
 		tree.setLabelProvider(new WorkbenchLabelProvider());
@@ -107,6 +99,14 @@ public class SelectModelDialog extends Dialog {
 			}
 		});
 
+		tree.getTree().addPaintListener(new PaintListener() {
+			@Override
+			public void paintControl(PaintEvent e) {
+				e.gc.setForeground(getShell().getDisplay().getSystemColor(SWT.COLOR_GRAY));
+				e.gc.drawLine(0, 0, e.width, 0);
+			}
+		});
+		
 		txtFileName.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
@@ -159,12 +159,7 @@ class ModelFilter extends ViewerFilter {
 	private String fileName;
 
 	public ModelFilter(String fileName) {
-		fileName = fileName.replaceAll("\\\\", "\\\\\\\\");
-		fileName = fileName.replaceAll("\\.", "\\\\.");
-		fileName = fileName.replaceAll("\\?", ".");
-		fileName = fileName.replaceAll("\\*", ".*");
-		fileName += ".*";
-		this.fileName = fileName;
+		this.fileName = fileName + "*";
 	}
 
 	@Override
@@ -173,10 +168,8 @@ class ModelFilter extends ViewerFilter {
 			IFile o = (IFile) element;
 			if (fileName.length() == 0) {
 				return true;
-			} else if (Pattern.matches("^" + fileName, o.getName())) {
-				return true;
 			} else {
-				return false;
+				return Util.stringMatch(fileName, o.getName(), false, false);
 			}
 		}
 		return true;
