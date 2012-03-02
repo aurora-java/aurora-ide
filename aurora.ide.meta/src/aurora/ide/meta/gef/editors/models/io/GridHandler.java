@@ -31,9 +31,11 @@ public class GridHandler extends ContainerHandler {
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
 		Grid g = (Grid) ac;
 		g.setNavbarType(map.getString(Grid.NAVBAR_TYPE));
-		int w = map.getInt(Grid.WIDTH);
-		int h = map.getInt(Grid.HEIGHT);
-		g.setSize(new Dimension(w, h));
+		Integer w = map.getInt(Grid.WIDTH);
+		Integer h = map.getInt(Grid.HEIGHT);
+		if (w != null && h != null) {
+			g.setSize(new Dimension(w, h));
+		}
 	}
 
 	@Override
