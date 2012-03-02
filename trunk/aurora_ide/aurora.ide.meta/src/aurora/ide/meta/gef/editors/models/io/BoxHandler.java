@@ -32,9 +32,11 @@ public class BoxHandler extends ContainerHandler {
 		box.setTitle(map.getString(BOX.TITLE));
 		box.setPrompt(map.getString(BOX.PROMPT));
 		box.setLabelWidth(map.getInt(BOX.LABELWIDTH));
-		int w = map.getInt(BOX.WIDTH);
-		int h = map.getInt(BOX.HEIGHT);
-		box.setSize(new Dimension(w, h));
+		Integer w = map.getInt(BOX.WIDTH);
+		Integer h = map.getInt(BOX.HEIGHT);
+		if (w != null && h != null) {
+			box.setSize(new Dimension(w, h));
+		}
 		if (!(box instanceof HBox || box instanceof VBox)) {
 			box.setRow(map.getInt(BOX.ROW));
 			box.setCol(map.getInt(BOX.COL));
