@@ -179,15 +179,12 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		Input input = new Input();
 		input.setType(GefModelAssist.getTypeNotNull(map));
 		CompositeMap fieldMap = GefModelAssist.getCompositeMap(GefModelAssist.getModel(region.getModel().getModel()).getChild("fields"), "name", map.getString("field"));
-		if (fieldMap != null) {
-			input.setName(fieldMap.getString("name"));
-			input.setPrompt(fieldMap.getString("prompt"));
-			input.setType(GefModelAssist.getTypeNotNull(fieldMap));
-		} else {
-			input.setName(map.getString("name"));
-			input.setPrompt(map.getString("prompt"));
-			input.setType(GefModelAssist.getTypeNotNull(map));
+		if (fieldMap == null) {
+			fieldMap = map;
 		}
+		input.setName(fieldMap.getString("name"));
+		input.setPrompt(fieldMap.getString("prompt") == null ? fieldMap.getString("name") : fieldMap.getString("prompt"));
+		input.setType(GefModelAssist.getTypeNotNull(fieldMap));
 		return input;
 	}
 
@@ -205,7 +202,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		for (CompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(region.getModel().getModel()))) {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));
-			gc.setPrompt(map.getString("prompt"));
+			gc.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
 			if (GefModelAssist.getType(map) != null) {
 				gc.setEditor(GefModelAssist.getType(map));
 			}

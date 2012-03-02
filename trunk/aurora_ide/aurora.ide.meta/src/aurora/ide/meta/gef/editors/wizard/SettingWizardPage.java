@@ -137,7 +137,7 @@ public class SettingWizardPage extends WizardPage {
 							} catch (CoreException e1) {
 								folder = pro;
 							}
-							SelectModelDialog dialog = new SelectModelDialog(getShell(), folder, pro.getName());
+							SelectModelDialog dialog = new SelectModelDialog(getShell(), folder);
 							if (Dialog.OK == dialog.open()) {
 								IFile file = (IFile) dialog.getResult();
 								txtModel.setText(file.getName());
