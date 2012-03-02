@@ -74,6 +74,13 @@ public class ScreenGenerator {
 			if (childMap == null) {
 				continue;
 			}
+			
+			if (ac instanceof GridColumn && container instanceof Grid) {
+				CompositeMap columns = getColumns(containerMap);
+				columns.addChild(childMap);
+			} else {
+				containerMap.addChild(childMap);
+			}
 
 			if (ac instanceof GridColumn) {
 				genColumnEditor((GridColumn) ac, childMap, containerMap);
@@ -92,12 +99,7 @@ public class ScreenGenerator {
 			if (ac instanceof IDatasetFieldDelegate) {
 				fillDataset(findDataset(ac.getParent()), datasets, ac);
 			}
-			if (ac instanceof GridColumn && container instanceof Grid) {
-				CompositeMap columns = getColumns(containerMap);
-				columns.addChild(childMap);
-			} else {
-				containerMap.addChild(childMap);
-			}
+		
 			if (isLov(ac)) {
 				a2Map.doLovMap(findDataset(ac.getParent()), ac, childMap);
 			}
