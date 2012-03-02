@@ -99,9 +99,9 @@ public class ScreenGenerator {
 				containerMap.addChild(childMap);
 			}
 			if (isLov(ac)) {
-				a2Map.doLovMap(findDataset(ac.getParent()), ac,childMap);
+				a2Map.doLovMap(findDataset(ac.getParent()), ac, childMap);
 			}
-			
+
 		}
 	}
 
@@ -275,6 +275,8 @@ public class ScreenGenerator {
 
 	private void fillDataset(Dataset dataset, CompositeMap datasets,
 			AuroraComponent ac) {
+		if (ac.getName() == null || "".equals(ac.getName()))
+			return;
 		CompositeMap dsMap = fillDatasets(datasets, dataset);
 		if (dsMap == null) {
 			return;
