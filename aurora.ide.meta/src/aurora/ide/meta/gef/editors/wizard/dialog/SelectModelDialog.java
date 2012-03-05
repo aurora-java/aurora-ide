@@ -77,10 +77,17 @@ public class SelectModelDialog extends Dialog {
 		treeViewer.setLayoutData(gd);
 		treeViewer.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
-		final ToolBar toolBar = new ToolBar(treeViewer, SWT.FLAT|SWT.RIGHT_TO_LEFT);
+		ToolBar toolBar = new ToolBar(treeViewer, SWT.FLAT|SWT.RIGHT_TO_LEFT);
 		toolBar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.END));
+		toolBar.addPaintListener(new PaintListener() {
+			@Override
+			public void paintControl(PaintEvent e) {
+				e.gc.setForeground(getShell().getDisplay().getSystemColor(SWT.COLOR_GRAY));
+				e.gc.drawLine(0, e.height-1, e.width, e.height-1);
+			}
+		});
 
-		final TreeViewer tree = new TreeViewer(treeViewer, SWT.RIGHT_TO_LEFT);
+		final TreeViewer tree = new TreeViewer(treeViewer, SWT.None);
 		tree.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
 		tree.setContentProvider(new WorkbenchContentProvider());
 		tree.setLabelProvider(new WorkbenchLabelProvider());
@@ -96,13 +103,6 @@ public class SelectModelDialog extends Dialog {
 				} else {
 					getButton(OK).setEnabled(false);
 				}
-			}
-		});
-
-		tree.getTree().addPaintListener(new PaintListener() {
-			public void paintControl(PaintEvent e) {
-				e.gc.setForeground(getShell().getDisplay().getSystemColor(SWT.COLOR_GRAY));
-				e.gc.drawLine(0, 0, e.width, 0);
 			}
 		});
 		
@@ -130,8 +130,8 @@ public class SelectModelDialog extends Dialog {
 				tree.getControl().setRedraw(true);
 			}
 		};
-		toolBarManager.add(expand);
 		toolBarManager.add(collapse);
+		toolBarManager.add(expand);
 		toolBarManager.update(true);
 		toolBar.pack();
 
