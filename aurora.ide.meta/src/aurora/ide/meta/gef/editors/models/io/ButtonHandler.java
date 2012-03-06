@@ -19,8 +19,9 @@ public class ButtonHandler extends DefaultIOHandler {
 			map.put(Button.WIDTH, b.getSize().width);
 			map.put(Button.HEIGHT, b.getSize().height);
 		}
-		if (b.getButtonType().equals(Button.DEFAULT))
+		if (b.getButtonType().equals(Button.DEFAULT)) {
 			map.put(Button.BUTTON_TEXT, b.getText());
+		}
 	}
 
 	@Override
@@ -66,8 +67,11 @@ public class ButtonHandler extends DefaultIOHandler {
 			b.setSize(new Dimension(map.getInt(Button.WIDTH), map
 					.getInt(Button.HEIGHT)));
 		}
-		if (b.getButtonType().equals(Button.DEFAULT))
-			b.setText(map.getString(Button.BUTTON_TEXT));
+		if (b.getButtonType().equals(Button.DEFAULT)) {
+			String text = map.getString(Button.BUTTON_TEXT);
+			if (text != null)
+				b.setText(text);
+		}
 	}
 
 	@Override
