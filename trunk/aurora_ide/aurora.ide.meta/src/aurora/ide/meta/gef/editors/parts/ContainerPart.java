@@ -44,7 +44,7 @@ public abstract class ContainerPart extends ComponentPart {
 		if (IProperties.CHILDREN.equals(prop))
 			refreshChildren();
 	}
-	protected void applyToModel(){
+	public void applyToModel(){
 		List children = this.getChildren();
 		for (Object child : children) {
 			if(child instanceof ContainerPart){

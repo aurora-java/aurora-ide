@@ -25,7 +25,6 @@ public class ViewDiagramPart extends ContainerPart {
 			while (GraphAnimation.step())
 				getFigure().getUpdateManager().performUpdate();
 			GraphAnimation.end();
-			applyToModel();
 		}
 	};
 
@@ -88,6 +87,11 @@ public class ViewDiagramPart extends ContainerPart {
 		getViewer().getEditDomain().getCommandStack()
 				.removeCommandStackListener(stackListener);
 		super.deactivate();
+	}
+
+	@Override
+	public void applyToModel() {
+		super.applyToModel();
 	}
 
 	@Override
