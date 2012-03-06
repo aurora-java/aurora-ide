@@ -15,6 +15,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
@@ -22,6 +23,8 @@ import org.eclipse.ui.ide.undo.CreateFileOperation;
 import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.helpers.DialogUtil;
+import aurora.ide.meta.gef.editors.VScreenEditor;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.Container;
@@ -63,7 +66,13 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	public boolean performFinish() {
 		EditorOpener editorOpener = new EditorOpener();
 		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(newPage.getPath() + "/" + newPage.getFileName()));
-		CompositeMap rootMap = ModelIOManager.getNewInstance().toCompositeMap(createView());
+		CompositeMap rootMap = null;
+		try {
+			rootMap = ModelIOManager.getNewInstance().toCompositeMap(createView());
+		} catch (RuntimeException e) {
+			DialogUtil.showExceptionMessageBox(e);
+			return false;
+		}
 		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + rootMap.toXML();
 		InputStream is = new ByteArrayInputStream(xml.getBytes());
 		final CreateFileOperation cfo = new CreateFileOperation(file, null, is, "create template.");
@@ -78,7 +87,10 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		};
 		try {
 			getContainer().run(true, true, op);
-			editorOpener.open(workbench.getActiveWorkbenchWindow().getActivePage(), file, true);
+			IEditorPart editor = editorOpener.open(workbench.getActiveWorkbenchWindow().getActivePage(), file, true);
+			if (editor instanceof VScreenEditor) {
+				((VScreenEditor) editor).markDirty();
+			}
 			return true;
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
