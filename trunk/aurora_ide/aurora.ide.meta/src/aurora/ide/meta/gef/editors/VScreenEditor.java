@@ -43,6 +43,7 @@ import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
+import aurora.ide.editor.InputFileListener;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -63,6 +64,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	public VScreenEditor() {
 		DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
 		setEditDomain(defaultEditDomain);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(new InputFileListener(this));
 	}
 
 	public void setDiagram(ViewDiagram diagram) {
