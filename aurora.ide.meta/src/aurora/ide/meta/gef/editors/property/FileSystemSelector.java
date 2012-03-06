@@ -92,7 +92,6 @@ public class FileSystemSelector implements ModifyListener, KeyListener,
 		refresh();
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.character == 13) {
 			updateHis();
@@ -125,38 +124,31 @@ public class FileSystemSelector implements ModifyListener, KeyListener,
 		text.select(0);
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 
 	}
 
-	@Override
 	public void widgetSelected(SelectionEvent e) {
 		updateHis();
 	}
 
-	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
 
 	}
 
-	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		System.out.println(oldInput + "  ----   " + newInput);
 	}
 
-	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}
 
-	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IContainer) {
 			IContainer folder = (IContainer) parentElement;
@@ -192,7 +184,6 @@ public class FileSystemSelector implements ModifyListener, KeyListener,
 		return false;
 	}
 
-	@Override
 	public Object getParent(Object element) {
 		if (element instanceof IResource) {
 			IResource res = (IResource) element;
@@ -201,7 +192,6 @@ public class FileSystemSelector implements ModifyListener, KeyListener,
 		return null;
 	}
 
-	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof IContainer) {
 			IContainer folder = (IContainer) element;
@@ -218,7 +208,6 @@ public class FileSystemSelector implements ModifyListener, KeyListener,
 	 */
 	private class ResourceComparator implements Comparator<IResource> {
 
-		@Override
 		public int compare(IResource o1, IResource o2) {
 			if (o1 instanceof IContainer) {
 				if (!(o2 instanceof IContainer))
