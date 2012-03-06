@@ -16,40 +16,40 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 	 */
 	private static final long serialVersionUID = -1913613647491922330L;
 	// TYPE
-	public static final String TEXT = "textField";
-	public static final String NUMBER = "numberField";
-	public static final String Combo = "comboBox";
-	public static final String LOV = "lov";
-	public static final String CAL = "datePicker";
-	public static final String DATETIMEPICKER = "dateTimePicker";
+	public static final String TEXT = "textField"; //$NON-NLS-1$
+	public static final String NUMBER = "numberField"; //$NON-NLS-1$
+	public static final String Combo = "comboBox"; //$NON-NLS-1$
+	public static final String LOV = "lov"; //$NON-NLS-1$
+	public static final String CAL = "datePicker"; //$NON-NLS-1$
+	public static final String DATETIMEPICKER = "dateTimePicker"; //$NON-NLS-1$
 
-	public static final String CASE_LOWER = "lower";
-	public static final String CASE_UPPER = "upper";
-	public static final String CASE_ANY = "";
+	public static final String CASE_LOWER = "lower"; //$NON-NLS-1$
+	public static final String CASE_UPPER = "upper"; //$NON-NLS-1$
+	public static final String CASE_ANY = ""; //$NON-NLS-1$
 	private static final String[] CASE_TYPES = { CASE_ANY, CASE_UPPER,
 			CASE_LOWER };
-	private static final String[] CAL_ENABLES = { "pre", "next", "both", "none" };
+	private static final String[] CAL_ENABLES = { "pre", "next", "both", "none" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	public static final String[] INPUT_TYPES = { TEXT, NUMBER, Combo, LOV, CAL,
 			DATETIMEPICKER, CheckBox.CHECKBOX };
 	// property key
 	// number
-	public static final String ALLOWDECIMALS = "allowDecimals";
-	public static final String ALLOWNEGATIVE = "allowNegative";
-	public static final String ALLOWFORMAT = "allowFormat";
+	public static final String ALLOWDECIMALS = "allowDecimals"; //$NON-NLS-1$
+	public static final String ALLOWNEGATIVE = "allowNegative"; //$NON-NLS-1$
+	public static final String ALLOWFORMAT = "allowFormat"; //$NON-NLS-1$
 	// all
-	public static final String EMPTYTEXT = "emptyText";
+	public static final String EMPTYTEXT = "emptyText"; //$NON-NLS-1$
 	// combo lov text
-	public static final String TYPECASE = "typeCase";
+	public static final String TYPECASE = "typeCase"; //$NON-NLS-1$
 	// cal
-	public static final String ENABLE_BESIDE_DAYS = "enableBesideDays";
-	public static final String ENABLE_MONTH_BTN = "enableMonthBtn";
+	public static final String ENABLE_BESIDE_DAYS = "enableBesideDays"; //$NON-NLS-1$
+	public static final String ENABLE_MONTH_BTN = "enableMonthBtn"; //$NON-NLS-1$
 
 	// /
 
 	private boolean allowDecimals = true;
 	private boolean allowNegative = true;
 	private boolean allowFormat = false;
-	private String emptyText = "";
+	private String emptyText = ""; //$NON-NLS-1$
 	private String typeCase = CASE_ANY;
 	private String enableBesideDays = CAL_ENABLES[3];
 	private String enableMonthBtn = CAL_ENABLES[3];
@@ -59,17 +59,17 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 	// /
 
 	private static final IPropertyDescriptor PD_EMPYTEXT = new StringPropertyDescriptor(
-			EMPTYTEXT, "EmptyText");
+			EMPTYTEXT, "EmptyText"); //$NON-NLS-1$
 	private static final IPropertyDescriptor PD_TYPECASE = new ComboPropertyDescriptor(
-			TYPECASE, "TypeCase", new String[] { "任意", "大写", "小写" });
+			TYPECASE, "TypeCase", new String[] { Messages.Input_23, Messages.Input_24, Messages.Input_25 }); //$NON-NLS-1$
 	private static final IPropertyDescriptor[] pds_text = { PD_PROMPT, PD_NAME,
 			PD_WIDTH, PD_EMPYTEXT, PD_TYPECASE, DatasetField.PD_REQUIRED,
 			DatasetField.PD_READONLY };
 	private static final IPropertyDescriptor[] pds_number = { PD_PROMPT,
 			PD_NAME, PD_WIDTH, PD_EMPYTEXT,
-			new BooleanPropertyDescriptor(ALLOWDECIMALS, "AllowDecimals"),
-			new BooleanPropertyDescriptor(ALLOWNEGATIVE, "AllowNegative"),
-			new BooleanPropertyDescriptor(ALLOWFORMAT, "AllowFormat"),
+			new BooleanPropertyDescriptor(ALLOWDECIMALS, "AllowDecimals"), //$NON-NLS-1$
+			new BooleanPropertyDescriptor(ALLOWNEGATIVE, "AllowNegative"), //$NON-NLS-1$
+			new BooleanPropertyDescriptor(ALLOWFORMAT, "AllowFormat"), //$NON-NLS-1$
 			DatasetField.PD_REQUIRED, DatasetField.PD_READONLY };
 
 	private static final IPropertyDescriptor[] pds_combo = {
@@ -80,13 +80,13 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 			PD_TYPECASE,
 			DatasetField.PD_REQUIRED,
 			DatasetField.PD_READONLY,
-			new StringPropertyDescriptor(DatasetField.OPTIONS, "*options", true),
+			new StringPropertyDescriptor(DatasetField.OPTIONS, "*options", true), //$NON-NLS-1$
 			new StringPropertyDescriptor(DatasetField.DISPLAY_FIELD,
-					"*displayField", true),
+					"*displayField", true), //$NON-NLS-1$
 			new StringPropertyDescriptor(DatasetField.VALUE_FIELD,
-					"*valueField", true),
+					"*valueField", true), //$NON-NLS-1$
 			new StringPropertyDescriptor(DatasetField.RETURN_FIELD,
-					"*returnField", true) };
+					"*returnField", true) }; //$NON-NLS-1$
 
 	private static final IPropertyDescriptor[] pds_lov = {
 			PD_PROMPT,
@@ -97,15 +97,15 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 			DatasetField.PD_REQUIRED,
 			DatasetField.PD_READONLY,
 			new StringPropertyDescriptor(DatasetField.LOV_SERVICE,
-					"*lovService", true),
-			new StringPropertyDescriptor(DatasetField.TITLE, "*title") };
+					"*lovService", true), //$NON-NLS-1$
+			new StringPropertyDescriptor(DatasetField.TITLE, "*title") }; //$NON-NLS-1$
 	private static final IPropertyDescriptor[] pds_datepicker = new IPropertyDescriptor[] {
 			PD_PROMPT,
 			PD_WIDTH,
 			PD_NAME,
-			new ComboPropertyDescriptor(ENABLE_BESIDE_DAYS, "EnableBesideDays",
+			new ComboPropertyDescriptor(ENABLE_BESIDE_DAYS, "EnableBesideDays", //$NON-NLS-1$
 					CAL_ENABLES),
-			new ComboPropertyDescriptor(ENABLE_MONTH_BTN, "EnableMonthBtn",
+			new ComboPropertyDescriptor(ENABLE_MONTH_BTN, "EnableMonthBtn", //$NON-NLS-1$
 					CAL_ENABLES), DatasetField.PD_REQUIRED,
 			DatasetField.PD_READONLY };
 

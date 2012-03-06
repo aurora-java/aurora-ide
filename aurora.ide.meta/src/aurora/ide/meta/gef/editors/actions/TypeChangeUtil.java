@@ -65,7 +65,6 @@ public class TypeChangeUtil {
 	}
 
 	/**
-	 * Input之间或和CheckBox之间转换
 	 * 
 	 * @author jessen
 	 * 
@@ -129,10 +128,8 @@ public class TypeChangeUtil {
 				input.setType(newType);
 				return;
 			} else if (type_change_mode == TYPE_CHANGE_MODE2) {
-				// input改为checkbox
 				newInput = new CheckBox();
 			} else if (type_change_mode == TYPE_CHANGE_MODE3) {
-				// checkbox改为input
 				newInput = new Input();
 				newInput.setType(newType);
 			}
@@ -155,7 +152,6 @@ public class TypeChangeUtil {
 				input.setType(oldType);
 				return;
 			}
-			// newInput 改回 input
 			Container cont = this.newInput.getParent();
 			int idx = cont.getChildren().indexOf(this.newInput);
 			cont.removeChild(idx);
@@ -170,8 +166,6 @@ public class TypeChangeUtil {
 	}
 
 	/**
-	 * form ,fieldset之间相互转换<br/>
-	 * vbox,hbox之间相互转换
 	 * 
 	 * @author jessen
 	 * 

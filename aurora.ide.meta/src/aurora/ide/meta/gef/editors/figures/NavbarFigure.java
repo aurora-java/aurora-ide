@@ -16,14 +16,14 @@ import aurora.ide.meta.gef.editors.models.Navbar;
  */
 public class NavbarFigure extends Figure {
 
-	private String[] texts = { "页数:", "共 页", "每页显示", "条", "显示 - 共 条" };
-	private static String simpleText = "共10页 首页 上一页 1 2 3···8 9 10下一页 尾页";
+	private String[] texts = { Messages.NavbarFigure_0, Messages.NavbarFigure_1, Messages.NavbarFigure_2, Messages.NavbarFigure_3, Messages.NavbarFigure_4 };
+	private static String simpleText = Messages.NavbarFigure_5;
 	private Navbar model;
-	private static Image bgImg = ImagesUtils.getImage("toolbar_bg.gif");
-	private static Image navImg = ImagesUtils.getImage("navigation.gif");
-	private static Image sepImg = ImagesUtils.getImage("toolbar_sep.gif");
+	private static Image bgImg = ImagesUtils.getImage("toolbar_bg.gif"); //$NON-NLS-1$
+	private static Image navImg = ImagesUtils.getImage("navigation.gif"); //$NON-NLS-1$
+	private static Image sepImg = ImagesUtils.getImage("toolbar_sep.gif"); //$NON-NLS-1$
 	private static Image combImg = ImagesUtils
-			.getImage("palette/itembar_01.png");
+			.getImage("palette/itembar_01.png"); //$NON-NLS-1$
 
 	public NavbarFigure() {
 		setBorder(null);
@@ -75,7 +75,6 @@ public class NavbarFigure extends Figure {
 		Rectangle r3 = new Rectangle(r2.x + bounds.height, bounds.y, 2,
 				bounds.height);
 		g.drawImage(sepImg, new Rectangle(sepImg.getBounds()), r3);
-		// 页数:
 		g.setForegroundColor(ColorConstants.BLACK);
 		Dimension dim = FigureUtilities.getTextExtents(texts[0], getFont());
 		int nextX = r3.x + r3.width + 2;
@@ -88,7 +87,6 @@ public class NavbarFigure extends Figure {
 		Rectangle r4 = new Rectangle(nextX, bounds.y + 3, 30, bounds.height - 6);
 		g.fillRectangle(r4);
 		g.drawRectangle(r4);
-		// 共 页
 		nextX += r4.width + 5;
 		g.setForegroundColor(ColorConstants.BLACK);
 		dim = FigureUtilities.getTextExtents(texts[1], getFont());
@@ -114,7 +112,6 @@ public class NavbarFigure extends Figure {
 		nextX = r2.x + bounds.height + 2;
 		r3 = new Rectangle(nextX, bounds.y, 2, bounds.height);
 		g.drawImage(sepImg, new Rectangle(sepImg.getBounds()), r3);
-		// 每页显示
 		nextX += 5;
 		g.setForegroundColor(ColorConstants.BLACK);
 		dim = FigureUtilities.getTextExtents(texts[2], getFont());
@@ -129,7 +126,6 @@ public class NavbarFigure extends Figure {
 		g.drawImage(combImg, new Rectangle(combImg.getBounds()), new Rectangle(
 				r4.x + 29, r4.y + 1, 16, 16));
 		g.drawRectangle(r4);
-		// 条
 		nextX = r4.x + r4.width + 5;
 		g.setForegroundColor(ColorConstants.BLACK);
 		dim = FigureUtilities.getTextExtents(texts[3], getFont());

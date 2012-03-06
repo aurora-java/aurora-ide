@@ -32,7 +32,6 @@ public abstract class DefaultIOHandler implements IOHandler {
 	}
 
 	/**
-	 * 使用key=value的形式存储简单的值
 	 * 
 	 * @param map
 	 * @param ac
@@ -42,7 +41,6 @@ public abstract class DefaultIOHandler implements IOHandler {
 	}
 
 	/**
-	 * 使用子节点的方式存储复杂的值
 	 * 
 	 * @param map
 	 * @param ac
@@ -52,7 +50,6 @@ public abstract class DefaultIOHandler implements IOHandler {
 	}
 
 	/**
-	 * 把子节点统一存放在名为"CHILD_LIST"的节点下
 	 * 
 	 * @param map
 	 * @param container
@@ -96,7 +93,6 @@ public abstract class DefaultIOHandler implements IOHandler {
 	}
 
 	/**
-	 * 读取key=value形式的值
 	 * 
 	 * @param ac
 	 * @param map
@@ -106,7 +102,6 @@ public abstract class DefaultIOHandler implements IOHandler {
 	}
 
 	/**
-	 * 读取子节点形式的复杂值
 	 * 
 	 * @param ac
 	 * @param map
@@ -116,7 +111,6 @@ public abstract class DefaultIOHandler implements IOHandler {
 	}
 
 	/**
-	 * 从名为"CHILD_LIST"的子节点恢复子节点
 	 * 
 	 * @param container
 	 * @param map

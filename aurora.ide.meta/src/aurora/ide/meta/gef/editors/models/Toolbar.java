@@ -27,7 +27,6 @@ public class Toolbar extends RowCol {
 
 	/**
 	 * 
-	 * 仅允许增加 Button
 	 * */
 	public boolean isResponsibleChild(AuroraComponent child) {
 		return child instanceof Button;

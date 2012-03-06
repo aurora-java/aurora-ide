@@ -18,7 +18,6 @@ import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
 
 import uncertain.composite.CompositeMap;
-import uncertain.composite.IterationHandle;
 import aurora.ide.meta.gef.editors.models.Input;
 
 public class Util {

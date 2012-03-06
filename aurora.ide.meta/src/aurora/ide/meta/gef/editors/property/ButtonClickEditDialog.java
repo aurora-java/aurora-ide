@@ -47,8 +47,8 @@ public class ButtonClickEditDialog extends EditWizard {
 
 	protected Shell shell;
 	private static final Color SELECTION_BG = new Color(null, 109, 187, 242);
-	private static final String[] descriptions = { "查询,选择一个带有查询功能的组件",
-			"重置,选择一个带有重置功能的组件", "保存,选择一个带有保存功能的组件", "选择一个要打开的页面", "关闭", "自定义" };
+	private static final String[] descriptions = { Messages.ButtonClickEditDialog_0,
+			Messages.ButtonClickEditDialog_1, Messages.ButtonClickEditDialog_2, Messages.ButtonClickEditDialog_3, Messages.ButtonClickEditDialog_4, Messages.ButtonClickEditDialog_5 };
 	private Button[] radios = new Button[ButtonClicker.action_texts.length];
 	private String section_type_filter = Container.SECTION_TYPE_QUERY;
 	private Composite composite_right;
@@ -61,7 +61,7 @@ public class ButtonClickEditDialog extends EditWizard {
 	private IProject auroraProject = null;
 
 	public ButtonClickEditDialog() {
-		setWindowTitle("Click");
+		setWindowTitle("Click"); //$NON-NLS-1$
 	}
 
 	@Override
@@ -87,8 +87,8 @@ public class ButtonClickEditDialog extends EditWizard {
 	private class InnerPage extends WizardPage implements SelectionListener {
 
 		public InnerPage() {
-			super("button_click");
-			setTitle("设置button的'click'");
+			super(Messages.ButtonClickEditDialog_7);
+			setTitle(Messages.ButtonClickEditDialog_8);
 		}
 
 		public void createControl(Composite parent) {
@@ -157,19 +157,19 @@ public class ButtonClickEditDialog extends EditWizard {
 				comp = comp.getParent();
 			}
 			if (root == null) {
-				setErrorMessage("the root is null");
+				setErrorMessage(Messages.ButtonClickEditDialog_9);
 				setPageComplete(false);
 				return;
 			}
 			composite_right.setLayout(new FillLayout());
 			final Tree tree = new Tree(composite_right, SWT.BORDER);
 			TreeItem rootItem = new TreeItem(tree, SWT.NONE);
-			rootItem.setText("screenBody");
+			rootItem.setText(Messages.ButtonClickEditDialog_10);
 			rootItem.setForeground(new Color(null, 200, 200, 200));
 
 			createSubTree(tree, rootItem, root);
 			if (tree.getSelection().length == 0) {
-				setErrorMessage("please select a node");
+				setErrorMessage(Messages.ButtonClickEditDialog_11);
 				setPageComplete(false);
 			}
 
@@ -181,7 +181,7 @@ public class ButtonClickEditDialog extends EditWizard {
 					TreeItem ti = tree.getSelection()[0];
 					Object data = ti.getData();
 					if (data == null) {
-						setErrorMessage("you can not select this node");
+						setErrorMessage(Messages.ButtonClickEditDialog_12);
 						setPageComplete(false);
 					} else {
 						setErrorMessage(null);
@@ -242,16 +242,16 @@ public class ButtonClickEditDialog extends EditWizard {
 		private void create_open() {
 			composite_right.setLayout(new GridLayout(3, false));
 			Label label = new Label(composite_right, SWT.NONE);
-			label.setText("screen : ");
+			label.setText(Messages.ButtonClickEditDialog_13);
 			final Text text = new Text(composite_right, SWT.SINGLE | SWT.BORDER);
 			text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 					1, 1));
 			tmpPath = clicker.getOpenPath();
 			if (tmpPath == null)
-				tmpPath = "";
+				tmpPath = ""; //$NON-NLS-1$
 			text.setText(tmpPath);
 			Button btn = new Button(composite_right, SWT.FLAT);
-			btn.setText("选择(&O)");
+			btn.setText(Messages.ButtonClickEditDialog_15);
 
 			IProject proj = AuroraPlugin.getActiveIFile().getProject();
 			AuroraMetaProject mProj = new AuroraMetaProject(proj);
@@ -263,7 +263,7 @@ public class ButtonClickEditDialog extends EditWizard {
 			if (auroraProject == null) {
 				text.setEnabled(false);
 				btn.setEnabled(false);
-				setErrorMessage("当前工程没有正确设置关联Aurora工程.");
+				setErrorMessage(Messages.ButtonClickEditDialog_16);
 				setPageComplete(false);
 				return;
 			}
@@ -274,12 +274,12 @@ public class ButtonClickEditDialog extends EditWizard {
 					OpenResourceDialog ord = new OpenResourceDialog(
 							composite_right.getShell(), auroraProject,
 							OpenResourceDialog.CARET_BEGINNING);
-					ord.setInitialPattern("*.screen");
+					ord.setInitialPattern("*.screen"); //$NON-NLS-1$
 					ord.open();
 					Object obj = ord.getFirstResult();
 					if (!(obj instanceof IFile)) {
 						setPageComplete(false);
-						setErrorMessage("the selection is not a valid screen file");
+						setErrorMessage(Messages.ButtonClickEditDialog_18);
 						return;
 					}
 					IFile file = (IFile) obj;
@@ -299,10 +299,10 @@ public class ButtonClickEditDialog extends EditWizard {
 		private void create_close() {
 			composite_right.setLayout(new GridLayout(2, false));
 			Label label = new Label(composite_right, SWT.NONE);
-			label.setText("windowID : ");
+			label.setText(Messages.ButtonClickEditDialog_19);
 			tmpWindowID = clicker.getCloseWindowID();
 			if (tmpWindowID == null)
-				tmpWindowID = "";
+				tmpWindowID = ""; //$NON-NLS-1$
 			final Text text = new Text(composite_right, SWT.SINGLE | SWT.BORDER);
 			text.setText(tmpWindowID);
 			text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
@@ -318,19 +318,19 @@ public class ButtonClickEditDialog extends EditWizard {
 		private void create_userDefine() {
 			composite_right.setLayout(new GridLayout(1, false));
 			Label l = new Label(composite_right, SWT.NONE);
-			l.setText("在下面写一个函数");
+			l.setText(Messages.ButtonClickEditDialog_21);
 
 			final SourceViewer jsEditor = new SourceViewer(composite_right,
 					null, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
 			jsEditor.getControl().setLayoutData(
 					new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			jsEditor.configure(new JavaScriptConfiguration(new ColorManager()));
-			jsEditor.getTextWidget().setFont(new Font(null, "Consolas", 10, 0));
+			jsEditor.getTextWidget().setFont(new Font(null, "Consolas", 10, 0)); //$NON-NLS-1$
 			Document document = new Document();
 			jsEditor.setDocument(document);
 			tmpFunction = clicker.getFunction();
 			if (tmpFunction == null) {
-				tmpFunction = "function fun_alert(){\n\talert(\"hello\");\n}";
+				tmpFunction = "function fun_alert(){\n\talert(\"hello\");\n}"; //$NON-NLS-1$
 			}
 			jsEditor.getTextWidget().setText(tmpFunction);
 			jsEditor.getTextWidget().addModifyListener(new ModifyListener() {
@@ -368,7 +368,7 @@ public class ButtonClickEditDialog extends EditWizard {
 	private String getTextOf(AuroraComponent ac) {
 		String prop = ac.getPrompt();
 		String aType = ac.getType();
-		return aType + " [" + prop + "]";
+		return aType + " [" + prop + "]"; //$NON-NLS-1$ //$NON-NLS-2$
 		// return ac.getClass().getSimpleName();
 	}
 }

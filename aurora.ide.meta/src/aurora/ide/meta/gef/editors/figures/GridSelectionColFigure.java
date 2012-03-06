@@ -61,7 +61,6 @@ public class GridSelectionColFigure extends GridColumnFigure {
 		for (int i = rect.y + ch; i < rect.y + rect.height; i += 25) {
 			Rectangle rc = new Rectangle(rect.x, i, rect.width, 25);
 			if (i > (rect.y + ch)) {
-				// 第一条线不画
 				g.drawLine(rc.getTopLeft(), rc.getTopRight());
 			}
 			g.drawImage(img, imgRect, rc.getShrinked(

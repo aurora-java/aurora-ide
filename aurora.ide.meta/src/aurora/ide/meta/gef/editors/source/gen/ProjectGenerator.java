@@ -31,6 +31,7 @@ import aurora.ide.meta.exception.TemplateNotBindedException;
 import aurora.ide.meta.gef.FileFinder;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
+import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.core.Message;
 import aurora.ide.search.core.Util;
@@ -90,7 +91,7 @@ public class ProjectGenerator {
 
 		List<IResource> files = fileFinder.getResult();
 		fNumberOfFilesToScan = files.size();
-		Job monitorUpdateJob = new Job("source generator") {
+		Job monitorUpdateJob = new Job("source generator") { //$NON-NLS-1$
 			private int fLastNumberOfScannedFiles = 0;
 
 			public IStatus run(final IProgressMonitor inner) {
@@ -121,7 +122,7 @@ public class ProjectGenerator {
 			}
 		};
 
-		monitor.beginTask("生成代码 ", files.size());
+		monitor.beginTask(Messages.ProjectGenerator_Gen_source, files.size());
 		monitorUpdateJob.setSystem(true);
 		monitorUpdateJob.schedule();
 		try {
@@ -142,12 +143,12 @@ public class ProjectGenerator {
 	}
 
 	private String createHeader() {
-		String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
+		String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"; //$NON-NLS-1$
 		String date = DateFormat.getDateInstance().format(new java.util.Date());
-		String user = System.getProperty("user.name");
-		String comment = "<!-- \n  $Author: " + user + " \n  $Date: " + date
-				+ " \n"
-				+ "  $Revision: 1.0 \n  $add by aurora_ide team.\n-->\n\r ";
+		String user = System.getProperty("user.name"); //$NON-NLS-1$
+		String comment = "<!-- \n  $Author: " + user + " \n  $Date: " + date //$NON-NLS-1$ //$NON-NLS-2$
+				+ " \n" //$NON-NLS-1$
+				+ "  $Revision: 1.0 \n  $add by aurora_ide team.\n-->\n\r "; //$NON-NLS-1$
 
 		return s + comment;
 	}
@@ -157,15 +158,15 @@ public class ProjectGenerator {
 		screenFolder = this.getScreenFolder();
 		auroraWebFolder = this.getAuroraWebFolder();
 		if (auroraProject == null) {
-			errorMessage = "未找到关联的Aurora工程";
+			errorMessage = Messages.ProjectGenerator_Project_error;
 			return false;
 		}
 		if (auroraWebFolder == null) {
-			errorMessage = "未找到关联Aurora工程的web目录";
+			errorMessage = Messages.ProjectGenerator_web_error;
 			return false;
 		}
 		if (screenFolder == null) {
-			errorMessage = "未找到关联的原型文件存放的目录";
+			errorMessage = Messages.ProjectGenerator__folder_erroe;
 			return false;
 		}
 		return true;
@@ -216,7 +217,7 @@ public class ProjectGenerator {
 				}
 			}
 			CreateFileOperation cfo = new CreateFileOperation(newFile, null,
-					is, "create file.") {
+					is, "create file.") { //$NON-NLS-1$
 				@Override
 				protected void setResourceDescriptions(
 						ResourceDescription[] descriptions) {
@@ -279,7 +280,7 @@ public class ProjectGenerator {
 		IPath makeRelativeTo = file.getProjectRelativePath().makeRelativeTo(
 				screenFolder.getProjectRelativePath());
 		makeRelativeTo = makeRelativeTo.removeFileExtension();
-		makeRelativeTo = makeRelativeTo.addFileExtension("screen");
+		makeRelativeTo = makeRelativeTo.addFileExtension("screen"); //$NON-NLS-1$
 		return auroraWebFolder.getFile(makeRelativeTo);
 	}
 }

@@ -87,7 +87,6 @@ public class IntegerCellEditor extends CellEditor implements FocusListener,
 	}
 
 	public void keyPressed(KeyEvent e) {
-		// 回车
 		if (e.keyCode == 13) {
 			fireApplyEditorValue();
 		}

@@ -5,7 +5,6 @@ import java.util.List;
 import org.eclipse.gef.commands.Command;
 
 import uncertain.composite.CompositeMap;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 
 public class DropBMCommand extends Command {
