@@ -41,7 +41,7 @@ public class CreateComponentCommand extends Command {
 			if (container instanceof Grid) {
 				return container.isResponsibleChild(child);
 			}
-			return false;
+			return true;
 		}
 		return true;
 	}
