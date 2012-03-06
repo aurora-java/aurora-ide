@@ -16,10 +16,11 @@ public class ButtonHandler extends DefaultIOHandler {
 		Button b = (Button) ac;
 		map.put(Button.BUTTON_TYPE, b.getButtonType());
 		if (!b.isOnToolBar()) {
-			map.put(Button.BUTTON_TEXT, b.getText());
 			map.put(Button.WIDTH, b.getSize().width);
 			map.put(Button.HEIGHT, b.getSize().height);
 		}
+		if (b.getButtonType().equals(Button.DEFAULT))
+			map.put(Button.BUTTON_TEXT, b.getText());
 	}
 
 	@Override
@@ -62,10 +63,11 @@ public class ButtonHandler extends DefaultIOHandler {
 		b.setButtonType(map.getString(Button.BUTTON_TYPE));
 		if (!map.getParent().getName()
 				.equalsIgnoreCase(Toolbar.class.getSimpleName())) {
-			b.setText(map.getString(Button.BUTTON_TEXT));
 			b.setSize(new Dimension(map.getInt(Button.WIDTH), map
 					.getInt(Button.HEIGHT)));
 		}
+		if (b.getButtonType().equals(Button.DEFAULT))
+			b.setText(map.getString(Button.BUTTON_TEXT));
 	}
 
 	@Override
