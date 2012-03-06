@@ -339,23 +339,23 @@ public class NewWizardPage extends WizardPage {
 		try {
 			for (IResource r : folder.members()) {
 				if ((r instanceof IFile) && ((IFile) r).getFileExtension().equalsIgnoreCase("xml")) {
-					SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-					TemplateParse tp = new TemplateParse();
-					parser.parse(((IFile) r).getContents(), tp);
-					Template tm = tp.getTemplate();
-					String path = r.getLocation().toString();
-					tm.setPath(path.substring(path.indexOf("template") + "template".length() + 1));
-					templates.add(tm);
+					try {
+						SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+						TemplateParse tp = new TemplateParse();
+						parser.parse(((IFile) r).getContents(), tp);
+						Template tm = tp.getTemplate();
+						String path = r.getLocation().toString();
+						tm.setPath(path.substring(path.indexOf("template") + "template".length() + 1));
+						templates.add(tm);
+					} catch (SAXException e1) {
+					} catch (IOException e1) {
+					} catch (ParserConfigurationException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 			template = templates.get(index);
 		} catch (CoreException e1) {
-			e1.printStackTrace();
-		} catch (SAXException e1) {
-			e1.printStackTrace();
-		} catch (ParserConfigurationException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
