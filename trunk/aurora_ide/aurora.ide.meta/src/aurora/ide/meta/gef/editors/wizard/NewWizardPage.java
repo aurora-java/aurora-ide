@@ -44,6 +44,7 @@ import org.xml.sax.SAXException;
 
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.parse.TemplateParse;
+import aurora.ide.meta.gef.i18n.Messages;
 
 public class NewWizardPage extends WizardPage {
 	private Text txtPath;
@@ -60,9 +61,9 @@ public class NewWizardPage extends WizardPage {
 	private int index;
 
 	public NewWizardPage() {
-		super("aurora.wizard.new.Page");
-		setTitle("UI Prototype文件向导");
-		setDescription("通过模板创建UI Prototype文件");
+		super("aurora.wizard.new.Page"); //$NON-NLS-1$
+		setTitle(Messages.NewWizardPage_Title);
+		setDescription(Messages.NewWizardPage_Desc);
 		setPageComplete(false);
 		IResource r = null;
 		try {
@@ -71,7 +72,7 @@ public class NewWizardPage extends WizardPage {
 				StructuredSelection ts = (StructuredSelection) obj;
 				if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
 					r = (IResource) ts.getFirstElement();
-					if (r.getProject().hasNature("aurora.ide.meta.nature") && (r instanceof IFolder) && r.getFullPath().toString().indexOf("ui_prototype") != -1) {
+					if (r.getProject().hasNature("aurora.ide.meta.nature") && (r instanceof IFolder) && r.getFullPath().toString().indexOf("ui_prototype") != -1) { //$NON-NLS-1$ //$NON-NLS-2$
 						metaFolder = (IFolder) r;
 					}
 				}
@@ -82,7 +83,7 @@ public class NewWizardPage extends WizardPage {
 			e.printStackTrace();
 		}
 		try {
-			if (r == null || (r != null && !r.getProject().hasNature("aurora.ide.meta.nature"))) {
+			if (r == null || (r != null && !r.getProject().hasNature("aurora.ide.meta.nature"))) { //$NON-NLS-1$
 				r = (IResource) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
 			}
 		} catch (NullPointerException e) {
@@ -91,7 +92,7 @@ public class NewWizardPage extends WizardPage {
 			e.printStackTrace();
 		}
 		try {
-			if (r != null && r.getProject().hasNature("aurora.ide.meta.nature")) {
+			if (r != null && r.getProject().hasNature("aurora.ide.meta.nature")) { //$NON-NLS-1$
 				metaProject = r.getProject();
 				initTemplates();
 			}
@@ -106,8 +107,8 @@ public class NewWizardPage extends WizardPage {
 
 	public String getFileName() {
 		String fileName = txtFile.getText().trim();
-		if (fileName.length() > 0 && fileName.indexOf(".") == -1) {
-			fileName = fileName + ".uip";
+		if (fileName.length() > 0 && fileName.indexOf(".") == -1) { //$NON-NLS-1$
+			fileName = fileName + ".uip"; //$NON-NLS-1$
 		}
 		return fileName;
 	}
@@ -138,22 +139,22 @@ public class NewWizardPage extends WizardPage {
 		composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label lblPath = new Label(composite, SWT.NONE);
-		lblPath.setText("目录");
+		lblPath.setText(Messages.NewWizardPage_Folder);
 		txtPath = new Text(composite, SWT.BORDER);
 		txtPath.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button btnBrower = new Button(composite, SWT.NONE);
-		btnBrower.setText("  浏览...  ");
+		btnBrower.setText(Messages.NewWizardPage_Exploer);
 
 		Label lblFile = new Label(composite, SWT.NONE);
-		lblFile.setText("文件名");
+		lblFile.setText(Messages.NewWizardPage_FileName);
 		txtFile = new Text(composite, SWT.BORDER);
 		txtFile.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		new Label(composite, SWT.NONE);
 		if (metaFolder != null) {
 			txtPath.setText(metaFolder.getFullPath().toString());
 		} else if (metaProject != null) {
-			txtPath.setText(metaProject.getName() + "/ui_prototype");
+			txtPath.setText(metaProject.getName() + "/ui_prototype"); //$NON-NLS-1$
 		}
 
 		txtPath.addModifyListener(new ModifyListener() {
@@ -191,7 +192,7 @@ public class NewWizardPage extends WizardPage {
 		Group composite = new Group(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(3, false));
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-		composite.setText("模板");
+		composite.setText(Messages.NewWizardPage_Template);
 
 		canvas = new Canvas(composite, SWT.BORDER);
 		GridData gd = new GridData(GridData.FILL_BOTH);
@@ -201,18 +202,18 @@ public class NewWizardPage extends WizardPage {
 		canvas.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 
 		btnLeft = new Button(composite, SWT.NONE);
-		btnLeft.setText("Previous");
+		btnLeft.setText("Previous"); //$NON-NLS-1$
 		btnLeft.setEnabled(false);
 		gd = new GridData();
 		gd.widthHint = 80;
 		btnLeft.setLayoutData(gd);
 
 		lblTpName = new Label(composite, SWT.CENTER);
-		lblTpName.setText("");
+		lblTpName.setText(""); //$NON-NLS-1$
 		lblTpName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		btnRight = new Button(composite, SWT.NONE);
-		btnRight.setText("Next");
+		btnRight.setText("Next"); //$NON-NLS-1$
 		btnRight.setEnabled(false);
 		gd = new GridData();
 		gd.horizontalAlignment = GridData.END;
@@ -257,7 +258,7 @@ public class NewWizardPage extends WizardPage {
 			public void paintControl(PaintEvent e) {
 				if (template != null && template.getIcon() != null) {
 					try {
-						IFolder folder = metaProject.getFolder("template/thumbnails");
+						IFolder folder = metaProject.getFolder("template/thumbnails"); //$NON-NLS-1$
 						if (folder.getFile(template.getIcon()).exists()) {
 							Image image = new Image(getShell().getDisplay(), folder.getFile(template.getIcon()).getContents());
 							e.gc.drawImage(image, (e.width - image.getImageData().width) / 2, (e.height - image.getImageData().height) / 2);
@@ -283,10 +284,10 @@ public class NewWizardPage extends WizardPage {
 			((SettingWizardPage) getNextPage()).createRegiog();
 			setDescription(template.getDescription());
 		} else {
-			lblTpName.setText("");
+			lblTpName.setText(""); //$NON-NLS-1$
 			canvas.redraw();
 			btnRight.setEnabled(false);
-			setDescription("通过模板创建UI Prototype文件");
+			setDescription(Messages.NewWizardPage_Desc);
 		}
 		try {
 			dialogChanged();
@@ -305,25 +306,25 @@ public class NewWizardPage extends WizardPage {
 		String fileName = getFileName();
 		int dotLoc = fileName.lastIndexOf('.');
 		if (getPath().length() == 0) {
-			updateStatus("必须为文件指定目录");
+			updateStatus(Messages.NewWizardPage_folder);
 		} else if (container == null || (container.getType() & (IResource.PROJECT | IResource.FOLDER)) == 0) {
-			updateStatus("目录必须有效");
+			updateStatus(Messages.NewWizardPage_folder_2);
 		} else if (!container.isAccessible()) {
-			updateStatus("工程必须可写");
-		} else if (!container.getProject().hasNature("aurora.ide.meta.nature")) {
-			updateStatus("该工程不是一个有效的Aurora原型工程");
-		} else if (getPath().lastIndexOf("ui_prototype") == -1) {
-			updateStatus("文件须位于ui_prototype目录下");
+			updateStatus(Messages.NewWizardPage_Project);
+		} else if (!container.getProject().hasNature("aurora.ide.meta.nature")) { //$NON-NLS-1$
+			updateStatus(Messages.NewWizardPage_Project_2);
+		} else if (getPath().lastIndexOf("ui_prototype") == -1) { //$NON-NLS-1$
+			updateStatus(Messages.NewWizardPage__folder_3);
 		} else {
 			metaProject = container.getProject();
-			if (fileName != null && !fileName.equals("") && ((IContainer) container).getFile(new Path(fileName)).exists()) {
-				updateStatus("此文件名已经被使用！");
+			if (fileName != null && !fileName.equals("") && ((IContainer) container).getFile(new Path(fileName)).exists()) { //$NON-NLS-1$
+				updateStatus(Messages.NewWizardPage_File);
 			} else if (fileName.length() == 0) {
-				updateStatus("必须指定文件名");
+				updateStatus(Messages.NewWizardPage_File_1);
 			} else if (fileName.replace('\\', '/').indexOf('/', 1) > 0) {
-				updateStatus("文件名无效");
-			} else if (dotLoc != -1 && (!fileName.substring(dotLoc + 1).equalsIgnoreCase("uip"))) {
-				updateStatus("文件扩展名必须是uip");
+				updateStatus(Messages.NewWizardPage_File_2);
+			} else if (dotLoc != -1 && (!fileName.substring(dotLoc + 1).equalsIgnoreCase("uip"))) { //$NON-NLS-1$
+				updateStatus(Messages.NewWizardPage_File_3);
 			} else {
 				setDescription(template.getDescription());
 				updateStatus(null);
@@ -335,17 +336,17 @@ public class NewWizardPage extends WizardPage {
 
 	private void initTemplates() {
 		templates.clear();
-		IFolder folder = metaProject.getFolder("template");
+		IFolder folder = metaProject.getFolder("template"); //$NON-NLS-1$
 		try {
 			for (IResource r : folder.members()) {
-				if ((r instanceof IFile) && ((IFile) r).getFileExtension().equalsIgnoreCase("xml")) {
+				if ((r instanceof IFile) && ((IFile) r).getFileExtension().equalsIgnoreCase("xml")) { //$NON-NLS-1$
 					try {
 						SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 						TemplateParse tp = new TemplateParse();
 						parser.parse(((IFile) r).getContents(), tp);
 						Template tm = tp.getTemplate();
 						String path = r.getLocation().toString();
-						tm.setPath(path.substring(path.indexOf("template") + "template".length() + 1));
+						tm.setPath(path.substring(path.indexOf("template") + "template".length() + 1)); //$NON-NLS-1$ //$NON-NLS-2$
 						templates.add(tm);
 					} catch (SAXException e1) {
 					} catch (IOException e1) {
@@ -362,7 +363,7 @@ public class NewWizardPage extends WizardPage {
 
 	class ClickButtonBrower implements SelectionListener {
 		public void widgetSelected(SelectionEvent e) {
-			ContainerSelectionDialog dialog = new ContainerSelectionDialog(getShell(), ResourcesPlugin.getWorkspace().getRoot().getProject(), true, "");
+			ContainerSelectionDialog dialog = new ContainerSelectionDialog(getShell(), ResourcesPlugin.getWorkspace().getRoot().getProject(), true, ""); //$NON-NLS-1$
 			dialog.setValidator(new ISelectionValidator() {
 				public String isValid(Object selection) {
 					try {
@@ -371,19 +372,19 @@ public class NewWizardPage extends WizardPage {
 						metaProject = ResourcesPlugin.getWorkspace().getRoot().getProject(selection.toString());
 					}
 					try {
-						if (metaProject.hasNature("aurora.ide.meta.nature")) {
-							if (((IPath) selection).toString().indexOf("ui_prototype") != -1) {
+						if (metaProject.hasNature("aurora.ide.meta.nature")) { //$NON-NLS-1$
+							if (((IPath) selection).toString().indexOf("ui_prototype") != -1) { //$NON-NLS-1$
 								return null;
 							}
-							return "文件须位于ui_prototype目录下";
+							return Messages.NewWizardPage__folder_3;
 						}
 					} catch (CoreException e) {
 						e.printStackTrace();
 					}
-					return "该工程不是一个有效的Aurora原型工程";
+					return Messages.NewWizardPage_Project_2;
 				}
 			});
-			dialog.setTitle("选择目录");
+			dialog.setTitle(Messages.NewWizardPage_folder_4);
 			if (dialog.open() == Dialog.OK && dialog.getResult().length != 0) {
 				initTemplates();
 				txtPath.setText(dialog.getResult()[0].toString());

@@ -52,7 +52,7 @@ public class RendererEditDialog extends EditWizard {
 
 	public RendererEditDialog() {
 		super();
-		setWindowTitle("renderer");
+		setWindowTitle("renderer"); //$NON-NLS-1$
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class RendererEditDialog extends EditWizard {
 
 	@Override
 	public void addPages() {
-		page = new InnerPage("renderer");
+		page = new InnerPage("renderer"); //$NON-NLS-1$
 		addPage(page);
 		super.addPages();
 	}
@@ -78,11 +78,11 @@ public class RendererEditDialog extends EditWizard {
 	}
 
 	private class InnerPage extends WizardPage implements SelectionListener {
-		private String[] displayTexts = { "不使用", "页面跳转", "内置函数", "自定义函数" };
+		private String[] displayTexts = { Messages.RendererEditDialog_2, Messages.RendererEditDialog_3, Messages.RendererEditDialog_4, Messages.RendererEditDialog_5 };
 
 		protected InnerPage(String pageName) {
 			super(pageName);
-			setTitle("renderer 详细设置");
+			setTitle(Messages.RendererEditDialog_6);
 		}
 
 		public void createControl(final Composite parent) {
@@ -139,19 +139,19 @@ public class RendererEditDialog extends EditWizard {
 			composite_right.setLayout(new FillLayout());
 			Label l = new Label(composite_right, SWT.CENTER);
 			l.setForeground(ColorConstants.EDITOR_BORDER);
-			l.setText("disable renderer");
+			l.setText(Messages.RendererEditDialog_7);
 		}
 
 		private void create_1() {
 			composite_right.setLayout(new GridLayout(3, false));
 			Label label = new Label(composite_right, SWT.NONE);
-			label.setText("显示文本 : ");
+			label.setText(Messages.RendererEditDialog_8);
 			final Text text1 = new Text(composite_right, SWT.BORDER);
 			text1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 					1, 1));
 			tmpLabelText = renderer.getLabelText();
 			if (tmpLabelText == null)
-				tmpLabelText = "";
+				tmpLabelText = ""; //$NON-NLS-1$
 
 			text1.addModifyListener(new ModifyListener() {
 
@@ -162,20 +162,20 @@ public class RendererEditDialog extends EditWizard {
 			text1.setText(tmpLabelText);
 			new Label(composite_right, SWT.NONE);
 			label = new Label(composite_right, SWT.NONE);
-			label.setText("目标 : ");
+			label.setText(Messages.RendererEditDialog_10);
 			final Text text = new Text(composite_right, SWT.BORDER);
 			text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 					1, 1));
 			tmpOpenPath = renderer.getOpenPath();
-			if (tmpOpenPath == null || tmpOpenPath == "") {
-				tmpOpenPath = "";
+			if (tmpOpenPath == null || tmpOpenPath == "") { //$NON-NLS-1$
+				tmpOpenPath = ""; //$NON-NLS-1$
 				setPageComplete(false);
-				setErrorMessage("please select a screen file");
+				setErrorMessage(Messages.RendererEditDialog_13);
 			}
 			text.setText(tmpOpenPath);
 			text.setEditable(false);
 			Button btn = new Button(composite_right, SWT.FLAT);
-			btn.setText("选择(&O)");
+			btn.setText(Messages.RendererEditDialog_14);
 
 			IProject proj = AuroraPlugin.getActiveIFile().getProject();
 			AuroraMetaProject mProj = new AuroraMetaProject(proj);
@@ -186,7 +186,7 @@ public class RendererEditDialog extends EditWizard {
 			}
 			if (auroraProject == null) {
 				btn.setEnabled(false);
-				setErrorMessage("当前工程没有正确设置关联Aurora工程.");
+				setErrorMessage(Messages.RendererEditDialog_15);
 				setPageComplete(false);
 				return;
 			}
@@ -197,12 +197,12 @@ public class RendererEditDialog extends EditWizard {
 					OpenResourceDialog ord = new OpenResourceDialog(
 							composite_right.getShell(), auroraProject,
 							OpenResourceDialog.CARET_BEGINNING);
-					ord.setInitialPattern("*.screen");
+					ord.setInitialPattern("*.screen"); //$NON-NLS-1$
 					ord.open();
 					Object obj = ord.getFirstResult();
 					if (!(obj instanceof IFile)) {
 						setPageComplete(false);
-						setErrorMessage("the selection is not a valid screen file");
+						setErrorMessage(Messages.RendererEditDialog_17);
 						return;
 					}
 					setPageComplete(true);
@@ -254,7 +254,7 @@ public class RendererEditDialog extends EditWizard {
 				}
 			}
 			if (list.getSelection().length == 0) {
-				setErrorMessage("please select a renderer funtion");
+				setErrorMessage(Messages.RendererEditDialog_18);
 				setPageComplete(false);
 			}
 		}
@@ -264,13 +264,13 @@ public class RendererEditDialog extends EditWizard {
 			Label l = new Label(composite_right, SWT.NONE);
 			l.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true,
 					false));
-			l.setText("在下面写一个函数");
+			l.setText(Messages.RendererEditDialog_19);
 			final SourceViewer jsEditor = new SourceViewer(composite_right,
 					null, SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
 			jsEditor.getControl().setLayoutData(
 					new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			jsEditor.configure(new JavaScriptConfiguration(new ColorManager()));
-			jsEditor.getTextWidget().setFont(new Font(null, "Consolas", 10, 0));
+			jsEditor.getTextWidget().setFont(new Font(null, "Consolas", 10, 0)); //$NON-NLS-1$
 			Document document = new Document();
 			jsEditor.setDocument(document);
 			tmpFunction = renderer.getFunction();

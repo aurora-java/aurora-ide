@@ -29,6 +29,7 @@ import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.source.gen.ProjectGenerator;
+import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 
 public class SourceCodeGeneratorWizard extends Wizard {
@@ -40,8 +41,8 @@ public class SourceCodeGeneratorWizard extends Wizard {
 	private Button overlap;
 	private IWorkbenchWindow window;
 
-	public final static String DIALOG_SETTING_SECTION = "aurora.ide.uip.action.SourceCodeGenerator";
-	private final static String IS_OVERLAP = "isOverlap";
+	public final static String DIALOG_SETTING_SECTION = "aurora.ide.uip.action.SourceCodeGenerator"; //$NON-NLS-1$
+	private final static String IS_OVERLAP = "isOverlap"; //$NON-NLS-1$
 
 	public SourceCodeGeneratorWizard(IWorkbenchWindow window) {
 		this.window = window;
@@ -50,7 +51,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 
 	public void addPages() {
 
-		mainPage = new WizardPage("gensource") {
+		mainPage = new WizardPage("gensource") { //$NON-NLS-1$
 
 			// initial value stores
 			private String initialProjectFieldValue;
@@ -81,7 +82,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 				createAruoraProjectNameGroup(projectGroup);
 
 				overlap = new Button(projectGroup, SWT.CHECK);
-				overlap.setText("覆盖存在的文件");
+				overlap.setText(Messages.SourceCodeGeneratorWizard_3);
 
 				setPageComplete(validatePage());
 				// Show description on opening
@@ -118,7 +119,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 
 				// new project label
 				Label projectLabel = new Label(projectGroup, SWT.NONE);
-				projectLabel.setText("Project name: ");
+				projectLabel.setText(Messages.SourceCodeGeneratorWizard_4);
 				projectLabel.setFont(projectGroup.getFont());
 
 				// new project name entry field
@@ -146,7 +147,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
 				IProject[] projects = workspace.getRoot().getProjects();
-				projectNameField.add("");
+				projectNameField.add(""); //$NON-NLS-1$
 				for (IProject p : projects) {
 					boolean hasAuroraNature = false;
 					try {
@@ -167,7 +168,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 
 				// new project label
 				Label projectLabel = new Label(projectGroup, SWT.NONE);
-				projectLabel.setText("Aurora Project name: ");
+				projectLabel.setText(Messages.SourceCodeGeneratorWizard_6);
 				projectLabel.setFont(projectGroup.getFont());
 
 				// aurora project name entry field
@@ -189,7 +190,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 			protected boolean validatePage() {
 				IProject handle = getAuroraProjectHandle();
 				if (handle == null || !handle.exists()) {
-					setErrorMessage("关联的Aurora Project不存在");
+					setErrorMessage(Messages.SourceCodeGeneratorWizard_7);
 					return false;
 				}
 				setErrorMessage(null);
@@ -210,7 +211,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 
 			public void selecttionChanged() {
 				String text = projectNameField.getText();
-				if (text == null || "".equals(text))
+				if (text == null || "".equals(text)) //$NON-NLS-1$
 					return;
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
 				IProject project = workspace.getRoot().getProject(text);
@@ -219,13 +220,13 @@ public class SourceCodeGeneratorWizard extends Wizard {
 					String name = amp.getAuroraProject().getName();
 					auroraProjectNameField.setText(name);
 				} catch (ResourceNotFoundException e1) {
-					auroraProjectNameField.setText("");
+					auroraProjectNameField.setText(""); //$NON-NLS-1$
 				}
 				setPageComplete(validatePage());
 			}
 		};
-		mainPage.setTitle("Project");
-		mainPage.setDescription("将原型工程生成，可以运行的代码");
+		mainPage.setTitle("Project"); //$NON-NLS-1$
+		mainPage.setDescription(Messages.SourceCodeGeneratorWizard_11);
 		this.addPage(mainPage);
 	}
 
@@ -233,7 +234,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 		if (auroraProjectNameField == null)
 			return null;
 		String trim = auroraProjectNameField.getText().trim();
-		if ("".equals(trim)) {
+		if ("".equals(trim)) { //$NON-NLS-1$
 			return null;
 		}
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(trim);

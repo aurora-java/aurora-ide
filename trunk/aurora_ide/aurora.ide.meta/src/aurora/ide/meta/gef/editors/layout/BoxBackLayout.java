@@ -165,7 +165,6 @@ public class BoxBackLayout extends BackLayout {
 		return this.selfRectangle.setWidth(selfRectangle.width);
 	}
 
-	// 按顺序布局，列大小不相等算法。
 	protected Rectangle newChildLocation(Rectangle layout) {
 		if (lastCol == col) {
 			lastRow++;

@@ -29,6 +29,7 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 import aurora.ide.meta.MetaPlugin;
+import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.search.core.Util;
 
 public class SelectModelDialog extends Dialog {
@@ -40,7 +41,7 @@ public class SelectModelDialog extends Dialog {
 	public SelectModelDialog(Shell parentShell, IResource resource) {
 		super(parentShell);
 		this.resource = resource;
-		filter = new ModelFilter("");
+		filter = new ModelFilter(""); //$NON-NLS-1$
 	}
 
 	@Override
@@ -56,14 +57,14 @@ public class SelectModelDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
-		container.getShell().setText("文件选择");
+		container.getShell().setText(Messages.SelectModelDialog_Select_File);
 
 		Composite composite = new Composite(container, SWT.None);
 		composite.setLayout(new GridLayout(2, false));
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		Label lblFileName = new Label(composite, SWT.None);
-		lblFileName.setText("文件名：");
+		lblFileName.setText(Messages.SelectModelDialog_File_Name);
 		final Text txtFileName = new Text(composite, SWT.BORDER);
 		txtFileName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
@@ -114,7 +115,7 @@ public class SelectModelDialog extends Dialog {
 		});
 
 		ToolBarManager toolBarManager = new ToolBarManager(toolBar);
-		Action expand = new Action("expand", MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "icons/expandall.gif")) {
+		Action expand = new Action("expand", MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "icons/expandall.gif")) { //$NON-NLS-1$ //$NON-NLS-2$
 			public void run() {
 				tree.getControl().setRedraw(false);
 				tree.expandAll();
@@ -122,7 +123,7 @@ public class SelectModelDialog extends Dialog {
 			}
 		};
 
-		Action collapse = new Action("collapse", MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "icons/collapseall.gif")) {
+		Action collapse = new Action("collapse", MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "icons/collapseall.gif")) { //$NON-NLS-1$ //$NON-NLS-2$
 			public void run() {
 				tree.getControl().setRedraw(false);
 				tree.collapseAll();
@@ -156,7 +157,7 @@ class ModelFilter extends ViewerFilter {
 	private String fileName;
 
 	public ModelFilter(String fileName) {
-		this.fileName = fileName + "*";
+		this.fileName = fileName + "*"; //$NON-NLS-1$
 	}
 
 	@Override

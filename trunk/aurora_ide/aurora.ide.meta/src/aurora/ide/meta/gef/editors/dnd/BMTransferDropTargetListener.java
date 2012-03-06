@@ -1,6 +1,5 @@
 package aurora.ide.meta.gef.editors.dnd;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.gef.AutoexposeHelper;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
@@ -11,7 +10,6 @@ import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.swt.dnd.DND;
 
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.request.DropBMRequest;
 
 public class BMTransferDropTargetListener extends

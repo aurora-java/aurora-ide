@@ -36,6 +36,7 @@ import aurora.ide.meta.gef.editors.template.ResultRegion;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.wizard.dialog.SelectModelDialog;
 import aurora.ide.meta.gef.editors.wizard.dialog.StyleSettingDialog;
+import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.project.propertypage.ProjectPropertyPage;
 
@@ -46,9 +47,9 @@ public class SettingWizardPage extends WizardPage {
 	private Composite container;
 
 	public SettingWizardPage() {
-		super("aurora.wizard.setting.Page");
-		setTitle("UI Prototype文件向导");
-		setDescription("选择模型绑定至UI Prototype文件");
+		super("aurora.wizard.setting.Page"); //$NON-NLS-1$
+		setTitle(Messages.SettingWizardPage_Title);
+		setDescription(Messages.SettingWizardPage_Model_Bind);
 	}
 
 	public void createControl(Composite parent) {
@@ -61,7 +62,7 @@ public class SettingWizardPage extends WizardPage {
 		setControl(composite);
 		createRegiog();
 		Link setting = new Link(composite, SWT.NONE);
-		setting.setText("<a>详细设置</a>");
+		setting.setText(Messages.SettingWizardPage_Detail_Setting);
 		setting.setEnabled(false);
 		setting.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
@@ -90,11 +91,11 @@ public class SettingWizardPage extends WizardPage {
 		composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label lblRegion = new Label(composite, SWT.NONE);
-		lblRegion.setText("区域");
+		lblRegion.setText(Messages.SettingWizardPage_Region);
 		Label lblTyoe = new Label(composite, SWT.NONE);
-		lblTyoe.setText("区域类型");
+		lblTyoe.setText(Messages.SettingWizardPage_Region_type);
 		Label lblModel = new Label(composite, SWT.NONE);
-		lblModel.setText("Model");
+		lblModel.setText("Model"); //$NON-NLS-1$
 		GridData gd = new GridData();
 		gd.horizontalAlignment = GridData.CENTER;
 		lblModel.setLayoutData(gd);
@@ -125,7 +126,7 @@ public class SettingWizardPage extends WizardPage {
 				final Text txtModel = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
 				txtModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 				Button btn = new Button(composite, SWT.None);
-				btn.setText("选择Model");
+				btn.setText(Messages.SettingWizardPage_Select_model);
 				btn.addSelectionListener(new SelectionListener() {
 					public void widgetSelected(SelectionEvent e) {
 						AuroraMetaProject metaPro = new AuroraMetaProject(((NewWizardPage) getPreviousPage()).getMetaProject());
@@ -187,13 +188,13 @@ public class SettingWizardPage extends WizardPage {
 
 	private String getType(Region region) {
 		if (region instanceof QueryRegion) {
-			return "query";
+			return "query"; //$NON-NLS-1$
 		} else if (region instanceof ButtonRegion) {
-			return "buttons";
+			return "buttons"; //$NON-NLS-1$
 		} else if (region instanceof ResultRegion) {
-			return "result";
+			return "result"; //$NON-NLS-1$
 		}
-		return "unknown";
+		return "unknown"; //$NON-NLS-1$
 	}
 
 	private Map<Model, List<Region>> getRelation(Template template) {

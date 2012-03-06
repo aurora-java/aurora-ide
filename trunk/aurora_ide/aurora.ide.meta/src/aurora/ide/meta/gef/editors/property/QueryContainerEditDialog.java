@@ -23,11 +23,11 @@ public class QueryContainerEditDialog extends EditWizard {
 
 	public QueryContainerEditDialog() {
 		super();
-		setWindowTitle("QueryDataSet");
+		setWindowTitle("QueryDataSet"); //$NON-NLS-1$
 	}
 
 	public void addPages() {
-		addPage(new InnerPage("QueryContainerSelection"));
+		addPage(new InnerPage("QueryContainerSelection")); //$NON-NLS-1$
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class QueryContainerEditDialog extends EditWizard {
 
 		protected InnerPage(String pageName) {
 			super(pageName);
-			setTitle("选择一个组件作为查询条件来源");
+			setTitle(Messages.QueryContainerEditDialog_2);
 		}
 
 		public void createControl(Composite parent) {
@@ -61,10 +61,10 @@ public class QueryContainerEditDialog extends EditWizard {
 				comp = comp.getParent();
 			}
 			if (root == null)
-				throw new RuntimeException("Null root");
+				throw new RuntimeException("Null root"); //$NON-NLS-1$
 			final Tree tree = new Tree(parent, SWT.BORDER);
 			TreeItem rootItem = new TreeItem(tree, SWT.NONE);
-			rootItem.setText("screenBody");
+			rootItem.setText("screenBody"); //$NON-NLS-1$
 			rootItem.setForeground(new Color(null, 200, 200, 200));
 			createSubTree(tree, rootItem, root);
 
@@ -114,7 +114,7 @@ public class QueryContainerEditDialog extends EditWizard {
 		private String getTextOf(AuroraComponent ac) {
 			String prop = ac.getPrompt();
 			String aType = ac.getType();
-			return aType + " [" + prop + "]";
+			return aType + " [" + prop + "]"; //$NON-NLS-1$ //$NON-NLS-2$
 			// return ac.getClass().getSimpleName();
 		}
 

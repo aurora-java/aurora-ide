@@ -17,47 +17,47 @@ public class Button extends AuroraComponent {
 	 * 
 	 */
 	private static final long serialVersionUID = 1177281488586303137L;
-	public static final String ADD = "add";
-	public static final String SAVE = "save";
-	public static final String DELETE = "delete";
-	public static final String CLEAR = "clear";
-	public static final String EXCEL = "excel";
-	public static final String DEFAULT = "";
+	public static final String ADD = "add"; //$NON-NLS-1$
+	public static final String SAVE = "save"; //$NON-NLS-1$
+	public static final String DELETE = "delete"; //$NON-NLS-1$
+	public static final String CLEAR = "clear"; //$NON-NLS-1$
+	public static final String EXCEL = "excel"; //$NON-NLS-1$
+	public static final String DEFAULT = ""; //$NON-NLS-1$
 	private static final String[] std_types = { DEFAULT, ADD, SAVE, DELETE,
 			CLEAR, EXCEL };
-	private static final String[] std_type_names = { "", "新增", "保存", "删除",
-			"清除", "导出" };
-	public static final String BUTTON_TYPE = "type";
-	public static final String BUTTON_TEXT = "text";
-	public static final String BUTTON_CLICKER = "click";
-	public static final String TOOLTIP = "title";
+	private static final String[] std_type_names = { "", Messages.Button_7, Messages.Button_8, Messages.Button_9, //$NON-NLS-1$
+			Messages.Button_10, Messages.Button_11 };
+	public static final String BUTTON_TYPE = "type"; //$NON-NLS-1$
+	public static final String BUTTON_TEXT = "text"; //$NON-NLS-1$
+	public static final String BUTTON_CLICKER = "click"; //$NON-NLS-1$
+	public static final String TOOLTIP = "title"; //$NON-NLS-1$
 
 	private static final IPropertyDescriptor[] std_pds = new IPropertyDescriptor[] {
-			new StringPropertyDescriptor(BUTTON_TEXT, "Text"), PD_NAME,
-			new IntegerPropertyDescriptor(WIDTH, "Width"),
-			new IntegerPropertyDescriptor(HEIGHT, "Height"),
-			new StringPropertyDescriptor(TOOLTIP, "Title"),
-			new ComboPropertyDescriptor(BUTTON_TYPE, "Type", std_type_names) };
+			new StringPropertyDescriptor(BUTTON_TEXT, "Text"), PD_NAME, //$NON-NLS-1$
+			new IntegerPropertyDescriptor(WIDTH, "Width"), //$NON-NLS-1$
+			new IntegerPropertyDescriptor(HEIGHT, "Height"), //$NON-NLS-1$
+			new StringPropertyDescriptor(TOOLTIP, "Title"), //$NON-NLS-1$
+			new ComboPropertyDescriptor(BUTTON_TYPE, "Type", std_type_names) }; //$NON-NLS-1$
 	private static final IPropertyDescriptor[] inner_pds = new IPropertyDescriptor[] {
-			new StringPropertyDescriptor(BUTTON_TEXT, "Text"),
+			new StringPropertyDescriptor(BUTTON_TEXT, "Text"), //$NON-NLS-1$
 			PD_NAME,
-			new IntegerPropertyDescriptor(WIDTH, "Width"),
-			new IntegerPropertyDescriptor(HEIGHT, "Height"),
-			new StringPropertyDescriptor(TOOLTIP, "Title"),
-			new DialogPropertyDescriptor(BUTTON_CLICKER, "Click",
+			new IntegerPropertyDescriptor(WIDTH, "Width"), //$NON-NLS-1$
+			new IntegerPropertyDescriptor(HEIGHT, "Height"), //$NON-NLS-1$
+			new StringPropertyDescriptor(TOOLTIP, "Title"), //$NON-NLS-1$
+			new DialogPropertyDescriptor(BUTTON_CLICKER, "Click", //$NON-NLS-1$
 					ButtonClickEditDialog.class) };
 
 	private String buttonType = DEFAULT;
-	private String text = "button";
-	private String icon = "";
-	private String title = "";
+	private String text = "button"; //$NON-NLS-1$
+	private String icon = ""; //$NON-NLS-1$
+	private String title = ""; //$NON-NLS-1$
 	private AuroraComponent targetComponent;
 
 	private ButtonClicker buttonClicker = new ButtonClicker();
 
 	public Button() {
 		setSize(new Dimension(80, 20));
-		this.setType("button");
+		this.setType("button"); //$NON-NLS-1$
 		buttonClicker.setButton(this);
 	}
 
@@ -95,15 +95,15 @@ public class Button extends AuroraComponent {
 
 	public String getText() {
 		if (CLEAR.equals(buttonType))
-			return "清除";
+			return Messages.Button_30;
 		else if (ADD.equals(buttonType))
-			return "新增";
+			return Messages.Button_31;
 		else if (DELETE.equals(buttonType))
-			return "删除";
+			return Messages.Button_32;
 		else if (SAVE.equals(buttonType))
-			return "保存";
+			return Messages.Button_33;
 		else if (EXCEL.equals(buttonType))
-			return "导出";
+			return Messages.Button_34;
 		return text;
 	}
 
@@ -136,7 +136,7 @@ public class Button extends AuroraComponent {
 			return;
 		String oldV = this.icon;
 		this.icon = icon;
-		firePropertyChange("ICON", oldV, icon);
+		firePropertyChange("ICON", oldV, icon); //$NON-NLS-1$
 	}
 
 	public void setText(String text) {

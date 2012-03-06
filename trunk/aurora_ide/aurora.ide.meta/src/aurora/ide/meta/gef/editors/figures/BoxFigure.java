@@ -22,7 +22,6 @@ public class BoxFigure extends Figure {
 
 	public BoxFigure() {
 		this.setLayoutManager(new DummyLayout());
-		this.setBorder(new TitleBorder("大家好 ： 敬请期待。。。"));
 	}
 
 	public int getLabelWidth() {

@@ -19,6 +19,7 @@ import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.commands.BindDropModelCommand;
 import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
 import aurora.ide.meta.gef.editors.request.DropBMRequest;
+import aurora.ide.meta.gef.i18n.Messages;
 
 public class BindDropModelEditPolicy extends AbstractEditPolicy {
 
@@ -44,8 +45,8 @@ public class BindDropModelEditPolicy extends AbstractEditPolicy {
 
 		if (data instanceof List) {
 			Shell shell = Display.getDefault().getActiveShell();
-			boolean openConfirm = MessageDialog.openConfirm(shell, "模型绑定",
-					"是否增加新的field？");
+			boolean openConfirm = MessageDialog.openConfirm(shell, Messages.BindDropModelEditPolicy_0,
+					Messages.BindDropModelEditPolicy_1);
 			if (openConfirm == false) {
 				return null;
 			}

@@ -8,43 +8,38 @@ import aurora.ide.meta.gef.editors.property.DialogEditableObject;
 public class Renderer extends AuroraComponent implements DialogEditableObject {
 
 	private static final long serialVersionUID = -3218999047690358423L;
-	public static final String NONE_RENDERER = "NONE_RENDERER";
-	public static final String PAGE_REDIRECT = "PAGE_REDIRECT";
-	public static final String INNER_FUNCTION = "INNER_FUNCTION";
-	public static final String USER_FUNCTION = "USER_FUNCTION";
+	public static final String NONE_RENDERER = "NONE_RENDERER"; //$NON-NLS-1$
+	public static final String PAGE_REDIRECT = "PAGE_REDIRECT"; //$NON-NLS-1$
+	public static final String INNER_FUNCTION = "INNER_FUNCTION"; //$NON-NLS-1$
+	public static final String USER_FUNCTION = "USER_FUNCTION"; //$NON-NLS-1$
 	public static final String[] RENDERER_TYPES = { NONE_RENDERER,
 			PAGE_REDIRECT, INNER_FUNCTION, USER_FUNCTION };
 
 	// PAGE_REDIRECT
-	private String openPath = "";
-	private String labelText = "";
+	private String openPath = ""; //$NON-NLS-1$
+	private String labelText = ""; //$NON-NLS-1$
 
 	/**
-	 * 内置函数名
 	 */
-	private String functionName = "";
+	private String functionName = ""; //$NON-NLS-1$
 
 	/**
-	 * 所有预定义renderer
 	 */
-	public static final String[] INNER_FUNCTIONS = { "Aurora.formatDate",
-			"Aurora.formatDateTime", "Aurora.formatNumber" };
+	public static final String[] INNER_FUNCTIONS = { "Aurora.formatDate", //$NON-NLS-1$
+			"Aurora.formatDateTime", "Aurora.formatNumber" }; //$NON-NLS-1$ //$NON-NLS-2$
 	/**
-	 * 预定义renderer对应的描述
 	 */
 	public static final String[] INNER_RENDERER_DESC = {
-			"将日期转换成默认格式的字符串，默认格式是根据Aurora.defaultDateFormat来定义的.如果没有特殊指定,默认格式为yyyy-mm-dd",
-			"将日期转换成yyyy-mm-dd HH:MM:ss格式的字符串", "将数值根据精度转换成带有千分位的字符串" };
+			Messages.Renderer_10,
+			Messages.Renderer_11, Messages.Renderer_12 };
 
 	/**
-	 * 自定义函数
 	 */
-	private String function = "";
+	private String function = ""; //$NON-NLS-1$
 
 	/**
-	 * 自定义函数模板(范例)
 	 */
-	public static final String FUNCTION_MODEL = "function myRenderer(value,record,name){\n\treturn 'rendererText';\n}";
+	public static final String FUNCTION_MODEL = "function myRenderer(value,record,name){\n\treturn 'rendererText';\n}"; //$NON-NLS-1$
 
 	private GridColumn column;
 	private String rendererType = NONE_RENDERER;
@@ -68,9 +63,9 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 			return functionName;
 		else if (USER_FUNCTION.equals(rendererType)) {
 			JavascriptRhino js = new JavascriptRhino(function);
-			return "[ " + js.getFirstFunctionName() + " ]";
+			return "[ " + js.getFirstFunctionName() + " ]"; //$NON-NLS-1$ //$NON-NLS-2$
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	public Object getContextInfo() {
