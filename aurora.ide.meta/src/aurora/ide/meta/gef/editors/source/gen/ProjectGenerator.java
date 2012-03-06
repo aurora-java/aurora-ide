@@ -236,7 +236,7 @@ public class ProjectGenerator {
 			};
 
 			try {
-				cfo.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(shell));
+				cfo.execute(null, WorkspaceUndoUtil.getUIInfoAdapter(shell));
 			} catch (ExecutionException e) {
 				throw new InvocationTargetException(e);
 			}
