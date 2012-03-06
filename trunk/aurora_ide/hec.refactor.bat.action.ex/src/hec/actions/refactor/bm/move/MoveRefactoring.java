@@ -138,8 +138,13 @@ public class MoveRefactoring extends Refactoring {
 			}
 			try {
 				String string = document.get(offset, length);
+				String text = this.pkgMap.get(string);
+				if(text == null){
+					System.out.println();
+					continue;
+				}
 				ReplaceEdit edit = new ReplaceEdit(offset, length,
-						this.pkgMap.get(string));
+						text);
 				textFileChange.addEdit(edit);
 			} catch (BadLocationException e) {
 				continue;
