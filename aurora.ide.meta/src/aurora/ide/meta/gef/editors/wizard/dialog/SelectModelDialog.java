@@ -80,7 +80,6 @@ public class SelectModelDialog extends Dialog {
 		ToolBar toolBar = new ToolBar(treeViewer, SWT.FLAT|SWT.RIGHT_TO_LEFT);
 		toolBar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.END));
 		toolBar.addPaintListener(new PaintListener() {
-			@Override
 			public void paintControl(PaintEvent e) {
 				e.gc.setForeground(getShell().getDisplay().getSystemColor(SWT.COLOR_GRAY));
 				e.gc.drawLine(0, e.height-1, e.width, e.height-1);
