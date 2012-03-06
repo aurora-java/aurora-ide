@@ -42,6 +42,7 @@ import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.dnd.BMTransfer;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.project.propertypage.ProjectPropertyPage;
 import aurora.ide.search.cache.CacheManager;
@@ -58,7 +59,7 @@ public class BMViewer {
 		public String editor;
 
 		public String getName() {
-			return fieldMap.get("name").toString();
+			return fieldMap.get("name").toString(); //$NON-NLS-1$
 		}
 	}
 
@@ -73,18 +74,18 @@ public class BMViewer {
 		public Object[] getElements(Object inputElement) {
 			IProject auroraProject = getAuroraProject();
 			if (auroraProject == null) {
-				return new String[] { "未设置关联aurora工程" };
+				return new String[] { Messages.BMViewer_No_aurora_project };
 			}
 
 			if (inputElement instanceof ViewDiagram) {
 				if (!((ViewDiagram) inputElement).isBindTemplate()) {
-					return new String[] { "未绑定模版" };
+					return new String[] { Messages.BMViewer_No_template };
 				}
 
 				List<IFile> modelFiles = getModelFiles((ViewDiagram) inputElement);
 				
 				if(modelFiles.size()==0){
-					return new String[] { "未发现绑定的Model" };
+					return new String[] { Messages.BMViewer_No_model };
 				}
 				return modelFiles.toArray(new IFile[modelFiles.size()]);
 			}
@@ -177,17 +178,17 @@ public class BMViewer {
 		private Image getImage(ModelField model) {
 			String type = model.editor;
 			if (Input.Combo.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_01.png");
+				return ImagesUtils.getImage("palette/itembar_01.png"); //$NON-NLS-1$
 			if (Input.CAL.equalsIgnoreCase(type)
 					|| Input.DATETIMEPICKER.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_02.png");
+				return ImagesUtils.getImage("palette/itembar_02.png"); //$NON-NLS-1$
 			if (Input.LOV.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_03.png");
+				return ImagesUtils.getImage("palette/itembar_03.png"); //$NON-NLS-1$
 			if (Input.TEXT.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_04.png");
+				return ImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
 			if (Input.NUMBER.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_05.png");
-			return ImagesUtils.getImage("palette/itembar_04.png");
+				return ImagesUtils.getImage("palette/itembar_05.png"); //$NON-NLS-1$
+			return ImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
 		}
 
 		public final String getText(Object element) {
@@ -265,13 +266,13 @@ public class BMViewer {
 				if (data instanceof IFile) {
 					CompositeMap model = CacheManager
 							.getCompositeMap((IFile) data);
-					CompositeMap fields = model.getChild("fields");
+					CompositeMap fields = model.getChild("fields"); //$NON-NLS-1$
 					if (fields != null) {
 						Iterator childIterator = fields.getChildIterator();
 						while (childIterator != null && childIterator.hasNext()) {
 							CompositeMap qf = (CompositeMap) childIterator
 									.next();
-							if ("field".equals(qf.getName())) {
+							if ("field".equals(qf.getName())) { //$NON-NLS-1$
 								fs.add(qf);
 							}
 						}
@@ -357,12 +358,12 @@ public class BMViewer {
 		try {
 			CompositeMap modelMap = CacheManager.getCompositeMap((IFile) model);
 			List<ModelField> fs = new ArrayList<ModelField>();
-			CompositeMap fields = modelMap.getChild("fields");
+			CompositeMap fields = modelMap.getChild("fields"); //$NON-NLS-1$
 			if (fields != null) {
 				Iterator childIterator = fields.getChildIterator();
 				while (childIterator != null && childIterator.hasNext()) {
 					CompositeMap qf = (CompositeMap) childIterator.next();
-					if ("field".equals(qf.getName()) && qf.get("name") != null) {
+					if ("field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
 						ModelField field = new ModelField();
 						field.editor = Util.getType(qf);
 						field.parent = model;

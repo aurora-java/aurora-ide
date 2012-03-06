@@ -4,6 +4,7 @@ import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.meta.gef.editors.property.DialogEditableObject;
 import aurora.ide.meta.gef.editors.property.PropertySourceUtil;
+import aurora.ide.meta.gef.i18n.Messages;
 
 public class ButtonClicker extends AuroraComponent implements
 		DialogEditableObject {
@@ -12,20 +13,20 @@ public class ButtonClicker extends AuroraComponent implements
 	 */
 	private static final long serialVersionUID = 1177281488586303137L;
 
-	public static final String DEFAULT = "";
+	public static final String DEFAULT = ""; //$NON-NLS-1$
 
-	static final public String B_SEARCH = "query";
-	static final public String B_RESET = "reset";
+	static final public String B_SEARCH = "query"; //$NON-NLS-1$
+	static final public String B_RESET = "reset"; //$NON-NLS-1$
 	static final public String B_SAVE = "save";
-	static final public String B_CLOSE = "close";
-	static final public String B_OPEN = "open";
-	static final public String B_CUSTOM = "custom";
+	static final public String B_CLOSE = "close"; //$NON-NLS-1$
+	static final public String B_OPEN = "open"; //$NON-NLS-1$
+	static final public String B_CUSTOM = "custom"; //$NON-NLS-1$
 
 	public static final String[] action_ids = { B_SEARCH, B_RESET, B_SAVE,
 			B_OPEN, B_CLOSE, B_CUSTOM };
 
-	public static final String[] action_texts = { "查询", "重置", "保存", "打开", "关闭",
-			"自定义" };
+	public static final String[] action_texts = { Messages.ButtonClicker_Query, Messages.ButtonClicker_Reset, Messages.ButtonClicker_Save, Messages.ButtonClicker_Open, Messages.ButtonClicker_Close,
+			Messages.ButtonClicker_Custom };
 
 	private String actionID = DEFAULT;
 	// b_open
@@ -64,7 +65,7 @@ public class ButtonClicker extends AuroraComponent implements
 		for (int i = 0; i < action_ids.length; i++)
 			if (action_ids[i].equals(actionID))
 				return action_texts[i];
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	public String getOpenPath() {
