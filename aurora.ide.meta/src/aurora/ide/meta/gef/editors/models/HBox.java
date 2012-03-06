@@ -13,7 +13,7 @@ public class HBox extends BOX {
 			PD_PROMPT, PD_LABELWIDTH };
 
 	public HBox() {
-		setSize(new Dimension(600, 40));
+		setSize(new Dimension(200, 40));
 		this.setType("hBox");
 	}
 
