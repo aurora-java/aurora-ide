@@ -119,7 +119,6 @@ public class ProjectGenerator {
 				monitor.worked(steps);
 				fLastNumberOfScannedFiles += steps;
 			}
-
 		};
 
 		monitor.beginTask("生成代码 ", files.size());
