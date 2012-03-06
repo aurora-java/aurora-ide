@@ -40,8 +40,11 @@ public class BoxPart extends ContainerPart {
 	public void applyToModel() {
 		super.applyToModel();
 		Rectangle bounds = this.getFigure().getBounds();
-		Command cmd = new Command(){
-			
+		if (this.getComponent().getBounds().equals(bounds)) {
+			return;
+		}
+		Command cmd = new Command() {
+
 		};
 		this.getComponent().applyToModel(bounds);
 		this.getViewer().getEditDomain().getCommandStack().execute(cmd);
