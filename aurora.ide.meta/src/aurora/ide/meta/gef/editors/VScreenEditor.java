@@ -21,6 +21,7 @@ import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
@@ -64,7 +65,8 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	public VScreenEditor() {
 		DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
 		setEditDomain(defaultEditDomain);
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(new InputFileListener(this));
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(
+				new InputFileListener(this));
 	}
 
 	public void setDiagram(ViewDiagram diagram) {
@@ -72,6 +74,15 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		GraphicalViewer gv = getGraphicalViewer();
 		gv.setContents(diagram);
 		bmViewer.refreshInput();
+		markDirty();
+	}
+
+	public void markDirty() {
+		// this.isDirty()
+		Command cmd = new Command() {
+
+		};
+		this.getEditDomain().getCommandStack().execute(cmd);
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
 
