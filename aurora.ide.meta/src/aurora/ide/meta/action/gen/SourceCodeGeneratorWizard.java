@@ -45,6 +45,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 
 	public SourceCodeGeneratorWizard(IWorkbenchWindow window) {
 		this.window = window;
+		setNeedsProgressMonitor(true);
 	}
 
 	public void addPages() {

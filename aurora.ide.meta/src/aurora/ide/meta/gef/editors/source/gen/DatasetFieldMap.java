@@ -203,6 +203,8 @@ public class DatasetFieldMap extends AbstractComponentMap {
 		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
 				sg.getProject(), ac.getName(), dataset.getModel());
 		CompositeMap bmMap = dataSetFieldUtil.getBmMap();
+		if(bmMap == null)
+			return null;
 		MapFinder mf = new MapFinder();
 		CompositeMap relation = mf.lookupRelation(ac.getName(), bmMap);
 		if (relation != null) {

@@ -211,7 +211,7 @@ public class ProjectGenerator {
 			if (newFile.exists() && isOverlap) {
 				try {
 					// newFile.delete(true, monitor);
-					newFile.setContents(is, true, false, monitor);
+					newFile.setContents(is, true, false, null);
 					return;
 				} catch (CoreException e) {
 				}

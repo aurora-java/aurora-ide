@@ -98,6 +98,8 @@ public class AuroraComponent2CompositMap {
 		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
 				screenGenerator.getProject(), ac.getName(), ds.getModel());
 		CompositeMap bmMap = dataSetFieldUtil.getBmMap();
+		if(bmMap==null)
+			return;
 		MapFinder mf = new MapFinder();
 		CompositeMap relation = mf.lookupRelation(lovMap.getString("name", ""),
 				bmMap);

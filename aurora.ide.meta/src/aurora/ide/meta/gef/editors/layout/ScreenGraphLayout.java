@@ -27,8 +27,8 @@ public class ScreenGraphLayout extends BackLayout {
 			Rectangle layout = GraphLayoutManager.layout(ep);
 			layout = newChildLocation(ep, layout);
 			applyToFigure(ep, layout);
-			//applyToModel(ep,layout);
 		}
+		diagram.applyToModel();
 	}
 
 	private List getSortChildren() {

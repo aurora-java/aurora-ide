@@ -69,6 +69,8 @@ public class MapFinder {
 
 	public CompositeMap lookupRelation(String localFieldName, CompositeMap bmMap) {
 		RelationFinder rf = new RelationFinder(localFieldName);
+		if(bmMap == null)
+			return null;
 		bmMap.iterate(rf, false);
 		return rf.getRelationMap();
 	}
