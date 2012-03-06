@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="aurora.ide.meta.feature"
+      label="Meta-feature"
+      version="1.3.0.qualifier"
+      provider-name="Aurora Framework"
+      plugin="aurora.ide.meta">
+
+   <description url="http://www.aurora-framework.org/">
+      Aurora原型开发可视化工具
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <url>
+      <update label="Aurora Project" url="http://aurora-project.googlecode.com/svn/trunk/uncertain_ide_release/"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="aurora.ide.libs"/>
+      <import plugin="aurora.ide"/>
+      <import plugin="org.eclipse.gef"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.jface.text"/>
+   </requires>
+
+   <plugin
+         id="aurora.ide.meta"
+         download-size="0"
+         install-size="0"
+         version="1.3.0.qualifier"
+         unpack="false"/>
+
+</feature>
