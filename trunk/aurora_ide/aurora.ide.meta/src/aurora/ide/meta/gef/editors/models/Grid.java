@@ -38,9 +38,10 @@ public class Grid extends GridColumn implements DatasetBinder {
 		this.setSize(new Dimension(800, 380));
 		ResultDataSet dataset = new ResultDataSet();
 		dataset.setOwner(this);
-//		dataset.setUseParentBM(false);
+		// dataset.setUseParentBM(false);
 		this.setDataset(dataset);
 		this.setType("grid");
+		setPrompt("");
 	}
 
 	public String getSelectionMode() {
