@@ -94,11 +94,8 @@ public class ScriptGenerator {
 		if (ButtonClicker.B_CUSTOM.equals(actionID)) {
 			script = bc.getFunction();
 		}
-		if (scriptList.contains(script)) {
-			return functionName;
-		}
-		scriptList.add(script);
-		this.script.append(script);
+
+		appendScript(script);
 		return functionName;
 	}
 
@@ -265,17 +262,26 @@ public class ScriptGenerator {
 			functionName = this.uniqueID(functionName, 0);
 			String hrefScript = this.hrefScript(functionName,
 					renderer.getLabelText(), openName);
-			this.script.append(hrefScript);
-			this.script.append(openScript);
+			appendScript(hrefScript);
+			appendScript(openScript);
 		}
 		if (Renderer.USER_FUNCTION.equals(type)) {
 			script = renderer.getFunction();
 			JavascriptRhino js = new JavascriptRhino(renderer.getFunction());
 			functionName = js.getFirstFunctionName();
-			this.script.append(script);
+			appendScript(script);
 		}
 		this.functionNames.add(functionName);
 		return functionName;
+	}
+
+	public void appendScript(String script) {
+		if (scriptList.contains(script)) {
+			return;
+		}
+		scriptList.add(script);
+		this.script.append(script);
+
 	}
 
 	public String hrefScript(String functionName, String labelText,
