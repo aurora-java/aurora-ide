@@ -8,6 +8,7 @@ import org.eclipse.draw2d.Graphics;
 
 import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.FieldSet;
+import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.HBox;
 import aurora.ide.meta.gef.editors.models.VBox;
 
@@ -38,12 +39,12 @@ public class BoxFigure extends Figure {
 	 */
 	protected void paintFigure(Graphics graphics) {
 		super.paintFigure(graphics);
-		if (box instanceof FieldSet) {
-			Border border = getBorder();
-			if (border instanceof AbstractLabeledBorder) {
-				((AbstractLabeledBorder) border).setLabel(box.getTitle());
-			}
-		}
+//		if (box instanceof FieldSet) {
+//			Border border = getBorder();
+//			if (border instanceof AbstractLabeledBorder) {
+//				((AbstractLabeledBorder) border).setLabel(box.getTitle());
+//			}
+//		}
 	}
 
 	public void setBox(BOX model) {
@@ -54,6 +55,8 @@ public class BoxFigure extends Figure {
 			this.setBorder(new VirtualBoxBorder("V"));
 		} else if (model instanceof FieldSet) {
 			this.setBorder(new FieldsetBorder(model.getTitle()));
+		}else if(model instanceof Form){
+			this.setBorder(new TitleBorder(""));
 		}
 	}
 
