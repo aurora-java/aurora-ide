@@ -1,7 +1,5 @@
 package aurora.ide.meta.gef.editors.figures;
 
-import org.eclipse.draw2d.AbstractLabeledBorder;
-import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
