@@ -26,6 +26,7 @@ import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.exception.GeneratorException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.exception.TemplateNotBindedException;
 import aurora.ide.meta.gef.FileFinder;
@@ -78,7 +79,7 @@ public class ProjectGenerator {
 
 		boolean validate = validate();
 		if (validate == false)
-			return;
+			throw new InvocationTargetException(new GeneratorException());
 
 		FileFinder fileFinder = new FileFinder();
 		try {
@@ -198,13 +199,13 @@ public class ProjectGenerator {
 
 	private void processFile(IFile fCurrentFile, IProgressMonitor monitor)
 			throws InvocationTargetException {
-		ViewDiagram loadFile = this.loadFile(fCurrentFile);
 		ScreenGenerator sg = new ScreenGenerator(project);
 		try {
 			IFile newFile = getNewFile(fCurrentFile);
 			if (newFile.exists() && !isOverlap) {
 				return;
 			}
+			ViewDiagram loadFile = this.loadFile(fCurrentFile);
 
 			String genFile = sg.genFile(header, loadFile);
 			InputStream is = new ByteArrayInputStream(genFile.getBytes());

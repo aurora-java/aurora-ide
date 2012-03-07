@@ -259,7 +259,6 @@ public class SourceCodeGeneratorWizard extends Wizard {
 		try {
 			getContainer().run(true, true, op);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
 			this.mainPage.setErrorMessage(pg.getErrorMessage());
 			return false;
 		} catch (InterruptedException e) {
