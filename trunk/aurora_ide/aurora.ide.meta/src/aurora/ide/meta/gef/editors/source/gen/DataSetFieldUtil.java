@@ -15,9 +15,8 @@ import uncertain.composite.CompositeMap;
 import uncertain.composite.CompositeMapParser;
 import uncertain.composite.IterationHandle;
 import uncertain.schema.Attribute;
-import aurora.ide.bm.BMUtil;
+import aurora.ide.builder.ResourceUtil;
 import aurora.ide.builder.SxsdUtil;
-import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
@@ -51,7 +50,7 @@ public class DataSetFieldUtil {
 		IResource resource = null;
 		try {
 			IProject proj = aProj.getAuroraProject();
-			resource = BMUtil.getBMResourceFromClassPath(proj, bmPath);
+			resource = ResourceUtil.getBMFile(proj, bmPath);
 			if (resource instanceof IFile) {
 				IFile file = (IFile) resource;
 				CompositeMap map = new CompositeMapParser(new CompositeLoader())
@@ -65,8 +64,6 @@ public class DataSetFieldUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (CoreException e) {
-			e.printStackTrace();
-		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
 		return null;
