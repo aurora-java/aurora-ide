@@ -1,12 +1,5 @@
 package aurora.ide.meta.gef.editors.layout;
 
-import aurora.ide.meta.gef.editors.figures.GridColumnFigure;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.parts.ComponentPart;
-import aurora.ide.meta.gef.editors.parts.GridPart;
-import aurora.ide.meta.gef.editors.parts.NavbarPart;
-import aurora.ide.meta.gef.editors.parts.ToolbarPart;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +8,13 @@ import java.util.Map;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+
+import aurora.ide.meta.gef.editors.figures.GridColumnFigure;
+import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.parts.ComponentPart;
+import aurora.ide.meta.gef.editors.parts.GridPart;
+import aurora.ide.meta.gef.editors.parts.NavbarPart;
+import aurora.ide.meta.gef.editors.parts.ToolbarPart;
 
 public class GridBackLayout extends BackLayout {
 
@@ -267,7 +267,8 @@ public class GridBackLayout extends BackLayout {
 		// horizontalScrollBar.setVisible(true);
 
 		selfRectangle = parent.getComponent().getBoundsCopy();
-		return this.selfRectangle.setWidth(selfRectangle.width);
+		// return this.selfRectangle.setWidth(selfRectangle.width);
+		return this.selfRectangle.setSize(selfRectangle.getSize());
 	}
 
 }

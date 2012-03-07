@@ -61,6 +61,7 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 		this.headHight = 25;
 		this.setSize(new Dimension(100, rowHight * 2 + 10));
 		this.setType("column");
+		setPrompt("prompt");
 		renderer.setColumn(this);
 	}
 
