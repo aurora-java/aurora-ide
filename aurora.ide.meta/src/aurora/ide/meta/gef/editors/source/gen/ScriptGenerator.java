@@ -26,6 +26,7 @@ public class ScriptGenerator {
 	private Map<Object, String> linkIDs = new HashMap<Object, String>();
 
 	private StringBuilder script = new StringBuilder();
+	private List<String> scriptList = new ArrayList<String>();
 	private ScreenGenerator sg;
 
 	public ScriptGenerator(ScreenGenerator sg, CompositeMap script) {
@@ -64,7 +65,7 @@ public class ScriptGenerator {
 		if (null == functionName || "".equals(functionName))
 			return "";
 		String actionID = bc.getActionID();
-		if (!ButtonClicker.DEFAULT.equals(actionID)) {
+		if (!ButtonClicker.B_CUSTOM.equals(actionID)) {
 			functionName = uniqueID(functionName, 0);
 		}
 		String script = "";
@@ -93,6 +94,10 @@ public class ScriptGenerator {
 		if (ButtonClicker.B_CUSTOM.equals(actionID)) {
 			script = bc.getFunction();
 		}
+		if (scriptList.contains(script)) {
+			return functionName;
+		}
+		scriptList.add(script);
 		this.script.append(script);
 		return functionName;
 	}
@@ -309,7 +314,7 @@ public class ScriptGenerator {
 		String windowID = sg.getIdGenerator().genWindowID(linkId);
 		s = s.replaceAll("windowID", windowID);
 		s = s.replaceAll("linkId", linkId);
-		
+
 		return s;
 	}
 
