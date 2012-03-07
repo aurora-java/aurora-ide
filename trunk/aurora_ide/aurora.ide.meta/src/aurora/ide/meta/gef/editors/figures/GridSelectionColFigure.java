@@ -1,13 +1,13 @@
 package aurora.ide.meta.gef.editors.figures;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.GridSelectionCol;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
-
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
+
+import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.models.GridSelectionCol;
+import aurora.ide.meta.gef.editors.models.ResultDataSet;
 
 /**
  * 
@@ -43,8 +43,12 @@ public class GridSelectionColFigure extends GridColumnFigure {
 		g.fillRectangle(rect);
 		int ch = getColumnHight();
 		Rectangle columnHeaderRect = new Rectangle(rect.x, rect.y, 25, ch);
-		Rectangle imgRect = new Rectangle(img_border.getBounds());
-		g.drawImage(img_border, imgRect.setHeight(ch), columnHeaderRect);
+		org.eclipse.swt.graphics.Rectangle imgBounds = img_border.getBounds();
+		Rectangle imgRect = new Rectangle(imgBounds);
+		imgRect.setHeight(Math.min(ch, imgRect.height));
+		columnHeaderRect.height = Math.min(columnHeaderRect.height,
+				imgRect.height);
+		g.drawImage(img_border, imgRect, columnHeaderRect);
 
 		Image img = img_radio;
 		imgRect = new Rectangle(img.getBounds());

@@ -1,7 +1,5 @@
 package aurora.ide.meta.gef.editors.figures;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
-
 import org.eclipse.draw2d.AbstractLabeledBorder;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
@@ -11,6 +9,8 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+
+import aurora.ide.meta.gef.editors.ImagesUtils;
 
 public class GridColumnBorder extends AbstractLabeledBorder {
 
@@ -45,27 +45,29 @@ public class GridColumnBorder extends AbstractLabeledBorder {
 		g.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
 		g.drawRectangle(r);
 
-		Image i = getBGImage();
-		Rectangle imageR = rect.getCopy().setHeight(getColumnHight());
+		Image bgimg = getBGImage();
+		Rectangle headRect = rect.getCopy().setHeight(getColumnHight());
 		IFigure gf = figure;
 		while (gf.getParent() instanceof GridColumnFigure)
 			gf = gf.getParent();
 		Rectangle src = new Rectangle(0, rect.y - gf.getBounds().y, 1,
 				getColumnHight());
-
-		g.drawImage(i, src, imageR);
+		Rectangle imgBounds = new Rectangle(bgimg.getBounds());
+		// keep the location of src ,but compute the intersect with imgbounds
+		src = imgBounds.intersect(src).setLocation(src.getLocation());
+		g.drawImage(bgimg, src, headRect.getCopy().setHeight(src.height));
 
 		Dimension textExtents = FigureUtilities.getTextExtents(getPrompt(),
 				getFont(figure));
 		g.setFont(getFont(figure));
 		g.setForegroundColor(getTextColor());
-		g.drawString(getPrompt(), imageR.getCenter().x - textExtents.width / 2,
-				imageR.getCenter().y - textExtents.height / 2);
+		g.drawString(getPrompt(), headRect.getCenter().x - textExtents.width
+				/ 2, headRect.getCenter().y - textExtents.height / 2);
 
 		g.setForegroundColor(ColorConstants.WHITE);
-		g.drawRectangle(imageR);
+		g.drawRectangle(headRect);
 		g.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
-		g.drawRectangle(imageR.getTranslated(-1, -1));
+		g.drawRectangle(headRect.getTranslated(-1, -1));
 		g.popState();
 	}
 
