@@ -6,7 +6,6 @@ import org.eclipse.draw2d.AbstractLabeledBorder;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.commands.Command;
 
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.models.BOX;
