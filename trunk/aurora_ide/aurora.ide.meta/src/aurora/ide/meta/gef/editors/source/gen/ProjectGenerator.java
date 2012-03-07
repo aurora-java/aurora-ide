@@ -215,6 +215,14 @@ public class ProjectGenerator {
 					newFile.setContents(is, true, false, null);
 					return;
 				} catch (CoreException e) {
+				} finally {
+					if (is != null)
+						try {
+							is.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+
 				}
 			}
 			CreateFileOperation cfo = new CreateFileOperation(newFile, null,
