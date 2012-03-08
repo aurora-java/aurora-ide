@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -43,8 +44,11 @@ import aurora.ide.project.propertypage.ProjectPropertyPage;
 public class SettingWizardPage extends WizardPage {
 
 	private Template template;
-
 	private Composite container;
+
+	private AuroraMetaProject metaPro;
+	private IProject auroraPro;
+	private IPath bmPath;
 
 	public SettingWizardPage() {
 		super("aurora.wizard.setting.Page"); //$NON-NLS-1$
@@ -55,6 +59,22 @@ public class SettingWizardPage extends WizardPage {
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout());
+
+		metaPro = new AuroraMetaProject(((NewWizardPage) getPreviousPage()).getMetaProject());
+		try {
+			auroraPro = metaPro.getAuroraProject();
+			bmPath = new Path(auroraPro.getPersistentProperty(ProjectPropertyPage.BMQN));
+		} catch (ResourceNotFoundException e) {
+			bmPath = null;
+			e.printStackTrace();
+		} catch (CoreException e) {
+			bmPath = null;
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			bmPath = null;
+			e.printStackTrace();
+		}
+
 		container = new Composite(composite, SWT.NONE);
 		container.setLayout(new GridLayout());
 		GridData data = new GridData(GridData.FILL_BOTH);
@@ -127,25 +147,20 @@ public class SettingWizardPage extends WizardPage {
 				txtModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 				Button btn = new Button(composite, SWT.None);
 				btn.setText(Messages.SettingWizardPage_Select_model);
+				if (bmPath == null) {
+					btn.setEnabled(false);
+				}
 				btn.addSelectionListener(new SelectionListener() {
 					public void widgetSelected(SelectionEvent e) {
-						AuroraMetaProject metaPro = new AuroraMetaProject(((NewWizardPage) getPreviousPage()).getMetaProject());
-						try {
-							IProject pro = metaPro.getAuroraProject();
-							IResource folder = pro;
-							try {
-								folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(pro.getPersistentProperty(ProjectPropertyPage.BMQN)));
-							} catch (CoreException e1) {
-								folder = pro;
-							}
-							SelectModelDialog dialog = new SelectModelDialog(getShell(), folder);
-							if (Dialog.OK == dialog.open()) {
-								IFile file = (IFile) dialog.getResult();
-								txtModel.setText(file.getName());
-								model.setModel(file);
-							}
-						} catch (ResourceNotFoundException e1) {
-							e1.printStackTrace();
+						if (bmPath == null) {
+							return;
+						}
+						IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(bmPath);
+						SelectModelDialog dialog = new SelectModelDialog(getShell(), folder);
+						if (Dialog.OK == dialog.open()) {
+							IFile file = (IFile) dialog.getResult();
+							txtModel.setText(file.getName());
+							model.setModel(file);
 						}
 					}
 
