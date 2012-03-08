@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.wizard;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,7 +75,13 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			return false;
 		}
 		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + rootMap.toXML();
-		InputStream is = new ByteArrayInputStream(xml.getBytes());
+		InputStream is = null;
+		try {
+			is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		final CreateFileOperation cfo = new CreateFileOperation(file, null, is, "create template.");
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {

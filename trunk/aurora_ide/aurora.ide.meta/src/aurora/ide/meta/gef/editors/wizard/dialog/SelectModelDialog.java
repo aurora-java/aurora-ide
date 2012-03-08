@@ -7,6 +7,9 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.dialogs.Dialog;
@@ -117,7 +120,7 @@ public class SelectModelDialog extends Dialog {
 			public void selectionChanged(SelectionChangedEvent event) {
 				TreeSelection ts = (TreeSelection) event.getSelection();
 				setResult(ts.getFirstElement());
-				if (getResult() instanceof IFile) {
+				if ((getResult() instanceof IFile) && ((IFile) getResult()).getFileExtension().equalsIgnoreCase("bm")) {
 					getButton(OK).setEnabled(true);
 					selectFile = (IFile) getResult();
 				} else {
@@ -143,7 +146,14 @@ public class SelectModelDialog extends Dialog {
 		ToolBarManager toolBarManager = new ToolBarManager(toolBar);
 		Action expand = new Action("expand", MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "icons/expandall.gif")) { //$NON-NLS-1$ //$NON-NLS-2$
 			public void run() {
-				tree.expandAll();
+				Job job=new Job("ExpandAll"){
+					@Override
+					protected IStatus run(IProgressMonitor monitor) {
+						tree.expandAll();
+						return null;
+					}
+				};
+				job.schedule();
 			}
 		};
 
@@ -182,7 +192,9 @@ public class SelectModelDialog extends Dialog {
 				List<Object> result = new ArrayList<Object>();
 				for (Object o : os) {
 					try {
-						if (filter(o)) {
+						if (fileName.length() == 0) {
+							result.add(o);
+						} else if (filter(o)) {
 							result.add(o);
 						}
 					} catch (CoreException e) {
@@ -195,9 +207,6 @@ public class SelectModelDialog extends Dialog {
 		}
 
 		private boolean filter(Object obj) throws CoreException {
-			if (fileName.length() == 0) {
-				return true;
-			}
 			boolean bool = true;
 			if (obj instanceof IFolder) {
 				IFolder folder = (IFolder) obj;
@@ -210,16 +219,12 @@ public class SelectModelDialog extends Dialog {
 						} else {
 							bool = false;
 						}
-					}else{
+					} else {
 						return filter(r);
 					}
 				}
 			} else if (obj instanceof IFile) {
-				IFile file = (IFile) obj;
-				if (!file.getFileExtension().equalsIgnoreCase("bm")) {
-					return false;
-				}
-				return Util.stringMatch(fileName, file.getName(), false, false);
+				return Util.stringMatch(fileName, ((IFile) obj).getName(), false, false);
 			}
 			return bool;
 		}
