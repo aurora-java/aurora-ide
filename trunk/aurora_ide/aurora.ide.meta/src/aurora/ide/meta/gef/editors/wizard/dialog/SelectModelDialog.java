@@ -146,14 +146,7 @@ public class SelectModelDialog extends Dialog {
 		ToolBarManager toolBarManager = new ToolBarManager(toolBar);
 		Action expand = new Action("expand", MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "icons/expandall.gif")) { //$NON-NLS-1$ //$NON-NLS-2$
 			public void run() {
-				Job job=new Job("ExpandAll"){
-					@Override
-					protected IStatus run(IProgressMonitor monitor) {
-						tree.expandAll();
-						return null;
-					}
-				};
-				job.schedule();
+				tree.expandAll();
 			}
 		};
 
