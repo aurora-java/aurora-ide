@@ -1,7 +1,12 @@
 package aurora.ide.meta.gef.editors.wizard.dialog;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.dialogs.Dialog;
@@ -9,11 +14,11 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Point;
@@ -25,6 +30,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.ui.model.IWorkbenchAdapter;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
@@ -36,12 +42,12 @@ public class SelectModelDialog extends Dialog {
 
 	private IResource resource;
 	private Object result;
-	private ModelFilter filter;
+	private String fileName = "";
+	private IFile selectFile;
 
 	public SelectModelDialog(Shell parentShell, IResource resource) {
 		super(parentShell);
 		this.resource = resource;
-		filter = new ModelFilter(""); //$NON-NLS-1$
 	}
 
 	@Override
@@ -67,9 +73,14 @@ public class SelectModelDialog extends Dialog {
 		lblFileName.setText(Messages.SelectModelDialog_File_Name);
 		final Text txtFileName = new Text(composite, SWT.BORDER);
 		txtFileName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		Label lbl = new Label(composite, SWT.NONE);
+		lbl.setText("? = any character , * = any string");
+		GridData gd = new GridData();
+		gd.horizontalSpan = 2;
+		lbl.setLayoutData(gd);
 
 		Composite treeViewer = new Composite(composite, SWT.BORDER);
-		GridData gd = new GridData(GridData.FILL_BOTH);
+		gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		GridLayout gl = new GridLayout();
 		gl.marginWidth = 0;
@@ -78,21 +89,29 @@ public class SelectModelDialog extends Dialog {
 		treeViewer.setLayoutData(gd);
 		treeViewer.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
-		ToolBar toolBar = new ToolBar(treeViewer, SWT.FLAT|SWT.RIGHT_TO_LEFT);
+		ToolBar toolBar = new ToolBar(treeViewer, SWT.FLAT | SWT.RIGHT_TO_LEFT);
 		toolBar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.END));
 		toolBar.addPaintListener(new PaintListener() {
 			public void paintControl(PaintEvent e) {
 				e.gc.setForeground(getShell().getDisplay().getSystemColor(SWT.COLOR_GRAY));
-				e.gc.drawLine(0, e.height-1, e.width, e.height-1);
+				e.gc.drawLine(0, e.height - 1, e.width, e.height - 1);
 			}
 		});
 
 		final TreeViewer tree = new TreeViewer(treeViewer, SWT.None);
 		tree.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
-		tree.setContentProvider(new WorkbenchContentProvider());
+		tree.setContentProvider(new ModelContentProvider());
 		tree.setLabelProvider(new WorkbenchLabelProvider());
 		tree.setInput(resource);
-		tree.addFilter(filter);
+
+		tree.getTree().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if (selectFile != null) {
+					okPressed();
+				}
+			}
+		});
 
 		tree.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
@@ -100,34 +119,37 @@ public class SelectModelDialog extends Dialog {
 				setResult(ts.getFirstElement());
 				if (getResult() instanceof IFile) {
 					getButton(OK).setEnabled(true);
+					selectFile = (IFile) getResult();
 				} else {
 					getButton(OK).setEnabled(false);
+					selectFile = null;
 				}
 			}
 		});
-		
+
 		txtFileName.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				tree.removeFilter(filter);
-				filter = new ModelFilter(txtFileName.getText());
-				tree.addFilter(filter);
+				fileName = txtFileName.getText() + "*";
+				if (fileName.equals("*")) {
+					tree.collapseAll();
+					tree.setContentProvider(new ModelContentProvider());
+				} else {
+					tree.setContentProvider(new ModelContentProvider());
+					tree.expandAll();
+				}
 			}
 		});
 
 		ToolBarManager toolBarManager = new ToolBarManager(toolBar);
 		Action expand = new Action("expand", MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "icons/expandall.gif")) { //$NON-NLS-1$ //$NON-NLS-2$
 			public void run() {
-				tree.getControl().setRedraw(false);
 				tree.expandAll();
-				tree.getControl().setRedraw(true);
 			}
 		};
 
 		Action collapse = new Action("collapse", MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "icons/collapseall.gif")) { //$NON-NLS-1$ //$NON-NLS-2$
 			public void run() {
-				tree.getControl().setRedraw(false);
 				tree.collapseAll();
-				tree.getControl().setRedraw(true);
 			}
 		};
 		toolBarManager.add(collapse);
@@ -151,26 +173,53 @@ public class SelectModelDialog extends Dialog {
 		getButton(OK).setEnabled(false);
 		return control;
 	}
-}
 
-class ModelFilter extends ViewerFilter {
-	private String fileName;
+	class ModelContentProvider extends WorkbenchContentProvider {
+		public Object[] getChildren(Object element) {
+			IWorkbenchAdapter adapter = getAdapter(element);
+			if (adapter != null) {
+				Object[] os = adapter.getChildren(element);
+				List<Object> result = new ArrayList<Object>();
+				for (Object o : os) {
+					try {
+						if (filter(o)) {
+							result.add(o);
+						}
+					} catch (CoreException e) {
+						e.printStackTrace();
+					}
+				}
+				return result.toArray(new Object[result.size()]);
+			}
+			return new Object[0];
+		}
 
-	public ModelFilter(String fileName) {
-		this.fileName = fileName + "*"; //$NON-NLS-1$
-	}
-
-	@Override
-	public boolean select(Viewer viewer, Object parentElement, Object element) {
-		if (element instanceof IFile) {
-			IFile o = (IFile) element;
+		private boolean filter(Object obj) throws CoreException {
 			if (fileName.length() == 0) {
 				return true;
-			} else {
-				return Util.stringMatch(fileName, o.getName(), false, false);
 			}
+			boolean bool = true;
+			if (obj instanceof IFolder) {
+				IFolder folder = (IFolder) obj;
+				for (IResource r : folder.members()) {
+					if (r instanceof IFile) {
+						IFile o = (IFile) r;
+						if (Util.stringMatch(fileName, o.getName(), false, false)) {
+							bool = true;
+							break;
+						} else {
+							bool = false;
+						}
+					}
+				}
+			} else if (obj instanceof IFile) {
+				IFile file = (IFile) obj;
+				if (!file.getFileExtension().equalsIgnoreCase("bm")) {
+					return false;
+				}
+				return Util.stringMatch(fileName, file.getName(), false, false);
+			}
+			return bool;
 		}
-		return true;
 	}
-
 }
