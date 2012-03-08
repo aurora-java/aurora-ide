@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="aurora.ide.meta.feature"
-      label="Meta-feature"
+      label="Aurora Prototype"
       version="1.3.0.qualifier"
       provider-name="Aurora Framework"
       plugin="aurora.ide.meta">
@@ -18,7 +18,7 @@ Aurora Framework - initial API and implementation
    </copyright>
 
    <license url="http://www.gnu.org/licenses/lgpl.html">
-       GNU LESSER GENERAL PUBLIC LICENSE
+      GNU LESSER GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
  Copyright (C) 2007 Free Software Foundation, Inc. &lt;http://fsf.org/&gt;
