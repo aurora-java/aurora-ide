@@ -86,5 +86,15 @@
          </action>
       </actionSet>
    </extension>
+  <extension
+        point="org.eclipse.core.runtime.contentTypes">
+     <content-type
+           default-charset="UTF-8"
+           file-extensions="uip"
+           id="aurora.ide.meta.uip"
+           name="Aurora UIP File"
+           priority="normal">
+     </content-type>
+  </extension>
     
 </plugin>
