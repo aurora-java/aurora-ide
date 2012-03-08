@@ -79,7 +79,6 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		try {
 			is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		final CreateFileOperation cfo = new CreateFileOperation(file, null, is, "create template.");
