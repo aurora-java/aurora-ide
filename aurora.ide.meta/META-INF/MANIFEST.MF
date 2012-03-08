@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Aurora Meta
+Bundle-Name: Aurora Prototype
 Bundle-SymbolicName: aurora.ide.meta;singleton:=true
 Bundle-Version: 1.3.0.qualifier
 Bundle-Activator: aurora.ide.meta.MetaPlugin
@@ -15,3 +15,4 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ClassPath: .
+Bundle-Vendor: Aurora Framework
