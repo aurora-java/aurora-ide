@@ -210,6 +210,8 @@ public class SelectModelDialog extends Dialog {
 						} else {
 							bool = false;
 						}
+					}else{
+						return filter(r);
 					}
 				}
 			} else if (obj instanceof IFile) {
