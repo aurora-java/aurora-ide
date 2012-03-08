@@ -125,7 +125,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		CompositeMap rootMap = mim.toCompositeMap(diagram);
 		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 				+ rootMap.toXML();
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
 		bw.write(xml);
 		bw.close();
 	}
