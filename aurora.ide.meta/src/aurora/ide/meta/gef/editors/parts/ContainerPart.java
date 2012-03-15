@@ -4,15 +4,16 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 
+import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.IProperties;
-import aurora.ide.meta.gef.editors.policies.BindDropModelEditPolicy;
-import aurora.ide.meta.gef.editors.policies.DiagramLayoutEditPolicy;
+import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
+import aurora.ide.meta.gef.editors.policies.tplt.BindDropModelEditPolicy;
+import aurora.ide.meta.gef.editors.policies.tplt.TemplateContainerLayoutEditPolicy;
 
 public abstract class ContainerPart extends ComponentPart {
 
@@ -33,8 +34,16 @@ public abstract class ContainerPart extends ComponentPart {
 
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new DiagramLayoutEditPolicy());
-		installEditPolicy("Drop BM", new BindDropModelEditPolicy());
+		String mode = this.getEditorMode().getMode();
+		if (EditorMode.Template.equals(mode)) {
+			installEditPolicy(EditPolicy.LAYOUT_ROLE,
+					new TemplateContainerLayoutEditPolicy());
+			installEditPolicy("Drop BM", new BindDropModelEditPolicy());
+		}
+		if (EditorMode.None.equals(mode)) {
+			installEditPolicy(EditPolicy.LAYOUT_ROLE,
+					new ContainerLayoutEditPolicy());
+		}
 	}
 
 	@Override
@@ -44,10 +53,11 @@ public abstract class ContainerPart extends ComponentPart {
 		if (IProperties.CHILDREN.equals(prop))
 			refreshChildren();
 	}
-	public void applyToModel(){
+
+	public void applyToModel() {
 		List children = this.getChildren();
 		for (Object child : children) {
-			if(child instanceof ContainerPart){
+			if (child instanceof ContainerPart) {
 				((ContainerPart) child).applyToModel();
 			}
 		}

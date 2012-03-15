@@ -1,10 +1,8 @@
 package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.gef.EditPolicy;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.figures.DatasetFigure;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.policies.NodeDirectEditPolicy;

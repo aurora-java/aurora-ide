@@ -1,20 +1,20 @@
 package aurora.ide.meta.gef.editors.parts;
 
 import java.util.EventObject;
-import java.util.List;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStackListener;
 
+import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.figures.ViewDiagramLayout;
-import aurora.ide.meta.gef.editors.policies.DiagramLayoutEditPolicy;
+import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
+import aurora.ide.meta.gef.editors.policies.tplt.TemplateContainerLayoutEditPolicy;
 
 public class ViewDiagramPart extends ContainerPart {
 
@@ -27,7 +27,6 @@ public class ViewDiagramPart extends ContainerPart {
 			GraphAnimation.end();
 		}
 	};
-
 
 	@Override
 	protected IFigure createFigure() {
@@ -57,9 +56,15 @@ public class ViewDiagramPart extends ContainerPart {
 
 	@Override
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new DiagramLayoutEditPolicy());
-		// installEditPolicy("Drop BM", new AutoCreateFormGridEditPolicy());
-
+		String mode = this.getEditorMode().getMode();
+		if (EditorMode.Template.equals(mode)) {
+			installEditPolicy(EditPolicy.LAYOUT_ROLE,
+					new TemplateContainerLayoutEditPolicy());
+		}
+		if (EditorMode.None.equals(mode)) {
+			installEditPolicy(EditPolicy.LAYOUT_ROLE,
+					new ContainerLayoutEditPolicy());
+		}
 	}
 
 	@Override

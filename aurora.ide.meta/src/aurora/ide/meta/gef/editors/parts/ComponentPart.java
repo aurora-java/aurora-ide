@@ -9,16 +9,18 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
+import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.IProperties;
-import aurora.ide.meta.gef.editors.policies.NodeDirectEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
 import aurora.ide.meta.gef.editors.policies.ResizeComponentEditPolicy;
+import aurora.ide.meta.gef.editors.policies.tplt.TemplateNodeEditPolicy;
 import aurora.ide.meta.gef.editors.property.IPropertySource2;
 
 public abstract class ComponentPart extends AbstractGraphicalEditPart implements
 		PropertyChangeListener, IProperties, PositionConstants {
 	protected static final String RESIZE_KEY = "resize-key";
+	private EditorMode editorMode;
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		this.getFigure().getBounds();
@@ -53,18 +55,31 @@ public abstract class ComponentPart extends AbstractGraphicalEditPart implements
 	}
 
 	protected void refreshVisuals() {
-		// this.getFigure().setBounds(this.getComponent().getBounds());
-		// super.refreshVisuals();
 		this.getFigure().repaint();
 	}
 
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
-				new NodeDirectEditPolicy());
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
+		// installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
+		// new NodeDirectEditPolicy());
+		String mode = this.getEditorMode().getMode();
+		if (EditorMode.Template.equals(mode)) {
+			installEditPolicy(EditPolicy.COMPONENT_ROLE,
+					new TemplateNodeEditPolicy());
+		}
+		if (EditorMode.None.equals(mode))
+			installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
+
 		ResizeComponentEditPolicy rep = new ResizeComponentEditPolicy();
 		rep.setResizeDirections(getResizeDirection());
 		installEditPolicy(RESIZE_KEY, rep);
+	}
+
+	public EditorMode getEditorMode() {
+		return editorMode;
+	}
+
+	public void setEditorMode(EditorMode editorMode) {
+		this.editorMode = editorMode;
 	}
 
 	@Override

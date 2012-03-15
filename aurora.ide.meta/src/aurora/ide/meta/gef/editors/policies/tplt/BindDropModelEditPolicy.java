@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.policies;
+package aurora.ide.meta.gef.editors.policies.tplt;
 
 import java.util.List;
 

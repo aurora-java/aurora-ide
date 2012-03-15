@@ -35,10 +35,6 @@ public class AuroraComponent implements Cloneable, Serializable, IProperties,
 
 	private String prompt = "prompt";
 
-	// private String bindTarget = "";
-
-	// private Dataset bindTarget;
-
 	private Container parent;
 
 	protected static final IPropertyDescriptor PD_PROMPT = new StringPropertyDescriptor(
@@ -158,20 +154,6 @@ public class AuroraComponent implements Cloneable, Serializable, IProperties,
 		firePropertyChange(PROMPT, old, prompt);
 	}
 
-	// public Dataset getBindTarget() {
-	// return bindTarget;
-	// }
-	//
-	// public void setBindTarget(Dataset bindTarget) {
-	// this.bindTarget = bindTarget;
-	// bindTarget.addBind(this);
-	// }
-	//
-	// public void removeBindTarget() {
-	// bindTarget.removeBind(this);
-	// this.bindTarget = null;
-	// }
-
 	protected boolean eq(Object o1, Object o2) {
 		if (o1 == null)
 			return o2 == null;
@@ -233,14 +215,6 @@ public class AuroraComponent implements Cloneable, Serializable, IProperties,
 		this.parent = parent;
 	}
 
-	// public void setIBounds(Rectangle layout) {
-	// this.bounds = layout;
-	//
-	// }
-	//
-	// public void setILocation(Point location) {
-	// this.location = location;
-	// }
 	public IPropertyDescriptor[] mergePropertyDescriptor(
 			IPropertyDescriptor[] pd1, IPropertyDescriptor[] pd2) {
 		IPropertyDescriptor[] descs = new IPropertyDescriptor[pd1.length
