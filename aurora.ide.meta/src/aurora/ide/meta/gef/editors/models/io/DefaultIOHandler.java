@@ -130,6 +130,8 @@ public abstract class DefaultIOHandler implements IOHandler {
 	public final CompositeMap getMap(CompositeMap parMap, String prefix,
 			String attrName, String value) {
 		CompositeMap map = parMap.getChildByAttrib(attrName, value);
+		if (map == null)
+			return null;
 		if (prefix == null) {
 			if (map.getPrefix() == null)
 				return map;
