@@ -2,12 +2,9 @@ package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.gef.EditPolicy;
 
 import aurora.ide.meta.gef.editors.figures.ButtonFigure;
 import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.policies.NodeDirectEditPolicy;
-import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
 
 public class ButtonPart extends ComponentPart {
 
@@ -54,9 +51,15 @@ public class ButtonPart extends ComponentPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
-				new NodeDirectEditPolicy());
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
+		// // installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
+		// // new NodeDirectEditPolicy());
+		// String mode = this.getEditorMode().getMode();
+		// if (EditorMode.Template.equals(mode)) {
+		// installEditPolicy(EditPolicy.COMPONENT_ROLE,
+		// new TemplateNodeEditPolicy());
+		// }
+		// if (EditorMode.None.equals(mode))
+		// installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
 	}
 
 	@Override

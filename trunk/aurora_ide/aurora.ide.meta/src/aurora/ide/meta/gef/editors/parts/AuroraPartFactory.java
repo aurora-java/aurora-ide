@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 
+import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.CheckBox;
@@ -49,9 +50,14 @@ public class AuroraPartFactory implements EditPartFactory {
 		map.put(TabBody.class, TabBodyPart.class);
 		map.put(GridSelectionCol.class, GridSelectionColPart.class);
 	}
+	private EditorMode editorMode;
+
+	public AuroraPartFactory(EditorMode editorMode) {
+		this.editorMode = editorMode;
+	}
 
 	public EditPart createEditPart(EditPart context, Object model) {
-		EditPart part = null;
+		ComponentPart part = null;
 		// if (model instanceof ViewDiagram)
 		// part = new ViewDiagramPart();
 		// // else if (model instanceof Label)
@@ -96,12 +102,12 @@ public class AuroraPartFactory implements EditPartFactory {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println(model.getClass());
 		}
 		if (part == null)
 			return part;
 		part.setParent(context);
 		part.setModel(model);
+		part.setEditorMode(editorMode);
 		return part;
 	}
 }

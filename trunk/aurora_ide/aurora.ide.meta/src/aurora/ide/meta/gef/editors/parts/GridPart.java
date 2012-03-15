@@ -3,9 +3,11 @@ package aurora.ide.meta.gef.editors.parts;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 
+import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.figures.GridFigure;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.policies.GridLayoutEditPolicy;
+import aurora.ide.meta.gef.editors.policies.tplt.TemplateGridLayoutEditPolicy;
 
 public class GridPart extends ContainerPart {
 
@@ -19,8 +21,15 @@ public class GridPart extends ContainerPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new GridLayoutEditPolicy());
-//		installEditPolicy("bm_drop", new BindGridPartEditPolicy());
+		String mode = this.getEditorMode().getMode();
+		if (EditorMode.Template.equals(mode)) {
+			installEditPolicy(EditPolicy.LAYOUT_ROLE,
+					new TemplateGridLayoutEditPolicy());
+		}
+		if (EditorMode.None.equals(mode)) {
+			installEditPolicy(EditPolicy.LAYOUT_ROLE,
+					new GridLayoutEditPolicy());
+		}
 
 	}
 

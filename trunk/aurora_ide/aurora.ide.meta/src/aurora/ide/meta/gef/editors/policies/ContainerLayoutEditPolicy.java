@@ -26,7 +26,7 @@ import aurora.ide.meta.gef.editors.parts.TabBodyPart;
 import aurora.ide.meta.gef.editors.parts.TabFolderPart;
 import aurora.ide.meta.gef.editors.parts.TabItemPart;
 
-public class DiagramLayoutEditPolicy extends FlowLayoutEditPolicy {
+public class ContainerLayoutEditPolicy extends FlowLayoutEditPolicy {
 	private EditPart targetEditPart = null;
 
 	protected Command createAddCommand(EditPart child, Object constraint) {
@@ -50,13 +50,11 @@ public class DiagramLayoutEditPolicy extends FlowLayoutEditPolicy {
 
 	@Override
 	protected void decorateChild(EditPart child) {
-		// System.out.println("decorateChild");
 		super.decorateChild(child);
 	}
 
 	@Override
 	protected void decorateChildren() {
-		// System.out.println("decorateChildren");
 		super.decorateChildren();
 	}
 

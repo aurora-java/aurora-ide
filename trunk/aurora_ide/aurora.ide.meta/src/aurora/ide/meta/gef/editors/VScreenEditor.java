@@ -50,7 +50,6 @@ import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.parts.AuroraPartFactory;
-import aurora.ide.meta.gef.editors.parts.DatasetPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
 
 public class VScreenEditor extends FlayoutBMGEFEditor {
@@ -61,12 +60,14 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	private KeyHandler sharedKeyHandler;
 	private MetaPropertyViewer propertyViewer;
 	private BMViewer bmViewer;
+	private EditorMode editorMode;
 
 	public VScreenEditor() {
 		DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
 		setEditDomain(defaultEditDomain);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(
 				new InputFileListener(this));
+		editorMode = new EditorMode(this);
 	}
 
 	public void setDiagram(ViewDiagram diagram) {
@@ -78,7 +79,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	}
 
 	public void markDirty() {
-		// this.isDirty()
 		Command cmd = new Command() {
 
 		};
@@ -92,8 +92,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	public void commandStackChanged(EventObject event) {
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 		super.commandStackChanged(event);
-		// this.getSite().registerContextMenu(menuId, menuManager,
-		// selectionProvider)
 	}
 
 	/**
@@ -118,14 +116,12 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	 * @throws IOException
 	 */
 	protected void createOutputStream(OutputStream os) throws IOException {
-		// ObjectOutputStream out = new ObjectOutputStream(os);
-		// out.writeObject(diagram);
-		// out.close();
 		ModelIOManager mim = ModelIOManager.getNewInstance();
 		CompositeMap rootMap = mim.toCompositeMap(diagram);
 		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 				+ rootMap.toXML();
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,
+				"UTF-8"));
 		bw.write(xml);
 		bw.close();
 	}
@@ -136,7 +132,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		getGraphicalViewer().setRootEditPart(new ScalableRootEditPart());
-		getGraphicalViewer().setEditPartFactory(new AuroraPartFactory());
+		getGraphicalViewer().setEditPartFactory(new AuroraPartFactory(editorMode));
 		getGraphicalViewer().setKeyHandler(
 				new GraphicalViewerKeyHandler(getGraphicalViewer())
 						.setParent(getCommonKeyHandler()));
@@ -155,33 +151,9 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	 */
 	protected void initializeGraphicalViewer() {
 		getGraphicalViewer().setContents(diagram);
-		// getGraphicalViewer().addDropTargetListener(
-		// new TemplateTransferDropTargetListener(getGraphicalViewer()));
-
 		getGraphicalViewer().addDropTargetListener(
 				new BMTransferDropTargetListener(getGraphicalViewer()));
-		// this.getGraphicalViewer()
 	}
-
-	protected void initDatasetView() {
-		DatasetView datasetView = getDatasetView();
-		// datasetView.getControl().setBackground(ColorConstants.white);
-		getEditDomain().addViewer(datasetView);
-		getSelectionSynchronizer().addViewer(datasetView);
-		datasetView.setRootEditPart(new ScalableRootEditPart());
-		datasetView.setEditPartFactory(new DatasetPartFactory());
-		this.getDatasetView().setContents(diagram);
-	}
-
-	// /**
-	// * @see
-	// org.eclipse.gef.ui.parts.GraphicalEditorWithPalette#initializePaletteViewer()
-	// */
-	// protected void initializePaletteViewer() {
-	// super.initializePaletteViewer();
-	// getPaletteViewer().addDragSourceListener(
-	// new TemplateTransferDragSourceListener(getPaletteViewer()));
-	// }
 
 	@Override
 	public GraphicalViewer getGraphicalViewer() {
