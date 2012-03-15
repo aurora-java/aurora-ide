@@ -52,7 +52,6 @@ public class FileSystemSelector implements ISelectionChangedListener {
 				1, 1));
 		parLabel.addPaintListener(new PaintListener() {
 
-			@Override
 			public void paintControl(PaintEvent e) {
 				e.gc.setForeground(borderColor);
 				Point p = parLabel.getSize();
@@ -73,7 +72,6 @@ public class FileSystemSelector implements ISelectionChangedListener {
 		return treeViewer;
 	}
 
-	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		ISelection s = event.getSelection();
 		if (s instanceof IStructuredSelection) {
