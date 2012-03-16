@@ -19,7 +19,6 @@ import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.commands.CreateComponentCommand;
 import aurora.ide.meta.gef.editors.models.commands.MoveChildCmpCmd;
-import aurora.ide.meta.gef.editors.models.commands.MoveComponentCommand;
 import aurora.ide.meta.gef.editors.models.commands.MoveRemoteChildCmpCmd;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.GridColumnPart;
@@ -32,28 +31,9 @@ public class GridLayoutEditPolicy extends FlowLayoutEditPolicy {
 
 	private EditPart targetEditPart;
 
-	protected Command createAddCommand(EditPart child, Object constraint) {
-		return null;
-	}
-
-	protected Command createChangeConstraintCommand(EditPart child,
-			Object constraint) {
-		if (!(constraint instanceof Rectangle))
-			return null;
-		MoveComponentCommand cmd = new MoveComponentCommand();
-		cmd.setNode((AuroraComponent) child.getModel());
-		cmd.setLocation(((Rectangle) constraint).getLocation());
-		return cmd;
-	}
-
 	protected Command getCreateCommand(CreateRequest request) {
 		if (request.getNewObject() instanceof AuroraComponent) {
 			EditPart host = getHost();
-			// if (host instanceof GridColumnPart)
-			// System.out.println("Host : GridColumnPart "
-			// + ((GridColumnPart) host).getModel().getPrompt());
-			// else
-			// System.out.println("Host : " + host.getClass().getSimpleName());
 			Container parentModel = (Container) host.getModel();
 			AuroraComponent ac = (AuroraComponent) request.getNewObject();
 			if (!parentModel.isResponsibleChild(ac)) {
@@ -113,13 +93,6 @@ public class GridLayoutEditPolicy extends FlowLayoutEditPolicy {
 			AuroraComponent ac = (AuroraComponent) child.getModel();
 			if (!dest.isResponsibleChild(ac))
 				return null;
-			// EditPart host = getHost();
-			// if (host instanceof GridColumnPart)
-			// System.out.println("createAddCommand:GridColumnPart  "
-			// + ((GridColumnPart) host).getModel().getPrompt());
-			// else
-			// System.out.println("createAddCommand:"
-			// + host.getClass().getSimpleName());
 			cmd.setTargetContainer(dest);
 		}
 		cmd.setReferenceComponent(after == null ? null

@@ -18,7 +18,6 @@ import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.commands.CreateComponentCommand;
 import aurora.ide.meta.gef.editors.models.commands.MoveChildCmpCmd;
-import aurora.ide.meta.gef.editors.models.commands.MoveComponentCommand;
 import aurora.ide.meta.gef.editors.models.commands.MoveRemoteChildCmpCmd;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.ContainerPart;
@@ -29,24 +28,6 @@ import aurora.ide.meta.gef.editors.parts.TabItemPart;
 public class ContainerLayoutEditPolicy extends FlowLayoutEditPolicy {
 	private EditPart targetEditPart = null;
 
-	protected Command createAddCommand(EditPart child, Object constraint) {
-		return null;
-	}
-
-	protected Command createChangeConstraintCommand(EditPart child,
-			Object constraint) {
-
-		if (!(constraint instanceof Rectangle))
-			return null;
-
-		MoveComponentCommand cmd = new MoveComponentCommand();
-		cmd.setNode((AuroraComponent) child.getModel());
-
-		// cmd.setNode((Node) child.getModel());
-		cmd.setLocation(((Rectangle) constraint).getLocation());
-		return cmd;
-
-	}
 
 	@Override
 	protected void decorateChild(EditPart child) {

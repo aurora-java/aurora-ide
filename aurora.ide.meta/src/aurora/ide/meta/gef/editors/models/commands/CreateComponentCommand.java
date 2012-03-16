@@ -6,8 +6,6 @@ import org.eclipse.gef.commands.Command;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.TabBody;
 
 /**
@@ -29,20 +27,20 @@ public class CreateComponentCommand extends Command {
 	public boolean canExecute() {
 		if (child instanceof TabBody)
 			return false;
-		String sType = container.getSectionType();
-		if (Container.SECTION_TYPE_QUERY.equals(sType)) {
-			return !(child instanceof Grid);
-		} else if (Container.SECTION_TYPE_BUTTON.equals(sType)) {
-			if ((child instanceof Grid))
-				return false;
-			else if (child instanceof Input)
-				return false;
-		} else if (Container.SECTION_TYPE_RESULT.equals(sType)) {
-			if (container instanceof Grid) {
-				return container.isResponsibleChild(child);
-			}
-			return true;
-		}
+//		String sType = container.getSectionType();
+//		if (Container.SECTION_TYPE_QUERY.equals(sType)) {
+//			return !(child instanceof Grid);
+//		} else if (Container.SECTION_TYPE_BUTTON.equals(sType)) {
+//			if ((child instanceof Grid))
+//				return false;
+//			else if (child instanceof Input)
+//				return false;
+//		} else if (Container.SECTION_TYPE_RESULT.equals(sType)) {
+//			if (container instanceof Grid) {
+//				return container.isResponsibleChild(child);
+//			}
+//			return true;
+//		}
 		return true;
 	}
 

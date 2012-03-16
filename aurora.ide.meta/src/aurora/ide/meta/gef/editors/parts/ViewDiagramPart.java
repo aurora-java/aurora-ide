@@ -14,7 +14,7 @@ import org.eclipse.gef.commands.CommandStackListener;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.figures.ViewDiagramLayout;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
-import aurora.ide.meta.gef.editors.policies.tplt.TemplateContainerLayoutEditPolicy;
+import aurora.ide.meta.gef.editors.policies.tplt.TemplateDiagramLayoutEditPolicy;
 
 public class ViewDiagramPart extends ContainerPart {
 
@@ -59,7 +59,7 @@ public class ViewDiagramPart extends ContainerPart {
 		String mode = this.getEditorMode().getMode();
 		if (EditorMode.Template.equals(mode)) {
 			installEditPolicy(EditPolicy.LAYOUT_ROLE,
-					new TemplateContainerLayoutEditPolicy());
+					new TemplateDiagramLayoutEditPolicy());
 		}
 		if (EditorMode.None.equals(mode)) {
 			installEditPolicy(EditPolicy.LAYOUT_ROLE,
@@ -69,14 +69,11 @@ public class ViewDiagramPart extends ContainerPart {
 
 	@Override
 	public void showSourceFeedback(Request request) {
-		// TODO Auto-generated method stub
 		super.showSourceFeedback(request);
-		// this.getDiagramPart(null).ge
 	}
 
 	@Override
 	public void showTargetFeedback(Request request) {
-		// TODO Auto-generated method stub
 		super.showTargetFeedback(request);
 	}
 

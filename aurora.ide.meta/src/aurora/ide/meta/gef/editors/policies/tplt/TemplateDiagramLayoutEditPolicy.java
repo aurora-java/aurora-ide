@@ -4,17 +4,22 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
-import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
+import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
 
-public class TemplateContainerLayoutEditPolicy extends
+public class TemplateDiagramLayoutEditPolicy extends
 		ContainerLayoutEditPolicy {
 	protected Command getCreateCommand(CreateRequest request) {
+		Object parent = getHost().getModel();
+		if (parent instanceof ViewDiagram) {
+			return null;
+		}
 		return super.getCreateCommand(request);
 	}
 
 	protected Command createAddCommand(EditPart child, EditPart after) {
-		if (child.getParent() instanceof ViewDiagramPart) {
+		Object parent = getHost().getModel();
+		if (parent instanceof ViewDiagram) {
 			return null;
 		}
 		return super.createAddCommand(child, after);

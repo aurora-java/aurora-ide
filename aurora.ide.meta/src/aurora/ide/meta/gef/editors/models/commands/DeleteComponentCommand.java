@@ -23,10 +23,10 @@ public class DeleteComponentCommand extends Command {
 	public boolean canExecute() {
 		if (child instanceof TabBody)
 			return false;
-		if (child instanceof Container) {
-			if (((Container) child).getSectionType() != null)
-				return false;
-		}
+		// if (child instanceof Container) {
+		// if (((Container) child).getSectionType() != null)
+		// return false;
+		// }
 		return super.canExecute();
 	}
 
