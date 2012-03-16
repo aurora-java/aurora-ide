@@ -63,11 +63,9 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	private EditorMode editorMode;
 
 	public VScreenEditor() {
-		DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
-		setEditDomain(defaultEditDomain);
+		editorMode = new EditorMode(this);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(
 				new InputFileListener(this));
-		editorMode = new EditorMode(this);
 	}
 
 	public void setDiagram(ViewDiagram diagram) {
@@ -132,7 +130,8 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		getGraphicalViewer().setRootEditPart(new ScalableRootEditPart());
-		getGraphicalViewer().setEditPartFactory(new AuroraPartFactory(editorMode));
+		getGraphicalViewer().setEditPartFactory(
+				new AuroraPartFactory(editorMode));
 		getGraphicalViewer().setKeyHandler(
 				new GraphicalViewerKeyHandler(getGraphicalViewer())
 						.setParent(getCommonKeyHandler()));
@@ -238,7 +237,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	 */
 	protected PaletteRoot getPaletteRoot() {
 		if (root == null)
-			root = VScreenEditorPaletteFactory.createPalette();
+			root = VScreenEditorPaletteFactory.createPalette(this.editorMode);
 		return root;
 	}
 
@@ -287,6 +286,8 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 			if (diagram == null) {
 				diagram = new ViewDiagram();
 			}
+			DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
+			setEditDomain(defaultEditDomain);
 		}
 	}
 

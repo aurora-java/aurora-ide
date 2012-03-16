@@ -33,13 +33,88 @@ public class VScreenEditorPaletteFactory {
 	private static List<PaletteContainer> createCategories(PaletteRoot root) {
 		List<PaletteContainer> categories = new ArrayList<PaletteContainer>();
 		categories.add(createControlGroup(root));
-		categories.add(createComponentsDrawer());
+		categories.add(createInputDrawer());
+		categories.add(createButtonDrawer());
+		categories.add(createLayoutDrawer());
+		categories.add(createGridDrawer());
+
 		return categories;
 	}
 
-	private static PaletteContainer createComponentsDrawer() {
+	private static List<PaletteContainer> createCategories(PaletteRoot root,
+			EditorMode editorMode) {
+		List<PaletteContainer> categories = new ArrayList<PaletteContainer>();
+		categories.add(createControlGroup(root));
+		if (!EditorMode.Template.equals(editorMode.getMode())) {
+			categories.add(createInputDrawer());
+		}
+		categories.add(createButtonDrawer());
+		categories.add(createLayoutDrawer());
+		if (!EditorMode.Template.equals(editorMode.getMode())) {
+			categories.add(createGridDrawer());
+			categories.add(createTabDrawer());
+		}
+		return categories;
+	}
 
-		PaletteDrawer drawer = new PaletteDrawer("Components", null);
+	private static PaletteContainer createTabDrawer() {
+
+		PaletteDrawer drawer = new PaletteDrawer("Tab", null);
+
+		List<CombinedTemplateCreationEntry> entries = new ArrayList<CombinedTemplateCreationEntry>();
+
+		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
+				"Tab Folder", "Create a  TabFolder", TabFolder.class,
+				new SimpleFactory(TabFolder.class),
+				ImagesUtils.getImageDescriptor("palette/tabfolder.png"),
+				ImagesUtils.getImageDescriptor("palette/tabfolder.png"));
+		entries.add(combined);
+		// tab item
+		combined = new CombinedTemplateCreationEntry("Tab Item",
+				"Create a  TabItem", TabItem.class, new SimpleFactory(
+						TabItem.class),
+				ImagesUtils.getImageDescriptor("palette/tabitem.png"),
+				ImagesUtils.getImageDescriptor("palette/tabitem.png"));
+		entries.add(combined);
+
+		drawer.addAll(entries);
+		return drawer;
+	}
+
+	private static PaletteContainer createGridDrawer() {
+
+		PaletteDrawer drawer = new PaletteDrawer("Grid", null);
+
+		List<CombinedTemplateCreationEntry> entries = new ArrayList<CombinedTemplateCreationEntry>();
+
+		// /button
+		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
+				"Grid", "Create a  Grid", Grid.class, new SimpleFactory(
+						Grid.class),
+				ImagesUtils.getImageDescriptor("palette/grid.png"),
+				ImagesUtils.getImageDescriptor("palette/grid.png"));
+		entries.add(combined);
+
+		combined = new CombinedTemplateCreationEntry("Grid Column",
+				"Create a  Grid Column", GridColumn.class, new SimpleFactory(
+						GridColumn.class),
+				ImagesUtils.getImageDescriptor("palette/column.png"),
+				ImagesUtils.getImageDescriptor("palette/column.png"));
+		entries.add(combined);
+		combined = new CombinedTemplateCreationEntry("Toolbar",
+				"Create a  Toolbar ", Toolbar.class, new SimpleFactory(
+						Toolbar.class),
+				ImagesUtils.getImageDescriptor("palette/toolbar.png"),
+				ImagesUtils.getImageDescriptor("palette/toolbar.png"));
+		entries.add(combined);
+
+		drawer.addAll(entries);
+		return drawer;
+	}
+
+	private static PaletteContainer createInputDrawer() {
+
+		PaletteDrawer drawer = new PaletteDrawer("Input", null);
 
 		List<CombinedTemplateCreationEntry> entries = new ArrayList<CombinedTemplateCreationEntry>();
 
@@ -119,26 +194,26 @@ public class VScreenEditorPaletteFactory {
 				ImagesUtils.getImageDescriptor("palette/checkbox_01.png"),
 				ImagesUtils.getImageDescriptor("palette/checkbox_01.png"));
 		entries.add(combined);
-		// radio
-		// combined = new CombinedTemplateCreationEntry("Radio",
-		// "Create a Radio",
-		// Radio.class, new SimpleFactory(Radio.class),
-		// ImagesUtils.getImageDescriptor("palette/radio_01.png"),
-		// ImagesUtils.getImageDescriptor("palette/radio_01.png"));
-		// entries.add(combined);
-		// /button
-		combined = new CombinedTemplateCreationEntry("Button",
-				"Create a Button", Button.class,
-				new SimpleFactory(Button.class),
-				ImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"),
-				ImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"));
-		entries.add(combined);
+		// TODO Label
 
-		combined = new CombinedTemplateCreationEntry("Form", "Create a  Form",
-				Form.class, new SimpleFactory(Form.class),
+		drawer.addAll(entries);
+		return drawer;
+	}
+
+	private static PaletteContainer createLayoutDrawer() {
+
+		PaletteDrawer drawer = new PaletteDrawer("Layout", null);
+
+		List<CombinedTemplateCreationEntry> entries = new ArrayList<CombinedTemplateCreationEntry>();
+
+		// /button
+		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
+				"Form", "Create a  Form", Form.class, new SimpleFactory(
+						Form.class),
 				ImagesUtils.getImageDescriptor("palette/form.png"),
 				ImagesUtils.getImageDescriptor("palette/form.png"));
 		entries.add(combined);
+
 		combined = new CombinedTemplateCreationEntry("FieldSet",
 				"Create a  FieldSet", FieldSet.class, new SimpleFactory(
 						FieldSet.class),
@@ -156,47 +231,23 @@ public class VScreenEditorPaletteFactory {
 				ImagesUtils.getImageDescriptor("palette/vbox.png"));
 		entries.add(combined);
 
-		combined = new CombinedTemplateCreationEntry("Grid", "Create a  Grid",
-				Grid.class, new SimpleFactory(Grid.class),
-				ImagesUtils.getImageDescriptor("palette/grid.png"),
-				ImagesUtils.getImageDescriptor("palette/grid.png"));
-		entries.add(combined);
+		drawer.addAll(entries);
+		return drawer;
+	}
 
-		combined = new CombinedTemplateCreationEntry("Grid Column",
-				"Create a  Grid Column", GridColumn.class, new SimpleFactory(
-						GridColumn.class),
-				ImagesUtils.getImageDescriptor("palette/column.png"),
-				ImagesUtils.getImageDescriptor("palette/column.png"));
-		entries.add(combined);
-		combined = new CombinedTemplateCreationEntry("Toolbar",
-				"Create a  Toolbar ", Toolbar.class, new SimpleFactory(
-						Toolbar.class),
-				ImagesUtils.getImageDescriptor("palette/toolbar.png"),
-				ImagesUtils.getImageDescriptor("palette/toolbar.png"));
-		entries.add(combined);
+	private static PaletteContainer createButtonDrawer() {
 
-		// combined = new CombinedTemplateCreationEntry("Navbar",
-		// "Create a  Navbar", Navbar.class, new SimpleFactory(
-		// Navbar.class),
-		// ImagesUtils.getImageDescriptor("palette/navigation_04.png"),
-		// ImagesUtils.getImageDescriptor("palette/navigation_04.png"));
-		// entries.add(combined);
+		PaletteDrawer drawer = new PaletteDrawer("Button", null);
 
-		// tab folder
-		combined = new CombinedTemplateCreationEntry("Tab Folder",
-				"Create a  TabFolder", TabFolder.class, new SimpleFactory(
-						TabFolder.class),
-				ImagesUtils.getImageDescriptor("palette/tabfolder.png"),
-				ImagesUtils.getImageDescriptor("palette/tabfolder.png"));
-		entries.add(combined);
-		// tab item
-		combined = new CombinedTemplateCreationEntry("Tab Item",
-				"Create a  TabItem", TabItem.class, new SimpleFactory(
-						TabItem.class),
-				ImagesUtils.getImageDescriptor("palette/tabitem.png"),
-				ImagesUtils.getImageDescriptor("palette/tabitem.png"));
-		entries.add(combined);
+		List<CombinedTemplateCreationEntry> entries = new ArrayList<CombinedTemplateCreationEntry>();
 
+		// /button
+		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
+				"Button", "Create a Button", Button.class, new SimpleFactory(
+						Button.class),
+				ImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"),
+				ImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"));
+		entries.add(combined);
 		drawer.addAll(entries);
 		return drawer;
 	}
@@ -210,11 +261,11 @@ public class VScreenEditorPaletteFactory {
 		entries.add(tool);
 		root.setDefaultEntry(tool);
 
-		tool = new MarqueeToolEntry();
-		entries.add(tool);
+		// tool = new MarqueeToolEntry();
+		// entries.add(tool);
 
 		PaletteSeparator sep = new PaletteSeparator(
-				"org.eclipse.gef.examples.flow.flowplugin.sep2");
+				"aurora.ide.meta.gef.editors");
 		sep.setUserModificationPermission(PaletteEntry.PERMISSION_NO_MODIFICATION);
 		entries.add(sep);
 
@@ -230,6 +281,12 @@ public class VScreenEditorPaletteFactory {
 	public static PaletteRoot createPalette() {
 		PaletteRoot flowPalette = new PaletteRoot();
 		flowPalette.addAll(createCategories(flowPalette));
+		return flowPalette;
+	}
+
+	public static PaletteRoot createPalette(EditorMode editorMode) {
+		PaletteRoot flowPalette = new PaletteRoot();
+		flowPalette.addAll(createCategories(flowPalette, editorMode));
 		return flowPalette;
 	}
 

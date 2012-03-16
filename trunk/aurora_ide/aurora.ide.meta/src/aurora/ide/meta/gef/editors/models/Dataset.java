@@ -28,8 +28,9 @@ public class Dataset extends AuroraComponent {
 	public static final String ID = "id";
 
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
-			new BooleanPropertyDescriptor(AUTO_QUERY, "*autoQuery"),
-			new StringPropertyDescriptor(MODEL, "*Model", true) };
+	// new BooleanPropertyDescriptor(AUTO_QUERY, "*autoQuery"),
+	// new StringPropertyDescriptor(MODEL, "*Model", true)
+	};
 
 	// new BooleanPropertyDescriptor("USE4QUERY", "isUse4Query"),
 	// new BooleanPropertyDescriptor("USEPARENTBM", "isUseParentBM")
@@ -71,7 +72,7 @@ public class Dataset extends AuroraComponent {
 		} else if ("USE4QUERY".equals(propName)) {
 			setUse4Query((Boolean) val);
 		} else if ("USEPARENTBM".equals(propName)) {
-//			setUseParentBM((Boolean) val);
+			// setUseParentBM((Boolean) val);
 		}
 	}
 
@@ -117,13 +118,13 @@ public class Dataset extends AuroraComponent {
 		this.isUse4Query = isUse4Query;
 	}
 
-//	public boolean isUseParentBM() {
-//		// TODO
-//		return null == this.model || "".equals(model.trim());
-//		// return isUseParentBM;
-//	}
-//
-//	public void setUseParentBM(boolean isUseParentBM) {
-//		this.isUseParentBM = isUseParentBM;
-//	}
+	// public boolean isUseParentBM() {
+	// // TODO
+	// return null == this.model || "".equals(model.trim());
+	// // return isUseParentBM;
+	// }
+	//
+	// public void setUseParentBM(boolean isUseParentBM) {
+	// this.isUseParentBM = isUseParentBM;
+	// }
 }

@@ -43,9 +43,10 @@ public class ResultDataSet extends Dataset {
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
 			PD_SELECTION_MODE,
 			new IntegerPropertyDescriptor(PAGE_SIZE, "*pageSize"),
-			// new BooleanPropertyDescriptor(SELECTABLE, "selectable"),
-			new DialogPropertyDescriptor(QUERY_CONTAINER, "*queryDataSet",
-					QueryContainerEditDialog.class) };
+	// new BooleanPropertyDescriptor(SELECTABLE, "selectable"),
+	// new DialogPropertyDescriptor(QUERY_CONTAINER, "*queryDataSet",
+	// QueryContainerEditDialog.class)
+	};
 
 	public ResultDataSet() {
 		this.setUse4Query(false);
@@ -79,9 +80,6 @@ public class ResultDataSet extends Dataset {
 		} else if (SELECTABLE.equals(propName)) {
 			setSelectable((Boolean) val);
 		} else if (QUERY_DATASET.equals(propName)) {
-			// setQueryContainer((AuroraComponent) val);
-			System.out.println("ResultDataset.setPropertyValue(" + propName
-					+ "," + val + ")");
 		} else if (QUERY_CONTAINER.equals(propName))
 			setQueryContainer((QueryContainer) val);
 		else
