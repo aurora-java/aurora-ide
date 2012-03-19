@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.property;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,6 +19,8 @@ import org.eclipse.ui.views.properties.IPropertySheetEntry;
 import org.eclipse.ui.views.properties.IPropertySheetEntryListener;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
+
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
 
 public class PropertySheetEntry extends EventManager implements
 		IPropertySheetEntry {
@@ -51,6 +55,16 @@ public class PropertySheetEntry extends EventManager implements
 	private String errorText;
 
 	private PropertySheetEntry[] childEntries = null;
+	private AuroraComponent lastAc = null;
+	private PropertyChangeListener pcListener = new PropertyChangeListener() {
+
+		@Override
+		public void propertyChange(PropertyChangeEvent evt) {
+			// setValues(values);
+			refreshChildEntries();
+			fireValueChanged();
+		}
+	};
 
 	/**
 	 * Create the CellEditorListener for this entry. It listens for value
@@ -699,6 +713,12 @@ public class PropertySheetEntry extends EventManager implements
 			IPropertySource source = getPropertySource(newValue);
 			if (source != null) {
 				newValue = source.getEditableValue();
+				if (newValue instanceof AuroraComponent) {
+					if (lastAc != null)
+						lastAc.removePropertyChangeListener(pcListener);
+					lastAc = (AuroraComponent) newValue;
+					lastAc.addPropertyChangeListener(pcListener);
+				}
 			}
 			editValue = newValue;
 		}
