@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.RowCol;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 
@@ -143,24 +145,20 @@ public class RowColBackLayout extends BackLayout {
 	}
 
 	protected Rectangle calculateRectangle(ComponentPart parent) {
-		// if (parent.getComponent() instanceof Form) {
-		// return this.calculateFormRectangle(parent);
-		// }
 		Rectangle selfRectangle = zero.getCopy().setLocation(
 				parent.getFigure().getBounds().getLocation());
 		List children = parent.getChildren();
+		Rectangle modelRectangle = parent.getComponent().getBoundsCopy();
+		if (children.size() == 0 || /*don't layout self yet*/selfRectangle.equals(zero))
+			return modelRectangle;
 		for (int i = 0; i < children.size(); i++) {
 			ComponentPart cp = (ComponentPart) children.get(i);
-			selfRectangle.union(cp.getFigure().getBounds().getCopy());
+			selfRectangle.union(this.partMap.get(cp).getCopy());
 		}
-		Rectangle modelRectangle = parent.getComponent().getBoundsCopy();
-		int h = modelRectangle.height - selfRectangle.height <= 0 ? 5 : 0;
-		int v = modelRectangle.width - selfRectangle.width <= 0 ? 5 : 0;
 		Rectangle expand = selfRectangle.expand(5, 5);
 		return new Rectangle(expand.x, expand.y, Math.max(expand.width,
 				modelRectangle.width), Math.max(expand.height,
 				modelRectangle.height));
-		// return selfRectangle = parent.getComponent().getBoundsCopy();
 	}
 
 	private Rectangle calculateFormRectangle(ComponentPart parent) {
