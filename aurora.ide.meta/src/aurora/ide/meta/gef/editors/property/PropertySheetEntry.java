@@ -58,7 +58,6 @@ public class PropertySheetEntry extends EventManager implements
 	private AuroraComponent lastAc = null;
 	private PropertyChangeListener pcListener = new PropertyChangeListener() {
 
-		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			// setValues(values);
 			refreshChildEntries();
