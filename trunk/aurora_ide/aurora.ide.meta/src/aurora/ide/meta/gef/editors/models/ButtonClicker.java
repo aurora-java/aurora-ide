@@ -25,7 +25,9 @@ public class ButtonClicker extends AuroraComponent implements
 	public static final String[] action_ids = { B_SEARCH, B_RESET, B_SAVE,
 			B_OPEN, B_CLOSE, B_CUSTOM };
 
-	public static final String[] action_texts = { Messages.ButtonClicker_Query, Messages.ButtonClicker_Reset, Messages.ButtonClicker_Save, Messages.ButtonClicker_Open, Messages.ButtonClicker_Close,
+	public static final String[] action_texts = { Messages.ButtonClicker_Query,
+			Messages.ButtonClicker_Reset, Messages.ButtonClicker_Save,
+			Messages.ButtonClicker_Open, Messages.ButtonClicker_Close,
 			Messages.ButtonClicker_Custom };
 
 	private String actionID = DEFAULT;
@@ -127,4 +129,10 @@ public class ButtonClicker extends AuroraComponent implements
 			return PropertySourceUtil.getImageOf(targetComponent);
 		return null;
 	}
+
+	@Override
+	public Object getEditableValue() {
+		return null;
+	}
+
 }

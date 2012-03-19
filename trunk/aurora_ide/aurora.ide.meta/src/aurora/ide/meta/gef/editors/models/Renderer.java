@@ -29,8 +29,7 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 			"Aurora.formatDateTime", "Aurora.formatNumber" }; //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 */
-	public static final String[] INNER_RENDERER_DESC = {
-			Messages.Renderer_10,
+	public static final String[] INNER_RENDERER_DESC = { Messages.Renderer_10,
 			Messages.Renderer_11, Messages.Renderer_12 };
 
 	/**
@@ -125,6 +124,11 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 
 	public void setRendererType(String rendererType) {
 		this.rendererType = rendererType;
+	}
+
+	@Override
+	public Object getEditableValue() {
+		return null;
 	}
 
 }
