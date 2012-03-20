@@ -202,6 +202,7 @@ public class RendererEditDialog extends EditWizard {
 					String webHome = ResourceUtil.getWebHome(auroraProject);
 					IResource res = ResourcesPlugin.getWorkspace().getRoot()
 							.findMember(webHome);
+					fss.setExtFilter(new String[] { "screen" });
 					fss.setInput((IContainer) res);
 					Object obj = fss.getSelection();
 					if (!(obj instanceof IFile)) {
