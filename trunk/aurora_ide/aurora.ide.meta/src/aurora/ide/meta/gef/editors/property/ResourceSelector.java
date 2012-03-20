@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.dialogs.Dialog;
@@ -39,6 +40,7 @@ public class ResourceSelector implements ISelectionChangedListener {
 	private CLabel parLabel;
 	private Dialog dia;
 	private IContainer root;
+	private String[] extFilters = null;
 
 	/**
 	 * create a dialog to select a resource , the dialog will auto open after
@@ -109,6 +111,19 @@ public class ResourceSelector implements ISelectionChangedListener {
 		});
 	}
 
+	/**
+	 * set the file extension list,file will be list only if it has a extension
+	 * in <i>exts</i>
+	 * 
+	 * @param exts
+	 *            like {"bm","svc"}<br>
+	 *            set to null means disable this feather(default),all file will
+	 *            be listed
+	 */
+	public void setExtFilter(String[] exts) {
+		extFilters = exts;
+	}
+
 	public void setInput(IContainer iContainer) {
 		this.root = iContainer;
 		if (dia != null) {
@@ -154,12 +169,32 @@ public class ResourceSelector implements ISelectionChangedListener {
 				IResource r = (IResource) o;
 				if (r.getName().startsWith("."))
 					continue;
-				als.add(r);
+				if (hasChildren(r))
+					als.add(r);
+				if (accept(r.getName()))
+					als.add(r);
 			}
 			IResource[] res = new IResource[als.size()];
 			als.toArray(res);
 			Arrays.sort(res, this);
 			return res;
+		}
+
+		public boolean hasChildren(Object element) {
+			if (element instanceof IFolder) {
+				IFolder folder = (IFolder) element;
+				Object[] res = getChildren(folder);
+				if (res.length == 0)
+					return false;
+				for (Object o : res) {
+					if (o instanceof IFile) {
+						return true;
+					} else if ((o instanceof IFolder) && hasChildren(o)) {
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
 		public int compare(IResource o1, IResource o2) {
@@ -173,4 +208,14 @@ public class ResourceSelector implements ISelectionChangedListener {
 		}
 	}
 
+	private boolean accept(String fileName) {
+		if (extFilters == null)
+			return true;
+		fileName = fileName.toLowerCase();
+		for (String ext : extFilters) {
+			if (fileName.endsWith("." + ext.toLowerCase()))
+				return true;
+		}
+		return false;
+	}
 }
