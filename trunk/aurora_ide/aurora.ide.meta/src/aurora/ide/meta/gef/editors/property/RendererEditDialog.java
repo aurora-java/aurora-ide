@@ -3,6 +3,8 @@ package aurora.ide.meta.gef.editors.property;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.source.SourceViewer;
@@ -25,9 +27,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.internal.ide.dialogs.OpenResourceDialog;
 
 import aurora.ide.AuroraPlugin;
+import aurora.ide.builder.ResourceUtil;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
@@ -78,7 +80,9 @@ public class RendererEditDialog extends EditWizard {
 	}
 
 	private class InnerPage extends WizardPage implements SelectionListener {
-		private String[] displayTexts = { Messages.RendererEditDialog_2, Messages.RendererEditDialog_3, Messages.RendererEditDialog_4, Messages.RendererEditDialog_5 };
+		private String[] displayTexts = { Messages.RendererEditDialog_2,
+				Messages.RendererEditDialog_3, Messages.RendererEditDialog_4,
+				Messages.RendererEditDialog_5 };
 
 		protected InnerPage(String pageName) {
 			super(pageName);
@@ -193,16 +197,16 @@ public class RendererEditDialog extends EditWizard {
 			btn.addSelectionListener(new SelectionListener() {
 
 				public void widgetSelected(SelectionEvent e) {
-					@SuppressWarnings("restriction")
-					OpenResourceDialog ord = new OpenResourceDialog(
-							composite_right.getShell(), auroraProject,
-							OpenResourceDialog.CARET_BEGINNING);
-					ord.setInitialPattern("*.screen"); //$NON-NLS-1$
-					ord.open();
-					Object obj = ord.getFirstResult();
+					ResourceSelector fss = new ResourceSelector(composite_right
+							.getShell());
+					String webHome = ResourceUtil.getWebHome(auroraProject);
+					IResource res = ResourcesPlugin.getWorkspace().getRoot()
+							.findMember(webHome);
+					fss.setInput((IContainer) res);
+					Object obj = fss.getSelection();
 					if (!(obj instanceof IFile)) {
-						setPageComplete(false);
-						setErrorMessage(Messages.RendererEditDialog_17);
+						// setPageComplete(false);
+						// setErrorMessage(Messages.ButtonClickEditDialog_18);
 						return;
 					}
 					setPageComplete(true);

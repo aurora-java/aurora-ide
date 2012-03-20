@@ -3,6 +3,8 @@ package aurora.ide.meta.gef.editors.property;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.source.SourceViewer;
@@ -27,9 +29,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.internal.ide.dialogs.OpenResourceDialog;
 
 import aurora.ide.AuroraPlugin;
+import aurora.ide.builder.ResourceUtil;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
@@ -47,8 +49,10 @@ public class ButtonClickEditDialog extends EditWizard {
 
 	protected Shell shell;
 	private static final Color SELECTION_BG = new Color(null, 109, 187, 242);
-	private static final String[] descriptions = { Messages.ButtonClickEditDialog_0,
-			Messages.ButtonClickEditDialog_1, Messages.ButtonClickEditDialog_2, Messages.ButtonClickEditDialog_3, Messages.ButtonClickEditDialog_4, Messages.ButtonClickEditDialog_5 };
+	private static final String[] descriptions = {
+			Messages.ButtonClickEditDialog_0, Messages.ButtonClickEditDialog_1,
+			Messages.ButtonClickEditDialog_2, Messages.ButtonClickEditDialog_3,
+			Messages.ButtonClickEditDialog_4, Messages.ButtonClickEditDialog_5 };
 	private Button[] radios = new Button[ButtonClicker.action_texts.length];
 	private String section_type_filter = Container.SECTION_TYPE_QUERY;
 	private Composite composite_right;
@@ -270,16 +274,16 @@ public class ButtonClickEditDialog extends EditWizard {
 
 			btn.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
-					@SuppressWarnings("restriction")
-					OpenResourceDialog ord = new OpenResourceDialog(
-							composite_right.getShell(), auroraProject,
-							OpenResourceDialog.CARET_BEGINNING);
-					ord.setInitialPattern("*.screen"); //$NON-NLS-1$
-					ord.open();
-					Object obj = ord.getFirstResult();
+					ResourceSelector fss = new ResourceSelector(composite_right
+							.getShell());
+					String webHome = ResourceUtil.getWebHome(auroraProject);
+					IResource res = ResourcesPlugin.getWorkspace().getRoot()
+							.findMember(webHome);
+					fss.setInput((IContainer) res);
+					Object obj = fss.getSelection();
 					if (!(obj instanceof IFile)) {
-						setPageComplete(false);
-						setErrorMessage(Messages.ButtonClickEditDialog_18);
+						// setPageComplete(false);
+						// setErrorMessage(Messages.ButtonClickEditDialog_18);
 						return;
 					}
 					IFile file = (IFile) obj;
