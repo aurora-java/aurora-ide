@@ -128,12 +128,10 @@ public class BMDesignPage extends FormPage {
 			titleText.setText(model.getTitle());
 		titleText.addFocusListener(new FocusListener() {
 
-			@Override
 			public void focusLost(FocusEvent e) {
 				model.setTitle(titleText.getText());
 			}
 
-			@Override
 			public void focusGained(FocusEvent e) {
 
 			}
@@ -249,7 +247,6 @@ public class BMDesignPage extends FormPage {
 		// /add listener to process table selection
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
-			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				ISelection s = event.getSelection();
 				if (s instanceof IStructuredSelection) {
@@ -353,7 +350,6 @@ public class BMDesignPage extends FormPage {
 		this.model = model;
 		model.addPropertyChangeListener(new PropertyChangeListener() {
 
-			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				System.out.println(evt.getPropertyName() + " change from "
 						+ evt.getOldValue() + " to " + evt.getNewValue());
