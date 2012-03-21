@@ -4,6 +4,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -22,10 +23,13 @@ public class BooleanCellEditor extends CellEditor implements SelectionListener {
 		fireApplyEditorValue();
 	}
 
-	protected Control createControl(Composite parent) {
-		checkButton = new Button(parent, SWT.CHECK);
+	protected Control createControl(final Composite parent) {
+		Composite com = new Composite(parent, SWT.NONE);
+		com.setLayout(new FillLayout());
+		checkButton = new Button(com, SWT.CHECK);
+		checkButton.setBackground(parent.getBackground());
 		checkButton.addSelectionListener(this);
-		return checkButton;
+		return com;
 	}
 
 	protected Object doGetValue() {
