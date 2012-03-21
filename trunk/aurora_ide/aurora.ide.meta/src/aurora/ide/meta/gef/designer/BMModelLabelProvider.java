@@ -22,7 +22,6 @@ public class BMModelLabelProvider extends BaseLabelProvider implements
 		this.type = type;
 	}
 
-	@Override
 	public Color getForeground(Object element, int columnIndex) {
 		if (columnIndex == columnNumIndx)
 			return new Color(null, 128, 128, 128);
@@ -34,12 +33,10 @@ public class BMModelLabelProvider extends BaseLabelProvider implements
 		return (rowNum % 2 == 0) ? COLOR_EVEN : COLOR_ODD;
 	}
 
-	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
 		return null;
 	}
 
-	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		Record r = (Record) element;
 		if (columnIndex == columnNumIndx)
