@@ -14,19 +14,16 @@ public class BMModelContentProvider implements IStructuredContentProvider {
 		this.type = type;
 	}
 
-	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public Object[] getElements(Object inputElement) {
 		BMModel model = (BMModel) inputElement;
 		return type == BMModel.RECORD ? model.getRecords() : model
