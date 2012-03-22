@@ -82,7 +82,7 @@ public class BMDesignPage extends FormPage {
 	 * 
 	 * @param managedForm
 	 */
-	@Override
+
 	protected void createFormContent(IManagedForm managedForm) {
 		FormToolkit toolkit = managedForm.getToolkit();
 		ScrolledForm form = managedForm.getForm();
@@ -164,7 +164,6 @@ public class BMDesignPage extends FormPage {
 		});
 		quickAddText.addKeyListener(new KeyAdapter() {
 
-			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.keyCode == 13) {
 					createNewLine();
@@ -178,8 +177,7 @@ public class BMDesignPage extends FormPage {
 				| SWT.FULL_SELECTION);
 		viewer.getTable().setLayoutData(
 				new GridData(SWT.FILL, SWT.FILL, true, true, 1, 6));
-		if (model != null)
-			viewer.setInput(model);
+
 		new Label(body, SWT.NONE);
 		btnUp = new Button(body, SWT.FLAT);
 		btnUp.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1,
@@ -187,7 +185,6 @@ public class BMDesignPage extends FormPage {
 		btnUp.setText("Up");
 		SelectionListener listener = new SelectionAdapter() {
 
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int n = e.getSource() == btnUp ? -1 : 1;
 				ISelection s = viewer.getSelection();
@@ -216,7 +213,6 @@ public class BMDesignPage extends FormPage {
 		btnDel.setText("Delete");
 		btnDel.addSelectionListener(new SelectionAdapter() {
 
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ISelection s = viewer.getSelection();
 				if (s instanceof IStructuredSelection) {
@@ -235,7 +231,6 @@ public class BMDesignPage extends FormPage {
 				1, 1));
 		btnClear.addSelectionListener(new SelectionAdapter() {
 
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				model.removeAll();
 				viewer.refresh();
@@ -264,6 +259,10 @@ public class BMDesignPage extends FormPage {
 				}
 			}
 		});
+		if (model != null) {
+			viewer.setInput(model);
+			viewer.refresh();
+		}
 		new Label(body, SWT.NONE);
 	}
 
@@ -328,8 +327,10 @@ public class BMDesignPage extends FormPage {
 						}
 					}
 				});
-		if (model != null)
+		if (model != null) {
 			relationViewer.setInput(model);
+			relationViewer.refresh();
+		}
 	}
 
 	private void createNewLine() {
@@ -356,10 +357,14 @@ public class BMDesignPage extends FormPage {
 				setDirty(true);
 			}
 		});
-		if (viewer != null)
+		if (viewer != null) {
 			viewer.setInput(model);
-		if (relationViewer != null)
+			viewer.refresh();
+		}
+		if (relationViewer != null) {
 			relationViewer.setInput(model);
+			relationViewer.refresh();
+		}
 		if (titleText != null)
 			titleText.setText(model.getTitle());
 	}
@@ -368,7 +373,6 @@ public class BMDesignPage extends FormPage {
 		return model;
 	}
 
-	@Override
 	public boolean isDirty() {
 		return isDirty;
 	}
