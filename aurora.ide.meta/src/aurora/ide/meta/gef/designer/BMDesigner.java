@@ -52,11 +52,11 @@ public class BMDesigner extends FormEditor {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out,
 					"UTF-8"));
+			bw.write(xml);
+			bw.close();
 			inputFile.setContents(new ByteArrayInputStream(out.toByteArray()),
 					true, false, monitor);
-			bw.write(xml);
 			out.close();
-			bw.close();
 			dpage.setDirty(false);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +70,6 @@ public class BMDesigner extends FormEditor {
 
 	@Override
 	public boolean isSaveAsAllowed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
