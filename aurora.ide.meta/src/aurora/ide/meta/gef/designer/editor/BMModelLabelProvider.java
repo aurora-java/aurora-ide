@@ -1,17 +1,17 @@
-package aurora.ide.meta.gef.designer;
+package aurora.ide.meta.gef.designer.editor;
 
 import org.eclipse.jface.viewers.BaseLabelProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITableColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.designer.editor.RelationViewer;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 
 public class BMModelLabelProvider extends BaseLabelProvider implements
-		ITableLabelProvider, ITableColorProvider {
+		ITableLabelProvider, ITableColorProvider, ILabelProvider {
 	private Color COLOR_ODD = new Color(null, 245, 255, 255);
 	private Color COLOR_EVEN = new Color(null, 255, 255, 255);
 	private int columnNumIndx = 1;
@@ -47,4 +47,13 @@ public class BMModelLabelProvider extends BaseLabelProvider implements
 		return "";
 	}
 
+	public Image getImage(Object element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getText(Object element) {
+		Record r = (Record) element;
+		return r.getPrompt();
+	}
 }

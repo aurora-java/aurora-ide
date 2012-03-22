@@ -6,8 +6,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-import aurora.ide.meta.gef.designer.BMModelContentProvider;
-import aurora.ide.meta.gef.designer.BMModelLabelProvider;
 import aurora.ide.meta.gef.designer.model.BMModel;
 
 public class RelationViewer extends TableViewer {

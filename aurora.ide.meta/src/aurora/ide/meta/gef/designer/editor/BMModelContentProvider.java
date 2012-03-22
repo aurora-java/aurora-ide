@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.designer;
+package aurora.ide.meta.gef.designer.editor;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
