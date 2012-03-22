@@ -17,17 +17,14 @@ public class RecordCellEditorListener implements ICellEditorListener {
 		this.editor = editor;
 	}
 
-	@Override
 	public void applyEditorValue() {
 		record.put(prompt, editor.getValue());
 	}
 
-	@Override
 	public void cancelEditor() {
 
 	}
 
-	@Override
 	public void editorValueChanged(boolean oldValidState, boolean newValidState) {
 
 	}
