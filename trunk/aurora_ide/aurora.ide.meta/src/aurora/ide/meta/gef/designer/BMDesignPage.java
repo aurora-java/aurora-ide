@@ -148,7 +148,7 @@ public class BMDesignPage extends FormPage {
 				false, 1, 1));
 		quickAddText.setMessage("输入字段描述,如:单据号,订单日期");
 		quickAddText.setFont(new Font(null, quickAddText.getFont()
-				.getFontData()[0].getName(), 18, SWT.NORMAL));
+				.getFontData()[0].getName(), 12, SWT.NORMAL));
 		toolkit.adapt(quickAddText, true, true);
 
 		btnNew = new Button(body, SWT.NONE);
