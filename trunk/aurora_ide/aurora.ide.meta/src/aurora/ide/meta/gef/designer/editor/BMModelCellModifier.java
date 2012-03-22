@@ -16,18 +16,15 @@ public class BMModelCellModifier implements ICellModifier {
 		this.type = type;
 	}
 
-	@Override
 	public boolean canModify(Object element, String property) {
 		return type == BMModel.RECORD;
 	}
 
-	@Override
 	public Object getValue(Object element, String property) {
 		Record r = (Record) element;
 		return r.get(property);
 	}
 
-	@Override
 	public void modify(Object element, String property, Object value) {
 		if (!(element instanceof TableItem))
 			return;

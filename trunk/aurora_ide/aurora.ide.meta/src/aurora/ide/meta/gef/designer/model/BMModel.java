@@ -16,7 +16,6 @@ public class BMModel {
 	private String title = "";
 	private PropertyChangeListener recordListener = new PropertyChangeListener() {
 
-		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			Record r = (Record) evt.getSource();
 			firePropertyChange(
@@ -28,7 +27,6 @@ public class BMModel {
 
 	private PropertyChangeListener relationListener = new PropertyChangeListener() {
 
-		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			Record r = (Record) evt.getSource();
 			firePropertyChange(
