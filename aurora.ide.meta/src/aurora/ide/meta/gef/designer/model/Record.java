@@ -25,6 +25,8 @@ public class Record {
 			key = key.toLowerCase();
 		Object old = map.get(key);
 		map.put(key, value);
+		if (old == null && value == null)
+			return;
 		if ((old == null && value != null) || (old != null && value == null)
 				|| (!old.equals(value)))
 			firePropertyChange(key, old, value);
