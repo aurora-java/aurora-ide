@@ -23,7 +23,7 @@ public class ModelUtil {
 		map.addChild(recordMap);
 		CompositeMap relationMap = new CompositeMap(RELATIONS);
 		for (Relation r : model.getRelations()) {
-			recordMap.addChild(toCompositeMap(r));
+			relationMap.addChild(toCompositeMap(r));
 		}
 		map.addChild(relationMap);
 		return map;
@@ -67,7 +67,7 @@ public class ModelUtil {
 			@SuppressWarnings("unchecked")
 			List<CompositeMap> list = relMap.getChildsNotNull();
 			for (CompositeMap m : list) {
-				model.add(getRecord(m));
+				model.add(getRelation(m));
 			}
 		}
 		return model;
@@ -77,6 +77,8 @@ public class ModelUtil {
 		Record r = new Record();
 		String[] keys = BMModelViewer.TABLE_COLUMN_PROPERTIES;
 		for (int i = 2; i < keys.length; i++) {
+			if (BMModelViewer.COLUMN_QUERYFIELD.equals(keys[i]))
+				r.put(keys[i], map.getBoolean(keys[i]));
 			r.put(keys[i], map.get(keys[i]));
 		}
 		return r;
