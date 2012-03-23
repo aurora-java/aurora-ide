@@ -14,6 +14,7 @@ public class BMModel {
 	private ArrayList<Relation> relations = new ArrayList<Relation>();
 	PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 	private String title = "";
+	public static final String FIELD_NAME_PREFIX = "c";
 	private PropertyChangeListener recordListener = new PropertyChangeListener() {
 
 		public void propertyChange(PropertyChangeEvent evt) {
@@ -101,22 +102,37 @@ public class BMModel {
 	}
 
 	private void notifyModidy() {
+		ArrayList<Record> unNamedRelation = new ArrayList<Record>();
+		int maxNum = 0;
 		for (int i = 0; i < records.size(); i++) {
 			Record r = records.get(i);
 			r.setNum(i + 1);
 			r.removePropertyChangeListener(recordListener);
 			r.addPropertyChangeListener(recordListener);
+			if (r.getName().trim().length() == 0)
+				unNamedRelation.add(r);
+			if (r.getName().matches(FIELD_NAME_PREFIX + "(0|([1-9]\\d*))")) {
+				int n = Integer.parseInt(r.getName().substring(1));
+				if (maxNum < n)
+					maxNum = n;
+			}
+		}
+		for (Record r : unNamedRelation) {
+			r.setName(FIELD_NAME_PREFIX + (++maxNum));
 		}
 		firePropertyChange("reorder", null, null);
 	}
 
 	private void nodifyRelationChange() {
+
 		for (int i = 0; i < relations.size(); i++) {
 			Relation r = relations.get(i);
 			r.setNum(i + 1);
 			r.removePropertyChangeListener(relationListener);
 			r.addPropertyChangeListener(relationListener);
+
 		}
+
 		firePropertyChange("relation", null, null);
 	}
 

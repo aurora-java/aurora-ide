@@ -115,4 +115,8 @@ public class Record {
 	public String getName() {
 		return getStringNotNull(BMModelViewer.COLUMN_NAME);
 	}
+
+	public void setName(String name) {
+		put(BMModelViewer.COLUMN_NAME, name);
+	}
 }

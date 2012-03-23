@@ -6,11 +6,14 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
@@ -96,9 +99,9 @@ public class BMModelViewer extends TableViewer {
 		super.refresh();
 		// Rectangle clientRect = table.getClientArea();
 		// int topIndex = table.getTopIndex();
-		for (int i = 0; i < table.getItemCount(); i++) {
-			TableItem item = table.getItem(i);
-			Record r = (Record) item.getData();
+		for (int r = 0; r < table.getItemCount(); r++) {
+			TableItem item = table.getItem(r);
+			Record record = (Record) item.getData();
 			CellEditor[] ces = getNewCellEditors();
 			// boolean visible = false;
 			for (int c = 0; c < ces.length; c++) {
@@ -112,12 +115,13 @@ public class BMModelViewer extends TableViewer {
 				te.horizontalAlignment = SWT.LEFT;
 				te.grabHorizontal = true;
 				Control ctrl = ces[c].getControl();
+				ctrl.addKeyListener(new FocusMoveKeyListener(r, c));
 				te.setEditor(ctrl, item, c);
 				// ces[c].activate();
-				ces[c].setValue(r.get(TABLE_COLUMN_PROPERTIES[c]));
-				ces[c].addListener(new RecordCellEditorListener(r,
+				ces[c].setValue(record.get(TABLE_COLUMN_PROPERTIES[c]));
+				ces[c].addListener(new RecordCellEditorListener(record,
 						TABLE_COLUMN_PROPERTIES[c], ces[c]));
-				editorMap.put(i + "-" + c, ces[c]);
+				editorMap.put(r + "-" + c, ces[c]);
 			}
 			// if (!visible)
 			// break;
@@ -132,5 +136,31 @@ public class BMModelViewer extends TableViewer {
 				new StringCellEditor(table),
 				new ComboBoxCellEditor(table, editor_types),
 				new BooleanCellEditor(table), null };
+	}
+
+	private class FocusMoveKeyListener extends KeyAdapter {
+		int r, c;
+
+		public FocusMoveKeyListener(int r, int c) {
+			this.r = r;
+			this.c = c;
+		}
+
+		public void keyPressed(KeyEvent e) {
+			if (e.stateMask != 0 && e.stateMask != SWT.SHIFT)
+				return;
+			int nextR = e.stateMask == 0 ? r + 1 : r - 1;
+			if (e.keyCode == 13) {
+				String nextKey = String.format("%d-%d", nextR, c);
+				CellEditor ce = editorMap.get(nextKey);
+				if (ce == null)
+					return;
+				Control ctrl = ce.getControl();
+				ctrl.forceFocus();
+				if (ctrl instanceof Text) {
+					((Text) ctrl).selectAll();
+				}
+			}
+		}
 	}
 }
