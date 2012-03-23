@@ -5,9 +5,7 @@ import java.util.Arrays;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
-import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.IntegerPropertyDescriptor;
-import aurora.ide.meta.gef.editors.property.QueryContainerEditDialog;
 
 public class ResultDataSet extends Dataset {
 

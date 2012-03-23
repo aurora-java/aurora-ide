@@ -1,8 +1,12 @@
 package aurora.ide.meta.gef.editors.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.api.javascript.JavascriptRhino;
+import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.property.DialogEditableObject;
 
 public class Renderer extends AuroraComponent implements DialogEditableObject {
@@ -18,6 +22,7 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 	// PAGE_REDIRECT
 	private String openPath = ""; //$NON-NLS-1$
 	private String labelText = ""; //$NON-NLS-1$
+	private List<Parameter> paras = new ArrayList<Parameter>();
 
 	/**
 	 */
@@ -74,6 +79,10 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 	public Renderer clone() {
 		Renderer r = new Renderer();
 		r.openPath = openPath;
+		r.paras = new ArrayList<Parameter>();
+		for (Parameter p : paras) {
+			r.paras.add(p.clone());
+		}
 		r.column = column;
 		r.labelText = labelText;
 		r.function = function;
@@ -129,6 +138,14 @@ public class Renderer extends AuroraComponent implements DialogEditableObject {
 	@Override
 	public Object getEditableValue() {
 		return null;
+	}
+
+	public List<Parameter> getParameters() {
+		return paras;
+	}
+
+	public void addParameter(Parameter para) {
+		paras.add(para);
 	}
 
 }
