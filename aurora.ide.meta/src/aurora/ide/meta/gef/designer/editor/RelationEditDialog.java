@@ -284,9 +284,13 @@ public class RelationEditDialog extends Dialog {
 				Record r = getSelectedLocalField();
 				if (r != null)
 					relation.setLocalField(r.getPrompt());
+				else
+					relation.setLocalField("");
 				CompositeMap forMap = getSelectedForienField();
 				if (forMap != null)
 					relation.setSrcField(forMap.getString("name"));
+				else
+					relation.setSrcField("");
 				int idx = com_jointype.getSelectionIndex();
 				if (idx == -1)
 					idx = 0;
