@@ -118,4 +118,12 @@ public class TabItem extends AuroraComponent {
 
 	}
 
+	public TabRef getTabRef() {
+		return ref;
+	}
+
+	public void setTabRef(TabRef tr) {
+		this.ref = tr;
+	}
+
 }
