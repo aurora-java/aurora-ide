@@ -17,6 +17,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
@@ -27,6 +29,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.model.WorkbenchContentProvider;
@@ -107,6 +110,17 @@ public class ResourceSelector implements ISelectionChangedListener {
 				e.gc.setForeground(borderColor);
 				Point p = parLabel.getSize();
 				e.gc.drawRectangle(0, 0, p.x - 1, p.y - 1);
+			}
+		});
+		ff.getViewer().getTree().addMouseListener(new MouseAdapter() {
+			public void mouseDoubleClick(MouseEvent e) {
+				TreeItem ti = getTreeViewer().getTree().getItem(
+						new Point(e.x, e.y));
+				if (ti != null) {
+					result = (IResource) ti.getData();
+					if (dia != null)
+						dia.close();
+				}
 			}
 		});
 	}
