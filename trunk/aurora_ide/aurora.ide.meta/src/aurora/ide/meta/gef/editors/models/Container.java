@@ -89,5 +89,8 @@ public class Container extends AuroraComponent implements IDatasetDelegate {
 	public void setSectionType(String sectionType) {
 		this.sectionType = sectionType;
 	}
+	public String toDisplayString(){
+		return this.getType()+"["+getName()+"-"+this.getPrompt()+"]";
+	}
 
 }

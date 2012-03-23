@@ -1,5 +1,19 @@
 package aurora.ide.meta.gef.editors;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
+import org.eclipse.gef.palette.PaletteContainer;
+import org.eclipse.gef.palette.PaletteDrawer;
+import org.eclipse.gef.palette.PaletteEntry;
+import org.eclipse.gef.palette.PaletteGroup;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.PaletteSeparator;
+import org.eclipse.gef.palette.SelectionToolEntry;
+import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.gef.requests.SimpleFactory;
+
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.FieldSet;
@@ -12,21 +26,6 @@ import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.VBox;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
-import org.eclipse.gef.palette.MarqueeToolEntry;
-import org.eclipse.gef.palette.PaletteContainer;
-import org.eclipse.gef.palette.PaletteDrawer;
-import org.eclipse.gef.palette.PaletteEntry;
-import org.eclipse.gef.palette.PaletteGroup;
-import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.palette.PaletteSeparator;
-import org.eclipse.gef.palette.SelectionToolEntry;
-import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gef.requests.SimpleFactory;
 
 public class VScreenEditorPaletteFactory {
 
@@ -101,13 +100,6 @@ public class VScreenEditorPaletteFactory {
 				ImagesUtils.getImageDescriptor("palette/column.png"),
 				ImagesUtils.getImageDescriptor("palette/column.png"));
 		entries.add(combined);
-		combined = new CombinedTemplateCreationEntry("Toolbar",
-				"Create a  Toolbar ", Toolbar.class, new SimpleFactory(
-						Toolbar.class),
-				ImagesUtils.getImageDescriptor("palette/toolbar.png"),
-				ImagesUtils.getImageDescriptor("palette/toolbar.png"));
-		entries.add(combined);
-
 		drawer.addAll(entries);
 		return drawer;
 	}
@@ -231,6 +223,14 @@ public class VScreenEditorPaletteFactory {
 				ImagesUtils.getImageDescriptor("palette/vbox.png"));
 		entries.add(combined);
 
+		combined = new CombinedTemplateCreationEntry("Toolbar",
+				"Create a  Toolbar ", Toolbar.class, new SimpleFactory(
+						Toolbar.class),
+				ImagesUtils.getImageDescriptor("palette/toolbar.png"),
+				ImagesUtils.getImageDescriptor("palette/toolbar.png"));
+		entries.add(combined);
+
+		
 		drawer.addAll(entries);
 		return drawer;
 	}

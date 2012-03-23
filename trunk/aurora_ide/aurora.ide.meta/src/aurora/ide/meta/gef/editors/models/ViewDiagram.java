@@ -11,7 +11,7 @@ public class ViewDiagram extends Container {
 	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class,
 			GridColumn.class, TabItem.class };
 
-	private List<Dataset> datasets = new ArrayList<Dataset>();
+//	private List<Link> links = new ArrayList<Link>();
 	private String bindTemplate = "";
 
 	@Override
@@ -23,39 +23,68 @@ public class ViewDiagram extends Container {
 		return super.isResponsibleChild(component);
 	}
 
-	/**
-	 * @deprecated
-	 */
-	public List<Dataset> getDatasets() {
-		return datasets;
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public void setDatasets(List<Dataset> datasets) {
-		this.datasets = datasets;
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public void addDataset(Dataset ds) {
-		datasets.add(ds);
-		this.addChild(ds);
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public void removeDataset(Dataset ds) {
-		datasets.remove(ds);
-		this.removeChild(ds);
-	}
+//	public List<Link> getLinks() {
+//		return links;
+//	}
+//
+//	/**
+//	 */
+//	public void addLink(Link link) {
+//		links.add(link);
+//	}
+//
+//	/**
+//	 */
+//	public void removeLink(Link link) {
+//		links.remove(link);
+//	}
 
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
+//		IPropertyDescriptor[] pds = new IPropertyDescriptor[links.size() + 1];
+//		for (int i = 0; i < links.size(); i++) {
+//			pds[i] = new LinkPropertyDescriptor(i, "Link");
+//		}
+//		pds[pds.length - 1] = new AddLinkPropertyDescriptor("add_link",
+//				"ADD Link");
+//		return pds;
 		return new IPropertyDescriptor[0];
+	}
+
+	@Override
+	public Object getPropertyValue(Object key) {
+//		if (key instanceof Integer) {
+//			return links.get(((Integer) key).intValue());
+//		}
+//		if ("add_link".equals(key))
+//			return null;
+		return super.getPropertyValue(key);
+	}
+
+	@Override
+	public void setPropertyValue(Object key, Object val) {
+//		if (key instanceof Integer && val instanceof Link) {
+//			if (val instanceof DeadLink) {
+//				links.remove(((Integer) key).intValue());
+//			} else {
+//				Link nVal = (Link) val;
+//				Link link = links.get(((Integer) key).intValue());
+//				link.setUrl(nVal.getUrl());
+//				link.setModel(nVal.getModel());
+//				link.setModelaction(nVal.getModelaction());
+//			}
+//			firePropertyChange("Link", null, val);
+//		}
+//		if ("add_link".equals(key)) {
+//			links.add((Link) val);
+//			firePropertyChange("Link", null, val);
+//		}
+		super.setPropertyValue(key, val);
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 	public String getBindTemplate() {
@@ -86,6 +115,22 @@ public class ViewDiagram extends Container {
 		return models;
 	}
 
+	public List<Container> getSectionContainers(Container container) {
+		List<Container> containers = new ArrayList<Container>();
+		List<AuroraComponent> children = container.getChildren();
+		for (AuroraComponent ac : children) {
+			if (ac instanceof Container) {
+				String sectionType = ((Container) ac).getSectionType();
+				if(Container.SECTION_TYPE_QUERY.equals(sectionType)
+						|| Container.SECTION_TYPE_RESULT.equals(sectionType)){
+					containers.add((Container) ac);
+				}
+				containers.addAll(getSectionContainers((Container) ac));
+			}
+		}
+		return containers;
+	}
+	
 	public List<Container> getContainers(Container container) {
 		List<Container> containers = new ArrayList<Container>();
 		List<AuroraComponent> children = container.getChildren();

@@ -33,7 +33,10 @@ import aurora.ide.builder.ResourceUtil;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Renderer;
+import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.core.Util;
 
@@ -51,6 +54,7 @@ public class RendererEditDialog extends EditWizard {
 	private String tmpRendererType;
 	private InnerPage page;
 	public IProject auroraProject;
+	private ParameterComposite pc;
 
 	public RendererEditDialog() {
 		super();
@@ -73,6 +77,9 @@ public class RendererEditDialog extends EditWizard {
 	public boolean performFinish() {
 		renderer.setRendererType(tmpRendererType);
 		renderer.setOpenPath(tmpOpenPath);
+		renderer.getParameters().clear();
+		renderer.getParameters().addAll(pc.getParameters());
+		
 		renderer.setLabelText(tmpLabelText);
 		renderer.setFunctionName(tmpFunctionName);
 		renderer.setFunction(tmpFunction);
@@ -225,7 +232,31 @@ public class RendererEditDialog extends EditWizard {
 				}
 
 			});
+			createParaTable(composite_right);
 		}
+
+		private void createParaTable(Composite composite_right) {
+			AuroraComponent comp = (AuroraComponent) renderer.getContextInfo();
+			ViewDiagram root = null;
+			while (comp != null) {
+				if (comp instanceof ViewDiagram) {
+					root = (ViewDiagram) comp;
+					break;
+				}
+				comp = comp.getParent();
+			}
+			if (root == null) {
+				setErrorMessage(Messages.ButtonClickEditDialog_9);
+				setPageComplete(false);
+				return;
+			}
+			GridData data = new GridData(GridData.FILL_BOTH);
+			data.horizontalSpan = 3;
+			pc = new ParameterComposite(root,composite_right,SWT.NONE);
+			pc.setLayoutData(data);
+			pc.setParameters(renderer.getParameters());
+		}
+
 
 		private void create_2() {
 			composite_right.setLayout(new GridLayout(1, false));

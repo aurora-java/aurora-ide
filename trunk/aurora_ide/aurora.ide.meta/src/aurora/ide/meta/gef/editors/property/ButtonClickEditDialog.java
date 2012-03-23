@@ -42,6 +42,7 @@ import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.TabBody;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.core.Util;
 
@@ -63,6 +64,7 @@ public class ButtonClickEditDialog extends EditWizard {
 	private String tmpWindowID;
 	private String tmpFunction;
 	private IProject auroraProject = null;
+	private ParameterComposite pc;
 
 	public ButtonClickEditDialog() {
 		setWindowTitle("Click"); //$NON-NLS-1$
@@ -83,6 +85,9 @@ public class ButtonClickEditDialog extends EditWizard {
 		if (tmpTargetCmp instanceof AuroraComponent)
 			clicker.setTargetComponent((AuroraComponent) tmpTargetCmp);
 		clicker.setOpenPath(tmpPath);
+		clicker.getParameters().clear();
+		clicker.getParameters().addAll(pc.getParameters());
+
 		clicker.setCloseWindowID(tmpWindowID);
 		clicker.setFunction(tmpFunction);
 		return true;
@@ -282,8 +287,6 @@ public class ButtonClickEditDialog extends EditWizard {
 					fss.setInput((IContainer) res);
 					Object obj = fss.getSelection();
 					if (!(obj instanceof IFile)) {
-						// setPageComplete(false);
-						// setErrorMessage(Messages.ButtonClickEditDialog_18);
 						return;
 					}
 					IFile file = (IFile) obj;
@@ -296,8 +299,31 @@ public class ButtonClickEditDialog extends EditWizard {
 
 				public void widgetDefaultSelected(SelectionEvent e) {
 				}
-
 			});
+
+			createParaTable(composite_right);
+		}
+
+		private void createParaTable(Composite composite_right) {
+			AuroraComponent comp = (AuroraComponent) clicker.getContextInfo();
+			ViewDiagram root = null;
+			while (comp != null) {
+				if (comp instanceof ViewDiagram) {
+					root = (ViewDiagram) comp;
+					break;
+				}
+				comp = comp.getParent();
+			}
+			if (root == null) {
+				setErrorMessage(Messages.ButtonClickEditDialog_9);
+				setPageComplete(false);
+				return;
+			}
+			GridData data = new GridData(GridData.FILL_BOTH);
+			data.horizontalSpan = 3;
+			pc = new ParameterComposite(root,composite_right,SWT.NONE);
+			pc.setLayoutData(data);
+			pc.setParameters(clicker.getParameters());
 		}
 
 		private void create_close() {

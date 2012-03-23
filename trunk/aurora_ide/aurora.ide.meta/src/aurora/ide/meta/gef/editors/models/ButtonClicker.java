@@ -1,7 +1,11 @@
 package aurora.ide.meta.gef.editors.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.graphics.Image;
 
+import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.property.DialogEditableObject;
 import aurora.ide.meta.gef.editors.property.PropertySourceUtil;
 import aurora.ide.meta.gef.i18n.Messages;
@@ -33,6 +37,7 @@ public class ButtonClicker extends AuroraComponent implements
 	private String actionID = DEFAULT;
 	// b_open
 	private String openPath;
+	private List<Parameter> paras = new ArrayList<Parameter>();
 	// b_close
 	private String closeWindowID;
 	// b_run
@@ -117,6 +122,10 @@ public class ButtonClicker extends AuroraComponent implements
 		bc.button = button;
 		bc.closeWindowID = closeWindowID;
 		bc.openPath = openPath;
+		bc.paras = new ArrayList<Parameter>();
+		for (Parameter p : paras) {
+			bc.paras.add(p.clone());
+		}
 		bc.function = function;
 		bc.targetComponent = targetComponent;
 		return bc;
@@ -135,4 +144,11 @@ public class ButtonClicker extends AuroraComponent implements
 		return null;
 	}
 
+	public List<Parameter> getParameters() {
+		return paras;
+	}
+
+	public void addParameter(Parameter para) {
+		paras.add(para);
+	}
 }

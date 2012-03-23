@@ -3,16 +3,24 @@ package aurora.ide.meta.gef.editors.models;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
+import aurora.ide.meta.gef.editors.models.link.DeadTabRef;
+import aurora.ide.meta.gef.editors.models.link.Parameter;
+import aurora.ide.meta.gef.editors.models.link.TabRef;
+import aurora.ide.meta.gef.editors.property.TabRefPropertyDescriptor;
+
 public class TabItem extends AuroraComponent {
+	public static final String SCREEN_REF = "screenRef";
 	private static final long serialVersionUID = -6198220551287976461L;
 	private static IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
-			PD_PROMPT, PD_WIDTH };
+			PD_PROMPT, PD_WIDTH,
+			new TabRefPropertyDescriptor(SCREEN_REF, "ref") };
 	public static final String CURRENT = "current";
 	public static final int HEIGHT = 25;
 	private TabBody body = new TabBody();
 	static int idx = 0;
 	boolean current = false;
 	private String templateRef = "";
+	private TabRef ref;
 
 	public TabItem() {
 		setWidth(65);
@@ -63,6 +71,17 @@ public class TabItem extends AuroraComponent {
 
 	@Override
 	public Object getPropertyValue(Object propName) {
+		if (SCREEN_REF.equals(propName)) {
+			TabRef tabRef = new TabRef();
+			tabRef.setTabItem(this);
+			if (ref != null) {
+				tabRef.setUrl(ref.getUrl());
+				for (Parameter p : ref.getParameters()) {
+					tabRef.addParameter(p.clone());
+				}
+			}
+			return tabRef;
+		}
 		return super.getPropertyValue(propName);
 	}
 
@@ -78,6 +97,15 @@ public class TabItem extends AuroraComponent {
 
 	@Override
 	public void setPropertyValue(Object propName, Object val) {
+
+		if (SCREEN_REF.equals(propName) && val instanceof TabRef) {
+			if (val instanceof DeadTabRef) {
+				ref = null;
+			} else {
+				ref = (TabRef) val;
+			}
+			firePropertyChange(SCREEN_REF, null, val);
+		}
 		super.setPropertyValue(propName, val);
 	}
 
@@ -87,7 +115,7 @@ public class TabItem extends AuroraComponent {
 
 	public void setTemplateRef(String templateRef) {
 		this.templateRef = templateRef;
-	
+
 	}
 
 }
