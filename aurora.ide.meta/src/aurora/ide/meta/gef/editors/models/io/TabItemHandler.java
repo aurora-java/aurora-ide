@@ -6,6 +6,7 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.TabBody;
 import aurora.ide.meta.gef.editors.models.TabItem;
+import aurora.ide.meta.gef.editors.models.link.TabRef;
 
 public class TabItemHandler extends DefaultIOHandler {
 
@@ -36,6 +37,7 @@ public class TabItemHandler extends DefaultIOHandler {
 			bodyMap.addChild(ioh.toCompositeMap(a, mic));
 		}
 		map.addChild(bodyMap);
+		map.addChild(new TabRefHandler().toCompositeMap(ti.getTabRef(), mic));
 	}
 
 	@Override
@@ -50,6 +52,10 @@ public class TabItemHandler extends DefaultIOHandler {
 		for (CompositeMap m : list) {
 			IOHandler ioh = IOHandlerUtil.getHandler(m);
 			tb.addChild(ioh.fromCompositeMap(m, mic));
+		}
+		CompositeMap m = map.getChild(TabRef.class.getSimpleName());
+		if (m != null) {
+			ti.setTabRef((TabRef) new TabRefHandler().fromCompositeMap(m, mic));
 		}
 	}
 

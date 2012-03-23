@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.models.io;
 
+import java.util.List;
+
 import org.eclipse.draw2d.geometry.Dimension;
 
 import uncertain.composite.CompositeMap;
@@ -7,6 +9,7 @@ import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Toolbar;
+import aurora.ide.meta.gef.editors.models.link.Parameter;
 
 public class ButtonHandler extends DefaultIOHandler {
 	public static final String COMMENT_TARGET = "target";
@@ -55,7 +58,18 @@ public class ButtonHandler extends DefaultIOHandler {
 				bcMap.addChild(fMap);
 			}
 			map.addChild(bcMap);
+			map.addChild(getParameterMap(bc, mic));
 		}
+	}
+
+	private CompositeMap getParameterMap(ButtonClicker clicker,
+			ModelIOContext mic) {
+		CompositeMap pMap = new CompositeMap(RendererHandler.PARAMETERS);
+		ParameterHandler ph = new ParameterHandler();
+		for (Parameter p : clicker.getParameters()) {
+			pMap.addChild(ph.toCompositeMap(p, mic));
+		}
+		return pMap;
 	}
 
 	@Override
@@ -121,12 +135,27 @@ public class ButtonHandler extends DefaultIOHandler {
 					bc.setFunction(fMap.getText());
 				}
 			}
+			restoreParameters(bc, map, mic);
 		}
 	}
 
 	@Override
 	protected AuroraComponent getNewObject(CompositeMap map) {
 		return new Button();
+	}
+
+	private void restoreParameters(ButtonClicker clicker, CompositeMap rMap,
+			ModelIOContext mic) {
+		CompositeMap psMap = rMap.getChild(RendererHandler.PARAMETERS);
+		if (psMap == null)
+			return;
+		ParameterHandler ph = new ParameterHandler();
+		@SuppressWarnings("unchecked")
+		List<CompositeMap> list = psMap.getChildsNotNull();
+		for (CompositeMap m : list) {
+			Parameter p = (Parameter) ph.fromCompositeMap(m, mic);
+			clicker.addParameter(p);
+		}
 	}
 
 }
