@@ -59,7 +59,7 @@ public abstract class DefaultIOHandler implements IOHandler {
 		List<AuroraComponent> list = container.getChildren();
 		if (list.size() == 0)
 			return;
-		CompositeMap childList = new CompositeMap(CHILD_LIST);
+		CompositeMap childList = new CommentCompositeMap(CHILD_LIST);
 		for (AuroraComponent a : list) {
 			if (!isStoreable(a))
 				continue;

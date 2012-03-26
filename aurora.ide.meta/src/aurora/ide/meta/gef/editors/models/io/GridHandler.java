@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
@@ -56,7 +57,8 @@ public class GridHandler extends ContainerHandler {
 		if (!g.hasToolbar())
 			return;
 		List<Button> btns = g.getToobarButtons();
-		CompositeMap tbMap = new CompositeMap(Toolbar.class.getSimpleName());
+		CompositeMap tbMap = new CommentCompositeMap(
+				Toolbar.class.getSimpleName());
 		for (Button b : btns) {
 			tbMap.addChild(new ButtonHandler().toCompositeMap(b, mic));
 		}
