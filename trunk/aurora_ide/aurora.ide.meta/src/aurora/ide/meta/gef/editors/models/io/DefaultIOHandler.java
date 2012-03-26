@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.models.io;
 
 import java.util.List;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
@@ -14,7 +15,7 @@ public abstract class DefaultIOHandler implements IOHandler {
 
 	public CompositeMap toCompositeMap(AuroraComponent ac, ModelIOContext mic) {
 		this.mic = mic;
-		CompositeMap map = new CompositeMap();
+		CompositeMap map = new CommentCompositeMap();
 		map.setName(ac.getClass().getSimpleName());
 		map.put(MARKID, ac.markid);
 		map.put(AuroraComponent.NAME, ac.getName());

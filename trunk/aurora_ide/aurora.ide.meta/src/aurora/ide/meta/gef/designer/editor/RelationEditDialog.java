@@ -20,6 +20,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -45,8 +46,9 @@ import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.core.Util;
 
-public class RelationEditDialog extends Dialog {
+public class RelationEditDialog extends Dialog implements SelectionListener {
 	private Text text_relname;
+
 	private Text text_refmodel;
 	private BMModel model;
 	private Relation relation;
@@ -272,35 +274,43 @@ public class RelationEditDialog extends Dialog {
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		((GridLayout) parent.getLayout()).numColumns++;
-		Button button = new Button(parent, SWT.PUSH);
-		button.setText(IDialogConstants.OK_LABEL);
-		setButtonLayoutData(button);
-		button.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				relation.setName(text_relname.getText());
-				relation.setRefTable(text_refmodel.getText());
-				Record r = getSelectedLocalField();
-				if (r != null)
-					relation.setLocalField(r.getPrompt());
-				else
-					relation.setLocalField("");
-				CompositeMap forMap = getSelectedForienField();
-				if (forMap != null)
-					relation.setSrcField(forMap.getString("name"));
-				else
-					relation.setSrcField("");
-				int idx = com_jointype.getSelectionIndex();
-				if (idx == -1)
-					idx = 0;
-				relation.setJoinType(com_jointype.getItem(idx));
-				setReturnCode(OK);
-				close();
-			}
-		});
+		// use ignore_id to create a button,and process click event manual.
+		// because the ok_id will automatical close the dialog and dispose all
+		// controls
+		// thus i can`t get the value in control
+		Button button = createButton(parent, IDialogConstants.IGNORE_ID,
+				IDialogConstants.OK_LABEL, false);
+		button.addSelectionListener(this);
 		createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
+
+	}
+
+	public void widgetSelected(SelectionEvent e) {
+		relation.setName(text_relname.getText());
+		relation.setRefTable(text_refmodel.getText());
+		Record r = getSelectedLocalField();
+		if (r != null)
+			relation.setLocalField(r.getPrompt());
+		else
+			relation.setLocalField("");
+		CompositeMap forMap = getSelectedForienField();
+		if (forMap != null) {
+			String prompt = forMap.getString("prompt");
+			relation.setSrcField(prompt == null ? "" : prompt);
+		} else
+			relation.setSrcField("");
+		int idx = com_jointype.getSelectionIndex();
+		if (idx == -1)
+			idx = 0;
+		relation.setJoinType(com_jointype.getItem(idx));
+		// close the dialog
+		setReturnCode(OK);
+		close();
+	}
+
+	public void widgetDefaultSelected(SelectionEvent e) {
+		widgetSelected(e);
 	}
 
 	private Record getSelectedLocalField() {
@@ -348,9 +358,10 @@ public class RelationEditDialog extends Dialog {
 				if (refFieldListViewer != null) {
 					refFieldListViewer.refresh();
 				}
+				String srcF = relation.getSrcField();
 				for (int i = 0; i < bmfieldList.size(); i++) {
-					if (bmfieldList.get(i).getString("name")
-							.equals(relation.getSrcField())) {
+					String pmpt = bmfieldList.get(i).getString("prompt");
+					if (pmpt != null && pmpt.equals(srcF)) {
 						bmFieldComboViewer.getCombo().select(i);
 						break;
 					}

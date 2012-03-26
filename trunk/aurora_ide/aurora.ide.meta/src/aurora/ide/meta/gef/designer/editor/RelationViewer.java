@@ -6,17 +6,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 
-public class RelationViewer extends TableViewer {
-	public static final String COLUMN_RELNAME = "REL_NAME";
-	public static final String COLUMN_REFMODEL = "REF_MODEL";
-	public static final String COLUMN_LOCFIELD = "LOC_FIELD";
-	public static final String COLUMN_SRCFIELD = "SRC_FIELD";
-	public static final String COLUMN_JOINTYPE = "JOIN_TYPE";
-	public static final String[] COLUMN_PROPERTIES = { "",
-			BMModelViewer.COLUMN_NUM, COLUMN_RELNAME, COLUMN_REFMODEL,
-			COLUMN_LOCFIELD, COLUMN_SRCFIELD, COLUMN_JOINTYPE };
+public class RelationViewer extends TableViewer implements IDesignerConst {
 
 	public RelationViewer(Composite parent) {
 		super(parent);

@@ -3,10 +3,9 @@ package aurora.ide.meta.gef.designer.model;
 import java.util.List;
 
 import uncertain.composite.CompositeMap;
-import aurora.ide.meta.gef.designer.editor.BMModelViewer;
-import aurora.ide.meta.gef.designer.editor.RelationViewer;
+import aurora.ide.meta.gef.designer.IDesignerConst;
 
-public class ModelUtil {
+public class ModelUtil implements IDesignerConst {
 	private static final String RECORDS = Record.class.getSimpleName() + "s";
 	private static final String RELATIONS = Relation.class.getSimpleName()
 			+ "s";
@@ -33,7 +32,7 @@ public class ModelUtil {
 		CompositeMap map = new CompositeMap(Record.class.getSimpleName());
 		if (r == null)
 			return null;
-		String[] keys = BMModelViewer.TABLE_COLUMN_PROPERTIES;
+		String[] keys = TABLE_COLUMN_PROPERTIES;
 		for (int i = 2; i < keys.length; i++) {
 			map.put(keys[i], r.get(keys[i]));
 		}
@@ -44,7 +43,7 @@ public class ModelUtil {
 		CompositeMap map = new CompositeMap(Relation.class.getSimpleName());
 		if (r == null)
 			return null;
-		String[] keys = RelationViewer.COLUMN_PROPERTIES;
+		String[] keys = COLUMN_PROPERTIES;
 		for (int i = 2; i < keys.length; i++) {
 			map.put(keys[i], r.get(keys[i]));
 		}
@@ -75,9 +74,9 @@ public class ModelUtil {
 
 	private static Record getRecord(CompositeMap map) {
 		Record r = new Record();
-		String[] keys = BMModelViewer.TABLE_COLUMN_PROPERTIES;
+		String[] keys = TABLE_COLUMN_PROPERTIES;
 		for (int i = 2; i < keys.length; i++) {
-			if (BMModelViewer.COLUMN_QUERYFIELD.equals(keys[i]))
+			if (COLUMN_QUERYFIELD.equals(keys[i]))
 				r.put(keys[i], map.getBoolean(keys[i]));
 			r.put(keys[i], map.get(keys[i]));
 		}
@@ -86,7 +85,7 @@ public class ModelUtil {
 
 	private static Relation getRelation(CompositeMap map) {
 		Relation r = new Relation();
-		String[] keys = RelationViewer.COLUMN_PROPERTIES;
+		String[] keys = COLUMN_PROPERTIES;
 		for (int i = 2; i < keys.length; i++) {
 			r.put(keys[i], map.get(keys[i]));
 		}
