@@ -19,9 +19,9 @@ public class BMModel {
 
 		public void propertyChange(PropertyChangeEvent evt) {
 			Record r = (Record) evt.getSource();
-			firePropertyChange(
-					"Record" + r.getNum() + ":" + evt.getPropertyName(),
-					evt.getOldValue(), evt.getNewValue());
+			firePropertyChange(Record.class.getSimpleName() + ":" + r.getNum()
+					+ ":" + evt.getPropertyName(), evt.getOldValue(),
+					evt.getNewValue());
 		}
 
 	};
@@ -31,8 +31,9 @@ public class BMModel {
 		public void propertyChange(PropertyChangeEvent evt) {
 			Record r = (Record) evt.getSource();
 			firePropertyChange(
-					"Relation" + r.getNum() + ":" + evt.getPropertyName(),
-					evt.getOldValue(), evt.getNewValue());
+					Relation.class.getSimpleName() + ":" + r.getNum() + ":"
+							+ evt.getPropertyName(), evt.getOldValue(),
+					evt.getNewValue());
 		}
 
 	};
@@ -177,6 +178,7 @@ public class BMModel {
 
 	public void removeAll() {
 		records.clear();
+		notifyModidy();
 	}
 
 	public void addPropertyChangeListener(PropertyChangeListener l) {

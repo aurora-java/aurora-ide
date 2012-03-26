@@ -347,13 +347,23 @@ public class BMDesignPage extends FormPage {
 			viewer.refresh();
 	}
 
-	public void setModel(BMModel model) {
+	public void setModel(final BMModel model) {
 		this.model = model;
 		model.addPropertyChangeListener(new PropertyChangeListener() {
 
 			public void propertyChange(PropertyChangeEvent evt) {
 				System.out.println(evt.getPropertyName() + " change from "
 						+ evt.getOldValue() + " to " + evt.getNewValue());
+				String[] pns = evt.getPropertyName().split(":");
+				if (pns.length == 3
+						&& pns[0].equals(Record.class.getSimpleName())
+						&& pns[2].equals(BMModelViewer.COLUMN_TYPE)) {
+					Object old = evt.getOldValue();
+					if (old != null && !old.equals("")) {
+						Record r = model.getAt(Integer.parseInt(pns[1]) - 1);
+						viewer.refresh(r);
+					}
+				}
 				setDirty(true);
 			}
 		});

@@ -4,9 +4,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 
-import aurora.ide.meta.gef.designer.editor.BMModelViewer;
+import aurora.ide.meta.gef.designer.IDesignerConst;
 
-public class Record {
+public class Record implements IDesignerConst {
 
 	private HashMap<String, Object> map = new HashMap<String, Object>();
 	PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -21,6 +21,7 @@ public class Record {
 	}
 
 	public final void put(String key, Object value) {
+		String okey = key;
 		if (key != null)
 			key = key.toLowerCase();
 		Object old = map.get(key);
@@ -29,7 +30,7 @@ public class Record {
 			return;
 		if ((old == null && value != null) || (old != null && value == null)
 				|| (!old.equals(value)))
-			firePropertyChange(key, old, value);
+			firePropertyChange(okey, old, value);
 	}
 
 	public String getString(String key) {
@@ -45,19 +46,19 @@ public class Record {
 	}
 
 	public int getNum() {
-		return getInt(BMModelViewer.COLUMN_NUM);
+		return getInt(COLUMN_NUM);
 	}
 
 	public void setNum(int num) {
-		put(BMModelViewer.COLUMN_NUM, num);
+		put(COLUMN_NUM, num);
 	}
 
 	public String getPrompt() {
-		return getString(BMModelViewer.COLUMN_PROMPT);
+		return getString(COLUMN_PROMPT);
 	}
 
 	public void setPrompt(String prompt) {
-		put(BMModelViewer.COLUMN_PROMPT, prompt);
+		put(COLUMN_PROMPT, prompt);
 	}
 
 	public Integer getInt(String key) {
@@ -101,7 +102,7 @@ public class Record {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder(1000);
-		for (String key : BMModelViewer.TABLE_COLUMN_PROPERTIES) {
+		for (String key : TABLE_COLUMN_PROPERTIES) {
 			if (key.length() == 0)
 				continue;
 			sb.append(key);
@@ -113,10 +114,18 @@ public class Record {
 	}
 
 	public String getName() {
-		return getStringNotNull(BMModelViewer.COLUMN_NAME);
+		return getStringNotNull(COLUMN_NAME);
 	}
 
 	public void setName(String name) {
-		put(BMModelViewer.COLUMN_NAME, name);
+		put(COLUMN_NAME, name);
+	}
+
+	public String getType() {
+		return getStringNotNull(COLUMN_TYPE);
+	}
+
+	public void setType(String type) {
+		put(COLUMN_TYPE, type);
 	}
 }

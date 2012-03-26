@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.models.io;
 
 import java.util.List;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.TabBody;
@@ -30,7 +31,7 @@ public class TabItemHandler extends DefaultIOHandler {
 	@Override
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
 		TabItem ti = (TabItem) ac;
-		CompositeMap bodyMap = new CompositeMap();
+		CompositeMap bodyMap = new CommentCompositeMap();
 		bodyMap.setName(TabBody.class.getSimpleName());
 		for (AuroraComponent a : ti.getBody().getChildren()) {
 			IOHandler ioh = IOHandlerUtil.getHandler(a);

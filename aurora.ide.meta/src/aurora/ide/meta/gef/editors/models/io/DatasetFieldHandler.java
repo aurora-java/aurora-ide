@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.editors.models.io;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.DatasetField;
@@ -18,7 +19,7 @@ public class DatasetFieldHandler implements IOHandler {
 
 	public CompositeMap toCompositeMap(AuroraComponent ac, ModelIOContext mic) {
 		DatasetField df = (DatasetField) ac;
-		CompositeMap dfMap = new CompositeMap();
+		CompositeMap dfMap = new CommentCompositeMap();
 		dfMap.setName(DatasetField.class.getSimpleName());
 		for (Object[] key : keymap) {
 			Object val = df.getPropertyValue(key[0]);

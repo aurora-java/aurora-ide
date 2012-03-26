@@ -16,9 +16,11 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
 import uncertain.composite.CompositeMapParser;
+import aurora.ide.meta.gef.designer.gen.SqlGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
 
@@ -57,6 +59,9 @@ public class BMDesigner extends FormEditor {
 			inputFile.setContents(new ByteArrayInputStream(out.toByteArray()),
 					true, false, monitor);
 			out.close();
+			String fn = inputFile.getName();
+			fn = fn.split("\\.")[0];
+			System.out.println(new SqlGenerator(model, fn).gen());
 			dpage.setDirty(false);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,7 +106,7 @@ public class BMDesigner extends FormEditor {
 					e.printStackTrace();
 				}
 			if (map == null)
-				map = new CompositeMap();
+				map = new CommentCompositeMap();
 		}
 		//
 		model = getModel(map);

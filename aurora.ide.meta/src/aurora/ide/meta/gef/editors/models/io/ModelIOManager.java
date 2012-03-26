@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.models.io;
 
 import java.util.List;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -22,7 +23,7 @@ public class ModelIOManager {
 	}
 
 	public CompositeMap toCompositeMap(ViewDiagram diagram) {
-		CompositeMap root = new CompositeMap();
+		CompositeMap root = new CommentCompositeMap();
 		root.setName(diagram.getClass().getSimpleName());
 		root.put(BIND_TEMPLATE, diagram.getBindTemplate());
 		for (AuroraComponent ac : diagram.getChildren()) {

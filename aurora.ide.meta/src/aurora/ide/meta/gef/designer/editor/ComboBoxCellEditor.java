@@ -58,6 +58,7 @@ public class ComboBoxCellEditor extends AbstractComboBoxCellEditor {
 		comboBox = new CCombo(parent, getStyle() | SWT.READ_ONLY);
 		comboBox.setFont(parent.getFont());
 		comboBox.setBackground(parent.getBackground());
+		comboBox.setVisibleItemCount(10);
 		populateComboBoxItems();
 
 		comboBox.addKeyListener(new KeyAdapter() {
@@ -172,7 +173,7 @@ public class ComboBoxCellEditor extends AbstractComboBoxCellEditor {
 	void applyEditorValueAndDeactivate() {
 		// must set the selection before getting value
 		selection = comboBox.getSelectionIndex();
-		s = items[selection];
+		s = selection == -1 ? "" : items[selection];
 		Object newValue = doGetValue();
 		markDirty();
 		boolean isValid = isCorrect(newValue);
