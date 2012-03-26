@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
@@ -34,7 +35,7 @@ public class ButtonHandler extends DefaultIOHandler {
 			ButtonClicker bc = b.getButtonClicker();
 			if (bc == null)
 				return;
-			CompositeMap bcMap = new CompositeMap(
+			CompositeMap bcMap = new CommentCompositeMap(
 					ButtonClicker.class.getSimpleName());
 			String aid = bc.getActionID();
 			bcMap.put("id", bc.getActionID());

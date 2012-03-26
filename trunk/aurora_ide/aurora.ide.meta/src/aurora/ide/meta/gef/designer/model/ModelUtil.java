@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.designer.model;
 
 import java.util.List;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 
@@ -11,16 +12,17 @@ public class ModelUtil implements IDesignerConst {
 			+ "s";
 
 	public static CompositeMap toCompositeMap(BMModel model) {
-		CompositeMap map = new CompositeMap(BMModel.class.getSimpleName());
+		CompositeMap map = new CommentCompositeMap(
+				BMModel.class.getSimpleName());
 		if (model == null)
 			return map;
 		map.put(BMModel.TITLE, model.getTitle());
-		CompositeMap recordMap = new CompositeMap(RECORDS);
+		CompositeMap recordMap = new CommentCompositeMap(RECORDS);
 		for (Record r : model.getRecords()) {
 			recordMap.addChild(toCompositeMap(r));
 		}
 		map.addChild(recordMap);
-		CompositeMap relationMap = new CompositeMap(RELATIONS);
+		CompositeMap relationMap = new CommentCompositeMap(RELATIONS);
 		for (Relation r : model.getRelations()) {
 			relationMap.addChild(toCompositeMap(r));
 		}
@@ -29,7 +31,7 @@ public class ModelUtil implements IDesignerConst {
 	}
 
 	private static CompositeMap toCompositeMap(Record r) {
-		CompositeMap map = new CompositeMap(Record.class.getSimpleName());
+		CompositeMap map = new CommentCompositeMap(Record.class.getSimpleName());
 		if (r == null)
 			return null;
 		String[] keys = TABLE_COLUMN_PROPERTIES;
@@ -40,7 +42,8 @@ public class ModelUtil implements IDesignerConst {
 	}
 
 	private static CompositeMap toCompositeMap(Relation r) {
-		CompositeMap map = new CompositeMap(Relation.class.getSimpleName());
+		CompositeMap map = new CommentCompositeMap(
+				Relation.class.getSimpleName());
 		if (r == null)
 			return null;
 		String[] keys = COLUMN_PROPERTIES;

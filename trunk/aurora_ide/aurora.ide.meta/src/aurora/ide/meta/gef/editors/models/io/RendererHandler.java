@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.models.io;
 
 import java.util.List;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Renderer;
@@ -29,7 +30,7 @@ public class RendererHandler extends DefaultIOHandler {
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
 		super.storeComplexAttribute(map, ac);
 		Renderer renderer = (Renderer) ac;
-		CompositeMap fMap = new CompositeMap(FUNCTION);
+		CompositeMap fMap = new CommentCompositeMap(FUNCTION);
 		fMap.setText(renderer.getFunction());
 		map.addChild(fMap);
 		map.addChild(getParameterMap(renderer, mic));
