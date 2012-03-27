@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.models.io;
 
 import java.util.List;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
@@ -35,7 +36,7 @@ public class TabRefHandler extends DefaultIOHandler {
 	}
 
 	private CompositeMap getParameterMap(TabRef ref, ModelIOContext mic) {
-		CompositeMap pMap = new CompositeMap(RendererHandler.PARAMETERS);
+		CompositeMap pMap = new CommentCompositeMap(RendererHandler.PARAMETERS);
 		ParameterHandler ph = new ParameterHandler();
 		for (Parameter p : ref.getParameters()) {
 			pMap.addChild(ph.toCompositeMap(p, mic));

@@ -20,6 +20,7 @@ import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
 import uncertain.composite.CompositeMapParser;
+import aurora.ide.meta.gef.designer.gen.BmGenerator;
 import aurora.ide.meta.gef.designer.gen.SqlGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
@@ -62,6 +63,7 @@ public class BMDesigner extends FormEditor {
 			String fn = inputFile.getName();
 			fn = fn.split("\\.")[0];
 			System.out.println(new SqlGenerator(model, fn).gen());
+			new BmGenerator(model, fn).gen();
 			dpage.setDirty(false);
 		} catch (Exception e) {
 			e.printStackTrace();

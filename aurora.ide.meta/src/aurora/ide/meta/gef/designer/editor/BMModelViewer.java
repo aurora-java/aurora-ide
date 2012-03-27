@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
@@ -26,8 +27,14 @@ import aurora.ide.meta.gef.editors.property.StringCellEditor;
 public class BMModelViewer extends TableViewer implements IDesignerConst {
 
 	public static final String[] editor_types = Input.INPUT_TYPES;
+	// public static final String[] data_types = {
+	// DataType.TEXT.getDisplayType(),
+	// DataType.LONG_TEXT.getDisplayType(),
+	// DataType.INTEGER.getDisplayType(), DataType.FLOAT.getDisplayType(),
+	// DataType.DATE.getDisplayType(), DataType.DATE_TIME.getDisplayType() };
 
 	private HashMap<String, CellEditor> editorMap = new HashMap<String, CellEditor>();
+	private HashMap<String, String[]> operatorsMap = new HashMap<String, String[]>();
 
 	public BMModelViewer(Composite parent) {
 		super(parent);
@@ -152,30 +159,44 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 
 	private CellEditor[] getNewCellEditors(Record record) {
 		Table table = getTable();
-		String type = record.getType();
-		ArrayList<String> ops = new ArrayList<String>();
-		ops.add(OP_EQ);
-		if (INTEGER.equals(type) || FLOAT.equals(type)) {
-			ops.add(OP_GT);
-			ops.add(OP_LT);
-			ops.add(OP_GE);
-			ops.add(OP_LE);
-			ops.add(OP_INTERVAL);
-		} else if (TEXT.equals(type) || LONG_TEXT.equals(type)) {
-			ops.add(OP_LIKE);
-			ops.add(OP_PRE_MATCH);
-			ops.add(OP_END_MATCH);
-			ops.add(OP_ANY_MATCH);
-		} else if (DATE.equals(type) || DATE_TIME.equals(type)) {
-			ops.add(OP_INTERVAL);
-		}
-		String[] ss = new String[ops.size()];
-		ops.toArray(ss);
+		String[] ss = getOperators(record.getType());
 		return new CellEditor[] { null, null, new StringCellEditor(table),
 				new ComboBoxCellEditor(table, data_types),
 				new StringCellEditor(table),
 				new ComboBoxCellEditor(table, editor_types),
 				new BooleanCellEditor(table), new ComboBoxCellEditor(table, ss) };
+	}
+
+	private String[] getOperators(String displayType) {
+		String[] ss = operatorsMap.get(displayType);
+		if (ss == null) {
+			DataType dt = DataType.fromString(displayType);
+			ArrayList<String> ops = new ArrayList<String>();
+			ops.add(OP_EQ);
+			switch (dt) {
+			case INTEGER:
+			case FLOAT:
+				ops.add(OP_GT);
+				ops.add(OP_LT);
+				ops.add(OP_GE);
+				ops.add(OP_LE);
+			case DATE:
+			case DATE_TIME:
+				ops.add(OP_INTERVAL);
+				break;
+			case TEXT:
+			case LONG_TEXT:
+				ops.add(OP_LIKE);
+				ops.add(OP_PRE_MATCH);
+				ops.add(OP_END_MATCH);
+				ops.add(OP_ANY_MATCH);
+				break;
+			}
+			ss = new String[ops.size()];
+			ops.toArray(ss);
+			operatorsMap.put(displayType, ss);
+		}
+		return ss;
 	}
 
 	private class FocusMoveKeyListener extends KeyAdapter {

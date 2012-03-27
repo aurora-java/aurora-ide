@@ -54,7 +54,7 @@ public class ButtonHandler extends DefaultIOHandler {
 			} else if (ButtonClicker.B_CLOSE.equals(aid)) {
 				bcMap.put("closeWindowID", bc.getCloseWindowID());
 			} else if (ButtonClicker.B_CUSTOM.equals(aid)) {
-				CompositeMap fMap = new CompositeMap("function");
+				CompositeMap fMap = new CommentCompositeMap("function");
 				fMap.setText(bc.getFunction());
 				bcMap.addChild(fMap);
 			}
@@ -65,7 +65,7 @@ public class ButtonHandler extends DefaultIOHandler {
 
 	private CompositeMap getParameterMap(ButtonClicker clicker,
 			ModelIOContext mic) {
-		CompositeMap pMap = new CompositeMap(RendererHandler.PARAMETERS);
+		CompositeMap pMap = new CommentCompositeMap(RendererHandler.PARAMETERS);
 		ParameterHandler ph = new ParameterHandler();
 		for (Parameter p : clicker.getParameters()) {
 			pMap.addChild(ph.toCompositeMap(p, mic));
