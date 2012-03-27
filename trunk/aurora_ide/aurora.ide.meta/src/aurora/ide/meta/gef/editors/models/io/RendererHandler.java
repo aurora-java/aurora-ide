@@ -37,7 +37,7 @@ public class RendererHandler extends DefaultIOHandler {
 	}
 
 	private CompositeMap getParameterMap(Renderer renderer, ModelIOContext mic) {
-		CompositeMap pMap = new CompositeMap(PARAMETERS);
+		CompositeMap pMap = new CommentCompositeMap(PARAMETERS);
 		ParameterHandler ph = new ParameterHandler();
 		for (Parameter p : renderer.getParameters()) {
 			pMap.addChild(ph.toCompositeMap(p, mic));

@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.source.gen;
 
 import java.util.List;
 
+import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
@@ -22,7 +23,7 @@ public class AuroraComponent2CompositMap {
 	public static final String SCREEN_PREFIX = "a";
 
 	static public CompositeMap createScreenCompositeMap() {
-		CompositeMap screen = new CompositeMap("screen");
+		CompositeMap screen = new CommentCompositeMap("screen");
 		screen.setNameSpace(SCREEN_PREFIX,
 				"http://www.aurora-framework.org/application");
 		return screen;
@@ -35,7 +36,7 @@ public class AuroraComponent2CompositMap {
 	}
 
 	static public CompositeMap createChild(String name) {
-		CompositeMap node = new CompositeMap(name);
+		CompositeMap node = new CommentCompositeMap(name);
 		node.setPrefix(SCREEN_PREFIX);
 		return node;
 	}
@@ -92,13 +93,12 @@ public class AuroraComponent2CompositMap {
 		}
 	}
 
-	public void doLovMap( Dataset ds,
-			AuroraComponent ac, CompositeMap lovMap) {
+	public void doLovMap(Dataset ds, AuroraComponent ac, CompositeMap lovMap) {
 		CompositeMap containerMap = lovMap.getParent();
 		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
 				screenGenerator.getProject(), ac.getName(), ds.getModel());
 		CompositeMap bmMap = dataSetFieldUtil.getBmMap();
-		if(bmMap==null)
+		if (bmMap == null)
 			return;
 		MapFinder mf = new MapFinder();
 		CompositeMap relation = mf.lookupRelation(lovMap.getString("name", ""),

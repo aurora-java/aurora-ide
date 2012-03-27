@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.designer.gen;
 
+import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
@@ -14,6 +15,7 @@ public class SqlGenerator implements IDesignerConst {
 
 	private BMModel model;
 	private String name;
+	private int maxNameLength = 0;
 
 	public SqlGenerator(BMModel model, String name) {
 		this.model = model;
@@ -24,11 +26,12 @@ public class SqlGenerator implements IDesignerConst {
 		Record[] rs = model.getRecords();
 		StringBuilder sb = new StringBuilder(2000);
 		sb.append(String.format(header, name));
-		String cm = String.format(column_model, getMaxNameLength());
+		maxNameLength = getMaxNameLength();
+		String cm = String.format(column_model, maxNameLength);
 		for (int i = 0; i < rs.length; i++) {
 			String t = (i == rs.length - 1) ? "" : ",";
 			sb.append(String.format(cm, rs[i].getName(),
-					getRealType(rs[i].getType()))
+					getSqlType(rs[i].getType()))
 					+ t + line_sep);
 		}
 		sb.append(tail);
@@ -40,7 +43,7 @@ public class SqlGenerator implements IDesignerConst {
 		sb.append(line_sep);
 		sb.append("-- Add comments to the columns " + line_sep);
 		String cm = String.format(comment_model, name.length() + 1
-				+ getMaxNameLength());
+				+ maxNameLength);
 		for (Record r : model.getRecordList()) {
 			sb.append(String.format(cm, name + "." + r.getName(), r.getPrompt()));
 		}
@@ -56,19 +59,10 @@ public class SqlGenerator implements IDesignerConst {
 		return length;
 	}
 
-	private String getRealType(String type) {
-		if (TEXT.equals(type))
-			return "varchar2(50)";
-		else if (LONG_TEXT.equals(type))
-			return "clob";
-		else if (INTEGER.equals(type))
-			return "number";
-		else if (FLOAT.equals(type))
-			return "number(20,2)";
-		else if (DATE.equals(type))
-			return "date";
-		else if (DATE_TIME.equals(type))
-			return "date";
-		return "unknown";
+	private String getSqlType(String type) {
+		DataType dt = DataType.fromString(type);
+		if (dt != null)
+			return dt.getSqlType();
+		return "varchar2(100)";
 	}
 }
