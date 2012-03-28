@@ -12,6 +12,16 @@ public class TemplateNodeEditPolicy extends NodeEditPolicy {
 		if (parent instanceof ViewDiagram) {
 			return null;
 		}
+		if (!isAllowDel()) {
+			return null;
+		}
 		return super.createDeleteCommand(deleteRequest);
 	}
+
+	private boolean isAllowDel() {
+		Object model = getHost().getModel();
+		return !TemplateModeUtil.isBindTemplate(model);
+	}
+
+	
 }

@@ -14,7 +14,11 @@ public class TemplateContainerLayoutEditPolicy extends
 	}
 
 	protected Command createAddCommand(EditPart child, EditPart after) {
-		if (child.getParent() instanceof ViewDiagramPart) {
+		EditPart childParent = child.getParent();
+		if (childParent instanceof ViewDiagramPart) {
+			return null;
+		}
+		if (TemplateModeUtil.isBindTemplate(child.getModel())) {
 			return null;
 		}
 		return super.createAddCommand(child, after);
