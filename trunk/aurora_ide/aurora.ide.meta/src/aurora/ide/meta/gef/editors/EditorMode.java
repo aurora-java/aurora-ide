@@ -21,5 +21,8 @@ public class EditorMode {
 		}
 		return None;
 	}
+	public boolean isForDisplay(){
+		return false;
+	}
 
 }
