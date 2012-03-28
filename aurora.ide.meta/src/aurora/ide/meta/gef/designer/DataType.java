@@ -43,9 +43,15 @@ public enum DataType {
 		return displayType;
 	}
 
+	/**
+	 * find the datatype by display type ,Ignore Case
+	 * 
+	 * @param str
+	 * @return
+	 */
 	public static DataType fromString(String str) {
 		for (DataType dt : values()) {
-			if (dt.getDisplayType().equals(str))
+			if (dt.getDisplayType().equalsIgnoreCase(str))
 				return dt;
 		}
 		return null;

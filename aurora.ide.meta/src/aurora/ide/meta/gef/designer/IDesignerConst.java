@@ -4,24 +4,24 @@ import aurora.ide.meta.gef.designer.editor.BMModelViewer;
 
 public interface IDesignerConst {
 	// modelviewer column properties
-	String COLUMN_NUM = "NO.";
-	String COLUMN_PROMPT = "PROMPT";
-	String COLUMN_TYPE = "TYPE";
-	String COLUMN_NAME = "NAME";
-	String COLUMN_EDITOR = "EDITOR";
-	String COLUMN_QUERYFIELD = "QUERYFEILD";
-	String COLUMN_ISFOREIGN = "FOREIGN";
-	String COLUMN_QUERY_OP = "QUERY_OP";
+	String COLUMN_NUM = "no.";
+	String COLUMN_PROMPT = "prompt";
+	String COLUMN_TYPE = "type";
+	String COLUMN_NAME = "name";
+	String COLUMN_EDITOR = "editor";
+	String COLUMN_QUERYFIELD = "queryfield";
+	String COLUMN_ISFOREIGN = "foreign";
+	String COLUMN_QUERY_OP = "query_op";
 
 	String[] TABLE_COLUMN_PROPERTIES = { "", COLUMN_NUM, COLUMN_PROMPT,
 			COLUMN_TYPE, COLUMN_NAME, COLUMN_EDITOR, COLUMN_QUERYFIELD,
 			COLUMN_QUERY_OP };
 	// relationviewer column properties
-	String COLUMN_RELNAME = "REL_NAME";
-	String COLUMN_REFMODEL = "REF_MODEL";
-	String COLUMN_LOCFIELD = "LOC_FIELD";
-	String COLUMN_SRCFIELD = "SRC_FIELD";
-	String COLUMN_JOINTYPE = "JOIN_TYPE";
+	String COLUMN_RELNAME = "rel_name";
+	String COLUMN_REFMODEL = "ref_model";
+	String COLUMN_LOCFIELD = "loc_field";
+	String COLUMN_SRCFIELD = "src_field";
+	String COLUMN_JOINTYPE = "join_type";
 	String[] COLUMN_PROPERTIES = { "", BMModelViewer.COLUMN_NUM,
 			COLUMN_RELNAME, COLUMN_REFMODEL, COLUMN_LOCFIELD, COLUMN_SRCFIELD,
 			COLUMN_JOINTYPE };

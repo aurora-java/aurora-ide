@@ -16,10 +16,10 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
 
-import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
 import uncertain.composite.CompositeMapParser;
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.designer.gen.BmGenerator;
 import aurora.ide.meta.gef.designer.gen.SqlGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
