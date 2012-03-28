@@ -2,8 +2,8 @@ package aurora.ide.meta.gef.designer.model;
 
 import java.util.List;
 
-import uncertain.composite.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 
 public class ModelUtil implements IDesignerConst {

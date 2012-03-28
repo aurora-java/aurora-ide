@@ -1,6 +1,6 @@
 package aurora.ide.meta.gef.editors.models.io;
 
-import uncertain.composite.CommentCompositeMap;
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.DatasetField;
