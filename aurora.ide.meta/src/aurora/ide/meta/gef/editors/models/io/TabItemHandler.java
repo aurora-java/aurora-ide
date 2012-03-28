@@ -2,8 +2,8 @@ package aurora.ide.meta.gef.editors.models.io;
 
 import java.util.List;
 
-import aurora.ide.api.composite.map.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.TabBody;
 import aurora.ide.meta.gef.editors.models.TabItem;
@@ -38,7 +38,9 @@ public class TabItemHandler extends DefaultIOHandler {
 			bodyMap.addChild(ioh.toCompositeMap(a, mic));
 		}
 		map.addChild(bodyMap);
-		map.addChild(new TabRefHandler().toCompositeMap(ti.getTabRef(), mic));
+		TabRef tr = ti.getTabRef();
+		if (tr != null)
+			map.addChild(new TabRefHandler().toCompositeMap(tr, mic));
 	}
 
 	@Override
