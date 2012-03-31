@@ -9,7 +9,7 @@ import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.property.TabRefPropertyDescriptor;
 
 public class TabItem extends AuroraComponent {
-	public static final String SCREEN_REF = "screenRef";
+	public static final String SCREEN_REF = "ref";
 	private static final long serialVersionUID = -6198220551287976461L;
 	private static IPropertyDescriptor[] pds = new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, new TabRefPropertyDescriptor(SCREEN_REF, "ref") };
 	public static final String CURRENT = "current";
