@@ -2,7 +2,7 @@ package aurora.ide.meta.gef.editors.template;
 
 import org.eclipse.core.resources.IFile;
 
-public class Model {
+public class BMReference {
 
 	private String id;
 	private String name;
@@ -32,10 +32,4 @@ public class Model {
 		this.model = model;
 	}
 
-	public boolean equals(Object obj) {
-		if (obj instanceof Model) {
-			return ((Model) obj).getId().equals(id);
-		}
-		return false;
-	}
 }

@@ -3,37 +3,38 @@ package aurora.ide.meta.gef.editors.template;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Template {
+public class Template extends Component {
 
-	private List<Region> regions = new ArrayList<Region>();
-	private List<Model> models = new ArrayList<Model>();
-	private String name;
+	private String path;
+	
 	private String icon;
 	private String description;
-	private String path;
+	private List<BMReference> bms = new ArrayList<BMReference>();
+	private List<Template> refTemplates = new ArrayList<Template>();
+	private boolean isForDisplay = false;
 
-	public List<Region> getRegions() {
-		return regions;
+	public void addModel(BMReference bm) {
+		bms.add(bm);
 	}
 
-	public void setRegions(List<Region> regions) {
-		this.regions = regions;
+	public List<BMReference> getBms() {
+		return bms;
 	}
 
-	public List<Model> getModels() {
-		return models;
+	public void setBms(List<BMReference> bms) {
+		this.bms = bms;
 	}
 
-	public void setModels(List<Model> models) {
-		this.models = models;
+	public List<Template> getRefTemplates() {
+		return refTemplates;
 	}
 
-	public String getName() {
-		return name;
+	public void setRefTemplates(List<Template> refTemplates) {
+		this.refTemplates = refTemplates;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public Template() {
+
 	}
 
 	public String getIcon() {
@@ -50,6 +51,14 @@ public class Template {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isForDisplay() {
+		return isForDisplay;
+	}
+
+	public void setForDisplay(boolean isForDisplay) {
+		this.isForDisplay = isForDisplay;
 	}
 
 	public String getPath() {
