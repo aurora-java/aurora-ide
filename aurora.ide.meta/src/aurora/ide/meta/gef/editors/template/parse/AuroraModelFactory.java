@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors.template.parse;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.FieldSet;
 import aurora.ide.meta.gef.editors.models.Form;
@@ -9,15 +10,35 @@ import aurora.ide.meta.gef.editors.models.HBox;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
+import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.VBox;
 
 public class AuroraModelFactory {
-	@SuppressWarnings("unchecked")
-	public static <T extends AuroraComponent> T createModel(String type) {
-		if (type == null)
-			throw new RuntimeException("the model type should not be null.");
+	private static String[] types = { "toolbar", "form", "fieldset", "vbox", "hbox", "textfield", "numberfield", "lov", "combobox", "datepicker", "datetimepicker", "checkbox", "grid", "tabfolder",
+			"tabitem", "button" };
+
+	public static boolean isComponent(String type) {
+		if (type == null) {
+			return false;
+		}
 		type = type.toLowerCase();
-		if ("form".equals(type)) {
+		for (String s : types) {
+			if (s.equals(type)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends AuroraComponent> T createComponent(String type) {
+		if (type == null) {
+			return null;
+		}
+		type = type.toLowerCase();
+		if ("toolbar".equals(type)) {
+			return (T) new Toolbar();
+		} else if ("form".equals(type)) {
 			return (T) new Form();
 		} else if ("fieldset".equals(type)) {
 			return (T) new FieldSet();
@@ -29,7 +50,7 @@ public class AuroraModelFactory {
 			Input input = new Input();
 			input.setType(Input.TEXT);
 			return (T) input;
-		} else if ("number".equals(type)) {
+		} else if ("numberfield".equals(type)) {
 			Input input = new Input();
 			input.setType(Input.NUMBER);
 			return (T) input;
@@ -37,15 +58,15 @@ public class AuroraModelFactory {
 			Input input = new Input();
 			input.setType(Input.LOV);
 			return (T) input;
-		} else if ("combo".equals(type)) {
+		} else if ("combobox".equals(type)) {
 			Input input = new Input();
 			input.setType(Input.Combo);
 			return (T) input;
-		} else if ("cal".equals(type)) {
+		} else if ("datepicker".equals(type)) {
 			Input input = new Input();
 			input.setType(Input.CAL);
 			return (T) input;
-		} else if ("datatimepicker".equals(type)) {
+		} else if ("datetimepicker".equals(type)) {
 			Input input = new Input();
 			input.setType(Input.DATETIMEPICKER);
 			return (T) input;
@@ -57,8 +78,10 @@ public class AuroraModelFactory {
 			return (T) new TabFolder();
 		} else if ("tabitem".equals(type)) {
 			return (T) new TabItem();
+		} else if ("button".equals(type)) {
+			return (T) new Button();
 		}
-		throw new RuntimeException("the model type is not valid.");
+		return null;
 	}
 
 }

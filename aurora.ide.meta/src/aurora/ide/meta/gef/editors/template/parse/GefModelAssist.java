@@ -6,14 +6,14 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 
-import uncertain.composite.CompositeMap;
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.search.cache.CacheManager;
 
 public class GefModelAssist {
 
-	public static String getType(CompositeMap field) {
+	public static String getType(CommentCompositeMap field) {
 		String object = field.getString("defaultEditor");
 		if (supportEditor(object) != null) {
 			return object;
@@ -22,7 +22,7 @@ public class GefModelAssist {
 		}
 	}
 
-	public static String getTypeNotNull(CompositeMap field) {
+	public static String getTypeNotNull(CommentCompositeMap field) {
 		String object = field.getString("defaultEditor");
 		if (supportEditor(object) != null) {
 			return object;
@@ -48,9 +48,9 @@ public class GefModelAssist {
 		return null;
 	}
 
-	public static CompositeMap getModel(IFile file) {
+	public static CommentCompositeMap getModel(IFile file) {
 		try {
-			CompositeMap model = CacheManager.getCompositeMap(file);
+			CommentCompositeMap model = (CommentCompositeMap) CacheManager.getCompositeMap(file);
 			return model;
 		} catch (CoreException e1) {
 			e1.printStackTrace();
@@ -60,39 +60,42 @@ public class GefModelAssist {
 		return null;
 	}
 
-	public static List<CompositeMap> getQueryFields(CompositeMap model) {
+	public static List<CommentCompositeMap> getQueryFields(CommentCompositeMap model) {
 		if (model == null) {
-			return new ArrayList<CompositeMap>();
+			return new ArrayList<CommentCompositeMap>();
 		}
-		CompositeMap qfs = model.getChild("query-fields");
+		CommentCompositeMap qfs = (CommentCompositeMap) model.getChild("query-fields");
 		if (qfs != null) {
-			List<CompositeMap> fields = new ArrayList<CompositeMap>();
+			List<CommentCompositeMap> fields = new ArrayList<CommentCompositeMap>();
 			for (Object field : qfs.getChildsNotNull()) {
-				fields.add((CompositeMap) field);
+				fields.add((CommentCompositeMap) field);
 			}
 			return fields;
 		}
-		return new ArrayList<CompositeMap>();
+		return new ArrayList<CommentCompositeMap>();
 	}
 
-	public static List<CompositeMap> getFields(CompositeMap model) {
+	public static List<CommentCompositeMap> getFields(CommentCompositeMap model) {
 		if (model == null) {
-			return new ArrayList<CompositeMap>();
+			return new ArrayList<CommentCompositeMap>();
 		}
-		CompositeMap fs = model.getChild("fields");
+		CommentCompositeMap fs = (CommentCompositeMap) model.getChild("fields");
 		if (fs != null) {
-			List<CompositeMap> fields = new ArrayList<CompositeMap>();
+			List<CommentCompositeMap> fields = new ArrayList<CommentCompositeMap>();
 			for (Object field : fs.getChildsNotNull()) {
-				fields.add((CompositeMap) field);
+				fields.add((CommentCompositeMap) field);
 			}
 			return fields;
 		}
-		return new ArrayList<CompositeMap>();
+		return new ArrayList<CommentCompositeMap>();
 	}
 
-	public static CompositeMap getCompositeMap(CompositeMap parent, String name, String value) {
+	public static CommentCompositeMap getCompositeMap(CommentCompositeMap parent, String name, String value) {
+		if (parent == null) {
+			return null;
+		}
 		for (Object obj : parent.getChildsNotNull()) {
-			CompositeMap map = (CompositeMap) obj;
+			CommentCompositeMap map = (CommentCompositeMap) obj;
 			if (map.getString(name) != null && (map).getString(name).equals(value)) {
 				return map;
 			}
