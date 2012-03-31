@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.template.n;
+package aurora.ide.meta.gef.editors.template;
 
 public class BMBindComponent extends Component {
 	private String queryComponent;

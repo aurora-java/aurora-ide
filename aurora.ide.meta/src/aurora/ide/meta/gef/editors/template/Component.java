@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.template.n;
+package aurora.ide.meta.gef.editors.template;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ public class Component {
 	private List<Component> children;
 	private String name;
 	private String id;
+	private String componentType;
 
 	public Component() {
 		super();
@@ -46,5 +47,13 @@ public class Component {
 
 	public List<Component> getChildren() {
 		return children;
+	}
+
+	public String getComponentType() {
+		return componentType;
+	}
+
+	public void setComponentType(String componentType) {
+		this.componentType = componentType;
 	}
 }
