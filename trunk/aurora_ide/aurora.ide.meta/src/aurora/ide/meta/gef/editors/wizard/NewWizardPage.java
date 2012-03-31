@@ -160,6 +160,9 @@ public class NewWizardPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				TComposite t = (TComposite) e.getSource();
 				template = t.getSelection();
+				if (template == null) {
+					return;
+				}
 				setDescription(template.getDescription());
 				((SettingWizardPage) getNextPage()).createDynamicComponents(template);
 			}
@@ -220,6 +223,9 @@ public class NewWizardPage extends WizardPage {
 				updateStatus(Messages.NewWizardPage_File_3);
 			} else {
 				updateStatus(null);
+				if (template == null) {
+					return;
+				}
 				setDescription(template.getDescription());
 				((SettingWizardPage) getNextPage()).createDynamicComponents(template);
 			}

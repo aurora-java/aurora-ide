@@ -124,10 +124,12 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			if (!(obj instanceof Container)) {
 				continue;
 			}
+			if (((Container) obj).getSectionType() == null || "".equals(((Container) obj).getSectionType())) {
+				((Container) obj).setSectionType(Container.SECTION_TYPE_QUERY);
+			}
 			CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(id));
 			for (CommentCompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(id)))) {
 				Input input = new Input();
-				input.setType(GefModelAssist.getTypeNotNull(queryMap));
 				CommentCompositeMap fieldMap = GefModelAssist.getCompositeMap((CommentCompositeMap) map.getChild("fields"), "name", queryMap.getString("field"));
 				if (fieldMap == null) {
 					fieldMap = queryMap;
@@ -190,6 +192,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		}
 		ds.setModel(s);
 		((Container) acpt).setDataset(ds);
+		((Container) acpt).setSectionType(Container.SECTION_TYPE_RESULT);
 		if (acpt instanceof Grid) {
 			fillGrid((Grid) acpt, bm.getModel());
 		} else {
