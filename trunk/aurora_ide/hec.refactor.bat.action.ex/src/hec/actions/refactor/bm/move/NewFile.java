@@ -1,8 +1,5 @@
 package hec.actions.refactor.bm.move;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-
 public class NewFile {
 	// ACP1135:acp.acp_company_acp_req_types
 
@@ -22,9 +19,17 @@ public class NewFile {
 		if (isPublic || "db".equals(this.getModuleName())) {
 			return null;
 		}
-
 		String[] segments = oldPath.split("\\.");
-		String s = segments[0] + "." + p + "." + segments[segments.length - 1];
+		// For hr
+		// try{
+		// String a = segments[1];
+		// }catch(Exception e){
+		// return null;
+		// }
+
+		String s = segments[0] +
+		// "." + /* TODO delete for hr */segments[1] +
+				"." + p + "." + segments[segments.length - 1];
 		return s;
 	}
 

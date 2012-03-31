@@ -29,6 +29,9 @@ public class NewFile {
 			System.out.println();
 		}
 		np = np.append(segment);
+		//TODO delete for hr      
+//		np = np.append(path.segment(2));
+		
 		np = np.append(p);
 		np = np.append(path.segment(path.segmentCount()-1));
 
