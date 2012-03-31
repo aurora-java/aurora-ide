@@ -48,6 +48,13 @@
          	objectClass="org.eclipse.core.resources.IProject">
 			<filter name="nature" value="aurora.ide.meta.nature"/>
 		</page>
+		<page
+        	category="aurora.ide.meta.project.property"
+         	class="aurora.ide.preferencepages.UIPrototypePage"
+         	id="aurora.ide.preferencepages.UIPrototype"
+         	name="UI">
+	  	</page>
+		
 	</extension>
 	
     <extension
@@ -96,5 +103,15 @@
            priority="normal">
      </content-type>
   </extension>
+  
+  <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+         category="aurora.ide.preferencePage.TemplatesPage"
+         class="aurora.ide.meta.project.prototype.UIPrototypePage"
+         id="aurora.ide.meta.prototype.UI"
+         name="UI Template">
+	  </page>
+   </extension>
     
 </plugin>
