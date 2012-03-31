@@ -24,7 +24,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.undo.CreateFileOperation;
-import org.eclipse.ui.ide.undo.MoveResourcesOperation;
 import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
 import uncertain.composite.CompositeMap;
@@ -156,15 +155,17 @@ public class MoveScreen implements IWorkbenchWindowActionDelegate {
 
 				String[] split = s.split(":");
 				Path path = new Path(split[1]);
-				if (split[1].contains("uploadFile.screen")) {
-					System.out.println("uploadFile.screen");
-				}
+//				if (split[1].contains("uploadFile.screen")) {
+//					System.out.println("uploadFile.screen");
+//				}
 
 				if (path.segmentCount() >= 3) {
 					NewFile nf = new NewFile();
 					nf.functionName = split[0];
 					nf.oldPath = split[1];
 					nf.moduleName = path.segment(1);
+					
+					
 					NewFile newFile = newFiles.get(split[1]);
 					if (newFile != null) {
 						newFile.isPublic = true;
