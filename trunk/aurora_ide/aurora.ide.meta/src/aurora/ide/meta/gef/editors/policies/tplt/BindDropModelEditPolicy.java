@@ -43,13 +43,14 @@ public class BindDropModelEditPolicy extends AbstractEditPolicy {
 //			}
 //		}
 
-		if (data instanceof List) {
-			Shell shell = Display.getDefault().getActiveShell();
-			boolean openConfirm = MessageDialog.openConfirm(shell, Messages.BindDropModelEditPolicy_0,
-					Messages.BindDropModelEditPolicy_1);
-			if (openConfirm == false) {
-				return null;
-			}
+		if (!(data instanceof List)) {
+			return null;
+//			Shell shell = Display.getDefault().getActiveShell();
+//			boolean openConfirm = MessageDialog.openConfirm(shell, Messages.BindDropModelEditPolicy_0,
+//					Messages.BindDropModelEditPolicy_1);
+//			if (openConfirm == false) {
+//				return null;
+//			}
 		}
 
 		BindDropModelCommand cmd = new BindDropModelCommand();
