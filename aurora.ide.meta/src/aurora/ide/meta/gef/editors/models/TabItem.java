@@ -11,9 +11,7 @@ import aurora.ide.meta.gef.editors.property.TabRefPropertyDescriptor;
 public class TabItem extends AuroraComponent {
 	public static final String SCREEN_REF = "screenRef";
 	private static final long serialVersionUID = -6198220551287976461L;
-	private static IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
-			PD_PROMPT, PD_WIDTH,
-			new TabRefPropertyDescriptor(SCREEN_REF, "ref") };
+	private static IPropertyDescriptor[] pds = new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, new TabRefPropertyDescriptor(SCREEN_REF, "ref") };
 	public static final String CURRENT = "current";
 	public static final int HEIGHT = 25;
 	private TabBody body = new TabBody();
@@ -44,6 +42,14 @@ public class TabItem extends AuroraComponent {
 
 	public TabBody getBody() {
 		return body;
+	}
+
+	public void addChild(AuroraComponent child) {
+		body.addChild(child);
+	}
+
+	public void addChild(AuroraComponent child, int index) {
+		body.addChild(child, index);
 	}
 
 	public boolean isCurrent() {
