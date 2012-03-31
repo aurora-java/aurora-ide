@@ -39,7 +39,7 @@ public class Grid extends GridColumn implements DatasetBinder {
 		ResultDataSet dataset = new ResultDataSet();
 		dataset.setOwner(this);
 		// dataset.setUseParentBM(false);
-		this.setDataset(dataset);
+		setDataset(dataset);
 		this.setType("grid");
 		setPrompt("");
 	}
