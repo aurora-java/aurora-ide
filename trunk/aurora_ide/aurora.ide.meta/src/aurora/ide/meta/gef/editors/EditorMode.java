@@ -21,8 +21,17 @@ public class EditorMode {
 		}
 		return None;
 	}
-	public boolean isForDisplay(){
-		return false;
+
+	public boolean isForDisplay() {
+		return vsEditor.diagram.isForDisplay();
+	}
+
+	public boolean isForCreate() {
+		return vsEditor.diagram.isForCreate();
+	}
+
+	public boolean isForUpdate() {
+		return vsEditor.diagram.isForUpdate();
 	}
 
 }

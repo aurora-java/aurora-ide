@@ -1,16 +1,14 @@
 package aurora.ide.meta.gef.editors.template;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -25,8 +23,18 @@ public class TComposite extends Composite {
 	private Template template;
 	private ImageRegistry images = MetaPlugin.getDefault().getImageRegistry();
 
+	private Composite composite;
+
 	public TComposite(Composite parent, int style, java.util.List<Template> templates) {
 		super(parent, style);
+		this.setLayout(new FillLayout());
+		ScrolledComposite scrolledComposite = new ScrolledComposite(this, SWT.V_SCROLL);
+		composite = new Composite(scrolledComposite, SWT.None);
+		scrolledComposite.setContent(composite);
+		scrolledComposite.setExpandHorizontal(true);
+		scrolledComposite.setExpandVertical(true);
+		scrolledComposite.setMinWidth(parent.getSize().y);
+		scrolledComposite.setMinHeight(templates.size()*100/3);
 		createTemplate(templates);
 	}
 
@@ -43,9 +51,9 @@ public class TComposite extends Composite {
 
 	private CLabel createLabel(Template t) {
 		// String path = MetaPlugin.getDefault().getStateLocation().toString();
-		this.setLayout(new GridLayout(3, true));
-		this.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		CLabel label = new CLabel(this, SWT.NONE);
+		composite.setLayout(new GridLayout(3, true));
+		composite.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		CLabel label = new CLabel(composite, SWT.CENTER);
 		label.setCursor(getShell().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
 		label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		label.setData(t);

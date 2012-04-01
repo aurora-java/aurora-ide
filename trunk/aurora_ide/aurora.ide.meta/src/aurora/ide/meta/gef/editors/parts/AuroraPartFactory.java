@@ -16,6 +16,7 @@ import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.GridSelectionCol;
 import aurora.ide.meta.gef.editors.models.HBox;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.Label;
 import aurora.ide.meta.gef.editors.models.Navbar;
 import aurora.ide.meta.gef.editors.models.Radio;
 import aurora.ide.meta.gef.editors.models.TabBody;
@@ -29,8 +30,8 @@ import aurora.ide.meta.gef.editors.models.ViewDiagram;
  */
 public class AuroraPartFactory implements EditPartFactory {
 
-	private static HashMap<Class<? extends AuroraComponent>, Class<? extends ComponentPart>> map = new HashMap<Class<? extends AuroraComponent>, Class<? extends ComponentPart>>(
-			20);
+	private static HashMap<Class<? extends AuroraComponent>, Class<? extends ComponentPart>> map = 
+			new HashMap<Class<? extends AuroraComponent>, Class<? extends ComponentPart>>(20);
 	static {
 		map.put(ViewDiagram.class, ViewDiagramPart.class);
 		map.put(Form.class, BoxPart.class);
@@ -49,6 +50,7 @@ public class AuroraPartFactory implements EditPartFactory {
 		map.put(TabFolder.class, TabFolderPart.class);
 		map.put(TabBody.class, TabBodyPart.class);
 		map.put(GridSelectionCol.class, GridSelectionColPart.class);
+		map.put(Label.class, LabelPart.class);
 	}
 	private EditorMode editorMode;
 

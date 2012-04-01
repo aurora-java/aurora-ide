@@ -12,6 +12,7 @@ import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.HBox;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.Label;
 import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.VBox;
@@ -31,6 +32,7 @@ public class IOHandlerUtil {
 		handlerMapper.put(Grid.class, GridHandler.class);
 		handlerMapper.put(Button.class, ButtonHandler.class);
 		handlerMapper.put(GridColumn.class, GridColumnHandler.class);
+		handlerMapper.put(Label.class, LabelHandler.class);
 	}
 
 	public static IOHandler getHandler(AuroraComponent ac) {
