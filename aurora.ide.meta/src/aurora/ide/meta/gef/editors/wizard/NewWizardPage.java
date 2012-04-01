@@ -176,9 +176,13 @@ public class NewWizardPage extends WizardPage {
 		setControl(container);
 		createText(container);
 		composite = new Group(container, SWT.NONE);
-		composite.setLayout(new GridLayout());
+		composite.setLayout(new GridLayout(2, false));
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		composite.setText(Messages.NewWizardPage_Template);
+
+		org.eclipse.swt.widgets.List list = new org.eclipse.swt.widgets.List(composite, SWT.BORDER);
+		list.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+
 		setPath(metaFolder);
 	}
 
@@ -238,7 +242,7 @@ public class NewWizardPage extends WizardPage {
 
 	private void clearTemplate() {
 		for (Control c : composite.getChildren()) {
-			if (!c.isDisposed()) {
+			if ((c instanceof TComposite)&&!c.isDisposed()) {
 				c.dispose();
 			}
 		}

@@ -29,7 +29,7 @@ public class ImagesUtils {
 			this.put("toolbar_sep", "toolbar_sep.gif");
 			this.put("nav1", "nav1.png");
 			this.put("nav2", "nav2.png");
-			
+			this.put("label", "label.png");
 		}
 	};
 

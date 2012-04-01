@@ -13,7 +13,9 @@ public class ViewDiagram extends Container {
 	// private List<Link> links = new ArrayList<Link>();
 	private String bindTemplate = "";
 
-	private boolean isForDisplay = false;
+	private boolean isForDisplay;
+	private boolean isForCreate;
+	private boolean isForUpdate;
 
 	@Override
 	public boolean isResponsibleChild(AuroraComponent component) {
@@ -149,6 +151,22 @@ public class ViewDiagram extends Container {
 
 	public void setForDisplay(boolean isForDisplay) {
 		this.isForDisplay = isForDisplay;
+	}
+
+	public boolean isForCreate() {
+		return isForCreate;
+	}
+
+	public void setForCreate(boolean isForCreate) {
+		this.isForCreate = isForCreate;
+	}
+
+	public boolean isForUpdate() {
+		return isForUpdate;
+	}
+
+	public void setForUpdate(boolean isForUpdate) {
+		this.isForUpdate = isForUpdate;
 	}
 
 }

@@ -32,6 +32,7 @@ import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.Label;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -54,6 +55,8 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 
 	private Map<String, IFile> modelMap = new HashMap<String, IFile>();
 	private Map<String, AuroraComponent> acptMap = new HashMap<String, AuroraComponent>();
+
+	private int tabItemIndex = 0;
 
 	public void addPages() {
 		addPage(newPage);
@@ -108,6 +111,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 
 	private ViewDiagram createView() {
 		ViewDiagram viewDiagram = new ViewDiagram();
+		tabItemIndex = 0;
 		for (Component cpt : template.getChildren()) {
 			AuroraComponent ac = createAuroraComponent(cpt);
 			viewDiagram.addChild(ac);
@@ -119,26 +123,49 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	}
 
 	private void fillQueryField() {
-		for (String id : modelMap.keySet()) {
-			Object obj = acptMap.get(id);
+		for (String mid : modelMap.keySet()) {
+			Object obj = acptMap.get(mid);
 			if (!(obj instanceof Container)) {
 				continue;
 			}
 			if (((Container) obj).getSectionType() == null || "".equals(((Container) obj).getSectionType())) {
 				((Container) obj).setSectionType(Container.SECTION_TYPE_QUERY);
 			}
-			CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(id));
-			for (CommentCompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(id)))) {
-				Input input = new Input();
-				CommentCompositeMap fieldMap = GefModelAssist.getCompositeMap((CommentCompositeMap) map.getChild("fields"), "name", queryMap.getString("field"));
-				if (fieldMap == null) {
-					fieldMap = queryMap;
-				}
-				input.setName(fieldMap.getString("name"));
-				input.setPrompt(fieldMap.getString("prompt") == null ? fieldMap.getString("name") : fieldMap.getString("prompt"));
-				input.setType(GefModelAssist.getTypeNotNull(fieldMap));
-				((Container) obj).addChild(input);
+			if (template.isForDisplay()) {
+				createLabel(mid, (Container) obj);
+			} else {
+				createInput(mid, (Container) obj);
 			}
+		}
+	}
+
+	private void createInput(String mid, Container obj) {
+		CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
+		for (CommentCompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid)))) {
+			Input input = new Input();
+			CommentCompositeMap fieldMap = GefModelAssist.getCompositeMap((CommentCompositeMap) map.getChild("fields"), "name", queryMap.getString("field"));
+			if (fieldMap == null) {
+				fieldMap = queryMap;
+			}
+			input.setName(fieldMap.getString("name"));
+			input.setPrompt(fieldMap.getString("prompt") == null ? fieldMap.getString("name") : fieldMap.getString("prompt"));
+			input.setType(GefModelAssist.getTypeNotNull(fieldMap));
+			obj.addChild(input);
+		}
+	}
+
+	private void createLabel(String mid, Container obj) {
+		CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
+		for (CommentCompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid)))) {
+			Label label = new Label();
+			CommentCompositeMap fieldMap = GefModelAssist.getCompositeMap((CommentCompositeMap) map.getChild("fields"), "name", queryMap.getString("field"));
+			if (fieldMap == null) {
+				fieldMap = queryMap;
+			}
+			label.setName(fieldMap.getString("name"));
+			label.setPrompt(fieldMap.getString("prompt") == null ? fieldMap.getString("name") : fieldMap.getString("prompt"));
+			label.setType(GefModelAssist.getTypeNotNull(fieldMap));
+			obj.addChild(label);
 		}
 	}
 
@@ -164,6 +191,8 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				((Container) acpt).addChild(ac);
 			} else if (acpt instanceof TabItem) {
 				((TabItem) acpt).addChild(ac);
+				((TabItem) acpt).setPrompt("tabItem" + tabItemIndex);
+				tabItemIndex++;
 			}
 		}
 		return acpt;
