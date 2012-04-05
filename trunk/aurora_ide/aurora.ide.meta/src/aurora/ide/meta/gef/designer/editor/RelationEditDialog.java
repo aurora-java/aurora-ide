@@ -350,7 +350,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 					return;
 				DataSetFieldUtil dsfu = new DataSetFieldUtil(metaProject, "",
 						bmPkg);
-				bmfieldList = dsfu.getLocalFields(dsfu.getBmMap());
+				bmfieldList = dsfu.getLocalFields(dsfu.getBmMap(), false);
 				bmFieldComboViewer.setInput(bmfieldList);
 				if (bmFieldListViewer != null)
 					bmFieldListViewer.setInput(bmfieldList.clone());

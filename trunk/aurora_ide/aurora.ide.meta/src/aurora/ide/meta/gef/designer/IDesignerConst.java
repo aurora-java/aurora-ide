@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.designer;
 import aurora.ide.meta.gef.designer.editor.BMModelViewer;
 
 public interface IDesignerConst {
+	String EXTENSION = "bmq";
 	// modelviewer column properties
 	String COLUMN_NUM = "no.";
 	String COLUMN_PROMPT = "prompt";
@@ -47,4 +48,10 @@ public interface IDesignerConst {
 	String DATE = "date";
 	String DATE_TIME = "dateTime";
 	String[] data_types = { TEXT, LONG_TEXT, INTEGER, FLOAT, DATE, DATE_TIME };
+	// auto extend types
+	String AE_LOV = "lov";
+	String AE_QUERY = "query";
+	String AE_UPDATE = "update";
+	String AE_MAINTAIN = "maintain";
+	String[] AE_TYPES = { AE_LOV, AE_QUERY, AE_UPDATE, AE_MAINTAIN };
 }

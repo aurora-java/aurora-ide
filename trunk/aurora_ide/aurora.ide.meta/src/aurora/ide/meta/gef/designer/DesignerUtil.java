@@ -2,39 +2,34 @@ package aurora.ide.meta.gef.designer;
 
 import java.util.ArrayList;
 
-import aurora.ide.meta.gef.designer.editor.BMModelViewer;
 import aurora.ide.meta.gef.designer.model.Record;
 
-public class DesignerUtil {
-	public static final ArrayList<String[]> typeMap = new ArrayList<String[]>();
+public class DesignerUtil implements IDesignerConst {
+	public static final ArrayList<Object[]> typeMap = new ArrayList<Object[]>();
 	static {
-		typeMap.add(new String[] { ".*(数量|大小)", BMModelViewer.data_types[2],
-				"numberField" });
-		typeMap.add(new String[] { ".*(金额|单价)", BMModelViewer.data_types[3],
-				"numberField" });
-		typeMap.add(new String[] { ".*(日期)", BMModelViewer.data_types[4],
-				"datePicker" });
-		typeMap.add(new String[] { ".*(时间)", BMModelViewer.data_types[5],
-				"dateTimePicker" });
-		typeMap.add(new String[] { ".*超长.*", BMModelViewer.data_types[1],
-				"textField" });
-		typeMap.add(new String[] { ".*", BMModelViewer.data_types[0],
-				"textField" });
+		typeMap.add(new Object[] { ".*(数量|大小|年龄)", DataType.INTEGER });
+		typeMap.add(new Object[] { ".*(金额|单价)", DataType.FLOAT });
+		typeMap.add(new Object[] { ".*(日期|生日)", DataType.DATE });
+		typeMap.add(new Object[] { ".*(时间)", DataType.DATE_TIME });
+		typeMap.add(new Object[] { ".*超长.*", DataType.LONG_TEXT });
+		typeMap.add(new Object[] { ".*", DataType.TEXT });
 	}
 
 	public static Record createRecord(String prompt) {
 		Record r = new Record();
-		r.put(BMModelViewer.COLUMN_PROMPT, prompt);
-		for (String[] ss : typeMap) {
-			if (prompt.matches(ss[0])) {
-				r.put(BMModelViewer.COLUMN_TYPE, ss[1]);
-				r.put(BMModelViewer.COLUMN_EDITOR, ss[2]);
+		r.put(COLUMN_PROMPT, prompt);
+		for (Object[] ss : typeMap) {
+			if (prompt.matches((String) ss[0])) {
+				DataType dt = (DataType) ss[1];
+				r.put(COLUMN_TYPE, dt.getDisplayType());
+				r.put(COLUMN_EDITOR, dt.getDefaultEditor());
+				r.put(COLUMN_QUERY_OP, dt.getDefaultOperator());
 				break;
 			}
 		}
-		r.put(BMModelViewer.COLUMN_NAME, "");
-		r.put(BMModelViewer.COLUMN_QUERYFIELD, false);
-		r.put(BMModelViewer.COLUMN_ISFOREIGN, false);
+		r.put(COLUMN_NAME, "");
+		r.put(COLUMN_QUERYFIELD, false);
+		r.put(COLUMN_ISFOREIGN, false);
 		return r;
 	}
 }

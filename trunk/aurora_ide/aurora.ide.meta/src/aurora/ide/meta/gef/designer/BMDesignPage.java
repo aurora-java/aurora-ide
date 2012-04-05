@@ -18,7 +18,6 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -84,7 +83,7 @@ public class BMDesignPage extends FormPage {
 	 */
 
 	protected void createFormContent(IManagedForm managedForm) {
-		FormToolkit toolkit = managedForm.getToolkit();
+		// FormToolkit toolkit = managedForm.getToolkit();
 		ScrolledForm form = managedForm.getForm();
 		// form.setText("BM Quick Designer");
 		// form.setLayout(null);
@@ -119,11 +118,10 @@ public class BMDesignPage extends FormPage {
 		label.setBackground(body.getBackground());
 		label.setText("Title : ");
 
-		titleText = new Text(com, SWT.NONE);
-		titleText.setBackground(new Color(null, 240, 244, 244));
+		titleText = new Text(com, SWT.BORDER);
+		// titleText.setBackground(new Color(null, 240, 244, 244));
 		titleText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 				1, 1));
-		// titleText.setSize(200, titleText.getSize().y);
 		if (model != null)
 			titleText.setText(model.getTitle());
 		titleText.addFocusListener(new FocusListener() {
@@ -134,6 +132,14 @@ public class BMDesignPage extends FormPage {
 
 			public void focusGained(FocusEvent e) {
 
+			}
+		});
+		titleText.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.keyCode == 13)
+					model.setTitle(titleText.getText());
 			}
 		});
 	}

@@ -82,7 +82,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 		setLabelProvider(new BMModelLabelProvider(BMModel.RECORD));
 		setCellModifier(new BMModelCellModifier(this, BMModel.RECORD));
 		setColumnProperties(TABLE_COLUMN_PROPERTIES);
-		// setCellEditors(getNewCellEditors(null));
+		setCellEditors(getNewCellEditors(null));
 	}
 
 	public void refresh() {
@@ -159,7 +159,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 
 	private CellEditor[] getNewCellEditors(Record record) {
 		Table table = getTable();
-		String[] ss = getOperators(record.getType());
+		String[] ss = getOperators(record == null ? "" : record.getType());
 		return new CellEditor[] { null, null, new StringCellEditor(table),
 				new ComboBoxCellEditor(table, data_types),
 				new StringCellEditor(table),
@@ -171,6 +171,8 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 		String[] ss = operatorsMap.get(displayType);
 		if (ss == null) {
 			DataType dt = DataType.fromString(displayType);
+			if (dt == null)
+				return new String[0];
 			ArrayList<String> ops = new ArrayList<String>();
 			ops.add(OP_EQ);
 			switch (dt) {
