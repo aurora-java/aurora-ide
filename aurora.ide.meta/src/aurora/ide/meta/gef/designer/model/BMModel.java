@@ -8,13 +8,15 @@ import java.util.List;
 
 public class BMModel {
 	public static final String TITLE = "title";
+	public static String AUTOEXTEND = "autoextend";
+	public static final String FIELD_NAME_PREFIX = "c";
 	public static final int RECORD = 0;
 	public static final int RELATION = 1;
 	private ArrayList<Record> records = new ArrayList<Record>();
 	private ArrayList<Relation> relations = new ArrayList<Relation>();
-	PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+	private PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 	private String title = "";
-	public static final String FIELD_NAME_PREFIX = "c";
+	private String autoExtend = "";
 	private PropertyChangeListener recordListener = new PropertyChangeListener() {
 
 		public void propertyChange(PropertyChangeEvent evt) {
@@ -23,7 +25,6 @@ public class BMModel {
 					+ ":" + evt.getPropertyName(), evt.getOldValue(),
 					evt.getNewValue());
 		}
-
 	};
 
 	private PropertyChangeListener relationListener = new PropertyChangeListener() {
@@ -35,7 +36,6 @@ public class BMModel {
 							+ evt.getPropertyName(), evt.getOldValue(),
 					evt.getNewValue());
 		}
-
 	};
 
 	public ArrayList<Record> getRecordList() {
@@ -66,7 +66,7 @@ public class BMModel {
 
 	public int add(Relation rel) {
 		relations.add(rel);
-		nodifyRelationChange();
+		notifyRelationChange();
 		return relations.size() - 1;
 	}
 
@@ -77,7 +77,7 @@ public class BMModel {
 
 	public void add(int idx, Relation rel) {
 		relations.add(idx, rel);
-		nodifyRelationChange();
+		notifyRelationChange();
 	}
 
 	public void remove(Record r) {
@@ -87,7 +87,7 @@ public class BMModel {
 
 	public void remove(Relation rel) {
 		relations.remove(rel);
-		nodifyRelationChange();
+		notifyRelationChange();
 	}
 
 	public Record removeRecord(int idx) {
@@ -98,7 +98,7 @@ public class BMModel {
 
 	public Relation removeRelation(int idx) {
 		Relation rel = relations.remove(idx);
-		nodifyRelationChange();
+		notifyRelationChange();
 		return rel;
 	}
 
@@ -124,7 +124,7 @@ public class BMModel {
 		firePropertyChange("reorder", null, null);
 	}
 
-	private void nodifyRelationChange() {
+	private void notifyRelationChange() {
 
 		for (int i = 0; i < relations.size(); i++) {
 			Relation r = relations.get(i);
@@ -173,12 +173,17 @@ public class BMModel {
 
 	public void removeRelations(List<Relation> list) {
 		relations.removeAll(list);
-		nodifyRelationChange();
+		notifyRelationChange();
 	}
 
 	public void removeAll() {
 		records.clear();
 		notifyModidy();
+	}
+
+	public void removeAllRelations() {
+		relations.clear();
+		notifyRelationChange();
 	}
 
 	public void addPropertyChangeListener(PropertyChangeListener l) {
@@ -209,5 +214,13 @@ public class BMModel {
 		String old = this.title;
 		this.title = title;
 		firePropertyChange(TITLE, old, title);
+	}
+
+	public void setAutoExtends(String string) {
+		this.autoExtend = string;
+	}
+
+	public String getAutoExtends() {
+		return autoExtend;
 	}
 }

@@ -1,6 +1,5 @@
 package aurora.ide.meta.gef.editors.source.gen;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,19 +7,18 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.xml.sax.SAXException;
 
-import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
-import uncertain.composite.CompositeMapParser;
 import uncertain.composite.IterationHandle;
 import uncertain.schema.Attribute;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.builder.SxsdUtil;
+import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.project.AuroraMetaProject;
+import aurora.ide.search.cache.CacheManager;
 
 public class DataSetFieldUtil {
 	private String fieldName;
@@ -33,6 +31,9 @@ public class DataSetFieldUtil {
 		this.fieldName = fieldName;
 		this.bmPath = bmPath;
 		aProj = new AuroraMetaProject(project);
+	}
+
+	public DataSetFieldUtil() {
 	}
 
 	/**
@@ -53,17 +54,14 @@ public class DataSetFieldUtil {
 			resource = ResourceUtil.getBMFile(proj, bmPath);
 			if (resource instanceof IFile) {
 				IFile file = (IFile) resource;
-				CompositeMap map = new CompositeMapParser(new CompositeLoader())
-						.parseStream(file.getContents());
+				CompositeMap map = CacheManager.getCompositeMap(file);
 				return map;
 			}
 		} catch (ResourceNotFoundException e) {
 			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (CoreException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -126,6 +124,8 @@ public class DataSetFieldUtil {
 	 * @return the first pk (or null no pk-field exists)
 	 */
 	public String getPK(CompositeMap bmMap) {
+		if (bmMap == null)
+			return null;
 		final String pk[] = { null };
 		bmMap.iterate(new IterationHandle() {
 
@@ -140,8 +140,17 @@ public class DataSetFieldUtil {
 		return pk[0];
 	}
 
-	public ArrayList<CompositeMap> getLocalFields(CompositeMap bmMap) {
+	/**
+	 * 
+	 * @param bmMap
+	 * @param includeRefField
+	 * @return
+	 */
+	public ArrayList<CompositeMap> getLocalFields(CompositeMap bmMap,
+			final boolean includeRefField) {
 		final ArrayList<CompositeMap> als = new ArrayList<CompositeMap>();
+		if (bmMap == null)
+			return als;
 		bmMap.iterate(new IterationHandle() {
 
 			public int process(CompositeMap map) {
@@ -155,8 +164,8 @@ public class DataSetFieldUtil {
 									.getAttributeType())) {
 								String name = a.getName();
 								if (map.getName().equalsIgnoreCase("field")
-										|| map.getName().equalsIgnoreCase(
-												"ref-field")) {
+										|| (map.getName().equalsIgnoreCase(
+												"ref-field") && includeRefField)) {
 									if (name.equalsIgnoreCase("name")) {
 										als.add(map);
 										continue;
@@ -171,6 +180,16 @@ public class DataSetFieldUtil {
 			}
 		}, true);
 		return als;
+	}
+
+	/**
+	 * {@link #getLocalFields(CompositeMap, boolean)}
+	 * 
+	 * @param bmMap
+	 * @return
+	 */
+	public ArrayList<CompositeMap> getLocalFields(CompositeMap bmMap) {
+		return getLocalFields(bmMap, true);
 	}
 
 	public static Dataset findDataset(Container container) {

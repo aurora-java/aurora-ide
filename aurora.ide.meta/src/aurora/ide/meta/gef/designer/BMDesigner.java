@@ -3,11 +3,10 @@ package aurora.ide.meta.gef.designer;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -16,13 +15,10 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
 
-import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
-import uncertain.composite.CompositeMapParser;
-import aurora.ide.api.composite.map.CommentCompositeMap;
-import aurora.ide.meta.gef.designer.gen.BmGenerator;
-import aurora.ide.meta.gef.designer.gen.SqlGenerator;
+import aurora.ide.editor.InputFileListener;
 import aurora.ide.meta.gef.designer.model.BMModel;
+import aurora.ide.meta.gef.designer.model.ModelMerger;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
 
 public class BMDesigner extends FormEditor {
@@ -34,6 +30,8 @@ public class BMDesigner extends FormEditor {
 	private BMSourcePage spage = new BMSourcePage(this, "222", "代码");
 
 	public BMDesigner() {
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(
+				new InputFileListener(this));
 	}
 
 	@Override
@@ -60,10 +58,6 @@ public class BMDesigner extends FormEditor {
 			inputFile.setContents(new ByteArrayInputStream(out.toByteArray()),
 					true, false, monitor);
 			out.close();
-			String fn = inputFile.getName();
-			fn = fn.split("\\.")[0];
-			System.out.println(new SqlGenerator(model, fn).gen());
-			new BmGenerator(model, fn).gen();
 			dpage.setDirty(false);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,40 +80,17 @@ public class BMDesigner extends FormEditor {
 		super.init(site, input);
 		IFileEditorInput fi = (IFileEditorInput) input;
 		this.inputFile = fi.getFile();
+
 		setPartName(inputFile.getName());
 		open();
 	}
 
 	private void open() {
-		InputStream is = null;
-		CompositeMapParser parser = new CompositeMapParser(
-				new CompositeLoader());
-		CompositeMap map = null;
-		try {
-			is = inputFile.getContents();
-			map = parser.parseStream(is);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (is != null)
-				try {
-					is.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			if (map == null)
-				map = new CommentCompositeMap();
-		}
-		//
-		model = getModel(map);
+		model = new ModelMerger(inputFile).getMergedModel();
 		if (model == null)
 			model = new BMModel();
 		model.setTitle("title");
 		dpage.setModel(model);
-	}
-
-	private BMModel getModel(CompositeMap map) {
-		return ModelUtil.fromCompositeMap(map);
 	}
 
 	public IFile getInputFile() {
