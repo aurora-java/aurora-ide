@@ -14,6 +14,12 @@
               id="aurora.ide.wizard.CreateFormGridWizard"
               name="UI Prototype文件">
         </wizard>
+        <wizard
+              category="aurora.ide.wizard"
+              class="aurora.ide.meta.gef.designer.wizard.NewBmqWizard"
+              id="aurora.ide.wizard.NewBMQ"
+              name="Model Prototype文件">
+        </wizard>
     </extension>
      
 	<extension
@@ -26,6 +32,13 @@
             icon="icons/meta.png"
             id="aurora.ide.meta.gef.editors.VScreenEditor"
             name="Aurora UI Designer">
+      </editor>
+      <editor
+            class="aurora.ide.meta.gef.designer.BMDesigner"
+            default="true"
+            extensions="bmq"
+            id="aurora.ide.meta.gef.editors.BMDesigner"
+            name="BMQuickDesigner">
       </editor>
       <!--
       <editor
@@ -48,23 +61,20 @@
          	objectClass="org.eclipse.core.resources.IProject">
 			<filter name="nature" value="aurora.ide.meta.nature"/>
 		</page>
-		<page
-        	category="aurora.ide.meta.project.property"
-         	class="aurora.ide.preferencepages.UIPrototypePage"
-         	id="aurora.ide.preferencepages.UIPrototype"
-         	name="UI">
-	  	</page>
-		
 	</extension>
 	
     <extension
-      id="nature"  
-      point="org.eclipse.core.resources.natures">  
+          id="nature"
+          name="Aurora Meta Project Nature"
+          point="org.eclipse.core.resources.natures">  
        <runtime>  
           <run  
                 class="aurora.ide.meta.project.AuroraMetaProjectNature">  
           </run>  
        </runtime>
+       <builder
+             id="aurora.ide.meta.autoGenBuilder">
+       </builder>
     </extension>
     <extension point="org.eclipse.ui.ide.projectNatureImages">
   		<image 
@@ -103,15 +113,28 @@
            priority="normal">
      </content-type>
   </extension>
-  
   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-         category="aurora.ide.preferencePage.TemplatesPage"
-         class="aurora.ide.meta.project.prototype.UIPrototypePage"
-         id="aurora.ide.meta.prototype.UI"
-         name="UI Template">
-	  </page>
-   </extension>
+        id="xmlProblem"
+        name="XML Problem"
+        point="org.eclipse.core.resources.markers">
+     <super
+           type="org.eclipse.core.resources.problemmarker">
+     </super>
+     <persistent
+           value="true">
+     </persistent>
+  </extension>
+  <extension
+        id="autoGenBuilder"
+        name="Aurora Meta Project Builder"
+        point="org.eclipse.core.resources.builders">
+     <builder
+           hasNature="true"
+           isConfigurable="true">
+        <run
+              class="aurora.ide.meta.builder.AutoGenBuilder">
+        </run>
+     </builder>
+  </extension>
     
 </plugin>
