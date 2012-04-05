@@ -34,12 +34,10 @@ import org.eclipse.ui.ide.undo.CreateProjectOperation;
 import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 
-import aurora.ide.AuroraMetaProjectNature;
 import aurora.ide.AuroraProjectNature;
 import aurora.ide.meta.MetaPlugin;
 
 public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
-
 
 	private WizardNewProjectCreationPage mainPage;
 	// cache of newly-created project
@@ -311,9 +309,9 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 		return true;
 	}
 
-	private static final String[] copyFiles = { "1.query_result.xml", "2.grid.xml",
-			"3.query.xml", "thumbnails/grid.png", "thumbnails/query_result.jpg",
-			"thumbnails/query.png" };
+	private static final String[] copyFiles = { "1.query_result.xml",
+			"2.grid.xml", "3.query.xml", "thumbnails/grid.png",
+			"thumbnails/query_result.jpg", "thumbnails/query.png" };
 
 	private void copyTemplateFile() {
 		if (newProject == null) {
@@ -438,7 +436,13 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 		}
 
 		newProject = newProjectHandle;
-
+		AuroraMetaProjectNature naturehandler = new AuroraMetaProjectNature();
+		naturehandler.setProject(newProject);
+		try {
+			naturehandler.configure();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 		return newProject;
 	}
 
