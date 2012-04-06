@@ -24,7 +24,7 @@ public class SqlGenerator implements IDesignerConst {
 
 	public String gen() {
 		Record[] rs = model.getRecords();
-		StringBuilder sb = new StringBuilder(2000);
+		StringBuilder sb = new StringBuilder(10000);
 		sb.append(String.format(header, name));
 		maxNameLength = getMaxNameLength();
 		String cm = String.format(column_model, maxNameLength);
@@ -61,8 +61,8 @@ public class SqlGenerator implements IDesignerConst {
 
 	private String getSqlType(String type) {
 		DataType dt = DataType.fromString(type);
-		if (dt != null)
-			return dt.getSqlType();
-		return "varchar2(100)";
+		if (dt == null)
+			dt = DataType.TEXT;
+		return dt.getSqlType();
 	}
 }

@@ -42,8 +42,7 @@ public class BaseBmGenerator {
 	private ModelMerger merger;
 
 	public BaseBmGenerator(IFile file) {
-		nsMapping.put(bm_ns_uri, bm_ns_pre);
-		nsMapping.put(o_ns_uri, o_ns_pre);
+		this();
 		name = file.getName();
 		int idx = name.indexOf('.');
 		if (idx != -1)
@@ -59,30 +58,42 @@ public class BaseBmGenerator {
 		}
 	}
 
+	public BaseBmGenerator() {
+		nsMapping.put(bm_ns_uri, bm_ns_pre);
+		nsMapping.put(o_ns_uri, o_ns_pre);
+	}
+
 	public void process() throws Exception {
 		IFile bmFile = merger.getBMFile();
+		CompositeMap bmMap = null;
 		if (bmFile.exists()) {
 			// System.out.println("bm '" + bmFile.getFullPath()
 			// + "' already exists.");
-			CompositeMap bmMap = merger.getMergedCompositeMap();
-			if (bmMap == null)
-				bmMap = gen();
-			String xml = xml_header + bmMap.toXML();
-			InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
-			bmFile.setContents(is, IFile.FORCE, new NullProgressMonitor());
-			is.close();
-			return;
+			bmMap = merger.getMergedCompositeMap();
 		}
-		CompositeMap bmMap = gen();
-		String xml = xml_header + bmMap.toXML();
+		if (bmMap == null)
+			bmMap = gen();
+		createOrWriteFile(bmFile, bmMap);
+		new ExtendBmGenerator(model, bmFile).gen();
+	}
+
+	protected void createOrWriteFile(IFile file, CompositeMap map)
+			throws Exception {
+		String xml = xml_header + map.toXML();
 		InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
-		CreateFileOperation cfo = new CreateFileOperation(bmFile, null, is,
-				"write " + bmFile.getFullPath());
-		cfo.execute(new NullProgressMonitor(), null);
+		if (file.exists()) {
+			file.setContents(is, IFile.FORCE, new NullProgressMonitor());
+			is.close();
+		} else {
+			CreateFileOperation cfo = new CreateFileOperation(file, null, is,
+					"write " + file.getFullPath());
+			cfo.execute(new NullProgressMonitor(), null);
+		}
 	}
 
 	private CompositeMap gen() {
 		CompositeMap map = genModelMap();
+		map.put("title", model.getTitle());
 		map.addChild(genFieldsMap());
 		map.addChild(genPkMap());
 		map.addChild(genFeatureMap());
@@ -90,13 +101,12 @@ public class BaseBmGenerator {
 		return map;
 	}
 
-	private CompositeMap genModelMap() {
+	protected CompositeMap genModelMap() {
 		CompositeMap map = newCompositeMap("model");
 		map.setNamespaceMapping(nsMapping);
 		for (String uri : nsMapping.keySet()) {
 			map.put("xmlns:" + nsMapping.get(uri), uri);
 		}
-		map.put("title", model.getTitle());
 		map.put("alias", "e");
 		map.put("baseTable", name);
 		return map;
@@ -195,9 +205,9 @@ public class BaseBmGenerator {
 		return Character.toString(seqRefAlias++);
 	}
 
-	private CompositeMap newCompositeMap(String name) {
+	protected CompositeMap newCompositeMap(String name) {
 		CompositeMap map = new CommentCompositeMap(name);
-		map.setPrefix("bm");// set a default prefix
+		map.setPrefix(bm_ns_pre);// set a default prefix
 		return map;
 	}
 }
