@@ -1,10 +1,11 @@
-package aurora.ide.meta.gef.editors.source.gen;
+package aurora.ide.meta.gef.editors.source.gen.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 import uncertain.composite.CompositeMap;
@@ -14,7 +15,9 @@ import aurora.ide.editor.textpage.format.JSBeautifier;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.ILink;
 import aurora.ide.meta.gef.editors.models.Renderer;
+import aurora.ide.meta.gef.editors.models.link.Parameter;
 
 public class ScriptGenerator {
 
@@ -86,6 +89,7 @@ public class ScriptGenerator {
 		if (ButtonClicker.B_OPEN.equals(actionID)) {
 			String linkID = this.getLinkID(bc);
 			script = this.openScript(functionName, linkID);
+			script = setLinkParameters(bc, script, linkID);
 		}
 		if (ButtonClicker.B_CLOSE.equals(actionID)) {
 			String windowID = this.getWindowID(bc);
@@ -135,6 +139,7 @@ public class ScriptGenerator {
 	private String getLinkID(Renderer bc) {
 		String genLinkID = linkIDs.get(bc);
 		if (genLinkID == null) {
+
 			String fileName = getOpenFileName(bc);
 			if (fileName == null)
 				return null;
@@ -146,7 +151,11 @@ public class ScriptGenerator {
 
 	public String getOpenFileName(Renderer bc) {
 		String openPath = bc.getOpenPath();
-		Path path = new Path(openPath);
+		IPath path = new Path(openPath);
+		return getOpenFileName(path);
+	}
+
+	public String getOpenFileName(IPath path) {
 		String fileName = path.removeFileExtension().lastSegment();
 		return fileName;
 	}
@@ -261,8 +270,9 @@ public class ScriptGenerator {
 			functionName = "assign" + javaBeanName;
 			functionName = this.uniqueID(functionName, 0);
 			String hrefScript = this.hrefScript(functionName,
-					renderer.getLabelText(), openName);
+					renderer.getLabelText(), openName, "");
 			appendScript(hrefScript);
+			openScript = setLinkParameters(renderer, openScript, linkID);
 			appendScript(openScript);
 		}
 		if (Renderer.USER_FUNCTION.equals(type)) {
@@ -275,6 +285,86 @@ public class ScriptGenerator {
 		return functionName;
 	}
 
+	private String setLinkParameters(Renderer link, String script, String linkID) {
+		List<Parameter> parameters = link.getParameters();
+		StringBuilder sb = new StringBuilder("");
+		for (Parameter parameter : parameters) {
+			sb.append(linkID + ".set(" + parameter.getName() + "," + "record"
+					+ ".get(" + parameter.getValue() + "));");
+		}
+		script.replace("#parameters#", sb.toString());
+		return script;
+	}
+
+	private String setLinkParameters(ButtonClicker link, String script,
+			String linkID) {
+		//有参数的，且uip的，做一个list管理起来，在，sg生成完成后再生成。
+		List<Parameter> parameters = link.getParameters();
+
+		if (parameters.size() > 0) {
+			Parameter p = parameters.get(0);
+			Container container = p.getContainer();
+			String findDatasetId = sg.findDatasetId(container);
+			String ds = "var record = $('" + findDatasetId
+					+ "').getCurrentRecord();";
+			script.replace("#parameters#", ds + " #parameters# ");
+		}
+
+		StringBuilder sb = new StringBuilder("");
+		for (Parameter parameter : parameters) {
+			sb.append(linkID + ".set(" + parameter.getName() + "," + "record"
+					+ ".get(" + parameter.getValue() + "));");
+		}
+		script.replace("#parameters#", sb.toString());
+		return script;
+	}
+
+	// public String genTabRef(TabRef bc) {
+	// String url = bc.getUrl();
+	// List<Parameter> parameters = bc.getParameters();
+	// IPath path = new Path(url);
+	// if("uip".equals(path.getFileExtension())){
+	// path = path.removeFileExtension().addFileExtension("screen");
+	// }
+	// String openFileName = this.getOpenFileName(path);
+	// String functionName = getFunctionName(bc);
+	// if (null == functionName || "".equals(functionName))
+	// return "";
+	// String actionID = bc.getActionID();
+	// if (!ButtonClicker.B_CUSTOM.equals(actionID)) {
+	// functionName = uniqueID(functionName, 0);
+	// }
+	// String script = "";
+	// if (ButtonClicker.B_SEARCH.equals(actionID)) {
+	// String datasetID = this.getDatasetID(bc);
+	// if (datasetID == null)
+	// return "";
+	// script = this.searchScript(functionName, datasetID);
+	// }
+	// if (ButtonClicker.B_SAVE.equals(actionID)) {
+	// String datasetID = this.getDatasetID(bc);
+	// script = this.saveScript(functionName, datasetID);
+	// }
+	// if (ButtonClicker.B_RESET.equals(actionID)) {
+	// String datasetID = this.getDatasetID(bc);
+	// script = this.resetScript(functionName, datasetID);
+	// }
+	// if (ButtonClicker.B_OPEN.equals(actionID)) {
+	// String linkID = this.getLinkID(bc);
+	// script = this.openScript(functionName, linkID);
+	// }
+	// if (ButtonClicker.B_CLOSE.equals(actionID)) {
+	// String windowID = this.getWindowID(bc);
+	// script = this.closeScript(functionName, windowID);
+	// }
+	// if (ButtonClicker.B_CUSTOM.equals(actionID)) {
+	// script = bc.getFunction();
+	// }
+	//
+	// appendScript(script);
+	// return functionName;
+	// }
+
 	public void appendScript(String script) {
 		if (scriptList.contains(script)) {
 			return;
@@ -285,49 +375,49 @@ public class ScriptGenerator {
 	}
 
 	public String hrefScript(String functionName, String labelText,
-			String newWindowName) {
-		String s = "function functionName(value,record, name){return '<a href=\"javascript:newWindowName()\">LabelText</a>';}";
-		s = s.replace("functionName", functionName);
-		s = s.replace("newWindowName", newWindowName);
-		s = s.replace("LabelText", labelText);
+			String newWindowName, String parameter) {
+		String s = "function #functionName#(value,record, name){return '<a href=\"javascript:#newWindowName#(record)\">#LabelText#</a>';}";
+		s = s.replace("#functionName#", functionName);
+		s = s.replace("#newWindowName#", newWindowName);
+		s = s.replace("#LabelText#", labelText);
 		return s;
 	}
 
 	public String searchScript(String functionName, String datasetId) {
-		String s = "function functionName(){$('datasetId').query();}";
-		s = s.replace("functionName", functionName);
-		s = s.replace("datasetId", datasetId);
+		String s = "function #functionName#(){$('#datasetId#').query();}";
+		s = s.replace("#functionName#", functionName);
+		s = s.replace("#datasetId#", datasetId);
 		return s;
 	}
 
 	public String resetScript(String functionName, String datasetId) {
-		String s = " function functionName(){$('datasetId').reset();}";
-		s = s.replace("functionName", functionName);
-		s = s.replace("datasetId", datasetId);
+		String s = " function #functionName#(){$('#datasetId#').reset();}";
+		s = s.replace("#functionName#", functionName);
+		s = s.replace("#datasetId#", datasetId);
 		return s;
 	}
 
 	public String saveScript(String functionName, String datasetId) {
-		String s = " function functionName(){$('datasetId').submit();}";
-		s = s.replace("functionName", functionName);
-		s = s.replace("datasetId", datasetId);
+		String s = " function #functionName#(){$('#datasetId#').submit();}";
+		s = s.replace("#functionName#", functionName);
+		s = s.replace("#datasetId#", datasetId);
 		return s;
 	}
 
 	public String openScript(String functionName, String linkId) {
-		String s = " function functionName() {new Aurora.Window({id: 'windowID',url:$('linkId').getUrl(),title: 'Title',height: 435,width: 620});}";
-		s = s.replace("functionName", functionName);
+		String s = " function #functionName#() {var linkUrl = $('#linkId#').getUrl(); #parameters# new Aurora.Window({id: '#windowId#',url:linkUrl,title: 'Title',height: 435,width: 620});}";
+		s = s.replace("#functionName#", functionName);
 		String windowID = sg.getIdGenerator().genWindowID(linkId);
-		s = s.replaceAll("windowID", windowID);
-		s = s.replaceAll("linkId", linkId);
+		s = s.replaceAll("#windowId#", windowID);
+		s = s.replaceAll("#linkId#", linkId);
 
 		return s;
 	}
 
 	public String closeScript(String functionName, String windowId) {
-		String s = "function functionName(){$('windowId').close();}";
-		s = s.replace("functionName", functionName);
-		s = s.replace("windowId", windowId);
+		String s = "function #functionName#(){$('#windowId#').close();}";
+		s = s.replace("#functionName#", functionName);
+		s = s.replace("#windowId#", windowId);
 		return s;
 	}
 

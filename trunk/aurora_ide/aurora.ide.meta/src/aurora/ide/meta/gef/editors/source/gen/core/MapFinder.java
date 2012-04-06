@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.source.gen;
+package aurora.ide.meta.gef.editors.source.gen.core;
 
 import java.util.ArrayList;
 import java.util.List;

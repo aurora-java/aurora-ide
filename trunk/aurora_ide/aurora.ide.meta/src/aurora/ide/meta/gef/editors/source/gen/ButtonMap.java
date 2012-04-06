@@ -4,6 +4,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.Button;
+import aurora.ide.meta.gef.editors.source.gen.core.AuroraComponent2CompositMap;
 
 public class ButtonMap extends AbstractComponentMap {
 

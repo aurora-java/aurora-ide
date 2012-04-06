@@ -28,7 +28,7 @@ import aurora.ide.AuroraMetaProjectNature;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.Util;
-import aurora.ide.meta.gef.editors.source.gen.ProjectGenerator;
+import aurora.ide.meta.gef.editors.source.gen.core.ProjectGenerator;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 
@@ -259,6 +259,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 		try {
 			getContainer().run(true, true, op);
 		} catch (InvocationTargetException e) {
+			e.printStackTrace();
 			this.mainPage.setErrorMessage(pg.getErrorMessage());
 			return false;
 		} catch (InterruptedException e) {

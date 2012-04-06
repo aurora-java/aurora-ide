@@ -8,6 +8,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
+import aurora.ide.meta.gef.editors.source.gen.core.AuroraComponent2CompositMap;
 
 public class BoxMap extends AbstractComponentMap {
 

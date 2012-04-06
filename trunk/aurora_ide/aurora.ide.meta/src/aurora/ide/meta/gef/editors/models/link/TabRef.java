@@ -15,6 +15,11 @@ public class TabRef extends AuroraComponent {
 
 	private String url;
 
+	// parameter
+	// a.b.c.d model
+	// TODO
+	private String paraPath;
+
 	private TabItem tabItem;
 	private List<Parameter> paras = new ArrayList<Parameter>();
 

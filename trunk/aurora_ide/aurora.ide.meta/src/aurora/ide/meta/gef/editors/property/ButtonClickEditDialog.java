@@ -84,9 +84,11 @@ public class ButtonClickEditDialog extends EditWizard {
 	public boolean performFinish() {
 		if (tmpTargetCmp instanceof AuroraComponent)
 			clicker.setTargetComponent((AuroraComponent) tmpTargetCmp);
-		clicker.setOpenPath(tmpPath);
-		clicker.getParameters().clear();
-		clicker.getParameters().addAll(pc.getParameters());
+		if(pc!=null){
+			clicker.setOpenPath(tmpPath);
+			clicker.getParameters().clear();
+			clicker.getParameters().addAll(pc.getParameters());
+		}
 
 		clicker.setCloseWindowID(tmpWindowID);
 		clicker.setFunction(tmpFunction);

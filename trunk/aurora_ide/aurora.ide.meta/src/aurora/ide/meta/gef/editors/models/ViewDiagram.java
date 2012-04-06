@@ -8,7 +8,8 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 public class ViewDiagram extends Container {
 	private static final long serialVersionUID = -9196440587781890208L;
 	public static final int DLabelWidth = 80;
-	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class, GridColumn.class, TabItem.class };
+	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class,
+			GridColumn.class, TabItem.class };
 
 	// private List<Link> links = new ArrayList<Link>();
 	private String bindTemplate = "";
@@ -108,7 +109,8 @@ public class ViewDiagram extends Container {
 		List<Container> containers = getContainers(this);
 		for (Container container : containers) {
 			String sectionType = container.getSectionType();
-			if (Container.SECTION_TYPE_QUERY.equals(sectionType) || Container.SECTION_TYPE_RESULT.equals(sectionType)) {
+			if (Container.SECTION_TYPE_QUERY.equals(sectionType)
+					|| Container.SECTION_TYPE_RESULT.equals(sectionType)) {
 				String model = container.getDataset().getModel();
 				if (null != model) {
 					models.add(model);
@@ -124,7 +126,8 @@ public class ViewDiagram extends Container {
 		for (AuroraComponent ac : children) {
 			if (ac instanceof Container) {
 				String sectionType = ((Container) ac).getSectionType();
-				if (Container.SECTION_TYPE_QUERY.equals(sectionType) || Container.SECTION_TYPE_RESULT.equals(sectionType)) {
+				if (Container.SECTION_TYPE_QUERY.equals(sectionType)
+						|| Container.SECTION_TYPE_RESULT.equals(sectionType)) {
 					containers.add((Container) ac);
 				}
 				containers.addAll(getSectionContainers((Container) ac));
