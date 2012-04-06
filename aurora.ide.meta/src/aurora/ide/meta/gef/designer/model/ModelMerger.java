@@ -21,6 +21,7 @@ import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
+import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.cache.CacheManager;
@@ -367,7 +368,7 @@ public class ModelMerger {
 
 	private CompositeMap newCompositeMap(String name) {
 		CompositeMap map = new CommentCompositeMap(name);
-		map.setPrefix("bm");// set a default prefix
+		map.setPrefix(BaseBmGenerator.bm_ns_pre);// set a default prefix
 		return map;
 	}
 }
