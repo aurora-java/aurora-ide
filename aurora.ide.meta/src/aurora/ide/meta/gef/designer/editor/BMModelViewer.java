@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.gef.designer.DataType;
+import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
@@ -56,26 +57,26 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 		zColumn.setResizable(false);
 		zColumn.setWidth(0);
 		TableColumn column = new TableColumn(table, SWT.CENTER);
-		column.setText("编号");
+		column.setText(DesignerMessages.BMModelViewer_0);
 		column.pack();
 		column.setResizable(false);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("描述");
+		column.setText(DesignerMessages.BMModelViewer_1);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("类型");
+		column.setText(DesignerMessages.BMModelViewer_2);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("name");
+		column.setText(DesignerMessages.BMModelViewer_3);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("Editor");
+		column.setText(DesignerMessages.BMModelViewer_4);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("用作查询");
+		column.setText(DesignerMessages.BMModelViewer_5);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("查询方式");
+		column.setText(DesignerMessages.BMModelViewer_6);
 		column.setWidth(100);
 		// ///////
 		setContentProvider(new BMModelContentProvider(BMModel.RECORD));
@@ -106,7 +107,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 				ces[c].setValue(record.get(TABLE_COLUMN_PROPERTIES[c]));
 				ces[c].addListener(new RecordCellEditorListener(record,
 						TABLE_COLUMN_PROPERTIES[c], ces[c]));
-				editorMap.put(r + "-" + c, ces[c]);
+				editorMap.put(r + "-" + c, ces[c]); //$NON-NLS-1$
 			}
 		}
 		table.setRedraw(true);
@@ -128,7 +129,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 				for (int c = 0; c < ces.length; c++) {
 					if (ces[c] == null)
 						continue;
-					String key = r + "-" + c;
+					String key = r + "-" + c; //$NON-NLS-1$
 					CellEditor ce = editorMap.get(key);
 					if (ce != null) {
 						ce.deactivate();
@@ -159,7 +160,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 
 	private CellEditor[] getNewCellEditors(Record record) {
 		Table table = getTable();
-		String[] ss = getOperators(record == null ? "" : record.getType());
+		String[] ss = getOperators(record == null ? "" : record.getType()); //$NON-NLS-1$
 		return new CellEditor[] { null, null, new StringCellEditor(table),
 				new ComboBoxCellEditor(table, data_types),
 				new StringCellEditor(table),
@@ -214,7 +215,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 				return;
 			int nextR = e.stateMask == 0 ? r + 1 : r - 1;
 			if (e.keyCode == 13) {
-				String nextKey = String.format("%d-%d", nextR, c);
+				String nextKey = String.format("%d-%d", nextR, c); //$NON-NLS-1$
 				CellEditor ce = editorMap.get(nextKey);
 				if (ce == null)
 					return;

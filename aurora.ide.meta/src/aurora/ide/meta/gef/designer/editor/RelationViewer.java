@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 
@@ -30,24 +31,24 @@ public class RelationViewer extends TableViewer implements IDesignerConst {
 		zColumn.setResizable(false);
 		zColumn.setMoveable(false);
 		TableColumn column = new TableColumn(table, SWT.CENTER);
-		column.setText("编号");
+		column.setText(DesignerMessages.RelationViewer_0);
 		column.pack();
 		column.setResizable(false);
 		column.setMoveable(false);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("关系名");
+		column.setText(DesignerMessages.RelationViewer_1);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("引用表");
+		column.setText(DesignerMessages.RelationViewer_2);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("本地字段");
+		column.setText(DesignerMessages.RelationViewer_3);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("外部字段");
+		column.setText(DesignerMessages.RelationViewer_4);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("关联类型");
+		column.setText(DesignerMessages.RelationViewer_5);
 		column.setWidth(100);
 		setContentProvider(new BMModelContentProvider(BMModel.RELATION));
 		setLabelProvider(new BMModelLabelProvider(BMModel.RELATION));

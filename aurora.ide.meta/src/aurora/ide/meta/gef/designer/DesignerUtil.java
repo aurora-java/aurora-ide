@@ -7,12 +7,18 @@ import aurora.ide.meta.gef.designer.model.Record;
 public class DesignerUtil implements IDesignerConst {
 	public static final ArrayList<Object[]> typeMap = new ArrayList<Object[]>();
 	static {
-		typeMap.add(new Object[] { ".*(数量|大小|年龄)", DataType.INTEGER });
-		typeMap.add(new Object[] { ".*(金额|单价)", DataType.FLOAT });
-		typeMap.add(new Object[] { ".*(日期|生日)", DataType.DATE });
-		typeMap.add(new Object[] { ".*(时间)", DataType.DATE_TIME });
-		typeMap.add(new Object[] { ".*超长.*", DataType.LONG_TEXT });
-		typeMap.add(new Object[] { ".*", DataType.TEXT });
+		typeMap.add(new Object[] { DesignerMessages.DesignerUtil_0,
+				DataType.INTEGER });
+		typeMap.add(new Object[] { DesignerMessages.DesignerUtil_1,
+				DataType.FLOAT });
+		typeMap.add(new Object[] { DesignerMessages.DesignerUtil_2,
+				DataType.DATE });
+		typeMap.add(new Object[] { DesignerMessages.DesignerUtil_3,
+				DataType.DATE_TIME });
+		typeMap.add(new Object[] { DesignerMessages.DesignerUtil_4,
+				DataType.LONG_TEXT });
+		typeMap.add(new Object[] { DesignerMessages.DesignerUtil_5,
+				DataType.TEXT });
 	}
 
 	public static Record createRecord(String prompt) {
