@@ -28,7 +28,7 @@ public class BMDesigner extends FormEditor {
 	private BMModel model;
 	private BMDesignPage dpage = new BMDesignPage(this,
 			DesignerMessages.BMDesigner_0, DesignerMessages.BMDesigner_1);
-	private BMExecutePage epage = new BMExecutePage(this,
+	private CreateTablePage epage = new CreateTablePage(this,
 			DesignerMessages.BMDesigner_2, DesignerMessages.BMDesigner_3);
 
 	public BMDesigner() {
