@@ -116,7 +116,7 @@ public class BMDesignPage extends FormPage {
 		new Label(body, SWT.NONE);// placeholder
 		Label label = new Label(com, SWT.NONE);
 		label.setBackground(body.getBackground());
-		label.setText("Title : ");
+		label.setText(DesignerMessages.BMDesignPage_0);
 
 		titleText = new Text(com, SWT.BORDER);
 		// titleText.setBackground(new Color(null, 240, 244, 244));
@@ -152,7 +152,7 @@ public class BMDesignPage extends FormPage {
 		quickAddText = new Text(body, SWT.BORDER);
 		quickAddText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 				false, 1, 1));
-		quickAddText.setMessage("输入字段描述,如:单据号,订单日期");
+		quickAddText.setMessage(DesignerMessages.BMDesignPage_1);
 		quickAddText.setFont(new Font(null, quickAddText.getFont()
 				.getFontData()[0].getName(), 12, SWT.NORMAL));
 		toolkit.adapt(quickAddText, true, true);
@@ -160,7 +160,7 @@ public class BMDesignPage extends FormPage {
 		btnNew = new Button(body, SWT.NONE);
 		btnNew.setFont(quickAddText.getFont());
 		toolkit.adapt(btnNew, true, true);
-		btnNew.setText("Create");
+		btnNew.setText(DesignerMessages.BMDesignPage_2);
 		btnNew.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false,
 				1, 1));
 		btnNew.addSelectionListener(new SelectionAdapter() {
@@ -188,7 +188,7 @@ public class BMDesignPage extends FormPage {
 		btnUp = new Button(body, SWT.FLAT);
 		btnUp.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1,
 				1));
-		btnUp.setText("Up");
+		btnUp.setText(DesignerMessages.BMDesignPage_3);
 		SelectionListener listener = new SelectionAdapter() {
 
 			public void widgetSelected(SelectionEvent e) {
@@ -211,12 +211,12 @@ public class BMDesignPage extends FormPage {
 		btnDown = new Button(body, SWT.NONE);
 		btnDown.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false,
 				1, 1));
-		btnDown.setText("Down");
+		btnDown.setText(DesignerMessages.BMDesignPage_4);
 		btnDel = new Button(body, SWT.NONE);
 		btnDel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false,
 				1, 1));
 		btnDown.addSelectionListener(listener);
-		btnDel.setText("Delete");
+		btnDel.setText(DesignerMessages.BMDesignPage_5);
 		btnDel.addSelectionListener(new SelectionAdapter() {
 
 			public void widgetSelected(SelectionEvent e) {
@@ -232,7 +232,7 @@ public class BMDesignPage extends FormPage {
 		});
 
 		btnClear = new Button(body, SWT.NONE);
-		btnClear.setText("Clear");
+		btnClear.setText(DesignerMessages.BMDesignPage_6);
 		btnClear.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false,
 				1, 1));
 		btnClear.addSelectionListener(new SelectionAdapter() {
@@ -279,7 +279,7 @@ public class BMDesignPage extends FormPage {
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 5));
 		new Label(body, 0);
 		btnNewRelation = new Button(body, SWT.NONE);
-		btnNewRelation.setText("New");
+		btnNewRelation.setText(DesignerMessages.BMDesignPage_7);
 		btnNewRelation.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false, 1, 1));
 		btnNewRelation.addSelectionListener(new SelectionAdapter() {
@@ -298,7 +298,7 @@ public class BMDesignPage extends FormPage {
 			}
 		});
 		btnEditRelation = new Button(body, SWT.NONE);
-		btnEditRelation.setText("Edit");
+		btnEditRelation.setText(DesignerMessages.BMDesignPage_8);
 		btnEditRelation.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false, 1, 1));
 		btnEditRelation.addSelectionListener(new SelectionAdapter() {
@@ -314,7 +314,7 @@ public class BMDesignPage extends FormPage {
 			}
 		});
 		btnDelRelation = new Button(body, SWT.NONE);
-		btnDelRelation.setText("Delete");
+		btnDelRelation.setText(DesignerMessages.BMDesignPage_9);
 		btnDelRelation.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false, 1, 1));
 		btnEditRelation.setEnabled(false);
@@ -341,14 +341,14 @@ public class BMDesignPage extends FormPage {
 
 	private void createNewLine() {
 		boolean mod = false;
-		for (String s : quickAddText.getText().split("\\s*,\\s*|\\s*;\\s*")) {
+		for (String s : quickAddText.getText().split(DesignerMessages.BMDesignPage_10)) {
 			if (s.length() == 0)
 				continue;
 			Record r = DesignerUtil.createRecord(s);
 			mod = true;
 			model.add(r);
 		}
-		quickAddText.setText("");
+		quickAddText.setText(DesignerMessages.BMDesignPage_11);
 		if (mod)
 			viewer.refresh();
 	}
@@ -358,14 +358,14 @@ public class BMDesignPage extends FormPage {
 		model.addPropertyChangeListener(new PropertyChangeListener() {
 
 			public void propertyChange(PropertyChangeEvent evt) {
-				System.out.println(evt.getPropertyName() + " change from "
-						+ evt.getOldValue() + " to " + evt.getNewValue());
-				String[] pns = evt.getPropertyName().split(":");
+				System.out.println(evt.getPropertyName() + DesignerMessages.BMDesignPage_12
+						+ evt.getOldValue() + DesignerMessages.BMDesignPage_13 + evt.getNewValue());
+				String[] pns = evt.getPropertyName().split(DesignerMessages.BMDesignPage_14);
 				if (pns.length == 3
 						&& pns[0].equals(Record.class.getSimpleName())
 						&& pns[2].equals(BMModelViewer.COLUMN_TYPE)) {
 					Object old = evt.getOldValue();
-					if (old != null && !old.equals("")) {
+					if (old != null && !old.equals(DesignerMessages.BMDesignPage_15)) {
 						Record r = model.getAt(Integer.parseInt(pns[1]) - 1);
 						viewer.refresh(r);
 					}

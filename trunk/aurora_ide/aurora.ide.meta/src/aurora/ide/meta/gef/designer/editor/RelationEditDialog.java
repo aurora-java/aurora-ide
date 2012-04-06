@@ -38,6 +38,7 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.AuroraPlugin;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
@@ -86,10 +87,10 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 
 	private void beforeCreate() {
 		if (relation == null) {
-			getShell().setText("Create New Relation");
+			getShell().setText(DesignerMessages.RelationEditDialog_0);
 			relation = new Relation();
 		} else
-			getShell().setText("Edit Relation");
+			getShell().setText(DesignerMessages.RelationEditDialog_1);
 		metaProject = AuroraPlugin.getActiveIFile().getProject();
 		amproj = new AuroraMetaProject(metaProject);
 		try {
@@ -115,7 +116,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		Label label = new Label(container, SWT.NONE);
 		label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
-		label.setText("关系名:");
+		label.setText(DesignerMessages.RelationEditDialog_2);
 
 		text_relname = new Text(container, SWT.BORDER);
 		text_relname.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
@@ -126,7 +127,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		Label label_1 = new Label(container, SWT.NONE);
 		label_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
-		label_1.setText("引用表:");
+		label_1.setText(DesignerMessages.RelationEditDialog_3);
 
 		text_refmodel = new Text(container, SWT.BORDER | SWT.READ_ONLY) {
 			public void setText(String str) {
@@ -145,12 +146,12 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 
 		Button btnNewButton = new Button(container, SWT.NONE);
 		btnNewButton.addSelectionListener(new BmSelectListener());
-		btnNewButton.setText("浏览");
+		btnNewButton.setText(DesignerMessages.RelationEditDialog_4);
 
 		Label lblNewLabel = new Label(container, SWT.NONE);
 		lblNewLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 				false, 1, 1));
-		lblNewLabel.setText("本地字段:");
+		lblNewLabel.setText(DesignerMessages.RelationEditDialog_5);
 
 		localFieldComboViewer = new ComboViewer(container, SWT.READ_ONLY);
 		Combo combo_1 = localFieldComboViewer.getCombo();
@@ -172,7 +173,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		Label lblNewLabel_1 = new Label(container, SWT.NONE);
 		lblNewLabel_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 				false, 1, 1));
-		lblNewLabel_1.setText("外部字段:");
+		lblNewLabel_1.setText(DesignerMessages.RelationEditDialog_6);
 
 		bmFieldComboViewer = new ComboViewer(container, SWT.READ_ONLY);
 		Combo combo = bmFieldComboViewer.getCombo();
@@ -187,11 +188,11 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		Label lblNewLabel_2 = new Label(container, SWT.NONE);
 		lblNewLabel_2.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 				false, 1, 1));
-		lblNewLabel_2.setText("关联类型:");
+		lblNewLabel_2.setText(DesignerMessages.RelationEditDialog_7);
 
 		com_jointype = new Combo(container, SWT.READ_ONLY);
-		String[] items = new String[] { "LEFT OUTER", "RIGHT OUTER",
-				"FULL OUTER", "INNER", "CROSS" };
+		String[] items = new String[] { "LEFT OUTER", "RIGHT OUTER", //$NON-NLS-1$ //$NON-NLS-2$
+				"FULL OUTER", "INNER", "CROSS" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		com_jointype.setItems(items);
 		com_jointype.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 				false, 1, 1));
@@ -208,18 +209,18 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 
 	private void createRefFieldGroup(Composite container) {
 		Group composite = new Group(container, SWT.NONE);
-		composite.setText("引用字段");
+		composite.setText(DesignerMessages.RelationEditDialog_13);
 		composite.setLayout(null);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3,
 				1));
 
 		Label label_2 = new Label(composite, SWT.NONE);
 		label_2.setBounds(8, 20, 48, 15);
-		label_2.setText("所有字段");
+		label_2.setText(DesignerMessages.RelationEditDialog_14);
 
 		Label label_3 = new Label(composite, SWT.NONE);
 		label_3.setBounds(224, 20, 48, 15);
-		label_3.setText("引用字段");
+		label_3.setText(DesignerMessages.RelationEditDialog_15);
 
 		bmFieldListViewer = new ListViewer(composite, SWT.BORDER | SWT.V_SCROLL
 				| SWT.MULTI);
@@ -249,22 +250,22 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		Button button = new Button(composite_1, SWT.NONE);
 		button.addSelectionListener(new FieldOperationListener(1 << 1));
 		button.setBounds(0, 0, 36, 25);
-		button.setText(">>");
+		button.setText(DesignerMessages.RelationEditDialog_16);
 
 		Button button_1 = new Button(composite_1, SWT.NONE);
 		button_1.addSelectionListener(new FieldOperationListener(1 << 2));
 		button_1.setBounds(0, 25, 36, 25);
-		button_1.setText(">");
+		button_1.setText(DesignerMessages.RelationEditDialog_17);
 
 		Button button_2 = new Button(composite_1, SWT.NONE);
 		button_2.addSelectionListener(new FieldOperationListener(1 << 3));
 		button_2.setBounds(0, 50, 36, 25);
-		button_2.setText("<");
+		button_2.setText(DesignerMessages.RelationEditDialog_18);
 
 		Button button_3 = new Button(composite_1, SWT.NONE);
 		button_3.addSelectionListener(new FieldOperationListener(1 << 4));
 		button_3.setBounds(0, 75, 36, 25);
-		button_3.setText("<<");
+		button_3.setText(DesignerMessages.RelationEditDialog_19);
 	}
 
 	/**
@@ -293,13 +294,13 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		if (r != null)
 			relation.setLocalField(r.getPrompt());
 		else
-			relation.setLocalField("");
+			relation.setLocalField(""); //$NON-NLS-1$
 		CompositeMap forMap = getSelectedForienField();
 		if (forMap != null) {
-			String prompt = forMap.getString("prompt");
-			relation.setSrcField(prompt == null ? "" : prompt);
+			String prompt = forMap.getString("prompt"); //$NON-NLS-1$
+			relation.setSrcField(prompt == null ? "" : prompt); //$NON-NLS-1$
 		} else
-			relation.setSrcField("");
+			relation.setSrcField(""); //$NON-NLS-1$
 		int idx = com_jointype.getSelectionIndex();
 		if (idx == -1)
 			idx = 0;
@@ -348,9 +349,9 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 				String bmPkg = text_refmodel.getText();
 				if (bmPkg.length() == 0)
 					return;
-				DataSetFieldUtil dsfu = new DataSetFieldUtil(metaProject, "",
+				DataSetFieldUtil dsfu = new DataSetFieldUtil(metaProject, "", //$NON-NLS-1$
 						bmPkg);
-				bmfieldList = dsfu.getLocalFields(dsfu.getBmMap(), false);
+				bmfieldList = dsfu.getLocalFields(dsfu.getBmMap(),false);
 				bmFieldComboViewer.setInput(bmfieldList);
 				if (bmFieldListViewer != null)
 					bmFieldListViewer.setInput(bmfieldList.clone());
@@ -360,7 +361,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 				}
 				String srcF = relation.getSrcField();
 				for (int i = 0; i < bmfieldList.size(); i++) {
-					String pmpt = bmfieldList.get(i).getString("prompt");
+					String pmpt = bmfieldList.get(i).getString("prompt"); //$NON-NLS-1$
 					if (pmpt != null && pmpt.equals(srcF)) {
 						bmFieldComboViewer.getCombo().select(i);
 						break;
@@ -379,7 +380,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 			if (auroraProject == null)
 				return;
 			ResourceSelector rs = new ResourceSelector(getShell());
-			rs.setExtFilter(new String[] { "bm" });
+			rs.setExtFilter(new String[] { "bm" }); //$NON-NLS-1$
 			String bmHome = ResourceUtil.getBMHome(auroraProject);
 			IFolder folder = ResourcesPlugin.getWorkspace().getRoot()
 					.getFolder(new Path(bmHome));
