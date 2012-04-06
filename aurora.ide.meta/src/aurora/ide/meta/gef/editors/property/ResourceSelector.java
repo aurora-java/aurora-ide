@@ -185,7 +185,7 @@ public class ResourceSelector implements ISelectionChangedListener {
 					continue;
 				if (hasChildren(r))
 					als.add(r);
-				if (accept(r.getName()))
+				else if (accept(r.getName()))
 					als.add(r);
 			}
 			IResource[] res = new IResource[als.size()];
