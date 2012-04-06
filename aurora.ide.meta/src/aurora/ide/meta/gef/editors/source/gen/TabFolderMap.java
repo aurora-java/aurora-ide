@@ -4,6 +4,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.TabFolder;
+import aurora.ide.meta.gef.editors.source.gen.core.AuroraComponent2CompositMap;
 
 public class TabFolderMap extends AbstractComponentMap {
 

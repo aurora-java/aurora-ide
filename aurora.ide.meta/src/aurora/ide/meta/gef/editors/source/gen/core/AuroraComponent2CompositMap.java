@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.source.gen;
+package aurora.ide.meta.gef.editors.source.gen.core;
 
 import java.util.List;
 
@@ -18,6 +18,17 @@ import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.source.gen.BoxMap;
+import aurora.ide.meta.gef.editors.source.gen.ButtonMap;
+import aurora.ide.meta.gef.editors.source.gen.CheckBoxMap;
+import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
+import aurora.ide.meta.gef.editors.source.gen.DatasetFieldMap;
+import aurora.ide.meta.gef.editors.source.gen.DatasetMap;
+import aurora.ide.meta.gef.editors.source.gen.GridColumnMap;
+import aurora.ide.meta.gef.editors.source.gen.GridMap;
+import aurora.ide.meta.gef.editors.source.gen.InputMap;
+import aurora.ide.meta.gef.editors.source.gen.TabFolderMap;
+import aurora.ide.meta.gef.editors.source.gen.TabItemMap;
 
 public class AuroraComponent2CompositMap {
 	public static final String SCREEN_PREFIX = "a";
@@ -94,6 +105,9 @@ public class AuroraComponent2CompositMap {
 	}
 
 	public void doLovMap(Dataset ds, AuroraComponent ac, CompositeMap lovMap) {
+		if(ds == null){
+			return ;
+		}
 		CompositeMap containerMap = lovMap.getParent();
 		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
 				screenGenerator.getProject(), ac.getName(), ds.getModel());

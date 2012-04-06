@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.source.gen;
+package aurora.ide.meta.gef.editors.source.gen.core;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,23 +21,30 @@ import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
 import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.QueryContainer;
 import aurora.ide.meta.gef.editors.models.Renderer;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.models.link.Parameter;
+import aurora.ide.meta.gef.editors.models.link.TabRef;
 
 public class ScreenGenerator {
 
 	private IDGenerator idGenerator;
 	private AuroraComponent2CompositMap a2Map;
 	private ScriptGenerator scriptGenerator;
-	private CompositeMap datasets;
 
-	private Map<Dataset, String> datasetMap = new HashMap<Dataset, String>();
+	private Map<Dataset, String> datasetMaper = new HashMap<Dataset, String>();
+
 	private IProject project;
+	private CompositeMap screenMap;
+	private CompositeMap viewMap;
+	private CompositeMap scriptMap;
+	private CompositeMap datasetsMap;
+	private CompositeMap screenBodyMap;
+	private ViewDiagram viewDiagram;
+	private DatasetGenerator datasetGenerator;
 
 	public ScreenGenerator(IProject project) {
 		this.project = project;
@@ -46,27 +53,48 @@ public class ScreenGenerator {
 	public String genFile(String header, ViewDiagram view)
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
+		boolean forCreate = view.isForCreate();
+
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
+		init(view);
+		run(view);
+
+		String xml = header + screenMap.toXML();
+		return xml;
+	}
+
+	private void run(ViewDiagram viewDiagram) {
+
+		genDatasets();
+
+		fill(viewDiagram, screenBodyMap);
+		fillLinks(viewMap);
+		scriptMap.setText(scriptGenerator.getScript());
+	}
+
+	private void genDatasets() {
+		List<Container> sectionContainers = viewDiagram
+				.getSectionContainers(viewDiagram);
+		for (Container container : sectionContainers) {
+			datasetGenerator.fillDatasets(container);
+		}
+	}
+
+	private void init(ViewDiagram view) {
+		viewDiagram = view;
 		idGenerator = new IDGenerator(view);
 		a2Map = new AuroraComponent2CompositMap(this);
-		CompositeMap screen = AuroraComponent2CompositMap
-				.createScreenCompositeMap();
-		CompositeMap viewMap = a2Map.toCompositMap(view);
-		CompositeMap script = viewMap.createChild("script");
-		datasets = createCompositeMap("dataSets");
-		CompositeMap screenBody = createCompositeMap("screenBody");
-		screen.addChild(viewMap);
-		viewMap.addChild(datasets);
-		viewMap.addChild(screenBody);
-
-		scriptGenerator = new ScriptGenerator(this, script);
-		fill(view, screenBody);
-		fillLinks(viewMap);
-
-		script.setText(scriptGenerator.getScript());
-		String xml = header + screen.toXML();
-		return xml;
+		screenMap = AuroraComponent2CompositMap.createScreenCompositeMap();
+		viewMap = a2Map.toCompositMap(view);
+		scriptMap = viewMap.createChild("script");
+		datasetsMap = createCompositeMap("dataSets");
+		screenBodyMap = createCompositeMap("screenBody");
+		screenMap.addChild(viewMap);
+		viewMap.addChild(datasetsMap);
+		viewMap.addChild(screenBodyMap);
+		scriptGenerator = new ScriptGenerator(this, scriptMap);
+		datasetGenerator = new DatasetGenerator(this);
 	}
 
 	private void fill(Container container, CompositeMap containerMap) {
@@ -90,7 +118,8 @@ public class ScreenGenerator {
 			} else {
 				containerMap.addChild(childMap);
 			}
-			if (ac instanceof TabItem){
+			if (ac instanceof TabItem) {
+				genTabRef((TabItem) ac, childMap, container, containerMap);
 				fill(((TabItem) ac).getBody(), childMap);
 			}
 			if (ac instanceof GridColumn) {
@@ -102,19 +131,47 @@ public class ScreenGenerator {
 			}
 			if (ac instanceof Container) {
 				fill((Container) ac, childMap);
-				fillDatasets((Container) ac);
+				// fillDatasets((Container) ac);
 			}
 			if (ac instanceof DatasetBinder) {
-				bindDataset(container, ac, childMap, datasets);
+				datasetGenerator.bindDatasetMap(container, ac, childMap);
 			}
+			Dataset dataset = datasetGenerator.findDataset(ac.getParent());
 			if (ac instanceof IDatasetFieldDelegate) {
-				fillDataset(findDataset(ac.getParent()), datasets, ac);
+				datasetGenerator.fillDatasetMap(dataset, ac);
 			}
 
 			if (isLov(ac)) {
-				a2Map.doLovMap(findDataset(ac.getParent()), ac, childMap);
+				a2Map.doLovMap(dataset, ac, childMap);
 			}
+		}
+	}
 
+	private void genTabRef(TabItem ac, CompositeMap childMap,
+			Container container, CompositeMap containerMap) {
+
+		TabRef tabRef = ac.getTabRef();
+		if (tabRef != null) {
+			String url = tabRef.getUrl();
+			List<Parameter> parameters = tabRef.getParameters();
+			getUrl(url, parameters);
+		}
+	}
+
+	private void getUrl(String url, List<Parameter> parameters) {
+		if (url == null)
+			return;
+		IPath path = new Path(url);
+		path = path.removeFileExtension().addFileExtension("screen");
+		for (int i = 0; i < parameters.size(); i++) {
+			if (i == 0) {
+				path = path.append("?");
+			}
+			path.append(parameters.get(i).toParameterFormat());
+
+			if (i < parameters.size() - 1) {
+				path = path.append("&");
+			}
 		}
 	}
 
@@ -224,112 +281,36 @@ public class ScreenGenerator {
 		return columns;
 	}
 
-	public CompositeMap fillDatasets(Container ac) {
-		Dataset dataset = findDataset(ac);
-		return fillDatasets(datasets, dataset);
+	public AuroraComponent2CompositMap getA2Map() {
+		return a2Map;
 	}
 
-	protected CompositeMap fillDatasets(Dataset dataset) {
-		return fillDatasets(datasets, dataset);
+	public ScriptGenerator getScriptGenerator() {
+		return scriptGenerator;
 	}
 
-	private CompositeMap fillDatasets(CompositeMap datasets, Dataset dataset) {
-		if (dataset == null)
-			return null;
-		String dsID = this.datasetMap.get(dataset);
-		if (dsID == null) {
-			dsID = this.idGenerator.genDatasetID(dataset);
-			datasetMap.put(dataset, dsID);
-		}
-		CompositeMap dsMap = datasets.getChildByAttrib("id", dsID);
-		if (dsMap == null) {
-			CompositeMap rds = a2Map.toCompositMap(dataset);
-			rds.put("id", dsID);
-
-			if (dataset.isUse4Query()) {
-				rds.put("autoCreate", true);
-			} else {
-				rds.put("model", dataset.getModel());
-			}
-			QueryContainer qs = (QueryContainer) dataset
-					.getPropertyValue(ResultDataSet.QUERY_CONTAINER);
-			if (qs != null) {
-				Container target = qs.getTarget();
-				if (target != null) {
-					Dataset ds = this.findDataset(target);
-					Object qds = this.fillDatasets(ds).get("id");
-					rds.put(ResultDataSet.QUERY_DATASET, qds.toString());
-				} else {
-					rds.put("loadData", true);
-				}
-			}
-
-			datasets.addChild(rds);
-			return rds;
-		}
-		return dsMap;
+	public Map<Dataset, String> getDatasetMaper() {
+		return datasetMaper;
 	}
 
-	private void bindDataset(Container root, AuroraComponent ac,
-			CompositeMap child, CompositeMap datasets) {
-		if (ac instanceof DatasetBinder) {
-			Dataset dataset = null;
-			if (ac instanceof Grid) {
-				dataset = findDataset((Grid) ac);
-			} else {
-				dataset = findDataset(root);
-			}
-			if (dataset != null) {
-				CompositeMap ds = this.fillDatasets(datasets, dataset);
-				child.put("bindTarget", ds.get("id"));
-			}
-		}
+	public CompositeMap getScreenMap() {
+		return screenMap;
 	}
 
-	private void fillDataset(Dataset dataset, CompositeMap datasets,
-			AuroraComponent ac) {
-		if (ac.getName() == null || "".equals(ac.getName()))
-			return;
-		CompositeMap dsMap = fillDatasets(datasets, dataset);
-		if (dsMap == null) {
-			return;
-		}
-		CompositeMap fields = dsMap.getChild("fields");
-		if (fields == null) {
-			fields = createCompositeMap("fields");
-			dsMap.addChild(fields);
-		}
-
-		CompositeMap field = fields.getChildByAttrib(AuroraComponent.NAME,
-				ac.getPropertyValue(AuroraComponent.NAME));
-		if (field == null) {
-			field = createCompositeMap("field");
-			fields.addChild(field);
-			field.put(AuroraComponent.NAME,
-					ac.getPropertyValue(AuroraComponent.NAME));
-		}
-		this.a2Map.bindDatasetField(field, dataset, ac);
-
+	public CompositeMap getViewMap() {
+		return viewMap;
 	}
 
-	private Dataset findDataset(Container container) {
-		if (container == null)
-			return null;
-		boolean useParentBM = isUseParentBM(container);
-		if (useParentBM) {
-			return findDataset(container.getParent());
-		}
-		Dataset dataset = container.getDataset();
-		return dataset;
+	public CompositeMap getScriptMap() {
+		return scriptMap;
 	}
 
-	private boolean isUseParentBM(Container container) {
-		if (Container.SECTION_TYPE_QUERY.equals(container.getSectionType())
-				|| Container.SECTION_TYPE_RESULT.equals(container
-						.getSectionType())) {
-			return false;
-		}
-		return true;
+	public CompositeMap getDatasetsMap() {
+		return datasetsMap;
+	}
+
+	public CompositeMap getScreenBodyMap() {
+		return screenBodyMap;
 	}
 
 	public IDGenerator getIdGenerator() {
@@ -342,6 +323,22 @@ public class ScreenGenerator {
 
 	public void setProject(IProject project) {
 		this.project = project;
+	}
+
+	public ViewDiagram getViewDiagram() {
+		return viewDiagram;
+	}
+
+	public CompositeMap fillDatasets(Container container) {
+		return this.datasetGenerator.fillDatasets(container);
+	}
+
+	public String findDatasetId(Container container) {
+		return datasetGenerator.findDatasetId(container);
+	}
+
+	public CompositeMap fillDatasetsMap(Dataset ds) {
+		return datasetGenerator.fillDatasetsMap(ds);
 	}
 
 }

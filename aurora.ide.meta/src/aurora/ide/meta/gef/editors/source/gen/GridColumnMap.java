@@ -9,6 +9,8 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
+import aurora.ide.meta.gef.editors.source.gen.core.AuroraComponent2CompositMap;
+import aurora.ide.meta.gef.editors.source.gen.core.ScreenGenerator;
 
 public class GridColumnMap extends AbstractComponentMap {
 

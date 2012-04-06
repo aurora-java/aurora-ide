@@ -11,7 +11,7 @@ import aurora.ide.meta.gef.editors.property.PropertySourceUtil;
 import aurora.ide.meta.gef.i18n.Messages;
 
 public class ButtonClicker extends AuroraComponent implements
-		DialogEditableObject {
+		DialogEditableObject,ILink {
 	/**
 	 * 
 	 */

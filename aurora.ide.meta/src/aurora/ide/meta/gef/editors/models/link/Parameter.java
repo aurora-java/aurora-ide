@@ -50,4 +50,10 @@ public class Parameter extends AuroraComponent {
 		return new Parameter(name, container, value);
 	}
 
+	public String toParameterFormat() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(name);
+		return "";
+	}
+
 }

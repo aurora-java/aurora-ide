@@ -5,6 +5,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.DatasetField;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.source.gen.core.AuroraComponent2CompositMap;
 
 public class InputMap extends AbstractComponentMap {
 

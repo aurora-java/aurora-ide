@@ -9,7 +9,7 @@ import aurora.ide.api.javascript.JavascriptRhino;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.property.DialogEditableObject;
 
-public class Renderer extends AuroraComponent implements DialogEditableObject {
+public class Renderer extends AuroraComponent implements DialogEditableObject,ILink {
 
 	private static final long serialVersionUID = -3218999047690358423L;
 	public static final String NONE_RENDERER = "NONE_RENDERER"; //$NON-NLS-1$

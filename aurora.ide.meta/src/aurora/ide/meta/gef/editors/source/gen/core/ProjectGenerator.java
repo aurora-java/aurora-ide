@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.source.gen;
+package aurora.ide.meta.gef.editors.source.gen.core;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
