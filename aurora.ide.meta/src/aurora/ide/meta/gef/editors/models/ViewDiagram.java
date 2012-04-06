@@ -11,7 +11,7 @@ public class ViewDiagram extends Container {
 	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class,
 			GridColumn.class, TabItem.class };
 
-	// private List<Link> links = new ArrayList<Link>();
+	private List<InitModel> initModels = new ArrayList<InitModel>();
 	private String bindTemplate = "";
 
 	private boolean isForDisplay;
@@ -27,69 +27,12 @@ public class ViewDiagram extends Container {
 		return super.isResponsibleChild(component);
 	}
 
-	// public List<Link> getLinks() {
-	// return links;
-	// }
-	//
-	// /**
-	// */
-	// public void addLink(Link link) {
-	// links.add(link);
-	// }
-	//
-	// /**
-	// */
-	// public void removeLink(Link link) {
-	// links.remove(link);
-	// }
-
-	@Override
-	public IPropertyDescriptor[] getPropertyDescriptors() {
-		// IPropertyDescriptor[] pds = new IPropertyDescriptor[links.size() +
-		// 1];
-		// for (int i = 0; i < links.size(); i++) {
-		// pds[i] = new LinkPropertyDescriptor(i, "Link");
-		// }
-		// pds[pds.length - 1] = new AddLinkPropertyDescriptor("add_link",
-		// "ADD Link");
-		// return pds;
-		return new IPropertyDescriptor[0];
+	public List<InitModel> getInitModels() {
+		return initModels;
 	}
 
-	@Override
-	public Object getPropertyValue(Object key) {
-		// if (key instanceof Integer) {
-		// return links.get(((Integer) key).intValue());
-		// }
-		// if ("add_link".equals(key))
-		// return null;
-		return super.getPropertyValue(key);
-	}
-
-	@Override
-	public void setPropertyValue(Object key, Object val) {
-		// if (key instanceof Integer && val instanceof Link) {
-		// if (val instanceof DeadLink) {
-		// links.remove(((Integer) key).intValue());
-		// } else {
-		// Link nVal = (Link) val;
-		// Link link = links.get(((Integer) key).intValue());
-		// link.setUrl(nVal.getUrl());
-		// link.setModel(nVal.getModel());
-		// link.setModelaction(nVal.getModelaction());
-		// }
-		// firePropertyChange("Link", null, val);
-		// }
-		// if ("add_link".equals(key)) {
-		// links.add((Link) val);
-		// firePropertyChange("Link", null, val);
-		// }
-		super.setPropertyValue(key, val);
-	}
-
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	public void addInitModels(InitModel initModel) {
+		this.initModels.add(initModel);
 	}
 
 	public String getBindTemplate() {
