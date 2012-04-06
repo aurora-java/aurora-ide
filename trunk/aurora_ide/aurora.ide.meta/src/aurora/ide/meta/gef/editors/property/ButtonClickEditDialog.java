@@ -84,7 +84,7 @@ public class ButtonClickEditDialog extends EditWizard {
 	public boolean performFinish() {
 		if (tmpTargetCmp instanceof AuroraComponent)
 			clicker.setTargetComponent((AuroraComponent) tmpTargetCmp);
-		if(pc!=null){
+		if (pc != null) {
 			clicker.setOpenPath(tmpPath);
 			clicker.getParameters().clear();
 			clicker.getParameters().addAll(pc.getParameters());
@@ -286,6 +286,7 @@ public class ButtonClickEditDialog extends EditWizard {
 					String webHome = ResourceUtil.getWebHome(auroraProject);
 					IResource res = ResourcesPlugin.getWorkspace().getRoot()
 							.findMember(webHome);
+					fss.setExtFilter(new String[] { "screen" });
 					fss.setInput((IContainer) res);
 					Object obj = fss.getSelection();
 					if (!(obj instanceof IFile)) {
@@ -323,7 +324,7 @@ public class ButtonClickEditDialog extends EditWizard {
 			}
 			GridData data = new GridData(GridData.FILL_BOTH);
 			data.horizontalSpan = 3;
-			pc = new ParameterComposite(root,composite_right,SWT.NONE);
+			pc = new ParameterComposite(root, composite_right, SWT.NONE);
 			pc.setLayoutData(data);
 			pc.setParameters(clicker.getParameters());
 		}
