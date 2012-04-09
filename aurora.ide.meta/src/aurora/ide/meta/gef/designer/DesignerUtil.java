@@ -24,16 +24,17 @@ public class DesignerUtil implements IDesignerConst {
 	public static Record createRecord(String prompt) {
 		Record r = new Record();
 		r.put(COLUMN_PROMPT, prompt);
+		DataType dt = DataType.TEXT;
 		for (Object[] ss : typeMap) {
 			if (prompt.matches((String) ss[0])) {
-				DataType dt = (DataType) ss[1];
-				r.put(COLUMN_TYPE, dt.getDisplayType());
-				r.put(COLUMN_EDITOR, dt.getDefaultEditor());
-				r.put(COLUMN_QUERY_OP, dt.getDefaultOperator());
+				dt = (DataType) ss[1];
 				break;
 			}
 		}
 		r.put(COLUMN_NAME, "");
+		r.put(COLUMN_TYPE, dt.getDisplayType());
+		r.put(COLUMN_EDITOR, dt.getDefaultEditor());
+		r.put(COLUMN_QUERY_OP, dt.getDefaultOperator());
 		r.put(COLUMN_QUERYFIELD, false);
 		r.put(COLUMN_ISFOREIGN, false);
 		return r;

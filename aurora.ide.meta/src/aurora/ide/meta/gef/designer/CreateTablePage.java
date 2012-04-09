@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.designer;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.IPageChangedListener;
@@ -16,7 +17,6 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
@@ -25,14 +25,18 @@ import org.eclipse.ui.forms.widgets.Form;
 
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.SQLConfiguration;
+import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.gen.SqlGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
+import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.project.AuroraMetaProject;
 
 public class CreateTablePage extends FormPage {
 
 	public static final String java_editor_font_key = "org.eclipse.jdt.ui.editors.textfont";
 
 	private BMModel model;
+	private IProject aProj;
 
 	private StyledText styledText;
 
@@ -44,6 +48,7 @@ public class CreateTablePage extends FormPage {
 	 */
 	public CreateTablePage(String id, String title) {
 		super(id, title);
+
 	}
 
 	/**
@@ -128,22 +133,34 @@ public class CreateTablePage extends FormPage {
 	}
 
 	private void createActions(IToolBarManager tbm) {
-		final boolean[] force = { false };
-		tbm.add(new Action("run") {
-			public void run() {
-
-				MessageBox mb = new MessageBox(getSite().getShell());
-				mb.setText("Create Table");
-				mb.setMessage("table create.\nforce override = " + force[0]);
-				mb.open();
+		IFile file = (IFile) getEditor().getAdapter(IFile.class);
+		try {
+			AuroraMetaProject amp = new AuroraMetaProject(file.getProject());
+			aProj = amp.getAuroraProject();
+		} catch (ResourceNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+		final Action forceAction = new Action("force override",
+				Action.AS_CHECK_BOX) {
+			{
+				setImageDescriptor(ImagesUtils
+						.getImageDescriptor("lightning_plus.png"));
 			}
-		});
-		tbm.add(new Action("force", Action.AS_CHECK_BOX) {
+		};
+		tbm.add(new CreateTableAction(aProj) {
 
-			public void run() {
-				force[0] = isChecked();
+			@Override
+			public String getSQL() {
+				return styledText.getText();
 			}
+
+			@Override
+			public boolean isForce() {
+				return forceAction.isChecked();
+			}
+
 		});
+		tbm.add(forceAction);
 		tbm.update(true);
 	}
 }
