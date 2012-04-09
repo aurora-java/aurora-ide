@@ -23,6 +23,7 @@ import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.designer.DesignerUtil;
+import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
 import aurora.ide.search.ui.EditorOpener;
@@ -61,8 +62,7 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 		String[] input = page1.getPreInput();
 		String[] userSel = page2.getUserSelection();
 		CompositeMap map = createModel(input, userSel);
-		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-				+ map.toXML();
+		String xml = BaseBmGenerator.xml_header + map.toXML();
 		try {
 			byte[] bs = xml.getBytes("UTF-8");
 			InputStream is = new ByteArrayInputStream(bs);

@@ -341,14 +341,15 @@ public class BMDesignPage extends FormPage {
 
 	private void createNewLine() {
 		boolean mod = false;
-		for (String s : quickAddText.getText().split(DesignerMessages.BMDesignPage_10)) {
+		for (String s : quickAddText.getText().split(
+				DesignerMessages.BMDesignPage_10)) {
 			if (s.length() == 0)
 				continue;
 			Record r = DesignerUtil.createRecord(s);
 			mod = true;
 			model.add(r);
 		}
-		quickAddText.setText(DesignerMessages.BMDesignPage_11);
+		quickAddText.setText("");
 		if (mod)
 			viewer.refresh();
 	}
@@ -358,14 +359,17 @@ public class BMDesignPage extends FormPage {
 		model.addPropertyChangeListener(new PropertyChangeListener() {
 
 			public void propertyChange(PropertyChangeEvent evt) {
-				System.out.println(evt.getPropertyName() + DesignerMessages.BMDesignPage_12
-						+ evt.getOldValue() + DesignerMessages.BMDesignPage_13 + evt.getNewValue());
-				String[] pns = evt.getPropertyName().split(DesignerMessages.BMDesignPage_14);
+				System.out.println(evt.getPropertyName()
+						+ DesignerMessages.BMDesignPage_12 + evt.getOldValue()
+						+ DesignerMessages.BMDesignPage_13 + evt.getNewValue());
+				String[] pns = evt.getPropertyName().split(
+						DesignerMessages.BMDesignPage_14);
 				if (pns.length == 3
 						&& pns[0].equals(Record.class.getSimpleName())
 						&& pns[2].equals(BMModelViewer.COLUMN_TYPE)) {
 					Object old = evt.getOldValue();
-					if (old != null && !old.equals(DesignerMessages.BMDesignPage_15)) {
+					if (old != null
+							&& !old.equals(DesignerMessages.BMDesignPage_15)) {
 						Record r = model.getAt(Integer.parseInt(pns[1]) - 1);
 						viewer.refresh(r);
 					}

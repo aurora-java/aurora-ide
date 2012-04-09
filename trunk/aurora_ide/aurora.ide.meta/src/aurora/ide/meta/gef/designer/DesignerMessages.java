@@ -4,15 +4,14 @@ import org.eclipse.osgi.util.NLS;
 
 public class DesignerMessages extends NLS {
 	private static final String BUNDLE_NAME = "aurora.ide.meta.gef.designer.messages"; //$NON-NLS-1$
-	public static String BMDesigner_0;
-	public static String BMDesigner_1;
-	public static String BMDesigner_2;
-	public static String BMDesigner_3;
-	public static String BMDesigner_5;
+	public static String BMDesigner_dpage_id;
+	public static String BMDesigner_dpage_name;
+	public static String BMDesigner_epage_id;
+	public static String BMDesigner_epage_name;
+	public static String BMDesigner_default_title;
 	public static String BMDesignPage_0;
 	public static String BMDesignPage_1;
 	public static String BMDesignPage_10;
-	public static String BMDesignPage_11;
 	public static String BMDesignPage_12;
 	public static String BMDesignPage_13;
 	public static String BMDesignPage_14;

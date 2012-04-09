@@ -27,9 +27,9 @@ public class BMDesigner extends FormEditor {
 	private IFile inputFile;
 	private BMModel model;
 	private BMDesignPage dpage = new BMDesignPage(this,
-			DesignerMessages.BMDesigner_0, DesignerMessages.BMDesigner_1);
+			DesignerMessages.BMDesigner_dpage_id, DesignerMessages.BMDesigner_dpage_name);
 	private CreateTablePage epage = new CreateTablePage(this,
-			DesignerMessages.BMDesigner_2, DesignerMessages.BMDesigner_3);
+			DesignerMessages.BMDesigner_epage_id, DesignerMessages.BMDesigner_epage_name);
 
 	public BMDesigner() {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(
@@ -90,7 +90,7 @@ public class BMDesigner extends FormEditor {
 		model = new ModelMerger(inputFile).getMergedModel();
 		if (model == null)
 			model = new BMModel();
-		model.setTitle(DesignerMessages.BMDesigner_5);
+		model.setTitle(DesignerMessages.BMDesigner_default_title);
 		dpage.setModel(model);
 		epage.setModel(model);
 	}
