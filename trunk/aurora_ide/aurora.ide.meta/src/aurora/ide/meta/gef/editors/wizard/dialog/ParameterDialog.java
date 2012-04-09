@@ -1,6 +1,6 @@
 package aurora.ide.meta.gef.editors.wizard.dialog;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
@@ -15,7 +15,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.Grid;
+import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
 
 public class ParameterDialog extends Dialog {
@@ -25,13 +29,14 @@ public class ParameterDialog extends Dialog {
 	private Combo containerField;
 	private Text valueField;
 	private Text nameField;
+	private AuroraComponent context;
 
 	public ParameterDialog(Shell parentShell, Container[] containers,
-			Parameter para) {
+			Parameter para, AuroraComponent context) {
 		super(parentShell);
 		this.containers = containers;
 		this.para = para;
-
+		this.context = context;
 	}
 
 	protected Control createSuperDialogArea(Composite parent) {
@@ -65,23 +70,23 @@ public class ParameterDialog extends Dialog {
 				_para.setName(nameField.getText());
 			}
 		});
-		Label container = new Label(composite, SWT.NONE);
-		container.setText("Container :");
-		containerField = new Combo(composite, getInputTextStyle()
-				| SWT.READ_ONLY);
-		containerField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		containerField.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				int selectionIndex = containerField.getSelectionIndex();
-				Container container = null;
-				try {
-					container = containers[selectionIndex];
-				} finally {
-					_para.setContainer(container);
-				}
-			}
-		});
+		// Label container = new Label(composite, SWT.NONE);
+		// container.setText("Container :");
+		// containerField = new Combo(composite, getInputTextStyle()
+		// | SWT.READ_ONLY);
+		// containerField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		//
+		// containerField.addModifyListener(new ModifyListener() {
+		// public void modifyText(ModifyEvent e) {
+		// int selectionIndex = containerField.getSelectionIndex();
+		// Container container = null;
+		// try {
+		// container = containers[selectionIndex];
+		// } finally {
+		// _para.setContainer(container);
+		// }
+		// }
+		// });
 
 		Label value = new Label(composite, SWT.NONE);
 		value.setText("Value :");
@@ -99,24 +104,71 @@ public class ParameterDialog extends Dialog {
 	}
 
 	private void init() {
-		if (containers != null) {
-			for (int i = 0; i < containers.length; i++) {
-				containerField.add(containers[i].toDisplayString(), i);
-			}
-		}
+		// if (containers != null) {
+		// for (int i = 0; i < containers.length; i++) {
+		// containerField.add(containers[i].toDisplayString(), i);
+		// }
+		// }
 		if (para != null) {
 			nameField.setText(para.getName() != null ? para.getName() : "");
 
-			int index = Arrays.asList(containers).indexOf(para.getContainer());
-			if (index != -1) {
-				containerField.select(index);
-			}
+			// int index =
+			// Arrays.asList(containers).indexOf(para.getContainer());
+			// if (index != -1) {
+			// containerField.select(index);
+			// }
 			valueField.setText(para.getValue() != null ? para.getValue() : "");
 		}
 	}
 
 	public Parameter getParameter() {
+		_para.setContainer(findContainer());
 		return _para;
+	}
+
+	private Container findContainer() {
+		Container findGrid = this.findGrid(context);
+		if (findGrid != null) {
+			return findGrid;
+		}
+		if (context instanceof Button) {
+			return findForm();
+		}
+		return null;
+	}
+
+	private Container findForm() {
+		ViewDiagram diagram = getDiagram(context);
+		if (diagram != null) {
+			List<Container> sectionContainers = diagram.getSectionContainers(
+					diagram, new String[] { Container.SECTION_TYPE_QUERY });
+			if(sectionContainers.size()>0){
+				return sectionContainers.get(0);
+			}
+		}
+		return null;
+	}
+
+	private ViewDiagram getDiagram(AuroraComponent ac) {
+		Container parent = ac.getParent();
+		if (parent instanceof ViewDiagram) {
+			return (ViewDiagram) parent;
+		}
+		if (parent != null) {
+			return getDiagram(parent.getParent());
+		}
+		return null;
+	}
+
+	private Container findGrid(AuroraComponent ac) {
+		Container parent = ac.getParent();
+		if (parent instanceof Grid) {
+			return parent;
+		}
+		if (parent != null) {
+			return findGrid(parent.getParent());
+		}
+		return null;
 	}
 
 	protected void configureShell(Shell shell) {

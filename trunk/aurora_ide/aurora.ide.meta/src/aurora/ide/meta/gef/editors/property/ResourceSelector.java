@@ -83,7 +83,7 @@ public class ResourceSelector implements ISelectionChangedListener {
 		createControl(com);
 	}
 
-	private void createControl(Composite com) {
+	protected void createControl(Composite com) {
 		com.setLayout(new GridLayout(1, true));
 		Label l = new Label(com, SWT.NONE);
 		l.setForeground(new Color(null, 87, 87, 87));
@@ -195,8 +195,8 @@ public class ResourceSelector implements ISelectionChangedListener {
 		}
 
 		public boolean hasChildren(Object element) {
-			if (element instanceof IFolder) {
-				IFolder folder = (IFolder) element;
+			if (element instanceof IContainer) {
+				IContainer folder = (IContainer) element;
 				Object[] res = getChildren(folder);
 				if (res.length == 0)
 					return false;
@@ -222,7 +222,7 @@ public class ResourceSelector implements ISelectionChangedListener {
 		}
 	}
 
-	private boolean accept(String fileName) {
+	protected boolean accept(String fileName) {
 		if (extFilters == null)
 			return true;
 		fileName = fileName.toLowerCase();
@@ -232,4 +232,13 @@ public class ResourceSelector implements ISelectionChangedListener {
 		}
 		return false;
 	}
+
+	public Dialog getDialog() {
+		return dia;
+	}
+
+	public void setResult(IResource result) {
+		this.result = result;
+	}
+	
 }

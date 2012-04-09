@@ -32,6 +32,7 @@ import aurora.ide.AuroraPlugin;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
+import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Renderer;
@@ -204,13 +205,14 @@ public class RendererEditDialog extends EditWizard {
 			btn.addSelectionListener(new SelectionListener() {
 
 				public void widgetSelected(SelectionEvent e) {
-					ResourceSelector fss = new ResourceSelector(composite_right
+					MutilInputResourceSelector fss = new MutilInputResourceSelector(composite_right
 							.getShell());
 					String webHome = ResourceUtil.getWebHome(auroraProject);
 					IResource res = ResourcesPlugin.getWorkspace().getRoot()
 							.findMember(webHome);
-					fss.setExtFilter(new String[] { "screen" });
-					fss.setInput((IContainer) res);
+					fss.setExtFilter(new String[] { "screen","uip" });
+					IContainer uipFolder = getUIPFolder();
+					fss.setInputs(new IContainer[] { (IContainer) res, uipFolder });
 					Object obj = fss.getSelection();
 					if (!(obj instanceof IFile)) {
 						// setPageComplete(false);
@@ -234,6 +236,17 @@ public class RendererEditDialog extends EditWizard {
 			});
 			createParaTable(composite_right);
 		}
+		public IContainer getUIPFolder() {
+			IFile activeIFile = AuroraPlugin.getActiveIFile();
+			IProject proj = activeIFile.getProject();
+			AuroraMetaProject mProj = new AuroraMetaProject(proj);
+			try {
+				return mProj.getScreenFolder();
+			} catch (ResourceNotFoundException e) {
+				e.printStackTrace();
+			}
+			return mProj.getProject();
+		}
 
 		private void createParaTable(Composite composite_right) {
 			AuroraComponent comp = (AuroraComponent) renderer.getContextInfo();
@@ -252,7 +265,7 @@ public class RendererEditDialog extends EditWizard {
 			}
 			GridData data = new GridData(GridData.FILL_BOTH);
 			data.horizontalSpan = 3;
-			pc = new ParameterComposite(root,composite_right,SWT.NONE);
+			pc = new ParameterComposite(root,composite_right,SWT.NONE,comp);
 			pc.setLayoutData(data);
 			pc.setParameters(renderer.getParameters());
 		}

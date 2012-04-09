@@ -34,6 +34,7 @@ import aurora.ide.AuroraPlugin;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
+import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
@@ -281,13 +282,14 @@ public class ButtonClickEditDialog extends EditWizard {
 
 			btn.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
-					ResourceSelector fss = new ResourceSelector(composite_right
+					MutilInputResourceSelector fss = new MutilInputResourceSelector(composite_right
 							.getShell());
 					String webHome = ResourceUtil.getWebHome(auroraProject);
 					IResource res = ResourcesPlugin.getWorkspace().getRoot()
 							.findMember(webHome);
-					fss.setExtFilter(new String[] { "screen" });
-					fss.setInput((IContainer) res);
+					fss.setExtFilter(new String[] { "screen","uip" });
+					IContainer uipFolder = getUIPFolder();
+					fss.setInputs(new IContainer[] { (IContainer) res, uipFolder });
 					Object obj = fss.getSelection();
 					if (!(obj instanceof IFile)) {
 						return;
@@ -324,11 +326,21 @@ public class ButtonClickEditDialog extends EditWizard {
 			}
 			GridData data = new GridData(GridData.FILL_BOTH);
 			data.horizontalSpan = 3;
-			pc = new ParameterComposite(root, composite_right, SWT.NONE);
+			pc = new ParameterComposite(root, composite_right, SWT.NONE,comp);
 			pc.setLayoutData(data);
 			pc.setParameters(clicker.getParameters());
 		}
-
+		public IContainer getUIPFolder() {
+			IFile activeIFile = AuroraPlugin.getActiveIFile();
+			IProject proj = activeIFile.getProject();
+			AuroraMetaProject mProj = new AuroraMetaProject(proj);
+			try {
+				return mProj.getScreenFolder();
+			} catch (ResourceNotFoundException e) {
+				e.printStackTrace();
+			}
+			return mProj.getProject();
+		}
 		private void create_close() {
 			composite_right.setLayout(new GridLayout(2, false));
 			Label label = new Label(composite_right, SWT.NONE);

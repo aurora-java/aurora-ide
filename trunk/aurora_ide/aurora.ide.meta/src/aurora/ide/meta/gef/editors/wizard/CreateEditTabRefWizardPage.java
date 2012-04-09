@@ -27,7 +27,7 @@ import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.property.Messages;
-import aurora.ide.meta.gef.editors.property.ResourceSelector;
+import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
 import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.core.Util;
@@ -41,6 +41,7 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 	private ParameterComposite pc;
 
 	private TabRef _ref;
+
 	protected CreateEditTabRefWizardPage() {
 		super("Create & Edit Ref");
 		this.setTitle("Ref");
@@ -58,7 +59,7 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 		TabRef l = new TabRef();
 		l.setUrl(url);
 		l.getParameters().addAll(pc.getParameters());
-		
+
 		return l;
 	}
 
@@ -85,7 +86,7 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 		br.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				Shell shell = parent.getShell();
-				buttonClick(shell, urlField, new String[] { "screen" });
+				buttonClick(shell, urlField, new String[] { "screen", "uip" });
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -99,7 +100,7 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 	}
 
 	private void createParaTable(Composite composite_right) {
-		
+
 		AuroraComponent comp = (AuroraComponent) _ref.getTabItem();
 		ViewDiagram root = null;
 		while (comp != null) {
@@ -116,7 +117,7 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 		}
 		GridData data = new GridData(GridData.FILL_BOTH);
 		data.horizontalSpan = 3;
-		pc = new ParameterComposite(root, composite_right, SWT.NONE);
+		pc = new ParameterComposite(root, composite_right, SWT.NONE, comp);
 		pc.setLayoutData(data);
 		pc.setParameters(_ref.getParameters());
 	}
@@ -137,11 +138,24 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 		return res;
 	}
 
+	public IContainer getUIPFolder() {
+		IFile activeIFile = AuroraPlugin.getActiveIFile();
+		IProject proj = activeIFile.getProject();
+		AuroraMetaProject mProj = new AuroraMetaProject(proj);
+		try {
+			return mProj.getScreenFolder();
+		} catch (ResourceNotFoundException e) {
+			e.printStackTrace();
+		}
+		return mProj.getProject();
+	}
+
 	public IFile openResourceSelector(Shell shell, String[] exts) {
-		ResourceSelector fss = new ResourceSelector(shell);
+		MutilInputResourceSelector fss = new MutilInputResourceSelector(shell);
 		IResource res = getWebHome();
 		fss.setExtFilter(exts);
-		fss.setInput((IContainer) res);
+		IContainer uipFolder = getUIPFolder();
+		fss.setInputs(new IContainer[] { (IContainer) res, uipFolder });
 		Object obj = fss.getSelection();
 		if (!(obj instanceof IFile)) {
 
