@@ -64,10 +64,6 @@ public class ScreenGenerator {
 			throw new TemplateNotBindedException();
 		init(view);
 		run(view);
-
-//		gen display s
-		//script has a list do a for
-		
 		
 		String xml = header + screenMap.toXML();
 		return xml;
@@ -83,7 +79,7 @@ public class ScreenGenerator {
 	}
 
 	private void genInitProceduce() {
-		
+		//TODO 
 	}
 
 
@@ -162,6 +158,7 @@ public class ScreenGenerator {
 		}
 	}
 
+	//TODO!!
 	private void genTabRef(TabItem ac, CompositeMap childMap,
 			Container container, CompositeMap containerMap) {
 

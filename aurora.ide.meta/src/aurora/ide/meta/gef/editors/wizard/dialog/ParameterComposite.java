@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
@@ -39,19 +40,22 @@ public class ParameterComposite extends Composite {
 
 	private ViewDiagram diagram;
 
-	public ParameterComposite(ViewDiagram diagram, Composite parent, int style) {
+	private AuroraComponent context;
+
+	public ParameterComposite(ViewDiagram diagram, Composite parent, int style,AuroraComponent context) {
 		super(parent, style);
 		createControl();
 		this.diagram = diagram;
+		this.context = context;
 	}
 
 	private Container[] getContainers() {
-		if (diagram != null) {
-			List<Container> sectionContainers = diagram
-					.getSectionContainers(diagram,Container.SECTION_TYPES);
-			return sectionContainers.toArray(new Container[sectionContainers
-					.size()]);
-		}
+//		if (diagram != null) {
+//			List<Container> sectionContainers = diagram
+//					.getSectionContainers(diagram,Container.SECTION_TYPES);
+//			return sectionContainers.toArray(new Container[sectionContainers
+//					.size()]);
+//		}
 		return null;
 	}
 
@@ -147,7 +151,7 @@ public class ParameterComposite extends Composite {
 
 			public void widgetSelected(SelectionEvent e) {
 				ParameterDialog pd = new ParameterDialog(getShell(),
-						getContainers(), null);
+						getContainers(), null,context);
 				int open = pd.open();
 				if (open == ParameterDialog.OK) {
 					Parameter parameter = pd.getParameter();
@@ -165,7 +169,7 @@ public class ParameterComposite extends Composite {
 
 			public void widgetSelected(SelectionEvent e) {
 				ParameterDialog pd = new ParameterDialog(getShell(),
-						getContainers(), c_parameter);
+						getContainers(), c_parameter,context);
 				int open = pd.open();
 				if (open == ParameterDialog.OK) {
 					Parameter parameter = pd.getParameter();
