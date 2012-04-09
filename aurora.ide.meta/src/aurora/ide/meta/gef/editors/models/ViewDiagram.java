@@ -3,8 +3,6 @@ package aurora.ide.meta.gef.editors.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-
 public class ViewDiagram extends Container {
 	private static final long serialVersionUID = -9196440587781890208L;
 	public static final int DLabelWidth = 80;
@@ -63,20 +61,28 @@ public class ViewDiagram extends Container {
 		return models;
 	}
 
-	public List<Container> getSectionContainers(Container container) {
+	public List<Container> getSectionContainers(Container container,
+			String[] types) {
 		List<Container> containers = new ArrayList<Container>();
 		List<AuroraComponent> children = container.getChildren();
 		for (AuroraComponent ac : children) {
 			if (ac instanceof Container) {
 				String sectionType = ((Container) ac).getSectionType();
-				if (Container.SECTION_TYPE_QUERY.equals(sectionType)
-						|| Container.SECTION_TYPE_RESULT.equals(sectionType)) {
+				if (contains(types, sectionType))
 					containers.add((Container) ac);
-				}
-				containers.addAll(getSectionContainers((Container) ac));
+				containers.addAll(getSectionContainers((Container) ac, types));
 			}
 		}
 		return containers;
+	}
+
+	private boolean contains(Object[] types, Object type) {
+		for (Object string : types) {
+			if (string.equals(type)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<Container> getContainers(Container container) {

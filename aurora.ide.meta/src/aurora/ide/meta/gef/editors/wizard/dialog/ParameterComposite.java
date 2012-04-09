@@ -48,7 +48,7 @@ public class ParameterComposite extends Composite {
 	private Container[] getContainers() {
 		if (diagram != null) {
 			List<Container> sectionContainers = diagram
-					.getSectionContainers(diagram);
+					.getSectionContainers(diagram,Container.SECTION_TYPES);
 			return sectionContainers.toArray(new Container[sectionContainers
 					.size()]);
 		}
