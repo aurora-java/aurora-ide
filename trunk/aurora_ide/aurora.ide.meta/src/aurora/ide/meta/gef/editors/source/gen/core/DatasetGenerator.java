@@ -10,6 +10,7 @@ import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.DatasetBinder;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.QueryContainer;
+import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 
 class DatasetGenerator {
@@ -62,8 +63,14 @@ class DatasetGenerator {
 			Container target = qs.getTarget();
 			if (target != null) {
 				Dataset ds = this.findDataset(target);
-				Object qds = this.fillDatasetsMap(ds).getString("id", "");
-				rds.put(ResultDataSet.QUERY_DATASET, qds.toString());
+				String qds = this.fillDatasetsMap(ds).getString("id", "");
+				if (ds instanceof QueryDataSet) {
+					rds.put(ResultDataSet.QUERY_DATASET, qds.toString());
+				}
+				if (ds instanceof ResultDataSet) {
+					rds.put("bindName", rds.getString("id", ""));
+					rds.put("bindTarget", qds);
+				}
 			} else {
 				rds.put("loadData", true);
 			}
@@ -88,7 +95,7 @@ class DatasetGenerator {
 	}
 
 	public void fillDatasetMap(Dataset dataset, AuroraComponent ac) {
-		
+
 		if (ac.getName() == null || "".equals(ac.getName()))
 			return;
 		CompositeMap dsMap = fillDatasetsMap(dataset);

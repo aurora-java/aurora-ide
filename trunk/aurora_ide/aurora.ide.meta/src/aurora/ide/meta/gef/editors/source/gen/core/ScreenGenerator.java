@@ -1,6 +1,5 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +34,6 @@ public class ScreenGenerator {
 	private AuroraComponent2CompositMap a2Map;
 	private ScriptGenerator scriptGenerator;
 
-	private Map<Dataset, String> datasetMaper = new HashMap<Dataset, String>();
 
 	private IProject project;
 	private CompositeMap screenMap;
@@ -46,26 +44,37 @@ public class ScreenGenerator {
 	private ViewDiagram viewDiagram;
 	private DatasetGenerator datasetGenerator;
 
+	
+	
 	public ScreenGenerator(IProject project) {
 		this.project = project;
 	}
+	
+	
 
 	public String genFile(String header, ViewDiagram view)
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
 		boolean forCreate = view.isForCreate();
+		if (!forCreate) {
+			throw new TemplateNotBindedException();
+		}
 
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
 		init(view);
 		run(view);
 
+//		gen display s
+		//script has a list do a for
+		
+		
 		String xml = header + screenMap.toXML();
 		return xml;
 	}
 
-	private void run(ViewDiagram viewDiagram) {
-
+	protected void run(ViewDiagram viewDiagram) {
+		genInitProceduce();
 		genDatasets();
 
 		fill(viewDiagram, screenBodyMap);
@@ -73,15 +82,21 @@ public class ScreenGenerator {
 		scriptMap.setText(scriptGenerator.getScript());
 	}
 
+	private void genInitProceduce() {
+		
+	}
+
+
+
 	private void genDatasets() {
 		List<Container> sectionContainers = viewDiagram
-				.getSectionContainers(viewDiagram);
+				.getSectionContainers(viewDiagram,Container.SECTION_TYPES);
 		for (Container container : sectionContainers) {
 			datasetGenerator.fillDatasets(container);
 		}
 	}
 
-	private void init(ViewDiagram view) {
+	protected void init(ViewDiagram view) {
 		viewDiagram = view;
 		idGenerator = new IDGenerator(view);
 		a2Map = new AuroraComponent2CompositMap(this);
@@ -289,9 +304,6 @@ public class ScreenGenerator {
 		return scriptGenerator;
 	}
 
-	public Map<Dataset, String> getDatasetMaper() {
-		return datasetMaper;
-	}
 
 	public CompositeMap getScreenMap() {
 		return screenMap;

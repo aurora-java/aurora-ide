@@ -364,6 +364,7 @@ public class ScriptGenerator {
 	// appendScript(script);
 	// return functionName;
 	// }
+	
 
 	public void appendScript(String script) {
 		if (scriptList.contains(script)) {

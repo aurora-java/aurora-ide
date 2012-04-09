@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
@@ -17,6 +19,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.widgets.Shell;
@@ -30,6 +33,7 @@ import aurora.ide.meta.exception.GeneratorException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.exception.TemplateNotBindedException;
 import aurora.ide.meta.gef.FileFinder;
+import aurora.ide.meta.gef.editors.models.ILink;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.i18n.Messages;
@@ -196,6 +200,50 @@ public class ProjectGenerator {
 		}
 		return diagram;
 	}
+	
+	private void genNewFile(IFile newFile,String content) throws InvocationTargetException{
+		InputStream is = new ByteArrayInputStream(content.getBytes());
+		if (newFile.exists() && isOverlap) {
+			try {
+				// newFile.delete(true, monitor);
+				newFile.setContents(is, true, false, null);
+				return;
+			} catch (CoreException e) {
+			} finally {
+				if (is != null)
+					try {
+						is.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+			}
+		}
+		CreateFileOperation cfo = new CreateFileOperation(newFile, null,
+				is, "create file.") { //$NON-NLS-1$
+			@Override
+			protected void setResourceDescriptions(
+					ResourceDescription[] descriptions) {
+				super.setResourceDescriptions(descriptions);
+			}
+
+			public IStatus computeExecutionStatus(IProgressMonitor monitor) {
+				IStatus status = super.computeExecutionStatus(monitor);
+				if (status.isOK()) {
+					// Overwrite is not allowed when we are creating a new
+					// file
+					status = computeCreateStatus(false);
+				}
+				return status;
+			}
+		};
+
+		try {
+			cfo.execute(null, WorkspaceUndoUtil.getUIInfoAdapter(shell));
+		} catch (ExecutionException e) {
+			throw new InvocationTargetException(e);
+		}
+	}
 
 	private void processFile(IFile fCurrentFile, IProgressMonitor monitor)
 			throws InvocationTargetException {
@@ -208,49 +256,38 @@ public class ProjectGenerator {
 			ViewDiagram loadFile = this.loadFile(fCurrentFile);
 
 			String genFile = sg.genFile(header, loadFile);
-			InputStream is = new ByteArrayInputStream(genFile.getBytes());
-			if (newFile.exists() && isOverlap) {
-				try {
-					// newFile.delete(true, monitor);
-					newFile.setContents(is, true, false, null);
-					return;
-				} catch (CoreException e) {
-				} finally {
-					if (is != null)
-						try {
-							is.close();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-
-				}
-			}
-			CreateFileOperation cfo = new CreateFileOperation(newFile, null,
-					is, "create file.") { //$NON-NLS-1$
-				@Override
-				protected void setResourceDescriptions(
-						ResourceDescription[] descriptions) {
-					super.setResourceDescriptions(descriptions);
-				}
-
-				public IStatus computeExecutionStatus(IProgressMonitor monitor) {
-					IStatus status = super.computeExecutionStatus(monitor);
-					if (status.isOK()) {
-						// Overwrite is not allowed when we are creating a new
-						// file
-						status = computeCreateStatus(false);
-					}
-					return status;
-				}
-			};
-
-			try {
-				cfo.execute(null, WorkspaceUndoUtil.getUIInfoAdapter(shell));
-			} catch (ExecutionException e) {
-				throw new InvocationTargetException(e);
-			}
+			
+			genNewFile(newFile,genFile);
+			
+			genRelationFile(sg);
+			
 
 		} catch (TemplateNotBindedException e) {
+		}
+	}
+
+	private void genRelationFile(ScreenGenerator sg) throws InvocationTargetException {
+		Map<Object, String> linkIDs = sg.getScriptGenerator().getLinkIDs();
+		Set<Object> keySet = linkIDs.keySet();	
+		for (Object link : keySet) {
+			if(link instanceof ILink){
+				String openPath = ((ILink) link).getOpenPath();
+				IPath p = new Path(openPath);
+				if("uip".equalsIgnoreCase(p.getFileExtension())){
+					ScreenGenerator dsg = new DisplayScreenGenerator(project,(ILink)link);
+					try {
+						IFile fCurrentFile = this.screenFolder.getFile(p);
+						IFile newFile = this.getNewFile(p);
+						if (newFile.exists() && !isOverlap) { 
+							return;
+						}
+						ViewDiagram loadFile = this.loadFile(fCurrentFile);
+						String genFile = dsg.genFile(header, loadFile);
+						genNewFile(newFile,genFile);
+					} catch (TemplateNotBindedException e) {
+					}
+				}
+			}
 		}
 	}
 
@@ -288,6 +325,9 @@ public class ProjectGenerator {
 	private IFile getNewFile(IFile file) {
 		IPath makeRelativeTo = file.getProjectRelativePath().makeRelativeTo(
 				screenFolder.getProjectRelativePath());
+		return getNewFile(makeRelativeTo);
+	}
+	private IFile getNewFile(IPath makeRelativeTo) {
 		makeRelativeTo = makeRelativeTo.removeFileExtension();
 		makeRelativeTo = makeRelativeTo.addFileExtension("screen"); //$NON-NLS-1$
 		return auroraWebFolder.getFile(makeRelativeTo);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.InitModel;
 import aurora.ide.meta.gef.editors.models.TabItem;
 
 public class TabRef extends AuroraComponent {
@@ -15,10 +16,15 @@ public class TabRef extends AuroraComponent {
 
 	private String url;
 
-	// parameter
-	// a.b.c.d model
-	// TODO
-	private String paraPath;
+	private InitModel initModel;
+
+	public InitModel getInitModel() {
+		return initModel;
+	}
+
+	public void setInitModel(InitModel initModel) {
+		this.initModel = initModel;
+	}
 
 	private TabItem tabItem;
 	private List<Parameter> paras = new ArrayList<Parameter>();
