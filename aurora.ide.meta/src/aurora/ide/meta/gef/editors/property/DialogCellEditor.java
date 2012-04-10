@@ -29,6 +29,14 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 		this.clazz = clazz;
 	}
 
+	protected DialogCellEditor(Composite parent, int style) {
+		super(parent, style);
+	}
+
+	protected DialogCellEditor(Composite parent) {
+		super(parent);
+	}
+
 	@Override
 	protected Control createControl(Composite parent) {
 		shell = parent.getShell();
@@ -36,11 +44,20 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 		com.setBackground(parent.getBackground());
 		com.setLayout(new SimpleLayout());
 		label = new CLabel(com, SWT.NONE);
+		label.setBackground(parent.getBackground());
 		label.addMouseListener(this);
 		button = new Button(com, SWT.FLAT);
 		button.setText("...");
 		button.addSelectionListener(this);
 		return com;
+	}
+
+	protected CLabel getLabel() {
+		return label;
+	}
+
+	protected Button getButton() {
+		return button;
 	}
 
 	@Override
@@ -84,7 +101,7 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 
 	}
 
-	private void showDialog() {
+	protected void showDialog() {
 		try {
 			EditWizard wizard = clazz.newInstance();
 			DialogEditableObject objClone = value.clone();
@@ -106,7 +123,7 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 	}
 
 	public void widgetDefaultSelected(SelectionEvent e) {
-
+		widgetSelected(e);
 	}
 
 	public void mouseDoubleClick(MouseEvent e) {
