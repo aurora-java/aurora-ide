@@ -22,6 +22,7 @@ import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
+import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.cache.CacheManager;
@@ -289,7 +290,12 @@ public class ModelMerger {
 				dt = DataType.TEXT;
 			m.put("databaseType", dt.getDbType());
 			m.put("dataType", dt.getJavaType());
-			m.put("defaultEditor", r.getString(IDesignerConst.COLUMN_EDITOR));
+			String editor = r.getString(IDesignerConst.COLUMN_EDITOR);
+			m.put("defaultEditor", editor);
+			if (editor.equals(Input.Combo) || editor.equals(Input.LOV)) {
+				String options = r.getString(IDesignerConst.COLUMN_OPTIONS);
+				m.put("options", options);
+			}
 			records.remove(r);
 		}
 		// new fields will be add to bm

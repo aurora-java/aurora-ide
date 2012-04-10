@@ -61,6 +61,14 @@ public class Record implements IDesignerConst {
 		put(COLUMN_PROMPT, prompt);
 	}
 
+	public String getOptions() {
+		return getStringNotNull(COLUMN_OPTIONS);
+	}
+
+	public void setOptions(String str) {
+		put(COLUMN_OPTIONS, str);
+	}
+
 	public Integer getInt(String key) {
 		Object obj = get(key);
 		if (obj == null)
@@ -127,5 +135,9 @@ public class Record implements IDesignerConst {
 
 	public void setType(String type) {
 		put(COLUMN_TYPE, type);
+	}
+
+	public String getEditor() {
+		return getStringNotNull(COLUMN_EDITOR);
 	}
 }
