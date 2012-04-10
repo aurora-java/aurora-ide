@@ -2,15 +2,14 @@ package aurora.ide.meta.project.prototype;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import aurora.ide.meta.gef.editors.template.TComposite;
-import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.parse.TemplateHelper;
 
 public class UIPrototypePage extends PreferencePage implements IWorkbenchPreferencePage {
@@ -28,6 +27,7 @@ public class UIPrototypePage extends PreferencePage implements IWorkbenchPrefere
 		container.setLayout(layout);
 
 		TComposite tComposite = new TComposite(container, SWT.BORDER, TemplateHelper.loadTemplate());
+		tComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		return container;
 	}

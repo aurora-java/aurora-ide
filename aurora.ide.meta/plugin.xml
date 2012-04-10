@@ -22,6 +22,16 @@
         </wizard>
     </extension>
      
+    <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="aurora.ide.preferencePage.TemplatesPage"
+            class="aurora.ide.meta.project.prototype.UIPrototypePage"
+            id="aurora.ide.meta.prototype.UI"
+            name="UI">
+      </page>
+    </extension>
+     
 	<extension
          id="aurora.meta.gef.editor"
          point="org.eclipse.ui.editors">
