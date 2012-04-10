@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<template name="sfgg" iconPath="1.png" type="serach" category="查询">
+	<models>
+		<model id="model.hid" name="头BM"/>
+		<model id="model.rid" name="行BM"/>
+	</models>
+	
+	<form id="form.id" name="form.name"/>
+	
+	<hbox>
+		<button id="btn.query" type="query" text="查询" target="grid.hid"/>
+		<button id="btn.reset" type="reset" text="重置" target="form.id"/>
+	</hbox>
+	
+	<grid id="grid.hid" name="grid.hname" model="model.hid" query="form.id">
+		<toolBar>
+			<button type="add"/>
+			<button type="save"/>
+			<button type="delete"/>
+			<button type="excel"/>
+			<button type="clear"/>
+		</toolBar>
+	</grid>
+	
+	<grid id="grid.rid" name="grid.rname" model="model.rid" query="grid.hid">
+		<toolBar>
+			<button type="add"/>
+			<button type="save"/>
+			<button type="delete"/>
+			<button type="excel"/>
+			<button type="clear"/>
+		</toolBar>
+	</grid>
+	
+	<description><![CDATA[
+		查询 form+grid+grid
+	]]></description>
+</template>

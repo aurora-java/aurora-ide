@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<template name="sg" iconPath="1.png" type="serach" category="查询">
+	<models>
+		<model id="model.id" name="model.name"/>
+	</models>
+	
+	<grid id="grid.id" name="grid.name" model="model.id">
+		<toolBar>
+			<button type="add"/>
+			<button type="save"/>
+			<button type="delete"/>
+			<button type="excel"/>
+			<button type="clear"/>
+		</toolBar>
+	</grid>
+	
+	<description><![CDATA[
+		查询 grid
+	]]></description>
+</template>

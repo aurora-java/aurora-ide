@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<template name="cfg" iconPath="1.png" type="create" category="创建">
+	<models>
+		<model id="model.id" name="BM"/>
+	</models>
+	
+	<form id="form.id" name="form.name"/>
+	
+	<hbox>
+		<button id="btn.query" type="query" text="查询" target="grid.hid"/>
+		<button id="btn.reset" type="reset" text="重置" target="form.id"/>
+	</hbox>
+	
+	<grid id="grid.id" name="grid.name" model="model.id" query="form.id">
+		<toolBar>
+			<button type="add"/>
+			<button type="save"/>
+			<button type="delete"/>
+			<button type="excel"/>
+			<button type="clear"/>
+		</toolBar>
+	</grid>
+	
+	<description><![CDATA[
+		创建 form+grid
+	]]></description>
+</template>
