@@ -37,6 +37,7 @@ public class DesignerUtil implements IDesignerConst {
 		r.put(COLUMN_QUERY_OP, dt.getDefaultOperator());
 		r.put(COLUMN_QUERYFIELD, false);
 		r.put(COLUMN_ISFOREIGN, false);
+		r.put(COLUMN_OPTIONS, "");
 		return r;
 	}
 }
