@@ -3,7 +3,7 @@ package aurora.ide.meta.gef.editors.models;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
-public class Label extends AuroraComponent {
+public class Label extends AuroraComponent implements IDatasetFieldDelegate, DatasetBinder {
 
 	private static int idx = 0;
 	private static final long serialVersionUID = -6906286787889789167L;

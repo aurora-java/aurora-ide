@@ -10,6 +10,7 @@ import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Button;
 import aurora.ide.meta.gef.editors.template.Component;
+import aurora.ide.meta.gef.editors.template.TabRef;
 import aurora.ide.meta.gef.editors.template.Template;
 
 public class TemplateParse extends DefaultHandler {
@@ -28,15 +29,20 @@ public class TemplateParse extends DefaultHandler {
 		if (qName.equals("template")) {
 			template.setName(getValue("name"));
 			template.setIcon(getValue("iconPath"));
-			if("true".equals(getValue("isForDisplay"))){
-				template.setForDisplay(true);
-			}
+			template.setCategory(getValue("category"));
+			template.setType(getValue("type"));
 			stack.push(template);
 		} else if (qName.equals("model")) {
 			BMReference bm = new BMReference();
 			bm.setId(getValue("id"));
 			bm.setName(getValue("name"));
 			template.addModel(bm);
+			stack.push(null);
+		} else if (qName.equals("initModel")) {
+			BMReference bm = new BMReference();
+			bm.setId(getValue("id"));
+			bm.setName(getValue("name"));
+			template.addInitModel(bm);
 			stack.push(null);
 		} else if (qName.equals("button")) {
 			Button btn = new Button();
@@ -48,7 +54,16 @@ public class TemplateParse extends DefaultHandler {
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(btn);
 			}
+			template.addLink(btn);
 			stack.push(btn);
+		} else if ("tabRef".equals(qName)) {
+			TabRef ref = new TabRef();
+			ref.setInitModel(getValue("initModel"));
+			if (!stack.empty() && stack.peek() != null) {
+				stack.peek().addChild(ref);
+			}
+			template.addRef(ref);
+			stack.push(ref);
 		} else if (AuroraModelFactory.isComponent(qName)) {
 			Component cpt = new Component();
 			if (!"".equals(getValue("model"))) {
@@ -68,6 +83,9 @@ public class TemplateParse extends DefaultHandler {
 			cpt.setName(getValue("name"));
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(cpt);
+			}
+			if("grid".equals(qName)){
+				template.addLink(cpt);
 			}
 			stack.push(cpt);
 		} else {
