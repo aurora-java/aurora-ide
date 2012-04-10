@@ -19,6 +19,7 @@ import aurora.ide.meta.gef.editors.models.DatasetBinder;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
+import aurora.ide.meta.gef.editors.models.InitModel;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.TabFolder;
@@ -34,7 +35,6 @@ public class ScreenGenerator {
 	private AuroraComponent2CompositMap a2Map;
 	private ScriptGenerator scriptGenerator;
 
-
 	private IProject project;
 	private CompositeMap screenMap;
 	private CompositeMap viewMap;
@@ -44,13 +44,9 @@ public class ScreenGenerator {
 	private ViewDiagram viewDiagram;
 	private DatasetGenerator datasetGenerator;
 
-	
-	
 	public ScreenGenerator(IProject project) {
 		this.project = project;
 	}
-	
-	
 
 	public String genFile(String header, ViewDiagram view)
 			throws TemplateNotBindedException {
@@ -64,7 +60,7 @@ public class ScreenGenerator {
 			throw new TemplateNotBindedException();
 		init(view);
 		run(view);
-		
+
 		String xml = header + screenMap.toXML();
 		return xml;
 	}
@@ -72,21 +68,59 @@ public class ScreenGenerator {
 	protected void run(ViewDiagram viewDiagram) {
 		genInitProceduce();
 		genDatasets();
-
 		fill(viewDiagram, screenBodyMap);
 		fillLinks(viewMap);
 		scriptMap.setText(scriptGenerator.getScript());
 	}
 
 	private void genInitProceduce() {
-		//TODO 
+		// <a:init-procedure>
+		// <model-query model="acp.acp_req_maintain_init_hd_id"
+		// rootpath="acp_req_hd_id"/>
+		// <model-query model="acp.acp_req_update_init_header"
+		// rootpath="acp_requisition_header"/>
+		// </a:init-procedure>
+		List<InitModel> initModels = this.viewDiagram.getInitModels();
+		for (InitModel initModel : initModels) {
+			CompositeMap procedureMap = this.getOrCreateChildMap(viewMap,
+					"init-procedure");
+			CompositeMap mq = procedureMap.getChildByAttrib("model-query",
+					"model", initModel.getPath());
+			if (mq == null) {
+				mq = createCompositeMap("model-query");
+				mq.put("model", initModel.getPath());
+				IPath path = new Path(initModel.getPath());
+				String p = this.idGenerator.genID(path.lastSegment(), 0);
+				mq.put("rootpath", p);
+				procedureMap.addChild(mq);
+			}
+		}
 	}
 
+	private String getRootPath(InitModel initModel) {
+		CompositeMap procedureMap = this.viewMap.getChild("init-procedure");
+		if (procedureMap == null)
+			return null;
+		CompositeMap mq = procedureMap.getChildByAttrib("model-query", "model",
+				initModel.getPath());
+		if (mq != null) {
+			return mq.getString("rootpath");
+		}
+		return null;
+	}
 
+	private CompositeMap getOrCreateChildMap(CompositeMap parentMap, String name) {
+		CompositeMap child = parentMap.getChild(name);
+		if (child == null) {
+			child = createCompositeMap(name);
+			parentMap.addChild(child);
+		}
+		return child;
+	}
 
 	private void genDatasets() {
-		List<Container> sectionContainers = viewDiagram
-				.getSectionContainers(viewDiagram,Container.SECTION_TYPES);
+		List<Container> sectionContainers = viewDiagram.getSectionContainers(
+				viewDiagram, Container.SECTION_TYPES);
 		for (Container container : sectionContainers) {
 			datasetGenerator.fillDatasets(container);
 		}
@@ -117,14 +151,12 @@ public class ScreenGenerator {
 			}
 
 			if (ac instanceof GridColumn && container instanceof Grid) {
-				CompositeMap columns = getColumns(containerMap);
+				CompositeMap columns = getOrCreateChildMap(containerMap,
+						"columns");
 				columns.addChild(childMap);
 			} else if (ac instanceof TabItem && container instanceof TabFolder) {
-				CompositeMap tabs = containerMap.getChild("tabs");
-				if (tabs == null) {
-					tabs = createCompositeMap("tabs");
-					containerMap.addChild(tabs);
-				}
+				CompositeMap tabs = this.getOrCreateChildMap(containerMap,
+						"tabs");
 				tabs.addChild(childMap);
 			} else {
 				containerMap.addChild(childMap);
@@ -158,33 +190,47 @@ public class ScreenGenerator {
 		}
 	}
 
-	//TODO!!
 	private void genTabRef(TabItem ac, CompositeMap childMap,
 			Container container, CompositeMap containerMap) {
+		// <a:tab id="con_contract_headers_add_partner_tab"
+		// prompt="CON_CONTRACT_PARTNER"
+		// ref="${/request/@context_path}/modules/cont/public/con_contract_headers_add_partner_tab.screen?contract_header_id=${/parameter/@contract_header_id}"
+		// width="100"/>
 
 		TabRef tabRef = ac.getTabRef();
 		if (tabRef != null) {
-			String url = tabRef.getUrl();
-			List<Parameter> parameters = tabRef.getParameters();
-			getUrl(url, parameters);
+			String refUrl = getRefUrl(tabRef);
+			childMap.put("ref", refUrl);
 		}
 	}
 
-	private void getUrl(String url, List<Parameter> parameters) {
+	private String getRefUrl(TabRef tabRef) {
+		String url = tabRef.getUrl();
+		List<Parameter> parameters = tabRef.getParameters();
+		InitModel initModel = tabRef.getInitModel();
+		// ${/model/head_info/record/@acp_req_type_code}
+		String rootPath = initModel == null ? "${/parameter/@" : "${/model/"
+				+ this.getRootPath(initModel) + "/record/@";
 		if (url == null)
-			return;
-		IPath path = new Path(url);
+			return null;
+		IPath path = new Path("${/request/@context_path}");
+		path = path.append(url);
 		path = path.removeFileExtension().addFileExtension("screen");
 		for (int i = 0; i < parameters.size(); i++) {
 			if (i == 0) {
 				path = path.append("?");
 			}
-			path.append(parameters.get(i).toParameterFormat());
+			path = path.append(parameters.get(i).getName());
+			path = path.append("=");
+			path = path.append(rootPath);
+			path = path.append(parameters.get(i).getValue());
+			path = path.append("}");
 
 			if (i < parameters.size() - 1) {
 				path = path.append("&");
 			}
 		}
+		return path.toString();
 	}
 
 	private boolean isLov(AuroraComponent ac) {
@@ -284,14 +330,14 @@ public class ScreenGenerator {
 		return editors;
 	}
 
-	public CompositeMap getColumns(CompositeMap gridMap) {
-		CompositeMap columns = gridMap.getChild("columns");
-		if (columns == null) {
-			columns = createCompositeMap("columns");
-			gridMap.addChild(columns);
-		}
-		return columns;
-	}
+	// public CompositeMap getColumns(CompositeMap gridMap) {
+	// CompositeMap columns = gridMap.getChild("columns");
+	// if (columns == null) {
+	// columns = createCompositeMap("columns");
+	// gridMap.addChild(columns);
+	// }
+	// return columns;
+	// }
 
 	public AuroraComponent2CompositMap getA2Map() {
 		return a2Map;
@@ -300,7 +346,6 @@ public class ScreenGenerator {
 	public ScriptGenerator getScriptGenerator() {
 		return scriptGenerator;
 	}
-
 
 	public CompositeMap getScreenMap() {
 		return screenMap;
