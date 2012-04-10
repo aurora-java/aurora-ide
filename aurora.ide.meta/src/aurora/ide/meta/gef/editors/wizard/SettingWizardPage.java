@@ -38,6 +38,7 @@ public class SettingWizardPage extends WizardPage {
 
 		if (template.getLink().size() > 0) {
 			Group gl = new Group(composite, SWT.None);
+			gl.setText("Add Link");
 			gl.setLayout(new GridLayout());
 			for (Component cp : template.getLink()) {
 				if ("grid".equals(cp.getComponentType())) {
@@ -52,6 +53,7 @@ public class SettingWizardPage extends WizardPage {
 
 		if (template.getRef().size() > 0) {
 			Group gr = new Group(composite, SWT.None);
+			gr.setText("Add Ref");
 			gr.setLayout(new GridLayout());
 			for (Component cp : template.getRef()) {
 				Label lbl=new Label(gr,SWT.None);

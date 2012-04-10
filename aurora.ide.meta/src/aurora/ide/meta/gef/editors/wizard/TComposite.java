@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.template;
+package aurora.ide.meta.gef.editors.wizard;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.TypedListener;
 
 import aurora.ide.meta.MetaPlugin;
+import aurora.ide.meta.gef.editors.template.Template;
 
 public class TComposite extends SashForm {
 

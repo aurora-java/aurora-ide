@@ -142,7 +142,8 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				continue;
 			}
 			Button btn = (Button) obj;
-			btn.getButtonClicker().setTargetComponent(acptMap.get(btnMap.get(s)));
+			AuroraComponent ac = acptMap.get(btnMap.get(s));
+			btn.getButtonClicker().setTargetComponent(ac);
 		}
 	}
 
@@ -202,6 +203,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		if (acpt == null) {
 			return null;
 		}
+		System.out.println(cpt.getId());
 		if (null != cpt.getId() && !"".equals(cpt.getId())) {
 			acptMap.put(cpt.getId(), acpt);
 		}
@@ -237,7 +239,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			}
 			if (btn.getTarget() != null && (!"".equals(btn.getTarget())) && contains(ButtonClicker.action_ids, btn.getType())) {
 				ButtonClicker bc = new ButtonClicker();
-				bc.setType(btn.getType());
+				bc.setActionID(btn.getType());
 				((Button) ac).setButtonClicker(bc);
 				bc.setButton((Button) ac);
 				btnMap.put(btn.getId(), btn.getTarget());
@@ -359,115 +361,3 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		this.workbench = workbench;
 	}
 }
-
-//
-// private Container createButtonRegion(ButtonRegion region) {
-// Container container =
-// AuroraModelFactory.createModel(region.getContainer());
-// for (int i = 0; i < region.getButtons().size(); i++) {
-// Button btn = new Button();
-// btn.getButtonClicker().setActionID(region.getButtons().get(i).getType());
-// btn.setText(region.getButtons().get(i).getText());
-// bRelation.put(btn, region.getButtons().get(i).getTarget());
-// container.addChild(btn);
-// }
-// return container;
-// }
-//
-// private Container createQueryRegion(QueryRegion region) {
-// Container container =
-// AuroraModelFactory.createModel(region.getContainer());
-// QueryDataSet dataset = new QueryDataSet();
-// String s = Util.toPKG(region.getModel().getModel().getFullPath());
-// if (s.endsWith(".bm")) {
-// s = s.substring(0, s.lastIndexOf(".bm"));
-// }
-// dataset.setModel(s);
-// container.setDataset(dataset);
-// for (CompositeMap map :
-// GefModelAssist.getQueryFields(GefModelAssist.getModel(region.getModel().getModel())))
-// {
-// Input input = createInput(region, map);
-// container.addChild(input);
-// }
-// return container;
-// }
-//
-// private Container createResultRegion(ResultRegion region) {
-// if ("Grid".equalsIgnoreCase(region.getContainer())) {
-// return createGrid(region);
-// } else {
-// Container container =
-// AuroraModelFactory.createModel(region.getContainer());
-// if (container instanceof RowCol) {
-// ((RowCol) container).setCol(1);
-// ((RowCol) container).setRow(10);
-// }
-// ResultDataSet dataset = new ResultDataSet();
-// String s = Util.toPKG(region.getModel().getModel().getFullPath());
-// if (s.endsWith(".bm")) {
-// s = s.substring(0, s.lastIndexOf(".bm"));
-// }
-// dataset.setModel(s);
-// container.setDataset(dataset);
-// for (CompositeMap map :
-// GefModelAssist.getFields(GefModelAssist.getModel(region.getModel().getModel())))
-// {
-// Input input = createInput(region, map);
-// container.addChild(input);
-// }
-// return container;
-// }
-// }
-//
-// private Input createInput(Region region, CompositeMap map) {
-// Input input = new Input();
-// input.setType(GefModelAssist.getTypeNotNull(map));
-// CompositeMap fieldMap =
-// GefModelAssist.getCompositeMap(GefModelAssist.getModel(region.getModel().getModel()).getChild("fields"),
-// "name", map.getString("field"));
-// if (fieldMap == null) {
-// fieldMap = map;
-// }
-// input.setName(fieldMap.getString("name"));
-// input.setPrompt(fieldMap.getString("prompt") == null ?
-// fieldMap.getString("name") : fieldMap.getString("prompt"));
-// input.setType(GefModelAssist.getTypeNotNull(fieldMap));
-// return input;
-// }
-//
-// private Container createGrid(ResultRegion region) {
-// Grid grid = AuroraModelFactory.createModel(region.getContainer());
-// gRelation.put(grid, region.getQueryRegion());
-// Toolbar tool = new Toolbar();
-// String[] buttonType = { Button.ADD, Button.SAVE, Button.DELETE,
-// Button.CLEAR, Button.EXCEL };
-// for (String s : buttonType) {
-// Button btn = new Button();
-// btn.setButtonType(s);
-// tool.addChild(btn);
-// }
-// grid.addChild(tool);
-// for (CompositeMap map :
-// GefModelAssist.getFields(GefModelAssist.getModel(region.getModel().getModel())))
-// {
-// GridColumn gc = new GridColumn();
-// gc.setName(map.getString("name"));
-// gc.setPrompt(map.getString("prompt") == null ? map.getString("name") :
-// map.getString("prompt"));
-// if (GefModelAssist.getType(map) != null) {
-// gc.setEditor(GefModelAssist.getType(map));
-// }
-// grid.addCol(gc);
-// }
-// ResultDataSet dataset = new ResultDataSet();
-// String s = Util.toPKG(region.getModel().getModel().getFullPath());
-// if (s.endsWith(".bm")) {
-// s = s.substring(0, s.lastIndexOf(".bm"));
-// }
-// dataset.setModel(s);
-// grid.setDataset(dataset);
-// grid.setNavbarType(Grid.NAVBAR_COMPLEX);
-// grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
-// return grid;
-// }
