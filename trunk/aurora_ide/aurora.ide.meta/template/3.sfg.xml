@@ -7,7 +7,7 @@
 	<form id="form.id" name="form.name"/>
 	
 	<hbox>
-		<button id="btn.query" type="query" text="查询" target="grid.hid"/>
+		<button id="btn.query" type="query" text="查询" target="grid.id"/>
 		<button id="btn.reset" type="reset" text="重置" target="form.id"/>
 	</hbox>
 	
