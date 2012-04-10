@@ -261,6 +261,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				m.setPath(s);
 				ref.setInitModel(m);
 			}
+			((TabItem) acpt).setTabRef(ref);
 			return true;
 		}
 		return false;
