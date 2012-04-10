@@ -13,10 +13,11 @@ public interface IDesignerConst {
 	String COLUMN_QUERYFIELD = "queryfield"; //$NON-NLS-1$
 	String COLUMN_ISFOREIGN = "foreign"; //$NON-NLS-1$
 	String COLUMN_QUERY_OP = "query_op"; //$NON-NLS-1$
+	String COLUMN_OPTIONS = "options"; //$NON-NLS-1$
 
 	String[] TABLE_COLUMN_PROPERTIES = { "", COLUMN_NUM, COLUMN_PROMPT, //$NON-NLS-1$
 			COLUMN_TYPE, COLUMN_NAME, COLUMN_EDITOR, COLUMN_QUERYFIELD,
-			COLUMN_QUERY_OP };
+			COLUMN_QUERY_OP, COLUMN_OPTIONS };
 	// relationviewer column properties
 	String COLUMN_RELNAME = "rel_name"; //$NON-NLS-1$
 	String COLUMN_REFMODEL = "ref_model"; //$NON-NLS-1$

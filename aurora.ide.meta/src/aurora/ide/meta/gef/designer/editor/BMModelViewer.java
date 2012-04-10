@@ -28,13 +28,9 @@ import aurora.ide.meta.gef.editors.property.StringCellEditor;
 public class BMModelViewer extends TableViewer implements IDesignerConst {
 
 	public static final String[] editor_types = Input.INPUT_TYPES;
-	// public static final String[] data_types = {
-	// DataType.TEXT.getDisplayType(),
-	// DataType.LONG_TEXT.getDisplayType(),
-	// DataType.INTEGER.getDisplayType(), DataType.FLOAT.getDisplayType(),
-	// DataType.DATE.getDisplayType(), DataType.DATE_TIME.getDisplayType() };
 
-	private HashMap<String, CellEditor> editorMap = new HashMap<String, CellEditor>();
+	private HashMap<String, CellEditor> editorMap = new HashMap<String, CellEditor>(
+			1000);
 	private HashMap<String, String[]> operatorsMap = new HashMap<String, String[]>();
 
 	public BMModelViewer(Composite parent) {
@@ -78,6 +74,9 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 		column = new TableColumn(table, SWT.NONE);
 		column.setText(DesignerMessages.BMModelViewer_6);
 		column.setWidth(100);
+		column = new TableColumn(table, SWT.NONE);
+		column.setText("Options");
+		column.setWidth(200);
 		// ///////
 		setContentProvider(new BMModelContentProvider(BMModel.RECORD));
 		setLabelProvider(new BMModelLabelProvider(BMModel.RECORD));
@@ -87,14 +86,9 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 	}
 
 	public void refresh() {
+		long t1 = System.currentTimeMillis();
 		Table table = getTable();
-		table.setRedraw(false);
-		for (String key : editorMap.keySet()) {
-			CellEditor editor = editorMap.get(key);
-			editor.deactivate();
-			editor.dispose();
-		}
-		editorMap.clear();
+		ArrayList<String> keys = new ArrayList<String>(editorMap.keySet());
 		super.refresh();
 		for (int r = 0; r < table.getItemCount(); r++) {
 			TableItem item = table.getItem(r);
@@ -103,14 +97,33 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 			for (int c = 0; c < ces.length; c++) {
 				if (ces[c] == null)
 					continue;
+				String colpro = TABLE_COLUMN_PROPERTIES[c];
+				Object colval = record.get(colpro);
+				String key = r + "-" + c;
+				keys.remove(key);
+				CellEditor ce = editorMap.get(key);
+				if (ce != null) {
+					Object v = ce.getValue();
+					if (v != null && v.equals(colval)) {
+						continue;
+					}
+				}
+				disposeEditor(key);
+				updateOptionEditor(ces[c], record);
 				setItemEditor(table, item, ces[c], r, c);
-				ces[c].setValue(record.get(TABLE_COLUMN_PROPERTIES[c]));
-				ces[c].addListener(new RecordCellEditorListener(record,
-						TABLE_COLUMN_PROPERTIES[c], ces[c]));
-				editorMap.put(r + "-" + c, ces[c]); //$NON-NLS-1$
+				ces[c].setValue(colval);
+				// System.out.println(record.getPrompt() + ":" + colpro
+				// + "  updated");
+				ces[c].addListener(new RecordCellEditorListener(record, colpro,
+						ces[c]));
+				editorMap.put(key, ces[c]); //$NON-NLS-1$
 			}
 		}
-		table.setRedraw(true);
+		for (String key : keys) {
+			disposeEditor(key);
+		}
+		// table.setRedraw(true);
+		System.out.println("all:" + (System.currentTimeMillis() - t1));
 	}
 
 	/**
@@ -120,6 +133,8 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 	 * @param record
 	 */
 	public void refresh(Record record) {
+		super.refresh(record);
+		long t1 = System.currentTimeMillis();
 		Table table = getTable();
 		for (int r = 0; r < table.getItemCount(); r++) {
 			TableItem item = table.getItem(r);
@@ -129,22 +144,40 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 				for (int c = 0; c < ces.length; c++) {
 					if (ces[c] == null)
 						continue;
-					String key = r + "-" + c; //$NON-NLS-1$
-					CellEditor ce = editorMap.get(key);
-					if (ce != null) {
-						ce.deactivate();
-						ce.dispose();
-						editorMap.put(key, null);
-						ce = null;
-					}
+					String colpro = TABLE_COLUMN_PROPERTIES[c];
+					Object colval = rec.get(colpro);
+					String key = r + "-" + c;
+					disposeEditor(key);
+					updateOptionEditor(ces[c], rec);
 					setItemEditor(table, item, ces[c], r, c);
-					ces[c].setValue(record.get(TABLE_COLUMN_PROPERTIES[c]));
+					ces[c].setValue(colval);
 					ces[c].addListener(new RecordCellEditorListener(record,
-							TABLE_COLUMN_PROPERTIES[c], ces[c]));
+							colpro, ces[c]));
 					editorMap.put(key, ces[c]);
 				}
 				break;
 			}
+		}
+		System.out.println(record.getPrompt() + ":"
+				+ (System.currentTimeMillis() - t1));
+	}
+
+	private void disposeEditor(String key) {
+		CellEditor ce = editorMap.get(key);
+		if (ce != null) {
+			ce.deactivate();
+			ce.dispose();
+			editorMap.put(key, null);
+		}
+	}
+
+	private void updateOptionEditor(CellEditor ce, Record rec) {
+		if (ce instanceof OptionsCellEditor) {
+			boolean needOptions = false;
+			needOptions = rec.getEditor().equals(Input.Combo);
+			if (!needOptions)
+				needOptions = rec.getEditor().equals(Input.LOV);
+			((OptionsCellEditor) ce).setEnable(needOptions);
 		}
 	}
 
@@ -165,7 +198,8 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 				new ComboBoxCellEditor(table, data_types),
 				new StringCellEditor(table),
 				new ComboBoxCellEditor(table, editor_types),
-				new BooleanCellEditor(table), new ComboBoxCellEditor(table, ss) };
+				new BooleanCellEditor(table),
+				new ComboBoxCellEditor(table, ss), new OptionsCellEditor(table) };
 	}
 
 	private String[] getOperators(String displayType) {

@@ -18,6 +18,7 @@ import aurora.ide.meta.gef.designer.model.ModelMerger;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
+import aurora.ide.meta.gef.editors.models.Input;
 
 public class BaseBmGenerator {
 	public static final String xml_header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
@@ -51,11 +52,6 @@ public class BaseBmGenerator {
 		merger = new ModelMerger(file);
 		model = merger.getOriginalModel();
 		aProject = merger.getAuroraProject();
-		try {
-			process();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public BaseBmGenerator() {
@@ -155,9 +151,13 @@ public class BaseBmGenerator {
 			dt = DataType.TEXT;
 		map.put("databaseType", dt.getDbType());
 		map.put("datatype", dt.getJavaType());
-
-		map.put("defaultEditor", r.getString(IDesignerConst.COLUMN_EDITOR));
+		String editor = r.getString(IDesignerConst.COLUMN_EDITOR);
+		map.put("defaultEditor", editor);
 		map.put("prompt", r.getPrompt());
+		if (editor.equals(Input.Combo) || editor.equals(Input.LOV)) {
+			String options = r.getString(IDesignerConst.COLUMN_OPTIONS);
+			map.put("options", options);
+		}
 		return map;
 	}
 

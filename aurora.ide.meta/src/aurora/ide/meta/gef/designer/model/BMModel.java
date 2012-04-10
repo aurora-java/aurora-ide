@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BMModel {
+	public static final String STRUCTURE_RECORD = "structure_record";
+	public static final String STRUCTURE_RELATION = "structure_relation";
 	public static final String TITLE = "title";
 	public static String AUTOEXTEND = "autoextend";
 	public static final String FIELD_NAME_PREFIX = "c";
@@ -103,38 +105,37 @@ public class BMModel {
 	}
 
 	private void notifyModidy() {
-		ArrayList<Record> unNamedRelation = new ArrayList<Record>();
+		ArrayList<Record> unNamedRecord = new ArrayList<Record>();
 		int maxNum = 0;
 		for (int i = 0; i < records.size(); i++) {
 			Record r = records.get(i);
-			r.setNum(i + 1);
+			if (r.getNum() != i + 1)
+				r.setNum(i + 1);
 			r.removePropertyChangeListener(recordListener);
 			r.addPropertyChangeListener(recordListener);
 			if (r.getName().trim().length() == 0)
-				unNamedRelation.add(r);
+				unNamedRecord.add(r);
 			if (r.getName().matches(FIELD_NAME_PREFIX + "(0|([1-9]\\d*))")) {
 				int n = Integer.parseInt(r.getName().substring(1));
 				if (maxNum < n)
 					maxNum = n;
 			}
 		}
-		for (Record r : unNamedRelation) {
+		for (Record r : unNamedRecord) {
 			r.setName(FIELD_NAME_PREFIX + (++maxNum));
 		}
-		firePropertyChange("reorder", null, null);
+		firePropertyChange(STRUCTURE_RECORD, null, null);
 	}
 
 	private void notifyRelationChange() {
-
 		for (int i = 0; i < relations.size(); i++) {
 			Relation r = relations.get(i);
-			r.setNum(i + 1);
+			if (r.getNum() != i + 1)
+				r.setNum(i + 1);
 			r.removePropertyChangeListener(relationListener);
 			r.addPropertyChangeListener(relationListener);
-
 		}
-
-		firePropertyChange("relation", null, null);
+		firePropertyChange(STRUCTURE_RELATION, null, null);
 	}
 
 	public boolean isEmpty() {
