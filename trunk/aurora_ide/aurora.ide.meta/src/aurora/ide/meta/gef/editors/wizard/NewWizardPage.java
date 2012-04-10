@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
-import aurora.ide.meta.gef.editors.template.TComposite;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.parse.TemplateHelper;
 import aurora.ide.meta.gef.i18n.Messages;

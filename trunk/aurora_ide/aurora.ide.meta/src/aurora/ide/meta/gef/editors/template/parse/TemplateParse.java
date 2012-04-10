@@ -6,6 +6,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Button;
@@ -54,7 +55,9 @@ public class TemplateParse extends DefaultHandler {
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(btn);
 			}
-			template.addLink(btn);
+			if (ButtonClicker.B_OPEN.equals(btn.getType())) {
+				template.addLink(btn);
+			}
 			stack.push(btn);
 		} else if ("tabRef".equals(qName)) {
 			TabRef ref = new TabRef();
@@ -84,7 +87,7 @@ public class TemplateParse extends DefaultHandler {
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(cpt);
 			}
-			if("grid".equals(qName)){
+			if ("grid".equals(qName)) {
 				template.addLink(cpt);
 			}
 			stack.push(cpt);
@@ -108,13 +111,6 @@ public class TemplateParse extends DefaultHandler {
 	}
 
 	public void endDocument() throws SAXException {
-		// for (Model model : template.getModels()) {
-		// for (Region region : template.getRegions()) {
-		// if (region.getModel().equals(model)) {
-		// region.setModel(model);
-		// }
-		// }
-		// }
 	}
 
 	public Template getTemplate() {

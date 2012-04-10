@@ -9,8 +9,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-import aurora.ide.meta.gef.editors.template.TComposite;
 import aurora.ide.meta.gef.editors.template.parse.TemplateHelper;
+import aurora.ide.meta.gef.editors.wizard.TComposite;
 
 public class UIPrototypePage extends PreferencePage implements IWorkbenchPreferencePage {
 
