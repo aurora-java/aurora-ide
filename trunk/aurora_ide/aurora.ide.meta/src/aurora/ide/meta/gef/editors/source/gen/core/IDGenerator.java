@@ -36,7 +36,7 @@ public class IDGenerator {
 		return genID(name, 0);
 	}
 
-	private String genID(String id, int i) {
+	public String genID(String id, int i) {
 		String oldID = id;
 		if (i > 0) {
 			id = id + "_" + i;
