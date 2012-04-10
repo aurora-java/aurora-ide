@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -20,18 +22,18 @@ import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
 
 public class TemplateHelper {
+	public static Map<String, List<Template>> loadTemplate() {
 
-	public static List<Template> loadTemplate() {
 		IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
 		List<File> files = getFiles(path.toString(), ".xml");
-		List<Template> templates = new ArrayList<Template>();
+		Map<String, java.util.List<Template>> tempMap = new HashMap<String, java.util.List<Template>>();
 		SAXParser parser = null;
 		try {
 			parser = SAXParserFactory.newInstance().newSAXParser();
 		} catch (ParserConfigurationException e) {
-			return templates;
+			return tempMap;
 		} catch (SAXException e) {
-			return templates;
+			return tempMap;
 		}
 		TemplateParse tp = new TemplateParse();
 		for (File f : files) {
@@ -51,9 +53,12 @@ public class TemplateHelper {
 				p = p.substring(p.indexOf("template"));
 			}
 			tm.setPath(p);
-			templates.add(tm);
+			if (tempMap.get(tm.getCategory()) == null) {
+				tempMap.put(tm.getCategory(), new ArrayList<Template>());
+			}
+			tempMap.get(tm.getCategory()).add(tm);
 		}
-		return templates;
+		return tempMap;
 	}
 
 	private static List<File> getFiles(String path, final String extension) {

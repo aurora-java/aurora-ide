@@ -32,4 +32,7 @@ public class BMReference {
 		this.model = model;
 	}
 
+	public String toString() {
+		return id + name;
+	}
 }

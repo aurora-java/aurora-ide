@@ -15,6 +15,7 @@ public class ViewDiagram extends Container {
 	private boolean isForDisplay;
 	private boolean isForCreate;
 	private boolean isForUpdate;
+	private boolean isForSerach;
 
 	@Override
 	public boolean isResponsibleChild(AuroraComponent component) {
@@ -119,6 +120,14 @@ public class ViewDiagram extends Container {
 
 	public void setForUpdate(boolean isForUpdate) {
 		this.isForUpdate = isForUpdate;
+	}
+
+	public boolean isForSerach() {
+		return isForSerach;
+	}
+
+	public void setForSerach(boolean isForSerach) {
+		this.isForSerach = isForSerach;
 	}
 
 }

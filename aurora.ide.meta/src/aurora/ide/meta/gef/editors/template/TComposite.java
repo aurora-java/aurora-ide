@@ -1,64 +1,105 @@
 package aurora.ide.meta.gef.editors.template;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.TypedListener;
 
 import aurora.ide.meta.MetaPlugin;
 
-public class TComposite extends Composite {
+public class TComposite extends SashForm {
 
-	private CLabel[] labels = new CLabel[0];
-	private Template template;
 	private ImageRegistry images = MetaPlugin.getDefault().getImageRegistry();
+	private java.util.List<CLabel> labels = new ArrayList<CLabel>();
+	private Template template = null;
+	private int labelHeight = 100;
+	private int labelWidth = 120;
 
 	private Composite composite;
+	private List list;
 
-	public TComposite(Composite parent, int style, java.util.List<Template> templates) {
+	public TComposite(Composite parent, int style, final Map<String, java.util.List<Template>> templates) {
 		super(parent, style);
-		this.setLayout(new FillLayout());
-		ScrolledComposite scrolledComposite = new ScrolledComposite(this, SWT.V_SCROLL);
-		composite = new Composite(scrolledComposite, SWT.None);
+		this.setLayout(new GridLayout(2, false));
+
+		list = new List(this, SWT.NONE);
+		list.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+		list.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+
+		final ScrolledComposite scrolledComposite = new ScrolledComposite(this, SWT.V_SCROLL | SWT.H_SCROLL);
+		scrolledComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		composite = new Composite(scrolledComposite, SWT.NONE);
+		composite.setLayout(new GridLayout(3, true));
+		composite.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+
+		this.setWeights(new int[] { 20, 80 });
+		this.setSashWidth(1);
+
 		scrolledComposite.setContent(composite);
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
-		scrolledComposite.setMinWidth(parent.getSize().y);
-		scrolledComposite.setMinHeight(templates.size()*100/3);
-		createTemplate(templates);
+		int x = (int) Math.ceil(templates.size() / 3.0);
+		scrolledComposite.setMinWidth(labelWidth * 3 + 20);
+		scrolledComposite.setMinHeight(x * labelHeight + x * 5 + 5);
+
+		for (String key : templates.keySet()) {
+			list.add(key);
+		}
+
+		list.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				createList(templates);
+				notifyListeners(SWT.Selection, new Event());
+			}
+
+		});
+		if (list.getItems().length > 0) {
+			list.select(0);
+			createList(templates);
+		}
 	}
 
-	private void createTemplate(java.util.List<Template> templates) {
-		labels = new CLabel[templates.size()];
-		for (int i = 0; i < labels.length; i++) {
-			labels[i] = createLabel(templates.get(i));
+	private void createList(final Map<String, java.util.List<Template>> templates) {
+		java.util.List<Template> tm = templates.get(list.getSelection()[0]);
+		for (Control c : composite.getChildren()) {
+			if (c != null && !c.isDisposed()) {
+				c.dispose();
+			}
 		}
-		if (labels.length > 0) {
-			setLabelChecked(labels[0], true);
-			template = templates.get(0);
+		labels.clear();
+		for (Template t : tm) {
+			labels.add(createLabel(t));
 		}
+		template = (Template) labels.get(0).getData();
+		setLabelChecked(labels.get(0), true);
+		composite.layout(true);
 	}
 
 	private CLabel createLabel(Template t) {
-		// String path = MetaPlugin.getDefault().getStateLocation().toString();
-		composite.setLayout(new GridLayout(3, true));
-		composite.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		CLabel label = new CLabel(composite, SWT.CENTER);
 		label.setCursor(getShell().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
 		label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		label.setData(t);
-		GridData gd = new GridData(GridData.FILL_BOTH);
-		gd.heightHint = 100;
+		GridData gd = new GridData();
+		gd.heightHint = labelHeight;
+		gd.widthHint = labelWidth;
 		label.setLayoutData(gd);
 		label.setText(t.getName());
 		// label.setImage(getImage(t.getIcon()));
@@ -68,9 +109,9 @@ public class TComposite extends Composite {
 				setLabelChecked(lbl, true);
 				template = (Template) lbl.getData();
 				notifyListeners(SWT.Selection, new Event());
-				for (int i = 0; i < labels.length; i++) {
-					if (labels[i] != lbl) {
-						setLabelChecked(labels[i], false);
+				for (int i = 0; i < labels.size(); i++) {
+					if (labels.get(i) != lbl) {
+						setLabelChecked(labels.get(i), false);
 					}
 				}
 			}

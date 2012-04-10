@@ -1,5 +1,8 @@
 package aurora.ide.meta.gef.editors.wizard;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -36,6 +39,7 @@ public class NewWizardPage extends WizardPage {
 	private Text txtPath;
 	private Text txtFile;
 
+	private Map<String, java.util.List<Template>> tempMap = new HashMap<String, java.util.List<Template>>();
 	private Template template;
 	private IProject metaProject;
 	private IResource metaFolder;
@@ -127,6 +131,8 @@ public class NewWizardPage extends WizardPage {
 					IResource container = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
 					if (!setPath(container)) {
 						txtPath.setText(path);
+					} else {
+						txtFile.setFocus();
 					}
 				}
 			}
@@ -152,10 +158,11 @@ public class NewWizardPage extends WizardPage {
 		return false;
 	}
 
-	private void createTemplate(java.util.List<Template> templates) {
+	private void createTemplate() {
 		clearTemplate();
-		TComposite tComposite = new TComposite(composite, SWT.BORDER, templates);
+		TComposite tComposite = new TComposite(composite, SWT.BORDER, tempMap);
 		tComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		template = tComposite.getSelection();
 		tComposite.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				TComposite t = (TComposite) e.getSource();
@@ -164,7 +171,7 @@ public class NewWizardPage extends WizardPage {
 					return;
 				}
 				setDescription(template.getDescription());
-				((SettingWizardPage) getNextPage()).createDynamicComponents(template);
+				((SelectModelWizardPage) getNextPage()).createDynamicTextComponents(template);
 			}
 		});
 		composite.layout(true);
@@ -176,14 +183,15 @@ public class NewWizardPage extends WizardPage {
 		setControl(container);
 		createText(container);
 		composite = new Group(container, SWT.NONE);
-		composite.setLayout(new GridLayout(2, false));
+		composite.setLayout(new GridLayout());
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		composite.setText(Messages.NewWizardPage_Template);
 
-		org.eclipse.swt.widgets.List list = new org.eclipse.swt.widgets.List(composite, SWT.BORDER);
-		list.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+		createTemplate();
 
-		setPath(metaFolder);
+		if (setPath(metaFolder)) {
+			txtFile.setFocus();
+		}
 	}
 
 	public String getPath() {
@@ -231,7 +239,7 @@ public class NewWizardPage extends WizardPage {
 					return;
 				}
 				setDescription(template.getDescription());
-				((SettingWizardPage) getNextPage()).createDynamicComponents(template);
+				((SelectModelWizardPage) getNextPage()).createDynamicTextComponents(template);
 			}
 			return;
 		}
@@ -242,16 +250,18 @@ public class NewWizardPage extends WizardPage {
 
 	private void clearTemplate() {
 		for (Control c : composite.getChildren()) {
-			if ((c instanceof TComposite)&&!c.isDisposed()) {
+			if ((c instanceof TComposite) && !c.isDisposed()) {
 				c.dispose();
 			}
 		}
 	}
 
 	private void initTemplate() {
-		java.util.List<Template> templates = TemplateHelper.loadTemplate();
-		template = templates.size() > 0 ? templates.get(0) : null;
-		createTemplate(templates);
+		tempMap = TemplateHelper.loadTemplate();
+		createTemplate();
+
+		// template = templates.size() > 0 ? templates.get(0) : null;
+		// createTemplate(templates);
 	}
 
 	public void updateStatus(String message) {

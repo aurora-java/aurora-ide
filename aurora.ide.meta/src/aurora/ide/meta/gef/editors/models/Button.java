@@ -23,7 +23,7 @@ public class Button extends AuroraComponent {
 	public static final String CLEAR = "clear"; //$NON-NLS-1$
 	public static final String EXCEL = "excel"; //$NON-NLS-1$
 	public static final String DEFAULT = ""; //$NON-NLS-1$
-	private static final String[] std_types = { DEFAULT, ADD, SAVE, DELETE,
+	public static final String[] std_types = { DEFAULT, ADD, SAVE, DELETE,
 			CLEAR, EXCEL };
 	private static final String[] std_type_names = { "", Messages.Button_7, Messages.Button_8, Messages.Button_9, //$NON-NLS-1$
 			Messages.Button_10, Messages.Button_11 };
