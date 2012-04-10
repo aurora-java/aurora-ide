@@ -74,7 +74,11 @@ public class AutoGenBuilder extends IncrementalProjectBuilder {
 		if (canBuild(resource)) {
 			IFile file = (IFile) resource;
 			System.out.println("building : " + file);
-			new BaseBmGenerator(file);
+			try {
+				new BaseBmGenerator(file).process();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
