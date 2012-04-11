@@ -1,6 +1,5 @@
 package aurora.ide.meta.gef.editors.wizard;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
@@ -23,7 +22,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -38,11 +36,9 @@ public class NewWizardPage extends WizardPage {
 	private Text txtPath;
 	private Text txtFile;
 
-	private Map<String, java.util.List<Template>> tempMap = new HashMap<String, java.util.List<Template>>();
 	private Template template;
 	private IProject metaProject;
 	private IResource metaFolder;
-	private Group composite;
 
 	public NewWizardPage() {
 		super("aurora.wizard.new.Page"); //$NON-NLS-1$
@@ -85,6 +81,9 @@ public class NewWizardPage extends WizardPage {
 		try {
 			r = (IResource) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
 		} catch (NullPointerException e) {
+			return null;
+		}
+		if(r==null){
 			return null;
 		}
 		if (TemplateHelper.isMetaProject(r)) {
@@ -157,8 +156,7 @@ public class NewWizardPage extends WizardPage {
 		return false;
 	}
 
-	private void createTemplate() {
-		clearTemplate();
+	private void createTemplate(Composite composite, Map<String, java.util.List<Template>> tempMap) {
 		TComposite tComposite = new TComposite(composite, SWT.BORDER, tempMap);
 		tComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		template = tComposite.getSelection();
@@ -170,7 +168,9 @@ public class NewWizardPage extends WizardPage {
 					return;
 				}
 				setDescription(template.getDescription());
-				((SelectModelWizardPage) getNextPage()).createDynamicTextComponents(template);
+				if (metaProject != null) {
+					((SelectModelWizardPage) getNextPage()).createDynamicTextComponents(template);
+				}
 			}
 		});
 		composite.layout(true);
@@ -181,12 +181,12 @@ public class NewWizardPage extends WizardPage {
 		container.setLayout(new GridLayout());
 		setControl(container);
 		createText(container);
-		composite = new Group(container, SWT.NONE);
+		Group composite = new Group(container, SWT.NONE);
 		composite.setLayout(new GridLayout());
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		composite.setText(Messages.NewWizardPage_Template);
 
-		createTemplate();
+		createTemplate(composite, TemplateHelper.loadTemplate());
 
 		if (setPath(metaFolder)) {
 			txtFile.setFocus();
@@ -220,10 +220,7 @@ public class NewWizardPage extends WizardPage {
 		} else if (getPath().lastIndexOf("ui_prototype") == -1) { //$NON-NLS-1$
 			updateStatus(Messages.NewWizardPage__folder_3);
 		} else {
-			if (template == null) {
-				setMetaProject(container.getProject());
-				initTemplate();
-			}
+			setMetaProject(container.getProject());
 			if (fileName != null && !fileName.equals("") && ((IContainer) container).getFile(new Path(fileName)).exists()) { //$NON-NLS-1$
 				updateStatus(Messages.NewWizardPage_File);
 			} else if (fileName.length() == 0) {
@@ -234,33 +231,12 @@ public class NewWizardPage extends WizardPage {
 				updateStatus(Messages.NewWizardPage_File_3);
 			} else {
 				updateStatus(null);
-				if (template == null) {
-					return;
-				}
 				setDescription(template.getDescription());
 				((SelectModelWizardPage) getNextPage()).createDynamicTextComponents(template);
 			}
 			return;
 		}
 		setMetaProject(null);
-		template = null;
-		clearTemplate();
-	}
-
-	private void clearTemplate() {
-		for (Control c : composite.getChildren()) {
-			if ((c instanceof TComposite) && !c.isDisposed()) {
-				c.dispose();
-			}
-		}
-	}
-
-	private void initTemplate() {
-		tempMap = TemplateHelper.loadTemplate();
-		createTemplate();
-
-		// template = templates.size() > 0 ? templates.get(0) : null;
-		// createTemplate(templates);
 	}
 
 	public void updateStatus(String message) {

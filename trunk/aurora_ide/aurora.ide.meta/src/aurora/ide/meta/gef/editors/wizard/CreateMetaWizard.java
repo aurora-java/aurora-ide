@@ -35,6 +35,7 @@ import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.InitModel;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.Label;
+import aurora.ide.meta.gef.editors.models.QueryContainer;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.TabItem;
@@ -60,7 +61,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 
 	private Map<String, IFile> modelMap = new HashMap<String, IFile>();
 	private Map<String, AuroraComponent> acptMap = new HashMap<String, AuroraComponent>();
-	private Map<String, String> btnMap = new HashMap<String, String>();
+	private Map<String, String> queryMap = new HashMap<String, String>();
 
 	private int tabItemIndex = 0;
 
@@ -127,23 +128,25 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		}
 		fillQueryField();
 		fillButtonTarget();
-		viewDiagram.setForCreate(Template.TYPE_CREATE.equals(template.getType()));
-		viewDiagram.setForDisplay(Template.TYPE_DISPLAY.equals(template.getType()));
-		viewDiagram.setForSerach(Template.TYPE_SERACH.equals(template.getType()));
-		viewDiagram.setForUpdate(Template.TYPE_UPDATE.equals(template.getType()));
+		viewDiagram.setTemplateType(template.getType());
 		viewDiagram.setBindTemplate(template.getPath());
 		return viewDiagram;
 	}
 
 	private void fillButtonTarget() {
-		for (String s : btnMap.keySet()) {
+		for (String s : queryMap.keySet()) {
 			Object obj = acptMap.get(s);
-			if (!(obj instanceof Button)) {
-				continue;
+			if (obj instanceof Button) {
+				Button btn = (Button) obj;
+				AuroraComponent ac = acptMap.get(queryMap.get(s));
+				btn.getButtonClicker().setTargetComponent(ac);
+			} else if (obj instanceof Grid) {
+				Grid bc = (Grid) obj;
+				AuroraComponent ac = acptMap.get(queryMap.get(s));
+				if (ac instanceof Container) {
+					bc.getDataset().setQueryContainer((QueryContainer) ac);
+				}
 			}
-			Button btn = (Button) obj;
-			AuroraComponent ac = acptMap.get(btnMap.get(s));
-			btn.getButtonClicker().setTargetComponent(ac);
 		}
 	}
 
@@ -158,6 +161,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				String s = getBmPath(modelMap.get(mid));
 				QueryDataSet ds = new QueryDataSet();
 				ds.setModel(s);
+
 				((Container) obj).setDataset(ds);
 			}
 			if (Template.TYPE_DISPLAY.equals(template.getType())) {
@@ -203,7 +207,6 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		if (acpt == null) {
 			return null;
 		}
-		System.out.println(cpt.getId());
 		if (null != cpt.getId() && !"".equals(cpt.getId())) {
 			acptMap.put(cpt.getId(), acpt);
 		}
@@ -242,7 +245,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				bc.setActionID(btn.getType());
 				((Button) ac).setButtonClicker(bc);
 				bc.setButton((Button) ac);
-				btnMap.put(btn.getId(), btn.getTarget());
+				queryMap.put(btn.getId(), btn.getTarget());
 			}
 		}
 	}
@@ -264,6 +267,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				ref.setInitModel(m);
 			}
 			((TabItem) acpt).setTabRef(ref);
+			ref.setUrl(((aurora.ide.meta.gef.editors.template.TabRef) cp).getUrl());
 			return true;
 		}
 		return false;
@@ -323,6 +327,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		String qcId = ((BMBindComponent) cpt).getQueryComponent();
 		if (qcId != null && (!"".equals(qcId))) {
 			modelMap.put(qcId, bm.getModel());
+			queryMap.put(cpt.getId(), qcId);
 		}
 	}
 

@@ -102,8 +102,8 @@ public class TComposite extends SashForm {
 		gd.heightHint = labelHeight;
 		gd.widthHint = labelWidth;
 		label.setLayoutData(gd);
-		label.setText(t.getName());
-		// label.setImage(getImage(t.getIcon()));
+		//label.setText(t.getName());
+		label.setImage(getImage(t.getIcon()));
 		label.addMouseListener(new MouseAdapter() {
 			public void mouseDown(MouseEvent e) {
 				CLabel lbl = (CLabel) e.getSource();
