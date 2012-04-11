@@ -2,9 +2,10 @@ package aurora.ide.meta.gef.editors.models.io;
 
 import java.util.List;
 
-import aurora.ide.api.composite.map.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.InitModel;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
 
@@ -28,10 +29,13 @@ public class TabRefHandler extends DefaultIOHandler {
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
 		super.storeComplexAttribute(map, ac);
 		TabRef ref = (TabRef) ac;
-		// ReferenceHandler rh = new ReferenceHandler();
-		// CompositeMap tiMap = rh.toCompositeMap(ref.getTabItem(), mic);
-		// tiMap.put(ReferenceHandler.COMMENT, TABITEM);
-		// map.addChild(tiMap);
+		InitModel im = ref.getInitModel();
+		if (im != null) {
+			ReferenceHandler rh = new ReferenceHandler();
+			CompositeMap imMap = rh.toCompositeMap(im, mic);
+			imMap.put(ReferenceHandler.COMMENT, InitModel.class.getSimpleName());
+			map.addChild(imMap);
+		}
 		map.addChild(getParameterMap(ref, mic));
 	}
 
@@ -55,20 +59,21 @@ public class TabRefHandler extends DefaultIOHandler {
 	protected void restoreComplexAttribute(AuroraComponent ac, CompositeMap map) {
 		super.restoreComplexAttribute(ac, map);
 		TabRef ref = (TabRef) ac;
-		// CompositeMap m = getMap(map, ReferenceHandler.NS_PREFIX,
-		// ReferenceHandler.COMMENT, TABITEM);
-		// if (m != null) {
-		// String mid = m.getString(ReferenceHandler.REF_ID);
-		// TabItem ti = (TabItem) mic.markMap.get(mid);
-		// if (ti != null) {
-		// ref.setTabItem(ti);
-		// } else {
-		// ReferenceDecl rd = new ReferenceDecl(mid, ref, "setTabItem",
-		// TabItem.class);
-		// mic.refDeclList.add(rd);
-		// }
-		// }
-		//
+		CompositeMap m = getMap(map, ReferenceHandler.NS_PREFIX,
+				ReferenceHandler.COMMENT, InitModel.class.getSimpleName());
+		if (m != null) {
+			String mid = m.getString(ReferenceHandler.REF_ID);
+			InitModel im = (InitModel) mic.markMap.get(mid);
+			if (im != null) {
+				ref.setInitModel(im);
+			} else {
+				// this may not happen,because initmodels are always create
+				// before tabref.
+				ReferenceDecl rd = new ReferenceDecl(mid, ref, "setInitModel",
+						InitModel.class);
+				mic.refDeclList.add(rd);
+			}
+		}
 		restoreParameters(ref, map, mic);
 	}
 
