@@ -30,6 +30,7 @@ import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.parse.TemplateHelper;
+import aurora.ide.meta.gef.editors.wizard.dialog.TComposite;
 import aurora.ide.meta.gef.i18n.Messages;
 
 public class NewWizardPage extends WizardPage {

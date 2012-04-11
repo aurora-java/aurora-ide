@@ -25,6 +25,7 @@ import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
 import aurora.ide.meta.gef.editors.template.Component;
 import aurora.ide.meta.gef.editors.template.TabRef;
 import aurora.ide.meta.gef.editors.template.Template;
+import aurora.ide.meta.gef.editors.wizard.dialog.StyleSettingDialog;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 
@@ -71,7 +72,7 @@ public class SettingWizardPage extends WizardPage {
 			Group gr = new Group(composite, SWT.None);
 			gr.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			gr.setText("Set tab Ref");
-			gr.setLayout(new GridLayout(3, false));
+			gr.setLayout(new GridLayout(4, false));
 			for (Component cp : template.getRef()) {
 				createRefField((TabRef) cp, gr);
 			}
@@ -84,9 +85,14 @@ public class SettingWizardPage extends WizardPage {
 		lbl.setText("Select:");
 		final Text txt = new Text(gr, SWT.BORDER);
 		txt.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		Button btn = new Button(gr, SWT.None);
-		btn.setText("select");
-		btn.addSelectionListener(new SelectionAdapter() {
+		Button btnSelect = new Button(gr, SWT.None);
+		btnSelect.setText("选择文件");
+
+		Button btnParam = new Button(gr, SWT.None);
+		btnParam.setText("添加参数");
+		btnParam.setEnabled(true);
+
+		btnSelect.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				MutilInputResourceSelector fss = new MutilInputResourceSelector(getShell());
 				String webHome = ResourceUtil.getWebHome(getAuroraProject());
@@ -100,6 +106,13 @@ public class SettingWizardPage extends WizardPage {
 				}
 				txt.setText(((IFile) obj).getFullPath().toString());
 				cp.setUrl(((IFile) obj).getFullPath().toString());
+			}
+		});
+
+		btnParam.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				StyleSettingDialog dialog = new StyleSettingDialog(getShell());
+				dialog.open();
 			}
 		});
 	}

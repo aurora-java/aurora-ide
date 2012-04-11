@@ -1,4 +1,4 @@
-package aurora.ide.meta.gef.editors.wizard;
+package aurora.ide.meta.gef.editors.wizard.dialog;
 
 import java.util.ArrayList;
 import java.util.Map;
