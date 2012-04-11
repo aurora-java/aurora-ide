@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.models;
 
+import java.util.List;
+
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
@@ -8,10 +10,12 @@ import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.property.TabRefPropertyDescriptor;
 
-public class TabItem extends AuroraComponent {
+public class TabItem extends Container {
 	public static final String SCREEN_REF = "ref";
 	private static final long serialVersionUID = -6198220551287976461L;
-	private static IPropertyDescriptor[] pds = new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, new TabRefPropertyDescriptor(SCREEN_REF, "ref") };
+	private static IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
+			PD_PROMPT, PD_WIDTH,
+			new TabRefPropertyDescriptor(SCREEN_REF, "ref") };
 	public static final String CURRENT = "current";
 	public static final int HEIGHT = 25;
 	private TabBody body = new TabBody();
@@ -44,10 +48,12 @@ public class TabItem extends AuroraComponent {
 		return body;
 	}
 
+	@Override
 	public void addChild(AuroraComponent child) {
 		body.addChild(child);
 	}
 
+	@Override
 	public void addChild(AuroraComponent child, int index) {
 		body.addChild(child, index);
 	}
@@ -132,4 +138,25 @@ public class TabItem extends AuroraComponent {
 		this.ref = tr;
 	}
 
+	// / make tabitem a proxy of tabbody
+	@Override
+	public List<AuroraComponent> getChildren() {
+		return body.getChildren();
+	}
+
+	@Override
+	public void removeChild(AuroraComponent child) {
+		body.removeChild(child);
+	}
+
+	@Override
+	public void removeChild(int idx) {
+		body.removeChild(idx);
+	}
+
+	@Override
+	public boolean isResponsibleChild(AuroraComponent component) {
+		return false;
+	}
+	// /end
 }

@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.models;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -25,6 +26,13 @@ public class TabFolder extends Container {
 				((TabItem) ac).setCurrent(false);
 			}
 		}
+	}
+
+	public ArrayList<TabItem> getTabItems() {
+		ArrayList<TabItem> als = new ArrayList<TabItem>(children.size() / 2);
+		for (int i = 0; i < children.size() / 2; i++)
+			als.add((TabItem) children.get(i));
+		return als;
 	}
 
 	public TabItem getCurrent() {
