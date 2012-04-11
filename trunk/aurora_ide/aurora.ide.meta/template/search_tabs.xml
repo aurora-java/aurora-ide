@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="st" iconPath="1.png" type="serach" category="查询">
+<template name="serach tabs" iconPath="1.png" type="serach" category="查询">
 	<models>
 		<model id="model.hid" name="model.hname"/>
 		<model id="model.rid" name="model.rname"/>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="sfgg" iconPath="1.png" type="serach" category="查询">
+<template name="头行结构模板" iconPath="1.png" type="serach" category="查询">
 	<models>
 		<model id="model.hid" name="头BM"/>
 		<model id="model.rid" name="行BM"/>
