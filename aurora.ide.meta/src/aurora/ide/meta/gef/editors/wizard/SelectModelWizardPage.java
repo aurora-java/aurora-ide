@@ -150,10 +150,7 @@ public class SelectModelWizardPage extends WizardPage {
 
 	public boolean checkFinish() {
 		boolean bool = false;
-		List<BMReference> bms = new ArrayList<BMReference>();
-		bms.addAll(template.getBms());
-		bms.addAll(template.getInitBms());
-		for (BMReference b : bms) {
+		for (BMReference b : template.getBms()) {
 			if (b.getModel() == null) {
 				return false;
 			} else {

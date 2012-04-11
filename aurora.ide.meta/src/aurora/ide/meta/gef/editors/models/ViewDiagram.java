@@ -3,19 +3,17 @@ package aurora.ide.meta.gef.editors.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import aurora.ide.meta.gef.editors.template.Template;
+
 public class ViewDiagram extends Container {
 	private static final long serialVersionUID = -9196440587781890208L;
 	public static final int DLabelWidth = 80;
-	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class,
-			GridColumn.class, TabItem.class };
+	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class, GridColumn.class, TabItem.class };
 
 	private List<InitModel> initModels = new ArrayList<InitModel>();
 	private String bindTemplate = "";
 
-	private boolean isForDisplay;
-	private boolean isForCreate;
-	private boolean isForUpdate;
-	private boolean isForSerach;
+	private String templateType;
 
 	@Override
 	public boolean isResponsibleChild(AuroraComponent component) {
@@ -51,8 +49,7 @@ public class ViewDiagram extends Container {
 		List<Container> containers = getContainers(this);
 		for (Container container : containers) {
 			String sectionType = container.getSectionType();
-			if (Container.SECTION_TYPE_QUERY.equals(sectionType)
-					|| Container.SECTION_TYPE_RESULT.equals(sectionType)) {
+			if (Container.SECTION_TYPE_QUERY.equals(sectionType) || Container.SECTION_TYPE_RESULT.equals(sectionType)) {
 				String model = container.getDataset().getModel();
 				if (null != model) {
 					models.add(model);
@@ -62,8 +59,7 @@ public class ViewDiagram extends Container {
 		return models;
 	}
 
-	public List<Container> getSectionContainers(Container container,
-			String[] types) {
+	public List<Container> getSectionContainers(Container container, String[] types) {
 		List<Container> containers = new ArrayList<Container>();
 		List<AuroraComponent> children = container.getChildren();
 		for (AuroraComponent ac : children) {
@@ -106,36 +102,27 @@ public class ViewDiagram extends Container {
 		return containers;
 	}
 
-	public boolean isForDisplay() {
-		return isForDisplay;
+	public String getTemplateType() {
+		return templateType;
 	}
 
-	public void setForDisplay(boolean isForDisplay) {
-		this.isForDisplay = isForDisplay;
+	public void setTemplateType(String templateType) {
+		this.templateType = templateType;
+	}
+
+	public boolean isForDisplay() {
+		return Template.TYPE_DISPLAY.equals(templateType);
 	}
 
 	public boolean isForCreate() {
-		return isForCreate;
-	}
-
-	public void setForCreate(boolean isForCreate) {
-		this.isForCreate = isForCreate;
+		return Template.TYPE_CREATE.equals(templateType);
 	}
 
 	public boolean isForUpdate() {
-		return isForUpdate;
-	}
-
-	public void setForUpdate(boolean isForUpdate) {
-		this.isForUpdate = isForUpdate;
+		return Template.TYPE_UPDATE.equals(templateType);
 	}
 
 	public boolean isForSerach() {
-		return isForSerach;
+		return Template.TYPE_SERACH.equals(templateType);
 	}
-
-	public void setForSerach(boolean isForSerach) {
-		this.isForSerach = isForSerach;
-	}
-
 }
