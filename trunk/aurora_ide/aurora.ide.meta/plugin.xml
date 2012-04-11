@@ -146,5 +146,36 @@
         </run>
      </builder>
   </extension>
+  <extension
+        point="org.eclipse.ui.popupMenus">
+     <objectContribution
+           id="aurora.ide.meta.contribution1"
+           nameFilter="*.bmq"
+           objectClass="org.eclipse.core.resources.IFile">
+        <action
+              class="aurora.ide.meta.popup.actions.AutoCreateTableAction"
+              enablesFor="+"
+              icon="icons/create_database_table.gif"
+              id="aurora.ide.meta.autoCreateTableAction"
+              label="Create Table"
+              menubarPath="additions">
+           <enablement>
+              <and>
+                 <objectClass
+                       name="org.eclipse.core.resources.IFile">
+                 </objectClass>
+                 <objectState
+                       name="extension"
+                       value="bmq">
+                 </objectState>
+                 <objectState
+                       name="projectNature"
+                       value="aurora.ide.meta.nature">
+                 </objectState>
+              </and>
+           </enablement>
+        </action>
+     </objectContribution>
+  </extension>
     
 </plugin>
