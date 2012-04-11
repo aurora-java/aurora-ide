@@ -86,10 +86,9 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 	}
 
 	public void refresh() {
-		long t1 = System.currentTimeMillis();
+		super.refresh();
 		Table table = getTable();
 		ArrayList<String> keys = new ArrayList<String>(editorMap.keySet());
-		super.refresh();
 		for (int r = 0; r < table.getItemCount(); r++) {
 			TableItem item = table.getItem(r);
 			Record record = (Record) item.getData();
@@ -122,8 +121,6 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 		for (String key : keys) {
 			disposeEditor(key);
 		}
-		// table.setRedraw(true);
-		System.out.println("all:" + (System.currentTimeMillis() - t1));
 	}
 
 	/**
@@ -134,7 +131,6 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 	 */
 	public void refresh(Record record) {
 		super.refresh(record);
-		long t1 = System.currentTimeMillis();
 		Table table = getTable();
 		for (int r = 0; r < table.getItemCount(); r++) {
 			TableItem item = table.getItem(r);
@@ -158,8 +154,6 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 				break;
 			}
 		}
-		System.out.println(record.getPrompt() + ":"
-				+ (System.currentTimeMillis() - t1));
 	}
 
 	private void disposeEditor(String key) {
