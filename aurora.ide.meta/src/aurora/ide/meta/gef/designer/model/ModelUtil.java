@@ -28,6 +28,7 @@ public class ModelUtil implements IDesignerConst {
 			return map;
 		map.put(BMModel.TITLE, model.getTitle());
 		map.put(BMModel.AUTOEXTEND, model.getAutoExtends());
+		map.put(BMModel.DEFAULT_DISPLAY, model.getDefaultDisplay());
 		CompositeMap recordMap = new CommentCompositeMap(RECORDS);
 		for (Record r : model.getRecords()) {
 			recordMap.addChild(toCompositeMap(r));
@@ -86,6 +87,7 @@ public class ModelUtil implements IDesignerConst {
 		BMModel model = new BMModel();
 		model.setTitle(map.getString(BMModel.TITLE));
 		model.setAutoExtends(map.getString(BMModel.AUTOEXTEND));
+		model.setDefaultDisplay(map.getString(BMModel.DEFAULT_DISPLAY));
 		CompositeMap recMap = map.getChild(RECORDS);
 		if (recMap != null) {
 			@SuppressWarnings("unchecked")

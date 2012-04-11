@@ -90,6 +90,9 @@ public class BaseBmGenerator {
 	private CompositeMap gen() {
 		CompositeMap map = genModelMap();
 		map.put("title", model.getTitle());
+		Record r = model.getDefaultDisplayRecord();
+		if (r != null)
+			map.put("defaultDisplayField", r.getName());
 		map.addChild(genFieldsMap());
 		map.addChild(genPkMap());
 		map.addChild(genFeatureMap());
