@@ -250,11 +250,13 @@ public class ButtonClickEditDialog extends EditWizard {
 
 		private TreeItem createSubItem(TreeItem parent, AuroraComponent data) {
 			TreeItem ti = new TreeItem(parent, SWT.NONE);
-			ti.setData(data);
 			ti.setText(getTextOf(data));
 			ti.setImage(PropertySourceUtil.getImageOf(data));
-			if (data instanceof TabItem || data instanceof TabFolder)
+			if (data instanceof TabItem || data instanceof TabFolder) {
 				ti.setForeground(new Color(null, 200, 200, 200));
+				ti.setData(null);
+			} else
+				ti.setData(data);
 			return ti;
 		}
 
