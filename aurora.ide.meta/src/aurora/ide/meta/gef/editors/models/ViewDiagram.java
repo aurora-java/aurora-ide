@@ -73,6 +73,10 @@ public class ViewDiagram extends Container {
 					containers.add((Container) ac);
 				containers.addAll(getSectionContainers((Container) ac, types));
 			}
+			if(ac instanceof TabItem){
+				TabBody body = ((TabItem) ac).getBody();
+				containers.addAll(getSectionContainers(body, types));
+			}
 		}
 		return containers;
 	}
@@ -93,6 +97,10 @@ public class ViewDiagram extends Container {
 			if (ac instanceof Container) {
 				containers.add((Container) ac);
 				containers.addAll(getContainers((Container) ac));
+			}
+			if(ac instanceof TabItem){
+				TabBody body = ((TabItem) ac).getBody();
+				containers.addAll(getContainers(body));
 			}
 		}
 		return containers;
