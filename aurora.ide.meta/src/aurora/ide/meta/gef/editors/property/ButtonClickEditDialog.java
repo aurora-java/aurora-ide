@@ -40,7 +40,6 @@ import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.TabBody;
 import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -213,34 +212,50 @@ public class ButtonClickEditDialog extends EditWizard {
 		 * <i>section_type_filter</i> should be setted before call this method
 		 * 
 		 * @param tree
-		 * @param ti
+		 * @param parentItem
 		 * @param container
 		 */
-		private void createSubTree(Tree tree, TreeItem ti, Container container) {
+		private void createSubTree(Tree tree, TreeItem parentItem,
+				Container container) {
 			for (AuroraComponent ac : container.getChildren()) {
-				if ((ac instanceof Container) && !(ac instanceof TabBody)) {
+				if ((ac instanceof Container) && !(ac instanceof TabFolder)) {
 					Container cont = (Container) ac;
-					if (!section_type_filter.equals(cont.getSectionType())
-							&& (!(ac instanceof TabFolder)))
+					if (!section_type_filter.equals(cont.getSectionType()))
 						continue;
-					TreeItem t = new TreeItem(ti, SWT.NONE);
-					t.setData(ac);
+					TreeItem t = createSubItem(parentItem, ac);
 					if (ac == clicker.getTargetComponent())
 						tree.setSelection(t);
-					t.setImage(PropertySourceUtil.getImageOf(ac));
-					t.setText(getTextOf(ac));
 					if (!(ac instanceof Grid))
 						createSubTree(tree, t, (Container) ac);
-				} else if (ac instanceof TabItem) {
-					TreeItem t = new TreeItem(ti, SWT.NONE);
-					t.setImage(PropertySourceUtil.getImageOf(ac));
-					t.setText(getTextOf(ac));
-					t.setForeground(new Color(null, 200, 200, 200));
-					createSubTree(tree, t, ((TabItem) ac).getBody());
+				} else if (ac instanceof TabFolder) {
+					TreeItem folderItem = createSubItem(parentItem, ac);
+					TabFolder folder = (TabFolder) ac;
+					for (TabItem tabItem : folder.getTabItems()) {
+						TreeItem ti = createSubItem(folderItem, tabItem);
+						String secString = tabItem.getSectionType();
+						tabItem.setSectionType(section_type_filter);
+						createSubTree(tree, ti, tabItem);
+						tabItem.setSectionType(secString);
+					}
+					expand(folderItem);
 				}
 			}
-			for (TreeItem t : ti.getItems())
+			expand(parentItem);
+		}
+
+		private void expand(TreeItem parentItem) {
+			for (TreeItem t : parentItem.getItems())
 				t.setExpanded(true);
+		}
+
+		private TreeItem createSubItem(TreeItem parent, AuroraComponent data) {
+			TreeItem ti = new TreeItem(parent, SWT.NONE);
+			ti.setData(data);
+			ti.setText(getTextOf(data));
+			ti.setImage(PropertySourceUtil.getImageOf(data));
+			if (data instanceof TabItem || data instanceof TabFolder)
+				ti.setForeground(new Color(null, 200, 200, 200));
+			return ti;
 		}
 
 		private void create_reset() {
