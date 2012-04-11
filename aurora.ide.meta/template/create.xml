@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="cfg" iconPath="1.png" type="create" category="创建">
+<template name="general_create" iconPath="1.png" type="create" category="创建">
 	<models>
 		<model id="model.id" name="BM"/>
 	</models>

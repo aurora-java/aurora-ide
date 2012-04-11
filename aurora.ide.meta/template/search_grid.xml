@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="sg" iconPath="1.png" type="serach" category="查询">
+<template name="serach for grid" iconPath="1.png" type="serach" category="查询">
 	<models>
 		<model id="model.id" name="model.name"/>
 	</models>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="mfg" iconPath="1.png" type="update" category="维护">
+<template name="update" iconPath="1.png" type="update" category="维护">
 	<models>
-		<model id="model.id" name="model.name"/>
+		<model id="model.id" name="BM"/>
 	</models>
 	
 	<form id="form.id" name="form.name"/>
