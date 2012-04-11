@@ -1,20 +1,18 @@
 package aurora.ide.meta.gef.editors.property;
 
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.QueryContainer;
-import aurora.ide.meta.gef.editors.models.TabFolder;
-import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 
 public class QueryContainerEditDialog extends EditWizard {
@@ -63,14 +61,14 @@ public class QueryContainerEditDialog extends EditWizard {
 			}
 			if (root == null)
 				throw new RuntimeException("Null root"); //$NON-NLS-1$
-			final Tree tree = new Tree(parent, SWT.BORDER);
-			TreeItem rootItem = new TreeItem(tree, SWT.NONE);
-			rootItem.setText("screenBody"); //$NON-NLS-1$
-			rootItem.setForeground(new Color(null, 200, 200, 200));
-			createSubTree(tree, rootItem, root);
-
-			for (TreeItem ti : tree.getItems())
-				ti.setExpanded(true);
+			ModelTreeSelector mts = new ModelTreeSelector(parent, SWT.BORDER);
+			TreeViewer tv = mts.getTreeViewer();
+			tv.setFilters(new ViewerFilter[] {
+					ModelTreeSelector.CONTAINER_FILTER,
+					ModelTreeSelector.getSectionFilter(section_type_filter) });
+			final Tree tree = tv.getTree();
+			mts.setRoot(root);
+			mts.refreshTree();
 			tree.addSelectionListener(new SelectionListener() {
 
 				public void widgetSelected(SelectionEvent e) {
@@ -86,57 +84,5 @@ public class QueryContainerEditDialog extends EditWizard {
 			//
 			setControl(tree);
 		}
-
-		private void createSubTree(Tree tree, TreeItem parentItem,
-				Container container) {
-			for (AuroraComponent ac : container.getChildren()) {
-				if ((ac instanceof Container) && !(ac instanceof TabFolder)) {
-					Container cont = (Container) ac;
-					if (!section_type_filter.equals(cont.getSectionType()))
-						continue;
-					TreeItem t = createSubItem(parentItem, ac);
-					if (ac == queryContainer.getTarget())
-						tree.setSelection(t);
-					if (!(ac instanceof Grid))
-						createSubTree(tree, t, (Container) ac);
-				} else if (ac instanceof TabFolder) {
-					TreeItem folderItem = createSubItem(parentItem, ac);
-					TabFolder folder = (TabFolder) ac;
-					for (TabItem tabItem : folder.getTabItems()) {
-						TreeItem ti = createSubItem(folderItem, tabItem);
-						String secString = tabItem.getSectionType();
-						tabItem.setSectionType(section_type_filter);
-						createSubTree(tree, ti, tabItem);
-						tabItem.setSectionType(secString);
-					}
-					expand(folderItem);
-				}
-			}
-			expand(parentItem);
-		}
-
-		private void expand(TreeItem parentItem) {
-			for (TreeItem t : parentItem.getItems())
-				t.setExpanded(true);
-		}
-
-		private TreeItem createSubItem(TreeItem parent, AuroraComponent data) {
-			TreeItem ti = new TreeItem(parent, SWT.NONE);
-			ti.setData(data);
-			ti.setText(getTextOf(data));
-			ti.setImage(PropertySourceUtil.getImageOf(data));
-			if (data instanceof TabItem || data instanceof TabFolder)
-				ti.setForeground(new Color(null, 200, 200, 200));
-			return ti;
-		}
-
-		private String getTextOf(AuroraComponent ac) {
-			String prop = ac.getPrompt();
-			String aType = ac.getType();
-			return aType + " [" + prop + "]"; //$NON-NLS-1$ //$NON-NLS-2$
-			// return ac.getClass().getSimpleName();
-		}
-
 	}
-
 }

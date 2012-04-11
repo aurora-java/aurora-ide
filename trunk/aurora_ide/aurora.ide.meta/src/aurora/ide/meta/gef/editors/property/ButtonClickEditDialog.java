@@ -2,12 +2,15 @@ package aurora.ide.meta.gef.editors.property;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.source.SourceViewer;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -27,8 +30,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
 
 import aurora.ide.AuroraPlugin;
 import aurora.ide.builder.ResourceUtil;
@@ -39,7 +40,6 @@ import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -160,104 +160,37 @@ public class ButtonClickEditDialog extends EditWizard {
 
 		private void create_query() {
 			AuroraComponent comp = (AuroraComponent) clicker.getContextInfo();
-			ViewDiagram root = null;
-			while (comp != null) {
-				if (comp instanceof ViewDiagram) {
-					root = (ViewDiagram) comp;
-					break;
-				}
-				comp = comp.getParent();
-			}
+			ViewDiagram root = getRoot(comp);
 			if (root == null) {
 				setErrorMessage(Messages.ButtonClickEditDialog_9);
 				setPageComplete(false);
 				return;
 			}
 			composite_right.setLayout(new FillLayout());
-			final Tree tree = new Tree(composite_right, SWT.BORDER);
-			TreeItem rootItem = new TreeItem(tree, SWT.NONE);
-			rootItem.setText(Messages.ButtonClickEditDialog_10);
-			rootItem.setForeground(new Color(null, 200, 200, 200));
+			final ModelTreeSelector mts = new ModelTreeSelector(
+					composite_right, SWT.BORDER);
+			TreeViewer tv = mts.getTreeViewer();
+			tv.setFilters(new ViewerFilter[] {
+					ModelTreeSelector.CONTAINER_FILTER,
+					ModelTreeSelector.getSectionFilter(section_type_filter) });
+			tv.addSelectionChangedListener(new ISelectionChangedListener() {
 
-			createSubTree(tree, rootItem, root);
-			if (tree.getSelection().length == 0) {
-				setErrorMessage(Messages.ButtonClickEditDialog_11);
-				setPageComplete(false);
-			}
-
-			for (TreeItem ti : tree.getItems())
-				ti.setExpanded(true);
-			tree.addSelectionListener(new SelectionListener() {
-
-				public void widgetSelected(SelectionEvent e) {
-					TreeItem ti = tree.getSelection()[0];
-					Object data = ti.getData();
-					if (data == null) {
+				public void selectionChanged(SelectionChangedEvent event) {
+					Object data = mts.getSelection();
+					if (data == null || data instanceof TabFolder
+							|| data instanceof TabItem) {
 						setErrorMessage(Messages.ButtonClickEditDialog_12);
 						setPageComplete(false);
+						return;
 					} else {
 						setErrorMessage(null);
 						setPageComplete(true);
 					}
 					tmpTargetCmp = data;
 				}
-
-				public void widgetDefaultSelected(SelectionEvent e) {
-
-				}
 			});
-		}
-
-		/**
-		 * <i>section_type_filter</i> should be setted before call this method
-		 * 
-		 * @param tree
-		 * @param parentItem
-		 * @param container
-		 */
-		private void createSubTree(Tree tree, TreeItem parentItem,
-				Container container) {
-			for (AuroraComponent ac : container.getChildren()) {
-				if ((ac instanceof Container) && !(ac instanceof TabFolder)) {
-					Container cont = (Container) ac;
-					if (!section_type_filter.equals(cont.getSectionType()))
-						continue;
-					TreeItem t = createSubItem(parentItem, ac);
-					if (ac == clicker.getTargetComponent())
-						tree.setSelection(t);
-					if (!(ac instanceof Grid))
-						createSubTree(tree, t, (Container) ac);
-				} else if (ac instanceof TabFolder) {
-					TreeItem folderItem = createSubItem(parentItem, ac);
-					TabFolder folder = (TabFolder) ac;
-					for (TabItem tabItem : folder.getTabItems()) {
-						TreeItem ti = createSubItem(folderItem, tabItem);
-						String secString = tabItem.getSectionType();
-						tabItem.setSectionType(section_type_filter);
-						createSubTree(tree, ti, tabItem);
-						tabItem.setSectionType(secString);
-					}
-					expand(folderItem);
-				}
-			}
-			expand(parentItem);
-		}
-
-		private void expand(TreeItem parentItem) {
-			for (TreeItem t : parentItem.getItems())
-				t.setExpanded(true);
-		}
-
-		private TreeItem createSubItem(TreeItem parent, AuroraComponent data) {
-			TreeItem ti = new TreeItem(parent, SWT.NONE);
-			ti.setText(getTextOf(data));
-			ti.setImage(PropertySourceUtil.getImageOf(data));
-			if (data instanceof TabItem || data instanceof TabFolder) {
-				ti.setForeground(new Color(null, 200, 200, 200));
-				ti.setData(null);
-			} else
-				ti.setData(data);
-			return ti;
+			mts.setRoot(root);
+			mts.refreshTree();
 		}
 
 		private void create_reset() {
@@ -303,13 +236,11 @@ public class ButtonClickEditDialog extends EditWizard {
 				public void widgetSelected(SelectionEvent e) {
 					MutilInputResourceSelector fss = new MutilInputResourceSelector(
 							composite_right.getShell());
-					String webHome = ResourceUtil.getWebHome(auroraProject);
-					IResource res = ResourcesPlugin.getWorkspace().getRoot()
-							.findMember(webHome);
+					IFolder webHome = ResourceUtil
+							.getWebHomeFolder(auroraProject);
 					fss.setExtFilter(new String[] { "screen", "uip" });
 					IContainer uipFolder = getUIPFolder();
-					fss.setInputs(new IContainer[] { (IContainer) res,
-							uipFolder });
+					fss.setInputs(new IContainer[] { webHome, uipFolder });
 					Object obj = fss.getSelection();
 					if (!(obj instanceof IFile)) {
 						return;
@@ -331,14 +262,7 @@ public class ButtonClickEditDialog extends EditWizard {
 
 		private void createParaTable(Composite composite_right) {
 			AuroraComponent comp = (AuroraComponent) clicker.getContextInfo();
-			ViewDiagram root = null;
-			while (comp != null) {
-				if (comp instanceof ViewDiagram) {
-					root = (ViewDiagram) comp;
-					break;
-				}
-				comp = comp.getParent();
-			}
+			ViewDiagram root = getRoot(comp);
 			if (root == null) {
 				setErrorMessage(Messages.ButtonClickEditDialog_9);
 				setPageComplete(false);
@@ -349,6 +273,18 @@ public class ButtonClickEditDialog extends EditWizard {
 			pc = new ParameterComposite(root, composite_right, SWT.NONE, comp);
 			pc.setLayoutData(data);
 			pc.setParameters(clicker.getParameters());
+		}
+
+		private ViewDiagram getRoot(AuroraComponent comp) {
+			ViewDiagram root = null;
+			while (comp != null) {
+				if (comp instanceof ViewDiagram) {
+					root = (ViewDiagram) comp;
+					break;
+				}
+				comp = comp.getParent();
+			}
+			return root;
 		}
 
 		public IContainer getUIPFolder() {
@@ -430,12 +366,5 @@ public class ButtonClickEditDialog extends EditWizard {
 		public void widgetDefaultSelected(SelectionEvent e) {
 			// never called on radio
 		}
-	}
-
-	private String getTextOf(AuroraComponent ac) {
-		String prop = ac.getPrompt();
-		String aType = ac.getType();
-		return aType + " [" + prop + "]"; //$NON-NLS-1$ //$NON-NLS-2$
-		// return ac.getClass().getSimpleName();
 	}
 }
