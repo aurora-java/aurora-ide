@@ -12,7 +12,7 @@ public class TabItemHandler extends DefaultIOHandler {
 		TabItem ti = (TabItem) ac;
 		map.put(TabItem.PROMPT, ti.getPrompt());
 		map.put(TabItem.WIDTH, ti.getWidth());
-		// map.put(TabItem.CURRENT, ti.isCurrent());
+		map.put(TabItem.CURRENT, ti.isCurrent());
 	}
 
 	@Override
