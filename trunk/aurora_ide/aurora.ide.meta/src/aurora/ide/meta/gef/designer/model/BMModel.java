@@ -10,7 +10,8 @@ public class BMModel {
 	public static final String STRUCTURE_RECORD = "structure_record";
 	public static final String STRUCTURE_RELATION = "structure_relation";
 	public static final String TITLE = "title";
-	public static String AUTOEXTEND = "autoextend";
+	public static final String AUTOEXTEND = "autoextend";
+	public static final String DEFAULT_DISPLAY = "defaultdisplay";
 	public static final String FIELD_NAME_PREFIX = "c";
 	public static final int RECORD = 0;
 	public static final int RELATION = 1;
@@ -19,6 +20,7 @@ public class BMModel {
 	private PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 	private String title = "";
 	private String autoExtend = "";
+	private String defaultDiaplay = "";
 	private PropertyChangeListener recordListener = new PropertyChangeListener() {
 
 		public void propertyChange(PropertyChangeEvent evt) {
@@ -46,6 +48,23 @@ public class BMModel {
 
 	public ArrayList<Relation> getRelationList() {
 		return relations;
+	}
+
+	public void setDefaultDisplay(String prompt) {
+		String old = defaultDiaplay;
+		defaultDiaplay = prompt;
+		firePropertyChange(DEFAULT_DISPLAY, old, prompt);
+	}
+
+	public String getDefaultDisplay() {
+		return defaultDiaplay;
+	}
+
+	public Record getDefaultDisplayRecord() {
+		for (Record r : records)
+			if (r.getPrompt().equals(defaultDiaplay))
+				return r;
+		return null;
 	}
 
 	public Record[] getRecords() {

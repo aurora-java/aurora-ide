@@ -10,6 +10,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
@@ -165,8 +166,24 @@ public class BMDesignPage extends FormPage {
 				new RowData(120, SWT.DEFAULT));
 		if (model != null) {
 			defaultDisplayViewer.setInput(model);
+			Record r = model.getDefaultDisplayRecord();
+			if (r != null)
+				defaultDisplayViewer.setSelection(new StructuredSelection(r));
 			defaultDisplayViewer.refresh();
 		}
+		defaultDisplayViewer
+				.addSelectionChangedListener(new ISelectionChangedListener() {
+
+					public void selectionChanged(SelectionChangedEvent event) {
+						if (event.getSelection() instanceof IStructuredSelection) {
+							Record r = (Record) ((IStructuredSelection) event
+									.getSelection()).getFirstElement();
+							if (r != null) {
+								model.setDefaultDisplay(r.getPrompt());
+							}
+						}
+					}
+				});
 	}
 
 	private void createQuickInputControl(IManagedForm managedForm) {

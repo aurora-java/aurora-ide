@@ -117,6 +117,11 @@ public class ModelMerger {
 		model.setTitle(bmMap.getString(BMModel.TITLE));
 		updateRecords();
 		updateRelations();
+		String ddf = bmMap.getString("defaultDisplayField");
+		for (Record r : model.getRecordList()) {
+			if (r.getName().equals(ddf))
+				model.setDefaultDisplay(r.getPrompt());
+		}
 	}
 
 	/**
@@ -254,6 +259,9 @@ public class ModelMerger {
 
 	private void updateBmMap() {
 		bmMap.put(BMModel.TITLE, model.getTitle());
+		Record r = model.getDefaultDisplayRecord();
+		if (r != null)
+			bmMap.put("defaultDisplayField", r.getName());
 		CompositeMap fieldsMap = bmMap.getChild("fields");
 		updateFields(fieldsMap);
 		CompositeMap relMap = bmMap.getChild("relations");
