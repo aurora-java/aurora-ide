@@ -41,6 +41,7 @@ import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.TabBody;
+import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
@@ -219,7 +220,8 @@ public class ButtonClickEditDialog extends EditWizard {
 			for (AuroraComponent ac : container.getChildren()) {
 				if ((ac instanceof Container) && !(ac instanceof TabBody)) {
 					Container cont = (Container) ac;
-					if (!section_type_filter.equals(cont.getSectionType()))
+					if (!section_type_filter.equals(cont.getSectionType())
+							&& (!(ac instanceof TabFolder)))
 						continue;
 					TreeItem t = new TreeItem(ti, SWT.NONE);
 					t.setData(ac);
@@ -282,14 +284,15 @@ public class ButtonClickEditDialog extends EditWizard {
 
 			btn.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
-					MutilInputResourceSelector fss = new MutilInputResourceSelector(composite_right
-							.getShell());
+					MutilInputResourceSelector fss = new MutilInputResourceSelector(
+							composite_right.getShell());
 					String webHome = ResourceUtil.getWebHome(auroraProject);
 					IResource res = ResourcesPlugin.getWorkspace().getRoot()
 							.findMember(webHome);
-					fss.setExtFilter(new String[] { "screen","uip" });
+					fss.setExtFilter(new String[] { "screen", "uip" });
 					IContainer uipFolder = getUIPFolder();
-					fss.setInputs(new IContainer[] { (IContainer) res, uipFolder });
+					fss.setInputs(new IContainer[] { (IContainer) res,
+							uipFolder });
 					Object obj = fss.getSelection();
 					if (!(obj instanceof IFile)) {
 						return;
@@ -326,10 +329,11 @@ public class ButtonClickEditDialog extends EditWizard {
 			}
 			GridData data = new GridData(GridData.FILL_BOTH);
 			data.horizontalSpan = 3;
-			pc = new ParameterComposite(root, composite_right, SWT.NONE,comp);
+			pc = new ParameterComposite(root, composite_right, SWT.NONE, comp);
 			pc.setLayoutData(data);
 			pc.setParameters(clicker.getParameters());
 		}
+
 		public IContainer getUIPFolder() {
 			IFile activeIFile = AuroraPlugin.getActiveIFile();
 			IProject proj = activeIFile.getProject();
@@ -341,6 +345,7 @@ public class ButtonClickEditDialog extends EditWizard {
 			}
 			return mProj.getProject();
 		}
+
 		private void create_close() {
 			composite_right.setLayout(new GridLayout(2, false));
 			Label label = new Label(composite_right, SWT.NONE);
