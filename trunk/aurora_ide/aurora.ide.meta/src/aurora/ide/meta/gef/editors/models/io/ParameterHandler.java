@@ -25,9 +25,12 @@ public class ParameterHandler extends DefaultIOHandler {
 		super.storeComplexAttribute(map, ac);
 		Parameter p = (Parameter) ac;
 		ReferenceHandler rh = new ReferenceHandler();
-		CompositeMap cMap = rh.toCompositeMap(p.getContainer(), mic);
-		cMap.put(ReferenceHandler.COMMENT, CONTAINER);
-		map.addChild(cMap);
+		Container container2 = p.getContainer();
+		if (container2 != null) {
+			CompositeMap cMap = rh.toCompositeMap(container2, mic);
+			cMap.put(ReferenceHandler.COMMENT, CONTAINER);
+			map.addChild(cMap);
+		}
 	}
 
 	@Override
