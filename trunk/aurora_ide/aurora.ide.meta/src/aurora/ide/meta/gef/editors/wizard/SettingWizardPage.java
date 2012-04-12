@@ -5,6 +5,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -53,20 +54,21 @@ public class SettingWizardPage extends WizardPage {
 			}
 		}
 
-		// if (template.getLink().size() > 0) {
-		// Group gl = new Group(composite, SWT.None);
-		// gl.setText("Add Link");
-		// gl.setLayout(new GridLayout());
-		// for (Component cp : template.getLink()) {
-		// if ("grid".equals(cp.getComponentType())) {
-		// Label lbl=new Label(gl,SWT.None);
-		// lbl.setText("添加Grid Link");
-		// }else if("button".equals(cp.getComponentType())){
-		// Label lbl=new Label(gl,SWT.None);
-		// lbl.setText("添加Button Link");
-		// }
-		// }
-		// }
+		if (template.getLink().size() > 0) {
+			Group gl = new Group(composite, SWT.None);
+			gl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			gl.setText("Add Link");
+			gl.setLayout(new GridLayout());
+			for (Component cp : template.getLink()) {
+				if ("grid".equals(cp.getComponentType())) {
+					Button btn =new Button(gl,SWT.None);
+
+				} else if ("button".equals(cp.getComponentType())) {
+					Label lbl = new Label(gl, SWT.None);
+					lbl.setText(cp.getName());
+				}
+			}
+		}
 
 		if (template.getRef().size() > 0) {
 			Group gr = new Group(composite, SWT.None);
@@ -111,8 +113,10 @@ public class SettingWizardPage extends WizardPage {
 
 		btnParam.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				StyleSettingDialog dialog = new StyleSettingDialog(getShell());
-				dialog.open();
+				StyleSettingDialog dialog = new StyleSettingDialog(getShell(), cp.getParas());
+				if (dialog.open() == Dialog.OK) {
+					cp.setParas(dialog.getResult());
+				}
 			}
 		});
 	}

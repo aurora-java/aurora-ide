@@ -49,6 +49,10 @@ public class TabRef extends AuroraComponent {
 		return paras;
 	}
 
+	public void addAllParameter(List<Parameter> paras) {
+		this.paras.addAll(paras);
+	}
+
 	public void addParameter(Parameter para) {
 		paras.add(para);
 	}

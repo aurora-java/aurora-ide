@@ -35,12 +35,12 @@ import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.InitModel;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.Label;
-import aurora.ide.meta.gef.editors.models.QueryContainer;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
+import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
@@ -144,7 +144,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				Grid bc = (Grid) obj;
 				AuroraComponent ac = acptMap.get(queryMap.get(s));
 				if (ac instanceof Container) {
-					bc.getDataset().setQueryContainer((QueryContainer) ac);
+					bc.getDataset().setQueryContainer((Container) ac);
 				}
 			}
 		}
@@ -159,9 +159,8 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			if (((Container) obj).getSectionType() == null || "".equals(((Container) obj).getSectionType())) {
 				((Container) obj).setSectionType(Container.SECTION_TYPE_QUERY);
 				String s = getBmPath(modelMap.get(mid));
-				QueryDataSet ds = new QueryDataSet();
+				QueryDataSet ds = (QueryDataSet) ((Container) obj).getDataset();
 				ds.setModel(s);
-
 				((Container) obj).setDataset(ds);
 			}
 			if (Template.TYPE_DISPLAY.equals(template.getType())) {
@@ -266,8 +265,12 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				m.setPath(s);
 				ref.setInitModel(m);
 			}
-			((TabItem) acpt).setTabRef(ref);
 			ref.setUrl(((aurora.ide.meta.gef.editors.template.TabRef) cp).getUrl());
+			for (Parameter p : ((aurora.ide.meta.gef.editors.template.TabRef) cp).getParas()) {
+				p.setContainer((TabItem) acpt);
+				ref.addParameter(p);
+			}
+			((TabItem) acpt).setTabRef(ref);
 			return true;
 		}
 		return false;
@@ -306,13 +309,13 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		if (bm == null) {
 			return;
 		}
-		ResultDataSet ds = new ResultDataSet();
-		String s = getBmPath(bm.getModel());
-		ds.setModel(s);
-		((Container) acpt).setDataset(ds);
 		((Container) acpt).setSectionType(Container.SECTION_TYPE_RESULT);
 		if (acpt instanceof Grid) {
 			fillGrid((Grid) acpt, bm.getModel());
+			ResultDataSet ds = ((Grid) acpt).getDataset();
+			String s = getBmPath(bm.getModel());
+			ds.setModel(s);
+			((Container) acpt).setDataset(ds);
 		} else {
 			for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
 				Input input = new Input();
