@@ -73,6 +73,7 @@ class DatasetGenerator {
 				}
 			} else {
 				rds.put("loadData", true);
+				rds.put(ResultDataSet.DEFAULT_PAGE_SIZE, null);
 			}
 		}
 		return rds;

@@ -80,6 +80,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 					if (value != null) {
 						Dataset ds = new ResultDataSet();
 						ds.setModel(value.toString());
+//						ds.setPropertyValue(propName, val)
 						CompositeMap fillDatasets = sg.fillDatasetsMap(ds);
 						if (fillDatasets != null) {
 							value = fillDatasets.get("id");

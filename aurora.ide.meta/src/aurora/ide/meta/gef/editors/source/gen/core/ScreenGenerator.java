@@ -52,7 +52,7 @@ public class ScreenGenerator {
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
 		boolean forCreate = view.isForCreate();
-		if (!forCreate) {
+		if (!forCreate && !view.isForSerach()) {
 			throw new TemplateNotBindedException();
 		}
 
