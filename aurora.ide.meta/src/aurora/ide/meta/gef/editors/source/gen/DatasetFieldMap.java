@@ -17,16 +17,16 @@ import aurora.ide.meta.gef.editors.source.gen.core.ScreenGenerator;
 
 public class DatasetFieldMap extends AbstractComponentMap {
 
-	private CompositeMap field;
+	private CompositeMap dsMap;
 	private Dataset dataset;
 	private AuroraComponent ac;
 	private ScreenGenerator sg;
 	private DatasetField datasetField;
 
-	public DatasetFieldMap(CompositeMap field, Dataset dataset,
+	public DatasetFieldMap(CompositeMap dsMap, Dataset dataset,
 			AuroraComponent ac, ScreenGenerator sg) {
 		super();
-		this.field = field;
+		this.dsMap = dsMap;
 		this.dataset = dataset;
 		this.ac = ac;
 		this.sg = sg;
@@ -37,10 +37,13 @@ public class DatasetFieldMap extends AbstractComponentMap {
 
 	@Override
 	public CompositeMap toCompositMap() {
+		CompositeMap field = null;
 		if (this.isLov()) {
 			return bindLov();
 		}
 		if (this.isCombo()) {
+
+			field = getOrCreateField();
 			CompositeMap fields = field.getParent();
 			CompositeMap childByAttrib = fields.getChildByAttrib("name",
 					ac.getName() + "_display");
@@ -59,13 +62,17 @@ public class DatasetFieldMap extends AbstractComponentMap {
 			if (isKey) {
 				value = ac.getPropertyValue(key);
 				if (AuroraComponent.READONLY.equals(key)) {
-					if (Boolean.TRUE.equals(value))
+					if (Boolean.TRUE.equals(value)) {
+						field = field == null ? getOrCreateField() : field;
 						field.put(AuroraComponent.READONLY, value);
+					}
 					continue;
 				}
 				if (AuroraComponent.REQUIRED.equals(key)) {
-					if (Boolean.TRUE.equals(value))
+					if (Boolean.TRUE.equals(value)) {
+						field = field == null ? getOrCreateField() : field;
 						field.put(AuroraComponent.REQUIRED, value);
+					}
 					continue;
 				}
 			}
@@ -80,7 +87,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 					if (value != null) {
 						Dataset ds = new ResultDataSet();
 						ds.setModel(value.toString());
-//						ds.setPropertyValue(propName, val)
+						// ds.setPropertyValue(propName, val)
 						CompositeMap fillDatasets = sg.fillDatasetsMap(ds);
 						if (fillDatasets != null) {
 							value = fillDatasets.get("id");
@@ -111,13 +118,16 @@ public class DatasetFieldMap extends AbstractComponentMap {
 					value = ac.getPropertyValue(key);
 				}
 			}
-			if (value != null && !("".equals(value)))
+			if (value != null && !("".equals(value))) {
+				field = field == null ? getOrCreateField() : field;
 				field.putString(key, value.toString());
+			}
 		}
 		return field;
 	}
 
 	private CompositeMap bindLov() {
+		CompositeMap field = getOrCreateField();
 		List<CompositeMap> lovMaps = getLovMaps();
 		if (lovMaps == null) {
 			return bindLov(field);
@@ -160,7 +170,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 			idMap.put("to", localField);
 			mappingMap.addChild(idMap);
 		}
-		
+
 		for (CompositeMap lovMap : lovMaps) {
 			String source = Util.getCompositeValue("sourceField", lovMap);
 			String name = Util.getCompositeValue("name", lovMap);
@@ -180,7 +190,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
 				sg.getProject(), ac.getName(), dataset.getModel());
 		for (String key : keys) {
-			
+
 			if (AuroraComponent.READONLY.equals(key)) {
 				if (Boolean.TRUE.equals(value))
 					field.put(AuroraComponent.READONLY, value);
@@ -193,7 +203,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 			}
 			if (DatasetField.LOV_SERVICE.equals(key)) {
 				value = dataSetFieldUtil.getOptions();
-			}else{
+			} else {
 				value = ac.getPropertyValue(key);
 			}
 			if (value != null && !("".equals(value)))
@@ -206,7 +216,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
 				sg.getProject(), ac.getName(), dataset.getModel());
 		CompositeMap bmMap = dataSetFieldUtil.getBmMap();
-		if(bmMap == null)
+		if (bmMap == null)
 			return null;
 		MapFinder mf = new MapFinder();
 		CompositeMap relation = mf.lookupRelation(ac.getName(), bmMap);
@@ -261,6 +271,29 @@ public class DatasetFieldMap extends AbstractComponentMap {
 			return false;
 		}
 		return true;
+	}
+
+	private CompositeMap getOrCreateField() {
+		CompositeMap fields = getOrCreateFields();
+
+		CompositeMap field = fields.getChildByAttrib(AuroraComponent.NAME,
+				ac.getPropertyValue(AuroraComponent.NAME));
+		if (field == null) {
+			field = sg.createCompositeMap("field");
+			fields.addChild(field);
+			field.put(AuroraComponent.NAME,
+					ac.getPropertyValue(AuroraComponent.NAME));
+		}
+		return field;
+	}
+
+	private CompositeMap getOrCreateFields() {
+		CompositeMap fields = dsMap.getChild("fields");
+		if (fields == null) {
+			fields = sg.createCompositeMap("fields");
+			dsMap.addChild(fields);
+		}
+		return fields;
 	}
 
 }

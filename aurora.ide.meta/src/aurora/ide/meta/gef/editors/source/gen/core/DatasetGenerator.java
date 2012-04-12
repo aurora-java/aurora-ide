@@ -73,7 +73,7 @@ class DatasetGenerator {
 				}
 			} else {
 				rds.put("loadData", true);
-				rds.put(ResultDataSet.DEFAULT_PAGE_SIZE, null);
+				rds.put(ResultDataSet.PAGE_SIZE, null);
 			}
 		}
 		return rds;
@@ -103,22 +103,9 @@ class DatasetGenerator {
 		if (dsMap == null) {
 			return;
 		}
-		CompositeMap fields = dsMap.getChild("fields");
-		if (fields == null) {
-			fields = sg.createCompositeMap("fields");
-			dsMap.addChild(fields);
-		}
-
-		CompositeMap field = fields.getChildByAttrib(AuroraComponent.NAME,
-				ac.getPropertyValue(AuroraComponent.NAME));
-		if (field == null) {
-			field = sg.createCompositeMap("field");
-			fields.addChild(field);
-			field.put(AuroraComponent.NAME,
-					ac.getPropertyValue(AuroraComponent.NAME));
-		}
-		this.sg.getA2Map().bindDatasetField(field, dataset, ac);
+		this.sg.getA2Map().bindDatasetField(dsMap, dataset, ac);
 	}
+	
 
 	public Dataset findDataset(Container container) {
 		if (container == null)

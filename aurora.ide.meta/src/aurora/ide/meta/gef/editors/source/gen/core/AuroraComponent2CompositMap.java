@@ -95,10 +95,10 @@ public class AuroraComponent2CompositMap {
 		return null;
 	}
 
-	public void bindDatasetField(CompositeMap field, Dataset dataset,
+	public void bindDatasetField(CompositeMap dsMap, Dataset dataset,
 			AuroraComponent ac) {
 		if (ac instanceof IDatasetFieldDelegate) {
-			DatasetFieldMap dfm = new DatasetFieldMap(field, dataset, ac,
+			DatasetFieldMap dfm = new DatasetFieldMap(dsMap, dataset, ac,
 					this.screenGenerator);
 			dfm.toCompositMap();
 		}
