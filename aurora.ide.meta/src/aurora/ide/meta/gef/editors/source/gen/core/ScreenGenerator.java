@@ -259,6 +259,7 @@ public class ScreenGenerator {
 			}
 			IPath requestPath = new Path("${/request/@context_path}");
 			IPath path = requestPath.append(openPath);
+			path = path.removeFileExtension().addFileExtension("screen");
 			CompositeMap link = createCompositeMap("link");
 			link.put("url", path.toString());
 			link.put("id", linkIDs.get(bc));
