@@ -162,9 +162,6 @@ public class ParameterComposite extends Composite {
 		});
 		final Button edit = new Button(bs, SWT.NONE);
 		edit.setText("  Edit  ");
-		// edit.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false,
-		// 1,
-		// 1));
 		edit.addSelectionListener(new SelectionAdapter() {
 
 			public void widgetSelected(SelectionEvent e) {

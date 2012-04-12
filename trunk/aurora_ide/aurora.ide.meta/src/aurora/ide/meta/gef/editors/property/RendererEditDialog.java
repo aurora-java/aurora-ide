@@ -1,11 +1,6 @@
 package aurora.ide.meta.gef.editors.property;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.wizard.WizardPage;
@@ -29,17 +24,16 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.AuroraPlugin;
-import aurora.ide.builder.ResourceUtil;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
-import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.editors.composite.IPathChangeListener;
+import aurora.ide.meta.gef.editors.composite.ScreenUIPBrowseButton;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
 import aurora.ide.meta.project.AuroraMetaProject;
-import aurora.ide.search.core.Util;
 
 public class RendererEditDialog extends EditWizard {
 
@@ -59,7 +53,7 @@ public class RendererEditDialog extends EditWizard {
 
 	public RendererEditDialog() {
 		super();
-		setWindowTitle("renderer"); //$NON-NLS-1$
+		setWindowTitle("renderer");
 	}
 
 	@Override
@@ -80,7 +74,7 @@ public class RendererEditDialog extends EditWizard {
 		renderer.setOpenPath(tmpOpenPath);
 		renderer.getParameters().clear();
 		renderer.getParameters().addAll(pc.getParameters());
-		
+
 		renderer.setLabelText(tmpLabelText);
 		renderer.setFunctionName(tmpFunctionName);
 		renderer.setFunction(tmpFunction);
@@ -186,7 +180,8 @@ public class RendererEditDialog extends EditWizard {
 			}
 			text.setText(tmpOpenPath);
 			text.setEditable(false);
-			Button btn = new Button(composite_right, SWT.FLAT);
+			ScreenUIPBrowseButton btn = new ScreenUIPBrowseButton(
+					composite_right, SWT.FLAT);
 			btn.setText(Messages.RendererEditDialog_14);
 
 			IProject proj = AuroraPlugin.getActiveIFile().getProject();
@@ -202,51 +197,63 @@ public class RendererEditDialog extends EditWizard {
 				setPageComplete(false);
 				return;
 			}
-			btn.addSelectionListener(new SelectionListener() {
-
-				public void widgetSelected(SelectionEvent e) {
-					MutilInputResourceSelector fss = new MutilInputResourceSelector(composite_right
-							.getShell());
-					String webHome = ResourceUtil.getWebHome(auroraProject);
-					IResource res = ResourcesPlugin.getWorkspace().getRoot()
-							.findMember(webHome);
-					fss.setExtFilter(new String[] { "screen","uip" });
-					IContainer uipFolder = getUIPFolder();
-					fss.setInputs(new IContainer[] { (IContainer) res, uipFolder });
-					Object obj = fss.getSelection();
-					if (!(obj instanceof IFile)) {
-						// setPageComplete(false);
-						// setErrorMessage(Messages.ButtonClickEditDialog_18);
-						return;
+			btn.setAuroraProject(auroraProject);
+			btn.addListener(new IPathChangeListener() {
+				public void pathChanged(String openPath) {
+					if (openPath != null) {
+						setPageComplete(true);
+						setErrorMessage(null);
+						tmpOpenPath = openPath;
+						text.setText(tmpOpenPath);
 					}
-					setPageComplete(true);
-					setErrorMessage(null);
-					IFile file = (IFile) obj;
-					IPath path = file.getFullPath();
-					IContainer web = Util.findWebInf(file).getParent();
-					path = path.makeRelativeTo(web.getFullPath());
-					tmpOpenPath = path.toString();
-					text.setText(tmpOpenPath);
 				}
-
-				public void widgetDefaultSelected(SelectionEvent e) {
-
-				}
-
 			});
+
+			// btn.addSelectionListener(new SelectionListener() {
+			//
+			// public void widgetSelected(SelectionEvent e) {
+			// MutilInputResourceSelector fss = new
+			// MutilInputResourceSelector(composite_right
+			// .getShell());
+			// String webHome = ResourceUtil.getWebHome(auroraProject);
+			// IResource res = ResourcesPlugin.getWorkspace().getRoot()
+			// .findMember(webHome);
+			// fss.setExtFilter(new String[] { "screen","uip" });
+			// IContainer uipFolder = getUIPFolder();
+			// fss.setInputs(new IContainer[] { (IContainer) res, uipFolder });
+			// Object obj = fss.getSelection();
+			// if (!(obj instanceof IFile)) {
+			// return;
+			// }
+			// setPageComplete(true);
+			// setErrorMessage(null);
+			// IFile file = (IFile) obj;
+			// IPath path = file.getFullPath();
+			// IContainer web = Util.findWebInf(file).getParent();
+			// path = path.makeRelativeTo(web.getFullPath());
+			// tmpOpenPath = path.toString();
+			// text.setText(tmpOpenPath);
+			// }
+			//
+			// public void widgetDefaultSelected(SelectionEvent e) {
+			//
+			// }
+			//
+			// });
 			createParaTable(composite_right);
 		}
-		public IContainer getUIPFolder() {
-			IFile activeIFile = AuroraPlugin.getActiveIFile();
-			IProject proj = activeIFile.getProject();
-			AuroraMetaProject mProj = new AuroraMetaProject(proj);
-			try {
-				return mProj.getScreenFolder();
-			} catch (ResourceNotFoundException e) {
-				e.printStackTrace();
-			}
-			return mProj.getProject();
-		}
+
+		// public IContainer getUIPFolder() {
+		// IFile activeIFile = AuroraPlugin.getActiveIFile();
+		// IProject proj = activeIFile.getProject();
+		// AuroraMetaProject mProj = new AuroraMetaProject(proj);
+		// try {
+		// return mProj.getScreenFolder();
+		// } catch (ResourceNotFoundException e) {
+		// e.printStackTrace();
+		// }
+		// return mProj.getProject();
+		// }
 
 		private void createParaTable(Composite composite_right) {
 			AuroraComponent comp = (AuroraComponent) renderer.getContextInfo();
@@ -265,11 +272,11 @@ public class RendererEditDialog extends EditWizard {
 			}
 			GridData data = new GridData(GridData.FILL_BOTH);
 			data.horizontalSpan = 3;
-			pc = new ParameterComposite(root,composite_right,SWT.NONE,comp);
+			pc = new ParameterComposite(root, composite_right, SWT.NONE,
+					(AuroraComponent) renderer.getContextInfo());
 			pc.setLayoutData(data);
 			pc.setParameters(renderer.getParameters());
 		}
-
 
 		private void create_2() {
 			composite_right.setLayout(new GridLayout(1, false));

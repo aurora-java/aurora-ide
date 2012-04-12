@@ -1,36 +1,27 @@
 package aurora.ide.meta.gef.editors.wizard;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.AuroraPlugin;
-import aurora.ide.builder.ResourceUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.editors.composite.IPathChangeListener;
+import aurora.ide.meta.gef.editors.composite.ScreenUIPBrowseButton;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.property.Messages;
-import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
 import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
 import aurora.ide.meta.project.AuroraMetaProject;
-import aurora.ide.search.core.Util;
 
 public class CreateEditTabRefWizardPage extends WizardPage {
 
@@ -81,15 +72,16 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 			}
 		});
 
-		Button br = new Button(root, SWT.NONE);
-		br.setText("Browse..");
-		br.addSelectionListener(new SelectionListener() {
-			public void widgetSelected(SelectionEvent e) {
-				Shell shell = parent.getShell();
-				buttonClick(shell, urlField, new String[] { "screen", "uip" });
-			}
+		ScreenUIPBrowseButton br = new ScreenUIPBrowseButton(root, SWT.FLAT);
 
-			public void widgetDefaultSelected(SelectionEvent e) {
+		br.setText("Browse..");
+		IProject auroraProject = getAuroraProject();
+		br.setAuroraProject(auroraProject);
+		br.addListener(new IPathChangeListener() {
+			public void pathChanged(String openPath) {
+				if (openPath != null) {
+					urlField.setText(openPath);
+				}
 			}
 		});
 
@@ -122,56 +114,70 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 		pc.setParameters(_ref.getParameters());
 	}
 
-	public IResource getWebHome() {
+	// public IResource getWebHome() {
+	// IFile activeIFile = AuroraPlugin.getActiveIFile();
+	// IProject proj = activeIFile.getProject();
+	// AuroraMetaProject mProj = new AuroraMetaProject(proj);
+	//
+	// String webHome = "";
+	// try {
+	// webHome = ResourceUtil.getWebHome(mProj.getAuroraProject());
+	// } catch (ResourceNotFoundException e1) {
+	// e1.printStackTrace();
+	// }
+	// IResource res = ResourcesPlugin.getWorkspace().getRoot()
+	// .findMember(webHome);
+	// return res;
+	// }
+
+	private IProject getAuroraProject() {
+
 		IFile activeIFile = AuroraPlugin.getActiveIFile();
 		IProject proj = activeIFile.getProject();
 		AuroraMetaProject mProj = new AuroraMetaProject(proj);
 
-		String webHome = "";
 		try {
-			webHome = ResourceUtil.getWebHome(mProj.getAuroraProject());
+			return mProj.getAuroraProject();
 		} catch (ResourceNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		IResource res = ResourcesPlugin.getWorkspace().getRoot()
-				.findMember(webHome);
-		return res;
+		return null;
 	}
-
-	public IContainer getUIPFolder() {
-		IFile activeIFile = AuroraPlugin.getActiveIFile();
-		IProject proj = activeIFile.getProject();
-		AuroraMetaProject mProj = new AuroraMetaProject(proj);
-		try {
-			return mProj.getScreenFolder();
-		} catch (ResourceNotFoundException e) {
-			e.printStackTrace();
-		}
-		return mProj.getProject();
-	}
-
-	public IFile openResourceSelector(Shell shell, String[] exts) {
-		MutilInputResourceSelector fss = new MutilInputResourceSelector(shell);
-		IResource res = getWebHome();
-		fss.setExtFilter(exts);
-		IContainer uipFolder = getUIPFolder();
-		fss.setInputs(new IContainer[] { (IContainer) res, uipFolder });
-		Object obj = fss.getSelection();
-		if (!(obj instanceof IFile)) {
-
-			return null;
-		}
-		return (IFile) obj;
-	}
-
-	public void buttonClick(Shell shell, Text feedback, String[] exts) {
-		IFile file = openResourceSelector(shell, exts);
-		if (file == null)
-			return;
-		IPath path = file.getFullPath();
-		IContainer web = Util.findWebInf(file).getParent();
-		path = path.makeRelativeTo(web.getFullPath());
-		feedback.setText(Util.getPKG(path));
-	}
+	//
+	// public IContainer getUIPFolder() {
+	// IFile activeIFile = AuroraPlugin.getActiveIFile();
+	// IProject proj = activeIFile.getProject();
+	// AuroraMetaProject mProj = new AuroraMetaProject(proj);
+	// try {
+	// return mProj.getScreenFolder();
+	// } catch (ResourceNotFoundException e) {
+	// e.printStackTrace();
+	// }
+	// return mProj.getProject();
+	// }
+	//
+	// public IFile openResourceSelector(Shell shell, String[] exts) {
+	// MutilInputResourceSelector fss = new MutilInputResourceSelector(shell);
+	// IResource res = getWebHome();
+	// fss.setExtFilter(exts);
+	// IContainer uipFolder = getUIPFolder();
+	// fss.setInputs(new IContainer[] { (IContainer) res, uipFolder });
+	// Object obj = fss.getSelection();
+	// if (!(obj instanceof IFile)) {
+	//
+	// return null;
+	// }
+	// return (IFile) obj;
+	// }
+	//
+	// public void buttonClick(Shell shell, Text feedback, String[] exts) {
+	// IFile file = openResourceSelector(shell, exts);
+	// if (file == null)
+	// return;
+	// IPath path = file.getFullPath();
+	// IContainer web = Util.findWebInf(file).getParent();
+	// path = path.makeRelativeTo(web.getFullPath());
+	// feedback.setText(Util.getPKG(path));
+	// }
 
 }

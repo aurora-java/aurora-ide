@@ -74,12 +74,6 @@ public class ScreenGenerator {
 	}
 
 	private void genInitProceduce() {
-		// <a:init-procedure>
-		// <model-query model="acp.acp_req_maintain_init_hd_id"
-		// rootpath="acp_req_hd_id"/>
-		// <model-query model="acp.acp_req_update_init_header"
-		// rootpath="acp_requisition_header"/>
-		// </a:init-procedure>
 		List<InitModel> initModels = this.viewDiagram.getInitModels();
 		for (InitModel initModel : initModels) {
 			CompositeMap procedureMap = this.getOrCreateChildMap(viewMap,
@@ -149,7 +143,6 @@ public class ScreenGenerator {
 			if (childMap == null) {
 				continue;
 			}
-
 			if (ac instanceof GridColumn && container instanceof Grid) {
 				CompositeMap columns = getOrCreateChildMap(containerMap,
 						"columns");
