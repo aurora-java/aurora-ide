@@ -8,7 +8,11 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
@@ -29,6 +33,7 @@ import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.IColorConstants;
 import aurora.ide.editor.textpage.scanners.SQLCodeScanner;
 import aurora.ide.helpers.ApplicationException;
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.gen.SqlGenerator;
@@ -42,7 +47,7 @@ public class AutoCreateTableAction implements IObjectActionDelegate {
 
 	private Shell shell;
 	private ArrayList<IFile> als = new ArrayList<IFile>();
-	private ArrayList<String> errorMsgs = new ArrayList<String>();
+	private ArrayList<IStatus> errorMsgs = new ArrayList<IStatus>();
 	private Connection conn;
 	private Statement stmt;
 
@@ -111,26 +116,31 @@ public class AutoCreateTableAction implements IObjectActionDelegate {
 					String sql = sqlg.gen();
 					create(stmt, sql, false);
 				} catch (Exception e) {
-					errorMsgs.add("文件解析异常:" + file.getFullPath());
+					IStatus s = new Status(IStatus.ERROR, MetaPlugin.PLUGIN_ID,
+							"文件解析异常:" + file.getFullPath(), e);
+					errorMsgs.add(s);
 					continue;
 				}
 			}
 		}
 		closedb();
-		MessageBox mb = new MessageBox(shell, SWT.ERROR);
-		String title = "";
-		StringBuilder sb = new StringBuilder(1000);
+
 		if (errorMsgs.size() > 0) {
-			title = "Error Happened";
-			for (String s : errorMsgs)
-				sb.append(s + "\n");
-		} else {
-			title = "Success";
-			sb.append(als.size() + " table(s) created.");
+			MultiStatus status = new MultiStatus(MetaPlugin.PLUGIN_ID,
+					IStatus.ERROR, getStatusChildren(), null, null);
+			ErrorDialog.openError(shell, "Problem Occurred",
+					"Some problems occurred during create table.", status);
+			return;
 		}
-		mb.setText(title);
-		mb.setMessage(sb.toString());
+		MessageBox mb = new MessageBox(shell, SWT.ICON_WARNING);
+		mb.setText("Success");
+		mb.setMessage(als.size() + " table(s) created.");
 		mb.open();
+	}
+
+	private IStatus[] getStatusChildren() {
+		IStatus[] ss = new IStatus[als.size()];
+		return errorMsgs.toArray(ss);
 	}
 
 	/**
@@ -166,18 +176,23 @@ public class AutoCreateTableAction implements IObjectActionDelegate {
 			// stmt.executeUpdate(s);
 			// } else
 			if (e.getMessage().indexOf("ORA-00955") != -1) {
-				errorMsgs.add("Table '" + tableName
-						+ "' create failed. object already exists.");
-			} else
-				errorMsgs.add("Table '" + tableName + "' create failed. "
-						+ e.getMessage());
+				IStatus s = new Status(IStatus.WARNING, MetaPlugin.PLUGIN_ID,
+						"Table '" + tableName
+								+ "' create failed. object already exists.", e);
+				errorMsgs.add(s);
+			} else {
+				IStatus s = new Status(IStatus.WARNING, MetaPlugin.PLUGIN_ID,
+						"Table '" + tableName + "' create failed. ", e);
+				errorMsgs.add(s);
+			}
 		}
 		try {
 			stmt.executeQuery("create sequence " + tableName + "_s");
 		} catch (SQLException e) {
-			// e.printStackTrace();
-			errorMsgs.add("Sequence '" + tableName
-					+ "_s' create failed. object already exists.");
+			IStatus s = new Status(IStatus.WARNING, MetaPlugin.PLUGIN_ID,
+					"Sequence '" + tableName
+							+ "_s' create failed. object already exists.", e);
+			errorMsgs.add(s);
 		}
 	}
 
