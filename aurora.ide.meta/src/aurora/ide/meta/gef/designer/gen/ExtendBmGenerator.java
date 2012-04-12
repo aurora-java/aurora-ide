@@ -1,14 +1,19 @@
 package aurora.ide.meta.gef.designer.gen;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 import uncertain.composite.CompositeMap;
-import aurora.ide.api.composite.map.CommentCompositeMap;
+import aurora.ide.builder.ResourceUtil;
+import aurora.ide.helpers.ApplicationException;
+import aurora.ide.meta.gef.designer.BMCompoisteMap;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
+import aurora.ide.meta.gef.designer.model.Relation;
+import aurora.ide.search.cache.CacheManager;
 import aurora.ide.search.core.Util;
 
 public class ExtendBmGenerator extends BaseBmGenerator {
@@ -24,22 +29,25 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 	}
 
 	public void gen() {
-		String[] ss = model.getAutoExtends().split("\\|");
-		for (String s : ss) {
-			if (IDesignerConst.AE_LOV.equals(s)) {
-
-			} else if (IDesignerConst.AE_QUERY.equals(s)) {
-				IFile file = getExtFile(s);
-				CompositeMap map = getForQueryBm();
-				try {
-					createOrWriteFile(file, map);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else if (IDesignerConst.AE_MAINTAIN.equals(s)) {
-
+		for (String type : model.getAutoExtendTypes()) {
+			type = type.trim();
+			IFile file = getExtFile(type);
+			CompositeMap map = null;
+			if (IDesignerConst.AE_LOV.equals(type)) {
+				map = getForLovBm();
+			} else if (IDesignerConst.AE_QUERY.equals(type)) {
+				map = getForQueryBm();
+			} else if (IDesignerConst.AE_MAINTAIN.equals(type)) {
+				map = getForMaintainBm();
 			} else {
-				System.out.println("unknown auto extend mode : " + s);
+				System.out.println("unknown auto extend mode : " + type);
+				continue;
+			}
+			try {
+				if (map != null)
+					createOrWriteFile(file, map);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -61,9 +69,24 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 
 	private CompositeMap getForLovBm() {
 		CompositeMap map = genExtBm(baseBmPath, "reference");
-		CompositeMap fieldsMap = new CommentCompositeMap("fields");
-		for (Record r : model.getRecordList()) {
-
+		CompositeMap fieldsMap = newCompositeMap("fields");
+		CompositeMap bmMap = null;
+		try {
+			bmMap = CacheManager.getCompositeMap(bmFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		BMCompoisteMap bcm = new BMCompoisteMap(bmMap);
+		String[] fnames = { bcm.getPkFieldName(),
+				bcm.getDefaultDisplayFieldName() };
+		for (String name : fnames) {
+			if (name != null) {
+				CompositeMap m = newCompositeMap("field");
+				m.put("name", name);
+				m.put("forDisplay", "true");
+				m.put("forQuery", "true");
+				fieldsMap.addChild(m);
+			}
 		}
 		map.addChild(fieldsMap);
 		return map;
@@ -77,6 +100,7 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 	private CompositeMap getForQueryBm() {
 		CompositeMap map = genExtBm(baseBmPath, "override");
 		String refAlias = map.getString("alias");
+		map.addChild(genRefFieldsMap(model));
 		if (refAlias == null || refAlias.length() == 0)
 			refAlias = "";
 		else
@@ -104,6 +128,30 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 		}
 		map.addChild(qfMap);
 		return map;
+	}
+
+	private CompositeMap genRefFieldsMap(BMModel model) {
+		CompositeMap fieldsMap = newCompositeMap("ref-fields");
+		for (Relation r : model.getRelationList()) {
+			CompositeMap m = newCompositeMap("ref-field");
+			String bmpath = r.getRefTable();
+			IFile file = ResourceUtil.getBMFile(bmFile.getProject(), bmpath);
+			CompositeMap refBmMap = null;
+			try {
+				refBmMap = CacheManager.getCompositeMap(file);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+			BMCompoisteMap bcm = new BMCompoisteMap(refBmMap);
+			m.put("relationName", r.getName());
+			String remoteDisplay = bcm.getDefaultDisplayFieldName();
+			m.put("name", remoteDisplay + "_ref");
+			m.put("sourceField", remoteDisplay);
+			fieldsMap.addChild(m);
+		}
+		return fieldsMap;
 	}
 
 	private CompositeMap simpleQueryField(String field, String op) {
