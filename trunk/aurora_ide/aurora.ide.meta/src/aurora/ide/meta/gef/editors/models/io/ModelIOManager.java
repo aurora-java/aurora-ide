@@ -15,6 +15,7 @@ public class ModelIOManager {
 	public static final String BIND_TEMPLATE = "bindTemplate";
 	public static final String initmodel_node_name = InitModel.class
 			.getSimpleName() + "s";
+	public static final String TEMPLATE_TYPE = "templatetype";
 
 	ModelIOContext mic = new ModelIOContext();
 
@@ -29,6 +30,7 @@ public class ModelIOManager {
 		CompositeMap root = new CommentCompositeMap();
 		root.setName(diagram.getClass().getSimpleName());
 		root.put(BIND_TEMPLATE, diagram.getBindTemplate());
+		root.put(TEMPLATE_TYPE, diagram.getTemplateType());
 		List<InitModel> imList = diagram.getInitModels();
 		if (imList.size() > 0) {
 			CompositeMap imMap = new CommentCompositeMap(initmodel_node_name);
@@ -53,6 +55,7 @@ public class ModelIOManager {
 
 		String tpl = root.getString(BIND_TEMPLATE);
 		dia.setBindTemplate(tpl);
+		dia.setTemplateType(root.getString(TEMPLATE_TYPE));
 		@SuppressWarnings("unchecked")
 		List<CompositeMap> list = root.getChildsNotNull();
 		for (CompositeMap map : list) {
