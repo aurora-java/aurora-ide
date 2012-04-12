@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class BMModel {
 	public static final String STRUCTURE_RECORD = "structure_record";
@@ -240,7 +241,33 @@ public class BMModel {
 		this.autoExtend = string;
 	}
 
+	/**
+	 * just return the string like query|lov
+	 * 
+	 * @return
+	 */
 	public String getAutoExtends() {
 		return autoExtend;
+	}
+
+	/**
+	 * return a string array,contains extend types<br>
+	 * value always in low case and trimmed ,no duplication .<br/>
+	 * do not check weather it is valid
+	 * 
+	 * @return if autoExtend==null ,return empty string array
+	 */
+	public String[] getAutoExtendTypes() {
+		if (autoExtend == null)
+			return new String[] {};
+		StringTokenizer st = new StringTokenizer(autoExtend, "|");
+		ArrayList<String> als = new ArrayList<String>();
+		while (st.hasMoreTokens()) {
+			String s = st.nextToken().trim().toLowerCase();
+			if (als.indexOf(s) == -1)
+				als.add(s);
+		}
+		String[] ss = new String[als.size()];
+		return als.toArray(ss);
 	}
 }
