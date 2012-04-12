@@ -1,10 +1,6 @@
 package aurora.ide.meta.gef.editors.property;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -32,10 +28,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.AuroraPlugin;
-import aurora.ide.builder.ResourceUtil;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
-import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.editors.composite.IPathChangeListener;
+import aurora.ide.meta.gef.editors.composite.ScreenUIPBrowseButton;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
@@ -45,7 +41,6 @@ import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
 import aurora.ide.meta.project.AuroraMetaProject;
-import aurora.ide.search.core.Util;
 
 public class ButtonClickEditDialog extends EditWizard {
 
@@ -214,7 +209,8 @@ public class ButtonClickEditDialog extends EditWizard {
 			if (tmpPath == null)
 				tmpPath = ""; //$NON-NLS-1$
 			text.setText(tmpPath);
-			Button btn = new Button(composite_right, SWT.FLAT);
+			ScreenUIPBrowseButton btn = new ScreenUIPBrowseButton(
+					composite_right, SWT.FLAT);
 			btn.setText(Messages.ButtonClickEditDialog_15);
 
 			IProject proj = AuroraPlugin.getActiveIFile().getProject();
@@ -231,31 +227,41 @@ public class ButtonClickEditDialog extends EditWizard {
 				setPageComplete(false);
 				return;
 			}
-
-			btn.addSelectionListener(new SelectionListener() {
-				public void widgetSelected(SelectionEvent e) {
-					MutilInputResourceSelector fss = new MutilInputResourceSelector(
-							composite_right.getShell());
-					IFolder webHome = ResourceUtil
-							.getWebHomeFolder(auroraProject);
-					fss.setExtFilter(new String[] { "screen", "uip" });
-					IContainer uipFolder = getUIPFolder();
-					fss.setInputs(new IContainer[] { webHome, uipFolder });
-					Object obj = fss.getSelection();
-					if (!(obj instanceof IFile)) {
-						return;
+			btn.setAuroraProject(auroraProject);
+			btn.addListener(new IPathChangeListener() {
+				public void pathChanged(String openPath) {
+					if (openPath != null) {
+						setPageComplete(true);
+						setErrorMessage(null);
+						tmpPath = openPath;
+						text.setText(tmpPath);
 					}
-					IFile file = (IFile) obj;
-					IPath path = file.getFullPath();
-					IContainer web = Util.findWebInf(file).getParent();
-					path = path.makeRelativeTo(web.getFullPath());
-					tmpPath = path.toString();
-					text.setText(tmpPath);
-				}
-
-				public void widgetDefaultSelected(SelectionEvent e) {
 				}
 			});
+//			btn.addSelectionListener(new SelectionListener() {
+//				public void widgetSelected(SelectionEvent e) {
+//					MutilInputResourceSelector fss = new MutilInputResourceSelector(
+//							composite_right.getShell());
+//					IFolder webHome = ResourceUtil
+//							.getWebHomeFolder(auroraProject);
+//					fss.setExtFilter(new String[] { "screen", "uip" });
+//					IContainer uipFolder = getUIPFolder();
+//					fss.setInputs(new IContainer[] { webHome, uipFolder });
+//					Object obj = fss.getSelection();
+//					if (!(obj instanceof IFile)) {
+//						return;
+//					}
+//					IFile file = (IFile) obj;
+//					IPath path = file.getFullPath();
+//					IContainer web = Util.findWebInf(file).getParent();
+//					path = path.makeRelativeTo(web.getFullPath());
+//					tmpPath = path.toString();
+//					text.setText(tmpPath);
+//				}
+//
+//				public void widgetDefaultSelected(SelectionEvent e) {
+//				}
+//			});
 
 			createParaTable(composite_right);
 		}
@@ -287,17 +293,17 @@ public class ButtonClickEditDialog extends EditWizard {
 			return root;
 		}
 
-		public IContainer getUIPFolder() {
-			IFile activeIFile = AuroraPlugin.getActiveIFile();
-			IProject proj = activeIFile.getProject();
-			AuroraMetaProject mProj = new AuroraMetaProject(proj);
-			try {
-				return mProj.getScreenFolder();
-			} catch (ResourceNotFoundException e) {
-				e.printStackTrace();
-			}
-			return mProj.getProject();
-		}
+//		public IContainer getUIPFolder() {
+//			IFile activeIFile = AuroraPlugin.getActiveIFile();
+//			IProject proj = activeIFile.getProject();
+//			AuroraMetaProject mProj = new AuroraMetaProject(proj);
+//			try {
+//				return mProj.getScreenFolder();
+//			} catch (ResourceNotFoundException e) {
+//				e.printStackTrace();
+//			}
+//			return mProj.getProject();
+//		}
 
 		private void create_close() {
 			composite_right.setLayout(new GridLayout(2, false));

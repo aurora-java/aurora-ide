@@ -289,10 +289,9 @@ public class ScriptGenerator {
 		List<Parameter> parameters = link.getParameters();
 		StringBuilder sb = new StringBuilder("");
 		for (Parameter parameter : parameters) {
-			sb.append(linkID + ".set(" + parameter.getName() + "," + "record"
-					+ ".get(" + parameter.getValue() + "));");
+			sb.append(addParameter("linkUrl", parameter));
 		}
-		script.replace("#parameters#", sb.toString());
+		script = script.replace("#parameters#", sb.toString());
 		return script;
 	}
 
@@ -307,16 +306,20 @@ public class ScriptGenerator {
 			String findDatasetId = sg.findDatasetId(container);
 			String ds = "var record = $('" + findDatasetId
 					+ "').getCurrentRecord();";
-			script.replace("#parameters#", ds + " #parameters# ");
+			script = script.replace("#parameters#", ds + " #parameters# ");
 		}
 
 		StringBuilder sb = new StringBuilder("");
 		for (Parameter parameter : parameters) {
-			sb.append(linkID + ".set(" + parameter.getName() + "," + "record"
-					+ ".get(" + parameter.getValue() + "));");
+			sb.append(addParameter("linkUrl", parameter));
 		}
-		script.replace("#parameters#", sb.toString());
+		script = script.replace("#parameters#", sb.toString());
 		return script;
+	}
+
+	public String addParameter(String linkVar, Parameter parameter) {
+		return linkVar + ".set('" + parameter.getName() + "'," + "record"
+				+ ".get('" + parameter.getValue() + "'));";
 	}
 
 	// public String genTabRef(TabRef bc) {
@@ -406,7 +409,7 @@ public class ScriptGenerator {
 	}
 
 	public String openScript(String functionName, String linkId) {
-		String s = " function #functionName#() {var linkUrl = $('#linkId#').getUrl(); #parameters# new Aurora.Window({id: '#windowId#',url:linkUrl,title: 'Title',height: 435,width: 620});}";
+		String s = " function #functionName#() {var linkUrl = $('#linkId#'); #parameters# new Aurora.Window({id: '#windowId#',url:linkUrl.getUrl(),title: 'Title',height: 435,width: 620});}";
 		s = s.replace("#functionName#", functionName);
 		String windowID = sg.getIdGenerator().genWindowID(linkId);
 		s = s.replaceAll("#windowId#", windowID);

@@ -11,6 +11,9 @@ public class ReferenceHandler implements IOHandler {
 	public static final String REF_ID = "referenceid";
 
 	public CompositeMap toCompositeMap(AuroraComponent ac, ModelIOContext mic) {
+		if(ac == null){
+			System.out.println();
+		}
 		CompositeMap map = new CommentCompositeMap(ac.getClass()
 				.getSimpleName());
 		map.setNameSpace(NS_PREFIX, NS_URI);
