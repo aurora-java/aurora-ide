@@ -54,21 +54,21 @@ public class SettingWizardPage extends WizardPage {
 			}
 		}
 
-		if (template.getLink().size() > 0) {
-			Group gl = new Group(composite, SWT.None);
-			gl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			gl.setText("Add Link");
-			gl.setLayout(new GridLayout());
-			for (Component cp : template.getLink()) {
-				if ("grid".equals(cp.getComponentType())) {
-					Button btn =new Button(gl,SWT.None);
-
-				} else if ("button".equals(cp.getComponentType())) {
-					Label lbl = new Label(gl, SWT.None);
-					lbl.setText(cp.getName());
-				}
-			}
-		}
+//		if (template.getLink().size() > 0) {
+//			Group gl = new Group(composite, SWT.None);
+//			gl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//			gl.setText("Add Link");
+//			gl.setLayout(new GridLayout());
+//			for (Component cp : template.getLink()) {
+//				if ("grid".equals(cp.getComponentType())) {
+//					Button btn =new Button(gl,SWT.None);
+//
+//				} else if ("button".equals(cp.getComponentType())) {
+//					Label lbl = new Label(gl, SWT.None);
+//					lbl.setText(cp.getName());
+//				}
+//			}
+//		}
 
 		if (template.getRef().size() > 0) {
 			Group gr = new Group(composite, SWT.None);
