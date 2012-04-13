@@ -30,7 +30,6 @@
 			<grid id="grid.rid" name="grid.rname" model="model.rid" query="grid.hid">
 				<toolBar>
 					<button type="add"/>
-					<button type="save"/>
 					<button type="delete"/>
 					<button type="excel"/>
 					<button type="clear"/>

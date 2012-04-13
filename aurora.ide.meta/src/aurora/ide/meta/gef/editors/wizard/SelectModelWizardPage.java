@@ -1,8 +1,5 @@
 package aurora.ide.meta.gef.editors.wizard;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -140,7 +137,7 @@ public class SelectModelWizardPage extends WizardPage {
 			bm.setModel((IFile) dialog.getResult());
 			if (checkFinish() && template.getLink().size() + template.getRef().size() > 0) {
 				setPageComplete(true);
-				SettingWizardPage page = (SettingWizardPage) getNextPage();
+				SetLinkOrRefWizardPage page = (SetLinkOrRefWizardPage) getNextPage();
 				page.createCustom(template);
 			} else {
 				setPageComplete(false);
