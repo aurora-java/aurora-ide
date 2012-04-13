@@ -6,6 +6,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -30,7 +31,6 @@ public class TLabel extends Composite {
 
 		canvas = new Canvas(this, SWT.None);
 		canvas.setLayoutData(new GridData(GridData.FILL_BOTH));
-		canvas.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		canvas.addMouseListener(new MouseAdapter() {
 			public void mouseDown(MouseEvent e) {
 				notifyListeners(SWT.MouseDown, new Event());
@@ -69,6 +69,7 @@ public class TLabel extends Composite {
 				public void paintControl(PaintEvent e) {
 					GC gc = e.gc;
 					gc.drawImage(image, (e.width - image.getImageData().width) / 2, (e.height - image.getImageData().height) / 2);
+					canvas.setBackground(getBackground());
 				}
 			});
 		}
@@ -79,7 +80,11 @@ public class TLabel extends Composite {
 			label.setText("");
 		}
 	}
-
+	
+	public void setBackground (Color color) {
+		super.setBackground(color);
+		canvas.setBackground(color);
+	}
 	public String getText() {
 		return text;
 	}

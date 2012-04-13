@@ -247,7 +247,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				ref = new TabRef();
 			}
 			String im = ((aurora.ide.meta.gef.editors.template.TabRef) cp).getInitModel();
-			for (BMReference bm : template.getBms()) {
+			for (BMReference bm : template.getInitBms()) {
 				if (!im.equals(bm.getId())) {
 					continue;
 				}
