@@ -40,7 +40,6 @@ import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
-import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
@@ -54,7 +53,7 @@ import aurora.ide.search.ui.EditorOpener;
 public class CreateMetaWizard extends Wizard implements INewWizard {
 	private NewWizardPage newPage = new NewWizardPage();
 	private SelectModelWizardPage selectPage = new SelectModelWizardPage();
-	private SettingWizardPage settingPage = new SettingWizardPage();
+	private SetLinkOrRefWizardPage settingPage = new SetLinkOrRefWizardPage();
 
 	private IWorkbench workbench;
 	private Template template;
@@ -206,6 +205,9 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		if (acpt == null) {
 			return null;
 		}
+		if (acpt instanceof TabItem) {
+			((TabItem) acpt).setPrompt("tabItem" + tabItemIndex++);
+		}
 		if (null != cpt.getId() && !"".equals(cpt.getId())) {
 			acptMap.put(cpt.getId(), acpt);
 		}
@@ -223,10 +225,6 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			fillButton(cp, ac);
 			if (acpt instanceof Container) {
 				((Container) acpt).addChild(ac);
-			} else if (acpt instanceof TabItem) {
-				((TabItem) acpt).addChild(ac);
-				((TabItem) acpt).setPrompt("tabItem" + tabItemIndex);
-				tabItemIndex++;
 			}
 		}
 		return acpt;
@@ -236,13 +234,17 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		if (ac instanceof Button) {
 			aurora.ide.meta.gef.editors.template.Button btn = (aurora.ide.meta.gef.editors.template.Button) cp;
 			((Button) ac).setText(btn.getText());
-			if (btn.getType() != null && contains(Button.std_types, btn.getType())) {
+			if (("toolBar".equals(btn.getParent().getComponentType())) && btn.getType() != null && contains(Button.std_types, btn.getType())) {
 				((Button) ac).setButtonType(btn.getType());
-			}
-			if (btn.getTarget() != null && (!"".equals(btn.getTarget())) && contains(ButtonClicker.action_ids, btn.getType())) {
+			} else if (btn.getType() != null && contains(ButtonClicker.action_ids, btn.getType())) {
 				ButtonClicker bc = new ButtonClicker();
 				bc.setActionID(btn.getType());
 				((Button) ac).setButtonClicker(bc);
+				bc.setOpenPath(btn.getUrl());
+				// for (Parameter p : btn.getParas()) {
+				// p.setContainer();
+				// bc.addParameter(p);
+				// }
 				bc.setButton((Button) ac);
 				queryMap.put(btn.getId(), btn.getTarget());
 			}
@@ -266,10 +268,12 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				ref.setInitModel(m);
 			}
 			ref.setUrl(((aurora.ide.meta.gef.editors.template.TabRef) cp).getUrl());
-			for (Parameter p : ((aurora.ide.meta.gef.editors.template.TabRef) cp).getParas()) {
-				p.setContainer((TabItem) acpt);
-				ref.addParameter(p);
-			}
+			// for (Parameter p : ((aurora.ide.meta.gef.editors.template.TabRef)
+			// cp).getParas()) {
+			// p.setContainer((TabItem) acpt);
+			// ref.addParameter(p);
+			// }
+			ref.addAllParameter(((aurora.ide.meta.gef.editors.template.TabRef) cp).getParas());
 			((TabItem) acpt).setTabRef(ref);
 			return true;
 		}
@@ -355,7 +359,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			if (selectPage.checkFinish() || page.isPageComplete()) {
 				return true;
 			}
-		} else if ((page instanceof SettingWizardPage) && page.isPageComplete()) {
+		} else if ((page instanceof SetLinkOrRefWizardPage) && page.isPageComplete()) {
 			return true;
 		}
 		return false;

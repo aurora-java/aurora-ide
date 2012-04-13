@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors.template;
 
-public class Button extends Component{
+
+public class Button extends Component {
 	private String type;
 	private String target;
 	private String text;
@@ -28,5 +29,4 @@ public class Button extends Component{
 	public void setText(String text) {
 		this.text = text;
 	}
-
 }

@@ -33,7 +33,6 @@ public class VScreenEditorPaletteFactory {
 	private static List<PaletteContainer> createCategories(PaletteRoot root) {
 		List<PaletteContainer> categories = new ArrayList<PaletteContainer>();
 		categories.add(createControlGroup(root));
-		categories.add(createLabelDrawer());
 		categories.add(createInputDrawer());
 		categories.add(createButtonDrawer());
 		categories.add(createLayoutDrawer());
@@ -49,7 +48,6 @@ public class VScreenEditorPaletteFactory {
 		if (!EditorMode.Template.equals(editorMode.getMode())) {
 			categories.add(createInputDrawer());
 		}
-		categories.add(createLabelDrawer());
 		categories.add(createButtonDrawer());
 		categories.add(createLayoutDrawer());
 		if (!EditorMode.Template.equals(editorMode.getMode())) {
@@ -114,6 +112,17 @@ public class VScreenEditorPaletteFactory {
 		List<CombinedTemplateCreationEntry> entries = new ArrayList<CombinedTemplateCreationEntry>();
 
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
+				"Label", "Create a new Label", Label.class,
+				new SimpleFactory(Label.class) {
+					public Object getNewObject() {
+						Label newObject = (Label) super.getNewObject();
+						return newObject;
+					}
+				}, ImagesUtils.getImageDescriptor("palette/label.png"),
+				ImagesUtils.getImageDescriptor("palette/label.png"));
+		entries.add(combined);
+		
+		combined = new CombinedTemplateCreationEntry(
 				"TextField", "Create a new TextField", Input.class,
 				new SimpleFactory(Input.class) {
 					public Object getNewObject() {
@@ -274,27 +283,6 @@ public class VScreenEditorPaletteFactory {
 
 		controlGroup.addAll(entries);
 		return controlGroup;
-	}
-	
-	private static PaletteContainer createLabelDrawer() {
-
-		PaletteDrawer drawer = new PaletteDrawer("Label", null);
-
-		List<CombinedTemplateCreationEntry> entries = new ArrayList<CombinedTemplateCreationEntry>();
-
-		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
-				"Label", "Create a new Label", Label.class,
-				new SimpleFactory(Label.class) {
-					public Object getNewObject() {
-						Label newObject = (Label) super.getNewObject();
-						return newObject;
-					}
-				}, ImagesUtils.getImageDescriptor("palette/label.png"),
-				ImagesUtils.getImageDescriptor("palette/label.png"));
-		entries.add(combined);
-		drawer.addAll(entries);
-		
-		return drawer;
 	}
 
 	/**

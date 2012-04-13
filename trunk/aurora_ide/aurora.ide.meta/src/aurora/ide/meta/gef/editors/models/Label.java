@@ -12,7 +12,7 @@ public class Label extends AuroraComponent implements IDatasetFieldDelegate, Dat
 
 	public Label() {
 		setPrompt("label" + idx++);
-		this.setSize(new Dimension(80, 20));
+		this.setSize(new Dimension(120, 20));
 	}
 
 	public IPropertyDescriptor[] getPropertyDescriptors() {

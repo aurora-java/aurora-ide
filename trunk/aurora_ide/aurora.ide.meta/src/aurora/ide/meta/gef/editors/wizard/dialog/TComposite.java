@@ -8,6 +8,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -29,6 +31,7 @@ public class TComposite extends SashForm {
 
 	private ImageRegistry images = MetaPlugin.getDefault().getImageRegistry();
 	private java.util.List<CLabel> labels = new ArrayList<CLabel>();
+	private int index = -1;
 	private Template template = null;
 	private int labelHeight = 100;
 	private int labelWidth = 120;
@@ -49,7 +52,46 @@ public class TComposite extends SashForm {
 		composite = new Composite(scrolledComposite, SWT.NONE);
 		composite.setLayout(new GridLayout(3, true));
 		composite.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		composite.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				switch (e.keyCode) {
+				case SWT.ARROW_UP:
+					if (index - 3 >= 0) {
+						index -= 3;
+						selectLabel(labels.get(index));
+					}
+					break;
+				case SWT.ARROW_DOWN:
+					if (index + 3 < labels.size()) {
+						index += 3;
+						selectLabel(labels.get(index));
+					}
+					break;
+				case SWT.ARROW_LEFT:
+					if (index - 1 >= 0) {
+						index--;
+						selectLabel(labels.get(index));
+					}
+					break;
+				case SWT.ARROW_RIGHT:
+					if (index + 1 < labels.size()) {
+						index++;
+						selectLabel(labels.get(index));
+					}
+					break;
+				default:
+					e.doit = false;
+					break;
+				}
+			}
+		});
 
+		composite.addMouseListener(new MouseAdapter() {			
+			public void mouseDown(MouseEvent e) {
+				composite.setFocus();
+			}
+		});
+		
 		this.setWeights(new int[] { 20, 80 });
 		this.setSashWidth(1);
 
@@ -71,6 +113,7 @@ public class TComposite extends SashForm {
 			}
 
 		});
+
 		if (list.getItems().length > 0) {
 			list.select(0);
 			createList(templates);
@@ -102,22 +145,30 @@ public class TComposite extends SashForm {
 		gd.heightHint = labelHeight;
 		gd.widthHint = labelWidth;
 		label.setLayoutData(gd);
-		//label.setText(t.getName());
+		label.setText(t.getName());
 		label.setImage(getImage(t.getIcon()));
 		label.addMouseListener(new MouseAdapter() {
 			public void mouseDown(MouseEvent e) {
 				CLabel lbl = (CLabel) e.getSource();
-				setLabelChecked(lbl, true);
-				template = (Template) lbl.getData();
-				notifyListeners(SWT.Selection, new Event());
-				for (int i = 0; i < labels.size(); i++) {
-					if (labels.get(i) != lbl) {
-						setLabelChecked(labels.get(i), false);
-					}
-				}
+				selectLabel(lbl);
+				composite.setFocus();
 			}
+
 		});
 		return label;
+	}
+
+	private void selectLabel(CLabel lbl) {
+		setLabelChecked(lbl, true);
+		template = (Template) lbl.getData();
+		notifyListeners(SWT.Selection, new Event());
+		for (int i = 0; i < labels.size(); i++) {
+			if (labels.get(i) != lbl) {
+				setLabelChecked(labels.get(i), false);
+			} else {
+				index = i;
+			}
+		}
 	}
 
 	public void addSelectionListener(SelectionListener listener) {
