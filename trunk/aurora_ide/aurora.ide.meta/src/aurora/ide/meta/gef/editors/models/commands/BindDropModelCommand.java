@@ -4,15 +4,18 @@ import java.util.List;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.Util;
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.Label;
 
 public class BindDropModelCommand extends DropBMCommand {
 
 	private Container container;
 	private Object data;
+	private boolean isDisplay;
 
 	public void execute() {
 		List<CompositeMap> fields = (List<CompositeMap>) data;
@@ -32,9 +35,10 @@ public class BindDropModelCommand extends DropBMCommand {
 			String name = f.getString("name");
 			name = name == null ? "" : name;
 			gc.setName(name);
-			String object = f.getString("defaultEditor");
-			if (Util.supportEditor(object) != null)
-				gc.setEditor(Util.getType(f));
+			if (this.isDisplay() == false) {
+				String type = Util.getType(f);
+				gc.setEditor(type);
+			}
 			container.addChild(gc);
 		}
 
@@ -45,10 +49,12 @@ public class BindDropModelCommand extends DropBMCommand {
 			String name = (String) field.get("field");
 			name = name == null ? field.getString("name") : name;
 			name = name == null ? "" : name;
-			Input input = new Input();
+			AuroraComponent input = this.isDisplay() ? new Label()
+					: new Input();
+			String type = this.isDisplay() ? Label.Label : Util.getType(field);
+			input.setType(type);
 			input.setName(name);
 			input.setPrompt(getPrompt(field));
-			input.setType(Util.getType(field));
 			container.addChild(input);
 		}
 	}
@@ -72,6 +78,14 @@ public class BindDropModelCommand extends DropBMCommand {
 
 	public void setContainer(Container container) {
 		this.container = container;
+	}
+
+	public boolean isDisplay() {
+		return isDisplay;
+	}
+
+	public void setDisplay(boolean isDisplay) {
+		this.isDisplay = isDisplay;
 	}
 
 }

@@ -51,8 +51,8 @@ public class BindDropModelEditPolicy extends AbstractEditPolicy {
 		ViewDiagramPart diagramPart = this.getDiagramPart(getHost());
 		cmd.setDiagram((ViewDiagram) diagramPart.getComponent());
 		
-		diagramPart.getEditorMode().isForDisplay();
-		
+		boolean forDisplay = diagramPart.getEditorMode().isForDisplay();
+		cmd.setDisplay(forDisplay);
 		cmd.setContainer(container);
 		return cmd;
 	}
