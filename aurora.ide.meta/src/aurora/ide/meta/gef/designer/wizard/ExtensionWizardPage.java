@@ -25,8 +25,8 @@ public class ExtensionWizardPage extends WizardPage {
 	 * Create the wizard.
 	 */
 	public ExtensionWizardPage() {
-		super("wizardPage");
-		setTitle("Wizard Page title");
+		super("ExtensionWizardPage");
+		setTitle("自动生成扩展bm");
 		setDescription("Wizard Page description");
 	}
 
@@ -86,6 +86,7 @@ public class ExtensionWizardPage extends WizardPage {
 		btnDesselectAll.setText("Deselect All");
 
 		text = new Text(container, SWT.READ_ONLY | SWT.MULTI);
+		text.setBackground(container.getBackground());
 		text.setBounds(29, 129, 429, 126);
 		text.setText(emptyInfo);
 	}
