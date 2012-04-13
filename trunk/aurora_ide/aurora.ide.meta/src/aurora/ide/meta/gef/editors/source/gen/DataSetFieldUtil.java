@@ -54,7 +54,7 @@ public class DataSetFieldUtil {
 			resource = ResourceUtil.getBMFile(proj, bmPath);
 			if (resource instanceof IFile) {
 				IFile file = (IFile) resource;
-				CompositeMap map = CacheManager.getCompositeMap(file);
+				CompositeMap map = CacheManager.getWholeBMCompositeMap(file);
 				return map;
 			}
 		} catch (ResourceNotFoundException e) {
