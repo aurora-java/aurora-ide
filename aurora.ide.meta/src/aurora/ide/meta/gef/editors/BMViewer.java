@@ -40,6 +40,7 @@ import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.dnd.BMTransfer;
+import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.i18n.Messages;
@@ -187,7 +188,9 @@ public class BMViewer {
 			if (Input.TEXT.equalsIgnoreCase(type))
 				return ImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
 			if (Input.NUMBER.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_05.png"); //$NON-NLS-1$
+				return ImagesUtils.getImage("palette/itembar_05.png");
+			if (CheckBox.CHECKBOX.equalsIgnoreCase(type))
+				return ImagesUtils.getImage("palette/checkbox_01.png");//$NON-NLS-1$
 			return ImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
 		}
 
