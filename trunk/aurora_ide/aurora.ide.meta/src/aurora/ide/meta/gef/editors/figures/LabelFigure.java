@@ -26,8 +26,7 @@ public class LabelFigure extends InputField {
 
 		textRectangle.setSize(textExtents);
 		graphics.drawText(text, textRectangle.getLocation());
-		graphics.drawLine(textRectangle.getLocation().x + textRectangle.width, bounds.getTop().y + textExtents.height + 2, textRectangle.x + getBounds().width, bounds.getTop().y + textExtents.height
-				+ 2);
+		graphics.drawLine(textRectangle.getLocation().x + textRectangle.width, bounds.getBottom().y - 2, getBounds().width + getBounds().x, bounds.getBottom().y - 2);
 
 	}
 
