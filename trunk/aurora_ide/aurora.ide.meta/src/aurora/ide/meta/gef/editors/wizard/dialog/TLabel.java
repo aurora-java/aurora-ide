@@ -36,7 +36,7 @@ public class TLabel extends Composite {
 				notifyListeners(SWT.MouseDown, new Event());
 			}
 		});
-		
+
 		label = new Label(this, SWT.CENTER);
 		label.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		label.addMouseListener(new MouseAdapter() {
@@ -44,7 +44,7 @@ public class TLabel extends Composite {
 				notifyListeners(SWT.MouseDown, new Event());
 			}
 		});
-		
+
 		addPaintListener(new PaintListener() {
 			public void paintControl(PaintEvent e) {
 				onPaint(e);
@@ -62,7 +62,7 @@ public class TLabel extends Composite {
 		addListener(SWT.Selection, typedListener);
 		addListener(SWT.DefaultSelection, typedListener);
 	}
-	
+
 	protected void onPaint(PaintEvent e) {
 		if (image != null) {
 			canvas.addPaintListener(new PaintListener() {
