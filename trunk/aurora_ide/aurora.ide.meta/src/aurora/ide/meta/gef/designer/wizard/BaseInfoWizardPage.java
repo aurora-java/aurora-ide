@@ -41,8 +41,8 @@ public class BaseInfoWizardPage extends WizardPage {
 	 * Create the wizard.
 	 */
 	public BaseInfoWizardPage() {
-		super("wizardPage");
-		setTitle("Wizard Page title");
+		super("BaseInfoWizardPage");
+		setTitle("Model Prototype 文件向导");
 		setDescription("Wizard Page description");
 	}
 
@@ -114,7 +114,7 @@ public class BaseInfoWizardPage extends WizardPage {
 	private void format() {
 		String str = text.getText();
 		StringBuilder sb = new StringBuilder(str.length());
-		StringTokenizer st = new StringTokenizer(str, " ,;\t\n\r\f，。；");
+		StringTokenizer st = new StringTokenizer(str, " ,;\t\n\r\f，。；　");
 		while (st.hasMoreElements())
 			sb.append(st.nextElement() + "\n");
 		text.setText(sb.toString());
