@@ -26,7 +26,7 @@ public class Util {
 	 * return editor type
 	 * */
 	public static String getType(CompositeMap field) {
-		String object = field.getString("defaultEditor");
+		String object = getCompositeValue("defaultEditor", field);
 		if (supportEditor(object) != null) {
 			return object;
 		} else {
