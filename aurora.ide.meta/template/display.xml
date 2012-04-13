@@ -4,23 +4,9 @@
 		<model id="model.id" name="BM"/>
 	</models>
 	
-	<form id="form.id" name="form.name"/>
+	<form id="form.id" name="form.name" model="model.id"/>
 	
-	<hbox>
-		<button id="btn.query" type="query" text="查询" target="grid.id"/>
-		<button id="btn.reset" type="reset" text="重置" target="form.id"/>
-		<button id="btn.open" type="open" text="确定"/>
-	</hbox>
-	
-	<grid id="grid.id" name="grid.name" model="model.id" query="form.id">
-		<toolBar>
-			<button type="add"/>
-			<button type="save"/>
-			<button type="delete"/>
-			<button type="excel"/>
-			<button type="clear"/>
-		</toolBar>
-	</grid>
+	<grid id="grid.id" name="grid.name" model="model.id"/>
 	
 	<description><![CDATA[
 		显示 form+grid
