@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.CoreException;
 
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.helpers.ApplicationException;
+import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.search.cache.CacheManager;
 
@@ -23,7 +24,9 @@ public class GefModelAssist {
 	}
 
 	public static String getTypeNotNull(CommentCompositeMap field) {
-		String object = field.getString("defaultEditor");
+		//String object = field.getString("defaultEditor");
+		String object = Util.getCompositeValue("defaultEditor", field);
+
 		if (supportEditor(object) != null) {
 			return object;
 		} else {
@@ -50,7 +53,7 @@ public class GefModelAssist {
 
 	public static CommentCompositeMap getModel(IFile file) {
 		try {
-			CommentCompositeMap model = (CommentCompositeMap) CacheManager.getCompositeMap(file);
+			CommentCompositeMap model = (CommentCompositeMap) CacheManager.getWholeBMCompositeMap(file);
 			return model;
 		} catch (CoreException e1) {
 			e1.printStackTrace();
