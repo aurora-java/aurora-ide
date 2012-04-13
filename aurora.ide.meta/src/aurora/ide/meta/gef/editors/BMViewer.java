@@ -356,7 +356,7 @@ public class BMViewer {
 	private ModelField[] createFields(IFile model) {
 		List<ModelField> result = new ArrayList<ModelField>();
 		try {
-			CompositeMap modelMap = CacheManager.getCompositeMap((IFile) model);
+			CompositeMap modelMap = CacheManager.getWholeBMCompositeMap((IFile) model);
 			List<ModelField> fs = new ArrayList<ModelField>();
 			CompositeMap fields = modelMap.getChild("fields"); //$NON-NLS-1$
 			if (fields != null) {

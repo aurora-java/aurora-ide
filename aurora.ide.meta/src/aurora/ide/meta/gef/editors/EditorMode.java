@@ -33,5 +33,9 @@ public class EditorMode {
 	public boolean isForUpdate() {
 		return vsEditor.diagram.isForUpdate();
 	}
+	
+	public boolean isForSearch() {
+		return vsEditor.diagram.isForSearch();
+	}
 
 }
