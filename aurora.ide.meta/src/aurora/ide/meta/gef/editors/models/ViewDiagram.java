@@ -122,7 +122,7 @@ public class ViewDiagram extends Container {
 		return Template.TYPE_UPDATE.equals(templateType);
 	}
 
-	public boolean isForSerach() {
+	public boolean isForSearch() {
 		return Template.TYPE_SERACH.equals(templateType);
 	}
 }
