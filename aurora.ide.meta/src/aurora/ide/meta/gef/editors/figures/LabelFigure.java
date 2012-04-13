@@ -15,7 +15,7 @@ public class LabelFigure extends InputField {
 	}
 
 	protected void paintFigure(Graphics graphics) {
-		String text = model.getPrompt() + "：";
+		String text = model.getPrompt() + " : ";
 		Dimension textExtents = FigureUtilities.getTextExtents(text, getFont());
 		Rectangle textRectangle = new Rectangle();
 		int pWidth = getLabelWidth() - textExtents.width;
