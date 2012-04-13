@@ -163,41 +163,30 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				((Container) obj).setDataset(ds);
 			}
 			if (Template.TYPE_DISPLAY.equals(template.getType())) {
-				createLabel(mid, (Container) obj);
+				CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
+				for (CommentCompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid)))) {
+					Label label = new Label();
+					((Container) obj).addChild(createField(label, map, queryMap));
+				}
 			} else {
-				createInput(mid, (Container) obj);
+				CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
+				for (CommentCompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid)))) {
+					Input input = new Input();
+					((Container) obj).addChild(createField(input, map, queryMap));
+				}
 			}
 		}
 	}
 
-	private void createInput(String mid, Container obj) {
-		CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
-		for (CommentCompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid)))) {
-			Input input = new Input();
-			CommentCompositeMap fieldMap = GefModelAssist.getCompositeMap((CommentCompositeMap) map.getChild("fields"), "name", queryMap.getString("field"));
-			if (fieldMap == null) {
-				fieldMap = queryMap;
-			}
-			input.setName(fieldMap.getString("name"));
-			input.setPrompt(fieldMap.getString("prompt") == null ? fieldMap.getString("name") : fieldMap.getString("prompt"));
-			input.setType(GefModelAssist.getTypeNotNull(fieldMap));
-			obj.addChild(input);
+	private AuroraComponent createField(AuroraComponent ac, CommentCompositeMap map, CommentCompositeMap queryMap) {
+		CommentCompositeMap fieldMap = GefModelAssist.getCompositeMap((CommentCompositeMap) map.getChild("fields"), "name", queryMap.getString("field"));
+		if (fieldMap == null) {
+			fieldMap = queryMap;
 		}
-	}
-
-	private void createLabel(String mid, Container obj) {
-		CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
-		for (CommentCompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid)))) {
-			Label label = new Label();
-			CommentCompositeMap fieldMap = GefModelAssist.getCompositeMap((CommentCompositeMap) map.getChild("fields"), "name", queryMap.getString("field"));
-			if (fieldMap == null) {
-				fieldMap = queryMap;
-			}
-			label.setName(fieldMap.getString("name"));
-			label.setPrompt(fieldMap.getString("prompt") == null ? fieldMap.getString("name") : fieldMap.getString("prompt"));
-			label.setType(GefModelAssist.getTypeNotNull(fieldMap));
-			obj.addChild(label);
-		}
+		ac.setName(fieldMap.getString("name"));
+		ac.setPrompt(fieldMap.getString("prompt") == null ? fieldMap.getString("name") : fieldMap.getString("prompt"));
+		ac.setType(GefModelAssist.getTypeNotNull(fieldMap));
+		return ac;
 	}
 
 	private AuroraComponent createAuroraComponent(Component cpt) {
@@ -320,6 +309,16 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			String s = getBmPath(bm.getModel());
 			ds.setModel(s);
 			((Container) acpt).setDataset(ds);
+		} else if (template.getType().equals(Template.TYPE_DISPLAY)) {
+			for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
+				Label label = new Label();
+				label.setName(map.getString("name"));
+				label.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
+				if (GefModelAssist.getType(map) != null) {
+					label.setType(GefModelAssist.getType(map));
+				}
+				((Container) acpt).addChild(label);
+			}
 		} else {
 			for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
 				Input input = new Input();
