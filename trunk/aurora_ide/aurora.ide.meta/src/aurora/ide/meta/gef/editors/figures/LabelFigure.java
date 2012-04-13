@@ -15,11 +15,10 @@ public class LabelFigure extends InputField {
 	}
 
 	protected void paintFigure(Graphics graphics) {
-		super.paintFigure(graphics);
 		String text = model.getPrompt() + "：";
 		Dimension textExtents = FigureUtilities.getTextExtents(text, getFont());
 		Rectangle textRectangle = new Rectangle();
-		int pWidth = this.getLabelWidth() - textExtents.width;
+		int pWidth = getLabelWidth() - textExtents.width;
 
 		textRectangle.x = pWidth + getBounds().x;
 		int i = getBounds().height - textExtents.height;
@@ -27,7 +26,9 @@ public class LabelFigure extends InputField {
 
 		textRectangle.setSize(textExtents);
 		graphics.drawText(text, textRectangle.getLocation());
-		graphics.drawLine(textRectangle.getLocation().x + textRectangle.width, bounds.getTop().y + textExtents.height+2, textRectangle.x + getSize().width, bounds.getTop().y + textExtents.height+2);
+		graphics.drawLine(textRectangle.getLocation().x + textRectangle.width, bounds.getTop().y + textExtents.height + 2, textRectangle.x + getBounds().width, bounds.getTop().y + textExtents.height
+				+ 2);
+
 	}
 
 	public Label getModel() {
