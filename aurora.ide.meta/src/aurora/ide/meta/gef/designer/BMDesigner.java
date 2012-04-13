@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorInput;
@@ -16,10 +17,12 @@ import org.eclipse.ui.forms.editor.FormEditor;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.editor.InputFileListener;
+import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.ModelMerger;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
+import aurora.ide.meta.project.AuroraMetaProject;
 
 public class BMDesigner extends FormEditor {
 
@@ -27,9 +30,11 @@ public class BMDesigner extends FormEditor {
 	private IFile inputFile;
 	private BMModel model;
 	private BMDesignPage dpage = new BMDesignPage(this,
-			DesignerMessages.BMDesigner_dpage_id, DesignerMessages.BMDesigner_dpage_name);
+			DesignerMessages.BMDesigner_dpage_id,
+			DesignerMessages.BMDesigner_dpage_name);
 	private CreateTablePage epage = new CreateTablePage(this,
-			DesignerMessages.BMDesigner_epage_id, DesignerMessages.BMDesigner_epage_name);
+			DesignerMessages.BMDesigner_epage_id,
+			DesignerMessages.BMDesigner_epage_name);
 
 	public BMDesigner() {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(
@@ -81,8 +86,15 @@ public class BMDesigner extends FormEditor {
 		super.init(site, input);
 		IFileEditorInput fi = (IFileEditorInput) input;
 		this.inputFile = fi.getFile();
-
 		setPartName(inputFile.getName());
+		IProject proj = inputFile.getProject();
+		AuroraMetaProject amp = new AuroraMetaProject(proj);
+		try {
+			amp.getAuroraProject();
+		} catch (ResourceNotFoundException e) {
+			throw new PartInitException("原型工程:" + proj.getName()
+					+ " ,没有关联Aurora工程.");
+		}
 		open();
 	}
 
