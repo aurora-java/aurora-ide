@@ -3,7 +3,10 @@ package aurora.ide.meta.gef.designer;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+
 import uncertain.composite.CompositeMap;
+import aurora.ide.search.cache.CacheManager;
 
 public class BMCompoisteMap {
 
@@ -13,6 +16,14 @@ public class BMCompoisteMap {
 		if (map == null)
 			throw new RuntimeException("parmeter can not be null.");
 		this.bmMap = map;
+	}
+
+	public BMCompoisteMap(IFile bmFile) {
+		try {
+			this.bmMap = CacheManager.getWholeBMCompositeMap(bmFile);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public CompositeMap getBmMap() {
