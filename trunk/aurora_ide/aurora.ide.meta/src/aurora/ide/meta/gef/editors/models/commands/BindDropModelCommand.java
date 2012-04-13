@@ -5,6 +5,7 @@ import java.util.List;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.GridColumn;
@@ -52,6 +53,9 @@ public class BindDropModelCommand extends DropBMCommand {
 			AuroraComponent input = this.isDisplay() ? new Label()
 					: new Input();
 			String type = this.isDisplay() ? Label.Label : Util.getType(field);
+			if(CheckBox.CHECKBOX.equals(type)){
+				input = new CheckBox();
+			}
 			input.setType(type);
 			input.setName(name);
 			input.setPrompt(getPrompt(field));
