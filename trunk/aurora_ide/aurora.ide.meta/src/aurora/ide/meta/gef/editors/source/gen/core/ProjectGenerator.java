@@ -282,6 +282,8 @@ public class ProjectGenerator {
 							return;
 						}
 						ViewDiagram loadFile = this.loadFile(fCurrentFile);
+						if(loadFile == null)
+							continue;
 						String genFile = dsg.genFile(header, loadFile);
 						genNewFile(newFile,genFile);
 					} catch (TemplateNotBindedException e) {

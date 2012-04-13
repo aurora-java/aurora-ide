@@ -74,8 +74,7 @@ public class ScreenUIPBrowseButton {
 					if ("uip".equalsIgnoreCase(fileExtension)) {
 						IPath path = file.getFullPath();
 						if (uipFolder != null) {
-							IContainer web = uipFolder.getParent();
-							path = path.makeRelativeTo(web.getFullPath());
+							path = path.makeRelativeTo(uipFolder.getFullPath());
 						}
 						setOpenPath(path.toString());
 						return;
