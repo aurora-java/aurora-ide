@@ -26,8 +26,7 @@ class DisplayScreenGenerator extends ScreenGenerator {
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
 		boolean forCreate = view.isForCreate();
-		// TODO forquery
-		if (forCreate) {
+		if (forCreate || view.isForSerach()) {
 			throw new TemplateNotBindedException();
 		}
 
