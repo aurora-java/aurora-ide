@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.KeyAdapter;
@@ -139,6 +138,7 @@ public class TComposite extends SashForm {
 	private TLabel createLabel(Template t) {
 		TLabel label = new TLabel(composite, SWT.CENTER);
 		label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		label.setCursor(getShell().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
 		label.setData(t);
 		GridData gd = new GridData();
 		gd.heightHint = labelHeight;
