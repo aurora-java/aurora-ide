@@ -157,7 +157,7 @@ public class BaseBmGenerator {
 		String editor = r.getString(IDesignerConst.COLUMN_EDITOR);
 		map.put("defaultEditor", editor);
 		map.put("prompt", r.getPrompt());
-		if (editor.equals(Input.Combo) || editor.equals(Input.LOV)) {
+		if (Input.Combo.equals(editor) || Input.LOV.equals(editor)) {
 			String options = r.getString(IDesignerConst.COLUMN_OPTIONS);
 			map.put("options", options);
 		}
