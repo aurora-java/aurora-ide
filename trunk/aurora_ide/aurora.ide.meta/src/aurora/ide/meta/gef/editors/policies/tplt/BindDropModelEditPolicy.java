@@ -2,24 +2,16 @@ package aurora.ide.meta.gef.editors.policies.tplt;
 
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 
-import uncertain.composite.CompositeMap;
-
-import aurora.ide.meta.gef.editors.BMViewer;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.commands.BindDropModelCommand;
 import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
 import aurora.ide.meta.gef.editors.request.DropBMRequest;
-import aurora.ide.meta.gef.i18n.Messages;
 
 public class BindDropModelEditPolicy extends AbstractEditPolicy {
 
@@ -58,7 +50,9 @@ public class BindDropModelEditPolicy extends AbstractEditPolicy {
 
 		ViewDiagramPart diagramPart = this.getDiagramPart(getHost());
 		cmd.setDiagram((ViewDiagram) diagramPart.getComponent());
-
+		
+		diagramPart.getEditorMode().isForDisplay();
+		
 		cmd.setContainer(container);
 		return cmd;
 	}
