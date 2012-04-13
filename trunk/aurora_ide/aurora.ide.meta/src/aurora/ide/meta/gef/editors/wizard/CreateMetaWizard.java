@@ -343,7 +343,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));
 			gc.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
-			if (GefModelAssist.getType(map) != null) {
+			if (GefModelAssist.getTypeNotNull(map) != null && (!template.getType().equals(Template.TYPE_DISPLAY))) {
 				gc.setEditor(GefModelAssist.getType(map));
 			}
 			grid.addCol(gc);

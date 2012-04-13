@@ -30,10 +30,10 @@ import aurora.ide.meta.gef.editors.template.Template;
 public class TComposite extends SashForm {
 
 	private ImageRegistry images = MetaPlugin.getDefault().getImageRegistry();
-	private java.util.List<CLabel> labels = new ArrayList<CLabel>();
+	private java.util.List<TLabel> labels = new ArrayList<TLabel>();
 	private int index = -1;
 	private Template template = null;
-	private int labelHeight = 100;
+	private int labelHeight = 120;
 	private int labelWidth = 120;
 
 	private Composite composite;
@@ -136,9 +136,8 @@ public class TComposite extends SashForm {
 		composite.layout(true);
 	}
 
-	private CLabel createLabel(Template t) {
-		CLabel label = new CLabel(composite, SWT.CENTER);
-		label.setCursor(getShell().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
+	private TLabel createLabel(Template t) {
+		TLabel label = new TLabel(composite, SWT.CENTER);
 		label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		label.setData(t);
 		GridData gd = new GridData();
@@ -149,7 +148,7 @@ public class TComposite extends SashForm {
 		label.setImage(getImage(t.getIcon()));
 		label.addMouseListener(new MouseAdapter() {
 			public void mouseDown(MouseEvent e) {
-				CLabel lbl = (CLabel) e.getSource();
+				TLabel lbl = (TLabel) e.getSource();
 				selectLabel(lbl);
 				composite.setFocus();
 			}
@@ -158,7 +157,7 @@ public class TComposite extends SashForm {
 		return label;
 	}
 
-	private void selectLabel(CLabel lbl) {
+	private void selectLabel(TLabel lbl) {
 		setLabelChecked(lbl, true);
 		template = (Template) lbl.getData();
 		notifyListeners(SWT.Selection, new Event());
@@ -185,7 +184,7 @@ public class TComposite extends SashForm {
 		return template;
 	}
 
-	private void setLabelChecked(CLabel label, boolean chencked) {
+	private void setLabelChecked(TLabel label, boolean chencked) {
 		if (chencked) {
 			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 		} else {
