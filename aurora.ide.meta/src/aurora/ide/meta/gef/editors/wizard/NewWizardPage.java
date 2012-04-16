@@ -187,7 +187,7 @@ public class NewWizardPage extends WizardPage {
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		composite.setText(Messages.NewWizardPage_Template);
 
-		createTemplate(composite, TemplateHelper.loadTemplate());
+		createTemplate(composite, TemplateHelper.getTemplates());
 
 		if (setPath(metaFolder)) {
 			txtFile.setFocus();

@@ -54,60 +54,60 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			}
 		}
 
-//		if (template.getLink().size() > 0) {
-//			Group gl = new Group(composite, SWT.None);
-//			gl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//			gl.setText("Add Link");
-//			gl.setLayout(new GridLayout(4, false));
-//			for (Component cp : template.getLink()) {
-//				if ("grid".equals(cp.getComponentType())) {
-//					// Label lbl = new Label(gl, SWT.None);
-//					// lbl.setText("Grid");
-//					//
-//					//
-//					//
-//					// Button btn=new Button(gl,SWT.None);
-//					// btn.setText("Add");
-//					//
-//					// btn.addSelectionListener()
-//
-//					// Label lbl = new Label(gl, SWT.None);
-//					// lbl.setText("显示文本：");
-//					// Text txtShow = new Text(gl, SWT.BORDER);
-//					// GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-//					// gd.horizontalSpan = 3;
-//					// txtShow.setLayoutData(gd);
-//					//
-//					// lbl = new Label(gl, SWT.None);
-//					// lbl.setText("目标：");
-//					// Text txtTarget = new Text(gl, SWT.BORDER);
-//					// txtTarget.setLayoutData(new
-//					// GridData(GridData.FILL_HORIZONTAL));
-//					// Button btnTarget = new Button(gl, SWT.None);
-//					// btnTarget.setText("选择文件");
-//					// Button btnParam = new Button(gl, SWT.None);
-//					// btnParam.setText("添加参数");
-//				}
-//			}
-//			for (Component cp : template.getLink()) {
-//				if ("button".equals(cp.getComponentType())) {
-//					Label lbl = new Label(gl, SWT.None);
-//					lbl.setText("Button Open:");
-//					Text txt = new Text(gl, SWT.BORDER);
-//					txt.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//
-//					Button btnSelect = new Button(gl, SWT.None);
-//					btnSelect.setText("选择文件");
-//					// Button btnParam = new Button(gl, SWT.None);
-//					// btnParam.setText("添加参数");
-//					// btnParam.setEnabled(false);
-//
-//					btnSelect.addSelectionListener(new TabRefSelect(txt, null, cp));
-//
-//					// btnParam.addSelectionListener(new TabRefParamSelect(cp));
-//				}
-//			}
-//		}
+		// if (template.getLink().size() > 0) {
+		// Group gl = new Group(composite, SWT.None);
+		// gl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		// gl.setText("Add Link");
+		// gl.setLayout(new GridLayout(4, false));
+		// for (Component cp : template.getLink()) {
+		// if ("grid".equals(cp.getComponentType())) {
+		// // Label lbl = new Label(gl, SWT.None);
+		// // lbl.setText("Grid");
+		// //
+		// //
+		// //
+		// // Button btn=new Button(gl,SWT.None);
+		// // btn.setText("Add");
+		// //
+		// // btn.addSelectionListener()
+		//
+		// // Label lbl = new Label(gl, SWT.None);
+		// // lbl.setText("显示文本：");
+		// // Text txtShow = new Text(gl, SWT.BORDER);
+		// // GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		// // gd.horizontalSpan = 3;
+		// // txtShow.setLayoutData(gd);
+		// //
+		// // lbl = new Label(gl, SWT.None);
+		// // lbl.setText("目标：");
+		// // Text txtTarget = new Text(gl, SWT.BORDER);
+		// // txtTarget.setLayoutData(new
+		// // GridData(GridData.FILL_HORIZONTAL));
+		// // Button btnTarget = new Button(gl, SWT.None);
+		// // btnTarget.setText("选择文件");
+		// // Button btnParam = new Button(gl, SWT.None);
+		// // btnParam.setText("添加参数");
+		// }
+		// }
+		// for (Component cp : template.getLink()) {
+		// if ("button".equals(cp.getComponentType())) {
+		// Label lbl = new Label(gl, SWT.None);
+		// lbl.setText("Button Open:");
+		// Text txt = new Text(gl, SWT.BORDER);
+		// txt.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		//
+		// Button btnSelect = new Button(gl, SWT.None);
+		// btnSelect.setText("选择文件");
+		// // Button btnParam = new Button(gl, SWT.None);
+		// // btnParam.setText("添加参数");
+		// // btnParam.setEnabled(false);
+		//
+		// btnSelect.addSelectionListener(new TabRefSelect(txt, null, cp));
+		//
+		// // btnParam.addSelectionListener(new TabRefParamSelect(cp));
+		// }
+		// }
+		// }
 
 		if (template.getRef().size() > 0) {
 			Group gr = new Group(composite, SWT.None);
@@ -183,14 +183,16 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			if (!(obj instanceof IFile)) {
 				txt.setText("");
 				cp.setUrl("");
-				if (btn != null) {
-					btn.setEnabled(false);
+				btn.setEnabled(false);
+			} else {
+				String path = ((IFile) obj).getFullPath().toString();
+				txt.setText(path);
+				if (path.endsWith("uip")) {
+					path = path.substring(path.indexOf("ui_prototype") + "ui_prototype".length());
+				} else if (path.endsWith("screen")) {
+					path = path.substring(path.indexOf(webHome) + webHome.length());
 				}
-				return;
-			}
-			txt.setText(((IFile) obj).getFullPath().toString());
-			cp.setUrl(((IFile) obj).getFullPath().toString());
-			if (btn != null) {
+				cp.setUrl(path);
 				btn.setEnabled(true);
 			}
 		}
