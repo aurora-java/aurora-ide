@@ -156,7 +156,6 @@ public class ScreenGenerator {
 			}
 			if (ac instanceof TabItem) {
 				genTabRef((TabItem) ac, childMap, container, containerMap);
-				fill(((TabItem) ac).getBody(), childMap);
 			}
 			if (ac instanceof GridColumn) {
 				genColumnEditor((GridColumn) ac, childMap, containerMap);
@@ -209,21 +208,24 @@ public class ScreenGenerator {
 		IPath path = new Path("${/request/@context_path}");
 		path = path.append(url);
 		path = path.removeFileExtension().addFileExtension("screen");
+		
+		StringBuilder sb = new StringBuilder(path.toString());
+		
 		for (int i = 0; i < parameters.size(); i++) {
 			if (i == 0) {
-				path = path.append("?");
+				sb = sb.append("?");
 			}
-			path = path.append(parameters.get(i).getName());
-			path = path.append("=");
-			path = path.append(rootPath);
-			path = path.append(parameters.get(i).getValue());
-			path = path.append("}");
+			sb = sb.append(parameters.get(i).getName());
+			sb = sb.append("=");
+			sb = sb.append(rootPath);
+			sb = sb.append(parameters.get(i).getValue());
+			sb = sb.append("}");
 
 			if (i < parameters.size() - 1) {
-				path = path.append("&");
+				sb = sb.append("&");
 			}
 		}
-		return path.toString();
+		return sb.toString();
 	}
 
 	private boolean isLov(AuroraComponent ac) {
