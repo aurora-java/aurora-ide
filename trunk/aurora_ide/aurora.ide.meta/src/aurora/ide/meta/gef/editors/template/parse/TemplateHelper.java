@@ -22,28 +22,27 @@ import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
 
 public class TemplateHelper {
-	public static Map<String, List<Template>> loadTemplate() {
-
+	
+	private static Map<String, Template> templates=new HashMap<String, Template>();
+	
+	private static void loadTemplate() {
 		IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
 		List<File> files = getFiles(path.toString(), ".xml");
-		Map<String, java.util.List<Template>> tempMap = new HashMap<String, java.util.List<Template>>();
 		SAXParser parser = null;
 		try {
 			parser = SAXParserFactory.newInstance().newSAXParser();
 		} catch (ParserConfigurationException e) {
-			return tempMap;
+			return;
 		} catch (SAXException e) {
-			return tempMap;
+			return;
 		}
 		TemplateParse tp = new TemplateParse();
 		for (File f : files) {
 			try {
 				parser.parse(f, tp);
 			} catch (SAXException e) {
-				e.printStackTrace();
 				continue;
 			} catch (IOException e) {
-				e.printStackTrace();
 				continue;
 			}
 			Template tm = tp.getTemplate();
@@ -53,12 +52,8 @@ public class TemplateHelper {
 				p = p.substring(p.indexOf("template"));
 			}
 			tm.setPath(p);
-			if (tempMap.get(tm.getCategory()) == null) {
-				tempMap.put(tm.getCategory(), new ArrayList<Template>());
-			}
-			tempMap.get(tm.getCategory()).add(tm);
+			templates.put(tm.getPath(), tm);
 		}
-		return tempMap;
 	}
 
 	private static List<File> getFiles(String path, final String extension) {
@@ -93,5 +88,26 @@ public class TemplateHelper {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public static Map<String, java.util.List<Template>> getTemplates(){
+		if(templates.size()<=0){
+			loadTemplate();
+		}
+		Map<String, java.util.List<Template>> tempMap = new HashMap<String, java.util.List<Template>>();
+		for(Template tm:templates.values()){
+			if (tempMap.get(tm.getCategory()) == null) {
+				tempMap.put(tm.getCategory(), new ArrayList<Template>());
+			}
+			tempMap.get(tm.getCategory()).add(tm);
+		}
+		return tempMap;
+	}
+	
+	public static Template getTemplates(String key) {
+		if(templates.size()<=0){
+			loadTemplate();
+		}
+		return templates.get(key);
 	}
 }

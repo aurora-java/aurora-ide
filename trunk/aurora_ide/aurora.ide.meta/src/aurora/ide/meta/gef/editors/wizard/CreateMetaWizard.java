@@ -129,6 +129,11 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		fillButtonTarget();
 		viewDiagram.setTemplateType(template.getType());
 		viewDiagram.setBindTemplate(template.getPath());
+		for (BMReference ibm : template.getInitBms()) {
+			InitModel im = new InitModel();
+			im.setPath(getBmPath(ibm.getModel()));
+			viewDiagram.getInitModels().add(im);
+		}
 		return viewDiagram;
 	}
 
@@ -257,11 +262,6 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				ref.setInitModel(m);
 			}
 			ref.setUrl(((aurora.ide.meta.gef.editors.template.TabRef) cp).getUrl());
-			// for (Parameter p : ((aurora.ide.meta.gef.editors.template.TabRef)
-			// cp).getParas()) {
-			// p.setContainer((TabItem) acpt);
-			// ref.addParameter(p);
-			// }
 			ref.addAllParameter(((aurora.ide.meta.gef.editors.template.TabRef) cp).getParas());
 			((TabItem) acpt).setTabRef(ref);
 			return true;
@@ -270,6 +270,9 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	}
 
 	private String getBmPath(IFile bm) {
+		if(bm==null){
+			return "";
+		}
 		String s = Util.toPKG(bm.getFullPath());
 		if (s.endsWith(".bm")) {
 			s = s.substring(0, s.lastIndexOf(".bm"));
