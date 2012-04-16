@@ -351,7 +351,8 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 					return;
 				DataSetFieldUtil dsfu = new DataSetFieldUtil(metaProject, "", //$NON-NLS-1$
 						bmPkg);
-				bmfieldList = dsfu.getLocalFields(dsfu.getBmMap(),false);
+				bmfieldList = dsfu.getLocalFields(dsfu.getBmMap(), false);
+				String pkName = dsfu.getPK(dsfu.getBmMap());
 				bmFieldComboViewer.setInput(bmfieldList);
 				if (bmFieldListViewer != null)
 					bmFieldListViewer.setInput(bmfieldList.clone());
@@ -360,13 +361,18 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 					refFieldListViewer.refresh();
 				}
 				String srcF = relation.getSrcField();
+				int pkIndex = -1;
 				for (int i = 0; i < bmfieldList.size(); i++) {
 					String pmpt = bmfieldList.get(i).getString("prompt"); //$NON-NLS-1$
+					String name = bmfieldList.get(i).getString("name"); //$NON-NLS-1$
 					if (pmpt != null && pmpt.equals(srcF)) {
 						bmFieldComboViewer.getCombo().select(i);
-						break;
+						return;
 					}
+					if (name != null && name.equals(pkName))
+						pkIndex = i;
 				}
+				bmFieldComboViewer.getCombo().select(pkIndex);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
