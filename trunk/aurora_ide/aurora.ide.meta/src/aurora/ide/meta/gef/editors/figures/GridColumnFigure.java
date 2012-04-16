@@ -10,6 +10,7 @@ import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.Renderer;
 
 public class GridColumnFigure extends Figure {
 	private static Image checkImg = ImagesUtils
@@ -45,7 +46,8 @@ public class GridColumnFigure extends Figure {
 	 */
 	protected void paintFigure(Graphics graphics) {
 		Rectangle copy = this.getBounds().getCopy();
-
+		Rectangle firstCellRect = copy.getTranslated(0, columnHight).setHeight(
+				gridColumn.getRowHight());
 		if (this.getChildren().size() > 0) {
 			return;
 		}
@@ -60,12 +62,13 @@ public class GridColumnFigure extends Figure {
 			k++;
 		}
 		String editor = gridColumn.getEditor();
-		if (editor == null || editor.length() == 0)
+		if (editor == null || editor.length() == 0) {
+			paintEffectForRenderer(graphics, gridColumn.getRenderer(),
+					firstCellRect);
 			return;
+		}
 		if (CheckBox.CHECKBOX.equals(editor)) {
-			Rectangle r1 = new Rectangle(checkImg.getBounds());
-			graphics.drawImage(checkImg, copy.x + (copy.width - r1.width) / 2,
-					copy.y + 5 + columnHight);
+			FigureUtil.paintImageAtCenter(graphics, firstCellRect, checkImg);
 			return;
 		}
 		graphics.setBackgroundColor(ColorConstants.WHITE);
@@ -75,27 +78,53 @@ public class GridColumnFigure extends Figure {
 		if (gridColumn.getDatasetField().isReadOnly()) {
 			graphics.setBackgroundColor(ColorConstants.READONLY_BG);
 		}
-		Rectangle rect = new Rectangle(copy.x + 2, copy.y + columnHight + 2,
-				copy.width - 5, gridColumn.getRowHight() - 4);
+		Rectangle rect = firstCellRect.getShrinked(2, 2).translate(-1, 0);
 		graphics.fillRectangle(rect);
 		graphics.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
 		graphics.drawRectangle(rect);
-		Image img = null;
+		Image img = getImageOfEditor(editor);
+		if (img != null) {
+			rect.x += rect.width - rect.height;
+			rect.width = rect.height;
+			FigureUtil.paintImageAtCenter(graphics, rect, img);
+		}
+		// super.paintFigure(graphics);
+	}
+
+	private Image getImageOfEditor(String editor) {
 		if (Input.Combo.equals(editor))
-			img = ImagesUtils.getImage("palette/itembar_01.png");
+			return ImagesUtils.getImage("palette/itembar_01.png");
 		else if (Input.CAL.equals(editor)
 				|| Input.DATETIMEPICKER.equals(editor))
-			img = ImagesUtils.getImage("palette/itembar_02.png");
+			return ImagesUtils.getImage("palette/itembar_02.png");
 		else if (Input.LOV.equals(editor))
-			img = ImagesUtils.getImage("palette/itembar_03.png");
+			return ImagesUtils.getImage("palette/itembar_03.png");
 		else if (Input.TEXT.equals(editor))
-			img = ImagesUtils.getImage("palette/itembar_04.png");
+			return ImagesUtils.getImage("palette/itembar_04.png");
 		else if (Input.NUMBER.equals(editor))
-			img = ImagesUtils.getImage("palette/itembar_05.png");
-		if (img != null)
-			graphics.drawImage(img, copy.x + copy.width - 20, copy.y + 5
-					+ columnHight);
-		// super.paintFigure(graphics);
+			return ImagesUtils.getImage("palette/itembar_05.png");
+		return null;
+	}
+
+	private void paintEffectForRenderer(Graphics g, Renderer renderer,
+			Rectangle rect) {
+		if (renderer == null)
+			return;
+		String rendererType = renderer.getRendererType();
+		if (Renderer.PAGE_REDIRECT.equals(rendererType)) {
+			String text = renderer.getDescripition();
+			g.setForegroundColor(ColorConstants.LINK_COLOR);
+			String lt = text.toLowerCase();
+			int idx1 = lt.indexOf("<u>");
+			int idx2 = lt.indexOf("</u>");
+			boolean u = idx1 + idx2 > 0;
+			if (u)
+				text = text.substring(idx1 + 3, idx2);
+			FigureUtil.paintTextAtCenter(g, rect, text, u);
+		} else if (Renderer.USER_FUNCTION.equals(rendererType)) {
+			Image fxImg = ImagesUtils.getImage("palette/fx.png");
+			FigureUtil.paintImageAtCenter(g, rect, fxImg);
+		}
 	}
 
 	public void setModel(GridColumn component) {
