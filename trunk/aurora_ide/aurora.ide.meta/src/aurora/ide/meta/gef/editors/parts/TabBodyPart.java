@@ -24,8 +24,9 @@ public class TabBodyPart extends ContainerPart {
 					TabItem ti = body.getTabItem();
 					if (ti != null) {
 						TabRef tr = ti.getTabRef();
-						FigureUtil.paintTextAtCenter(graphics, getBounds(),
-								tr.getUrl());
+						if (tr != null)
+							FigureUtil.paintTextAtCenter(graphics, getBounds(),
+									tr.getUrl());
 					}
 				}
 				super.paintFigure(graphics);
