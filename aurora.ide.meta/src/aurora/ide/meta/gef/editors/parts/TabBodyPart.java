@@ -5,6 +5,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 
+import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.figures.FigureUtil;
 import aurora.ide.meta.gef.editors.figures.ViewDiagramLayout;
 import aurora.ide.meta.gef.editors.models.TabBody;
@@ -24,12 +25,13 @@ public class TabBodyPart extends ContainerPart {
 					TabItem ti = body.getTabItem();
 					if (ti != null) {
 						TabRef tr = ti.getTabRef();
-						if (tr != null)
+						if (tr != null) {
+							graphics.setForegroundColor(ColorConstants.LINK_COLOR);
 							FigureUtil.paintTextAtCenter(graphics, getBounds(),
 									tr.getUrl());
+						}
 					}
 				}
-				super.paintFigure(graphics);
 			}
 		};
 		figure.setOpaque(true);
