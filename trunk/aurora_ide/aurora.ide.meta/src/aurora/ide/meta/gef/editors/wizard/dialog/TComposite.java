@@ -1,6 +1,8 @@
 package aurora.ide.meta.gef.editors.wizard.dialog;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 
 import org.eclipse.jface.resource.ImageRegistry;
@@ -24,14 +26,13 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.TypedListener;
 
 import aurora.ide.meta.MetaPlugin;
-import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.template.Template;
 
 public class TComposite extends SashForm {
 
 	private ImageRegistry images = MetaPlugin.getDefault().getImageRegistry();
 	private java.util.List<TLabel> labels = new ArrayList<TLabel>();
-	private int index = -1;
+	private int index = 0;
 	private Template template = null;
 	private int labelHeight = 120;
 	private int labelWidth = 120;
@@ -80,18 +81,18 @@ public class TComposite extends SashForm {
 					}
 					break;
 				default:
-					e.doit = false;
+					super.keyPressed(e);
 					break;
 				}
 			}
 		});
 
-		composite.addMouseListener(new MouseAdapter() {			
+		composite.addMouseListener(new MouseAdapter() {
 			public void mouseDown(MouseEvent e) {
 				composite.setFocus();
 			}
 		});
-		
+
 		this.setWeights(new int[] { 20, 80 });
 		this.setSashWidth(1);
 
@@ -110,6 +111,7 @@ public class TComposite extends SashForm {
 			public void widgetSelected(SelectionEvent e) {
 				createList(templates);
 				notifyListeners(SWT.Selection, new Event());
+				index = 0;
 			}
 
 		});
@@ -128,6 +130,11 @@ public class TComposite extends SashForm {
 			}
 		}
 		labels.clear();
+		Collections.sort(tm, new Comparator<Template>() {
+			public int compare(Template o1, Template o2) {
+				return o1.getName().compareToIgnoreCase(o2.getName());
+			}
+		});
 		for (Template t : tm) {
 			labels.add(createLabel(t));
 		}
@@ -151,7 +158,7 @@ public class TComposite extends SashForm {
 			public void mouseDown(MouseEvent e) {
 				TLabel lbl = (TLabel) e.getSource();
 				selectLabel(lbl);
-				composite.setFocus();
+				composite.forceFocus();
 			}
 
 		});

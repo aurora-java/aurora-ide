@@ -63,8 +63,8 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	private Map<String, IFile> modelMap = new HashMap<String, IFile>();
 	private Map<String, AuroraComponent> acptMap = new HashMap<String, AuroraComponent>();
 	private Map<String, String> queryMap = new HashMap<String, String>();
-	private List<InitModel> initModels=new ArrayList<InitModel>();
-	
+	private List<InitModel> initModels = new ArrayList<InitModel>();
+
 	private int tabItemIndex = 0;
 
 	public void addPages() {

@@ -22,9 +22,9 @@ import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
 
 public class TemplateHelper {
-	
-	private static Map<String, Template> templates=new HashMap<String, Template>();
-	
+
+	private static Map<String, Template> templates = new HashMap<String, Template>();
+
 	private static void loadTemplate() {
 		IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
 		List<File> files = getFiles(path.toString(), ".xml");
@@ -90,12 +90,12 @@ public class TemplateHelper {
 		return false;
 	}
 
-	public static Map<String, java.util.List<Template>> getTemplates(){
-		if(templates.size()<=0){
+	public static Map<String, java.util.List<Template>> getTemplates() {
+		if (templates.size() <= 0) {
 			loadTemplate();
 		}
 		Map<String, java.util.List<Template>> tempMap = new HashMap<String, java.util.List<Template>>();
-		for(Template tm:templates.values()){
+		for (Template tm : templates.values()) {
 			if (tempMap.get(tm.getCategory()) == null) {
 				tempMap.put(tm.getCategory(), new ArrayList<Template>());
 			}
@@ -103,9 +103,9 @@ public class TemplateHelper {
 		}
 		return tempMap;
 	}
-	
+
 	public static Template getTemplates(String key) {
-		if(templates.size()<=0){
+		if (templates.size() <= 0) {
 			loadTemplate();
 		}
 		return templates.get(key);
