@@ -136,6 +136,7 @@ public class TabItem extends Container {
 
 	public void setTabRef(TabRef tr) {
 		this.ref = tr;
+		firePropertyChange(SCREEN_REF, null, tr);
 	}
 
 	// / make tabitem a proxy of tabbody
