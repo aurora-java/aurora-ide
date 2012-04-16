@@ -73,7 +73,8 @@ public class RendererEditDialog extends EditWizard {
 		renderer.setRendererType(tmpRendererType);
 		renderer.setOpenPath(tmpOpenPath);
 		renderer.getParameters().clear();
-		renderer.getParameters().addAll(pc.getParameters());
+		if (pc != null)
+			renderer.getParameters().addAll(pc.getParameters());
 
 		renderer.setLabelText(tmpLabelText);
 		renderer.setFunctionName(tmpFunctionName);
