@@ -117,6 +117,7 @@ public class TabItem extends Container {
 				ref = (TabRef) val;
 			}
 			firePropertyChange(SCREEN_REF, null, val);
+			body.firePropertyChange(SCREEN_REF, null, val);
 		}
 		super.setPropertyValue(propName, val);
 	}
@@ -136,7 +137,7 @@ public class TabItem extends Container {
 
 	public void setTabRef(TabRef tr) {
 		this.ref = tr;
-		firePropertyChange(SCREEN_REF, null, tr);
+		body.firePropertyChange(SCREEN_REF, null, tr);
 	}
 
 	// / make tabitem a proxy of tabbody
