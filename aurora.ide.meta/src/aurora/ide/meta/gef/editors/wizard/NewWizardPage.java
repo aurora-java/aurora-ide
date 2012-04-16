@@ -40,6 +40,7 @@ public class NewWizardPage extends WizardPage {
 	private Template template;
 	private IProject metaProject;
 	private IResource metaFolder;
+	private Label lblDesc;
 
 	public NewWizardPage() {
 		super("aurora.wizard.new.Page"); //$NON-NLS-1$
@@ -84,7 +85,7 @@ public class NewWizardPage extends WizardPage {
 		} catch (NullPointerException e) {
 			return null;
 		}
-		if(r==null){
+		if (r == null) {
 			return null;
 		}
 		if (TemplateHelper.isMetaProject(r)) {
@@ -111,13 +112,13 @@ public class NewWizardPage extends WizardPage {
 
 		txtPath.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				dialogChanged();
+				textChanged();
 			}
 		});
 
 		txtFile.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				dialogChanged();
+				textChanged();
 			}
 		});
 
@@ -168,7 +169,7 @@ public class NewWizardPage extends WizardPage {
 				if (template == null) {
 					return;
 				}
-				setDescription(template.getDescription());
+				setTemplateDescription(template.getDescription());
 				if (metaProject != null) {
 					((SelectModelWizardPage) getNextPage()).createDynamicTextComponents(template);
 				}
@@ -192,6 +193,11 @@ public class NewWizardPage extends WizardPage {
 		if (setPath(metaFolder)) {
 			txtFile.setFocus();
 		}
+		lblDesc = new Label(container, SWT.WRAP);
+		lblDesc.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		if (template != null) {
+			setTemplateDescription(template.getDescription());
+		}
 	}
 
 	public String getPath() {
@@ -206,7 +212,7 @@ public class NewWizardPage extends WizardPage {
 		return fileName;
 	}
 
-	private void dialogChanged() {
+	private void textChanged() {
 		IResource container = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(getPath()));
 		String fileName = getFileName();
 		int dotLoc = fileName.lastIndexOf('.');
@@ -232,12 +238,19 @@ public class NewWizardPage extends WizardPage {
 				updateStatus(Messages.NewWizardPage_File_3);
 			} else {
 				updateStatus(null);
-				setDescription(template.getDescription());
 				((SelectModelWizardPage) getNextPage()).createDynamicTextComponents(template);
 			}
 			return;
 		}
 		setMetaProject(null);
+	}
+
+	private void setTemplateDescription(String desc) {
+		if (desc == null) {
+			return;
+		}
+		lblDesc.setText(desc);
+		lblDesc.getParent().layout();
 	}
 
 	public void updateStatus(String message) {

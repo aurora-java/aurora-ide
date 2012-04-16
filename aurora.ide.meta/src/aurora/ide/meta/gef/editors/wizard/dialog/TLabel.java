@@ -9,6 +9,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Canvas;
@@ -24,6 +25,7 @@ public class TLabel extends Composite {
 
 	private Canvas canvas;
 	private Label label;
+	private Point size;
 
 	public TLabel(Composite parent, int style) {
 		super(parent, style);
@@ -67,8 +69,11 @@ public class TLabel extends Composite {
 		if (image != null) {
 			canvas.addPaintListener(new PaintListener() {
 				public void paintControl(PaintEvent e) {
+					if (size == null) {
+						size = canvas.getSize();
+					}
 					GC gc = e.gc;
-					gc.drawImage(image, (e.width - image.getImageData().width) / 2, (e.height - image.getImageData().height) / 2);
+					gc.drawImage(image, (size.x - image.getImageData().width) / 2, (size.y - image.getImageData().height) / 2);
 					canvas.setBackground(getBackground());
 				}
 			});
@@ -80,11 +85,12 @@ public class TLabel extends Composite {
 			label.setText("");
 		}
 	}
-	
-	public void setBackground (Color color) {
+
+	public void setBackground(Color color) {
 		super.setBackground(color);
 		canvas.setBackground(color);
 	}
+
 	public String getText() {
 		return text;
 	}
