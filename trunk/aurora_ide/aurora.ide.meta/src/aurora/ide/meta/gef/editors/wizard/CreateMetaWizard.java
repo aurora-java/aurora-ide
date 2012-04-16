@@ -4,7 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -61,7 +63,8 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	private Map<String, IFile> modelMap = new HashMap<String, IFile>();
 	private Map<String, AuroraComponent> acptMap = new HashMap<String, AuroraComponent>();
 	private Map<String, String> queryMap = new HashMap<String, String>();
-
+	private List<InitModel> initModels=new ArrayList<InitModel>();
+	
 	private int tabItemIndex = 0;
 
 	public void addPages() {
@@ -129,9 +132,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		fillButtonTarget();
 		viewDiagram.setTemplateType(template.getType());
 		viewDiagram.setBindTemplate(template.getPath());
-		for (BMReference ibm : template.getInitBms()) {
-			InitModel im = new InitModel();
-			im.setPath(getBmPath(ibm.getModel()));
+		for (InitModel im : initModels) {
 			viewDiagram.getInitModels().add(im);
 		}
 		return viewDiagram;
@@ -260,6 +261,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				InitModel m = new InitModel();
 				m.setPath(s);
 				ref.setInitModel(m);
+				initModels.add(m);
 			}
 			ref.setUrl(((aurora.ide.meta.gef.editors.template.TabRef) cp).getUrl());
 			ref.addAllParameter(((aurora.ide.meta.gef.editors.template.TabRef) cp).getParas());
@@ -270,7 +272,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	}
 
 	private String getBmPath(IFile bm) {
-		if(bm==null){
+		if (bm == null) {
 			return "";
 		}
 		String s = Util.toPKG(bm.getFullPath());
