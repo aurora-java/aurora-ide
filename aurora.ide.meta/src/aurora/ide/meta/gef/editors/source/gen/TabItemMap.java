@@ -13,12 +13,12 @@ public class TabItemMap extends AbstractComponentMap {
 	public TabItemMap(TabItem c) {
 		this.c = c;
 	}
+
 	@Override
 	public CompositeMap toCompositMap() {
 		String type = c.getType();
 		CompositeMap map = AuroraComponent2CompositMap.createChild(type);
-		IPropertyDescriptor[] propertyDescriptors = c
-				.getPropertyDescriptors();
+		IPropertyDescriptor[] propertyDescriptors = c.getPropertyDescriptors();
 		for (IPropertyDescriptor iPropertyDescriptor : propertyDescriptors) {
 			Object id = iPropertyDescriptor.getId();
 
@@ -33,8 +33,7 @@ public class TabItemMap extends AbstractComponentMap {
 	}
 
 	public boolean isCompositMapKey(String key) {
-		return true;
+		return TabItem.SCREEN_REF.equals(key) == false;
 	}
-
 
 }
