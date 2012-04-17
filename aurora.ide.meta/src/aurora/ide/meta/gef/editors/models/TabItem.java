@@ -21,7 +21,6 @@ public class TabItem extends Container {
 	private TabBody body = new TabBody();
 	static int idx = 0;
 	boolean current = false;
-	private String templateRef = "";
 	private TabRef ref;
 
 	public TabItem() {
@@ -122,14 +121,7 @@ public class TabItem extends Container {
 		super.setPropertyValue(propName, val);
 	}
 
-	public String getTemplateRef() {
-		return templateRef;
-	}
-
-	public void setTemplateRef(String templateRef) {
-		this.templateRef = templateRef;
-
-	}
+	
 
 	public TabRef getTabRef() {
 		return ref;
