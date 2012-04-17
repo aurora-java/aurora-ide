@@ -22,7 +22,7 @@ public class TabRefHandler extends DefaultIOHandler {
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
 		super.storeSimpleAttribute(map, ac);
 		TabRef ref = (TabRef) ac;
-		map.put(URL, ref.getUrl());
+		map.put(URL, ref.getOpenPath());
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class TabRefHandler extends DefaultIOHandler {
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
 		super.restoreSimpleAttribute(ac, map);
 		TabRef ref = (TabRef) ac;
-		ref.setUrl(map.getString(URL));
+		ref.setOpenPath(map.getString(URL));
 	}
 
 	@Override
