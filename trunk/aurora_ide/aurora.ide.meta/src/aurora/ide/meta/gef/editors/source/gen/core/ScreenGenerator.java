@@ -76,8 +76,12 @@ public class ScreenGenerator {
 	private void genInitProceduce() {
 		List<InitModel> initModels = this.viewDiagram.getInitModels();
 		for (InitModel initModel : initModels) {
-			CompositeMap procedureMap = this.getOrCreateChildMap(viewMap,
-					"init-procedure");
+			CompositeMap procedureMap = screenMap.getChild("init-procedure");
+			if (procedureMap == null) {
+				procedureMap = createCompositeMap("init-procedure");
+				screenMap.addChild(0, procedureMap);
+			}
+
 			CompositeMap mq = procedureMap.getChildByAttrib("model-query",
 					"model", initModel.getPath());
 			if (mq == null) {
@@ -208,9 +212,9 @@ public class ScreenGenerator {
 		IPath path = new Path("${/request/@context_path}");
 		path = path.append(url);
 		path = path.removeFileExtension().addFileExtension("screen");
-		
+
 		StringBuilder sb = new StringBuilder(path.toString());
-		
+
 		for (int i = 0; i < parameters.size(); i++) {
 			if (i == 0) {
 				sb = sb.append("?");
