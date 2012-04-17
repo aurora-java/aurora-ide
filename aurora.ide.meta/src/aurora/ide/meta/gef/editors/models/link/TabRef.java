@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.ILink;
 import aurora.ide.meta.gef.editors.models.InitModel;
 import aurora.ide.meta.gef.editors.models.TabItem;
 
-public class TabRef extends AuroraComponent {
+public class TabRef extends AuroraComponent implements ILink{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 589556644803144211L;
 
-	private String url;
+	private String openPath;
 
 	private InitModel initModel;
 
@@ -29,8 +30,8 @@ public class TabRef extends AuroraComponent {
 	private TabItem tabItem;
 	private List<Parameter> paras = new ArrayList<Parameter>();
 
-	public String getUrl() {
-		return url;
+	public String getOpenPath() {
+		return openPath;
 	}
 
 	public TabItem getTabItem() {
@@ -41,8 +42,8 @@ public class TabRef extends AuroraComponent {
 		this.tabItem = tabItem;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setOpenPath(String url) {
+		this.openPath = url;
 	}
 
 	public List<Parameter> getParameters() {

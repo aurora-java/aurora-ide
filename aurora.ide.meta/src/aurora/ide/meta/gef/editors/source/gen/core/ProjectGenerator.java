@@ -29,6 +29,7 @@ import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
+import aurora.ide.api.composite.map.CommentCompositeLoader;
 import aurora.ide.meta.exception.GeneratorException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.exception.TemplateNotBindedException;
@@ -183,7 +184,7 @@ public class ProjectGenerator {
 		try {
 			is = file.getContents(false);
 
-			CompositeLoader parser = new CompositeLoader();
+			CompositeLoader parser = new CommentCompositeLoader();
 			CompositeMap rootMap = parser.loadFromStream(is);
 			ModelIOManager mim = ModelIOManager.getNewInstance();
 			diagram = mim.fromCompositeMap(rootMap);
@@ -200,8 +201,9 @@ public class ProjectGenerator {
 		}
 		return diagram;
 	}
-	
-	private void genNewFile(IFile newFile,String content) throws InvocationTargetException{
+
+	private void genNewFile(IFile newFile, String content)
+			throws InvocationTargetException {
 		InputStream is = new ByteArrayInputStream(content.getBytes());
 		if (newFile.exists() && isOverlap) {
 			try {
@@ -219,8 +221,8 @@ public class ProjectGenerator {
 
 			}
 		}
-		CreateFileOperation cfo = new CreateFileOperation(newFile, null,
-				is, "create file.") { //$NON-NLS-1$
+		CreateFileOperation cfo = new CreateFileOperation(newFile, null, is,
+				"create file.") { //$NON-NLS-1$
 			@Override
 			protected void setResourceDescriptions(
 					ResourceDescription[] descriptions) {
@@ -247,7 +249,7 @@ public class ProjectGenerator {
 
 	private void processFile(IFile fCurrentFile, IProgressMonitor monitor)
 			throws InvocationTargetException {
-		ScreenGenerator sg = new ScreenGenerator(project);
+		ScreenGenerator sg = new ScreenGenerator(project, fCurrentFile);
 		try {
 			IFile newFile = getNewFile(fCurrentFile);
 			if (newFile.exists() && !isOverlap) {
@@ -256,38 +258,42 @@ public class ProjectGenerator {
 			ViewDiagram loadFile = this.loadFile(fCurrentFile);
 
 			String genFile = sg.genFile(header, loadFile);
-			
-			genNewFile(newFile,genFile);
-			
+
+			genNewFile(newFile, genFile);
+
 			genRelationFile(sg);
-			
 
 		} catch (TemplateNotBindedException e) {
 		}
 	}
 
-	private void genRelationFile(ScreenGenerator sg) throws InvocationTargetException {
-		Map<Object, String> linkIDs = sg.getScriptGenerator().getLinkIDs();
-		Set<Object> keySet = linkIDs.keySet();	
-		for (Object link : keySet) {
-			if(link instanceof ILink){
-				String openPath = ((ILink) link).getOpenPath();
-				IPath p = new Path(openPath);
-				if("uip".equalsIgnoreCase(p.getFileExtension())){
-					ScreenGenerator dsg = new DisplayScreenGenerator(project,(ILink)link);
-					try {
-						IFile fCurrentFile = this.screenFolder.getFile(p);
-						IFile newFile = this.getNewFile(p);
-						if (newFile.exists() && !isOverlap) { 
-							return;
-						}
-						ViewDiagram loadFile = this.loadFile(fCurrentFile);
-						if(loadFile == null)
-							continue;
-						String genFile = dsg.genFile(header, loadFile);
-						genNewFile(newFile,genFile);
-					} catch (TemplateNotBindedException e) {
+	private void genRelationFile(ScreenGenerator sg)
+			throws InvocationTargetException {
+		// Map<Object, String> linkIDs = sg.getScriptGenerator().getLinkIDs();
+		List<ILink> links = sg.getLinks();
+//		Set<Object> keySet = linkIDs.keySet();
+		for (ILink link : links) {
+			String openPath = ((ILink) link).getOpenPath();
+			IPath p = new Path(openPath);
+			if ("uip".equalsIgnoreCase(p.getFileExtension())) {
+				IFile fCurrentFile = this.screenFolder.getFile(p);
+				openPath = sg.getNewLinkFilePath(openPath);
+				p = new Path(openPath);
+				IFile newFile = this.getNewFile(p);
+				ScreenGenerator dsg = new DisplayScreenGenerator(project,
+						(ILink) link, newFile);
+				try {
+					if (newFile.exists()
+					// && !isOverlap
+					) {
+						return;
 					}
+					ViewDiagram loadFile = this.loadFile(fCurrentFile);
+					if (loadFile == null)
+						continue;
+					String genFile = dsg.genFile(header, loadFile);
+					genNewFile(newFile, genFile);
+				} catch (TemplateNotBindedException e) {
 				}
 			}
 		}
@@ -329,6 +335,7 @@ public class ProjectGenerator {
 				screenFolder.getProjectRelativePath());
 		return getNewFile(makeRelativeTo);
 	}
+
 	private IFile getNewFile(IPath makeRelativeTo) {
 		makeRelativeTo = makeRelativeTo.removeFileExtension();
 		makeRelativeTo = makeRelativeTo.addFileExtension("screen"); //$NON-NLS-1$

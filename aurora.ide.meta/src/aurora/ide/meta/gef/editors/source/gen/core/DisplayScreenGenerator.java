@@ -2,10 +2,10 @@ package aurora.ide.meta.gef.editors.source.gen.core;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 
 import uncertain.composite.CompositeMap;
-
 import aurora.ide.meta.exception.TemplateNotBindedException;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.ILink;
@@ -16,8 +16,8 @@ class DisplayScreenGenerator extends ScreenGenerator {
 
 	private ILink link;
 
-	public DisplayScreenGenerator(IProject project, ILink link) {
-		super(project);
+	public DisplayScreenGenerator(IProject project, ILink link,IFile file) {
+		super(project,file);
 		this.link = link;
 	}
 
@@ -25,10 +25,9 @@ class DisplayScreenGenerator extends ScreenGenerator {
 	public String genFile(String header, ViewDiagram view)
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
-		boolean forCreate = view.isForCreate();
-		if (forCreate || view.isForSearch()) {
-			throw new TemplateNotBindedException();
-		}
+//		if (view.isForDisplay()) {
+//			throw new TemplateNotBindedException();
+//		}
 
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
