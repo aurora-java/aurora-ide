@@ -86,7 +86,7 @@ public class TabItem extends Container {
 			TabRef tabRef = new TabRef();
 			tabRef.setTabItem(this);
 			if (ref != null) {
-				tabRef.setUrl(ref.getUrl());
+				tabRef.setOpenPath(ref.getOpenPath());
 				for (Parameter p : ref.getParameters()) {
 					tabRef.addParameter(p.clone());
 				}

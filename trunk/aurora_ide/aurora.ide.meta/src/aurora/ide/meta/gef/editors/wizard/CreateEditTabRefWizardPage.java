@@ -41,14 +41,14 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 
 	public void init(TabRef link) {
 		if (link != null) {
-			url = link.getUrl();
+			url = link.getOpenPath();
 			_ref = link;
 		}
 	}
 
 	public TabRef getLink() {
 		TabRef l = new TabRef();
-		l.setUrl(url);
+		l.setOpenPath(url);
 		l.getParameters().addAll(pc.getParameters());
 
 		return l;

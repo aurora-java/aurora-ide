@@ -15,7 +15,6 @@ import aurora.ide.editor.textpage.format.JSBeautifier;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.ILink;
 import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
 
@@ -36,10 +35,6 @@ public class ScriptGenerator {
 		this.sg = sg;
 		this.scriptMap = script;
 		this.viewMap = script.getParent();
-	}
-
-	private String newLine(String s) {
-		return s + "\n\r";
 	}
 
 	public String getScript() {
@@ -126,6 +121,9 @@ public class ScriptGenerator {
 		if (genLinkID == null) {
 			// modules/debug/bm.screen
 			String openPath = bc.getOpenPath();
+			if(openPath == null){
+				return "Unknown_Path";
+			}
 			Path path = new Path(openPath);
 			String fileName = path.removeFileExtension().lastSegment();
 			if (fileName == null)

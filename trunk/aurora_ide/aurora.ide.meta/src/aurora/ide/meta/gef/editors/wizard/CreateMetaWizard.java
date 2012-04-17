@@ -263,7 +263,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				ref.setInitModel(m);
 				initModels.add(m);
 			}
-			ref.setUrl(((aurora.ide.meta.gef.editors.template.TabRef) cp).getUrl());
+			ref.setOpenPath(((aurora.ide.meta.gef.editors.template.TabRef) cp).getUrl());
 			ref.addAllParameter(((aurora.ide.meta.gef.editors.template.TabRef) cp).getParas());
 			((TabItem) acpt).setTabRef(ref);
 			return true;

@@ -1,9 +1,11 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -19,6 +21,7 @@ import aurora.ide.meta.gef.editors.models.DatasetBinder;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
+import aurora.ide.meta.gef.editors.models.ILink;
 import aurora.ide.meta.gef.editors.models.InitModel;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.Renderer;
@@ -43,18 +46,20 @@ public class ScreenGenerator {
 	private CompositeMap screenBodyMap;
 	private ViewDiagram viewDiagram;
 	private DatasetGenerator datasetGenerator;
+	private IFile file;
+	private List<TabRef> tabRefs = new ArrayList<TabRef>();
 
-	public ScreenGenerator(IProject project) {
+	public ScreenGenerator(IProject project, IFile file) {
 		this.project = project;
+		this.file = file;
 	}
 
 	public String genFile(String header, ViewDiagram view)
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
-		boolean forCreate = view.isForCreate();
-		if (!forCreate && !view.isForSearch()) {
-			throw new TemplateNotBindedException();
-		}
+		// if (view.isForDisplay()) {
+		// throw new TemplateNotBindedException();
+		// }
 
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
@@ -96,7 +101,7 @@ public class ScreenGenerator {
 	}
 
 	private String getRootPath(InitModel initModel) {
-		CompositeMap procedureMap = this.viewMap.getChild("init-procedure");
+		CompositeMap procedureMap = this.screenMap.getChild("init-procedure");
 		if (procedureMap == null)
 			return null;
 		CompositeMap mq = procedureMap.getChildByAttrib("model-query", "model",
@@ -201,7 +206,9 @@ public class ScreenGenerator {
 	}
 
 	private String getRefUrl(TabRef tabRef) {
-		String url = tabRef.getUrl();
+		tabRefs.add(tabRef);
+		String url = tabRef.getOpenPath();
+		url = this.getNewLinkFilePath(url);
 		List<Parameter> parameters = tabRef.getParameters();
 		InitModel initModel = tabRef.getInitModel();
 		// ${/model/head_info/record/@acp_req_type_code}
@@ -256,10 +263,9 @@ public class ScreenGenerator {
 		Set<Object> keySet = linkIDs.keySet();
 		for (Object bc : keySet) {
 			String openPath = "";
-			if (bc instanceof Renderer) {
-				openPath = ((Renderer) bc).getOpenPath();
-			} else if (bc instanceof ButtonClicker) {
-				openPath = ((ButtonClicker) bc).getOpenPath();
+			if (bc instanceof ILink) {
+				openPath = ((ILink) bc).getOpenPath();
+				openPath = getNewLinkFilePath(openPath);
 			} else {
 				continue;
 			}
@@ -271,6 +277,23 @@ public class ScreenGenerator {
 			link.put("id", linkIDs.get(bc));
 			view.addChild(0, link);
 		}
+	}
+
+	public String getNewLinkFilePath(String path) {
+		IPath newPath = new Path(path);
+		if (!"uip".equalsIgnoreCase(newPath.getFileExtension())) {
+			return path;
+		}
+		IPath filePath = file.getProjectRelativePath();
+		String fileName = filePath.removeFileExtension().lastSegment();
+		String linkName = newPath.removeFileExtension().lastSegment();
+		newPath = newPath.removeLastSegments(1);
+		String newName = fileName + "_" + linkName;
+		if (newName.length() > 50) {
+			newName = newName.substring(0, 49);
+		}
+		newPath = newPath.append(newName).addFileExtension("screen");
+		return newPath.toString();
 	}
 
 	public CompositeMap createCompositeMap(String name) {
@@ -393,6 +416,23 @@ public class ScreenGenerator {
 
 	public CompositeMap fillDatasetsMap(Dataset ds) {
 		return datasetGenerator.fillDatasetsMap(ds);
+	}
+
+	public List<ILink> getLinks() {
+		List<ILink> r = new ArrayList<ILink>();
+		Map<Object, String> linkIDs = getScriptGenerator().getLinkIDs();
+		Set<Object> keySet = linkIDs.keySet();
+		for (Object object : keySet) {
+			if (object instanceof ILink) {
+				r.add((ILink) object);
+			}
+		}
+		for (TabRef ref : tabRefs) {
+			if (ref instanceof ILink) {
+				r.add((ILink) ref);
+			}
+		}
+		return r;
 	}
 
 }

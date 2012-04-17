@@ -28,7 +28,7 @@ public class TabBodyPart extends ContainerPart {
 						if (tr != null) {
 							graphics.setForegroundColor(ColorConstants.LINK_COLOR);
 							FigureUtil.paintTextAtCenter(graphics, getBounds(),
-									tr.getUrl());
+									tr.getOpenPath());
 						}
 					}
 				}

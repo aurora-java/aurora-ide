@@ -60,7 +60,7 @@ public class TabRefCellEditor extends CellEditor implements SelectionListener,
 	protected void doSetValue(Object value) {
 		if (value instanceof TabRef) {
 			this.value = (TabRef) value;
-			String url = this.value.getUrl();
+			String url = this.value.getOpenPath();
 			label.setText(url == null || "".equals(url) ? "" : url);
 		} else {
 			value = null;
