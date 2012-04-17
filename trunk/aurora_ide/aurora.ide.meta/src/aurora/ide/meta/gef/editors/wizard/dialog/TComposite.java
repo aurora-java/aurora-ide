@@ -9,6 +9,7 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
@@ -17,6 +18,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -38,6 +40,7 @@ public class TComposite extends SashForm {
 	private int labelWidth = 120;
 
 	private Composite composite;
+	private ScrolledComposite scrolledComposite;
 	private List list;
 
 	public TComposite(Composite parent, int style, final Map<String, java.util.List<Template>> templates) {
@@ -48,8 +51,10 @@ public class TComposite extends SashForm {
 		list.setLayoutData(new GridData(GridData.FILL_VERTICAL));
 		list.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
-		final ScrolledComposite scrolledComposite = new ScrolledComposite(this, SWT.V_SCROLL | SWT.H_SCROLL);
+		scrolledComposite = new ScrolledComposite(this, SWT.V_SCROLL);
 		scrolledComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		scrolledComposite.getVerticalBar().setIncrement(10);// 控制垂直方向滚动增量
+
 		composite = new Composite(scrolledComposite, SWT.NONE);
 		composite.setLayout(new GridLayout(3, true));
 		composite.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
@@ -89,19 +94,39 @@ public class TComposite extends SashForm {
 
 		composite.addMouseListener(new MouseAdapter() {
 			public void mouseDown(MouseEvent e) {
-				composite.setFocus();
+				composite.forceFocus();
+			}
+		});
+
+		composite.addControlListener(new ControlAdapter() {
+			// 处理 resize 事件
+			public void controlResized(org.eclipse.swt.events.ControlEvent e) {
+				// 计算 mainComposite 大小
+				Point size = composite.computeSize(composite.getSize().x, SWT.DEFAULT);
+
+				// 设置 mainCompoite 大小，如果不设置的话，就会出现上述的问题6
+				composite.setSize(size);
+
+				// 重新设置滚动条大小
+				scrolledComposite.getVerticalBar().setMaximum(size.y);
+
+				// 设置scrolledComposite的 minHeight
+				scrolledComposite.setMinHeight(size.y);
+
+				// 获取当前滚动位置，如果mainComposite的大小发生了变化，那么要确保大小变化后的滚动位置是正确的
+				// 否则就会在mainComposite下方出现一段空白的位置。
+				int scrollHeight = scrolledComposite.getVerticalBar().getSelection() + scrolledComposite.getClientArea().height;
+
+				// 如果mainComposite高度变小了，那么滚动的位置重新设置
+				if (scrollHeight >= size.y) {
+					scrolledComposite.setOrigin(0, size.y);
+				}
+
 			}
 		});
 
 		this.setWeights(new int[] { 20, 80 });
 		this.setSashWidth(1);
-
-		scrolledComposite.setContent(composite);
-		scrolledComposite.setExpandHorizontal(true);
-		scrolledComposite.setExpandVertical(true);
-		int x = (int) Math.ceil(templates.size() / 3.0);
-		scrolledComposite.setMinWidth(labelWidth * 3 + 20);
-		scrolledComposite.setMinHeight(x * labelHeight + x * 5 + 5);
 
 		for (String key : templates.keySet()) {
 			list.add(key);
@@ -109,7 +134,7 @@ public class TComposite extends SashForm {
 
 		list.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				createList(templates);
+				createLabels(templates);
 				notifyListeners(SWT.Selection, new Event());
 				index = 0;
 			}
@@ -118,11 +143,11 @@ public class TComposite extends SashForm {
 
 		if (list.getItems().length > 0) {
 			list.select(0);
-			createList(templates);
+			createLabels(templates);
 		}
 	}
 
-	private void createList(final Map<String, java.util.List<Template>> templates) {
+	private void createLabels(Map<String, java.util.List<Template>> templates) {
 		java.util.List<Template> tm = templates.get(list.getSelection()[0]);
 		for (Control c : composite.getChildren()) {
 			if (c != null && !c.isDisposed()) {
@@ -140,6 +165,14 @@ public class TComposite extends SashForm {
 		}
 		template = (Template) labels.get(0).getData();
 		setLabelChecked(labels.get(0), true);
+
+		scrolledComposite.setContent(composite);
+		scrolledComposite.setExpandHorizontal(true);
+		scrolledComposite.setExpandVertical(true);
+		int x = (int) Math.ceil(tm.size() / 3.0);
+		scrolledComposite.setMinWidth(labelWidth * 3 + 20);
+		scrolledComposite.setMinHeight(x * labelHeight + x * 5 + 5);
+
 		composite.layout(true);
 	}
 
@@ -168,12 +201,22 @@ public class TComposite extends SashForm {
 	private void selectLabel(TLabel lbl) {
 		setLabelChecked(lbl, true);
 		template = (Template) lbl.getData();
+		template.clear();
 		notifyListeners(SWT.Selection, new Event());
 		for (int i = 0; i < labels.size(); i++) {
 			if (labels.get(i) != lbl) {
 				setLabelChecked(labels.get(i), false);
 			} else {
 				index = i;
+			}
+		}
+		Point p = new Point(lbl.getLocation().x, lbl.getLocation().y + composite.getLocation().y);
+		if (p.y < 0) {
+			scrolledComposite.setOrigin(0, lbl.getLocation().y - 5);
+		} else {
+			p.y = p.y + lbl.getSize().y - scrolledComposite.getClientArea().height;
+			if (p.y > 0) {
+				scrolledComposite.setOrigin(0, scrolledComposite.getOrigin().y + p.y + 5);
 			}
 		}
 	}
@@ -194,8 +237,10 @@ public class TComposite extends SashForm {
 
 	private void setLabelChecked(TLabel label, boolean chencked) {
 		if (chencked) {
+			//label.checked();
 			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 		} else {
+			//label.unChecked();
 			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		}
 	}
