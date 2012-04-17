@@ -1,15 +1,27 @@
 package aurora.ide.meta;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.ui.ide.undo.CreateFileOperation;
+import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+
+import aurora.ide.meta.gef.util.FileCopyer;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -42,7 +54,27 @@ public class MetaPlugin extends AbstractUIPlugin {
 	}
 
 	private void uipTemplateConfirm() {
-		IPath stateLocation = this.getStateLocation();
+		IPath template = this.getStateLocation().append("template");
+		File tplt = template.toFile();
+		if (tplt.isDirectory() && tplt.exists()) {
+			return;
+		}
+		copyTemplateFile();
+
+	}
+
+	public void copyTemplateFile() {
+
+		URL ts = FileLocator.find(Platform.getBundle(PLUGIN_ID), new Path(
+				"template"), null);
+		try {
+			ts = FileLocator.toFileURL(ts);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		IPath template = this.getStateLocation().append("template");
+		File tplt = template.toFile();
+		FileCopyer.copyDirectory(new File(ts.getFile()), tplt);
 	}
 
 	/*
