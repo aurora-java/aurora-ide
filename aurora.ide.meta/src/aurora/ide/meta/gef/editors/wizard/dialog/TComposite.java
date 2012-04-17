@@ -52,6 +52,7 @@ public class TComposite extends SashForm {
 		list.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
 		scrolledComposite = new ScrolledComposite(this, SWT.V_SCROLL);
+		scrolledComposite.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		scrolledComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		scrolledComposite.getVerticalBar().setIncrement(10);// 控制垂直方向滚动增量
 
@@ -99,29 +100,22 @@ public class TComposite extends SashForm {
 		});
 
 		composite.addControlListener(new ControlAdapter() {
-			// 处理 resize 事件
 			public void controlResized(org.eclipse.swt.events.ControlEvent e) {
 				// 计算 mainComposite 大小
 				Point size = composite.computeSize(composite.getSize().x, SWT.DEFAULT);
-
 				// 设置 mainCompoite 大小，如果不设置的话，就会出现上述的问题6
 				composite.setSize(size);
-
 				// 重新设置滚动条大小
 				scrolledComposite.getVerticalBar().setMaximum(size.y);
-
 				// 设置scrolledComposite的 minHeight
 				scrolledComposite.setMinHeight(size.y);
-
 				// 获取当前滚动位置，如果mainComposite的大小发生了变化，那么要确保大小变化后的滚动位置是正确的
 				// 否则就会在mainComposite下方出现一段空白的位置。
 				int scrollHeight = scrolledComposite.getVerticalBar().getSelection() + scrolledComposite.getClientArea().height;
-
 				// 如果mainComposite高度变小了，那么滚动的位置重新设置
 				if (scrollHeight >= size.y) {
 					scrolledComposite.setOrigin(0, size.y);
 				}
-
 			}
 		});
 
