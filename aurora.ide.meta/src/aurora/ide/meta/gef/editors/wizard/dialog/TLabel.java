@@ -74,7 +74,7 @@ public class TLabel extends Composite {
 					}
 					GC gc = e.gc;
 					gc.drawImage(image, (size.x - image.getImageData().width) / 2, (size.y - image.getImageData().height) / 2);
-					canvas.setBackground(getBackground());
+					// canvas.setBackground(getBackground());
 				}
 			});
 		}
@@ -107,4 +107,11 @@ public class TLabel extends Composite {
 		this.image = image;
 	}
 
+	public void checked() {
+		label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION));
+	}
+
+	public void unChecked() {
+		label.setBackground(this.getBackground());
+	}
 }

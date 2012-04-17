@@ -121,4 +121,12 @@ public class Template extends Component {
 		this.ref = ref;
 	}
 
+	public void clear() {
+		List<BMReference> allBms = new ArrayList<BMReference>();
+		allBms.addAll(bms);
+		allBms.addAll(initBms);
+		for (BMReference b : allBms) {
+			b.setModel(null);
+		}
+	}
 }
