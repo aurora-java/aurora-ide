@@ -39,8 +39,9 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 				map = getForQueryBm();
 			} else if (IDesignerConst.AE_MAINTAIN.equals(type)) {
 				map = getForMaintainBm();
+			} else if (IDesignerConst.AE_UPDATE.equals(type)) {
 			} else {
-				System.out.println("unknown auto extend mode : " + type);
+				// System.out.println("unknown auto extend mode : " + type);
 				continue;
 			}
 			try {

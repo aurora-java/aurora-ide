@@ -14,7 +14,7 @@ public class BMCompoisteMap {
 
 	public BMCompoisteMap(CompositeMap map) {
 		if (map == null)
-			throw new RuntimeException("parmeter can not be null.");
+			throw new RuntimeException("parameter can not be null.");
 		this.bmMap = map;
 	}
 

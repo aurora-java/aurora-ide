@@ -56,7 +56,7 @@ public class ModelMerger {
 			ApplicationException, SAXException, IOException {
 		amProject = new AuroraMetaProject(file.getProject());
 		aProject = amProject.getAuroraProject();
-		classFolder = ResourceUtil.getWebInf(aProject).getFolder("classes");
+		classFolder = ResourceUtil.getBMHomeFolder(aProject);
 		modelFolder = amProject.getModelFolder();
 		bmFile = getBMFile();
 		if (bmFile != null && bmFile.exists())
