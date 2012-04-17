@@ -296,7 +296,6 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 			return false;
 		}
 		createFolders();
-		copyTemplateFile();
 
 		IProject auroraProjectHandle = this.getAuroraProjectHandle();
 		String name = auroraProjectHandle == null ? "" : auroraProjectHandle
@@ -309,51 +308,6 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 		return true;
 	}
 
-	private static final String[] copyFiles = { "1.query_result.xml",
-			"2.grid.xml", "3.query.xml", "thumbnails/grid.png",
-			"thumbnails/query_result.jpg", "thumbnails/query.png" };
-
-	private void copyTemplateFile() {
-		if (newProject == null) {
-			return;
-		}
-		final IFolder tplt = newProject.getFolder("template");
-
-		boolean exists = tplt.exists();
-		if (exists) {
-			IRunnableWithProgress op = new IRunnableWithProgress() {
-				public void run(IProgressMonitor monitor)
-						throws InvocationTargetException {
-					try {
-						for (String f : copyFiles) {
-
-							IFile file = tplt.getFile(f);
-							InputStream ifs = MetaPlugin
-									.openFileStream("template/" + f);
-
-							CreateFileOperation cfo = new CreateFileOperation(
-									file, null, ifs, "create template.");
-							try {
-								cfo.execute(monitor, WorkspaceUndoUtil
-										.getUIInfoAdapter(getShell()));
-							} catch (ExecutionException e) {
-								throw new InvocationTargetException(e);
-							}
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			};
-
-			// run the new folder creation operation
-			try {
-				getContainer().run(true, true, op);
-			} catch (InterruptedException e) {
-			} catch (InvocationTargetException e) {
-			}
-		}
-	}
 
 	private void createFolders() {
 		if (newProject == null) {
