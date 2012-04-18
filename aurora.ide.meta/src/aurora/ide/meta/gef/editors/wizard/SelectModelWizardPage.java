@@ -37,6 +37,7 @@ import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.InitModel;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
+import aurora.ide.meta.gef.editors.models.RowCol;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
@@ -200,10 +201,12 @@ public class SelectModelWizardPage extends WizardPage {
 		ds.setOwner(ac);
 		ds.setModel(s);
 		ac.setDataset(ds);
+		if(ac instanceof RowCol){
+			((RowCol)ac).setCol(1);
+		}
 		if (ac instanceof Grid) {
 			fillGrid((Grid) ac, bm.getModel());
 		}
-
 		else if (viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {
 			for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
 				aurora.ide.meta.gef.editors.models.Label label = new aurora.ide.meta.gef.editors.models.Label();
