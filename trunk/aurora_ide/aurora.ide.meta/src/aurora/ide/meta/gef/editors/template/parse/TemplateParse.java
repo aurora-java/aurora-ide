@@ -9,9 +9,9 @@ import org.xml.sax.helpers.DefaultHandler;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
-import aurora.ide.meta.gef.editors.template.Button;
+import aurora.ide.meta.gef.editors.template.ButtonComponent;
 import aurora.ide.meta.gef.editors.template.Component;
-import aurora.ide.meta.gef.editors.template.TabRef;
+import aurora.ide.meta.gef.editors.template.TabRefComponent;
 import aurora.ide.meta.gef.editors.template.Template;
 
 public class TemplateParse extends DefaultHandler {
@@ -46,7 +46,7 @@ public class TemplateParse extends DefaultHandler {
 			template.addInitModel(bm);
 			stack.push(null);
 		} else if (qName.equals("button")) {
-			Button btn = new Button();
+			ButtonComponent btn = new ButtonComponent();
 			btn.setComponentType(qName);
 			btn.setId(getValue("id"));
 			btn.setTarget(getValue("target"));
@@ -55,12 +55,12 @@ public class TemplateParse extends DefaultHandler {
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(btn);
 			}
-			if (ButtonClicker.B_OPEN.equals(btn.getType())) {
-				template.addLink(btn);
-			}
+//			if (ButtonClicker.B_OPEN.equals(btn.getType())) {
+//				template.addLink(btn);
+//			}
 			stack.push(btn);
 		} else if ("tabRef".equals(qName)) {
-			TabRef ref = new TabRef();
+			TabRefComponent ref = new TabRefComponent();
 			ref.setInitModel(getValue("initModel"));
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(ref);

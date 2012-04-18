@@ -26,7 +26,7 @@ public class UIPrototypePage extends PreferencePage implements IWorkbenchPrefere
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
 
-		TComposite tComposite = new TComposite(container, SWT.BORDER, TemplateHelper.getTemplates());
+		TComposite tComposite = new TComposite(container, SWT.BORDER, TemplateHelper.getInstance().getTemplates());
 		tComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		return container;

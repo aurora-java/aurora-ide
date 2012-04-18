@@ -68,7 +68,7 @@ public class NewWizardPage extends WizardPage {
 				StructuredSelection ts = (StructuredSelection) obj;
 				if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
 					r = (IResource) ts.getFirstElement();
-					if (TemplateHelper.isMetaProject(r)) { //$NON-NLS-1$ //$NON-NLS-2$
+					if (TemplateHelper.getInstance().isMetaProject(r)) { //$NON-NLS-1$ //$NON-NLS-2$
 						return r;
 					}
 				}
@@ -88,7 +88,7 @@ public class NewWizardPage extends WizardPage {
 		if (r == null) {
 			return null;
 		}
-		if (TemplateHelper.isMetaProject(r)) {
+		if (TemplateHelper.getInstance().isMetaProject(r)) {
 			return r.getProject();
 		}
 		return null;
@@ -148,7 +148,7 @@ public class NewWizardPage extends WizardPage {
 				txtPath.setText(path);
 				return true;
 			}
-		} else if ((container instanceof IFolder) && TemplateHelper.isMetaProject(container)) {
+		} else if ((container instanceof IFolder) && TemplateHelper.getInstance().isMetaProject(container)) {
 			if (container.getProjectRelativePath().toString().indexOf("ui_prototype") >= 0) {
 				path = container.getProject().getName() + "/" + container.getProjectRelativePath().toString();
 				txtPath.setText(path);
@@ -188,7 +188,7 @@ public class NewWizardPage extends WizardPage {
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		composite.setText(Messages.NewWizardPage_Template);
 
-		createTemplate(composite, TemplateHelper.getTemplates());
+		createTemplate(composite, TemplateHelper.getInstance().getTemplates());
 
 		if (setPath(metaFolder)) {
 			txtFile.setFocus();
@@ -222,7 +222,7 @@ public class NewWizardPage extends WizardPage {
 			updateStatus(Messages.NewWizardPage_folder_2);
 		} else if (!container.isAccessible()) {
 			updateStatus(Messages.NewWizardPage_Project);
-		} else if (!TemplateHelper.isMetaProject(container)) { //$NON-NLS-1$
+		} else if (!TemplateHelper.getInstance().isMetaProject(container)) { //$NON-NLS-1$
 			updateStatus(Messages.NewWizardPage_Project_2);
 		} else if (getPath().lastIndexOf("ui_prototype") == -1) { //$NON-NLS-1$
 			updateStatus(Messages.NewWizardPage__folder_3);
