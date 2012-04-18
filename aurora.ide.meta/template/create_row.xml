@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<template name="general_create" iconPath="1.png" type="create" category="创建">
+	<models>
+		<model id="model_detail" name="创建BM"/>
+	</models>
+	
+	<form id="form.id" name="form.name" model="model_detail" />
+	
+	
+	<description><![CDATA[
+		创建一条数据
+	]]></description>
+</template>

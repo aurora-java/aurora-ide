@@ -16,6 +16,6 @@
 	</grid>
 	
 	<description><![CDATA[
-		创建 form+grid
+		以头行结构显示。创建头行结构的行数据，头表BM需要返回一条数据或者接收link到此页面的参数后返回一条数据。
 	]]></description>
 </template>
