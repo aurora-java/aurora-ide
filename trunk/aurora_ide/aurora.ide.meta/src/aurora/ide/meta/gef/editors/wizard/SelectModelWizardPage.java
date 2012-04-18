@@ -165,9 +165,10 @@ public class SelectModelWizardPage extends WizardPage {
 	private void fillBM(final BMReference bm, final Text txt) {
 		IResource r = ResourcesPlugin.getWorkspace().getRoot().findMember(txt.getText());
 		if (r == null || !r.exists()) {
-			updateStatus("?????????????????????????????????????????????");
+			updateStatus("文件不存在");
 			return;
 		} else if (!(r instanceof IFile) || (!r.getFileExtension().equalsIgnoreCase("bm"))) {
+			updateStatus("必须选择bm文件");
 			return;
 		}
 		updateStatus(null);
@@ -186,7 +187,7 @@ public class SelectModelWizardPage extends WizardPage {
 		ac.getTabRef().setInitModel(m);
 		viewDiagram.getInitModels().add(m);
 		// initModels.add(m);
-		//ac.getTabRef().setUrl("11");
+		// ac.getTabRef().setUrl("11");
 		// ref.setUrl(((aurora.ide.meta.gef.editors.template.TabRef)
 		// c).getUrl());
 		// ref.addAllParameter(((aurora.ide.meta.gef.editors.template.TabRef)
@@ -194,42 +195,38 @@ public class SelectModelWizardPage extends WizardPage {
 	}
 
 	private void fillContainer(Container ac, BMReference bm) {
+		ResultDataSet ds = new ResultDataSet();
+		String s = getBmPath(bm.getModel());
+		ds.setOwner(ac);
+		ds.setModel(s);
+		ac.setDataset(ds);
 		if (ac instanceof Grid) {
 			fillGrid((Grid) ac, bm.getModel());
-			ResultDataSet ds = ((Grid) ac).getDataset();
-			String s = getBmPath(bm.getModel());
-			ds.setModel(s);
-			((Container) ac).setDataset(ds);
+		}
+
+		else if (viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {
+			for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
+				aurora.ide.meta.gef.editors.models.Label label = new aurora.ide.meta.gef.editors.models.Label();
+				label.setName(map.getString("name"));
+				label.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
+				if (GefModelAssist.getType(map) != null) {
+					label.setType(GefModelAssist.getType(map));
+				}
+				((Container) ac).addChild(label);
+			}
+		} else {
+			for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
+				Input input = new Input();
+				input.setName(map.getString("name"));
+				input.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
+				if (GefModelAssist.getType(map) != null) {
+					input.setType(GefModelAssist.getType(map));
+				}
+				((Container) ac).addChild(input);
+
+			}
 		}
 	}
-
-	// else if (viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {
-	// for (CommentCompositeMap map :
-	// GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
-	// aurora.ide.meta.gef.editors.models.Label label = new
-	// aurora.ide.meta.gef.editors.models.Label();
-	// label.setName(map.getString("name"));
-	// label.setPrompt(map.getString("prompt") == null ? map.getString("name") :
-	// map.getString("prompt"));
-	// if (GefModelAssist.getType(map) != null) {
-	// label.setType(GefModelAssist.getType(map));
-	// }
-	// ((Container) ac).addChild(label);
-	// }
-	// } else {
-	// for (CommentCompositeMap map :
-	// GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
-	// Input input = new Input();
-	// input.setName(map.getString("name"));
-	// input.setPrompt(map.getString("prompt") == null ? map.getString("name") :
-	// map.getString("prompt"));
-	// if (GefModelAssist.getType(map) != null) {
-	// input.setType(GefModelAssist.getType(map));
-	// }
-	// ((Container) ac).addChild(input);
-	// }
-	// }
-	// }
 
 	private String getBmPath(IFile bm) {
 		if (bm == null) {
@@ -254,7 +251,7 @@ public class SelectModelWizardPage extends WizardPage {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));
 			gc.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
-			if (GefModelAssist.getTypeNotNull(map) != null && (!viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY))) {
+			if (!viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {
 				gc.setEditor(GefModelAssist.getTypeNotNull(map));
 			}
 			grid.addCol(gc);
