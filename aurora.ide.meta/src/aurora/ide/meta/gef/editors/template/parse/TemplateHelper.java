@@ -12,20 +12,69 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.xml.sax.SAXException;
 
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.MetaPlugin;
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.Button;
+import aurora.ide.meta.gef.editors.models.ButtonClicker;
+import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.Grid;
+import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.Label;
+import aurora.ide.meta.gef.editors.models.ResultDataSet;
+import aurora.ide.meta.gef.editors.models.TabItem;
+import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.models.link.TabRef;
+import aurora.ide.meta.gef.editors.template.BMBindComponent;
+import aurora.ide.meta.gef.editors.template.BMReference;
+import aurora.ide.meta.gef.editors.template.ButtonComponent;
+import aurora.ide.meta.gef.editors.template.Component;
+import aurora.ide.meta.gef.editors.template.TabRefComponent;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
+import aurora.ide.search.core.Util;
 
 public class TemplateHelper {
 
 	private static Map<String, Template> templates = new HashMap<String, Template>();
 
-	private static void loadTemplate() {
+	private static TemplateHelper tph = null;
+
+	// private Template template;
+	// private Map<String, IFile> modelMap = new HashMap<String, IFile>();
+	// private Map<String, AuroraComponent> acptMap = new HashMap<String,
+	// AuroraComponent>();
+	private Map<String, String> queryRelated;
+	private Map<BMReference, AuroraComponent> modeRelated;
+	private Map<BMReference, AuroraComponent> initModeRelated;
+	// private List<InitModel> initModels = new ArrayList<InitModel>();
+	private Map<String, AuroraComponent> auroraComponents;
+	// private Map<String, BMReference> bmReference = new HashMap<String,
+	// BMReference>();
+
+	private List<BMReference> bms;
+	private List<BMReference> initBms;
+
+	private int tabItemIndex = 0;
+
+	public static TemplateHelper getInstance() {
+		if (tph == null) {
+			tph = new TemplateHelper();
+		}
+		return tph;
+	}
+
+	private TemplateHelper() {
+
+	}
+
+	private void loadTemplate() {
 		IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
 		List<File> files = getFiles(path.toString(), ".xml");
 		SAXParser parser = null;
@@ -56,7 +105,7 @@ public class TemplateHelper {
 		}
 	}
 
-	private static List<File> getFiles(String path, final String extension) {
+	private List<File> getFiles(String path, final String extension) {
 		List<File> files = new ArrayList<File>();
 
 		java.io.File file = new File(path.toString());
@@ -81,7 +130,7 @@ public class TemplateHelper {
 		return files;
 	}
 
-	public static boolean isMetaProject(IResource container) {
+	public boolean isMetaProject(IResource container) {
 		try {
 			return container.getProject().hasNature(AuroraMetaProjectNature.ID);
 		} catch (CoreException e) {
@@ -90,11 +139,11 @@ public class TemplateHelper {
 		return false;
 	}
 
-	public static Map<String, java.util.List<Template>> getTemplates() {
+	public Map<String, List<Template>> getTemplates() {
 		if (templates.size() <= 0) {
 			loadTemplate();
 		}
-		Map<String, java.util.List<Template>> tempMap = new HashMap<String, java.util.List<Template>>();
+		Map<String, List<Template>> tempMap = new HashMap<String, List<Template>>();
 		for (Template tm : templates.values()) {
 			if (tempMap.get(tm.getCategory()) == null) {
 				tempMap.put(tm.getCategory(), new ArrayList<Template>());
@@ -104,10 +153,231 @@ public class TemplateHelper {
 		return tempMap;
 	}
 
-	public static Template getTemplates(String key) {
+	public Template getTemplates(String key) {
 		if (templates.size() <= 0) {
 			loadTemplate();
 		}
 		return templates.get(key);
 	}
+
+	public ViewDiagram createView(Template template) {
+		initVariable(template);
+		ViewDiagram viewDiagram = new ViewDiagram();
+		for (Component c : template.getChildren()) {
+			AuroraComponent ac = createAuroraComponent(c);
+			if (ac instanceof AuroraComponent) {
+				viewDiagram.addChild(ac);
+			}
+		}
+		// fillQueryField();
+		fillQueryRelated();
+		viewDiagram.setTemplateType(template.getType());
+		viewDiagram.setBindTemplate(template.getPath());
+		// for (InitModel im : initModels) {
+		// viewDiagram.getInitModels().add(im);
+		// }
+		return viewDiagram;
+	}
+
+	private void initVariable(Template template) {
+		bms = template.getBms();
+		initBms = template.getInitBms();
+		queryRelated = new HashMap<String, String>();
+		auroraComponents = new HashMap<String, AuroraComponent>();
+		modeRelated = new HashMap<BMReference, AuroraComponent>();
+		initModeRelated = new HashMap<BMReference, AuroraComponent>();
+		tabItemIndex = 0;
+	}
+
+	private AuroraComponent createAuroraComponent(Component c) {
+		AuroraComponent ac = AuroraModelFactory.createComponent(c.getComponentType());
+		if (ac == null) {
+			return null;
+		}
+		if (null != c.getId() && !"".equals(c.getId())) {
+			auroraComponents.put(c.getId(), ac);
+		}
+		if ((c instanceof BMBindComponent) && (ac instanceof Container)) {
+			fillContainer((BMBindComponent) c, (Container) ac);
+		}
+		if (ac instanceof TabItem) {
+			((TabItem) ac).setPrompt("tabItem" + tabItemIndex++);
+		}
+		if (c.getChildren() == null) {
+			return ac;
+		}
+		for (Component c_child : c.getChildren()) {
+			if ((ac instanceof TabItem) && (c_child instanceof TabRefComponent)) {
+				fillTabRef((TabItem) ac, (TabRefComponent) c_child);
+				continue;
+			}
+			AuroraComponent ac_child = createAuroraComponent(c_child);
+			if ((c_child instanceof ButtonComponent) && (ac_child instanceof Button)) {
+				fillButton((ButtonComponent) c_child, (Button) ac_child);
+			}
+			if (ac instanceof Container) {
+				((Container) ac).addChild(ac_child);
+			}
+		}
+		return ac;
+	}
+
+	private void fillQueryRelated() {
+		for (String s : queryRelated.keySet()) {
+			Object obj = auroraComponents.get(s);
+			if (obj instanceof Button) {
+				Button btn = (Button) obj;
+				AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
+				btn.getButtonClicker().setTargetComponent(ac);
+			} else if (obj instanceof Grid) {
+				Grid bc = (Grid) obj;
+				AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
+				if (ac instanceof Container) {
+					bc.getDataset().setQueryContainer((Container) ac);
+				}
+			}
+		}
+	}
+
+	// private void fillQueryField() {
+	// for (String mid : modelMap.keySet()) {
+	// Object obj = acptMap.get(mid);
+	// if (!(obj instanceof Container)) {
+	// continue;
+	// }
+	// if (((Container) obj).getSectionType() == null || "".equals(((Container)
+	// obj).getSectionType())) {
+	// ((Container) obj).setSectionType(Container.SECTION_TYPE_QUERY);
+	// String s = getBmPath(modelMap.get(mid));
+	// QueryDataSet ds = (QueryDataSet) ((Container) obj).getDataset();
+	// ds.setModel(s);
+	// ((Container) obj).setDataset(ds);
+	// }
+	// if (Template.TYPE_DISPLAY.equals(template.getType())) {
+	// CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
+	// for (CommentCompositeMap queryMap :
+	// GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid))))
+	// {
+	// Label label = new Label();
+	// ((Container) obj).addChild(createField(label, map, queryMap));
+	// }
+	// } else {
+	// CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
+	// for (CommentCompositeMap queryMap :
+	// GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid))))
+	// {
+	// Input input = new Input();
+	// ((Container) obj).addChild(createField(input, map, queryMap));
+	// }
+	// }
+	// }
+	// }
+
+	// private AuroraComponent createField(AuroraComponent ac,
+	// CommentCompositeMap map, CommentCompositeMap queryMap) {
+	// CommentCompositeMap fieldMap =
+	// GefModelAssist.getCompositeMap((CommentCompositeMap)
+	// map.getChild("fields"), "name", queryMap.getString("field"));
+	// if (fieldMap == null) {
+	// fieldMap = queryMap;
+	// }
+	// ac.setName(fieldMap.getString("name"));
+	// ac.setPrompt(fieldMap.getString("prompt") == null ?
+	// fieldMap.getString("name") : fieldMap.getString("prompt"));
+	// ac.setType(GefModelAssist.getTypeNotNull(fieldMap));
+	// return ac;
+	// }
+
+	private void fillButton(ButtonComponent btnc, Button btn) {
+		if ("toolBar".equals(btnc.getParent().getComponentType()) && contains(Button.std_types, btnc.getType())) {
+			btn.setButtonType(btnc.getType());
+		} else if (contains(ButtonClicker.action_ids, btnc.getType())) {
+			ButtonClicker bc = btn.getButtonClicker();
+			if (bc == null) {
+				bc = new ButtonClicker();
+				bc.setButton(btn);
+			}
+			bc.setActionID(btnc.getType());
+			btn.setButtonClicker(bc);
+			btn.setText(btnc.getText());
+			// bc.setOpenPath(btn.getUrl());
+			queryRelated.put(btnc.getId(), btnc.getTarget());
+		}
+	}
+
+	private void fillTabRef(TabItem ac, TabRefComponent c) {
+		TabRef ref = ac.getTabRef();
+		if (ref == null) {
+			ref = new TabRef();
+		}
+		ac.setTabRef(ref);
+		String ibmId = c.getInitModel();
+		BMReference bm = null;
+		for (BMReference b : initBms) {
+			if (!ibmId.equals(b.getId())) {
+				continue;
+			}
+			bm = b;
+			break;
+		}
+		if (bm == null) {
+			return;
+		}
+		// TODO
+		initModeRelated.put(bm, ac);
+	}
+
+	private boolean contains(String[] ss, String s) {
+		if (ss == null || s == null) {
+			return false;
+		}
+		for (String st : ss) {
+			if (st.equals(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void fillContainer(BMBindComponent c, Container ac) {
+		String bmId = c.getBmReferenceID();
+		if (bmId == null || "".equals(bmId)) {
+			return;
+		}
+		BMReference bm = null;
+		for (BMReference b : bms) {
+			if (!bmId.equals(b.getId())) {
+				continue;
+			}
+			bm = b;
+			break;
+		}
+		if (bm == null) {
+			return;
+		}
+		ac.setSectionType(Container.SECTION_TYPE_RESULT);
+		modeRelated.put(bm, ac);
+		String qcId = c.getQueryComponent();
+		if (qcId != null && (!"".equals(qcId))) {
+			// modelMap.put(qcId, bm.getModel());
+			queryRelated.put(c.getId(), qcId);
+		}
+	}
+
+	public List<BMReference> getBms() {
+		return bms;
+	}
+
+	public List<BMReference> getInitBms() {
+		return initBms;
+	}
+
+	public Map<BMReference, AuroraComponent> getInitModeRelated() {
+		return initModeRelated;
+	}
+
+	public Map<BMReference, AuroraComponent> getModeRelated() {
+		return modeRelated;
+	}
+
 }

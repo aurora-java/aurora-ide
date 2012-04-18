@@ -1,7 +1,7 @@
 package aurora.ide.meta.gef.editors.template;
 
 
-public class Button extends Component {
+public class ButtonComponent extends Component {
 	private String type;
 	private String target;
 	private String text;

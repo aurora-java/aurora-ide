@@ -1,6 +1,6 @@
 package aurora.ide.meta.gef.editors.template;
 
-public class TabRef extends Component {
+public class TabRefComponent extends Component {
 	private String initModel;
 
 	public String getInitModel() {
