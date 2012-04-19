@@ -1,7 +1,6 @@
 package aurora.ide.meta.gef.editors.wizard;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -29,8 +28,8 @@ import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Template;
-import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
 import aurora.ide.meta.gef.editors.template.handle.TemplateFactory;
+import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.SelectModelDialog;
 import aurora.ide.meta.gef.i18n.Messages;
@@ -145,7 +144,7 @@ public class SelectModelWizardPage extends WizardPage {
 
 		btn.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(bmPath);
+				IResource folder =ResourcesPlugin.getWorkspace().getRoot().findMember(bmPath);
 				SelectModelDialog dialog = new SelectModelDialog(getShell(), folder);
 				if ((dialog.open() == Dialog.OK) && (dialog.getResult() instanceof IFile)) {
 					txt.setText(((IFile) dialog.getResult()).getFullPath().toString());
