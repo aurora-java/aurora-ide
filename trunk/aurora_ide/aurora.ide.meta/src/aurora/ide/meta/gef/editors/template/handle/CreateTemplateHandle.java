@@ -1,32 +1,22 @@
 package aurora.ide.meta.gef.editors.template.handle;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
-
-import aurora.ide.api.composite.map.CommentCompositeMap;
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
-import aurora.ide.meta.gef.editors.template.Template;
-import aurora.ide.search.core.Util;
 
 public class CreateTemplateHandle extends TemplateHandle {
-
-	private ViewDiagram viewDiagram;
-	private Map<BMReference, List<Container>> modelRelated;
-
 	// private Map<BMReference, List<AuroraComponent>> initModeRelated;
 
 	public void fill(ViewDiagram viewDiagram) {
 		this.viewDiagram = viewDiagram;
-		modelRelated = TemplateHelper.getInstance().getModelRelated();
-
+		setRowColNum(viewDiagram);
 		for (BMReference bm : modelRelated.keySet()) {
 			for (Container ac : modelRelated.get(bm)) {
 				fillContainer(ac, bm);
@@ -41,6 +31,25 @@ public class CreateTemplateHandle extends TemplateHandle {
 		// if(!){
 		//
 		// }
+	}
+
+	private void setRowColNum(ViewDiagram viewDiagram) {
+		List<BOX> rowCols = new ArrayList<BOX>();
+		boolean hasContainer = false;
+		for (AuroraComponent ac : viewDiagram.getChildren()) {
+			if (ac instanceof BOX) {
+				if (((BOX) ac).getChildren().size() == 0) {
+					rowCols.add((BOX) ac);
+				}
+			} else {
+				hasContainer = true;
+			}
+		}
+		if (!hasContainer) {
+			for (BOX rc : rowCols) {
+				rc.setCol(1);
+			}
+		}
 	}
 
 	// private void fillInitModel(TabItem ac, BMReference bm) {
@@ -69,7 +78,7 @@ public class CreateTemplateHandle extends TemplateHandle {
 		} else {
 			fillBox(ac, bm);
 		}
-		ac.setPropertyValue(Container.WIDTH, 1);
+		//ac.setPropertyValue(Container.WIDTH, 226);
 	}
 
 	// else if (viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {

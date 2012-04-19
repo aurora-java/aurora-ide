@@ -1,5 +1,8 @@
 package aurora.ide.meta.gef.editors.template.handle;
 
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 
 import aurora.ide.api.composite.map.CommentCompositeMap;
@@ -10,10 +13,16 @@ import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
-import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.search.core.Util;
 
 public abstract class TemplateHandle {
+	protected ViewDiagram viewDiagram;
+	protected Map<BMReference, List<Container>> modelRelated;
+	
+	public TemplateHandle(){
+		modelRelated = TemplateHelper.getInstance().getModelRelated();
+	}
+	
 	public abstract void fill(ViewDiagram viewDiagram);
 
 	protected void fillBox(Container ac, BMReference bm) {
@@ -45,6 +54,7 @@ public abstract class TemplateHandle {
 				i--;
 			}
 		}
+		
 		for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm))) {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));
