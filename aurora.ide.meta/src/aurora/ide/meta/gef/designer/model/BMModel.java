@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import aurora.ide.meta.gef.designer.DataType;
+
 public class BMModel {
 	public static final String STRUCTURE_RECORD = "structure_record";
 	public static final String STRUCTURE_RELATION = "structure_relation";
@@ -22,6 +24,13 @@ public class BMModel {
 	private String title = "";
 	private String autoExtend = "";
 	private String defaultDiaplay = "";
+	private Record pkRecord = new Record() {
+		{
+			setName("default_pk_name");// this name should be reset
+			setPrompt("primary-key");
+			setType(DataType.BIGNIT.getDisplayType());
+		}
+	};
 	private PropertyChangeListener recordListener = new PropertyChangeListener() {
 
 		public void propertyChange(PropertyChangeEvent evt) {
@@ -269,5 +278,13 @@ public class BMModel {
 		}
 		String[] ss = new String[als.size()];
 		return als.toArray(ss);
+	}
+
+	public Record getPkRecord() {
+		return pkRecord;
+	}
+
+	public void setPkRecord(Record pkRecord) {
+		this.pkRecord = pkRecord;
 	}
 }

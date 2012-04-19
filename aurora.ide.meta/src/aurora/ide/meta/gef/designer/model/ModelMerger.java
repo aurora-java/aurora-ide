@@ -19,6 +19,7 @@ import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
@@ -111,12 +112,13 @@ public class ModelMerger {
 	}
 
 	/**
-	 * when read
+	 * when read,use to bm to update bmmodel
 	 */
 	private void updateModel() {
 		model.setTitle(bmMap.getString(BMModel.TITLE));
-		updateRecords();
-		updateRelations();
+		BMCompositeMap bmc = new BMCompositeMap(bmMap);
+		updateRecordsOfModel(model, bmc);
+		updateRelationsOfModel(model, bmc);
 		String ddf = bmMap.getString("defaultDisplayField");
 		for (Record r : model.getRecordList()) {
 			if (r.getName().equals(ddf))
@@ -125,17 +127,17 @@ public class ModelMerger {
 	}
 
 	/**
-	 * when read
+	 * when read,use bm to update bmmodel (record)
 	 */
 	@SuppressWarnings("unchecked")
-	private void updateRecords() {
-		CompositeMap fieldsMap = bmMap.getChild("fields");
+	private void updateRecordsOfModel(BMModel model, BMCompositeMap bmc) {
+		CompositeMap fieldsMap = bmc.getFieldsMap();
 		if (fieldsMap == null) {
 			model.removeAll();
 			return;
 		}
-		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) fieldsMap
-				.getChildsNotNull();
+		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) bmc
+				.getFields();
 		list = (LinkedList<CompositeMap>) list.clone();
 		ArrayList<Record> records = model.getRecordList();
 		for (int i = 0; i < records.size(); i++) {
@@ -153,35 +155,46 @@ public class ModelMerger {
 				i--;
 				continue;
 			}
-			r.setName(m.getString("name"));
-			// r.setType(type);
+			updateRecordUseCompositeMap(r, m);
 			list.remove(m);
 		}
+		CompositeMap pkf = bmc.getFieldOfPk();
+		if (pkf != null) {
+			Record r = model.getPkRecord();
+			updateRecordUseCompositeMap(r, pkf);
+		}
 		for (CompositeMap m : list) {
+			if (m.getString("name").equals(model.getPkRecord().getName()))
+				continue;
 			model.add(createNewRecord(m));
 		}
 	}
 
+	private void updateRecordUseCompositeMap(Record r, CompositeMap fMap) {
+		r.setName(fMap.getString("name"));
+		r.setPrompt(fMap.getString("prompt"));
+		r.setOptions(fMap.getString("options"));
+		// TODO update other property of record when read
+	}
+
 	private Record createNewRecord(CompositeMap m) {
 		Record r = new Record();
-		r.setName(m.getString("name"));
-		r.setPrompt(m.getString("prompt"));
-		// TODO createNewRecord
+		updateRecordUseCompositeMap(r, m);
 		return r;
 	}
 
 	/**
-	 * when read
+	 * when read,use bm to update bmmodel (relations)
 	 */
 	@SuppressWarnings("unchecked")
-	private void updateRelations() {
-		CompositeMap relMap = bmMap.getChild("relations");
+	private void updateRelationsOfModel(BMModel model, BMCompositeMap bmc) {
+		CompositeMap relMap = bmc.getRelationsMap();
 		if (relMap == null) {
 			model.removeAllRelations();
 			return;
 		}
-		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) relMap
-				.getChildsNotNull();
+		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) bmc
+				.getRelations();
 		list = (LinkedList<CompositeMap>) list.clone();
 		ArrayList<Relation> relations = model.getRelationList();
 		for (int i = 0; i < relations.size(); i++) {
@@ -203,17 +216,16 @@ public class ModelMerger {
 			r.setRefTable(m.getString("refModel"));
 			CompositeMap mm = m.getChild("reference");
 			if (mm != null) {
-				updateRefrence(mm, r);
+				updateReferenceOfModel(mm, r);
 			}
 			list.remove(m);
 		}
 		for (CompositeMap m : list) {
 			model.add(createNewRelation(m));
 		}
-
 	}
 
-	private void updateRefrence(CompositeMap refMap, Relation r) {
+	private void updateReferenceOfModel(CompositeMap refMap, Relation r) {
 		// update localField use new bm setting
 		for (Record lr : model.getRelationList()) {
 			if (lr.getName().equals(refMap.getString("localField"))) {
@@ -240,7 +252,7 @@ public class ModelMerger {
 		r.setJoinType(m.getString("joinType"));
 		r.setRefTable(m.getString("refModel"));
 		CompositeMap mm = m.getChild("reference");
-		updateRefrence(mm, r);
+		updateReferenceOfModel(mm, r);
 		return r;
 	}
 
@@ -253,27 +265,29 @@ public class ModelMerger {
 	 */
 	public CompositeMap getMergedCompositeMap() {
 		if (bmMap != null)
-			updateBmMap();
+			updateBmMap(bmMap, model);
 		return bmMap;
 	}
 
-	private void updateBmMap() {
+	private void updateBmMap(CompositeMap bmMap, BMModel model) {
+		BMCompositeMap bmc = new BMCompositeMap(bmMap);
 		bmMap.put(BMModel.TITLE, model.getTitle());
 		Record r = model.getDefaultDisplayRecord();
 		if (r != null)
 			bmMap.put("defaultDisplayField", r.getName());
-		CompositeMap fieldsMap = bmMap.getChild("fields");
-		updateFields(fieldsMap);
-		CompositeMap relMap = bmMap.getChild("relations");
-		updateRelations(relMap);
+		updateFieldsOfBm(bmc, model);
+		updateRelationsOfBm(bmc, model);
 	}
 
 	@SuppressWarnings("unchecked")
-	private void updateFields(CompositeMap fieldsMap) {
-		List<CompositeMap> list = fieldsMap.getChildsNotNull();
+	private void updateFieldsOfBm(BMCompositeMap bmc, BMModel model) {
+		CompositeMap fieldsMap = bmc.getFieldsMap();
+		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) bmc
+				.getFields();
+		list = (LinkedList<CompositeMap>) list.clone();
 		List<Record> records = (ArrayList<Record>) model.getRecordList()
 				.clone();
-		String pk_name = new DataSetFieldUtil().getPK(fieldsMap.getParent());
+		String pk_name = bmc.getPkFieldName();
 		for (int i = 0; i < list.size(); i++) {
 			CompositeMap m = list.get(i);
 			String prompt = m.getString("prompt");
@@ -292,30 +306,55 @@ public class ModelMerger {
 				continue;
 			}
 			// field that exists, will be update
-			m.put("name", r.getName());
-			DataType dt = DataType.fromString(r.getType());
-			if (dt == null)
-				dt = DataType.TEXT;
-			m.put("databaseType", dt.getDbType());
-			m.put("dataType", dt.getJavaType());
-			String editor = r.getString(IDesignerConst.COLUMN_EDITOR);
-			m.put("defaultEditor", editor);
-			if (editor.equals(Input.Combo) || editor.equals(Input.LOV)) {
-				String options = r.getString(IDesignerConst.COLUMN_OPTIONS);
-				m.put("options", options);
-			}
+			updateFieldUseRecord(m, r);
 			records.remove(r);
 		}
 		// new fields will be add to bm
 		for (Record r : records) {
-			if (!r.getName().equals(pk_name))
-				fieldsMap.addChild(getNewFieldMap(r));
+			fieldsMap.addChild(getNewFieldMap(r));
+		}
+		updatePk(model, bmc);
+	}
+
+	/**
+	 * when write ,update pk of bm<br/>
+	 * 
+	 * @param model
+	 * @param bmc
+	 */
+	private void updatePk(BMModel model, BMCompositeMap bmc) {
+		Record r = model.getPkRecord();
+		CompositeMap pkfMap = bmc.getFieldOfPk();
+		if (pkfMap != null) {
+			pkfMap.put("name", r.getName());
+		}
+		CompositeMap pkf = bmc.getFirstPkField();
+		if (pkf != null)
+			pkf.put("name", r.getName());
+
+	}
+
+	private void updateFieldUseRecord(CompositeMap m, Record r) {
+		m.put("name", r.getName());
+		DataType dt = DataType.fromString(r.getType());
+		if (dt == null)
+			dt = DataType.TEXT;
+		m.put("databaseType", dt.getDbType());
+		m.put("dataType", dt.getJavaType());
+		String editor = r.getString(IDesignerConst.COLUMN_EDITOR);
+		m.put("defaultEditor", editor);
+		if (editor.equals(Input.Combo) || editor.equals(Input.LOV)) {
+			String options = r.getString(IDesignerConst.COLUMN_OPTIONS);
+			m.put("options", options);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private void updateRelations(CompositeMap relMap) {
-		List<CompositeMap> list = relMap.getChildsNotNull();
+	private void updateRelationsOfBm(BMCompositeMap bmc, BMModel model) {
+		CompositeMap relMap = bmc.getRelationsMap();
+		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) bmc
+				.getRelations();
+		list = (LinkedList<CompositeMap>) list.clone();
 		List<Relation> relations = (ArrayList<Relation>) model
 				.getRelationList().clone();
 		for (int i = 0; i < list.size(); i++) {
@@ -374,7 +413,7 @@ public class ModelMerger {
 		if (dt == null)
 			dt = DataType.TEXT;
 		map.put("databaseType", dt.getDbType());
-		map.put("datatype", dt.getJavaType());
+		map.put("dataType", dt.getJavaType());
 		map.put("defaultEditor", r.getString(IDesignerConst.COLUMN_EDITOR));
 		map.put("prompt", r.getPrompt());
 		return map;
