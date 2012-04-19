@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.designer.gen;
 
+import java.util.ArrayList;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -133,6 +135,7 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 
 	private CompositeMap genRefFieldsMap(BMModel model) {
 		CompositeMap fieldsMap = newCompositeMap("ref-fields");
+		ArrayList<String> reffName = new ArrayList<String>();
 		for (Relation r : model.getRelationList()) {
 			CompositeMap m = newCompositeMap("ref-field");
 			String bmpath = r.getRefTable();
@@ -148,7 +151,13 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 			BMCompositeMap bcm = new BMCompositeMap(refBmMap);
 			m.put("relationName", r.getName());
 			String remoteDisplay = bcm.getDefaultDisplayFieldName();
-			m.put("name", remoteDisplay + "_ref");
+			String ref_name = remoteDisplay + "_ref";
+			int i = 1;
+			while (reffName.indexOf(ref_name) != -1) {
+				ref_name = remoteDisplay + "_ref_" + i++;
+			}
+			reffName.add(ref_name);
+			m.put("name", ref_name);
 			m.put("sourceField", remoteDisplay);
 			fieldsMap.addChild(m);
 		}
