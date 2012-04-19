@@ -28,8 +28,12 @@ public class SqlGenerator implements IDesignerConst {
 		sb.append(String.format(header, name));
 		maxNameLength = getMaxNameLength();
 		String cm = String.format(column_model, maxNameLength);
+		String t = (rs.length == 0) ? "" : ",";
+		Record r = model.getPkRecord();
+		sb.append(String.format(cm, r.getName(), getSqlType(r.getType()))
+				+ " not null" + t + line_sep);
 		for (int i = 0; i < rs.length; i++) {
-			String t = (i == rs.length - 1) ? "" : ",";
+			t = (i == rs.length - 1) ? "" : ",";
 			sb.append(String.format(cm, rs[i].getName(),
 					getSqlType(rs[i].getType()))
 					+ t + line_sep);
@@ -44,6 +48,8 @@ public class SqlGenerator implements IDesignerConst {
 		sb.append("-- Add comments to the columns " + line_sep);
 		String cm = String.format(comment_model, name.length() + 1
 				+ maxNameLength);
+		Record pkr = model.getPkRecord();
+		sb.append(String.format(cm, name + "." + pkr.getName(), pkr.getPrompt()));
 		for (Record r : model.getRecordList()) {
 			sb.append(String.format(cm, name + "." + r.getName(), r.getPrompt()));
 		}
@@ -56,6 +62,9 @@ public class SqlGenerator implements IDesignerConst {
 			if (l > length)
 				length = l;
 		}
+		int l = model.getPkRecord().getName().length();
+		if (l > length)
+			length = l;
 		return length;
 	}
 

@@ -8,7 +8,7 @@ import org.eclipse.core.runtime.Path;
 import uncertain.composite.CompositeMap;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.ApplicationException;
-import aurora.ide.meta.gef.designer.BMCompoisteMap;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
@@ -77,7 +77,7 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		BMCompoisteMap bcm = new BMCompoisteMap(bmMap);
+		BMCompositeMap bcm = new BMCompositeMap(bmMap);
 		String[] fnames = { bcm.getPkFieldName(),
 				bcm.getDefaultDisplayFieldName() };
 		for (String name : fnames) {
@@ -145,7 +145,7 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
-			BMCompoisteMap bcm = new BMCompoisteMap(refBmMap);
+			BMCompositeMap bcm = new BMCompositeMap(refBmMap);
 			m.put("relationName", r.getName());
 			String remoteDisplay = bcm.getDefaultDisplayFieldName();
 			m.put("name", remoteDisplay + "_ref");
