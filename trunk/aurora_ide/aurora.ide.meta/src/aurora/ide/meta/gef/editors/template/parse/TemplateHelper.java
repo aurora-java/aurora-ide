@@ -12,22 +12,17 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.xml.sax.SAXException;
 
-import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.Label;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
@@ -38,7 +33,6 @@ import aurora.ide.meta.gef.editors.template.Component;
 import aurora.ide.meta.gef.editors.template.TabRefComponent;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
-import aurora.ide.search.core.Util;
 
 public class TemplateHelper {
 
@@ -46,18 +40,10 @@ public class TemplateHelper {
 
 	private static TemplateHelper tph = null;
 
-	// private Template template;
-	// private Map<String, IFile> modelMap = new HashMap<String, IFile>();
-	// private Map<String, AuroraComponent> acptMap = new HashMap<String,
-	// AuroraComponent>();
 	private Map<String, String> queryRelated;
-	private Map<BMReference, AuroraComponent> modeRelated;
-	private Map<BMReference, AuroraComponent> initModeRelated;
-	// private List<InitModel> initModels = new ArrayList<InitModel>();
+	private Map<BMReference, List<Container>> modelRelated;
+	private Map<BMReference, List<AuroraComponent>> initModelRelated;
 	private Map<String, AuroraComponent> auroraComponents;
-	// private Map<String, BMReference> bmReference = new HashMap<String,
-	// BMReference>();
-
 	private List<BMReference> bms;
 	private List<BMReference> initBms;
 
@@ -169,13 +155,9 @@ public class TemplateHelper {
 				viewDiagram.addChild(ac);
 			}
 		}
-		// fillQueryField();
 		fillQueryRelated();
 		viewDiagram.setTemplateType(template.getType());
 		viewDiagram.setBindTemplate(template.getPath());
-		// for (InitModel im : initModels) {
-		// viewDiagram.getInitModels().add(im);
-		// }
 		return viewDiagram;
 	}
 
@@ -184,8 +166,8 @@ public class TemplateHelper {
 		initBms = template.getInitBms();
 		queryRelated = new HashMap<String, String>();
 		auroraComponents = new HashMap<String, AuroraComponent>();
-		modeRelated = new HashMap<BMReference, AuroraComponent>();
-		initModeRelated = new HashMap<BMReference, AuroraComponent>();
+		modelRelated = new HashMap<BMReference, List<Container>>();
+		initModelRelated = new HashMap<BMReference, List<AuroraComponent>>();
 		tabItemIndex = 0;
 	}
 
@@ -323,8 +305,10 @@ public class TemplateHelper {
 		if (bm == null) {
 			return;
 		}
-		// TODO
-		initModeRelated.put(bm, ac);
+		if (initModelRelated.get(bm) == null) {
+			initModelRelated.put(bm, new ArrayList<AuroraComponent>());
+		}
+		initModelRelated.get(bm).add(ac);
 	}
 
 	private boolean contains(String[] ss, String s) {
@@ -356,10 +340,12 @@ public class TemplateHelper {
 			return;
 		}
 		ac.setSectionType(Container.SECTION_TYPE_RESULT);
-		modeRelated.put(bm, ac);
+		if (modelRelated.get(bm) == null) {
+			modelRelated.put(bm, new ArrayList<Container>());
+		}
+		modelRelated.get(bm).add(ac);
 		String qcId = c.getQueryComponent();
 		if (qcId != null && (!"".equals(qcId))) {
-			// modelMap.put(qcId, bm.getModel());
 			queryRelated.put(c.getId(), qcId);
 		}
 	}
@@ -372,12 +358,20 @@ public class TemplateHelper {
 		return initBms;
 	}
 
-	public Map<BMReference, AuroraComponent> getInitModeRelated() {
-		return initModeRelated;
+	public Map<String, String> getQueryRelated() {
+		return queryRelated;
 	}
 
-	public Map<BMReference, AuroraComponent> getModeRelated() {
-		return modeRelated;
+	public Map<BMReference, List<Container>> getModelRelated() {
+		return modelRelated;
+	}
+
+	public Map<BMReference, List<AuroraComponent>> getInitModelRelated() {
+		return initModelRelated;
+	}
+
+	public Map<String, AuroraComponent> getAuroraComponents() {
+		return auroraComponents;
 	}
 
 }

@@ -14,10 +14,16 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.dialogs.IPageChangedListener;
+import org.eclipse.jface.dialogs.IPageChangingListener;
+import org.eclipse.jface.dialogs.PageChangedEvent;
+import org.eclipse.jface.dialogs.PageChangingEvent;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -71,6 +77,17 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		addPage(newPage);
 		addPage(selectPage);
 		addPage(settingPage);
+	}
+
+	@Override
+	public void createPageControls(Composite pageContainer) {
+		super.createPageControls(pageContainer);
+		WizardDialog dialog = (WizardDialog) getContainer();
+		dialog.addPageChangingListener(new IPageChangingListener() {
+			public void handlePageChanging(PageChangingEvent event) {
+				System.out.println("aurora.wizard.select.Page".equals(event.getTargetPage().toString()));
+			}
+		});
 	}
 
 	@Override
