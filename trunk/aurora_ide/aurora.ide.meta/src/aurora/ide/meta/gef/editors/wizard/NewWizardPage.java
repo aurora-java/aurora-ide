@@ -29,7 +29,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
 import aurora.ide.meta.gef.editors.template.Template;
-import aurora.ide.meta.gef.editors.template.parse.TemplateHelper;
+import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.TComposite;
 import aurora.ide.meta.gef.i18n.Messages;
 
@@ -160,7 +160,9 @@ public class NewWizardPage extends WizardPage {
 
 	private void createTemplate(Composite composite, Map<String, java.util.List<Template>> tempMap) {
 		TComposite tComposite = new TComposite(composite, SWT.BORDER, tempMap);
-		tComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		GridData gd=new GridData(GridData.FILL_BOTH);
+		gd.heightHint=300;
+		tComposite.setLayoutData(gd);
 		template = tComposite.getSelection();
 		tComposite.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
