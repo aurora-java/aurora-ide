@@ -45,10 +45,12 @@ public interface IDesignerConst {
 	String TEXT = "text"; //$NON-NLS-1$
 	String LONG_TEXT = "long text"; //$NON-NLS-1$
 	String INTEGER = "integer"; //$NON-NLS-1$
+	String BIGINT = "big int";
 	String FLOAT = "float"; //$NON-NLS-1$
 	String DATE = "date"; //$NON-NLS-1$
 	String DATE_TIME = "dateTime"; //$NON-NLS-1$
-	String[] data_types = { TEXT, LONG_TEXT, INTEGER, FLOAT, DATE, DATE_TIME };
+	String[] data_types = { TEXT, LONG_TEXT, INTEGER, BIGINT, FLOAT, DATE,
+			DATE_TIME };
 	// auto extend types
 	String AE_LOV = "lov"; //$NON-NLS-1$
 	String AE_QUERY = "query"; //$NON-NLS-1$
