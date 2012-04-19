@@ -29,7 +29,7 @@ import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Template;
-import aurora.ide.meta.gef.editors.template.handle.ITemplateHandle;
+import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
 import aurora.ide.meta.gef.editors.template.handle.TemplateFactory;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.SelectModelDialog;
@@ -42,6 +42,7 @@ public class SelectModelWizardPage extends WizardPage {
 	private ViewDiagram viewDiagram;
 
 	private Composite composite;
+	private IPath bmPath;
 
 	public SelectModelWizardPage() {
 		super("aurora.wizard.select.Page"); //$NON-NLS-1$
@@ -55,28 +56,28 @@ public class SelectModelWizardPage extends WizardPage {
 		setControl(composite);
 	}
 
-	private IPath getBMPath() {
-		AuroraMetaProject metaPro = new AuroraMetaProject(((NewWizardPage) getPreviousPage()).getMetaProject());
+	public void setBMPath(IProject metaProject) {
+		AuroraMetaProject metaPro = new AuroraMetaProject(metaProject);
 		try {
 			if (metaPro == null || metaPro.getAuroraProject() == null) {
-				return null;
+				bmPath = null;
+				return;
 			}
 			IProject auroraPro = metaPro.getAuroraProject();
 			if (auroraPro.hasNature(AuroraProjectNature.ID)) {
-				return new Path(auroraPro.getPersistentProperty(ProjectPropertyPage.BMQN));
+				bmPath = new Path(auroraPro.getPersistentProperty(ProjectPropertyPage.BMQN));
+				return;
 			}
 		} catch (ResourceNotFoundException e) {
 			e.printStackTrace();
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
-		return null;
+		bmPath = null;
 	}
 
 	public void createDynamicTextComponents(Template t) {
 		this.viewDiagram = TemplateHelper.getInstance().createView(t);
-
-		IPath bmPath = getBMPath();
 		setPageComplete(false);
 		for (Control c : composite.getChildren()) {
 			if (!c.isDisposed()) {
@@ -90,7 +91,7 @@ public class SelectModelWizardPage extends WizardPage {
 			compoModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			compoModel.setText("Model");
 			for (BMReference bm : TemplateHelper.getInstance().getBms()) {
-				createTextField(compoModel, bm, bmPath);
+				createTextField(compoModel, bm);
 			}
 			compoModel.layout();
 		}
@@ -101,14 +102,14 @@ public class SelectModelWizardPage extends WizardPage {
 			compoInitModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			compoInitModel.setText("InitModel");
 			for (BMReference bm : TemplateHelper.getInstance().getInitBms()) {
-				createTextField(compoInitModel, bm, bmPath);
+				createTextField(compoInitModel, bm);
 			}
 			compoInitModel.layout();
 		}
 		composite.layout();
 	}
 
-	private void createTextField(Composite composite, final BMReference bm, final IPath bmPath) {
+	private void createTextField(Composite composite, final BMReference bm) {
 		Label lbl = new Label(composite, SWT.None);
 		lbl.setText(bm.getName());
 		final Text txt = new Text(composite, SWT.BORDER);
@@ -160,7 +161,7 @@ public class SelectModelWizardPage extends WizardPage {
 			}
 		}
 		if (true) {
-			ITemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType());
+			TemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType());
 			if (handle != null) {
 				handle.fill(viewDiagram);
 			}

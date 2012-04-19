@@ -232,7 +232,7 @@ public class TComposite extends SashForm {
 	private void setLabelChecked(TLabel label, boolean chencked) {
 		if (chencked) {
 			//label.checked();
-			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION));
 		} else {
 			//label.unChecked();
 			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));

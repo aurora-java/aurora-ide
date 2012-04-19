@@ -26,7 +26,7 @@ public class TLabel extends Composite {
 	private Canvas canvas;
 	private Label label;
 	private Point size;
-
+	
 	public TLabel(Composite parent, int style) {
 		super(parent, style);
 		this.setLayout(new GridLayout());
@@ -86,6 +86,8 @@ public class TLabel extends Composite {
 		}
 	}
 
+	
+	
 	public void setBackground(Color color) {
 		super.setBackground(color);
 		canvas.setBackground(color);
