@@ -53,8 +53,8 @@ import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Component;
 import aurora.ide.meta.gef.editors.template.Template;
-import aurora.ide.meta.gef.editors.template.parse.AuroraModelFactory;
-import aurora.ide.meta.gef.editors.template.parse.GefModelAssist;
+import aurora.ide.meta.gef.editors.template.handle.AuroraModelFactory;
+import aurora.ide.meta.gef.editors.template.handle.GefModelAssist;
 import aurora.ide.search.core.Util;
 import aurora.ide.search.ui.EditorOpener;
 
@@ -86,6 +86,11 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		dialog.addPageChangingListener(new IPageChangingListener() {
 			public void handlePageChanging(PageChangingEvent event) {
 				System.out.println("aurora.wizard.select.Page".equals(event.getTargetPage().toString()));
+			}
+		});
+		dialog.addPageChangedListener(new IPageChangedListener() {	
+			public void pageChanged(PageChangedEvent event) {
+				// TODO Auto-generated method stub
 			}
 		});
 	}
