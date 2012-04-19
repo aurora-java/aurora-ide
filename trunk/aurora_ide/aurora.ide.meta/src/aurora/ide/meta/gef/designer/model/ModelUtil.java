@@ -11,6 +11,7 @@ import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 
 public class ModelUtil implements IDesignerConst {
+	private static final String PK = "Pk-Record";
 	private static final String RECORDS = Record.class.getSimpleName() + "s";
 	private static final String RELATIONS = Relation.class.getSimpleName()
 			+ "s";
@@ -29,6 +30,11 @@ public class ModelUtil implements IDesignerConst {
 		map.put(BMModel.TITLE, model.getTitle());
 		map.put(BMModel.AUTOEXTEND, model.getAutoExtends());
 		map.put(BMModel.DEFAULT_DISPLAY, model.getDefaultDisplay());
+		// /pk
+		CompositeMap pkMap = toCompositeMap(model.getPkRecord());
+		pkMap.setName(PK);
+		map.addChild(pkMap);
+		// /end pk
 		CompositeMap recordMap = new CommentCompositeMap(RECORDS);
 		for (Record r : model.getRecords()) {
 			recordMap.addChild(toCompositeMap(r));
@@ -88,6 +94,12 @@ public class ModelUtil implements IDesignerConst {
 		model.setTitle(map.getString(BMModel.TITLE));
 		model.setAutoExtends(map.getString(BMModel.AUTOEXTEND));
 		model.setDefaultDisplay(map.getString(BMModel.DEFAULT_DISPLAY));
+		// /pk
+		CompositeMap pkMap = map.getChild(PK);
+		if (pkMap != null) {
+			model.setPkRecord(getRecord(pkMap));
+		}
+		// /end pk
 		CompositeMap recMap = map.getChild(RECORDS);
 		if (recMap != null) {
 			@SuppressWarnings("unchecked")
