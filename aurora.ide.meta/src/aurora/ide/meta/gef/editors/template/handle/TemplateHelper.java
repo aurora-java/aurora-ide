@@ -22,7 +22,7 @@ import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Grid;
+import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
@@ -211,11 +211,13 @@ public class TemplateHelper {
 				Button btn = (Button) obj;
 				AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
 				btn.getButtonClicker().setTargetComponent(ac);
-			} else if (obj instanceof Grid) {
-				Grid bc = (Grid) obj;
-				AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
-				if (ac instanceof Container) {
-					bc.getDataset().setQueryContainer((Container) ac);
+			} else if (obj instanceof Container) {
+				Container c = (Container) obj;
+				if (c.getDataset() instanceof ResultDataSet) {
+					AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
+					if (ac instanceof Container) {
+						((ResultDataSet) c.getDataset()).setQueryContainer((Container) ac);
+					}
 				}
 			}
 		}
