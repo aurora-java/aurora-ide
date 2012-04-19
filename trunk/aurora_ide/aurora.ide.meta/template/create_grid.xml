@@ -1,13 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <template name="general_create" iconPath="1.png" type="create" category="创建">
 	<models>
-		<model id="model_head" name="头表BM"/>
 		<model id="model_detail" name="行表BM"/>
 	</models>
-	
-	<form id="form.id" name="form.name" model="model_head" />
-	
-	<grid id="grid.id" name="grid.name" model="model_detail" query="form.id">
+
+	<grid id="grid.id" name="grid.name" model="model_detail">
 		<toolBar>
 			<button type="add"/>
 			<button type="save"/>
@@ -16,6 +13,6 @@
 	</grid>
 	
 	<description><![CDATA[
-		创建 form+grid
+		使用Grid，创建行表的详细数据。
 	]]></description>
 </template>
