@@ -6,7 +6,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.ButtonComponent;
@@ -121,4 +120,6 @@ public class TemplateParse extends DefaultHandler {
 		String value = attributes.getValue(attributes.getIndex(name));
 		return value == null ? "" : value;
 	}
+	
+	
 }
