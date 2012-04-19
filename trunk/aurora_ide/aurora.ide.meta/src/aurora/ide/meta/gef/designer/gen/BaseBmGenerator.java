@@ -113,7 +113,7 @@ public class BaseBmGenerator {
 
 	private CompositeMap genFieldsMap() {
 		CompositeMap fMap = newCompositeMap("fields");
-		String pk_name = getPkName();
+		String pk_name = model.getPkRecord().getName();
 		boolean haspk = false;
 		for (Record r : model.getRecordList()) {
 			CompositeMap m = getNewFieldMap(r);
@@ -128,22 +128,12 @@ public class BaseBmGenerator {
 
 	private CompositeMap genPkFieldMap() {
 		CompositeMap pk = newCompositeMap("field");
-		pk.put("name", getPkName());
+		Record r = model.getPkRecord();
+		pk.put("name", r.getName());
 		pk.put("databaseType", "BIGINT");
-		pk.put("datatype", "java.lang.Long");
+		pk.put("dataType", "java.lang.Long");
 		pk.put("prompt", "primary_key");
 		return pk;
-	}
-
-	/**
-	 * a simple way to generate a pk field name <br/>
-	 * {@link #genPkFieldMap()}<br/>
-	 * {@link #genPkMap()}
-	 * 
-	 * @return
-	 */
-	private String getPkName() {
-		return name + "_pk";
 	}
 
 	private CompositeMap getNewFieldMap(Record r) {
@@ -153,7 +143,7 @@ public class BaseBmGenerator {
 		if (dt == null)
 			dt = DataType.TEXT;
 		map.put("databaseType", dt.getDbType());
-		map.put("datatype", dt.getJavaType());
+		map.put("dataType", dt.getJavaType());
 		String editor = r.getString(IDesignerConst.COLUMN_EDITOR);
 		map.put("defaultEditor", editor);
 		map.put("prompt", r.getPrompt());
@@ -167,7 +157,7 @@ public class BaseBmGenerator {
 	private CompositeMap genPkMap() {
 		CompositeMap pkMap = newCompositeMap("primary-key");
 		CompositeMap pk = newCompositeMap("pk-field");
-		pk.put("name", getPkName());
+		pk.put("name", model.getPkRecord().getName());
 		pkMap.addChild(pk);
 		return pkMap;
 	}
