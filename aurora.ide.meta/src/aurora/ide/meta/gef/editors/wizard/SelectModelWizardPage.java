@@ -1,8 +1,5 @@
 package aurora.ide.meta.gef.editors.wizard;
 
-import java.util.List;
-import java.util.Map;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -28,35 +25,21 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.AuroraProjectNature;
-import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.exception.ResourceNotFoundException;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.InitModel;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
-import aurora.ide.meta.gef.editors.models.RowCol;
-import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Template;
-import aurora.ide.meta.gef.editors.template.parse.GefModelAssist;
+import aurora.ide.meta.gef.editors.template.parse.ITemplateHandle;
+import aurora.ide.meta.gef.editors.template.parse.TemplateFactory;
 import aurora.ide.meta.gef.editors.template.parse.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.SelectModelDialog;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.project.propertypage.ProjectPropertyPage;
-import aurora.ide.search.core.Util;
 
 public class SelectModelWizardPage extends WizardPage {
 
-	// private Template template;
 	private ViewDiagram viewDiagram;
-	private Map<BMReference, AuroraComponent> modeRelated;
-	private Map<BMReference, AuroraComponent> initModeRelated;
 
 	private Composite composite;
 
@@ -70,11 +53,10 @@ public class SelectModelWizardPage extends WizardPage {
 		composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout());
 		setControl(composite);
-
 	}
 
 	private IPath getBMPath() {
-		AuroraMetaProject metaPro = new AuroraMetaProject(getNewWizardPage().getMetaProject());
+		AuroraMetaProject metaPro = new AuroraMetaProject(((NewWizardPage) getPreviousPage()).getMetaProject());
 		try {
 			if (metaPro == null || metaPro.getAuroraProject() == null) {
 				return null;
@@ -93,10 +75,7 @@ public class SelectModelWizardPage extends WizardPage {
 
 	public void createDynamicTextComponents(Template t) {
 		this.viewDiagram = TemplateHelper.getInstance().createView(t);
-		List<BMReference> bms = TemplateHelper.getInstance().getBms();
-		List<BMReference> initBms = TemplateHelper.getInstance().getInitBms();
-		modeRelated = TemplateHelper.getInstance().getModeRelated();
-		initModeRelated = TemplateHelper.getInstance().getInitModeRelated();
+
 		IPath bmPath = getBMPath();
 		setPageComplete(false);
 		for (Control c : composite.getChildren()) {
@@ -105,23 +84,23 @@ public class SelectModelWizardPage extends WizardPage {
 			}
 		}
 
-		if (bms != null && bms.size() > 0) {
+		if (TemplateHelper.getInstance().getBms() != null && TemplateHelper.getInstance().getBms().size() > 0) {
 			Group compoModel = new Group(composite, SWT.NONE);
 			compoModel.setLayout(new GridLayout(3, false));
 			compoModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			compoModel.setText("Model");
-			for (BMReference bm : bms) {
+			for (BMReference bm : TemplateHelper.getInstance().getBms()) {
 				createTextField(compoModel, bm, bmPath);
 			}
 			compoModel.layout();
 		}
 
-		if (initBms != null && initBms.size() > 0) {
+		if (TemplateHelper.getInstance().getInitBms() != null && TemplateHelper.getInstance().getInitBms().size() > 0) {
 			Group compoInitModel = new Group(composite, SWT.NONE);
 			compoInitModel.setLayout(new GridLayout(3, false));
 			compoInitModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			compoInitModel.setText("InitModel");
-			for (BMReference bm : initBms) {
+			for (BMReference bm : TemplateHelper.getInstance().getInitBms()) {
 				createTextField(compoInitModel, bm, bmPath);
 			}
 			compoInitModel.layout();
@@ -146,8 +125,19 @@ public class SelectModelWizardPage extends WizardPage {
 				if (null == txt.getText() || "".equals(txt.getText())) {
 					setErrorMessage(null);
 					setPageComplete(false);
-				} else {
-					fillBM(bm, txt);
+					return;
+				}
+				IResource r = ResourcesPlugin.getWorkspace().getRoot().findMember(txt.getText());
+				if (r == null || !r.exists()) {
+					updateStatus("文件不存在");
+					return;
+				} else if (!(r instanceof IFile) || (!r.getFileExtension().equalsIgnoreCase("bm"))) {
+					updateStatus("必须选择bm文件");
+					return;
+				}
+				bm.setModel((IFile) r);
+				if (checkFinish()) {
+					updateStatus(null);
 				}
 			}
 		});
@@ -163,144 +153,24 @@ public class SelectModelWizardPage extends WizardPage {
 		});
 	}
 
-	private void fillBM(final BMReference bm, final Text txt) {
-		IResource r = ResourcesPlugin.getWorkspace().getRoot().findMember(txt.getText());
-		if (r == null || !r.exists()) {
-			updateStatus("文件不存在");
-			return;
-		} else if (!(r instanceof IFile) || (!r.getFileExtension().equalsIgnoreCase("bm"))) {
-			updateStatus("必须选择bm文件");
-			return;
-		}
-		updateStatus(null);
-		bm.setModel((IFile) r);
-		if (modeRelated.get(bm) instanceof Container) {
-			fillContainer((Container) modeRelated.get(bm), bm);
-		} else if (initModeRelated.get(bm) instanceof TabItem) {
-			fillInitModel((TabItem) initModeRelated.get(bm), bm);
-		}
-	}
-
-	private void fillInitModel(TabItem ac, BMReference bm) {
-		String s = getBmPath(bm.getModel());
-		InitModel m = new InitModel();
-		m.setPath(s);
-		ac.getTabRef().setInitModel(m);
-		viewDiagram.getInitModels().add(m);
-		// initModels.add(m);
-		// ac.getTabRef().setUrl("11");
-		// ref.setUrl(((aurora.ide.meta.gef.editors.template.TabRef)
-		// c).getUrl());
-		// ref.addAllParameter(((aurora.ide.meta.gef.editors.template.TabRef)
-		// c).getParas());
-	}
-
-	private void fillContainer(Container ac, BMReference bm) {
-		ResultDataSet ds = new ResultDataSet();
-		String s = getBmPath(bm.getModel());
-		ds.setOwner(ac);
-		ds.setModel(s);
-		ac.setDataset(ds);
-		if(ac instanceof RowCol){
-			((RowCol)ac).setCol(1);
-		}
-		if (ac instanceof Grid) {
-			fillGrid((Grid) ac, bm.getModel());
-		}
-		else if (viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {
-			for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
-				aurora.ide.meta.gef.editors.models.Label label = new aurora.ide.meta.gef.editors.models.Label();
-				label.setName(map.getString("name"));
-				label.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
-				if (GefModelAssist.getType(map) != null) {
-					label.setType(GefModelAssist.getType(map));
-				}
-				((Container) ac).addChild(label);
-			}
-		} else {
-			for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
-				Input input = new Input();
-				input.setName(map.getString("name"));
-				input.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
-				if (GefModelAssist.getType(map) != null) {
-					input.setType(GefModelAssist.getType(map));
-				}
-				((Container) ac).addChild(input);
-
+	private boolean checkFinish() {
+		for (BMReference bm : TemplateHelper.getInstance().getBms()) {
+			if (bm.getModel() == null) {
+				return false;
 			}
 		}
-	}
-
-	private String getBmPath(IFile bm) {
-		if (bm == null) {
-			return "";
-		}
-		String s = Util.toPKG(bm.getFullPath());
-		if (s.endsWith(".bm")) {
-			s = s.substring(0, s.lastIndexOf(".bm"));
-		}
-		return s;
-	}
-
-	private void fillGrid(Grid grid, IFile bm) {
-		for (int i = 0; i < grid.getChildren().size(); i++) {
-			if (grid.getChildren().get(i) instanceof GridColumn) {
-				grid.getChildren().remove(i);
-				i--;
+		if (true) {
+			ITemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType());
+			if (handle != null) {
+				handle.fill(viewDiagram);
 			}
 		}
-
-		for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm))) {
-			GridColumn gc = new GridColumn();
-			gc.setName(map.getString("name"));
-			gc.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
-			if (!viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {
-				gc.setEditor(GefModelAssist.getTypeNotNull(map));
-			}
-			grid.addCol(gc);
-		}
-		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
-		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
+		return true;
 	}
 
 	public void updateStatus(String message) {
 		setErrorMessage(message);
 		setPageComplete(message == null);
-	}
-
-	// private void setBm(BMReference bm, IPath bmPath, Text txt) {
-	// IFolder folder =
-	// ResourcesPlugin.getWorkspace().getRoot().getFolder(bmPath);
-	// SelectModelDialog dialog = new SelectModelDialog(getShell(), folder);
-	// if ((dialog.open() == Dialog.OK) && (dialog.getResult() instanceof
-	// IFile)) {
-	// txt.setText(((IFile) dialog.getResult()).getFullPath().toString());
-	// bm.setModel((IFile) dialog.getResult());
-	// if (checkFinish() && template.getLink().size() + template.getRef().size()
-	// > 0) {
-	// setPageComplete(true);
-	// SetLinkOrRefWizardPage page = (SetLinkOrRefWizardPage) getNextPage();
-	// page.createCustom(template);
-	// } else {
-	// setPageComplete(false);
-	// }
-	// }
-	// }
-	//
-	// public boolean checkFinish() {
-	// boolean bool = false;
-	// for (BMReference b : template.getBms()) {
-	// if (b.getModel() == null) {
-	// return false;
-	// } else {
-	// bool = true;
-	// }
-	// }
-	// return bool;
-	// }
-
-	public NewWizardPage getNewWizardPage() {
-		return (NewWizardPage) getPreviousPage();
 	}
 
 	public ViewDiagram getViewDiagram() {
