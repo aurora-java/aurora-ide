@@ -6,7 +6,9 @@
 	</models>
 	
 	<form id="form.id" name="form.name" model="model_head" />
-	
+	<hbox>
+		<button id="btn_reset" type="custom" text="自定义" />
+	</hbox>
 	<grid id="grid.id" name="grid.name" model="model_detail" query="form.id">
 		<toolBar>
 			<button type="add"/>

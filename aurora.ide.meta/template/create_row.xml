@@ -13,6 +13,6 @@
 	
 	
 	<description><![CDATA[
-		创建一条数据
+		创建一条数据或者根据参数修改一条数据。
 	]]></description>
 </template>
