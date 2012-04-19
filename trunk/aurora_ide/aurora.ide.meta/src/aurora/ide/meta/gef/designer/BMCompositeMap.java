@@ -8,17 +8,17 @@ import org.eclipse.core.resources.IFile;
 import uncertain.composite.CompositeMap;
 import aurora.ide.search.cache.CacheManager;
 
-public class BMCompoisteMap {
+public class BMCompositeMap {
 
 	private CompositeMap bmMap;
 
-	public BMCompoisteMap(CompositeMap map) {
+	public BMCompositeMap(CompositeMap map) {
 		if (map == null)
 			throw new RuntimeException("parameter can not be null.");
 		this.bmMap = map;
 	}
 
-	public BMCompoisteMap(IFile bmFile) {
+	public BMCompositeMap(IFile bmFile) {
 		try {
 			this.bmMap = CacheManager.getWholeBMCompositeMap(bmFile);
 		} catch (Exception e) {
@@ -31,7 +31,7 @@ public class BMCompoisteMap {
 	}
 
 	/**
-	 * reutrns a node under primary-key (not fields)
+	 * reutrns a node under <b>primary-key</b> (not fields)
 	 * 
 	 * @return
 	 */
@@ -43,6 +43,21 @@ public class BMCompoisteMap {
 			if (list.size() > 0)
 				return list.get(0);
 		}
+		return null;
+	}
+
+	/**
+	 * reutrns a node under <b>fields</b> , and it is pk
+	 * 
+	 * @return
+	 */
+	public CompositeMap getFieldOfPk() {
+		String pkn = getPkFieldName();
+		if (pkn == null)
+			return null;
+		for (CompositeMap m : getFields())
+			if (pkn.equals(m.getString("name")))
+				return m;
 		return null;
 	}
 
