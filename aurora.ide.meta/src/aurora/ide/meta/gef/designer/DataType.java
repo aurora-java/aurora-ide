@@ -12,6 +12,9 @@ public enum DataType {
 	INTEGER("number", "NUMBER", "java.lang.Long", IDesignerConst.INTEGER,
 			IDesignerConst.OP_EQ, Input.NUMBER) {
 	},
+	BIGNIT("number", "BIGINT", "java.lang.Long", IDesignerConst.BIGINT,
+			IDesignerConst.OP_EQ, Input.NUMBER) {
+	},
 	FLOAT("number(20,2)", "NUMBER", "java.lang.Double", IDesignerConst.FLOAT,
 			IDesignerConst.OP_INTERVAL, Input.NUMBER) {
 	},
