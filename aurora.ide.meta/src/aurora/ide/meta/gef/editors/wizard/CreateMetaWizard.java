@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -66,12 +67,16 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	private IWorkbench workbench;
 	private ViewDiagram viewDiagram;
 
+	// private Template template;
+	// private Map<String, IFile> modelMap = new HashMap<String, IFile>();
+	// private Map<String, AuroraComponent> acptMap = new HashMap<String,
+	// AuroraComponent>();
+	// private Map<String, String> queryMap = new HashMap<String, String>();
+	// private List<InitModel> initModels = new ArrayList<InitModel>();
+	// private int tabItemIndex = 0;
+
+	private IProject metaProject;
 	private Template template;
-	private Map<String, IFile> modelMap = new HashMap<String, IFile>();
-	private Map<String, AuroraComponent> acptMap = new HashMap<String, AuroraComponent>();
-	private Map<String, String> queryMap = new HashMap<String, String>();
-	private List<InitModel> initModels = new ArrayList<InitModel>();
-	private int tabItemIndex = 0;
 
 	public void addPages() {
 		addPage(newPage);
@@ -85,10 +90,18 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		WizardDialog dialog = (WizardDialog) getContainer();
 		dialog.addPageChangingListener(new IPageChangingListener() {
 			public void handlePageChanging(PageChangingEvent event) {
-				System.out.println("aurora.wizard.select.Page".equals(event.getTargetPage().toString()));
+				if (event.getCurrentPage() == newPage && event.getTargetPage() == selectPage) {
+					metaProject = newPage.getMetaProject();
+					if (metaProject != null && template != newPage.getTemplate()) {
+						template = newPage.getTemplate();
+						selectPage.setBMPath(metaProject);
+						selectPage.createDynamicTextComponents(template);
+					}
+				}
 			}
 		});
-		dialog.addPageChangedListener(new IPageChangedListener() {	
+
+		dialog.addPageChangedListener(new IPageChangedListener() {
 			public void pageChanged(PageChangedEvent event) {
 				// TODO Auto-generated method stub
 			}

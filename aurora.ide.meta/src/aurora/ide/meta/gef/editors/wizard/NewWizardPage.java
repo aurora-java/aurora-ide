@@ -160,8 +160,8 @@ public class NewWizardPage extends WizardPage {
 
 	private void createTemplate(Composite composite, Map<String, java.util.List<Template>> tempMap) {
 		TComposite tComposite = new TComposite(composite, SWT.BORDER, tempMap);
-		GridData gd=new GridData(GridData.FILL_BOTH);
-		gd.heightHint=300;
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		gd.heightHint = 300;
 		tComposite.setLayoutData(gd);
 		template = tComposite.getSelection();
 		tComposite.addSelectionListener(new SelectionAdapter() {
@@ -172,9 +172,6 @@ public class NewWizardPage extends WizardPage {
 					return;
 				}
 				setTemplateDescription(template.getDescription());
-				if (metaProject != null) {
-					((SelectModelWizardPage) getNextPage()).createDynamicTextComponents(template);
-				}
 			}
 		});
 		composite.layout(true);
@@ -229,7 +226,7 @@ public class NewWizardPage extends WizardPage {
 		} else if (getPath().lastIndexOf("ui_prototype") == -1) { //$NON-NLS-1$
 			updateStatus(Messages.NewWizardPage__folder_3);
 		} else {
-			setMetaProject(container.getProject());
+			metaProject = container.getProject();
 			if (fileName != null && !fileName.equals("") && ((IContainer) container).getFile(new Path(fileName)).exists()) { //$NON-NLS-1$
 				updateStatus(Messages.NewWizardPage_File);
 			} else if (fileName.length() == 0) {
@@ -240,11 +237,12 @@ public class NewWizardPage extends WizardPage {
 				updateStatus(Messages.NewWizardPage_File_3);
 			} else {
 				updateStatus(null);
-				((SelectModelWizardPage) getNextPage()).createDynamicTextComponents(template);
+				// ((SelectModelWizardPage)
+				// getNextPage()).createDynamicTextComponents(template);
 			}
 			return;
 		}
-		setMetaProject(null);
+		metaProject = null;
 	}
 
 	private void setTemplateDescription(String desc) {
@@ -264,7 +262,8 @@ public class NewWizardPage extends WizardPage {
 		return metaProject;
 	}
 
-	public void setMetaProject(IProject metaProject) {
-		this.metaProject = metaProject;
+	public Template getTemplate() {
+		return template;
 	}
+
 }

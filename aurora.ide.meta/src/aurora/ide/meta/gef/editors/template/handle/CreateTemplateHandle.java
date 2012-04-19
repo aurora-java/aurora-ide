@@ -16,7 +16,7 @@ import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.search.core.Util;
 
-public class CreateTemplateHandle implements ITemplateHandle {
+public class CreateTemplateHandle extends TemplateHandle {
 
 	private ViewDiagram viewDiagram;
 	private Map<BMReference, List<Container>> modelRelated;
@@ -65,57 +65,11 @@ public class CreateTemplateHandle implements ITemplateHandle {
 		ac.setDataset(ds);
 		ac.setSectionType(Container.SECTION_TYPE_RESULT);
 		if (ac instanceof Grid) {
-			fillGrid((Grid) ac, bm.getModel());
+			fillGrid((Grid) ac, bm.getModel(), false);
 		} else {
 			fillBox(ac, bm);
 		}
 		ac.setPropertyValue(Container.WIDTH, 1);
-	}
-
-	protected void fillBox(Container ac, BMReference bm) {
-		// if (ac instanceof RowCol) {
-		// ((RowCol) ac).setCol(1);
-		// //ac.setPropertyValue(Container.WIDTH, 1);
-		// }
-		ac.getChildren().clear();
-		for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
-			Input input = new Input();
-			input.setName(map.getString("name"));
-			input.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
-			input.setType(GefModelAssist.getTypeNotNull(map));
-			((Container) ac).addChild(input);
-		}
-	}
-
-	protected String getBmPath(IFile bm) {
-		if (bm == null) {
-			return "";
-		}
-		String s = Util.toPKG(bm.getFullPath());
-		if (s.endsWith(".bm")) {
-			s = s.substring(0, s.lastIndexOf(".bm"));
-		}
-		return s;
-	}
-
-	protected void fillGrid(Grid grid, IFile bm) {
-		for (int i = 0; i < grid.getChildren().size(); i++) {
-			if (grid.getChildren().get(i) instanceof GridColumn) {
-				grid.getChildren().remove(i);
-				i--;
-			}
-		}
-		for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm))) {
-			GridColumn gc = new GridColumn();
-			gc.setName(map.getString("name"));
-			gc.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
-			if (!viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {
-				gc.setEditor(GefModelAssist.getTypeNotNull(map));
-			}
-			grid.addCol(gc);
-		}
-		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
-		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
 	}
 
 	// else if (viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {
