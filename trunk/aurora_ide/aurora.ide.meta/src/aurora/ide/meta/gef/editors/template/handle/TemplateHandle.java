@@ -18,11 +18,11 @@ import aurora.ide.search.core.Util;
 public abstract class TemplateHandle {
 	protected ViewDiagram viewDiagram;
 	protected Map<BMReference, List<Container>> modelRelated;
-	
-	public TemplateHandle(){
+
+	public TemplateHandle() {
 		modelRelated = TemplateHelper.getInstance().getModelRelated();
 	}
-	
+
 	public abstract void fill(ViewDiagram viewDiagram);
 
 	protected void fillBox(Container ac, BMReference bm) {
@@ -47,6 +47,21 @@ public abstract class TemplateHandle {
 		return s;
 	}
 
+	protected void fillContainer(Container ac, BMReference bm, boolean isReadOnly) {
+		ResultDataSet ds = new ResultDataSet();
+		String s = getBmPath(bm.getModel());
+		ds.setOwner(ac);
+		ds.setModel(s);
+		ac.setDataset(ds);
+		ac.setSectionType(Container.SECTION_TYPE_RESULT);
+		if (ac instanceof Grid) {
+			fillGrid((Grid) ac, bm.getModel(), isReadOnly);
+		} else {
+			fillBox(ac, bm);
+		}
+		// ac.setPropertyValue(Container.WIDTH, 226);
+	}
+
 	protected void fillGrid(Grid grid, IFile bm, boolean isReadOnly) {
 		for (int i = 0; i < grid.getChildren().size(); i++) {
 			if (grid.getChildren().get(i) instanceof GridColumn) {
@@ -54,7 +69,7 @@ public abstract class TemplateHandle {
 				i--;
 			}
 		}
-		
+
 		for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm))) {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));

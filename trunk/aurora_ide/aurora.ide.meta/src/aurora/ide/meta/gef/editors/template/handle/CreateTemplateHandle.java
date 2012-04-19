@@ -6,8 +6,6 @@ import java.util.List;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 
@@ -19,7 +17,7 @@ public class CreateTemplateHandle extends TemplateHandle {
 		setRowColNum(viewDiagram);
 		for (BMReference bm : modelRelated.keySet()) {
 			for (Container ac : modelRelated.get(bm)) {
-				fillContainer(ac, bm);
+				fillContainer(ac, bm, false);
 			}
 		}
 		// List<RowCol> rowCols=new ArrayList<RowCol>();
@@ -65,21 +63,6 @@ public class CreateTemplateHandle extends TemplateHandle {
 	// ref.addAllParameter(((aurora.ide.meta.gef.editors.template.TabRef)
 	// c).getParas());
 	// }
-
-	protected void fillContainer(Container ac, BMReference bm) {
-		ResultDataSet ds = new ResultDataSet();
-		String s = getBmPath(bm.getModel());
-		ds.setOwner(ac);
-		ds.setModel(s);
-		ac.setDataset(ds);
-		ac.setSectionType(Container.SECTION_TYPE_RESULT);
-		if (ac instanceof Grid) {
-			fillGrid((Grid) ac, bm.getModel(), false);
-		} else {
-			fillBox(ac, bm);
-		}
-		//ac.setPropertyValue(Container.WIDTH, 226);
-	}
 
 	// else if (viewDiagram.getTemplateType().equals(Template.TYPE_DISPLAY)) {
 	// for (CommentCompositeMap map :

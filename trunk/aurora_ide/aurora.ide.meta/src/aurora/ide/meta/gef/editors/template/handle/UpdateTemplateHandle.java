@@ -10,12 +10,19 @@ import aurora.ide.meta.gef.editors.template.BMReference;
 
 public class UpdateTemplateHandle extends TemplateHandle {
 
-	private ViewDiagram viewDiagram;
-	private Map<BMReference, List<Container>> modelRelated;
 	private Map<BMReference, List<AuroraComponent>> initModeRelated;
+
+	public UpdateTemplateHandle() {
+		initModeRelated = TemplateHelper.getInstance().getInitModelRelated();
+	}
 
 	public void fill(ViewDiagram viewDiagram) {
 		this.viewDiagram = viewDiagram;
+		for (BMReference bm : modelRelated.keySet()) {
+			for (Container ac : modelRelated.get(bm)) {
+				fillContainer(ac, bm, false);
+			}
+		}
 	}
 
 }
