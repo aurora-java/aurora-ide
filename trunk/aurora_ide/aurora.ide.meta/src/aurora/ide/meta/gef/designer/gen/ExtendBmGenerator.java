@@ -109,7 +109,10 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 		else
 			refAlias += ".";
 		CompositeMap qfMap = newCompositeMap("query-fields");
-		for (Record r : model.getRecordList()) {
+		ArrayList<Record> qfs = (ArrayList<Record>) model.getRecordList()
+				.clone();
+		qfs.add(model.getPkRecord());
+		for (Record r : qfs) {
 			if (r.getBoolean(IDesignerConst.COLUMN_QUERYFIELD)) {
 				String qt = r.getStringNotNull(IDesignerConst.COLUMN_QUERY_OP);
 				if (qt.equals(IDesignerConst.OP_EQ)

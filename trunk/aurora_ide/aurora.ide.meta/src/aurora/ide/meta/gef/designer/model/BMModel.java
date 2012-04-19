@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import aurora.ide.meta.gef.designer.DataType;
+import aurora.ide.meta.gef.designer.IDesignerConst;
 
 public class BMModel {
 	public static final String STRUCTURE_RECORD = "structure_record";
@@ -29,6 +30,8 @@ public class BMModel {
 			setName("default_pk_name");// this name should be reset
 			setPrompt("primary-key");
 			setType(DataType.BIGNIT.getDisplayType());
+			put(IDesignerConst.COLUMN_QUERYFIELD, "true");
+			put(IDesignerConst.COLUMN_QUERY_OP, "=");
 		}
 	};
 	private PropertyChangeListener recordListener = new PropertyChangeListener() {
