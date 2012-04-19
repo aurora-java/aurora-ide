@@ -102,7 +102,6 @@ public class BMDesigner extends FormEditor {
 		model = new ModelMerger(inputFile).getMergedModel();
 		if (model == null)
 			model = new BMModel();
-		model.setTitle(DesignerMessages.BMDesigner_default_title);
 		dpage.setModel(model);
 		epage.setModel(model);
 	}
