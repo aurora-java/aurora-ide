@@ -320,8 +320,7 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 					throws InvocationTargetException {
 				IFolder model = newProject.getFolder("model_prototype");
 				IFolder screen = newProject.getFolder("ui_prototype");
-				IFolder tplt = newProject.getFolder("template");
-				IFolder[] fs = new IFolder[] { model, screen, tplt };
+				IFolder[] fs = new IFolder[] { model, screen };
 				for (IFolder iFolder : fs) {
 					CreateFolderOperation op = new CreateFolderOperation(
 							iFolder, null, "new folder");
