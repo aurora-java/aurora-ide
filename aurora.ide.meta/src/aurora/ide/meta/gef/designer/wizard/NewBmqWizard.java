@@ -26,6 +26,7 @@ import aurora.ide.meta.gef.designer.DesignerUtil;
 import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
+import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.search.ui.EditorOpener;
 
 public class NewBmqWizard extends Wizard implements INewWizard {
@@ -61,7 +62,8 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 				.getFile(new Path(fullPath));
 		String[] input = page1.getPreInput();
 		String[] userSel = page2.getUserSelection();
-		CompositeMap map = createModel(input, userSel);
+		CompositeMap map = createModel(input, userSel, file.getFullPath()
+				.removeFileExtension().lastSegment());
 		String xml = BaseBmGenerator.xml_header + map.toXML();
 		try {
 			byte[] bs = xml.getBytes("UTF-8");
@@ -98,14 +100,18 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 		return false;
 	}
 
-	CompositeMap createModel(String[] input, String[] userSel) {
+	CompositeMap createModel(String[] input, String[] userSel, String name) {
 		BMModel model = new BMModel();
+		model.setTitle(name);
+		Record r = model.getPkRecord();
+		r.setName(name + "_pk");
 		if (userSel.length > 0) {
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < userSel.length - 1; i++)
 				sb.append(userSel[i] + "|");
 			sb.append(userSel[userSel.length - 1]);
 			model.setAutoExtends(sb.toString());
+
 		}
 		for (String s : input)
 			model.add(DesignerUtil.createRecord(s));
