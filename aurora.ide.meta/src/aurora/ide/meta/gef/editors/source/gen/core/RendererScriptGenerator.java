@@ -60,28 +60,25 @@ public class RendererScriptGenerator {
 		return s;
 	}
 
-	// '+record.get('dept3310_pk')+record.get('dept3310_pk')+record.get('dept3310_pk')+'
-
-	// v1,v2,v3
-	// linkUrl.set('dept3310_pk', v1);
-	// linkUrl.set('dept3310_pk', v2);
-	// linkUrl.set('dept3310_pk', v3);
-
 	public String[] getParametersDetail(Renderer link, String linkVar) {
 
 		StringBuilder refParameters = new StringBuilder("");
 		StringBuilder vars = new StringBuilder("");
 		StringBuilder openParameters = new StringBuilder("");
-
+		// '<a
+		// href=\"javascript:#newWindowName#(#parameters#)\">#LabelText#</a>';
+		// '<a
+		// href="javascript:openCreateDeptEmpLink('+record.get('dept3310_pk')+')">查询员工</a>';
 		List<Parameter> parameters = link.getParameters();
 		for (int i = 0; i < parameters.size(); i++) {
 			Parameter p = parameters.get(i);
-			refParameters.append("++record.get('");
+			refParameters.append("'+record.get('");
 			refParameters.append(p.getValue());
 			refParameters.append("')");
 			if (i == parameters.size() - 1) {
 				refParameters.append("+");
 			}
+			refParameters.append("'");
 			String key = "v" + i;
 			vars.append(key);
 			if (i < parameters.size() - 1) {
@@ -117,7 +114,8 @@ public class RendererScriptGenerator {
 	}
 
 	public String buildOpenScript(String openScript, String[] parametersDetail) {
-		openScript = openScript.replace("#parameter_keys#", parametersDetail[1]);
+		openScript = openScript
+				.replace("#parameter_keys#", parametersDetail[1]);
 		openScript = openScript.replace("#parameters#", parametersDetail[2]);
 		return openScript;
 	}
