@@ -18,12 +18,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.Document;
-import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.TextAttribute;
-import org.eclipse.jface.text.rules.IToken;
-import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -36,9 +30,6 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.bm.AuroraDataBase;
-import aurora.ide.editor.textpage.ColorManager;
-import aurora.ide.editor.textpage.IColorConstants;
-import aurora.ide.editor.textpage.scanners.SQLCodeScanner;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.gen.SqlGenerator;
@@ -142,9 +133,8 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 		mb.open();
 	}
 
-	private void createTable(String sql) throws SQLException {
+	private void createTable(String sql, String tableName) throws SQLException {
 		String[] sqls = sql.split(";\\s*");
-		String tableName = getTableName(sql);
 		try {
 			for (String s : sqls)
 				stmt.executeUpdate(s);
@@ -201,34 +191,6 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 		}
 	}
 
-	private String getTableName(String sql) {
-		IDocument doc = new Document();
-		doc.set(sql);
-		SQLCodeScanner scanner = new SQLCodeScanner(new ColorManager());
-		scanner.setRange(doc, 0, sql.length());
-		IToken token = null;
-		while ((token = scanner.nextToken()) != Token.EOF) {
-			if (token.getData() instanceof TextAttribute) {
-				TextAttribute text = (TextAttribute) token.getData();
-				int tokenOffset = scanner.getTokenOffset();
-				int tokenLength = scanner.getTokenLength();
-				try {
-					if (text.getForeground().getRGB()
-							.equals(IColorConstants.SQL_KEYWORD_COLOR)
-							&& "table".equalsIgnoreCase(doc.get(tokenOffset,
-									tokenLength))) {
-						int idx = tokenOffset + tokenLength;
-						int idx2 = sql.indexOf('(', idx);
-						return sql.substring(idx, idx2).trim();
-					}
-				} catch (BadLocationException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return "";
-	}
-
 	public void run(IProgressMonitor monitor) throws InvocationTargetException,
 			InterruptedException {
 		monitor.beginTask("create table or sequences...", config.size());
@@ -240,11 +202,12 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 						.removeFileExtension().lastSegment());
 				String sql = sqlg.gen();
 				try {
-					String tableName = getTableName(sql).toLowerCase();
+					String tableName = file.getFullPath().removeFileExtension()
+							.lastSegment().toLowerCase();
 					String seqName = tableName + "_s";
 					if (config.get(tableName)) {
 						monitor.subTask("create table " + tableName + "...");
-						createTable(sql);
+						createTable(sql, tableName);
 					}
 					monitor.worked(1);
 					if (config.get(seqName)) {
