@@ -16,7 +16,7 @@ public class BMModel {
 	public static final String TITLE = "title";
 	public static final String AUTOEXTEND = "autoextend";
 	public static final String DEFAULT_DISPLAY = "defaultdisplay";
-	public static final String FIELD_NAME_PREFIX = "c";
+	private String FIELD_NAME_PREFIX = "c";
 	public static final int RECORD = 0;
 	public static final int RELATION = 1;
 	private ArrayList<Record> records = new ArrayList<Record>();
@@ -148,7 +148,8 @@ public class BMModel {
 			if (r.getName().trim().length() == 0)
 				unNamedRecord.add(r);
 			if (r.getName().matches(FIELD_NAME_PREFIX + "(0|([1-9]\\d*))")) {
-				int n = Integer.parseInt(r.getName().substring(1));
+				int n = Integer.parseInt(r.getName().substring(
+						FIELD_NAME_PREFIX.length()));
 				if (maxNum < n)
 					maxNum = n;
 			}
@@ -289,5 +290,9 @@ public class BMModel {
 
 	public void setPkRecord(Record pkRecord) {
 		this.pkRecord = pkRecord;
+	}
+
+	public void setNamePrefix(String pre) {
+		FIELD_NAME_PREFIX = pre;
 	}
 }

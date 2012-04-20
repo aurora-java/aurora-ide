@@ -41,7 +41,7 @@ public class PreCreateTablePage extends WizardPage {
 	public PreCreateTablePage() {
 		super("wizardPage");
 		setTitle("Select Objects to create");
-		setDescription("please be careful when you overide table (or sequence)");
+		setDescription("please be careful when you override table (or sequence)");
 	}
 
 	/**
