@@ -144,7 +144,7 @@ public class SelectModelWizardPage extends WizardPage {
 
 		btn.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				IResource folder =ResourcesPlugin.getWorkspace().getRoot().findMember(bmPath);
+				IResource folder = ResourcesPlugin.getWorkspace().getRoot().findMember(bmPath);
 				SelectModelDialog dialog = new SelectModelDialog(getShell(), folder);
 				if ((dialog.open() == Dialog.OK) && (dialog.getResult() instanceof IFile)) {
 					txt.setText(((IFile) dialog.getResult()).getFullPath().toString());
@@ -159,11 +159,9 @@ public class SelectModelWizardPage extends WizardPage {
 				return false;
 			}
 		}
-		if (true) {
-			TemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType());
-			if (handle != null) {
-				handle.fill(viewDiagram);
-			}
+		TemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType());
+		if (handle != null) {
+			handle.fill(viewDiagram);
 		}
 		return true;
 	}

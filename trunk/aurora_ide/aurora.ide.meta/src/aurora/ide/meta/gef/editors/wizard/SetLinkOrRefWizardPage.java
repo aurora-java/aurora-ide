@@ -8,8 +8,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -58,107 +56,108 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		setControl(composite);
 	}
 
-	public void createCustom(Template template) {
+	public void createCustom(ViewDiagram v) {
+		this.viewDiagram=v;
 		for (Control c : composite.getChildren()) {
 			if (!c.isDisposed()) {
 				c.dispose();
 			}
 		}
 
-		if (template.getRef().size() > 0) {
-			Group gr = new Group(composite, SWT.None);
-			gr.setLayout(new GridLayout(4, false));
-			gr.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			gr.setText("Set tabref");
-			for (Component c : template.getRef()) {
-				createRefField((TabRefComponent) c, gr);
-			}
-		}
-		
-		if (template.getLink().size() > 0) {
-			Group gl = new Group(composite, SWT.None);
-			gl.setLayout(new GridLayout(2,false));
-			gl.setLayoutData(new GridData(GridData.FILL_BOTH));
-			gl.setText("Set grid");
-			GridData gd=new GridData(GridData.FILL_BOTH);
-
-			TreeViewer treeViewer=new TreeViewer(gl,SWT.BORDER);
-			gd.verticalSpan=3;
-			treeViewer.getTree().setLayoutData(gd);
-			treeViewer.setLabelProvider(new LabelProvider() {
-				public String getText(Object element) {
-					if(element instanceof Component){
-						return ((Component)element).getName();
-					}
-					return null;
-				}
-				
-				public Image getImage(Object element) {
-					// TODO Auto-generated method stub
-					return null;
-				}
-			});
-			
-			treeViewer.setContentProvider(new ITreeContentProvider() {
-				public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				public void dispose() {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				public boolean hasChildren(Object element) {
-					if(element instanceof List){
-						return true;
-					}
-					return false;
-				}
-				
-				public Object getParent(Object element) {
-					// TODO Auto-generated method stub
-					return null;
-				}
-				
-				public Object[] getElements(Object inputElement) {
-					if(inputElement instanceof List){
-						return ((List<?>)inputElement).toArray();
-					}
-					return null;
-				}
-				
-				public Object[] getChildren(Object parentElement) {
-					if(parentElement instanceof List){
-						return ((List<?>)parentElement).toArray();
-					}
-					return null;
-				}
-			});
-			treeViewer.setInput(template.getLink());
-			
-			Button btnAdd=new Button(gl,SWT.None);
-			btnAdd.setText("添加列");
-			gd=new GridData();
-			gd.widthHint=80;
-			gd.verticalAlignment=SWT.TOP;
-			btnAdd.setLayoutData(gd);
-			
-			Button btnDel=new Button(gl,SWT.None);
-			btnDel.setText("删除列");
-			gd=new GridData();
-			gd.widthHint=80;
-			gd.verticalAlignment=SWT.TOP;
-			btnDel.setLayoutData(gd);
-			
-			Button btnModify=new Button(gl,SWT.None);
-			btnModify.setText("修改列");
-			gd=new GridData();
-			gd.widthHint=80;
-			gd.verticalAlignment=SWT.TOP;
-			btnModify.setLayoutData(gd);
-		}
+//		if (template.getRef().size() > 0) {
+//			Group gr = new Group(composite, SWT.None);
+//			gr.setLayout(new GridLayout(4, false));
+//			gr.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//			gr.setText("Set tabref");
+//			for (Component c : template.getRef()) {
+//				createRefField((TabRefComponent) c, gr);
+//			}
+//		}
+//		
+//		if (template.getLink().size() > 0) {
+//			Group gl = new Group(composite, SWT.None);
+//			gl.setLayout(new GridLayout(2,false));
+//			gl.setLayoutData(new GridData(GridData.FILL_BOTH));
+//			gl.setText("Set grid");
+//			GridData gd=new GridData(GridData.FILL_BOTH);
+//
+//			TreeViewer treeViewer=new TreeViewer(gl,SWT.BORDER);
+//			gd.verticalSpan=3;
+//			treeViewer.getTree().setLayoutData(gd);
+//			treeViewer.setLabelProvider(new LabelProvider() {
+//				public String getText(Object element) {
+//					if(element instanceof Component){
+//						return ((Component)element).getName();
+//					}
+//					return null;
+//				}
+//				
+//				public Image getImage(Object element) {
+//					// TODO Auto-generated method stub
+//					return null;
+//				}
+//			});
+//			
+//			treeViewer.setContentProvider(new ITreeContentProvider() {
+//				public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+//					// TODO Auto-generated method stub
+//					
+//				}
+//				
+//				public void dispose() {
+//					// TODO Auto-generated method stub
+//					
+//				}
+//				
+//				public boolean hasChildren(Object element) {
+//					if(element instanceof List){
+//						return true;
+//					}
+//					return false;
+//				}
+//				
+//				public Object getParent(Object element) {
+//					// TODO Auto-generated method stub
+//					return null;
+//				}
+//				
+//				public Object[] getElements(Object inputElement) {
+//					if(inputElement instanceof List){
+//						return ((List<?>)inputElement).toArray();
+//					}
+//					return null;
+//				}
+//				
+//				public Object[] getChildren(Object parentElement) {
+//					if(parentElement instanceof List){
+//						return ((List<?>)parentElement).toArray();
+//					}
+//					return null;
+//				}
+//			});
+//			treeViewer.setInput(template.getLink());
+//			
+//			Button btnAdd=new Button(gl,SWT.None);
+//			btnAdd.setText("添加列");
+//			gd=new GridData();
+//			gd.widthHint=80;
+//			gd.verticalAlignment=SWT.TOP;
+//			btnAdd.setLayoutData(gd);
+//			
+//			Button btnDel=new Button(gl,SWT.None);
+//			btnDel.setText("删除列");
+//			gd=new GridData();
+//			gd.widthHint=80;
+//			gd.verticalAlignment=SWT.TOP;
+//			btnDel.setLayoutData(gd);
+//			
+//			Button btnModify=new Button(gl,SWT.None);
+//			btnModify.setText("修改列");
+//			gd=new GridData();
+//			gd.widthHint=80;
+//			gd.verticalAlignment=SWT.TOP;
+//			btnModify.setLayoutData(gd);
+//		}
 
 		
 		composite.layout();

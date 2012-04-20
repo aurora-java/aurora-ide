@@ -195,7 +195,6 @@ public class TComposite extends SashForm {
 	private void selectLabel(TLabel lbl) {
 		setLabelChecked(lbl, true);
 		template = (Template) lbl.getData();
-		template.clear();
 		notifyListeners(SWT.Selection, new Event());
 		for (int i = 0; i < labels.size(); i++) {
 			if (labels.get(i) != lbl) {
