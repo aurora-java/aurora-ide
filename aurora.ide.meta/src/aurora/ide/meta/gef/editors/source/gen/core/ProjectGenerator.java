@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
@@ -258,20 +256,22 @@ public class ProjectGenerator {
 			ViewDiagram loadFile = this.loadFile(fCurrentFile);
 
 			String genFile = sg.genFile(header, loadFile);
-
 			genNewFile(newFile, genFile);
-
-			genRelationFile(sg);
+			genRelationFile(sg, 0);
 
 		} catch (TemplateNotBindedException e) {
 		}
 	}
 
-	private void genRelationFile(ScreenGenerator sg)
+	private void genRelationFile(ScreenGenerator sg, int i)
 			throws InvocationTargetException {
-		// Map<Object, String> linkIDs = sg.getScriptGenerator().getLinkIDs();
+		if (i > 10) {
+			// circle protected
+			// a-->b--a
+			return;
+		}
+		i++;
 		List<ILink> links = sg.getLinks();
-//		Set<Object> keySet = linkIDs.keySet();
 		for (ILink link : links) {
 			String openPath = ((ILink) link).getOpenPath();
 			IPath p = new Path(openPath);
@@ -282,17 +282,18 @@ public class ProjectGenerator {
 				IFile newFile = this.getNewFile(p);
 				ScreenGenerator dsg = new DisplayScreenGenerator(project,
 						(ILink) link, newFile);
+				dsg.setIdGenerator(sg.getIdGenerator());
 				try {
-					if (newFile.exists()
-					// && !isOverlap
-					) {
-						return;
+					if (newFile.exists()) {
+						continue;
 					}
 					ViewDiagram loadFile = this.loadFile(fCurrentFile);
 					if (loadFile == null)
 						continue;
 					String genFile = dsg.genFile(header, loadFile);
 					genNewFile(newFile, genFile);
+
+					genRelationFile(dsg, i);
 				} catch (TemplateNotBindedException e) {
 				}
 			}

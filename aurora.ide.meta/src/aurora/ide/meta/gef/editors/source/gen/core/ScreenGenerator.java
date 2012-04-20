@@ -35,6 +35,7 @@ import aurora.ide.meta.gef.editors.models.link.TabRef;
 public class ScreenGenerator {
 
 	private IDGenerator idGenerator;
+
 	private AuroraComponent2CompositMap a2Map;
 	private ScriptGenerator scriptGenerator;
 
@@ -131,7 +132,8 @@ public class ScreenGenerator {
 
 	protected void init(ViewDiagram view) {
 		viewDiagram = view;
-		idGenerator = new IDGenerator(view);
+		if (idGenerator == null)
+			idGenerator = new IDGenerator(view);
 		a2Map = new AuroraComponent2CompositMap(this);
 		screenMap = AuroraComponent2CompositMap.createScreenCompositeMap();
 		viewMap = a2Map.toCompositMap(view);
@@ -433,6 +435,10 @@ public class ScreenGenerator {
 			}
 		}
 		return r;
+	}
+
+	public void setIdGenerator(IDGenerator idGenerator) {
+		this.idGenerator = idGenerator;
 	}
 
 }
