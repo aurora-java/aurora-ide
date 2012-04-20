@@ -17,6 +17,7 @@
         <wizard
               category="aurora.ide.wizard"
               class="aurora.ide.meta.gef.designer.wizard.NewBmqWizard"
+              icon="icons/bmq.png"
               id="aurora.ide.wizard.NewBMQ"
               name="Model Prototype文件">
         </wizard>
@@ -47,6 +48,7 @@
             class="aurora.ide.meta.gef.designer.BMDesigner"
             default="true"
             extensions="bmq"
+            icon="icons/bmq.png"
             id="aurora.ide.meta.gef.editors.BMDesigner"
             name="BMQuickDesigner">
       </editor>
