@@ -4,7 +4,7 @@
 		<model id="model_detail" name="行表BM"/>
 	</models>
 
-	<grid id="grid.id" name="grid.name" model="model_detail">
+	<grid id="grid_id" name="grid_name" model="model_detail">
 		<toolBar>
 			<button type="add"/>
 			<button type="save"/>

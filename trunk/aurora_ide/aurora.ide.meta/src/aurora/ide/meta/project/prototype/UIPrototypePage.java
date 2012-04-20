@@ -9,14 +9,26 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+import aurora.ide.helpers.DialogUtil;
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.TComposite;
 
 public class UIPrototypePage extends PreferencePage implements IWorkbenchPreferencePage {
 
-	public void init(IWorkbench workbench) {
-		// TODO Auto-generated method stub
+	private IWorkbench workbench;
 
+	@Override
+	protected void performDefaults() {
+		// TODO Auto-generated method stub
+		super.performDefaults();
+		if (SWT.OK == DialogUtil.showConfirmDialogBox("设为默认值将丢失自定义模板，是否继续？")) {
+			MetaPlugin.getDefault().copyTemplateFile();
+		}
+	}
+
+	public void init(IWorkbench workbench) {
+		this.workbench = workbench;
 	}
 
 	@Override

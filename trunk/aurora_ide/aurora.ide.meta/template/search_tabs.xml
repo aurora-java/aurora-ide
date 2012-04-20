@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="serach tabs" iconPath="1.png" type="serach" category="查询">
+<template name="查询数据" iconPath="1.png" type="serach" category="查询">
 	<models>
-		<model id="model.hid" name="model.hname"/>
-		<model id="model.rid" name="model.rname"/>
+		<model id="model_hid" name="头BM"/>
+		<model id="model_rid" name="行BM"/>
 	</models>
 	
 	<tabFolder>
 		<tabItem>
-			<grid id="grid.hid" name="grid.hname" model="model.hid">
+			<grid id="grid_hid" name="grid_hname" model="model_hid">
 				<toolBar>
 					<button type="add"/>
 					<button type="save"/>
@@ -19,7 +19,7 @@
 		</tabItem>
 		
 		<tabItem>
-			<grid id="grid.rid" name="grid.rname" model="model.rid" query="grid.hid">
+			<grid id="grid_rid" name="grid_rname" model="model_rid" query="grid_hid">
 				<toolBar>
 					<button type="add"/>
 					<button type="delete"/>
@@ -29,8 +29,7 @@
 			</grid>
 		</tabItem>
 	</tabFolder>
-	
 	<description><![CDATA[
-		查询 tabs
+		Tab放置头行结构的Grid
 	]]></description>
 </template>

@@ -10,6 +10,7 @@ import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
@@ -81,5 +82,28 @@ public abstract class TemplateHandle {
 		}
 		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
 		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
+	}
+	
+	protected void fillQueryBox(Container ac, BMReference bm) {
+		if (ac.getSectionType() == null || "".equals(ac.getSectionType())) {
+			ac.setSectionType(Container.SECTION_TYPE_QUERY);
+			String s = getBmPath(bm.getModel());
+			QueryDataSet ds = new QueryDataSet();
+			ds.setModel(s);
+			ac.setDataset(ds);
+		}
+
+		CommentCompositeMap map = GefModelAssist.getModel(bm.getModel());
+		for (CommentCompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(bm.getModel()))) {
+			Input input = new Input();
+			CommentCompositeMap fieldMap = GefModelAssist.getCompositeMap((CommentCompositeMap) map.getChild("fields"), "name", queryMap.getString("field"));
+			if (fieldMap == null) {
+				fieldMap = queryMap;
+			}
+			input.setName(fieldMap.getString("name"));
+			input.setPrompt(fieldMap.getString("prompt") == null ? fieldMap.getString("name") : fieldMap.getString("prompt"));
+			input.setType(GefModelAssist.getTypeNotNull(fieldMap));
+			ac.addChild(input);
+		}
 	}
 }

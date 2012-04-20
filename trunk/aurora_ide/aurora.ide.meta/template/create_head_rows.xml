@@ -5,11 +5,11 @@
 		<model id="model_detail" name="行表BM"/>
 	</models>
 	
-	<form id="form.id" name="form.name" model="model_head" />
+	<form id="form_id" name="form_name" model="model_head" />
 	<hbox>
 		<button id="btn_reset" type="custom" text="自定义" />
 	</hbox>
-	<grid id="grid.id" name="grid.name" model="model_detail" query="form.id">
+	<grid id="grid_id" name="grid_name" model="model_detail" query="form_id">
 		<toolBar>
 			<button type="add"/>
 			<button type="save"/>

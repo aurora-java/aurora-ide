@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="general_display" iconPath="1.png" type="display" category="显示">
+<template name="显示数据" iconPath="1.png" type="display" category="显示">
 	<models>
-		<model id="model.id" name="BM"/>
+		<model id="model_head" name="Form绑定BM"/>
+		<model id="model_detail" name="Grid绑定BM"/>
 	</models>
 	
-	<form id="form.id" name="form.name" model="model.id"/>
+	<form id="form_id" name="form_name" model="model_head"/>
 	
-	<grid id="grid.id" name="grid.name" model="model.id"/>
+	<grid id="grid_id" name="grid_name" model="model_detail"/>
 	
 	<description><![CDATA[
-		显示 form+grid
+		通过Form和Grid显示数据
 	]]></description>
 </template>

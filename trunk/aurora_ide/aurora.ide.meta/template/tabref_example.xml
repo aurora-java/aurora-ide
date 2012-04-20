@@ -1,8 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="tab" iconPath="1.png" type="serach" category="查询">
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="tabref引用示例" iconPath="1.png" type="serach" category="示例">
 	<models>
 		<model id="model_hid" name="头BM"/>
 		<model id="model_rid" name="行BM"/>
+		<initModel id="model_iid" name="initModel"/>
 	</models>
 	
 	<form id="form_id" name="form_name"/>
@@ -35,9 +36,13 @@
 				</toolBar>
 			</grid>
 		</tabItem>
+		
+		<tabItem>
+			<tabRef src="" initModel="model_iid"/>
+		</tabItem>
 	</tabFolder>
 	
 	<description><![CDATA[
-		头行结构的Grid，Grid放置在Tab上，头Grid可通过Form查询数据
+		tabItem引用外部文件示例
 	]]></description>
 </template>

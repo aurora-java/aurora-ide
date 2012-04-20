@@ -247,7 +247,7 @@ public class NewWizardPage extends WizardPage {
 
 	private void setTemplateDescription(String desc) {
 		if (desc == null) {
-			return;
+			desc="";
 		}
 		lblDesc.setText(desc);
 		lblDesc.getParent().layout();

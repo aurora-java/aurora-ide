@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="update" iconPath="1.png" type="update" category="维护">
+<template name="维护数据" iconPath="1.png" type="update" category="维护">
 	<models>
-		<model id="model.id" name="BM"/>
+		<model id="model_id" name="BM"/>
 	</models>
 	
-	<form id="form.id" name="form.name"/>
+	<form id="form_id" name="form_name"/>
 	
 	<hbox>
-		<button id="btn.query" type="query" text="查询" target="grid.id"/>
-		<button id="btn.reset" type="reset" text="重置" target="form.id"/>
+		<button id="btn_query" type="query" text="查询" target="grid_id"/>
+		<button id="btn_reset" type="reset" text="重置" target="form_id"/>
 	</hbox>
 	
-	<grid id="grid.id" name="grid.name" model="model.id" query="form.id">
+	<grid id="grid_id" name="grid_name" model="model_id" query="form_id">
 		<toolBar>
 			<button type="add"/>
 			<button type="save"/>
@@ -22,6 +22,6 @@
 	</grid>
 	
 	<description><![CDATA[
-		维护 form+grid
+		Grid显示通过Form查询的数据，可操作Grid数据
 	]]></description>
 </template>
