@@ -102,6 +102,10 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 
 	CompositeMap createModel(String[] input, String[] userSel, String name) {
 		BMModel model = new BMModel();
+		String pre = name;
+		if (pre.length() > 3)
+			pre = pre.substring(0, 3);
+		model.setNamePrefix(pre + "_c");
 		model.setTitle(name);
 		Record r = model.getPkRecord();
 		r.setName(name + "_pk");
