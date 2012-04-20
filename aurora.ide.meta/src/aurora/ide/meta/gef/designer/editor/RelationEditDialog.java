@@ -42,6 +42,7 @@ import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
+import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.property.ResourceSelector;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
@@ -63,6 +64,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 	private ArrayList<CompositeMap> refFieldList = new ArrayList<CompositeMap>();
 	private ListViewer bmFieldListViewer;
 	private ListViewer refFieldListViewer;
+	private String refTablePkName = "";
 
 	/**
 	 * Create the dialog.
@@ -298,6 +300,17 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		CompositeMap forMap = getSelectedForienField();
 		if (forMap != null) {
 			String prompt = forMap.getString("prompt"); //$NON-NLS-1$
+			if (refTablePkName.equals(forMap.getString("name")))
+				for (Record rec : model.getRecordList()) {
+					if (rec.getPrompt().equals(relation.getLocalField())) {
+						String fpk = forMap.getString("name");
+						if (!model.getPkRecord().getName().equals(fpk))
+							rec.setName(fpk);
+						rec.setEditor(Input.Combo);
+						rec.setOptions(relation.getRefTable());
+						break;
+					}
+				}
 			relation.setSrcField(prompt == null ? "" : prompt); //$NON-NLS-1$
 		} else
 			relation.setSrcField(""); //$NON-NLS-1$
@@ -353,6 +366,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 						bmPkg);
 				bmfieldList = dsfu.getLocalFields(dsfu.getBmMap(), false);
 				String pkName = dsfu.getPK(dsfu.getBmMap());
+				refTablePkName = dsfu.getPK(dsfu.getBmMap());
 				bmFieldComboViewer.setInput(bmfieldList);
 				if (bmFieldListViewer != null)
 					bmFieldListViewer.setInput(bmfieldList.clone());
