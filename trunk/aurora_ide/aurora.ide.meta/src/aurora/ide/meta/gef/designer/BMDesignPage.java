@@ -343,6 +343,12 @@ public class BMDesignPage extends FormPage {
 					if (newRel != null) {
 						model.add(newRel);
 						relationViewer.refresh();
+						for (Record r : model.getRecordList()) {
+							if (r.getPrompt().equals(newRel.getLocalField())) {
+								viewer.refresh(r);
+								break;
+							}
+						}
 					}
 				}
 			}
@@ -359,7 +365,14 @@ public class BMDesignPage extends FormPage {
 				red.setModel(model);
 				red.setRelation((Relation) table.getSelection()[0].getData());
 				if (red.open() == IDialogConstants.OK_ID) {
+					Relation rel = red.getRelation();
 					relationViewer.refresh();
+					for (Record r : model.getRecordList()) {
+						if (r.getPrompt().equals(rel.getLocalField())) {
+							viewer.refresh(r);
+							break;
+						}
+					}
 				}
 			}
 		});

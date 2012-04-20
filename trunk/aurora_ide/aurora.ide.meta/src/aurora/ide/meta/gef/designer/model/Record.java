@@ -140,4 +140,8 @@ public class Record implements IDesignerConst {
 	public String getEditor() {
 		return getStringNotNull(COLUMN_EDITOR);
 	}
+
+	public void setEditor(String editor) {
+		put(COLUMN_EDITOR, editor);
+	}
 }
