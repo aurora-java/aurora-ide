@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="general_create" iconPath="1.png" type="create" category="创建">
+<template name="创建或修改一组数据" iconPath="1.png" type="create" category="创建">
 	<models>
 		<model id="model_head" name="头表BM"/>
 		<model id="model_detail" name="行表BM"/>
@@ -18,6 +18,6 @@
 	</grid>
 	
 	<description><![CDATA[
-		以头行结构显示。创建头行结构的行数据，头表BM需要返回一条数据或者接收link到此页面的参数后返回一条数据。
+		以头行结构显示。创建头行结构的行数据，并且显示头信息。头表BM需要返回一条数据或者接收link到此页面的参数后返回一条数据。
 	]]></description>
 </template>
