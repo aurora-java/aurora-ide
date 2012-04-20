@@ -19,7 +19,7 @@ public class DisplayTemplateHandle extends TemplateHandle {
 
 	protected void fillBox(Container ac, BMReference bm) {
 		ac.getChildren().clear();
-		for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
+		for (CommentCompositeMap map : GefModelAssist.getFieldsWithoutPK(GefModelAssist.getModel(bm.getModel()))) {
 			Label label = new Label();
 			label.setName(map.getString("name"));
 			label.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));

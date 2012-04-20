@@ -95,7 +95,19 @@ public class GefModelAssist {
 
 	public static List<CommentCompositeMap> getFieldsWithoutPK(CommentCompositeMap model) {
 		List<CommentCompositeMap> fields = getFields(model);
-		CommentCompositeMap qfs = (CommentCompositeMap) model.getChild("query-fields");
+		CommentCompositeMap pk = (CommentCompositeMap) model.getChild("primary-key");
+		List<CommentCompositeMap> pkfs = new ArrayList<CommentCompositeMap>();
+		for (Object field : pk.getChildsNotNull()) {
+			pkfs.add((CommentCompositeMap) field);
+		}
+		for (CommentCompositeMap pkf : pkfs) {
+			for (int i = 0; i < fields.size(); i++) {
+				if (pkf.getName() != null && pkf.getString("name").equals(fields.get(i).getString("name"))) {
+					fields.remove(i);
+					i--;
+				}
+			}
+		}
 		return fields;
 	}
 
