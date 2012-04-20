@@ -295,4 +295,8 @@ public class BMModel {
 	public void setNamePrefix(String pre) {
 		FIELD_NAME_PREFIX = pre;
 	}
+
+	public String getNamePrefix() {
+		return FIELD_NAME_PREFIX;
+	}
 }
