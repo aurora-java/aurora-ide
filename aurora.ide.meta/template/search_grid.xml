@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="serach for grid" iconPath="1.png" type="serach" category="查询">
+<template name="查询数据" iconPath="1.png" type="serach" category="查询">
 	<models>
-		<model id="model.id" name="model.name"/>
+		<model id="model_id" name="BM"/>
 	</models>
 	
-	<grid id="grid.id" name="grid.name" model="model.id">
+	<grid id="grid_id" name="grid_name" model="model_id">
 		<toolBar>
 			<button type="add"/>
 			<button type="save"/>
@@ -15,6 +15,6 @@
 	</grid>
 	
 	<description><![CDATA[
-		查询 grid
+		通过Grid显示BM数据
 	]]></description>
 </template>

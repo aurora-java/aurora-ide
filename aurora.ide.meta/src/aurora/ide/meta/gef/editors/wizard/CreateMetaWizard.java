@@ -4,10 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -35,28 +31,9 @@ import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.gef.editors.VScreenEditor;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.models.ButtonClicker;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.InitModel;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.Label;
-import aurora.ide.meta.gef.editors.models.QueryDataSet;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
-import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
-import aurora.ide.meta.gef.editors.models.link.TabRef;
-import aurora.ide.meta.gef.editors.template.BMBindComponent;
-import aurora.ide.meta.gef.editors.template.BMReference;
-import aurora.ide.meta.gef.editors.template.Component;
 import aurora.ide.meta.gef.editors.template.Template;
-import aurora.ide.meta.gef.editors.template.handle.AuroraModelFactory;
-import aurora.ide.meta.gef.editors.template.handle.GefModelAssist;
-import aurora.ide.search.core.Util;
 import aurora.ide.search.ui.EditorOpener;
 
 public class CreateMetaWizard extends Wizard implements INewWizard {
@@ -75,7 +52,6 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	// private List<InitModel> initModels = new ArrayList<InitModel>();
 	// private int tabItemIndex = 0;
 
-	private IProject metaProject;
 	private Template template;
 
 	public void addPages() {
@@ -91,12 +67,14 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		dialog.addPageChangingListener(new IPageChangingListener() {
 			public void handlePageChanging(PageChangingEvent event) {
 				if (event.getCurrentPage() == newPage && event.getTargetPage() == selectPage) {
-					metaProject = newPage.getMetaProject();
+					IProject metaProject = newPage.getMetaProject();
 					if (metaProject != null && template != newPage.getTemplate()) {
 						template = newPage.getTemplate();
 						selectPage.setBMPath(metaProject);
 						selectPage.createDynamicTextComponents(template);
 					}
+				} else if (event.getCurrentPage() == selectPage && event.getTargetPage() == settingPage) {
+
 				}
 			}
 		});

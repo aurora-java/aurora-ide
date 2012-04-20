@@ -29,7 +29,8 @@ public class TemplateParse extends DefaultHandler {
 		if (qName.equals("template")) {
 			template.setName(getValue("name"));
 			template.setIcon(getValue("iconPath"));
-			template.setCategory(getValue("category"));
+			String category = getValue("category");
+			template.setCategory("".equals(category) ? "自定义" : category);
 			template.setType(getValue("type"));
 			stack.push(template);
 		} else if (qName.equals("model")) {
@@ -54,9 +55,9 @@ public class TemplateParse extends DefaultHandler {
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(btn);
 			}
-//			if (ButtonClicker.B_OPEN.equals(btn.getType())) {
-//				template.addLink(btn);
-//			}
+			// if (ButtonClicker.B_OPEN.equals(btn.getType())) {
+			// template.addLink(btn);
+			// }
 			stack.push(btn);
 		} else if ("tabRef".equals(qName)) {
 			TabRefComponent ref = new TabRefComponent();
@@ -120,6 +121,5 @@ public class TemplateParse extends DefaultHandler {
 		String value = attributes.getValue(attributes.getIndex(name));
 		return value == null ? "" : value;
 	}
-	
-	
+
 }

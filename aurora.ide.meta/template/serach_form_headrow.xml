@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <template name="头行结构模板" iconPath="1.png" type="serach" category="查询">
 	<models>
-		<model id="model.hid" name="头BM"/>
-		<model id="model.rid" name="行BM"/>
+		<model id="model_hid" name="头BM"/>
+		<model id="model_rid" name="行BM"/>
 	</models>
 	
-	<form id="form.id" name="form.name"/>
+	<form id="form_id" name="form_name"/>
 	
 	<hbox>
-		<button id="btn.query" type="query" text="查询" target="grid.hid"/>
-		<button id="btn.reset" type="reset" text="重置" target="form.id"/>
+		<button id="btn_query" type="query" text="查询" target="grid_hid"/>
+		<button id="btn_reset" type="reset" text="重置" target="form_id"/>
 	</hbox>
 	
-	<grid id="grid.hid" name="grid.hname" model="model.hid" query="form.id">
+	<grid id="grid_hid" name="grid_hname" model="model_hid" query="form_id">
 		<toolBar>
 			<button type="add"/>
 			<button type="save"/>
@@ -22,7 +22,7 @@
 		</toolBar>
 	</grid>
 	
-	<grid id="grid.rid" name="grid.rname" model="model.rid" query="grid.hid">
+	<grid id="grid_rid" name="grid_rname" model="model_rid" query="grid_hid">
 		<toolBar>
 			<button type="add"/>
 			<button type="delete"/>
@@ -32,6 +32,6 @@
 	</grid>
 	
 	<description><![CDATA[
-		查询 form+grid+grid
+		头行结构的Grid，头Grid可通过Form查询数据
 	]]></description>
 </template>

@@ -44,6 +44,7 @@ public class TemplateHelper {
 	private Map<BMReference, List<Container>> modelRelated;
 	private Map<BMReference, List<AuroraComponent>> initModelRelated;
 	private Map<String, AuroraComponent> auroraComponents;
+	private Map<BMReference, String> queryModelRelated;
 	private List<BMReference> bms;
 	private List<BMReference> initBms;
 
@@ -76,6 +77,7 @@ public class TemplateHelper {
 			try {
 				parser.parse(f, tp);
 			} catch (SAXException e) {
+				e.printStackTrace();
 				continue;
 			} catch (IOException e) {
 				continue;
@@ -168,6 +170,7 @@ public class TemplateHelper {
 		auroraComponents = new HashMap<String, AuroraComponent>();
 		modelRelated = new HashMap<BMReference, List<Container>>();
 		initModelRelated = new HashMap<BMReference, List<AuroraComponent>>();
+		queryModelRelated = new HashMap<BMReference, String>();
 		tabItemIndex = 0;
 	}
 
@@ -349,6 +352,7 @@ public class TemplateHelper {
 		String qcId = c.getQueryComponent();
 		if (qcId != null && (!"".equals(qcId))) {
 			queryRelated.put(c.getId(), qcId);
+			queryModelRelated.put(bm, qcId);
 		}
 	}
 
@@ -376,5 +380,8 @@ public class TemplateHelper {
 		return auroraComponents;
 	}
 
-	
+	public Map<BMReference, String> getQueryModelRelated() {
+		return queryModelRelated;
+	}
+
 }
