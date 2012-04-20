@@ -42,7 +42,7 @@ public class TemplateHelper {
 
 	private Map<String, String> queryRelated;
 	private Map<BMReference, List<Container>> modelRelated;
-	private Map<BMReference, List<AuroraComponent>> initModelRelated;
+	private Map<BMReference, List<TabItem>> initModelRelated;
 	private Map<String, AuroraComponent> auroraComponents;
 	private Map<BMReference, String> queryModelRelated;
 	private List<BMReference> bms;
@@ -170,7 +170,7 @@ public class TemplateHelper {
 		queryRelated = new HashMap<String, String>();
 		auroraComponents = new HashMap<String, AuroraComponent>();
 		modelRelated = new HashMap<BMReference, List<Container>>();
-		initModelRelated = new HashMap<BMReference, List<AuroraComponent>>();
+		initModelRelated = new HashMap<BMReference, List<TabItem>>();
 		queryModelRelated = new HashMap<BMReference, String>();
 		tabItemIndex = 0;
 	}
@@ -217,11 +217,11 @@ public class TemplateHelper {
 				btn.getButtonClicker().setTargetComponent(ac);
 			} else if (obj instanceof Container) {
 				Container c = (Container) obj;
-				if (c.getDataset() instanceof ResultDataSet) {
-					AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
-					if (ac instanceof Container) {
-						((ResultDataSet) c.getDataset()).setQueryContainer((Container) ac);
-					}
+				ResultDataSet ds = new ResultDataSet();
+				AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
+				if (ac instanceof Container) {
+					ds.setOwner(c);
+					ds.setQueryContainer((Container) ac);
 				}
 			}
 		}
@@ -312,7 +312,7 @@ public class TemplateHelper {
 			return;
 		}
 		if (initModelRelated.get(bm) == null) {
-			initModelRelated.put(bm, new ArrayList<AuroraComponent>());
+			initModelRelated.put(bm, new ArrayList<TabItem>());
 		}
 		initModelRelated.get(bm).add(ac);
 	}
@@ -373,7 +373,7 @@ public class TemplateHelper {
 		return modelRelated;
 	}
 
-	public Map<BMReference, List<AuroraComponent>> getInitModelRelated() {
+	public Map<BMReference, List<TabItem>> getInitModelRelated() {
 		return initModelRelated;
 	}
 
