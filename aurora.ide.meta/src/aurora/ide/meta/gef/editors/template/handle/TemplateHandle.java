@@ -16,7 +16,6 @@ import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.search.core.Util;
-import aurora.presentation.component.std.DataSet;
 
 public abstract class TemplateHandle {
 	protected ViewDiagram viewDiagram;
@@ -30,7 +29,7 @@ public abstract class TemplateHandle {
 
 	protected void fillBox(Container ac, BMReference bm) {
 		ac.getChildren().clear();
-		for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
+		for (CommentCompositeMap map : GefModelAssist.getFieldsWithoutPK(GefModelAssist.getModel(bm.getModel()))) {
 			Input input = new Input();
 			input.setName(map.getString("name"));
 			input.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
@@ -72,7 +71,7 @@ public abstract class TemplateHandle {
 			}
 		}
 
-		for (CommentCompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm))) {
+		for (CommentCompositeMap map : GefModelAssist.getFieldsWithoutPK(GefModelAssist.getModel(bm))) {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));
 			gc.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
