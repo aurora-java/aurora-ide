@@ -164,6 +164,7 @@ public class TemplateHelper {
 	}
 
 	private void initVariable(Template template) {
+		template.clear();
 		bms = template.getBms();
 		initBms = template.getInitBms();
 		queryRelated = new HashMap<String, String>();

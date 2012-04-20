@@ -7,6 +7,7 @@ import org.eclipse.core.resources.IFile;
 
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
@@ -15,6 +16,7 @@ import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.search.core.Util;
+import aurora.presentation.component.std.DataSet;
 
 public abstract class TemplateHandle {
 	protected ViewDiagram viewDiagram;
@@ -49,9 +51,8 @@ public abstract class TemplateHandle {
 	}
 
 	protected void fillContainer(Container ac, BMReference bm, boolean isReadOnly) {
-		ResultDataSet ds = new ResultDataSet();
+		Dataset ds = ac.getDataset();
 		String s = getBmPath(bm.getModel());
-		ds.setOwner(ac);
 		ds.setModel(s);
 		ac.setDataset(ds);
 		ac.setSectionType(Container.SECTION_TYPE_RESULT);

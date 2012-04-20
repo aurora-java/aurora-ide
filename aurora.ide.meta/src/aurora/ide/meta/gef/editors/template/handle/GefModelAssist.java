@@ -24,7 +24,7 @@ public class GefModelAssist {
 	}
 
 	public static String getTypeNotNull(CommentCompositeMap field) {
-		//String object = field.getString("defaultEditor");
+		// String object = field.getString("defaultEditor");
 		String object = Util.getCompositeValue("defaultEditor", field);
 
 		if (supportEditor(object) != null) {
@@ -91,6 +91,12 @@ public class GefModelAssist {
 			return fields;
 		}
 		return new ArrayList<CommentCompositeMap>();
+	}
+
+	public static List<CommentCompositeMap> getFieldsWithoutPK(CommentCompositeMap model) {
+		List<CommentCompositeMap> fields = getFields(model);
+		CommentCompositeMap qfs = (CommentCompositeMap) model.getChild("query-fields");
+		return fields;
 	}
 
 	public static CommentCompositeMap getCompositeMap(CommentCompositeMap parent, String name, String value) {
