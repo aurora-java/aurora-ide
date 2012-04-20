@@ -1,6 +1,8 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import uncertain.composite.CompositeMap;
@@ -12,10 +14,13 @@ import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.QueryContainer;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
+import aurora.ide.meta.gef.editors.source.gen.ComboDataset;
 
 class DatasetGenerator {
 	private ScreenGenerator sg;
 	private Map<Dataset, String> datasetMaper = new HashMap<Dataset, String>();
+	
+	private List<ComboDataset> createdComboDatasets = new ArrayList<ComboDataset>();
 
 	DatasetGenerator(ScreenGenerator sg) {
 		this.sg = sg;
@@ -27,6 +32,9 @@ class DatasetGenerator {
 	}
 
 	CompositeMap fillDatasetsMap(Dataset dataset) {
+		if (dataset instanceof ComboDataset) {
+			return fillComboDatasetMap((ComboDataset) dataset);
+		}
 		CompositeMap datasets = sg.getDatasetsMap();
 		if (dataset == null)
 			return null;
@@ -38,6 +46,40 @@ class DatasetGenerator {
 			return rds;
 		}
 		return dsMap;
+	}
+
+	private CompositeMap fillComboDatasetMap(ComboDataset dataset) {
+		CompositeMap datasets = sg.getDatasetsMap();
+		if (dataset == null)
+			return null;
+		dataset = getCreateComboDataset(dataset);
+		String dsID = getOrCreateDSID(dataset);
+		CompositeMap dsMap = datasets.getChildByAttrib("id", dsID);
+		if (dsMap == null) {
+			CompositeMap rds = createComboDatasetMap(dsID, dataset);
+			datasets.addChild(rds);
+			return rds;
+		}
+		return dsMap;
+	}
+
+	private ComboDataset getCreateComboDataset(ComboDataset ds){
+		for (ComboDataset cds : createdComboDatasets) {
+			if(ds.getModel().equals(cds.getModel())){
+				return cds;
+			}
+		}
+		createdComboDatasets.add(ds);
+		return ds;
+	}
+	private CompositeMap createComboDatasetMap(String id, Dataset dataset) {
+		CompositeMap rds = sg.getA2Map().toCompositMap(dataset);
+		rds.put("id", id);
+		rds.put("autoCreate", true);
+		rds.put("model", dataset.getModel());
+		rds.put("loadData", true);
+		rds.put(ResultDataSet.PAGE_SIZE, null);
+		return rds;
 	}
 
 	public String getOrCreateDSID(Dataset dataset) {
@@ -72,7 +114,7 @@ class DatasetGenerator {
 					rds.put("bindTarget", qds);
 				}
 			} else {
-				rds.put("loadData", true);
+				rds.put("autoQuery", true);
 				rds.put(ResultDataSet.PAGE_SIZE, null);
 			}
 		}
@@ -105,7 +147,6 @@ class DatasetGenerator {
 		}
 		this.sg.getA2Map().bindDatasetField(dsMap, dataset, ac);
 	}
-	
 
 	public Dataset findDataset(Container container) {
 		if (container == null)

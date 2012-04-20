@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="general_create" iconPath="1.png" type="create" category="创建">
+<template name="创建或修改一条数据" iconPath="1.png" type="create" category="创建">
 	<models>
 		<model id="model_detail" name="创建BM"/>
 	</models>
@@ -13,6 +13,6 @@
 	
 	
 	<description><![CDATA[
-		创建一条数据或者根据参数修改一条数据。
+		使用Form创建一条数据或者根据参数修改一条数据。
 	]]></description>
 </template>

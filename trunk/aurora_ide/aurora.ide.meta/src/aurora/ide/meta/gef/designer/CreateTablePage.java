@@ -17,11 +17,13 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
-import org.eclipse.ui.forms.widgets.Form;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.SQLConfiguration;
@@ -93,25 +95,27 @@ public class CreateTablePage extends FormPage {
 	 */
 	@Override
 	protected void createFormContent(IManagedForm managedForm) {
-		managedForm.getForm().getBody()
-				.setLayout(new FillLayout(SWT.HORIZONTAL));
-		Form frmNewForm = managedForm.getToolkit().createForm(
-				managedForm.getForm().getBody());
-		managedForm.getToolkit().paintBordersFor(frmNewForm);
-		createActions(frmNewForm.getToolBarManager());
+		FormToolkit toolkit = managedForm.getToolkit();
+		ScrolledForm sform = managedForm.getForm();
+		sform.setText("SQL Source Code");
+		Composite body = sform.getBody();
+		body.setLayout(new FillLayout(SWT.HORIZONTAL));
 
-		frmNewForm.setText("SQL Source Code");
-		frmNewForm.getBody().setLayout(new FillLayout(SWT.HORIZONTAL));
+		createActions(sform.getToolBarManager());
 
-		SourceViewer sourceViewer = new SourceViewer(frmNewForm.getBody(),
-				null, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		toolkit.decorateFormHeading(sform.getForm());
+		toolkit.paintBordersFor(sform);
+
+		SourceViewer sourceViewer = new SourceViewer(body, null, SWT.BORDER
+				| SWT.H_SCROLL | SWT.V_SCROLL);
 		sourceViewer.configure(new SQLConfiguration(new ColorManager()));
 		Document document = new Document();
 		sourceViewer.setDocument(document);
 		styledText = sourceViewer.getTextWidget();
-		managedForm.getToolkit().paintBordersFor(styledText);
+		toolkit.paintBordersFor(styledText);
 		setFont();
 	}
+
 
 	private void setFont() {
 		@SuppressWarnings("deprecation")

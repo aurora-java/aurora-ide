@@ -11,7 +11,6 @@ import aurora.ide.meta.gef.editors.models.DatasetField;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
 import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.source.gen.core.MapFinder;
 import aurora.ide.meta.gef.editors.source.gen.core.ScreenGenerator;
 
@@ -85,7 +84,7 @@ public class DatasetFieldMap extends AbstractComponentMap {
 				if (DatasetField.OPTIONS.equals(key)) {
 					value = dataSetFieldUtil.getOptions();
 					if (value != null) {
-						Dataset ds = new ResultDataSet();
+						Dataset ds = new ComboDataset();
 						ds.setModel(value.toString());
 						// ds.setPropertyValue(propName, val)
 						CompositeMap fillDatasets = sg.fillDatasetsMap(ds);
