@@ -32,6 +32,7 @@ class DisplayScreenGenerator extends ScreenGenerator {
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
 		init(view);
+		
 		run(view);
 
 		bindModelQueryPara();

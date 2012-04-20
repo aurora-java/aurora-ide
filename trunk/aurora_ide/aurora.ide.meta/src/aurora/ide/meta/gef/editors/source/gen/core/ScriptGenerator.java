@@ -30,11 +30,15 @@ public class ScriptGenerator {
 	private StringBuilder script = new StringBuilder();
 	private List<String> scriptList = new ArrayList<String>();
 	private ScreenGenerator sg;
+	private RendererScriptGenerator rsg;
+	private ButtonScriptGenerator bsg ; 
 
 	public ScriptGenerator(ScreenGenerator sg, CompositeMap script) {
 		this.sg = sg;
 		this.scriptMap = script;
 		this.viewMap = script.getParent();
+		rsg = new RendererScriptGenerator(sg);
+		bsg = new ButtonScriptGenerator(sg);
 	}
 
 	public String getScript() {
@@ -71,24 +75,24 @@ public class ScriptGenerator {
 			String datasetID = this.getDatasetID(bc);
 			if (datasetID == null)
 				return "";
-			script = this.searchScript(functionName, datasetID);
+			script = bsg.searchScript(functionName, datasetID);
 		}
 		if (ButtonClicker.B_SAVE.equals(actionID)) {
 			String datasetID = this.getDatasetID(bc);
-			script = this.saveScript(functionName, datasetID);
+			script = bsg.saveScript(functionName, datasetID);
 		}
 		if (ButtonClicker.B_RESET.equals(actionID)) {
 			String datasetID = this.getDatasetID(bc);
-			script = this.resetScript(functionName, datasetID);
+			script = bsg.resetScript(functionName, datasetID);
 		}
 		if (ButtonClicker.B_OPEN.equals(actionID)) {
 			String linkID = this.getLinkID(bc);
-			script = this.openScript(functionName, linkID);
+			script = bsg.openScript(functionName, linkID);
 			script = setLinkParameters(bc, script, linkID);
 		}
 		if (ButtonClicker.B_CLOSE.equals(actionID)) {
 			String windowID = this.getWindowID(bc);
-			script = this.closeScript(functionName, windowID);
+			script = bsg.closeScript(functionName, windowID);
 		}
 		if (ButtonClicker.B_CUSTOM.equals(actionID)) {
 			script = bc.getFunction();
@@ -121,7 +125,7 @@ public class ScriptGenerator {
 		if (genLinkID == null) {
 			// modules/debug/bm.screen
 			String openPath = bc.getOpenPath();
-			if(openPath == null){
+			if (openPath == null) {
 				return "Unknown_Path";
 			}
 			Path path = new Path(openPath);
@@ -261,16 +265,18 @@ public class ScriptGenerator {
 			openName = this.uniqueID(openName, 0);
 
 			this.functionNames.add(openName);
-			String openScript = this.openScript(openName, linkID);
+			String openScript = rsg.openScript(openName, linkID);
 
 			String openFileName = this.getOpenFileName(renderer);
 			javaBeanName = toJavaBeanName("_" + openFileName);
 			functionName = "assign" + javaBeanName;
 			functionName = this.uniqueID(functionName, 0);
-			String hrefScript = this.hrefScript(functionName,
+			String hrefScript = rsg.hrefScript(functionName,
 					renderer.getLabelText(), openName, "");
+			String[] parametersDetail = rsg.getParametersDetail(renderer,"linkUrl");
+			hrefScript = rsg.buildHrefScript(hrefScript,parametersDetail);
 			appendScript(hrefScript);
-			openScript = setLinkParameters(renderer, openScript, linkID);
+			openScript = rsg.buildOpenScript(openScript,parametersDetail);
 			appendScript(openScript);
 		}
 		if (Renderer.USER_FUNCTION.equals(type)) {
@@ -283,19 +289,19 @@ public class ScriptGenerator {
 		return functionName;
 	}
 
-	private String setLinkParameters(Renderer link, String script, String linkID) {
-		List<Parameter> parameters = link.getParameters();
-		StringBuilder sb = new StringBuilder("");
-		for (Parameter parameter : parameters) {
-			sb.append(addParameter("linkUrl", parameter));
-		}
-		script = script.replace("#parameters#", sb.toString());
-		return script;
-	}
+//	private String setLinkParameters(Renderer link, String script, String linkID) {
+//		List<Parameter> parameters = link.getParameters();
+//		StringBuilder sb = new StringBuilder("");
+//		for (Parameter parameter : parameters) {
+//			sb.append(addParameter("linkUrl", parameter));
+//		}
+//		script = script.replace("#parameters#", sb.toString());
+//		return script;
+//	}
 
 	private String setLinkParameters(ButtonClicker link, String script,
 			String linkID) {
-		//有参数的，且uip的，做一个list管理起来，在，sg生成完成后再生成。
+		// 有参数的，且uip的，做一个list管理起来，在，sg生成完成后再生成。
 		List<Parameter> parameters = link.getParameters();
 
 		if (parameters.size() > 0) {
@@ -365,7 +371,6 @@ public class ScriptGenerator {
 	// appendScript(script);
 	// return functionName;
 	// }
-	
 
 	public void appendScript(String script) {
 		if (scriptList.contains(script)) {
@@ -374,53 +379,6 @@ public class ScriptGenerator {
 		scriptList.add(script);
 		this.script.append(script);
 
-	}
-
-	public String hrefScript(String functionName, String labelText,
-			String newWindowName, String parameter) {
-		String s = "function #functionName#(value,record, name){return '<a href=\"javascript:#newWindowName#(record)\">#LabelText#</a>';}";
-		s = s.replace("#functionName#", functionName);
-		s = s.replace("#newWindowName#", newWindowName);
-		s = s.replace("#LabelText#", labelText);
-		return s;
-	}
-
-	public String searchScript(String functionName, String datasetId) {
-		String s = "function #functionName#(){$('#datasetId#').query();}";
-		s = s.replace("#functionName#", functionName);
-		s = s.replace("#datasetId#", datasetId);
-		return s;
-	}
-
-	public String resetScript(String functionName, String datasetId) {
-		String s = " function #functionName#(){$('#datasetId#').reset();}";
-		s = s.replace("#functionName#", functionName);
-		s = s.replace("#datasetId#", datasetId);
-		return s;
-	}
-
-	public String saveScript(String functionName, String datasetId) {
-		String s = " function #functionName#(){$('#datasetId#').submit();}";
-		s = s.replace("#functionName#", functionName);
-		s = s.replace("#datasetId#", datasetId);
-		return s;
-	}
-
-	public String openScript(String functionName, String linkId) {
-		String s = " function #functionName#() {var linkUrl = $('#linkId#'); #parameters# new Aurora.Window({id: '#windowId#',url:linkUrl.getUrl(),title: 'Title',height: 435,width: 620});}";
-		s = s.replace("#functionName#", functionName);
-		String windowID = sg.getIdGenerator().genWindowID(linkId);
-		s = s.replaceAll("#windowId#", windowID);
-		s = s.replaceAll("#linkId#", linkId);
-
-		return s;
-	}
-
-	public String closeScript(String functionName, String windowId) {
-		String s = "function #functionName#(){$('#windowId#').close();}";
-		s = s.replace("#functionName#", functionName);
-		s = s.replace("#windowId#", windowId);
-		return s;
 	}
 
 }
