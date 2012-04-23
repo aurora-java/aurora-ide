@@ -19,6 +19,10 @@ public class TabRef extends AuroraComponent implements ILink{
 
 	private InitModel initModel;
 
+	public TabRef(){
+		
+	}
+	
 	public InitModel getInitModel() {
 		return initModel;
 	}

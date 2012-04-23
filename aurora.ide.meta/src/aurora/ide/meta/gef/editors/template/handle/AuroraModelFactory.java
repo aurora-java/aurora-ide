@@ -12,7 +12,6 @@ import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.VBox;
-import aurora.ide.meta.gef.editors.models.link.TabRef;
 
 public class AuroraModelFactory {
 	private static String[] types = { "toolbar", "form", "fieldset", "vbox", "hbox", "textfield", "numberfield", "lov", "combobox", "datepicker", "datetimepicker", "checkbox", "grid", "tabfolder",

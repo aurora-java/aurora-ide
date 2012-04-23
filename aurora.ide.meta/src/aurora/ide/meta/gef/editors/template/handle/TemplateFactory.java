@@ -17,6 +17,6 @@ public class TemplateFactory {
 		if(Template.TYPE_SERACH.equals(type)){
 			return new SerachTemplateHandle();
 		}
-		return new UpdateTemplateHandle();
+		return new SerachTemplateHandle();
 	}
 }

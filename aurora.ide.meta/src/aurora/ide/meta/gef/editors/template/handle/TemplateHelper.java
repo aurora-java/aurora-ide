@@ -217,7 +217,7 @@ public class TemplateHelper {
 				btn.getButtonClicker().setTargetComponent(ac);
 			} else if (obj instanceof Container) {
 				Container c = (Container) obj;
-				ResultDataSet ds = new ResultDataSet();
+				ResultDataSet ds = (ResultDataSet) c.getDataset();
 				AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
 				if (ac instanceof Container) {
 					ds.setOwner(c);
@@ -345,6 +345,9 @@ public class TemplateHelper {
 		if (bm == null) {
 			return;
 		}
+		ResultDataSet ds=new ResultDataSet();
+		ds.setOwner(ac);
+		ac.setDataset(ds);
 		ac.setSectionType(Container.SECTION_TYPE_RESULT);
 		if (modelRelated.get(bm) == null) {
 			modelRelated.put(bm, new ArrayList<Container>());
