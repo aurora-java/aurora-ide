@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="头行维护数据" iconPath="1.png" type="update" category="维护">
+	<models>
+		<model id="model_head" name="头BM"/>
+		<model id="model_detail" name="行BM"/>
+	</models>
+	
+	<grid id="grid_head" name="头表Grid" model="model_head">
+		<toolBar>
+			<button type="add"/>
+			<button type="save"/>
+			<button type="delete"/>
+			<button type="excel"/>
+			<button type="clear"/>
+		</toolBar>
+	</grid>
+	
+	<grid id="grid_detail" name="行表Grid" model="model_detail" query="grid_head">
+		<toolBar>
+			<button type="add"/>
+			<button type="delete"/>
+			<button type="excel"/>
+			<button type="clear"/>
+		</toolBar>
+	</grid>
+	
+	<description><![CDATA[
+		Grid头行联动，可操作Grid数据
+	]]></description>
+</template>
