@@ -142,6 +142,13 @@ public class ResourceSelector implements ISelectionChangedListener {
 		extFilters = exts;
 	}
 
+	/**
+	 * should be called before {@link #setInput(IContainer)}<br/>
+	 * <i>dirOnly </i> default setted to <b>false</b><br/>
+	 * if <b>true</b> is passed,only directory will be list
+	 * 
+	 * @param donly
+	 */
 	public void setDirOnly(boolean donly) {
 		this.dirOnly = donly;
 	}
