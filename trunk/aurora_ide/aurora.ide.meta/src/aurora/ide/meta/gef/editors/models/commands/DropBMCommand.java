@@ -19,10 +19,8 @@ public class DropBMCommand extends Command {
 	}
 
 	protected String getPrompt(CompositeMap field) {
-		return field != null ? field.getString("prompt") : "prompt:";
+		return field != null ? field.getString("prompt", "prompt") : "prompt:";
 	}
-
-	
 
 	protected CompositeMap getField(String name, List<CompositeMap> fs) {
 		for (CompositeMap f : fs) {

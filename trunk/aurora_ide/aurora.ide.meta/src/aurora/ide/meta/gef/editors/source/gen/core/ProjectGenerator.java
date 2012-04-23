@@ -284,9 +284,9 @@ public class ProjectGenerator {
 						(ILink) link, newFile);
 				dsg.setIdGenerator(sg.getIdGenerator());
 				try {
-					if (newFile.exists()) {
-						continue;
-					}
+//					if (newFile.exists()) {
+//						continue;
+//					}
 					ViewDiagram loadFile = this.loadFile(fCurrentFile);
 					if (loadFile == null)
 						continue;
