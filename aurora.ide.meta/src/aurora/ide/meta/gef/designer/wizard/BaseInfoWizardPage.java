@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.designer.wizard;
 
 import java.util.StringTokenizer;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -23,6 +24,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.gef.designer.IDesignerConst;
+import aurora.ide.meta.gef.editors.property.ResourceSelector;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
 
@@ -73,6 +75,13 @@ public class BaseInfoWizardPage extends WizardPage {
 
 		Button button = new Button(container, SWT.NONE);
 		button.setText("浏览...");
+		button.addSelectionListener(new SelectionAdapter() {
+
+			public void widgetSelected(SelectionEvent e) {
+				// TODO
+				selectDir();
+			}
+		});
 
 		Label label_1 = new Label(container, SWT.NONE);
 		label_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
@@ -109,6 +118,17 @@ public class BaseInfoWizardPage extends WizardPage {
 		btnNewButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 				false, 1, 1));
 		btnNewButton.setText("Format");
+	}
+
+	private void selectDir() {
+		ResourceSelector rs = new ResourceSelector(getShell());
+		IContainer root = ResourcesPlugin.getWorkspace().getRoot();
+		rs.setDirOnly(true);
+		rs.setInput(root);
+		IResource res = rs.getSelection();
+		if (res != null) {
+			text_dir.setText(res.getFullPath().toString());
+		}
 	}
 
 	private void format() {
