@@ -9,8 +9,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -27,16 +28,16 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.TreeColumn;
 
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
-import aurora.ide.meta.gef.editors.template.Component;
+import aurora.ide.meta.gef.editors.wizard.dialog.CridColumnDialog;
 import aurora.ide.meta.gef.editors.wizard.dialog.StyleSettingDialog;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
@@ -84,24 +85,30 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			gl.setText("Set grid");
 			GridData gd = new GridData(GridData.FILL_BOTH);
 
-			TreeViewer treeViewer = new TreeViewer(gl, SWT.BORDER);
+			TreeViewer treeViewer = new TreeViewer(gl, SWT.BORDER | SWT.FULL_SELECTION);
 			gd.verticalSpan = 3;
 			treeViewer.getTree().setLayoutData(gd);
-			treeViewer.setLabelProvider(new LabelProvider() {
-				public String getText(Object element) {
-					if(element instanceof Grid){
-						return "Grid";
-					}else if (element instanceof GridColumn) {
-						return ((GridColumn) element).getName();
-					} 
-					return null;
-				}
 
-				public Image getImage(Object element) {
-					return null;
-				}
-			});
+			TreeColumn treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
+			treeColumn.setMoveable(true);
+			treeColumn.setResizable(true);
+			treeColumn.setText("Grid");
+			treeColumn.pack();
+			treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
+			treeColumn.setMoveable(true);
+			treeColumn.setResizable(true);
+			treeColumn.setText("GridColumn");
+			treeColumn.pack();
+			treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
+			treeColumn.setMoveable(true);
+			treeColumn.setResizable(true);
+			treeColumn.setText("Editor");
+			treeColumn.pack();
 
+			treeViewer.getTree().setLinesVisible(true);
+			treeViewer.getTree().setHeaderVisible(true);
+
+			treeViewer.setLabelProvider(new TreeLabelProvider());
 			treeViewer.setContentProvider(new TreeContentProvider());
 			treeViewer.setInput(grids);
 
@@ -114,6 +121,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 			Button btnDel = new Button(gl, SWT.None);
 			btnDel.setText("删除列");
+			btnDel.setEnabled(false);
 			gd = new GridData();
 			gd.widthHint = 80;
 			gd.verticalAlignment = SWT.TOP;
@@ -121,10 +129,33 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 			Button btnModify = new Button(gl, SWT.None);
 			btnModify.setText("修改列");
+			btnModify.setEnabled(false);
 			gd = new GridData();
 			gd.widthHint = 80;
 			gd.verticalAlignment = SWT.TOP;
 			btnModify.setLayoutData(gd);
+
+			btnAdd.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+					CridColumnDialog dialog = new CridColumnDialog(getShell());
+					dialog.open();
+				}
+			});
+
+			btnDel.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+
+			btnModify.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+			});
 		}
 
 		composite.layout();
@@ -229,6 +260,54 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		}
 	}
 
+	class TreeLabelProvider implements ITableLabelProvider {
+
+		public void addListener(ILabelProviderListener listener) {
+		}
+
+		public void dispose() {
+		}
+
+		public boolean isLabelProperty(Object element, String property) {
+			return false;
+		}
+
+		public void removeListener(ILabelProviderListener listener) {
+		}
+
+		public Image getColumnImage(Object element, int columnIndex) {
+			return null;
+		}
+
+		public String getColumnText(Object element, int columnIndex) {
+			switch (columnIndex) {
+			case 0:
+				if (element instanceof Grid) {
+					String name = ((Grid) element).getName();
+					if ("".equals(name)) {
+						name = "Grid";
+					}
+					return name;
+				}
+				break;
+			case 1:
+				if (!(element instanceof Grid) && (element instanceof GridColumn)) {
+					return ((GridColumn) element).getName();
+				}
+				break;
+			case 2:
+				if (element instanceof GridColumn) {
+					return ((GridColumn) element).getEditor();
+				}
+				break;
+			default:
+				return null;
+			}
+			return null;
+		}
+
+	}
+
 	class TreeContentProvider implements ITreeContentProvider {
 		public void dispose() {
 		}
@@ -247,7 +326,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			if (parentElement instanceof Grid) {
 				Grid grid = (Grid) parentElement;
 				List<Object> gc = new ArrayList<Object>();
-				for (Object obj : grid.getChildren()) {
+				for (Object obj : grid.getCols()) {
 					if (obj instanceof GridColumn) {
 						gc.add(obj);
 					}

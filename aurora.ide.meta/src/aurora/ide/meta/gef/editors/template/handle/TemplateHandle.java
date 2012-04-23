@@ -1,12 +1,14 @@
 package aurora.ide.meta.gef.editors.template.handle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
@@ -27,8 +29,8 @@ public abstract class TemplateHandle {
 	protected Map<BMReference, List<TabItem>> initModelRelated;
 	protected Map<BMReference, String> queryModelRelated;
 	protected Map<String, AuroraComponent> auroraComponents;
-	private List<Grid> grids;
-	private List<TabItem> refTabItems;
+	protected List<Grid> grids;
+	protected List<TabItem> refTabItems;
 
 	public TemplateHandle() {
 		initModelRelated = TemplateHelper.getInstance().getInitModelRelated();
@@ -43,7 +45,7 @@ public abstract class TemplateHandle {
 		this.viewDiagram = viewDiagram;
 		for (BMReference bm : modelRelated.keySet()) {
 			for (Container ac : modelRelated.get(bm)) {
-				fillContainer(ac, bm, true);
+				fillContainer(ac, bm);
 			}
 		}
 
@@ -61,13 +63,12 @@ public abstract class TemplateHandle {
 		}
 	}
 
-	protected void fillBox(Container ac, BMReference bm) {
+	protected void fillBox(Container ac, BMCompositeMap bmc) {
 		ac.getChildren().clear();
-		for (CompositeMap map : GefModelAssist.getFieldsWithoutPK(GefModelAssist.getModel(bm.getModel()))) {
-			Input input = new Input();
+		for (CompositeMap map : getFieldsWithoutPK(bmc)) {
+			Input input = AuroraModelFactory.createComponent(GefModelAssist.getTypeNotNull(map));
 			input.setName(map.getString("name"));
 			input.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
-			input.setType(GefModelAssist.getTypeNotNull(map));
 			((Container) ac).addChild(input);
 		}
 	}
@@ -83,21 +84,21 @@ public abstract class TemplateHandle {
 		return s;
 	}
 
-	protected void fillContainer(Container ac, BMReference bm, boolean isReadOnly) {
+	protected void fillContainer(Container ac, BMReference bm) {
 		Dataset ds = ac.getDataset();
 		String s = getBmPath(bm.getModel());
 		ds.setModel(s);
 		ac.setDataset(ds);
 		ac.setSectionType(Container.SECTION_TYPE_RESULT);
+		BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
 		if (ac instanceof Grid) {
-			fillGrid((Grid) ac, bm.getModel(), isReadOnly);
+			fillGrid((Grid) ac, bmc);
 		} else {
-			fillBox(ac, bm);
+			fillBox(ac, bmc);
 		}
-		// ac.setPropertyValue(Container.WIDTH, 226);
 	}
 
-	protected void fillGrid(Grid grid, IFile bm, boolean isReadOnly) {
+	protected void fillGrid(Grid grid, BMCompositeMap bmc) {
 		for (int i = 0; i < grid.getChildren().size(); i++) {
 			if (grid.getChildren().get(i) instanceof GridColumn) {
 				grid.getChildren().remove(i);
@@ -105,18 +106,22 @@ public abstract class TemplateHandle {
 			}
 		}
 		grid.getCols().clear();
-		for (CompositeMap map : GefModelAssist.getFieldsWithoutPK(GefModelAssist.getModel(bm))) {
-			GridColumn gc = new GridColumn();
-			gc.setName(map.getString("name"));
-			gc.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
-			if (!isReadOnly) {
-				gc.setEditor(GefModelAssist.getTypeNotNull(map));
-			}
+		for (CompositeMap map : getFieldsWithoutPK(bmc)) {
+			GridColumn gc = createGridColumn(map);
 			grid.addCol(gc);
 		}
 		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
 		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
 		grids.add(grid);
+	}
+
+	protected GridColumn createGridColumn(CompositeMap map) {
+		GridColumn gc = new GridColumn();
+		gc.setName(map.getString("name"));
+		String prompt = map.getString("prompt");
+		prompt = prompt == null ? map.getString("name") : prompt;
+		gc.setPrompt(prompt);
+		return gc;
 	}
 
 	protected void fillQueryBox(Container ac, BMReference bm) {
@@ -128,16 +133,11 @@ public abstract class TemplateHandle {
 			ac.setDataset(ds);
 		}
 		ac.getChildren().clear();
-		CompositeMap map = GefModelAssist.getModel(bm.getModel());
-		for (CompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(bm.getModel()))) {
-			Input input = new Input();
-			CompositeMap fieldMap = GefModelAssist.getCompositeMap(map.getChild("fields"), "name", queryMap.getString("field"));
-			if (fieldMap == null) {
-				fieldMap = queryMap;
-			}
-			input.setName(fieldMap.getString("name"));
-			input.setPrompt(fieldMap.getString("prompt") == null ? fieldMap.getString("name") : fieldMap.getString("prompt"));
-			input.setType(GefModelAssist.getTypeNotNull(fieldMap));
+		BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
+		for (CompositeMap queryMap : getQueryFields(bmc)) {
+			Input input = AuroraModelFactory.createComponent(GefModelAssist.getTypeNotNull(queryMap));
+			input.setName(queryMap.getString("name"));
+			input.setPrompt(queryMap.getString("prompt") == null ? queryMap.getString("name") : queryMap.getString("prompt"));
 			ac.addChild(input);
 		}
 	}
@@ -159,4 +159,49 @@ public abstract class TemplateHandle {
 		return refTabItems;
 	}
 
+	protected Map<String, String> getReferenceRelation(BMCompositeMap bmc) {
+		Map<String, String> refRelat = new HashMap<String, String>();
+		for (CompositeMap ref : bmc.getRefFields()) {
+			String relationName = ref.getString("relationName");
+			if (relationName == null) {
+				continue;
+			}
+			for (CompositeMap relat : bmc.getRelations()) {
+				if (relationName.equals(relat.getString("name"))) {
+					for (Object refer : relat.getChildsNotNull()) {
+						refRelat.put(((CompositeMap) refer).getString("localfield"), ref.getString("name"));
+					}
+				}
+			}
+		}
+		return refRelat;
+	}
+
+	protected List<CompositeMap> getQueryFields(BMCompositeMap bmc) {
+		List<CompositeMap> qfs = bmc.getQueryFields();
+		List<CompositeMap> fields = getFieldsWithoutPK(bmc);
+		List<CompositeMap> queryFields = new ArrayList<CompositeMap>();
+		for (CompositeMap qf : qfs) {
+			for (CompositeMap field : fields) {
+				if (field.getString("name").equals(qf.getString("field"))) {
+					queryFields.add(field);
+				}
+			}
+		}
+		return queryFields;
+	}
+
+	protected List<CompositeMap> getFieldsWithoutPK(BMCompositeMap bmc) {
+		List<CompositeMap> pks = bmc.getPrimaryKeys();
+		List<CompositeMap> fields = bmc.getFields();
+		List<CompositeMap> fieldsWithoutPK = new ArrayList<CompositeMap>();
+		for (CompositeMap pk : pks) {
+			for (CompositeMap field : fields) {
+				if (field.getString("name").equals(pk.getString("name"))) {
+					fieldsWithoutPK.add(field);
+				}
+			}
+		}
+		return fieldsWithoutPK;
+	}
 }

@@ -8,6 +8,7 @@ import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.HBox;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.Label;
 import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.Toolbar;
@@ -15,7 +16,7 @@ import aurora.ide.meta.gef.editors.models.VBox;
 
 public class AuroraModelFactory {
 	private static String[] types = { "toolbar", "form", "fieldset", "vbox", "hbox", "textfield", "numberfield", "lov", "combobox", "datepicker", "datetimepicker", "checkbox", "grid", "tabfolder",
-			"tabitem", "button", "tabref" };
+			"tabitem", "button", "tabref", "label" };
 
 	public static boolean isComponent(String type) {
 		if (type == null) {
@@ -80,7 +81,9 @@ public class AuroraModelFactory {
 			return (T) new TabItem();
 		} else if ("button".equals(type)) {
 			return (T) new Button();
-		} 
+		}else if("label".equals(type)){
+			return (T) new Label();
+		}
 		return null;
 	}
 
