@@ -1,18 +1,8 @@
 package aurora.ide.meta.gef.editors.template.handle;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
-
 import uncertain.composite.CompositeMap;
-
-import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.gef.Util;
-import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.search.cache.CacheManager;
 
 public class GefModelAssist {
 
@@ -48,63 +38,6 @@ public class GefModelAssist {
 		for (String t : Input.INPUT_TYPES) {
 			if (t.equalsIgnoreCase(object))
 				return t;
-		}
-		return null;
-	}
-
-	public static CompositeMap getModel(IFile file) {
-		try {
-			CompositeMap model = CacheManager.getWholeBMCompositeMap(file);
-			return model;
-		} catch (CoreException e1) {
-			e1.printStackTrace();
-		} catch (ApplicationException e1) {
-			e1.printStackTrace();
-		}
-		return null;
-	}
-
-	public static List<CompositeMap> getQueryFields(CompositeMap model) {
-		if (model == null) {
-			return new ArrayList<CompositeMap>();
-		}
-		return new BMCompositeMap(model).getQueryFields();
-	}
-
-	public static List<CompositeMap> getFields(CompositeMap model) {
-		if (model == null) {
-			return new ArrayList<CompositeMap>();
-		}
-		return new BMCompositeMap(model).getFields();
-	}
-
-	public static List<CompositeMap> getFieldsWithoutPK(CompositeMap model) {
-		CompositeMap m=(CompositeMap) model.clone();
-		List<CompositeMap> fields = getFields(m);
-		List<CompositeMap> pks = new BMCompositeMap(m).getPrimaryKeys();
-		if (pks == null) {
-			return fields;
-		}
-		for (CompositeMap pk : pks) {
-			for (int i = 0; i < fields.size(); i++) {
-				if (pk.getName() != null && pk.getString("name").equals(fields.get(i).getString("name"))) {
-					fields.remove(i);
-					i--;
-				}
-			}
-		}
-		return fields;
-	}
-
-	public static CompositeMap getCompositeMap(CompositeMap parent, String name, String value) {
-		if (parent == null) {
-			return null;
-		}
-		for (Object obj : parent.getChildsNotNull()) {
-			CompositeMap map = (CompositeMap) obj;
-			if (map.getString(name) != null && (map).getString(name).equals(value)) {
-				return map;
-			}
 		}
 		return null;
 	}

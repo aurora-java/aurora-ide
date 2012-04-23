@@ -184,6 +184,7 @@ public class TemplateHelper {
 			auroraComponents.put(c.getId(), ac);
 		}
 		if ((c instanceof BMBindComponent) && (ac instanceof Container)) {
+			ac.setName(c.getName());
 			fillContainer((BMBindComponent) c, (Container) ac);
 		}
 		if (ac instanceof TabItem) {
