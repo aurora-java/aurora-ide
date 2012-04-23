@@ -53,7 +53,6 @@ public class BindDropModelCommand extends DropBMCommand {
 			}
 			container.addChild(gc);
 		}
-
 	}
 
 	private void fillForm(List<CompositeMap> fields) {
@@ -61,12 +60,10 @@ public class BindDropModelCommand extends DropBMCommand {
 			String name = (String) field.get("field");
 			name = name == null ? field.getString("name") : name;
 			name = name == null ? "" : name;
-			AuroraComponent input = this.getEditorMode().isForDisplay()
-					|| this.getEditorMode().isForSearch() ? new Label()
+			AuroraComponent input = this.getEditorMode().isForDisplay() ? new Label()
 					: new Input();
-			String type = this.getEditorMode().isForDisplay()
-					|| this.getEditorMode().isForSearch() ? Label.Label : Util
-					.getType(field);
+			String type = this.getEditorMode().isForDisplay() ? Label.Label
+					: Util.getType(field);
 			if (CheckBox.CHECKBOX.equals(type)) {
 				input = new CheckBox();
 			}
