@@ -78,6 +78,24 @@ public class GefModelAssist {
 		return new BMCompositeMap(model).getFields();
 	}
 
+	public static List<CompositeMap> getFieldsWithoutPK(CompositeMap model) {
+		CompositeMap m=(CompositeMap) model.clone();
+		List<CompositeMap> fields = getFields(m);
+		List<CompositeMap> pks = new BMCompositeMap(m).getPrimaryKeys();
+		if (pks == null) {
+			return fields;
+		}
+		for (CompositeMap pk : pks) {
+			for (int i = 0; i < fields.size(); i++) {
+				if (pk.getName() != null && pk.getString("name").equals(fields.get(i).getString("name"))) {
+					fields.remove(i);
+					i--;
+				}
+			}
+		}
+		return fields;
+	}
+
 	public static CompositeMap getCompositeMap(CompositeMap parent, String name, String value) {
 		if (parent == null) {
 			return null;
