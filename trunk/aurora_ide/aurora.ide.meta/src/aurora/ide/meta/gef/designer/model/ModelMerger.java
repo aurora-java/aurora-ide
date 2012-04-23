@@ -59,6 +59,9 @@ public class ModelMerger {
 		classFolder = ResourceUtil.getBMHomeFolder(aProject);
 		modelFolder = amProject.getModelFolder();
 		bmFile = getBMFile();
+	}
+
+	public void initModel() throws SAXException, IOException, CoreException {
 		CompositeMapParser parser = new CompositeMapParser(
 				new CommentCompositeLoader());
 		if (bmFile != null && bmFile.exists())
