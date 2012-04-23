@@ -99,7 +99,13 @@ public class BMDesigner extends FormEditor {
 	}
 
 	private void open() {
-		model = new ModelMerger(inputFile).getMergedModel();
+		ModelMerger merger = new ModelMerger(inputFile);
+		try {
+			merger.initModel();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model = merger.getMergedModel();
 		if (model == null)
 			model = new BMModel();
 		String tn = inputFile.getFullPath().removeFileExtension().lastSegment()

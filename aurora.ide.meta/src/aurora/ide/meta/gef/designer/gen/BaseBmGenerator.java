@@ -50,6 +50,11 @@ public class BaseBmGenerator {
 			name = name.substring(0, idx);
 		this.file = file;
 		merger = new ModelMerger(file);
+		try {
+			merger.initModel();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model = merger.getOriginalModel();
 		aProject = merger.getAuroraProject();
 	}
