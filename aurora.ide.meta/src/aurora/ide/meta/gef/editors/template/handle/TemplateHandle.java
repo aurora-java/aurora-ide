@@ -198,8 +198,9 @@ public abstract class TemplateHandle {
 		for (CompositeMap pk : pks) {
 			for (CompositeMap field : fields) {
 				if (field.getString("name").equals(pk.getString("name"))) {
-					fieldsWithoutPK.add(field);
+					continue;
 				}
+				fieldsWithoutPK.add(field);
 			}
 		}
 		return fieldsWithoutPK;
