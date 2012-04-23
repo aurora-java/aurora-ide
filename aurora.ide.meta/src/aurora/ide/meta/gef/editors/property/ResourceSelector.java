@@ -44,6 +44,7 @@ public class ResourceSelector implements ISelectionChangedListener {
 	private Dialog dia;
 	private IContainer root;
 	private String[] extFilters = null;
+	private boolean dirOnly = false;
 
 	/**
 	 * create a dialog to select a resource , the dialog will auto open after
@@ -117,6 +118,9 @@ public class ResourceSelector implements ISelectionChangedListener {
 				TreeItem ti = getTreeViewer().getTree().getItem(
 						new Point(e.x, e.y));
 				if (ti != null) {
+					if (!dirOnly && (ti.getData() instanceof IContainer)) {
+						return;
+					}
 					result = (IResource) ti.getData();
 					if (dia != null)
 						dia.close();
@@ -138,13 +142,18 @@ public class ResourceSelector implements ISelectionChangedListener {
 		extFilters = exts;
 	}
 
+	public void setDirOnly(boolean donly) {
+		this.dirOnly = donly;
+	}
+
 	public void setInput(IContainer iContainer) {
 		this.root = iContainer;
 		if (dia != null) {
 			dia.setBlockOnOpen(true);
 			dia.create();
-			dia.getShell().setText(
-					"Select Resource [" + root.getProject().getName() + "]");
+			String title = root.getProject() == null ? "/" : root.getProject()
+					.getName();
+			dia.getShell().setText("Select Resource [" + title + "]");
 			if (dia.open() != IDialogConstants.OK_ID)
 				result = null;
 		}
@@ -173,8 +182,8 @@ public class ResourceSelector implements ISelectionChangedListener {
 		}
 	}
 
-	private class ResourceContentProvider extends WorkbenchContentProvider
-			implements Comparator<IResource> {
+	class ResourceContentProvider extends WorkbenchContentProvider implements
+			Comparator<IResource> {
 
 		public Object[] getChildren(Object element) {
 			Object[] objs = super.getChildren(element);
@@ -183,10 +192,11 @@ public class ResourceSelector implements ISelectionChangedListener {
 				IResource r = (IResource) o;
 				if (r.getName().startsWith("."))
 					continue;
-				if (hasChildren(r))
+				if (accept(r))
 					als.add(r);
-				else if (accept(r.getName()))
+				else if (hasChildren(r))
 					als.add(r);
+
 			}
 			IResource[] res = new IResource[als.size()];
 			als.toArray(res);
@@ -201,9 +211,9 @@ public class ResourceSelector implements ISelectionChangedListener {
 				if (res.length == 0)
 					return false;
 				for (Object o : res) {
-					if (o instanceof IFile) {
+					if (accept((IResource) o)) {
 						return true;
-					} else if ((o instanceof IFolder) && hasChildren(o)) {
+					} else if (hasChildren(o)) {
 						return true;
 					}
 				}
@@ -222,13 +232,19 @@ public class ResourceSelector implements ISelectionChangedListener {
 		}
 	}
 
-	protected boolean accept(String fileName) {
-		if (extFilters == null)
-			return true;
-		fileName = fileName.toLowerCase();
-		for (String ext : extFilters) {
-			if (fileName.endsWith("." + ext.toLowerCase()))
+	protected boolean accept(IResource res) {
+		if (res instanceof IFile) {
+			if (dirOnly)
+				return false;
+			if (extFilters == null)
 				return true;
+			String fileName = res.getName().toLowerCase();
+			for (String ext : extFilters) {
+				if (fileName.endsWith("." + ext.toLowerCase()))
+					return true;
+			}
+		} else if (res instanceof IContainer) {
+			return dirOnly;
 		}
 		return false;
 	}
@@ -240,5 +256,5 @@ public class ResourceSelector implements ISelectionChangedListener {
 	public void setResult(IResource result) {
 		this.result = result;
 	}
-	
+
 }
