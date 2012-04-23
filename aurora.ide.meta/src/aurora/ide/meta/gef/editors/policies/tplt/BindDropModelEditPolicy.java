@@ -25,24 +25,25 @@ public class BindDropModelEditPolicy extends AbstractEditPolicy {
 	protected Command getBindCommand(DropBMRequest request) {
 		Container container = getContainer();
 		Object data = request.getData();
-//		String sectionType = container.getSectionType();
-//		if(data instanceof List && ((List) data).size()>1){
-//			if (!Container.SECTION_TYPE_QUERY.equals(sectionType)
-//					&& !Container.SECTION_TYPE_RESULT.equals(sectionType)) {
-//				Shell shell = Display.getDefault().getActiveShell();
-//				MessageDialog.openInformation(shell, "Info", "无法添加！");
-//				return null;
-//			}
-//		}
+		// String sectionType = container.getSectionType();
+		// if(data instanceof List && ((List) data).size()>1){
+		// if (!Container.SECTION_TYPE_QUERY.equals(sectionType)
+		// && !Container.SECTION_TYPE_RESULT.equals(sectionType)) {
+		// Shell shell = Display.getDefault().getActiveShell();
+		// MessageDialog.openInformation(shell, "Info", "无法添加！");
+		// return null;
+		// }
+		// }
 
 		if (!(data instanceof List)) {
 			return null;
-//			Shell shell = Display.getDefault().getActiveShell();
-//			boolean openConfirm = MessageDialog.openConfirm(shell, Messages.BindDropModelEditPolicy_0,
-//					Messages.BindDropModelEditPolicy_1);
-//			if (openConfirm == false) {
-//				return null;
-//			}
+			// Shell shell = Display.getDefault().getActiveShell();
+			// boolean openConfirm = MessageDialog.openConfirm(shell,
+			// Messages.BindDropModelEditPolicy_0,
+			// Messages.BindDropModelEditPolicy_1);
+			// if (openConfirm == false) {
+			// return null;
+			// }
 		}
 
 		BindDropModelCommand cmd = new BindDropModelCommand();
@@ -50,9 +51,8 @@ public class BindDropModelEditPolicy extends AbstractEditPolicy {
 
 		ViewDiagramPart diagramPart = this.getDiagramPart(getHost());
 		cmd.setDiagram((ViewDiagram) diagramPart.getComponent());
-		
-		boolean forDisplay = diagramPart.getEditorMode().isForDisplay();
-		cmd.setDisplay(forDisplay);
+
+		cmd.setEditorMode(diagramPart.getEditorMode());
 		cmd.setContainer(container);
 		return cmd;
 	}

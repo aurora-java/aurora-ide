@@ -415,6 +415,9 @@ public class ScreenGenerator {
 	public String findDatasetId(Container container) {
 		return datasetGenerator.findDatasetId(container);
 	}
+	public Dataset findDataset(Container container) {
+		return datasetGenerator.findDataset(container);
+	}
 
 	public CompositeMap fillDatasetsMap(Dataset ds) {
 		return datasetGenerator.fillDatasetsMap(ds);
@@ -436,6 +439,7 @@ public class ScreenGenerator {
 		}
 		return r;
 	}
+	
 
 	public void setIdGenerator(IDGenerator idGenerator) {
 		this.idGenerator = idGenerator;

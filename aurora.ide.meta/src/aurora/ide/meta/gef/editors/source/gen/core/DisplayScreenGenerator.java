@@ -8,7 +8,9 @@ import org.eclipse.core.resources.IProject;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.exception.TemplateNotBindedException;
 import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.ILink;
+import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
 
@@ -16,8 +18,8 @@ class DisplayScreenGenerator extends ScreenGenerator {
 
 	private ILink link;
 
-	public DisplayScreenGenerator(IProject project, ILink link,IFile file) {
-		super(project,file);
+	public DisplayScreenGenerator(IProject project, ILink link, IFile file) {
+		super(project, file);
 		this.link = link;
 	}
 
@@ -25,14 +27,14 @@ class DisplayScreenGenerator extends ScreenGenerator {
 	public String genFile(String header, ViewDiagram view)
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
-//		if (view.isForDisplay()) {
-//			throw new TemplateNotBindedException();
-//		}
+		// if (view.isForDisplay()) {
+		// throw new TemplateNotBindedException();
+		// }
 
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
 		init(view);
-		
+
 		run(view);
 
 		bindModelQueryPara();
@@ -57,10 +59,24 @@ class DisplayScreenGenerator extends ScreenGenerator {
 			String model = childByAttrib.getString("model", "");
 			if (!"".equals(model)) {
 				String queryUrl = this.getQueryUrl(model, parameters);
-				childByAttrib.put("queryUrl", queryUrl);
-				childByAttrib.put("loadData", true);
+				if (isBindTarget(container) == false){
+					childByAttrib.put("queryUrl", queryUrl);
+					childByAttrib.put("loadData", true);
+				}
 			}
 		}
+	}
+
+	private boolean isBindTarget(Container c) {
+		Dataset findDataset = this.findDataset(c);
+		if (findDataset instanceof ResultDataSet) {
+			Container target = ((ResultDataSet) findDataset)
+					.getQueryContainer().getTarget();
+			if (target != null) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private String getQueryUrl(String model, List<Parameter> parameters) {

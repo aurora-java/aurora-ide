@@ -39,6 +39,7 @@ import aurora.ide.bm.BMUtil;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.Util;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.dnd.BMTransfer;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Input;
@@ -58,9 +59,10 @@ public class BMViewer {
 		public IFile parent;
 		public CompositeMap fieldMap;
 		public String editor;
+		static final String REF_FIELD = "ref-field";
 
 		public String getName() {
-			return fieldMap.get("name").toString(); //$NON-NLS-1$
+			return fieldMap.get("name").toString();
 		}
 	}
 
@@ -84,8 +86,8 @@ public class BMViewer {
 				}
 
 				List<IFile> modelFiles = getModelFiles((ViewDiagram) inputElement);
-				
-				if(modelFiles.size()==0){
+
+				if (modelFiles.size() == 0) {
 					return new String[] { Messages.BMViewer_No_model };
 				}
 				return modelFiles.toArray(new IFile[modelFiles.size()]);
@@ -190,7 +192,9 @@ public class BMViewer {
 			if (Input.NUMBER.equalsIgnoreCase(type))
 				return ImagesUtils.getImage("palette/itembar_05.png");
 			if (CheckBox.CHECKBOX.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/checkbox_01.png");//$NON-NLS-1$
+				return ImagesUtils.getImage("palette/checkbox_01.png");
+			if (ModelField.REF_FIELD.equalsIgnoreCase(type))
+				return ImagesUtils.getImage("palette/ref.png");//$NON-NLS-1$
 			return ImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
 		}
 
@@ -359,8 +363,8 @@ public class BMViewer {
 	private ModelField[] createFields(IFile model) {
 		List<ModelField> result = new ArrayList<ModelField>();
 		try {
-			CompositeMap modelMap = CacheManager.getWholeBMCompositeMap((IFile) model);
-			List<ModelField> fs = new ArrayList<ModelField>();
+			CompositeMap modelMap = CacheManager
+					.getWholeBMCompositeMap((IFile) model);
 			CompositeMap fields = modelMap.getChild("fields"); //$NON-NLS-1$
 			if (fields != null) {
 				Iterator childIterator = fields.getChildIterator();
@@ -375,6 +379,23 @@ public class BMViewer {
 					}
 				}
 			}
+
+			CompositeMap refFields = modelMap.getChild("ref-fields"); //$NON-NLS-1$
+			if (refFields != null) {
+				Iterator childIterator = refFields.getChildIterator();
+				while (childIterator != null && childIterator.hasNext()) {
+					CompositeMap qf = (CompositeMap) childIterator.next();
+					if ("ref-field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+						ModelField field = new ModelField();
+						field.editor = ModelField.REF_FIELD;
+						field.parent = model;
+						field.fieldMap = qf;
+						result.add(field);
+					}
+				}
+			}
+			
+			//TODO queryField date  form and to
 		} catch (CoreException e) {
 		} catch (ApplicationException e) {
 		}
