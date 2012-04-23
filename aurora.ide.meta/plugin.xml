@@ -151,7 +151,7 @@
   <extension
         point="org.eclipse.ui.popupMenus">
      <objectContribution
-           id="aurora.ide.meta.contribution1"
+           id="aurora.ide.meta.pop.createtable"
            nameFilter="*.bmq"
            objectClass="org.eclipse.core.resources.IFile">
         <action
@@ -160,6 +160,33 @@
               icon="icons/create_database_table.gif"
               id="aurora.ide.meta.autoCreateTableAction"
               label="Create Table"
+              menubarPath="additions">
+           <enablement>
+              <and>
+                 <objectClass
+                       name="org.eclipse.core.resources.IFile">
+                 </objectClass>
+                 <objectState
+                       name="extension"
+                       value="bmq">
+                 </objectState>
+                 <objectState
+                       name="projectNature"
+                       value="aurora.ide.meta.nature">
+                 </objectState>
+              </and>
+           </enablement>
+        </action>
+     </objectContribution>
+     <objectContribution
+           id="aurora.ide.meta.pop.openbm"
+           nameFilter="*.bmq"
+           objectClass="org.eclipse.core.resources.IFile">
+        <action
+              class="aurora.ide.meta.popup.actions.OpenBMofBmqAction"
+              enablesFor="1"
+              id="aurora.ide.meta.openBmAction"
+              label="Open BM"
               menubarPath="additions">
            <enablement>
               <and>
