@@ -26,7 +26,6 @@ import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
-import aurora.ide.search.cache.CacheManager;
 
 public class ModelMerger {
 	private IFile file;
@@ -60,10 +59,11 @@ public class ModelMerger {
 		classFolder = ResourceUtil.getBMHomeFolder(aProject);
 		modelFolder = amProject.getModelFolder();
 		bmFile = getBMFile();
+		CompositeMapParser parser = new CompositeMapParser(
+				new CommentCompositeLoader());
 		if (bmFile != null && bmFile.exists())
-			bmMap = CacheManager.getCompositeMap(bmFile);
-		CompositeMap map = new CompositeMapParser(new CommentCompositeLoader())
-				.parseStream(file.getContents());
+			bmMap = parser.parseStream(bmFile.getContents());
+		CompositeMap map = parser.parseStream(file.getContents());
 		model = ModelUtil.fromCompositeMap(map);
 	}
 
