@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.wizard;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -8,6 +10,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -25,6 +28,8 @@ import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.AuroraProjectNature;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.editors.models.Grid;
+import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Template;
@@ -39,6 +44,8 @@ import aurora.ide.project.propertypage.ProjectPropertyPage;
 public class SelectModelWizardPage extends WizardPage {
 
 	private ViewDiagram viewDiagram;
+	private List<Grid> grids;
+	private List<TabItem> refTabItems;
 
 	private Composite composite;
 	private IPath bmPath;
@@ -135,6 +142,9 @@ public class SelectModelWizardPage extends WizardPage {
 					updateStatus("必须选择bm文件");
 					return;
 				}
+				if (r.equals(bm.getModel())) {
+					return;
+				}
 				bm.setModel((IFile) r);
 				if (checkFinish()) {
 					updateStatus(null);
@@ -162,6 +172,8 @@ public class SelectModelWizardPage extends WizardPage {
 		TemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType());
 		if (handle != null) {
 			handle.fill(viewDiagram);
+			grids = handle.getGrids();
+			refTabItems = handle.getRefTabItems();
 		}
 		return true;
 	}
@@ -174,4 +186,22 @@ public class SelectModelWizardPage extends WizardPage {
 	public ViewDiagram getViewDiagram() {
 		return viewDiagram;
 	}
+
+	public List<Grid> getGrids() {
+		return grids;
+	}
+
+	public List<TabItem> getRefTabItems() {
+		return refTabItems;
+	}
+
+	@Override
+	public IWizardPage getNextPage() {
+		if (grids.size() + refTabItems.size() > 0) {
+			return super.getNextPage();
+		} else {
+			return null;
+		}
+	}
+
 }

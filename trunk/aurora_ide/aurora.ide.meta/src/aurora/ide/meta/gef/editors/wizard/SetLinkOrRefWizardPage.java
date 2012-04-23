@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.editors.wizard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
@@ -29,11 +30,13 @@ import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.Grid;
+import aurora.ide.meta.gef.editors.models.GridColumn;
+import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
 import aurora.ide.meta.gef.editors.template.Component;
-import aurora.ide.meta.gef.editors.template.TabRefComponent;
-import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.wizard.dialog.StyleSettingDialog;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
@@ -42,7 +45,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 	private Composite composite;
 	private ViewDiagram viewDiagram;
-	
+
 	public SetLinkOrRefWizardPage() {
 		super("aurora.wizard.setting.Page"); //$NON-NLS-1$
 		setTitle(Messages.SettingWizardPage_Title);
@@ -56,114 +59,78 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		setControl(composite);
 	}
 
-	public void createCustom(ViewDiagram v) {
-		this.viewDiagram=v;
+	public void createCustom(ViewDiagram v, List<Grid> grids, List<TabItem> refTabItems) {
+		this.viewDiagram = v;
 		for (Control c : composite.getChildren()) {
 			if (!c.isDisposed()) {
 				c.dispose();
 			}
 		}
 
-//		if (template.getRef().size() > 0) {
-//			Group gr = new Group(composite, SWT.None);
-//			gr.setLayout(new GridLayout(4, false));
-//			gr.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//			gr.setText("Set tabref");
-//			for (Component c : template.getRef()) {
-//				createRefField((TabRefComponent) c, gr);
-//			}
-//		}
-//		
-//		if (template.getLink().size() > 0) {
-//			Group gl = new Group(composite, SWT.None);
-//			gl.setLayout(new GridLayout(2,false));
-//			gl.setLayoutData(new GridData(GridData.FILL_BOTH));
-//			gl.setText("Set grid");
-//			GridData gd=new GridData(GridData.FILL_BOTH);
-//
-//			TreeViewer treeViewer=new TreeViewer(gl,SWT.BORDER);
-//			gd.verticalSpan=3;
-//			treeViewer.getTree().setLayoutData(gd);
-//			treeViewer.setLabelProvider(new LabelProvider() {
-//				public String getText(Object element) {
-//					if(element instanceof Component){
-//						return ((Component)element).getName();
-//					}
-//					return null;
-//				}
-//				
-//				public Image getImage(Object element) {
-//					// TODO Auto-generated method stub
-//					return null;
-//				}
-//			});
-//			
-//			treeViewer.setContentProvider(new ITreeContentProvider() {
-//				public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-//					// TODO Auto-generated method stub
-//					
-//				}
-//				
-//				public void dispose() {
-//					// TODO Auto-generated method stub
-//					
-//				}
-//				
-//				public boolean hasChildren(Object element) {
-//					if(element instanceof List){
-//						return true;
-//					}
-//					return false;
-//				}
-//				
-//				public Object getParent(Object element) {
-//					// TODO Auto-generated method stub
-//					return null;
-//				}
-//				
-//				public Object[] getElements(Object inputElement) {
-//					if(inputElement instanceof List){
-//						return ((List<?>)inputElement).toArray();
-//					}
-//					return null;
-//				}
-//				
-//				public Object[] getChildren(Object parentElement) {
-//					if(parentElement instanceof List){
-//						return ((List<?>)parentElement).toArray();
-//					}
-//					return null;
-//				}
-//			});
-//			treeViewer.setInput(template.getLink());
-//			
-//			Button btnAdd=new Button(gl,SWT.None);
-//			btnAdd.setText("添加列");
-//			gd=new GridData();
-//			gd.widthHint=80;
-//			gd.verticalAlignment=SWT.TOP;
-//			btnAdd.setLayoutData(gd);
-//			
-//			Button btnDel=new Button(gl,SWT.None);
-//			btnDel.setText("删除列");
-//			gd=new GridData();
-//			gd.widthHint=80;
-//			gd.verticalAlignment=SWT.TOP;
-//			btnDel.setLayoutData(gd);
-//			
-//			Button btnModify=new Button(gl,SWT.None);
-//			btnModify.setText("修改列");
-//			gd=new GridData();
-//			gd.widthHint=80;
-//			gd.verticalAlignment=SWT.TOP;
-//			btnModify.setLayoutData(gd);
-//		}
+		if (refTabItems.size() > 0) {
+			Group gr = new Group(composite, SWT.None);
+			gr.setLayout(new GridLayout(4, false));
+			gr.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			gr.setText("Set tabref");
+			for (TabItem ti : refTabItems) {
+				createRefField(ti, gr);
+			}
+		}
 
-		
+		if (grids.size() > 0) {
+			Group gl = new Group(composite, SWT.None);
+			gl.setLayout(new GridLayout(2, false));
+			gl.setLayoutData(new GridData(GridData.FILL_BOTH));
+			gl.setText("Set grid");
+			GridData gd = new GridData(GridData.FILL_BOTH);
+
+			TreeViewer treeViewer = new TreeViewer(gl, SWT.BORDER);
+			gd.verticalSpan = 3;
+			treeViewer.getTree().setLayoutData(gd);
+			treeViewer.setLabelProvider(new LabelProvider() {
+				public String getText(Object element) {
+					if(element instanceof Grid){
+						return "Grid";
+					}else if (element instanceof GridColumn) {
+						return ((GridColumn) element).getName();
+					} 
+					return null;
+				}
+
+				public Image getImage(Object element) {
+					return null;
+				}
+			});
+
+			treeViewer.setContentProvider(new TreeContentProvider());
+			treeViewer.setInput(grids);
+
+			Button btnAdd = new Button(gl, SWT.None);
+			btnAdd.setText("添加列");
+			gd = new GridData();
+			gd.widthHint = 80;
+			gd.verticalAlignment = SWT.TOP;
+			btnAdd.setLayoutData(gd);
+
+			Button btnDel = new Button(gl, SWT.None);
+			btnDel.setText("删除列");
+			gd = new GridData();
+			gd.widthHint = 80;
+			gd.verticalAlignment = SWT.TOP;
+			btnDel.setLayoutData(gd);
+
+			Button btnModify = new Button(gl, SWT.None);
+			btnModify.setText("修改列");
+			gd = new GridData();
+			gd.widthHint = 80;
+			gd.verticalAlignment = SWT.TOP;
+			btnModify.setLayoutData(gd);
+		}
+
 		composite.layout();
 	}
 
-	private void createRefField(TabRefComponent cp, Group gr) {
+	private void createRefField(TabItem ti, Group gr) {
 		Label lbl = new Label(gr, SWT.None);
 		lbl.setText("Select:");
 		Text txt = new Text(gr, SWT.BORDER);
@@ -175,9 +142,9 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		btnParam.setText("添加参数");
 		btnParam.setEnabled(false);
 
-		btnSelect.addSelectionListener(new TabRefSelect(txt, btnParam, cp));
+		btnSelect.addSelectionListener(new TabRefSelect(txt, btnParam, ti));
 
-		btnParam.addSelectionListener(new TabRefParamSelect(cp));
+		btnParam.addSelectionListener(new TabRefParamSelect(ti));
 	}
 
 	private IProject getMetaProject() {
@@ -216,12 +183,12 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 	class TabRefSelect extends SelectionAdapter {
 		private Text txt;
-		private Component cp;
+		private TabItem ti;
 		private Button btn;
 
-		public TabRefSelect(Text txt, Button btn, Component cp) {
+		public TabRefSelect(Text txt, Button btn, TabItem ti) {
 			this.txt = txt;
-			this.cp = cp;
+			this.ti = ti;
 			this.btn = btn;
 		}
 
@@ -232,7 +199,6 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			Object obj = fileSelect(new IContainer[] { (IContainer) res, uipFolder }, new String[] { "screen", "uip" });
 			if (!(obj instanceof IFile)) {
 				txt.setText("");
-				cp.setUrl("");
 				btn.setEnabled(false);
 			} else {
 				String path = ((IFile) obj).getFullPath().toString();
@@ -242,24 +208,65 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 				} else if (path.endsWith("screen")) {
 					path = path.substring(path.indexOf(webHome) + webHome.length());
 				}
-				cp.setUrl(path);
+				ti.getTabRef().setOpenPath(path);
 				btn.setEnabled(true);
 			}
 		}
 	}
 
 	class TabRefParamSelect extends SelectionAdapter {
-		private Component cp;
+		private TabItem ti;
 
-		public TabRefParamSelect(Component cp) {
-			this.cp = cp;
+		public TabRefParamSelect(TabItem ti) {
+			this.ti = ti;
 		}
 
 		public void widgetSelected(SelectionEvent e) {
-			StyleSettingDialog dialog = new StyleSettingDialog(getShell(), cp.getParas());
+			StyleSettingDialog dialog = new StyleSettingDialog(getShell(), ti.getTabRef().getParameters());
 			if (dialog.open() == Dialog.OK) {
-				cp.setParas(dialog.getResult());
+				ti.getTabRef().addAllParameter(dialog.getResult());
 			}
 		}
+	}
+
+	class TreeContentProvider implements ITreeContentProvider {
+		public void dispose() {
+		}
+
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
+
+		public Object[] getElements(Object inputElement) {
+			if (inputElement instanceof List) {
+				return ((List<?>) inputElement).toArray();
+			}
+			return null;
+		}
+
+		public Object[] getChildren(Object parentElement) {
+			if (parentElement instanceof Grid) {
+				Grid grid = (Grid) parentElement;
+				List<Object> gc = new ArrayList<Object>();
+				for (Object obj : grid.getChildren()) {
+					if (obj instanceof GridColumn) {
+						gc.add(obj);
+					}
+				}
+				return gc.toArray();
+			}
+			return null;
+		}
+
+		public Object getParent(Object element) {
+			return null;
+		}
+
+		public boolean hasChildren(Object element) {
+			if (element instanceof Grid) {
+				return true;
+			}
+			return false;
+		}
+
 	}
 }

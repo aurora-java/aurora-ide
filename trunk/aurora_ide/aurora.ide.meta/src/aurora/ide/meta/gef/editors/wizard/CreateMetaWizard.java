@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -11,9 +12,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.dialogs.IPageChangedListener;
 import org.eclipse.jface.dialogs.IPageChangingListener;
-import org.eclipse.jface.dialogs.PageChangedEvent;
 import org.eclipse.jface.dialogs.PageChangingEvent;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -31,6 +30,8 @@ import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.gef.editors.VScreenEditor;
+import aurora.ide.meta.gef.editors.models.Grid;
+import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.template.Template;
@@ -74,20 +75,22 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 						selectPage.createDynamicTextComponents(template);
 					}
 				} else if (event.getCurrentPage() == selectPage && event.getTargetPage() == settingPage) {
-
+					if (viewDiagram != selectPage.getViewDiagram()) {
+						List<Grid> grids = selectPage.getGrids();
+						List<TabItem> refTabItems = selectPage.getRefTabItems();
+						viewDiagram = selectPage.getViewDiagram();
+						settingPage.createCustom(viewDiagram, grids, refTabItems);
+					}
 				}
-			}
-		});
-
-		dialog.addPageChangedListener(new IPageChangedListener() {
-			public void pageChanged(PageChangedEvent event) {
-				// TODO Auto-generated method stub
 			}
 		});
 	}
 
 	@Override
 	public boolean performFinish() {
+		if (viewDiagram == null) {
+			viewDiagram = selectPage.getViewDiagram();
+		}
 		EditorOpener editorOpener = new EditorOpener();
 		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(newPage.getPath() + "/" + newPage.getFileName()));
 		CommentCompositeMap rootMap = null;
@@ -397,7 +400,6 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		IWizardPage page = getContainer().getCurrentPage();
 		if (page instanceof SelectModelWizardPage) {
 			if (page.isPageComplete()) {
-				viewDiagram = selectPage.getViewDiagram();
 				return true;
 			}
 		} else if ((page instanceof SetLinkOrRefWizardPage) && page.isPageComplete()) {
