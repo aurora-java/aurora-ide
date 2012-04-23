@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.designer;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +12,18 @@ import aurora.ide.search.cache.CacheManager;
 public class BMCompositeMap {
 
 	private CompositeMap bmMap;
+	private List<CompositeMap> queryFields;
+	private List<CompositeMap> relations;
+	private List<CompositeMap> primaryKeys;
+	private List<CompositeMap> fields;
+	private List<CompositeMap> refFields;
+	private CompositeMap fieldsMap;
+	private CompositeMap primaryKeyMap;
+	private CompositeMap relationMap;
+	private CompositeMap refFieldsMap;
+	private CompositeMap queryFieldsMap;
+	private CompositeMap firstPkField;
+	private CompositeMap fieldOfPk;
 
 	public BMCompositeMap(CompositeMap map) {
 		if (map == null)
@@ -36,14 +49,16 @@ public class BMCompositeMap {
 	 * @return
 	 */
 	public CompositeMap getFirstPkField() {
-		CompositeMap map = getPrimaryKeyMap();
-		if (map != null) {
-			@SuppressWarnings("unchecked")
-			List<CompositeMap> list = map.getChildsNotNull();
-			if (list.size() > 0)
-				return list.get(0);
+		if (firstPkField == null) {
+			CompositeMap map = getPrimaryKeyMap();
+			if (map != null) {
+				@SuppressWarnings("unchecked")
+				List<CompositeMap> list = map.getChildsNotNull();
+				if (list.size() > 0)
+					firstPkField = list.get(0);
+			}
 		}
-		return null;
+		return firstPkField;
 	}
 
 	/**
@@ -52,13 +67,17 @@ public class BMCompositeMap {
 	 * @return
 	 */
 	public CompositeMap getFieldOfPk() {
-		String pkn = getPkFieldName();
-		if (pkn == null)
-			return null;
-		for (CompositeMap m : getFields())
-			if (pkn.equals(m.getString("name")))
-				return m;
-		return null;
+		if (fieldOfPk == null) {
+			String pkn = getPkFieldName();
+			if (pkn == null)
+				return null;
+			for (CompositeMap m : getFields())
+				if (pkn.equals(m.getString("name"))) {
+					fieldOfPk = m;
+					break;
+				}
+		}
+		return fieldOfPk;
 	}
 
 	/**
@@ -103,19 +122,33 @@ public class BMCompositeMap {
 	}
 
 	public CompositeMap getFieldsMap() {
-		return bmMap.getChild("fields");
+		if (fieldsMap == null)
+			fieldsMap = bmMap.getChild("fields");
+		return fieldsMap;
 	}
 
 	public CompositeMap getPrimaryKeyMap() {
-		return bmMap.getChild("primary-key");
+		if (primaryKeyMap == null)
+			primaryKeyMap = bmMap.getChild("primary-key");
+		return primaryKeyMap;
 	}
 
 	public CompositeMap getRelationsMap() {
-		return bmMap.getChild("relations");
+		if (relationMap == null)
+			relationMap = bmMap.getChild("relations");
+		return relationMap;
+	}
+
+	public CompositeMap getRefFieldsMap() {
+		if (refFieldsMap == null)
+			refFieldsMap = bmMap.getChild("ref-fields");
+		return refFieldsMap;
 	}
 
 	public CompositeMap getQueryFieldsMap() {
-		return bmMap.getChild("query-fields");
+		if (queryFieldsMap == null)
+			queryFieldsMap = bmMap.getChild("query-fields");
+		return queryFieldsMap;
 	}
 
 	/**
@@ -141,34 +174,92 @@ public class BMCompositeMap {
 	 * @return
 	 */
 	public List<CompositeMap> getFields() {
-		return getChildsOf("fields");
+		if (fields == null)
+			fields = getChildsOf("fields");
+		return fields;
 	}
 
 	/**
+	 * return children of fields,but ,remove pk field
+	 * 
+	 * @return never return null
+	 */
+	public List<CompositeMap> getFieldsWithoutPk() {
+		String pkn = getPkFieldName();
+		List<CompositeMap> fields = new ArrayList<CompositeMap>();
+		for (CompositeMap m : getFields())
+			if (m.getString("name").equals(pkn))
+				fields.add(m);
+		return fields;
+	}
+
+	/**
+	 * get fields in this bm,scope include <b>fields,ref-fields</b>
+	 * {@link #getFieldsWithoutPk()}
+	 * 
+	 * @param pk
+	 *            include pk
+	 * @param ref
+	 *            include ref-fields
+	 * @return
+	 */
+	public List<CompositeMap> getFields(boolean pk, boolean ref) {
+		List<CompositeMap> fields = new ArrayList<CompositeMap>();
+		if (pk)
+			fields.addAll(getFields());
+		else
+			fields.addAll(getFieldsWithoutPk());
+		if (ref)
+			fields.addAll(getRefFields());
+		return fields;
+	}
+
+	/**
+	 * get all defined pk-fields under node <b>primary-key</b><br/>
 	 * {@link #getChildsOf(String)}
 	 * 
 	 * @return
 	 */
 	public List<CompositeMap> getPrimaryKeys() {
-		return getChildsOf("primary-key");
+		if (primaryKeys == null)
+			primaryKeys = getChildsOf("primary-key");
+		return primaryKeys;
 	}
 
 	/**
+	 * get all defined relations under node <b>relations</b><br/>
 	 * {@link #getChildsOf(String)}
 	 * 
 	 * @return
 	 */
 	public List<CompositeMap> getRelations() {
-		return getChildsOf("relations");
+		if (relations == null)
+			relations = getChildsOf("relations");
+		return relations;
 	}
 
 	/**
+	 * get all defined ref-fields under node <b>ref-fields</b><br/>
+	 * {@link #getChildsOf(String)}
+	 * 
+	 * @return
+	 */
+	public List<CompositeMap> getRefFields() {
+		if (refFields == null)
+			refFields = getChildsOf("ref-fields");
+		return refFields;
+	}
+
+	/**
+	 * get all defined query-fields under node <b>query-fields</b><br/>
 	 * {@link #getChildsOf(String)}
 	 * 
 	 * @return
 	 */
 	public List<CompositeMap> getQueryFields() {
-		return getChildsOf("query-fields");
+		if (queryFields == null)
+			queryFields = getChildsOf("query-fields");
+		return queryFields;
 	}
 
 	public String getField_name(CompositeMap fMap) {
