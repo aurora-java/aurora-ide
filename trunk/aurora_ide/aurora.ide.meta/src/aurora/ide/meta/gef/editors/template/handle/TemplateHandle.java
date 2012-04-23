@@ -63,7 +63,7 @@ public abstract class TemplateHandle {
 
 	protected void fillBox(Container ac, BMReference bm) {
 		ac.getChildren().clear();
-		for (CompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm.getModel()))) {
+		for (CompositeMap map : GefModelAssist.getFieldsWithoutPK(GefModelAssist.getModel(bm.getModel()))) {
 			Input input = new Input();
 			input.setName(map.getString("name"));
 			input.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
@@ -104,8 +104,8 @@ public abstract class TemplateHandle {
 				i--;
 			}
 		}
-
-		for (CompositeMap map : GefModelAssist.getFields(GefModelAssist.getModel(bm))) {
+		grid.getCols().clear();
+		for (CompositeMap map : GefModelAssist.getFieldsWithoutPK(GefModelAssist.getModel(bm))) {
 			GridColumn gc = new GridColumn();
 			gc.setName(map.getString("name"));
 			gc.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
@@ -127,7 +127,7 @@ public abstract class TemplateHandle {
 			ds.setModel(s);
 			ac.setDataset(ds);
 		}
-
+		ac.getChildren().clear();
 		CompositeMap map = GefModelAssist.getModel(bm.getModel());
 		for (CompositeMap queryMap : GefModelAssist.getQueryFields(GefModelAssist.getModel(bm.getModel()))) {
 			Input input = new Input();
