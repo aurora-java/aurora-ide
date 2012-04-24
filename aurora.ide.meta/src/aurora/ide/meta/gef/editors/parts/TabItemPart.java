@@ -38,7 +38,7 @@ public class TabItemPart extends ComponentPart {
 		super.performRequest(req);
 //		this.getViewer().getEditDomain().getCommandStack();
 		
-		if (req.getType().equals(REQ_OPEN)) {
+		if (REQ_OPEN.equals(req.getType())) {
 			Command command = this.getCommand(req);
 			if(command !=null&&command.canExecute()){
 				CommandStack commandStack = this.getViewer().getEditDomain().getCommandStack();
