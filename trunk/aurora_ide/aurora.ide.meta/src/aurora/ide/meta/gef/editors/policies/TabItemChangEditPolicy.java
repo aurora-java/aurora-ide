@@ -12,7 +12,7 @@ public class TabItemChangEditPolicy extends GraphicalEditPolicy {
 
 	@Override
 	public Command getCommand(Request request) {
-		if (request.getType().equals(REQ_OPEN)) {
+		if (REQ_OPEN.equals(request.getType())) {
 			Command command = new Command() {
 
 				@Override
