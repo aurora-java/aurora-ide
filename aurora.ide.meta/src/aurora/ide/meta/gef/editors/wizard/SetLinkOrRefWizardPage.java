@@ -8,7 +8,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -17,6 +16,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -137,7 +138,6 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 			btnAdd.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					// TODO Auto-generated method stub
 					CridColumnDialog dialog = new CridColumnDialog(getShell());
 					dialog.open();
 				}
@@ -166,16 +166,24 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		lbl.setText("Select:");
 		Text txt = new Text(gr, SWT.BORDER);
 		txt.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
 		Button btnSelect = new Button(gr, SWT.None);
 		btnSelect.setText("选择文件");
 
-		Button btnParam = new Button(gr, SWT.None);
+		final Button btnParam = new Button(gr, SWT.None);
 		btnParam.setText("添加参数");
 		btnParam.setEnabled(false);
 
 		btnSelect.addSelectionListener(new TabRefSelect(txt, btnParam, ti));
-
 		btnParam.addSelectionListener(new TabRefParamSelect(ti));
+		txt.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				Text t = (Text) e.getSource();
+				if (null == t.getText() || "".equals(t.getText())) {
+					btnParam.setEnabled(false);
+				}
+			}
+		});
 	}
 
 	private IProject getMetaProject() {
@@ -254,9 +262,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 		public void widgetSelected(SelectionEvent e) {
 			StyleSettingDialog dialog = new StyleSettingDialog(getShell(), ti.getTabRef().getParameters());
-			if (dialog.open() == Dialog.OK) {
-				ti.getTabRef().addAllParameter(dialog.getResult());
-			}
+			dialog.open();
 		}
 	}
 
