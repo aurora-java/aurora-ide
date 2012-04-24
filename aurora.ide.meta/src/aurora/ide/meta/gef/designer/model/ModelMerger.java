@@ -147,7 +147,7 @@ public class ModelMerger {
 		BMCompositeMap bmc = new BMCompositeMap(bmMap);
 		updateRecordsOfModel(model, bmc);
 		updateRelationsOfModel(model, bmc);
-		String ddf = bmMap.getString("defaultDisplayField");
+		String ddf = getMapString(bmMap, "defaultDisplayField");
 		for (Record r : model.getRecordList()) {
 			if (r.getName().equals(ddf))
 				model.setDefaultDisplay(r.getPrompt());
@@ -202,6 +202,7 @@ public class ModelMerger {
 		r.setName(fMap.getString("name"));
 		r.setPrompt(fMap.getString("prompt"));
 		r.setOptions(fMap.getString("options"));
+		r.setEditor(getMapString(fMap, "defaultEditor"));
 		// TODO update other property of record when read
 	}
 
@@ -240,8 +241,8 @@ public class ModelMerger {
 				i--;
 				continue;
 			}
-			r.setJoinType(m.getString("joinType"));
-			r.setRefTable(m.getString("refModel"));
+			r.setJoinType(getMapString(m, "joinType"));
+			r.setRefTable(getMapString(m, "refModel"));
 			CompositeMap mm = m.getChild("reference");
 			if (mm != null) {
 				updateReferenceOfModel(mm, r);
@@ -256,7 +257,7 @@ public class ModelMerger {
 	private void updateReferenceOfModel(CompositeMap refMap, Relation r) {
 		// update localField use new bm setting
 		for (Record lr : model.getRelationList()) {
-			if (lr.getName().equals(refMap.getString("localField"))) {
+			if (lr.getName().equals(getMapString(refMap, "localField"))) {
 				r.setLocalField(lr.getPrompt());
 				break;
 			}
@@ -267,7 +268,8 @@ public class ModelMerger {
 		ArrayList<CompositeMap> locField = dsfu.getLocalFields(dsfu.getBmMap(),
 				false);
 		for (CompositeMap lfm : locField) {
-			if (lfm.getString("name").equals(refMap.getString("sourceField"))) {
+			if (lfm.getString("name").equals(
+					getMapString(refMap, "sourceField"))) {
 				r.setSrcField(lfm.getString("prompt"));
 				break;
 			}
@@ -277,8 +279,8 @@ public class ModelMerger {
 	private Relation createNewRelation(CompositeMap m) {
 		Relation r = new Relation();
 		r.setName(m.getString("name"));
-		r.setJoinType(m.getString("joinType"));
-		r.setRefTable(m.getString("refModel"));
+		r.setJoinType(getMapString(m, "joinType"));
+		r.setRefTable(getMapString(m, "refModel"));
 		CompositeMap mm = m.getChild("reference");
 		updateReferenceOfModel(mm, r);
 		return r;
@@ -451,5 +453,12 @@ public class ModelMerger {
 		CompositeMap map = new CommentCompositeMap(name);
 		map.setPrefix(BaseBmGenerator.bm_ns_pre);// set a default prefix
 		return map;
+	}
+
+	private String getMapString(CompositeMap map, String attr) {
+		String value = map.getString(attr);
+		if (value == null)
+			value = map.getString(attr.toLowerCase());
+		return value == null ? "" : value;
 	}
 }
