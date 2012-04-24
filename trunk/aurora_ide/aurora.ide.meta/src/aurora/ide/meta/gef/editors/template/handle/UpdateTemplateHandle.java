@@ -10,7 +10,7 @@ public class UpdateTemplateHandle extends TemplateHandle {
 	public void fill(ViewDiagram viewDiagram) {
 		super.fill(viewDiagram);
 	}
-	
+
 	@Override
 	protected GridColumn createGridColumn(CompositeMap map) {
 		GridColumn gc = super.createGridColumn(map);

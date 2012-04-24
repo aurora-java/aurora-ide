@@ -131,6 +131,8 @@ public abstract class TemplateHandle {
 			QueryDataSet ds = new QueryDataSet();
 			ds.setModel(s);
 			ac.setDataset(ds);
+		} else if (Container.SECTION_TYPE_RESULT.equals(ac.getSectionType())) {
+			return;
 		}
 		ac.getChildren().clear();
 		BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
