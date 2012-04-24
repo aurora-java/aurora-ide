@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.designer.model;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -37,6 +39,11 @@ public class ModelMerger {
 	private CompositeMap bmMap;
 	private BMModel model;
 	private char seqRefAlias = 'p';
+	/**
+	 * use to mark weather model if changed by bm file ,when read<br/>
+	 * commonly ,this will happen when user change bm file manually.
+	 */
+	protected boolean dirty = false;
 
 	/**
 	 * 
@@ -109,9 +116,27 @@ public class ModelMerger {
 	 * @return
 	 */
 	public BMModel getMergedModel() {
+		PropertyChangeListener pcl = new PropertyChangeListener() {
+
+			public void propertyChange(PropertyChangeEvent evt) {
+				dirty = true;
+			}
+		};
+		model.addPropertyChangeListener(pcl);
 		if (bmMap != null)
 			updateModel();
+		model.removePropertyChangeListener(pcl);
 		return model;
+	}
+
+	/**
+	 * after {@link #getMergedModel()},user can use this method to know weather
+	 * model is modified.
+	 * 
+	 * @return
+	 */
+	public boolean isDirty() {
+		return dirty;
 	}
 
 	/**
