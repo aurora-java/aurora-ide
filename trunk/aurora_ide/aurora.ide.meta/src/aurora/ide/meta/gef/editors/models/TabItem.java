@@ -64,6 +64,11 @@ public class TabItem extends Container {
 	public void setCurrent(boolean b) {
 		if (current == b)
 			return;
+		if (b) {
+			TabFolder tf = (TabFolder) getParent();
+			if (tf != null)
+				tf.disSelectAll();
+		}
 		getBody().setVisible(b);
 		boolean oldV = current;
 		current = b;
@@ -120,8 +125,6 @@ public class TabItem extends Container {
 		}
 		super.setPropertyValue(propName, val);
 	}
-
-	
 
 	public TabRef getTabRef() {
 		return ref;

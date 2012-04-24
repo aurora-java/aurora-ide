@@ -24,7 +24,8 @@ public class TabFolder extends Container {
 		for (AuroraComponent ac : getChildren()) {
 			if (ac instanceof TabItem) {
 				((TabItem) ac).setCurrent(false);
-			}
+			} else
+				break;
 		}
 	}
 
