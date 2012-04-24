@@ -14,20 +14,20 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.undo.CreateFileOperation;
 import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.designer.BMDesigner;
 import aurora.ide.meta.gef.designer.DesignerUtil;
 import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
 import aurora.ide.meta.gef.designer.model.Record;
-import aurora.ide.search.ui.EditorOpener;
 
 public class NewBmqWizard extends Wizard implements INewWizard {
 	private BaseInfoWizardPage page1 = new BaseInfoWizardPage();
@@ -56,7 +56,6 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
-		EditorOpener editorOpener = new EditorOpener();
 		String fullPath = page1.getFileFullPath();
 		IFile file = ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(new Path(fullPath));
@@ -82,9 +81,8 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 			};
 			try {
 				getContainer().run(true, true, op);
-				IEditorPart editor = editorOpener
-						.open(workbench.getActiveWorkbenchWindow()
-								.getActivePage(), file, true);
+				IDE.openEditor(workbench.getActiveWorkbenchWindow()
+						.getActivePage(), file, BMDesigner.ID, true);
 				return true;
 			} catch (InvocationTargetException e) {
 				e.printStackTrace();
