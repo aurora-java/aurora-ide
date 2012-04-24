@@ -6,7 +6,6 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
 import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.parts.TabFolderPart;
 
 public class TabItemChangEditPolicy extends GraphicalEditPolicy {
 
@@ -22,9 +21,6 @@ public class TabItemChangEditPolicy extends GraphicalEditPolicy {
 
 				@Override
 				public void execute() {
-					TabFolderPart parent = (TabFolderPart) getHost()
-							.getParent();
-					parent.getModel().disSelectAll();
 					((TabItem) getHost().getModel()).setCurrent(true);
 				}
 
@@ -39,20 +35,8 @@ public class TabItemChangEditPolicy extends GraphicalEditPolicy {
 		return super.getTargetEditPart(request);
 	}
 
-	// @Override
-	// public void showSourceFeedback(Request request) {
-	// super.showSourceFeedback(request);
-	// }
-	//
-	// @Override
-	// public void showTargetFeedback(Request request) {
-	// super.showTargetFeedback(request);
-	// }
-
 	@Override
 	public boolean understandsRequest(Request req) {
 		return true;
-		// return super.understandsRequest(req);
 	}
-
 }
