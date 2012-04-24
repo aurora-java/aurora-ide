@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.Container;
@@ -18,7 +19,8 @@ public class CreateTemplateHandle extends TemplateHandle {
 		setRowColNum(viewDiagram);
 		for (BMReference bm : modelRelated.keySet()) {
 			for (Container ac : modelRelated.get(bm)) {
-				fillContainer(ac, bm);
+				BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
+				fillContainer(ac, bm, bmc);
 			}
 		}
 	}
