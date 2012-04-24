@@ -5,8 +5,9 @@ import java.util.Map;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 
@@ -20,39 +21,42 @@ public class SerachTemplateHandle extends TemplateHandle {
 	}
 
 	@Override
-	protected void fillContainer(Container ac, BMReference bm) {
-		refRelat = getReferenceRelation(new BMCompositeMap(bm.getModel()));
-		super.fillContainer(ac, bm);
+	protected void fillContainer(Container ac, BMReference bm, BMCompositeMap bmc) {
+		refRelat = getReferenceRelation(bmc);
+		super.fillContainer(ac, bm, bmc);
 	}
 
 	@Override
 	protected void fillBox(Container ac, BMCompositeMap bmc) {
-		ac.getChildren().clear();
-		for (CompositeMap map : getFieldsWithoutPK(bmc)) {
-			Input input = AuroraModelFactory.createComponent(GefModelAssist.getTypeNotNull(map));
-			String name = map.getString("name");
-			if (refRelat.containsKey(name)) {
-				name = refRelat.get(name);
-			}
-			input.setName(name);
-			String prompt = map.getString("prompt");
-			prompt = prompt == null ? map.getString("name") : prompt;
-			input.setPrompt(prompt);
-			((Container) ac).addChild(input);
-		}
+		super.fillBox(ac, bmc);
 	}
 
 	@Override
-	protected GridColumn createGridColumn(CompositeMap map) {
-		GridColumn gc = new GridColumn();
-		String name = map.getString("name");
-		if (refRelat.containsKey(name)) {
-			name = refRelat.get(name);
+	protected void fillGrid(Grid grid, BMCompositeMap bmc) {
+		for (int i = 0; i < grid.getChildren().size(); i++) {
+			if (grid.getChildren().get(i) instanceof GridColumn) {
+				grid.getChildren().remove(i);
+				i--;
+			}
 		}
-		gc.setName(name);
-		String prompt = map.getString("prompt");
-		prompt = prompt == null ? map.getString("name") : prompt;
-		gc.setPrompt(prompt);
-		return gc;
+		grid.getCols().clear();
+		for (CompositeMap map : getFieldsWithoutPK(bmc)) {
+			GridColumn gc = createGridColumn(map);
+			grid.addCol(gc);
+			String name = map.getString("name");
+			for (String n : refRelat.keySet()) {
+				if (name != null && name.equals(refRelat.get(n))) {
+					GridColumn g = new GridColumn();
+					g.setName(n);
+					String prompt = map.getString("prompt");
+					prompt = prompt == null ? map.getString("name") : prompt;
+					g.setPrompt(prompt);
+					grid.addCol(g);
+				}
+			}
+		}
+		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
+		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
+		grids.add(grid);
 	}
 }

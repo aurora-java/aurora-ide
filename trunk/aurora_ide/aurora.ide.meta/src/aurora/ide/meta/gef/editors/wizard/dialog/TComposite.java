@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -27,6 +29,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.TypedListener;
 
+import aurora.ide.AuroraPlugin;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.template.Template;
 
@@ -240,6 +243,13 @@ public class TComposite extends SashForm {
 
 	private Image getImage(String path) {
 		if (images.get(path) == null) {
+			
+////			IPath append = ICONS_PATH.append(getPath(key));
+//			ImageDescriptor imageDescriptor = AuroraPlugin
+//					.getImageDescriptor(path);
+////			PLUGIN_REGISTRY.put(key, imageDescriptor);
+////			image = PLUGIN_REGISTRY.get(key);
+			
 			Image image = new Image(getDisplay(), path);
 			images.put(path, image);
 		}

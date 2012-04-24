@@ -45,7 +45,8 @@ public abstract class TemplateHandle {
 		this.viewDiagram = viewDiagram;
 		for (BMReference bm : modelRelated.keySet()) {
 			for (Container ac : modelRelated.get(bm)) {
-				fillContainer(ac, bm);
+				BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
+				fillContainer(ac, bm, bmc);
 			}
 		}
 
@@ -84,13 +85,12 @@ public abstract class TemplateHandle {
 		return s;
 	}
 
-	protected void fillContainer(Container ac, BMReference bm) {
+	protected void fillContainer(Container ac, BMReference bm, BMCompositeMap bmc) {
 		Dataset ds = ac.getDataset();
 		String s = getBmPath(bm.getModel());
 		ds.setModel(s);
 		ac.setDataset(ds);
 		ac.setSectionType(Container.SECTION_TYPE_RESULT);
-		BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
 		if (ac instanceof Grid) {
 			fillGrid((Grid) ac, bmc);
 		} else {
@@ -132,6 +132,9 @@ public abstract class TemplateHandle {
 			ds.setModel(s);
 			ac.setDataset(ds);
 		} else if (Container.SECTION_TYPE_RESULT.equals(ac.getSectionType())) {
+			if (ac instanceof Grid) {
+				((Grid) ac).setSelectionMode(ResultDataSet.SELECT_SINGLE);
+			}
 			return;
 		}
 		ac.getChildren().clear();
@@ -171,7 +174,7 @@ public abstract class TemplateHandle {
 			for (CompositeMap relat : bmc.getRelations()) {
 				if (relationName.equals(relat.getString("name"))) {
 					for (Object refer : relat.getChildsNotNull()) {
-						refRelat.put(((CompositeMap) refer).getString("localfield"), ref.getString("name"));
+						refRelat.put(ref.getString("name"), ((CompositeMap) refer).getString("localfield"));
 					}
 				}
 			}

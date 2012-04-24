@@ -47,6 +47,7 @@ public class TemplateHelper {
 	private Map<BMReference, String> queryModelRelated;
 	private List<BMReference> bms;
 	private List<BMReference> initBms;
+	private List<TabItem> tabItem;
 
 	private int tabItemIndex = 0;
 
@@ -160,6 +161,12 @@ public class TemplateHelper {
 		fillQueryRelated();
 		viewDiagram.setTemplateType(template.getType());
 		viewDiagram.setBindTemplate(template.getPath());
+		if (tabItem.size() > 0) {
+			tabItem.get(0).setCurrent(true);
+			for (int i = 1; i < tabItem.size(); i++) {
+				tabItem.get(i).setCurrent(false);
+			}
+		}
 		return viewDiagram;
 	}
 
@@ -172,6 +179,7 @@ public class TemplateHelper {
 		modelRelated = new HashMap<BMReference, List<Container>>();
 		initModelRelated = new HashMap<BMReference, List<TabItem>>();
 		queryModelRelated = new HashMap<BMReference, String>();
+		tabItem = new ArrayList<TabItem>();
 		tabItemIndex = 0;
 	}
 
@@ -189,6 +197,7 @@ public class TemplateHelper {
 		}
 		if (ac instanceof TabItem) {
 			((TabItem) ac).setPrompt("tabItem" + tabItemIndex++);
+			tabItem.add((TabItem) ac);
 		}
 		if (c.getChildren() == null) {
 			return ac;
@@ -227,55 +236,6 @@ public class TemplateHelper {
 			}
 		}
 	}
-
-	// private void fillQueryField() {
-	// for (String mid : modelMap.keySet()) {
-	// Object obj = acptMap.get(mid);
-	// if (!(obj instanceof Container)) {
-	// continue;
-	// }
-	// if (((Container) obj).getSectionType() == null || "".equals(((Container)
-	// obj).getSectionType())) {
-	// ((Container) obj).setSectionType(Container.SECTION_TYPE_QUERY);
-	// String s = getBmPath(modelMap.get(mid));
-	// QueryDataSet ds = (QueryDataSet) ((Container) obj).getDataset();
-	// ds.setModel(s);
-	// ((Container) obj).setDataset(ds);
-	// }
-	// if (Template.TYPE_DISPLAY.equals(template.getType())) {
-	// CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
-	// for (CommentCompositeMap queryMap :
-	// GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid))))
-	// {
-	// Label label = new Label();
-	// ((Container) obj).addChild(createField(label, map, queryMap));
-	// }
-	// } else {
-	// CommentCompositeMap map = GefModelAssist.getModel(modelMap.get(mid));
-	// for (CommentCompositeMap queryMap :
-	// GefModelAssist.getQueryFields(GefModelAssist.getModel(modelMap.get(mid))))
-	// {
-	// Input input = new Input();
-	// ((Container) obj).addChild(createField(input, map, queryMap));
-	// }
-	// }
-	// }
-	// }
-
-	// private AuroraComponent createField(AuroraComponent ac,
-	// CommentCompositeMap map, CommentCompositeMap queryMap) {
-	// CommentCompositeMap fieldMap =
-	// GefModelAssist.getCompositeMap((CommentCompositeMap)
-	// map.getChild("fields"), "name", queryMap.getString("field"));
-	// if (fieldMap == null) {
-	// fieldMap = queryMap;
-	// }
-	// ac.setName(fieldMap.getString("name"));
-	// ac.setPrompt(fieldMap.getString("prompt") == null ?
-	// fieldMap.getString("name") : fieldMap.getString("prompt"));
-	// ac.setType(GefModelAssist.getTypeNotNull(fieldMap));
-	// return ac;
-	// }
 
 	private void fillButton(ButtonComponent btnc, Button btn) {
 		if ("toolBar".equals(btnc.getParent().getComponentType()) && contains(Button.std_types, btnc.getType())) {
@@ -346,7 +306,7 @@ public class TemplateHelper {
 		if (bm == null) {
 			return;
 		}
-		ResultDataSet ds=new ResultDataSet();
+		ResultDataSet ds = new ResultDataSet();
 		ds.setOwner(ac);
 		ac.setDataset(ds);
 		ac.setSectionType(Container.SECTION_TYPE_RESULT);
@@ -387,6 +347,10 @@ public class TemplateHelper {
 
 	public Map<BMReference, String> getQueryModelRelated() {
 		return queryModelRelated;
+	}
+
+	public List<TabItem> getTabItem() {
+		return tabItem;
 	}
 
 }
