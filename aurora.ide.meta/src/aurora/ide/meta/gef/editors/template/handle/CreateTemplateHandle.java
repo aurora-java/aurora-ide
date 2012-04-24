@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uncertain.composite.CompositeMap;
-
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.Container;

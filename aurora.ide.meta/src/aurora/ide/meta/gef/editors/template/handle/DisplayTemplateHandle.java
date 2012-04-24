@@ -14,7 +14,8 @@ public class DisplayTemplateHandle extends TemplateHandle {
 
 	private Map<String, String> refRelat;
 
-	public void fill(ViewDiagram viewDiagram) {
+	@Override
+	public void fill(ViewDiagram viewDiagram){
 		this.viewDiagram = viewDiagram;
 		for (BMReference bm : modelRelated.keySet()) {
 			for (Container ac : modelRelated.get(bm)) {
