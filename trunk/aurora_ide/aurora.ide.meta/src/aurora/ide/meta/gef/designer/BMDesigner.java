@@ -113,6 +113,9 @@ public class BMDesigner extends FormEditor {
 		model.setNamePrefix(tn + "_c");
 		dpage.setModel(model);
 		epage.setModel(model);
+		if (merger.isDirty()) {
+			dpage.setDirty(true);
+		}
 	}
 
 	public IFile getInputFile() {
