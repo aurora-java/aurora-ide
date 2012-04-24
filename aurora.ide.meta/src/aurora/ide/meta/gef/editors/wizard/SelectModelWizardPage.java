@@ -131,7 +131,8 @@ public class SelectModelWizardPage extends WizardPage {
 			public void modifyText(ModifyEvent e) {
 				if (null == txt.getText() || "".equals(txt.getText())) {
 					setErrorMessage(null);
-					setPageComplete(false);
+					bm.setModel(null);
+					setPageComplete(checkFinish());
 					return;
 				}
 				IResource r = ResourcesPlugin.getWorkspace().getRoot().findMember(txt.getText());
@@ -142,12 +143,11 @@ public class SelectModelWizardPage extends WizardPage {
 					updateStatus("必须选择bm文件");
 					return;
 				}
-				if (r.equals(bm.getModel())) {
-					return;
-				}
 				bm.setModel((IFile) r);
 				if (checkFinish()) {
 					updateStatus(null);
+				}else{
+					setPageComplete(false);
 				}
 			}
 		});

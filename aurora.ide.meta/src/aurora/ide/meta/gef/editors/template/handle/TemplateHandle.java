@@ -42,6 +42,7 @@ public abstract class TemplateHandle {
 	}
 
 	public void fill(ViewDiagram viewDiagram) {
+		viewDiagram.getInitModels().clear();
 		this.viewDiagram = viewDiagram;
 		for (BMReference bm : modelRelated.keySet()) {
 			for (Container ac : modelRelated.get(bm)) {
@@ -59,6 +60,10 @@ public abstract class TemplateHandle {
 
 		for (BMReference bm : initModelRelated.keySet()) {
 			for (TabItem ac : initModelRelated.get(bm)) {
+				refTabItems.add(ac);
+				if (bm.getModel() == null) {
+					continue;
+				}
 				fillTabItem(ac, bm);
 			}
 		}
@@ -153,7 +158,6 @@ public abstract class TemplateHandle {
 		m.setPath(s);
 		ac.getTabRef().setInitModel(m);
 		viewDiagram.getInitModels().add(m);
-		refTabItems.add(ac);
 	}
 
 	public List<Grid> getGrids() {
