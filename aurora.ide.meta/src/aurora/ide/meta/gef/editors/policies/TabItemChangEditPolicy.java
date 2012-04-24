@@ -3,7 +3,6 @@ package aurora.ide.meta.gef.editors.policies;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
 import aurora.ide.meta.gef.editors.models.TabItem;
@@ -37,7 +36,6 @@ public class TabItemChangEditPolicy extends GraphicalEditPolicy {
 
 	@Override
 	public EditPart getTargetEditPart(Request request) {
-		System.out.println(request.getType());
 		return super.getTargetEditPart(request);
 	}
 
