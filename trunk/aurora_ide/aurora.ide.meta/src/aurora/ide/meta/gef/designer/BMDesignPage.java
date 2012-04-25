@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelection;
@@ -29,7 +30,10 @@ import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
@@ -46,6 +50,7 @@ import aurora.ide.meta.gef.designer.editor.RelationViewer;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
+import aurora.ide.meta.popup.actions.OpenBMofBmqAction;
 
 public class BMDesignPage extends FormPage {
 	private Text quickAddText;
@@ -63,6 +68,7 @@ public class BMDesignPage extends FormPage {
 	private Button btnDelRelation;
 	private RelationViewer relationViewer;
 	private ComboViewer defaultDisplayViewer;
+	private Menu menu;
 
 	/**
 	 * Create the form page.
@@ -98,6 +104,8 @@ public class BMDesignPage extends FormPage {
 		// form.setLayout(null);
 
 		Composite body = form.getBody();
+		createPopMenu(body);
+		body.setMenu(menu);
 		body.setLayout(new GridLayout(2, false));
 		// toolkit.decorateFormHeading(form.getForm());
 		// toolkit.paintBordersFor(body);
@@ -116,7 +124,22 @@ public class BMDesignPage extends FormPage {
 		createRelationTable(com2);
 		new Label(com2, SWT.NONE);
 		sh.setWeights(new int[] { 2, 1 });
-		form.setMinWidth(100);
+		setUpMenu(body);
+	}
+
+	private void setUpMenu(Composite parent) {
+		for (Control c : parent.getChildren()) {
+			if (c instanceof Composite) {
+				if (c instanceof SashForm)
+					c.setMenu(menu);
+				else if (c.getClass().equals(Composite.class))
+					c.setMenu(menu);
+				if (c instanceof Table)
+					continue;
+				setUpMenu((Composite) c);
+			} else if (c instanceof Label)
+				c.setMenu(menu);
+		}
 	}
 
 	private void createTitleControl(Composite body) {
@@ -192,6 +215,23 @@ public class BMDesignPage extends FormPage {
 						}
 					}
 				});
+	}
+
+	private void createPopMenu(Composite parent) {
+		menu = new Menu(parent);
+
+		MenuItem mntmOpenBm = new MenuItem(menu, SWT.NONE);
+		mntmOpenBm.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				OpenBMofBmqAction act = new OpenBMofBmqAction();
+				act.selectionChanged(null, new StructuredSelection(getEditor()
+						.getAdapter(IFile.class)));
+				act.setActivePart(null, getEditor());
+				act.run(null);
+			}
+		});
+		mntmOpenBm.setText(DesignerMessages.BMDesignPage_mntmOpenBm_text);
 	}
 
 	private void createQuickInputControl(IManagedForm managedForm) {
@@ -380,6 +420,17 @@ public class BMDesignPage extends FormPage {
 		btnDelRelation.setText(DesignerMessages.BMDesignPage_9);
 		btnDelRelation.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false, 1, 1));
+		btnDelRelation.addSelectionListener(new SelectionAdapter() {
+			@SuppressWarnings("unchecked")
+			public void widgetSelected(SelectionEvent e) {
+				ISelection s = relationViewer.getSelection();
+				if (s instanceof IStructuredSelection) {
+					IStructuredSelection ss = (IStructuredSelection) s;
+					model.removeRelations(ss.toList());
+					relationViewer.refresh();
+				}
+			}
+		});
 		btnEditRelation.setEnabled(false);
 		btnDelRelation.setEnabled(false);
 		relationViewer
