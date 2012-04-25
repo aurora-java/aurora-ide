@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 
 public class Relation extends Record implements IDesignerConst {
-	public static final String REF_PROMPTS = "ref-prompts";
+	public static final String REF_PROMPTS = "ref_prompts";
 
 	public String getName() {
 		return getStringNotNull(COLUMN_RELNAME);
