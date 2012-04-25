@@ -100,13 +100,15 @@ public class SelectModelWizardPage extends WizardPage {
 				createTextField(compoModel, bm);
 			}
 			compoModel.layout();
+		}else{
+			setPageComplete(true);
 		}
 
 		if (TemplateHelper.getInstance().getInitBms() != null && TemplateHelper.getInstance().getInitBms().size() > 0) {
 			Group compoInitModel = new Group(composite, SWT.NONE);
 			compoInitModel.setLayout(new GridLayout(3, false));
 			compoInitModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			compoInitModel.setText("InitModel");
+			compoInitModel.setText("InitModel(可选)");
 			for (BMReference bm : TemplateHelper.getInstance().getInitBms()) {
 				createTextField(compoInitModel, bm);
 			}

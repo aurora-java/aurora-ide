@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
@@ -28,7 +29,7 @@ public class CreateTemplateHandle extends TemplateHandle {
 	@Override
 	protected GridColumn createGridColumn(CompositeMap map) {
 		GridColumn gc = super.createGridColumn(map);
-		gc.setEditor(GefModelAssist.getTypeNotNull(map));
+		gc.setEditor(Util.getType(map));
 		return gc;
 	}
 

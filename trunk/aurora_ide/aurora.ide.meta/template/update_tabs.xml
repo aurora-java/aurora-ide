@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<template name="维护数据" iconPath="1.png" type="update" category="维护">
+	<models>
+		<model id="model_hid" name="头BM"/>
+		<model id="model_rid" name="行BM"/>
+	</models>
+	
+	<tabFolder>
+		<tabItem>
+			<grid id="grid_hid" name="grid_hname" model="model_hid">
+				<toolBar>
+					<button type="add"/>
+					<button type="save"/>
+					<button type="delete"/>
+					<button type="excel"/>
+					<button type="clear"/>
+				</toolBar>
+			</grid>
+		</tabItem>
+		
+		<tabItem>
+			<grid id="grid_rid" name="grid_rname" model="model_rid" query="grid_hid">
+				<toolBar>
+					<button type="add"/>
+					<button type="save"/>
+					<button type="delete"/>
+					<button type="excel"/>
+					<button type="clear"/>
+				</toolBar>
+			</grid>
+		</tabItem>
+	</tabFolder>
+	<description><![CDATA[
+		Tab放置头行结构的Grid，Grid数据可编辑
+	]]></description>
+</template>

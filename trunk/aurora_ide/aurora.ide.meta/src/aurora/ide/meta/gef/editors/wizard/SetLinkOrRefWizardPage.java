@@ -8,9 +8,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -80,85 +84,107 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		}
 
 		if (grids.size() > 0) {
-			Group gl = new Group(composite, SWT.None);
-			gl.setLayout(new GridLayout(2, false));
-			gl.setLayoutData(new GridData(GridData.FILL_BOTH));
-			gl.setText("Set grid");
-			GridData gd = new GridData(GridData.FILL_BOTH);
-
-			TreeViewer treeViewer = new TreeViewer(gl, SWT.BORDER | SWT.FULL_SELECTION);
-			gd.verticalSpan = 3;
-			treeViewer.getTree().setLayoutData(gd);
-
-			TreeColumn treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
-			treeColumn.setMoveable(true);
-			treeColumn.setResizable(true);
-			treeColumn.setText("Grid");
-			treeColumn.pack();
-			treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
-			treeColumn.setMoveable(true);
-			treeColumn.setResizable(true);
-			treeColumn.setText("GridColumn");
-			treeColumn.pack();
-			treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
-			treeColumn.setMoveable(true);
-			treeColumn.setResizable(true);
-			treeColumn.setText("Editor");
-			treeColumn.pack();
-
-			treeViewer.getTree().setLinesVisible(true);
-			treeViewer.getTree().setHeaderVisible(true);
-
-			treeViewer.setLabelProvider(new TreeLabelProvider());
-			treeViewer.setContentProvider(new TreeContentProvider());
-			treeViewer.setInput(grids);
-
-			Button btnAdd = new Button(gl, SWT.None);
-			btnAdd.setText("添加列");
-			gd = new GridData();
-			gd.widthHint = 80;
-			gd.verticalAlignment = SWT.TOP;
-			btnAdd.setLayoutData(gd);
-
-			Button btnDel = new Button(gl, SWT.None);
-			btnDel.setText("删除列");
-			btnDel.setEnabled(false);
-			gd = new GridData();
-			gd.widthHint = 80;
-			gd.verticalAlignment = SWT.TOP;
-			btnDel.setLayoutData(gd);
-
-			Button btnModify = new Button(gl, SWT.None);
-			btnModify.setText("修改列");
-			btnModify.setEnabled(false);
-			gd = new GridData();
-			gd.widthHint = 80;
-			gd.verticalAlignment = SWT.TOP;
-			btnModify.setLayoutData(gd);
-
-			btnAdd.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent e) {
-					CridColumnDialog dialog = new CridColumnDialog(getShell());
-					dialog.open();
-				}
-			});
-
-			btnDel.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-			});
-
-			btnModify.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-			});
+			createGridSetting(grids);
 		}
 
 		composite.layout();
+	}
+
+	private void createGridSetting(List<Grid> grids) {
+		
+		Group gl = new Group(composite, SWT.None);
+		gl.setLayout(new GridLayout(2, false));
+		gl.setLayoutData(new GridData(GridData.FILL_BOTH));
+		gl.setText("Set grid");
+		GridData gd = new GridData(GridData.FILL_BOTH);
+
+		TreeViewer treeViewer = new TreeViewer(gl, SWT.BORDER | SWT.FULL_SELECTION);
+		gd.verticalSpan = 3;
+		treeViewer.getTree().setLayoutData(gd);
+
+		TreeColumn treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
+		treeColumn.setMoveable(true);
+		treeColumn.setResizable(true);
+		treeColumn.setText("Grid");
+		treeColumn.pack();
+		treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
+		treeColumn.setMoveable(true);
+		treeColumn.setResizable(true);
+		treeColumn.setText("GridColumn");
+		treeColumn.pack();
+		treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
+		treeColumn.setMoveable(true);
+		treeColumn.setResizable(true);
+		treeColumn.setText("Editor");
+		treeColumn.pack();
+
+		treeViewer.getTree().setLinesVisible(true);
+		treeViewer.getTree().setHeaderVisible(true);
+
+		treeViewer.setLabelProvider(new TreeLabelProvider());
+		treeViewer.setContentProvider(new TreeContentProvider());
+		treeViewer.setInput(grids);
+
+		Button btnAdd = new Button(gl, SWT.None);
+		btnAdd.setText("添加Link");
+		gd = new GridData();
+		gd.widthHint = 80;
+		gd.verticalAlignment = SWT.TOP;
+		btnAdd.setLayoutData(gd);
+
+		Button btnDel = new Button(gl, SWT.None);
+		btnDel.setText("删除列");
+		btnDel.setEnabled(false);
+		gd = new GridData();
+		gd.widthHint = 80;
+		gd.verticalAlignment = SWT.TOP;
+		btnDel.setLayoutData(gd);
+		
+		Button btnUP = new Button(gl, SWT.None);
+		btnUP.setText("上移");
+		btnUP.setEnabled(false);
+		gd = new GridData();
+		gd.widthHint = 80;
+		gd.verticalAlignment = SWT.TOP;
+		btnUP.setLayoutData(gd);
+		
+		Button btnDown = new Button(gl, SWT.None);
+		btnDown.setText("下移");
+		btnDown.setEnabled(false);
+		gd = new GridData();
+		gd.widthHint = 80;
+		gd.verticalAlignment = SWT.TOP;
+		btnDown.setLayoutData(gd);
+
+		btnAdd.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				CridColumnDialog dialog = new CridColumnDialog(getShell());
+				if (dialog.open() == Dialog.OK) {
+
+				}
+			}
+		});
+
+		btnDel.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		
+		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			public void selectionChanged(SelectionChangedEvent event) {
+				// TODO Auto-generated method stub
+				Object obj = ((TreeSelection) event.getSelection()).getFirstElement();
+				if (obj instanceof Grid) {
+					
+				} else if (obj instanceof GridColumn) {
+					
+				} else {
+					
+				}
+			}
+		});
 	}
 
 	private void createRefField(TabItem ti, Group gr) {

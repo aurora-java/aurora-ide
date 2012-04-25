@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<template name="显示数据" iconPath="1.png" type="display" category="显示">
+	<models>
+		<model id="model_head" name="Form绑定BM"/>
+	</models>
+	
+	<form id="form_id" name="form_name" model="model_head"/>
+	
+	<description><![CDATA[
+		通过Form显示数据
+	]]></description>
+</template>

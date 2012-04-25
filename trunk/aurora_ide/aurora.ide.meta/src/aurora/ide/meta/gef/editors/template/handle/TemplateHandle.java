@@ -72,7 +72,7 @@ public abstract class TemplateHandle {
 	protected void fillBox(Container ac, BMCompositeMap bmc) {
 		ac.getChildren().clear();
 		for (CompositeMap map : getFieldsWithoutPK(bmc)) {
-			Input input = AuroraModelFactory.createComponent(GefModelAssist.getTypeNotNull(map));
+			Input input = AuroraModelFactory.createComponent(aurora.ide.meta.gef.Util.getType(map));
 			input.setName(map.getString("name"));
 			input.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
 			((Container) ac).addChild(input);
@@ -145,7 +145,7 @@ public abstract class TemplateHandle {
 		ac.getChildren().clear();
 		BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
 		for (CompositeMap queryMap : getQueryFields(bmc)) {
-			Input input = AuroraModelFactory.createComponent(GefModelAssist.getTypeNotNull(queryMap));
+			Input input = AuroraModelFactory.createComponent(aurora.ide.meta.gef.Util.getType(queryMap));
 			input.setName(queryMap.getString("name"));
 			input.setPrompt(queryMap.getString("prompt") == null ? queryMap.getString("name") : queryMap.getString("prompt"));
 			ac.addChild(input);

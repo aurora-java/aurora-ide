@@ -14,7 +14,7 @@ public class UpdateTemplateHandle extends TemplateHandle {
 	@Override
 	protected GridColumn createGridColumn(CompositeMap map) {
 		GridColumn gc = super.createGridColumn(map);
-		gc.setEditor(GefModelAssist.getTypeNotNull(map));
+		gc.setEditor(aurora.ide.meta.gef.Util.getType(map));
 		return gc;
 	}
 }
