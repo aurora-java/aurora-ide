@@ -91,7 +91,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 	}
 
 	private void createGridSetting(List<Grid> grids) {
-		
+
 		Group gl = new Group(composite, SWT.None);
 		gl.setLayout(new GridLayout(2, false));
 		gl.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -139,7 +139,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		gd.widthHint = 80;
 		gd.verticalAlignment = SWT.TOP;
 		btnDel.setLayoutData(gd);
-		
+
 		Button btnUP = new Button(gl, SWT.None);
 		btnUP.setText("上移");
 		btnUP.setEnabled(false);
@@ -147,7 +147,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		gd.widthHint = 80;
 		gd.verticalAlignment = SWT.TOP;
 		btnUP.setLayoutData(gd);
-		
+
 		Button btnDown = new Button(gl, SWT.None);
 		btnDown.setText("下移");
 		btnDown.setEnabled(false);
@@ -171,17 +171,17 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 			}
 		});
-		
+
 		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
 				// TODO Auto-generated method stub
 				Object obj = ((TreeSelection) event.getSelection()).getFirstElement();
 				if (obj instanceof Grid) {
-					
+
 				} else if (obj instanceof GridColumn) {
-					
+
 				} else {
-					
+
 				}
 			}
 		});
@@ -189,7 +189,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 	private void createRefField(TabItem ti, Group gr) {
 		Label lbl = new Label(gr, SWT.None);
-		lbl.setText("Select:");
+		lbl.setText(ti.getName() + " : ");
 		Text txt = new Text(gr, SWT.BORDER);
 		txt.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 

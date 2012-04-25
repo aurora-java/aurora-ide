@@ -6,11 +6,11 @@
 	</models>
 	
 	<tabFolder>		
-		<tabItem>
+		<tabItem name="ref_1">
 			<tabRef initModel="model_id_1"/>
 		</tabItem>
 		
-		<tabItem>
+		<tabItem name="ref_2">
 			<tabRef initModel="model_id_2"/>
 		</tabItem>
 	</tabFolder>

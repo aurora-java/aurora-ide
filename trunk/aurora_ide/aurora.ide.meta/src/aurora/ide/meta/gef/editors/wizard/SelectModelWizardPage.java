@@ -100,7 +100,8 @@ public class SelectModelWizardPage extends WizardPage {
 				createTextField(compoModel, bm);
 			}
 			compoModel.layout();
-		}else{
+		} else {
+			fillViewDiagram();
 			setPageComplete(true);
 		}
 
@@ -148,7 +149,8 @@ public class SelectModelWizardPage extends WizardPage {
 				bm.setModel((IFile) r);
 				if (checkFinish()) {
 					updateStatus(null);
-				}else{
+					fillViewDiagram();
+				} else {
 					setPageComplete(false);
 				}
 			}
@@ -171,13 +173,16 @@ public class SelectModelWizardPage extends WizardPage {
 				return false;
 			}
 		}
+		return true;
+	}
+
+	private void fillViewDiagram() {
 		TemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType());
 		if (handle != null) {
 			handle.fill(viewDiagram);
 			grids = handle.getGrids();
 			refTabItems = handle.getRefTabItems();
 		}
-		return true;
 	}
 
 	public void updateStatus(String message) {
@@ -199,11 +204,10 @@ public class SelectModelWizardPage extends WizardPage {
 
 	@Override
 	public IWizardPage getNextPage() {
-		if (grids.size() + refTabItems.size() > 0) {
+		if ((grids != null && grids.size() > 0) || (refTabItems != null && refTabItems.size() > 0)) {
 			return super.getNextPage();
 		} else {
 			return null;
 		}
 	}
-
 }

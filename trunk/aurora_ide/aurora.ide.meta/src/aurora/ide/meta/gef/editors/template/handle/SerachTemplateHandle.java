@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.editors.template.handle;
 
+import java.util.List;
 import java.util.Map;
 
 import uncertain.composite.CompositeMap;
@@ -7,13 +8,14 @@ import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
+import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 
 public class SerachTemplateHandle extends TemplateHandle {
 
-	private Map<String, String> refRelat;
+	private Map<String, List<String>> refRelat;
 
 	@Override
 	public void fill(ViewDiagram viewDiagram) {
@@ -40,23 +42,37 @@ public class SerachTemplateHandle extends TemplateHandle {
 			}
 		}
 		grid.getCols().clear();
-		for (CompositeMap map : getFieldsWithoutPK(bmc)) {
-			GridColumn gc = createGridColumn(map);
-			grid.addCol(gc);
-			String name = map.getString("name");
-			for (String n : refRelat.keySet()) {
-				if (name != null && name.equals(refRelat.get(n))) {
-					GridColumn g = new GridColumn();
-					g.setName(n);
-					String prompt = map.getString("prompt");
-					prompt = prompt == null ? map.getString("name") : prompt;
-					g.setPrompt(prompt);
-					grid.addCol(g);
+		outer: for (CompositeMap map : getFieldsWithoutPK(bmc)) {
+			String filedName = map.getString("name");
+			for (String relationName : refRelat.keySet()) {
+				if (refRelat.get(relationName).contains(filedName)) {
+					for (CompositeMap ref : bmc.getRefFields()) {
+						if (relationName.equals(ref.getString("relationName"))) {
+							GridColumn gc = createGridColumn(map, ref);
+							grid.addCol(gc);
+						}
+					}
+					continue outer;
 				}
 			}
+			GridColumn gc = createGridColumn(map);
+			grid.addCol(gc);
 		}
 		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
 		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
 		grids.add(grid);
+	}
+
+	private GridColumn createGridColumn(CompositeMap map, CompositeMap ref) {
+		GridColumn gc = new GridColumn();
+		gc.setName(ref.getString("name"));
+		gc.setPrompt(map.getString("prompt"));
+		if (isDateType(map)) {
+			Renderer r = new Renderer();
+			r.setFunctionName("Aurora.formatDate");
+			r.setRendererType(Renderer.INNER_FUNCTION);
+			gc.setRenderer(r);
+		}
+		return gc;
 	}
 }

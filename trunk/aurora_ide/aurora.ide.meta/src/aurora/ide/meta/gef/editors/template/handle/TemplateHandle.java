@@ -10,6 +10,7 @@ import org.eclipse.core.resources.IFile;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Grid;
@@ -17,6 +18,7 @@ import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.InitModel;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
+import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
@@ -43,6 +45,7 @@ public abstract class TemplateHandle {
 
 	public void fill(ViewDiagram viewDiagram) {
 		viewDiagram.getInitModels().clear();
+		setColNum(viewDiagram, 1);
 		this.viewDiagram = viewDiagram;
 		for (BMReference bm : modelRelated.keySet()) {
 			for (Container ac : modelRelated.get(bm)) {
@@ -74,7 +77,9 @@ public abstract class TemplateHandle {
 		for (CompositeMap map : getFieldsWithoutPK(bmc)) {
 			Input input = AuroraModelFactory.createComponent(aurora.ide.meta.gef.Util.getType(map));
 			input.setName(map.getString("name"));
-			input.setPrompt(map.getString("prompt") == null ? map.getString("name") : map.getString("prompt"));
+			String prompt = map.getString("prompt");
+			prompt = prompt == null ? "prompt" : prompt;
+			input.setPrompt(prompt);
 			((Container) ac).addChild(input);
 		}
 	}
@@ -126,7 +131,29 @@ public abstract class TemplateHandle {
 		String prompt = map.getString("prompt");
 		prompt = prompt == null ? map.getString("name") : prompt;
 		gc.setPrompt(prompt);
+		if (isDateType(map)) {
+			Renderer r = new Renderer();
+			r.setFunctionName("Aurora.formatDate");
+			r.setRendererType(Renderer.INNER_FUNCTION);
+			gc.setRenderer(r);
+		}
 		return gc;
+	}
+
+	protected boolean isDateType(CompositeMap map) {
+		if ("TIMESTAMP".equalsIgnoreCase(map.getString("databasetype"))) {
+			return true;
+		}
+		if ("DATE".equalsIgnoreCase(map.getString("databasetype"))) {
+			return true;
+		}
+		if ("java.util.Date".equalsIgnoreCase(map.getString("datatype"))) {
+			return true;
+		}
+		if ("java.sql.Date".equalsIgnoreCase(map.getString("datatype"))) {
+			return true;
+		}
+		return false;
 	}
 
 	protected void fillQueryBox(Container ac, BMReference bm) {
@@ -147,7 +174,9 @@ public abstract class TemplateHandle {
 		for (CompositeMap queryMap : getQueryFields(bmc)) {
 			Input input = AuroraModelFactory.createComponent(aurora.ide.meta.gef.Util.getType(queryMap));
 			input.setName(queryMap.getString("name"));
-			input.setPrompt(queryMap.getString("prompt") == null ? queryMap.getString("name") : queryMap.getString("prompt"));
+			input.setPrompt(aurora.ide.meta.gef.Util.getPrompt(queryMap));
+			// input.setPrompt(queryMap.getString("prompt") == null ?
+			// queryMap.getString("name") : queryMap.getString("prompt"));
 			ac.addChild(input);
 		}
 	}
@@ -168,18 +197,17 @@ public abstract class TemplateHandle {
 		return refTabItems;
 	}
 
-	protected Map<String, String> getReferenceRelation(BMCompositeMap bmc) {
-		Map<String, String> refRelat = new HashMap<String, String>();
-		for (CompositeMap ref : bmc.getRefFields()) {
-			String relationName = ref.getString("relationName");
-			if (relationName == null) {
-				continue;
-			}
-			for (CompositeMap relat : bmc.getRelations()) {
-				if (relationName.equals(relat.getString("name"))) {
-					for (Object refer : relat.getChildsNotNull()) {
-						refRelat.put(ref.getString("name"), ((CompositeMap) refer).getString("localfield"));
+	protected Map<String, List<String>> getReferenceRelation(BMCompositeMap bmc) {
+		Map<String, List<String>> refRelat = new HashMap<String, List<String>>();
+		for (CompositeMap relation : bmc.getRelations()) {
+			for (Object reference : relation.getChildsNotNull()) {
+				String localfield = ((CompositeMap) reference).getString("localfield");
+				String relationName = relation.getString("name");
+				if (localfield != null && relationName != null) {
+					if (refRelat.get(relationName) == null) {
+						refRelat.put(relationName, new ArrayList<String>());
 					}
+					refRelat.get(relationName).add(localfield);
 				}
 			}
 		}
@@ -191,6 +219,11 @@ public abstract class TemplateHandle {
 		List<CompositeMap> fields = getFieldsWithoutPK(bmc);
 		List<CompositeMap> queryFields = new ArrayList<CompositeMap>();
 		for (CompositeMap qf : qfs) {
+			String name = qf.getString("name");
+			if (name != null && name.length() > 0) {
+				queryFields.add(qf);
+				continue;
+			}
 			for (CompositeMap field : fields) {
 				if (field.getString("name").equals(qf.getString("field"))) {
 					queryFields.add(field);
@@ -213,5 +246,24 @@ public abstract class TemplateHandle {
 			}
 		}
 		return fieldsWithoutPK;
+	}
+	
+	protected void setColNum(ViewDiagram viewDiagram,int col) {
+		List<BOX> rowCols = new ArrayList<BOX>();
+		boolean hasContainer = false;
+		for (AuroraComponent ac : viewDiagram.getChildren()) {
+			if (ac instanceof BOX) {
+				if (((BOX) ac).getChildren().size() == 0) {
+					rowCols.add((BOX) ac);
+				}
+			} else {
+				hasContainer = true;
+			}
+		}
+		if (!hasContainer) {
+			for (BOX rc : rowCols) {
+				rc.setCol(col);
+			}
+		}
 	}
 }
