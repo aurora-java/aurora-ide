@@ -4,7 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -157,27 +156,18 @@ public class ModelMerger {
 	/**
 	 * when read,use bm to update bmmodel (record)
 	 */
-	@SuppressWarnings("unchecked")
 	private void updateRecordsOfModel(BMModel model, BMCompositeMap bmc) {
 		CompositeMap fieldsMap = bmc.getFieldsMap();
 		if (fieldsMap == null) {
 			model.removeAll();
 			return;
 		}
-		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) bmc
-				.getFields();
-		list = (LinkedList<CompositeMap>) list.clone();
+		List<CompositeMap> list = new ArrayList<CompositeMap>(bmc.getFields());
 		ArrayList<Record> records = model.getRecordList();
 		for (int i = 0; i < records.size(); i++) {
 			Record r = records.get(i);
 			String prompt = r.getPrompt();
-			CompositeMap m = null;
-			for (CompositeMap mm : list) {
-				if (prompt.equals(mm.getString("prompt"))) {
-					m = mm;
-					break;
-				}
-			}
+			CompositeMap m = searchCmList(list, "prompt", prompt);
 			if (m == null) {
 				model.remove(r);
 				i--;
@@ -215,27 +205,19 @@ public class ModelMerger {
 	/**
 	 * when read,use bm to update bmmodel (relations)
 	 */
-	@SuppressWarnings("unchecked")
 	private void updateRelationsOfModel(BMModel model, BMCompositeMap bmc) {
 		CompositeMap relMap = bmc.getRelationsMap();
 		if (relMap == null) {
 			model.removeAllRelations();
 			return;
 		}
-		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) bmc
-				.getRelations();
-		list = (LinkedList<CompositeMap>) list.clone();
+		List<CompositeMap> list = new ArrayList<CompositeMap>(
+				bmc.getRelations());
 		ArrayList<Relation> relations = model.getRelationList();
 		for (int i = 0; i < relations.size(); i++) {
 			Relation r = relations.get(i);
 			String name = r.getName();
-			CompositeMap m = null;
-			for (CompositeMap mm : list) {
-				if (name.equals(mm.getString("name"))) {
-					m = mm;
-					break;
-				}
-			}
+			CompositeMap m = searchCmList(list, "name", name);
 			if (m == null) {
 				model.remove(r);
 				i--;
@@ -309,27 +291,17 @@ public class ModelMerger {
 		updateRelationsOfBm(bmc, model);
 	}
 
-	@SuppressWarnings("unchecked")
 	private void updateFieldsOfBm(BMCompositeMap bmc, BMModel model) {
 		CompositeMap fieldsMap = bmc.getFieldsMap();
-		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) bmc
-				.getFields();
-		list = (LinkedList<CompositeMap>) list.clone();
-		List<Record> records = (ArrayList<Record>) model.getRecordList()
-				.clone();
+		List<CompositeMap> list = new ArrayList<CompositeMap>(bmc.getFields());
+		List<Record> records = new ArrayList<Record>(model.getRecordList());
 		String pk_name = bmc.getPkFieldName();
 		for (int i = 0; i < list.size(); i++) {
 			CompositeMap m = list.get(i);
 			String prompt = m.getString("prompt");
 			if (prompt == null || m.getString("name").equals(pk_name))
 				continue;
-			Record r = null;
-			for (Record rr : records) {
-				if (rr.getPrompt().equals(prompt)) {
-					r = rr;
-					break;
-				}
-			}
+			Record r = searchReList(records, "prompt", prompt);
 			if (r == null) {
 				// field that not exists any more, will be remove
 				fieldsMap.removeChild(m);
@@ -379,26 +351,18 @@ public class ModelMerger {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void updateRelationsOfBm(BMCompositeMap bmc, BMModel model) {
 		CompositeMap relMap = bmc.getRelationsMap();
-		LinkedList<CompositeMap> list = (LinkedList<CompositeMap>) bmc
-				.getRelations();
-		list = (LinkedList<CompositeMap>) list.clone();
-		List<Relation> relations = (ArrayList<Relation>) model
-				.getRelationList().clone();
+		List<CompositeMap> list = new ArrayList<CompositeMap>(
+				bmc.getRelations());
+		List<Relation> relations = new ArrayList<Relation>(
+				model.getRelationList());
 		for (int i = 0; i < list.size(); i++) {
 			CompositeMap m = list.get(i);
 			String name = m.getString("name");
-			Relation r = null;
-			for (Relation rr : relations) {
-				if (rr.getName().equals(name)) {
-					r = rr;
-					break;
-				}
-			}
+			Relation r = searchReList(relations, "name", name);
 			if (r == null) {
-				relMap.remove(m);
+				relMap.removeChild(m);
 				continue;
 			}
 			m.put("joinType", r.getJoinType());
@@ -460,5 +424,41 @@ public class ModelMerger {
 		if (value == null)
 			value = map.getString(attr.toLowerCase());
 		return value == null ? "" : value;
+	}
+
+	/**
+	 * search in a CompositeMap list,find a CompositeMap use givven
+	 * property,value
+	 * 
+	 * @param list
+	 * @param property
+	 * @param value
+	 * @return
+	 */
+	private CompositeMap searchCmList(List<CompositeMap> list, String property,
+			String value) {
+		for (CompositeMap m : list) {
+			if (value.equals(m.getString(property)))
+				return m;
+		}
+		return null;
+	}
+
+	/**
+	 * search in a Record (Relation) list find a Record (Relation) use givven
+	 * property ,value
+	 * 
+	 * @param list
+	 * @param property
+	 * @param value
+	 * @return
+	 */
+	private <T extends Record> T searchReList(List<T> list, String property,
+			String value) {
+		for (T r : list) {
+			if (value.equals(r.getString(property)))
+				return r;
+		}
+		return null;
 	}
 }
