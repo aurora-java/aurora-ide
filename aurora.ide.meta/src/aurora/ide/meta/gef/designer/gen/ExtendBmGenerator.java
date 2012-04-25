@@ -109,6 +109,7 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 		else
 			refAlias += ".";
 		CompositeMap qfMap = newCompositeMap("query-fields");
+		@SuppressWarnings("unchecked")
 		ArrayList<Record> qfs = (ArrayList<Record>) model.getRecordList()
 				.clone();
 		qfs.add(model.getPkRecord());
@@ -140,7 +141,6 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 		CompositeMap fieldsMap = newCompositeMap("ref-fields");
 		ArrayList<String> reffName = new ArrayList<String>();
 		for (Relation r : model.getRelationList()) {
-			CompositeMap m = newCompositeMap("ref-field");
 			String bmpath = r.getRefTable();
 			IFile file = ResourceUtil.getBMFile(bmFile.getProject(), bmpath);
 			CompositeMap refBmMap = null;
@@ -151,18 +151,26 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
+			if (refBmMap == null)
+				continue;
 			BMCompositeMap bcm = new BMCompositeMap(refBmMap);
-			m.put("relationName", r.getName());
-			String remoteDisplay = bcm.getDefaultDisplayFieldName();
-			String ref_name = remoteDisplay + "_ref";
-			int i = 1;
-			while (reffName.indexOf(ref_name) != -1) {
-				ref_name = remoteDisplay + "_ref_" + i++;
+			for (String refp : r.getRefPromptsArray()) {
+				CompositeMap remoteField = bcm.getFieldByPrompt(refp);
+				if (remoteField == null)
+					continue;
+				CompositeMap m = newCompositeMap("ref-field");
+				m.put("relationName", r.getName());
+				String remoteDisplay = remoteField.getString("name");
+				String ref_name = remoteDisplay + "_ref";
+				int i = 1;
+				while (reffName.indexOf(ref_name) != -1) {
+					ref_name = remoteDisplay + "_ref_" + i++;
+				}
+				reffName.add(ref_name);
+				m.put("name", ref_name);
+				m.put("sourceField", remoteDisplay);
+				fieldsMap.addChild(m);
 			}
-			reffName.add(ref_name);
-			m.put("name", ref_name);
-			m.put("sourceField", remoteDisplay);
-			fieldsMap.addChild(m);
 		}
 		return fieldsMap;
 	}
