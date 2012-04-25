@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<template name="tab" iconPath="1.png" type="update" category="维护">
+	<models>
+		<model id="model_hid" name="头BM"/>
+		<model id="model_rid" name="行BM"/>
+	</models>
+	
+	<form id="form_id" name="form_name"/>
+	
+	<hbox>
+		<button id="btn_query" type="query" text="查询" target="grid_hid"/>
+		<button id="btn_reset" type="reset" text="重置" target="form_id"/>
+	</hbox>
+	
+	<tabFolder>
+		<tabItem>
+			<grid id="grid_hid" name="grid_hname" model="model_hid" query="form_id">
+				<toolBar>
+					<button type="add"/>
+					<button type="save"/>
+					<button type="delete"/>
+					<button type="excel"/>
+					<button type="clear"/>
+				</toolBar>
+			</grid>
+		</tabItem>
+		
+		<tabItem>
+			<grid id="grid_rid" name="grid_rname" model="model_rid" query="grid_hid">
+				<toolBar>
+					<button type="add"/>
+					<button type="save"/>
+					<button type="delete"/>
+					<button type="excel"/>
+					<button type="clear"/>
+				</toolBar>
+			</grid>
+		</tabItem>
+	</tabFolder>
+	
+	<description><![CDATA[
+		头行结构的Grid，Grid放置在Tab上，头Grid可通过Form查询数据，Grid数据可编辑
+	]]></description>
+</template>

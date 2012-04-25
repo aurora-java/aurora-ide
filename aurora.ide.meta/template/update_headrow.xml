@@ -18,6 +18,7 @@
 	<grid id="grid_detail" name="行表Grid" model="model_detail" query="grid_head">
 		<toolBar>
 			<button type="add"/>
+			<button type="save"/>
 			<button type="delete"/>
 			<button type="excel"/>
 			<button type="clear"/>
@@ -25,6 +26,6 @@
 	</grid>
 	
 	<description><![CDATA[
-		Grid头行联动，可操作Grid数据
+		头行结构的Grid，Grid数据可编辑
 	]]></description>
 </template>

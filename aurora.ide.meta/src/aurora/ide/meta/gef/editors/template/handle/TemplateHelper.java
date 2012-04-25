@@ -163,9 +163,6 @@ public class TemplateHelper {
 		viewDiagram.setBindTemplate(template.getPath());
 		if (tabItem.size() > 0) {
 			tabItem.get(0).setCurrent(true);
-			for (int i = 1; i < tabItem.size(); i++) {
-				tabItem.get(i).setCurrent(false);
-			}
 		}
 		return viewDiagram;
 	}
