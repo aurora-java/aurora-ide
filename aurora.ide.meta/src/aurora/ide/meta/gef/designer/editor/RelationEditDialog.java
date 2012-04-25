@@ -37,7 +37,9 @@ import org.eclipse.swt.widgets.Text;
 import uncertain.composite.CompositeMap;
 import aurora.ide.AuroraPlugin;
 import aurora.ide.builder.ResourceUtil;
+import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
@@ -65,6 +67,8 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 	private ListViewer bmFieldListViewer;
 	private ListViewer refFieldListViewer;
 	private String refTablePkName = "";
+
+	public java.util.List<CompositeMap> bmFieldWithoutPkList;
 
 	/**
 	 * Create the dialog.
@@ -228,8 +232,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 				| SWT.MULTI);
 		bmFieldListViewer.setContentProvider(new BmFieldContentProvider());
 		bmFieldListViewer.setLabelProvider(new BmFieldLabelProvider());
-		if (bmfieldList != null)
-			bmFieldListViewer.setInput(bmfieldList.clone());
+		bmFieldListViewer.setInput(bmFieldWithoutPkList);
 		List list = bmFieldListViewer.getList();
 		list.setBounds(8, 40, 170, 100);
 
@@ -318,6 +321,10 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		if (idx == -1)
 			idx = 0;
 		relation.setJoinType(com_jointype.getItem(idx));
+		String[] refps = new String[refFieldList.size()];
+		for (int i = 0; i < refps.length; i++)
+			refps[i] = refFieldList.get(i).getString("prompt");
+		relation.setRefPromptsArray(refps);
 		// close the dialog
 		setReturnCode(OK);
 		close();
@@ -331,8 +338,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		ISelection s = localFieldComboViewer.getSelection();
 		if (s instanceof IStructuredSelection) {
 			IStructuredSelection ss = (IStructuredSelection) s;
-			if (!ss.isEmpty())
-				return (Record) ss.getFirstElement();
+			return (Record) ss.getFirstElement();
 		}
 		return null;
 	}
@@ -341,8 +347,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		ISelection s = bmFieldComboViewer.getSelection();
 		if (s instanceof IStructuredSelection) {
 			IStructuredSelection ss = (IStructuredSelection) s;
-			if (!ss.isEmpty())
-				return (CompositeMap) ss.getFirstElement();
+			return (CompositeMap) ss.getFirstElement();
 		}
 		return null;
 	}
@@ -364,13 +369,35 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 					return;
 				DataSetFieldUtil dsfu = new DataSetFieldUtil(metaProject, "", //$NON-NLS-1$
 						bmPkg);
-				bmfieldList = dsfu.getLocalFields(dsfu.getBmMap(), false);
-				String pkName = dsfu.getPK(dsfu.getBmMap());
-				refTablePkName = dsfu.getPK(dsfu.getBmMap());
+				CompositeMap bmMap = dsfu.getBmMap();
+				if (bmMap == null) {
+					DialogUtil.showErrorMessageBox("bm :" + bmPkg + ", 解析错误.");
+					return;
+				}
+				BMCompositeMap bmc = new BMCompositeMap(bmMap);
+				bmfieldList = new ArrayList<CompositeMap>(bmc.getFields());
+				bmFieldWithoutPkList = bmc.getFieldsWithoutPk();
+				refTablePkName = bmc.getPkFieldName();
 				bmFieldComboViewer.setInput(bmfieldList);
-				if (bmFieldListViewer != null)
-					bmFieldListViewer.setInput(bmfieldList.clone());
 				refFieldList.clear();
+				String[] refps = relation.getRefPromptsArray();
+				if (refps.length == 0) {
+					CompositeMap ddfMap = bmc.getDefaultDisplayField();
+					if (ddfMap != null) {
+						bmFieldWithoutPkList.remove(ddfMap);
+						refFieldList.add(ddfMap);
+					}
+				} else {
+					for (String refp : refps) {
+						CompositeMap m = bmc.getFieldByPrompt(refp);
+						if (m != null) {
+							bmFieldWithoutPkList.remove(m);
+							refFieldList.add(m);
+						}
+					}
+				}
+				if (bmFieldListViewer != null)
+					bmFieldListViewer.setInput(bmFieldWithoutPkList);
 				if (refFieldListViewer != null) {
 					refFieldListViewer.refresh();
 				}
@@ -383,7 +410,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 						bmFieldComboViewer.getCombo().select(i);
 						return;
 					}
-					if (name != null && name.equals(pkName))
+					if (name != null && name.equals(refTablePkName))
 						pkIndex = i;
 				}
 				bmFieldComboViewer.getCombo().select(pkIndex);
