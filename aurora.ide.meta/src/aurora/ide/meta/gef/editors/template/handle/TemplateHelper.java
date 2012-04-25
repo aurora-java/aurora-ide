@@ -185,11 +185,13 @@ public class TemplateHelper {
 		if (ac == null) {
 			return null;
 		}
+		if (c.getName() != null) {
+			ac.setName(c.getName());
+		}
 		if (null != c.getId() && !"".equals(c.getId())) {
 			auroraComponents.put(c.getId(), ac);
 		}
 		if ((c instanceof BMBindComponent) && (ac instanceof Container)) {
-			ac.setName(c.getName());
 			fillContainer((BMBindComponent) c, (Container) ac);
 		}
 		if (ac instanceof TabItem) {
