@@ -1,8 +1,12 @@
 package aurora.ide.meta.gef.designer.model;
 
+import java.util.StringTokenizer;
+
 import aurora.ide.meta.gef.designer.IDesignerConst;
 
 public class Relation extends Record implements IDesignerConst {
+	public static final String REF_PROMPTS = "ref-prompts";
+
 	public String getName() {
 		return getStringNotNull(COLUMN_RELNAME);
 	}
@@ -41,5 +45,31 @@ public class Relation extends Record implements IDesignerConst {
 
 	public void setRefTable(String table) {
 		put(COLUMN_REFMODEL, table);
+	}
+
+	public String getRefPrompts() {
+		return getStringNotNull(REF_PROMPTS);
+	}
+
+	public String[] getRefPromptsArray() {
+		StringTokenizer st = new StringTokenizer(getRefPrompts(), ",");
+		String[] strs = new String[st.countTokens()];
+		for (int i = 0; st.hasMoreElements(); i++)
+			strs[i] = st.nextToken();
+		return strs;
+	}
+
+	public void setRefPrompts(String str) {
+		put(REF_PROMPTS, str);
+	}
+
+	public void setRefPromptsArray(String[] prompts) {
+		StringBuilder sb = new StringBuilder();
+		if (prompts.length > 0) {
+			sb.append(prompts[0]);
+			for (int i = 1; i < prompts.length; i++)
+				sb.append("," + prompts[i]);
+		}
+		setRefPrompts(sb.toString());
 	}
 }

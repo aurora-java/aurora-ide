@@ -80,6 +80,7 @@ public class ModelUtil implements IDesignerConst {
 		for (int i = 2; i < keys.length; i++) {
 			map.put(keys[i], r.get(keys[i]));
 		}
+		map.put(Relation.REF_PROMPTS, r.getRefPrompts());
 		return map;
 	}
 
@@ -148,6 +149,7 @@ public class ModelUtil implements IDesignerConst {
 		for (int i = 2; i < keys.length; i++) {
 			r.put(keys[i], map.get(keys[i]));
 		}
+		r.setRefPrompts(map.getString(Relation.REF_PROMPTS));
 		return r;
 	}
 
