@@ -9,7 +9,7 @@ public class Label extends Input {
 
 	private static final long serialVersionUID = -6906286787889789167L;
 
-	private static final String RENDERER = "renderer";
+	public static final String RENDERER = "renderer";
 	protected static final IPropertyDescriptor PD_RENDERER = new StringPropertyDescriptor(
 			RENDERER, "renderer");
 	private static final IPropertyDescriptor[] pds = { PD_PROMPT, PD_NAME,

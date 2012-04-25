@@ -21,6 +21,7 @@ public class LabelHandler extends DefaultIOHandler {
 		map.put(Label.PROMPT, label.getPrompt());
 		map.put(Label.TYPE, type);
 		map.put(Label.WIDTH, label.getSize().width);
+		map.put(Label.RENDERER, label.getRenderer());
 	}
 
 	@Override
@@ -36,7 +37,9 @@ public class LabelHandler extends DefaultIOHandler {
 		Label label = (Label) ac;
 		label.setPrompt(map.getString(Label.PROMPT));
 		label.setType(map.getString(Label.TYPE));
-		label.setSize(new Dimension(map.getInt(Label.WIDTH), label.getSize().height));
+		label.setSize(new Dimension(map.getInt(Label.WIDTH),
+				label.getSize().height));
+		label.setRenderer(map.getString(Label.RENDERER));
 	}
 
 	@Override
@@ -44,7 +47,8 @@ public class LabelHandler extends DefaultIOHandler {
 		Label label = (Label) ac;
 		CompositeMap dfMap = map.getChild(DatasetField.class.getSimpleName());
 		if (dfMap != null) {
-			DatasetField df = new DatasetFieldHandler().fromCompositeMap(dfMap, mic);
+			DatasetField df = new DatasetFieldHandler().fromCompositeMap(dfMap,
+					mic);
 			label.setDatasetField(df);
 		}
 	}
