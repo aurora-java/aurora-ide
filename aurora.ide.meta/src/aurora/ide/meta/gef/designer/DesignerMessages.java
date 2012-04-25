@@ -62,6 +62,7 @@ public class DesignerMessages extends NLS {
 	public static String RelationViewer_3;
 	public static String RelationViewer_4;
 	public static String RelationViewer_5;
+	public static String BMDesignPage_mntmOpenBm_text;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, DesignerMessages.class);
