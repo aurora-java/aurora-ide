@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -29,7 +27,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.TypedListener;
 
-import aurora.ide.AuroraPlugin;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.template.Template;
 
@@ -145,7 +142,11 @@ public class TComposite extends SashForm {
 	}
 
 	private void createLabels(Map<String, java.util.List<Template>> templates) {
-		java.util.List<Template> tm = templates.get(list.getSelection()[0]);
+		String[] category = list.getSelection();
+		if (category == null || category.length <= 0) {
+			return;
+		}
+		java.util.List<Template> tm = templates.get(category[0]);
 		for (Control c : composite.getChildren()) {
 			if (c != null && !c.isDisposed()) {
 				c.dispose();
@@ -233,23 +234,23 @@ public class TComposite extends SashForm {
 
 	private void setLabelChecked(TLabel label, boolean chencked) {
 		if (chencked) {
-			//label.checked();
+			// label.checked();
 			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION));
 		} else {
-			//label.unChecked();
+			// label.unChecked();
 			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		}
 	}
 
 	private Image getImage(String path) {
 		if (images.get(path) == null) {
-			
-////			IPath append = ICONS_PATH.append(getPath(key));
-//			ImageDescriptor imageDescriptor = AuroraPlugin
-//					.getImageDescriptor(path);
-////			PLUGIN_REGISTRY.put(key, imageDescriptor);
-////			image = PLUGIN_REGISTRY.get(key);
-			
+
+			// // IPath append = ICONS_PATH.append(getPath(key));
+			// ImageDescriptor imageDescriptor = AuroraPlugin
+			// .getImageDescriptor(path);
+			// // PLUGIN_REGISTRY.put(key, imageDescriptor);
+			// // image = PLUGIN_REGISTRY.get(key);
+
 			Image image = new Image(getDisplay(), path);
 			images.put(path, image);
 		}
