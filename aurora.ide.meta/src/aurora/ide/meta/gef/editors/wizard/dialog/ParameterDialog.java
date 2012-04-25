@@ -142,7 +142,7 @@ public class ParameterDialog extends Dialog {
 		if (diagram != null) {
 			List<Container> sectionContainers = diagram.getSectionContainers(
 					diagram, new String[] { Container.SECTION_TYPE_QUERY });
-			if(sectionContainers.size()>0){
+			if (sectionContainers.size() > 0) {
 				return sectionContainers.get(0);
 			}
 		}
@@ -150,12 +150,12 @@ public class ParameterDialog extends Dialog {
 	}
 
 	private ViewDiagram getDiagram(AuroraComponent ac) {
-		Container parent = ac.getParent();
-		if (parent instanceof ViewDiagram) {
-			return (ViewDiagram) parent;
-		}
-		if (parent != null) {
-			return getDiagram(parent.getParent());
+		if (ac != null) {
+			Container parent = ac.getParent();
+			if (parent instanceof ViewDiagram) {
+				return (ViewDiagram) parent;
+			}
+			return getDiagram(parent);
 		}
 		return null;
 	}

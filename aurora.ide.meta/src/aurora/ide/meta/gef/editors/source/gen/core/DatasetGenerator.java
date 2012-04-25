@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
@@ -149,27 +150,11 @@ class DatasetGenerator {
 	}
 
 	public Dataset findDataset(Container container) {
-		if (container == null)
-			return null;
-		boolean useParentBM = isUseParentBM(container);
-		if (useParentBM) {
-			return findDataset(container.getParent());
-		}
-		Dataset dataset = container.getDataset();
-		return dataset;
+		return Util.findDataset(container);
 	}
 
 	public String findDatasetId(Container container) {
 		Dataset findDataset = this.findDataset(container);
 		return this.datasetMaper.get(findDataset);
-	}
-
-	private boolean isUseParentBM(Container container) {
-		if (Container.SECTION_TYPE_QUERY.equals(container.getSectionType())
-				|| Container.SECTION_TYPE_RESULT.equals(container
-						.getSectionType())) {
-			return false;
-		}
-		return true;
 	}
 }

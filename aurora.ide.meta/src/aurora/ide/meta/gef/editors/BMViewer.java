@@ -60,6 +60,18 @@ public class BMViewer {
 		public CompositeMap fieldMap;
 		public String editor;
 		static final String REF_FIELD = "ref-field";
+		static final String QUERY_FIELD = "query-field";
+
+		public ModelField(IFile parent, CompositeMap fieldMap, String editor) {
+			super();
+			this.parent = parent;
+			this.fieldMap = fieldMap;
+			this.editor = editor;
+		}
+
+		public ModelField() {
+			super();
+		}
 
 		public String getName() {
 			return fieldMap.get("name").toString();
@@ -194,7 +206,9 @@ public class BMViewer {
 			if (CheckBox.CHECKBOX.equalsIgnoreCase(type))
 				return ImagesUtils.getImage("palette/checkbox_01.png");
 			if (ModelField.REF_FIELD.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/ref.png");//$NON-NLS-1$
+				return ImagesUtils.getImage("palette/ref.png");
+			if (ModelField.QUERY_FIELD.equalsIgnoreCase(type))
+				return ImagesUtils.getImage("palette/query.png");//$NON-NLS-1$
 			return ImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
 		}
 
@@ -365,37 +379,63 @@ public class BMViewer {
 		try {
 			CompositeMap modelMap = CacheManager
 					.getWholeBMCompositeMap((IFile) model);
-			CompositeMap fields = modelMap.getChild("fields"); //$NON-NLS-1$
-			if (fields != null) {
-				Iterator childIterator = fields.getChildIterator();
-				while (childIterator != null && childIterator.hasNext()) {
-					CompositeMap qf = (CompositeMap) childIterator.next();
-					if ("field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
-						ModelField field = new ModelField();
-						field.editor = Util.getType(qf);
-						field.parent = model;
-						field.fieldMap = qf;
-						result.add(field);
-					}
+
+			BMCompositeMap bmMap = new BMCompositeMap(modelMap);
+			List<CompositeMap> fields = bmMap.getFields();
+			for (CompositeMap qf : fields) {
+				if ("field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+					ModelField field = new ModelField(model, qf,
+							Util.getType(qf));
+					result.add(field);
+				}
+			}
+			List<CompositeMap> refFields = bmMap.getRefFields();
+			for (CompositeMap qf : refFields) {
+				if ("ref-field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+					ModelField field = new ModelField(model, qf,
+							ModelField.REF_FIELD);
+					result.add(field);
+				}
+			}
+			List<CompositeMap> queryFields = bmMap.getQueryFields();
+			for (CompositeMap qf : queryFields) {
+				if ("query-field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+					ModelField field = new ModelField(model, qf,
+							ModelField.QUERY_FIELD);
+					result.add(field);
 				}
 			}
 
-			CompositeMap refFields = modelMap.getChild("ref-fields"); //$NON-NLS-1$
-			if (refFields != null) {
-				Iterator childIterator = refFields.getChildIterator();
-				while (childIterator != null && childIterator.hasNext()) {
-					CompositeMap qf = (CompositeMap) childIterator.next();
-					if ("ref-field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
-						ModelField field = new ModelField();
-						field.editor = ModelField.REF_FIELD;
-						field.parent = model;
-						field.fieldMap = qf;
-						result.add(field);
-					}
-				}
-			}
-			
-			//TODO queryField date  form and to
+			//			CompositeMap fields = modelMap.getChild("fields"); //$NON-NLS-1$
+			// if (fields != null) {
+			// Iterator childIterator = fields.getChildIterator();
+			// while (childIterator != null && childIterator.hasNext()) {
+			// CompositeMap qf = (CompositeMap) childIterator.next();
+			//					if ("field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+			// ModelField field = new ModelField();
+			// field.editor = Util.getType(qf);
+			// field.parent = model;
+			// field.fieldMap = qf;
+			// result.add(field);
+			// }
+			// }
+			// }
+
+//			CompositeMap refFields = modelMap.getChild("ref-fields"); //$NON-NLS-1$
+//			if (refFields != null) {
+//				Iterator childIterator = refFields.getChildIterator();
+//				while (childIterator != null && childIterator.hasNext()) {
+//					CompositeMap qf = (CompositeMap) childIterator.next();
+//					if ("ref-field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+//						ModelField field = new ModelField();
+//						field.editor = ModelField.REF_FIELD;
+//						field.parent = model;
+//						field.fieldMap = qf;
+//						result.add(field);
+//					}
+//				}
+//			}
+
 		} catch (CoreException e) {
 		} catch (ApplicationException e) {
 		}

@@ -18,6 +18,9 @@ import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
+import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Input;
 
 public class Util {
@@ -26,6 +29,14 @@ public class Util {
 	 * return editor type
 	 * */
 	public static String getType(CompositeMap field) {
+
+		if (isQueryName(field)) {
+			CompositeMap fieldByName = findFieldMapByQueryName(field);
+			if (fieldByName != null) {
+				return getType(fieldByName);
+			}
+		}
+
 		String object = getCompositeValue("defaultEditor", field);
 		if (supportEditor(object) != null) {
 			return object;
@@ -42,6 +53,32 @@ public class Util {
 			}
 		}
 		return Input.TEXT;
+	}
+
+	public static CompositeMap findFieldMapByQueryName(CompositeMap field) {
+		String fn = field.getString("name", "");
+		String endS = getQueryFieldEndString(fn);
+		if (endS != null) {
+			BMCompositeMap bm = new BMCompositeMap(field.getRoot());
+			CompositeMap fieldByName = bm.getFieldByName(fn.replace(endS, ""));
+			return fieldByName;
+		}
+		return null;
+	}
+
+	public static boolean isQueryName(CompositeMap field) {
+		return "query-field".equals(field.getName())
+				&& field.get("name") != null;
+	}
+
+	private static String getQueryFieldEndString(String fn) {
+		String suffix = "_from";
+		if (fn.endsWith(suffix))
+			return suffix;
+		suffix = "_to";
+		if (fn.endsWith(suffix))
+			return suffix;
+		return null;
 	}
 
 	public static String supportEditor(String object) {
@@ -149,6 +186,33 @@ public class Util {
 			}
 		}
 		return null;
+	}
+
+	public static Dataset findDataset(Container container) {
+		if (container == null)
+			return null;
+		boolean useParentBM = isUseParentBM(container);
+		if (useParentBM) {
+			return findDataset(container.getParent());
+		}
+		Dataset dataset = container.getDataset();
+		return dataset;
+	}
+
+	public static boolean isUseParentBM(Container container) {
+		if (Container.SECTION_TYPE_QUERY.equals(container.getSectionType())
+				|| Container.SECTION_TYPE_RESULT.equals(container
+						.getSectionType())) {
+			return false;
+		}
+		return true;
+	}
+
+	public static String getPrompt(CompositeMap field) {
+		if (isQueryName(field)) {
+			field = findFieldMapByQueryName(field);
+		}
+		return field != null ? field.getString("prompt", "prompt") : "prompt:";
 	}
 
 }

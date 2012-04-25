@@ -8,10 +8,12 @@ import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.Label;
+import aurora.ide.meta.gef.editors.models.ResultDataSet;
 
 public class BindDropModelCommand extends DropBMCommand {
 
@@ -38,9 +40,15 @@ public class BindDropModelCommand extends DropBMCommand {
 		}
 	}
 
+	private boolean isQueryNameMap(CompositeMap f) {
+		return "query-field".equals(f.getName());
+	}
+
 	private void fillGrid(List<CompositeMap> fields) {
 		for (CompositeMap f : fields) {
-			String string = this.getPrompt(f);
+			if (isQueryNameMap(f))
+				continue;
+			String string = Util.getPrompt(f);
 			GridColumn gc = new GridColumn();
 			gc.setPrompt(string);
 			String name = f.getString("name");
@@ -57,6 +65,12 @@ public class BindDropModelCommand extends DropBMCommand {
 
 	private void fillForm(List<CompositeMap> fields) {
 		for (CompositeMap field : fields) {
+			if (isQueryNameMap(field)) {
+				Dataset findDataset = Util.findDataset(container);
+				if (findDataset instanceof ResultDataSet) {
+					continue;
+				}
+			}
 			String name = (String) field.get("field");
 			name = name == null ? field.getString("name") : name;
 			name = name == null ? "" : name;
@@ -69,7 +83,7 @@ public class BindDropModelCommand extends DropBMCommand {
 			}
 			input.setType(type);
 			input.setName(name);
-			input.setPrompt(getPrompt(field));
+			input.setPrompt(Util.getPrompt(field));
 			container.addChild(input);
 		}
 	}
