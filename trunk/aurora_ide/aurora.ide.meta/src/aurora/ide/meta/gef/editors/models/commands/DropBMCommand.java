@@ -18,9 +18,9 @@ public class DropBMCommand extends Command {
 		this.diagram = diagram;
 	}
 
-	protected String getPrompt(CompositeMap field) {
-		return field != null ? field.getString("prompt", "prompt") : "prompt:";
-	}
+//	protected String getPrompt(CompositeMap field) {
+//		return field != null ? field.getString("prompt", "prompt") : "prompt:";
+//	}
 
 	protected CompositeMap getField(String name, List<CompositeMap> fs) {
 		for (CompositeMap f : fs) {
