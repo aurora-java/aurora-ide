@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
 
 public class ScreenGenerator {
-
+	private static final String label_style = ".item-label {HEIGHT: 22px; line-height: 22px; vertical-align: middle; text-decoration:underline; }";
 	private IDGenerator idGenerator;
 
 	private AuroraComponent2CompositMap a2Map;
@@ -137,6 +138,9 @@ public class ScreenGenerator {
 		a2Map = new AuroraComponent2CompositMap(this);
 		screenMap = AuroraComponent2CompositMap.createScreenCompositeMap();
 		viewMap = a2Map.toCompositMap(view);
+		if (view.isForDisplay()) {
+			viewMap.createChild("style").setText(label_style);
+		}
 		scriptMap = viewMap.createChild("script");
 		datasetsMap = createCompositeMap("dataSets");
 		screenBodyMap = createCompositeMap("screenBody");
