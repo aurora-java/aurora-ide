@@ -16,6 +16,8 @@ import aurora.ide.meta.gef.editors.models.link.Parameter;
 
 class DisplayScreenGenerator extends ScreenGenerator {
 
+	
+
 	private ILink link;
 
 	public DisplayScreenGenerator(IProject project, ILink link, IFile file) {
@@ -27,13 +29,11 @@ class DisplayScreenGenerator extends ScreenGenerator {
 	public String genFile(String header, ViewDiagram view)
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
-		// if (view.isForDisplay()) {
-		// throw new TemplateNotBindedException();
-		// }
 
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
 		init(view);
+		
 
 		run(view);
 
@@ -59,7 +59,7 @@ class DisplayScreenGenerator extends ScreenGenerator {
 			String model = childByAttrib.getString("model", "");
 			if (!"".equals(model)) {
 				String queryUrl = this.getQueryUrl(model, parameters);
-				if (isBindTarget(container) == false){
+				if (isBindTarget(container) == false) {
 					childByAttrib.put("queryUrl", queryUrl);
 					childByAttrib.put("loadData", true);
 				}
