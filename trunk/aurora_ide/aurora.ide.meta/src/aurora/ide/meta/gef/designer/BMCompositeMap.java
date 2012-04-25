@@ -188,7 +188,7 @@ public class BMCompositeMap {
 		String pkn = getPkFieldName();
 		List<CompositeMap> fields = new ArrayList<CompositeMap>();
 		for (CompositeMap m : getFields())
-			if (m.getString("name").equals(pkn))
+			if (!m.getString("name").equals(pkn))
 				fields.add(m);
 		return fields;
 	}
