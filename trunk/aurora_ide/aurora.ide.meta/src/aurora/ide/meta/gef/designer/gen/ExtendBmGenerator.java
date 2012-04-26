@@ -11,6 +11,7 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
+import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
@@ -109,9 +110,7 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 		else
 			refAlias += ".";
 		CompositeMap qfMap = newCompositeMap("query-fields");
-		@SuppressWarnings("unchecked")
-		ArrayList<Record> qfs = (ArrayList<Record>) model.getRecordList()
-				.clone();
+		ArrayList<Record> qfs = new ArrayList<Record>(model.getRecordList());
 		qfs.add(model.getPkRecord());
 		for (Record r : qfs) {
 			if (r.getBoolean(IDesignerConst.COLUMN_QUERYFIELD)) {
@@ -125,7 +124,7 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 					qfMap.addChild(simpleQueryField(r.getName(), qt));
 				} else if (qt.equals(IDesignerConst.OP_INTERVAL)) {
 					CompositeMap[] maps = intervalQueryField(r.getName(),
-							refAlias);
+							refAlias, r.getType());
 					qfMap.addChild(maps[0]);
 					qfMap.addChild(maps[1]);
 				} else {
@@ -190,16 +189,22 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 	 *            empty str "" or real alias+"."
 	 * @return
 	 */
-	private CompositeMap[] intervalQueryField(String field, String refAlias_) {
+	private CompositeMap[] intervalQueryField(String field, String refAlias_,
+			String type) {
+		DataType dt = DataType.fromString(type);
 		CompositeMap[] maps = new CompositeMap[2];
 		maps[0] = newCompositeMap("query-field");
 		String fromName = field + "_from";
 		maps[0].put("name", fromName);
+		if (dt != null)
+			maps[0].put("dataType", dt.getJavaType());
 		maps[0].put("queryExpression", refAlias_ + field + " >= ${/parameter/@"
 				+ fromName + "}");
 		maps[1] = newCompositeMap("query-field");
 		String toName = field + "_to";
 		maps[1].put("name", toName);
+		if (dt != null)
+			maps[1].put("dataType", dt.getJavaType());
 		maps[1].put("queryExpression", refAlias_ + field + " <= ${/parameter/@"
 				+ toName + "}");
 		return maps;
