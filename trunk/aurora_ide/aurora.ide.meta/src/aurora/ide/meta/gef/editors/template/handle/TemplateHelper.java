@@ -84,7 +84,7 @@ public class TemplateHelper {
 				continue;
 			}
 			Template tm = tp.getTemplate();
-			tm.setIcon(path.append("thumbnails/" + tm.getIcon()).toString());
+			tm.setIcon("template/thumbnails/" + tm.getIcon());
 			String p = f.getPath();
 			if (p.indexOf("template") > 0) {
 				p = p.substring(p.indexOf("template"));

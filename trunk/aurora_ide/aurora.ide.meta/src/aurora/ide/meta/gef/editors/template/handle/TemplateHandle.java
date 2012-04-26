@@ -175,8 +175,6 @@ public abstract class TemplateHandle {
 			Input input = AuroraModelFactory.createComponent(aurora.ide.meta.gef.Util.getType(queryMap));
 			input.setName(queryMap.getString("name"));
 			input.setPrompt(aurora.ide.meta.gef.Util.getPrompt(queryMap));
-			// input.setPrompt(queryMap.getString("prompt") == null ?
-			// queryMap.getString("name") : queryMap.getString("prompt"));
 			ac.addChild(input);
 		}
 	}

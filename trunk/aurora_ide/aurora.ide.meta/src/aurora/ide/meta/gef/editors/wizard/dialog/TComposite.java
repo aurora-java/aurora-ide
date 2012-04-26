@@ -234,24 +234,15 @@ public class TComposite extends SashForm {
 
 	private void setLabelChecked(TLabel label, boolean chencked) {
 		if (chencked) {
-			// label.checked();
 			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION));
 		} else {
-			// label.unChecked();
 			label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		}
 	}
 
 	private Image getImage(String path) {
 		if (images.get(path) == null) {
-
-			// // IPath append = ICONS_PATH.append(getPath(key));
-			// ImageDescriptor imageDescriptor = AuroraPlugin
-			// .getImageDescriptor(path);
-			// // PLUGIN_REGISTRY.put(key, imageDescriptor);
-			// // image = PLUGIN_REGISTRY.get(key);
-
-			Image image = new Image(getDisplay(), path);
+			Image image = MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, path).createImage();
 			images.put(path, image);
 		}
 		return images.get(path);

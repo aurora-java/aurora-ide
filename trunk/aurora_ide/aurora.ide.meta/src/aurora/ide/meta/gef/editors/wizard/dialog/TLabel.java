@@ -12,7 +12,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -23,7 +22,7 @@ public class TLabel extends Composite {
 	private Image image = null;
 	private String text = null;
 
-	private Canvas canvas;
+	private Label canvas;
 	private Label label;
 	private Point size;
 	
@@ -31,7 +30,7 @@ public class TLabel extends Composite {
 		super(parent, style);
 		this.setLayout(new GridLayout());
 
-		canvas = new Canvas(this, SWT.None);
+		canvas = new Label(this, SWT.None);
 		canvas.setLayoutData(new GridData(GridData.FILL_BOTH));
 		canvas.addMouseListener(new MouseAdapter() {
 			public void mouseDown(MouseEvent e) {

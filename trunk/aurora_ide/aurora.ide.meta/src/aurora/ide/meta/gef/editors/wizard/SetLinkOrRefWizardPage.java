@@ -13,7 +13,9 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeExpansionEvent;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -36,9 +38,11 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeColumn;
 
 import aurora.ide.builder.ResourceUtil;
+import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
+import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
@@ -92,55 +96,63 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 	private void createGridSetting(List<Grid> grids) {
 
+		final List<GridColumn> gridColumns = new ArrayList<GridColumn>();
+
 		Group gl = new Group(composite, SWT.None);
 		gl.setLayout(new GridLayout(2, false));
 		gl.setLayoutData(new GridData(GridData.FILL_BOTH));
 		gl.setText("Set grid");
 		GridData gd = new GridData(GridData.FILL_BOTH);
 
-		TreeViewer treeViewer = new TreeViewer(gl, SWT.BORDER | SWT.FULL_SELECTION);
-		gd.verticalSpan = 3;
+		final TreeViewer treeViewer = new TreeViewer(gl, SWT.BORDER | SWT.FULL_SELECTION);
+		gd.verticalSpan = 4;
 		treeViewer.getTree().setLayoutData(gd);
 
 		TreeColumn treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		treeColumn.setMoveable(true);
 		treeColumn.setResizable(true);
 		treeColumn.setText("Grid");
-		treeColumn.pack();
 		treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		treeColumn.setMoveable(true);
 		treeColumn.setResizable(true);
 		treeColumn.setText("GridColumn");
-		treeColumn.pack();
 		treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		treeColumn.setMoveable(true);
 		treeColumn.setResizable(true);
 		treeColumn.setText("Editor");
-		treeColumn.pack();
+		treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
+		treeColumn.setMoveable(true);
+		treeColumn.setResizable(true);
+		treeColumn.setText("Renderer");
 
 		treeViewer.getTree().setLinesVisible(true);
 		treeViewer.getTree().setHeaderVisible(true);
 
 		treeViewer.setLabelProvider(new TreeLabelProvider());
 		treeViewer.setContentProvider(new TreeContentProvider());
+		treeViewer.addTreeListener(new TreeViewerAutoFitListener());
 		treeViewer.setInput(grids);
+		for (TreeColumn t : treeViewer.getTree().getColumns()) {
+			t.pack();
+		}
 
-		Button btnAdd = new Button(gl, SWT.None);
+		final Button btnAdd = new Button(gl, SWT.None);
 		btnAdd.setText("添加Link");
+		btnAdd.setEnabled(false);
 		gd = new GridData();
 		gd.widthHint = 80;
 		gd.verticalAlignment = SWT.TOP;
 		btnAdd.setLayoutData(gd);
 
-		Button btnDel = new Button(gl, SWT.None);
-		btnDel.setText("删除列");
+		final Button btnDel = new Button(gl, SWT.None);
+		btnDel.setText("删除Link");
 		btnDel.setEnabled(false);
 		gd = new GridData();
 		gd.widthHint = 80;
 		gd.verticalAlignment = SWT.TOP;
 		btnDel.setLayoutData(gd);
 
-		Button btnUP = new Button(gl, SWT.None);
+		final Button btnUP = new Button(gl, SWT.None);
 		btnUP.setText("上移");
 		btnUP.setEnabled(false);
 		gd = new GridData();
@@ -148,7 +160,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		gd.verticalAlignment = SWT.TOP;
 		btnUP.setLayoutData(gd);
 
-		Button btnDown = new Button(gl, SWT.None);
+		final Button btnDown = new Button(gl, SWT.None);
 		btnDown.setText("下移");
 		btnDown.setEnabled(false);
 		gd = new GridData();
@@ -158,30 +170,86 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				CridColumnDialog dialog = new CridColumnDialog(getShell());
+				CridColumnDialog dialog = new CridColumnDialog(SetLinkOrRefWizardPage.this);
 				if (dialog.open() == Dialog.OK) {
-
+					Grid grid = (Grid) ((TreeSelection) treeViewer.getSelection()).getFirstElement();
+					GridColumn gc = dialog.getGridColumn();
+					gridColumns.add(gc);
+					grid.addCol(gc);
+					treeViewer.refresh(grid);
 				}
 			}
 		});
 
 		btnDel.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
+				GridColumn gridColumn = (GridColumn) ((TreeSelection) treeViewer.getSelection()).getFirstElement();
+				if (DialogUtil.showConfirmDialogBox("是否删除GridColumn？") == SWT.OK) {
+					Grid grid = (Grid) gridColumn.getParent();
+					grid.removeChild(gridColumn);
+					grid.getCols().remove(gridColumn);
+					gridColumns.remove(gridColumn);
+					treeViewer.refresh(grid);
+				}
+			}
+		});
 
+		btnUP.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				GridColumn gridColumn = (GridColumn) ((TreeSelection) treeViewer.getSelection()).getFirstElement();
+				int index = getCridColumnIndex(gridColumn);
+				modifyGridColumnIndex(gridColumn, index, -1);
+				treeViewer.refresh(gridColumn.getParent());
+				btnDown.setEnabled(true);
+				if (index - 1 <= 0) {
+					btnUP.setEnabled(false);
+				}
+			}
+		});
+
+		btnDown.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				GridColumn gridColumn = (GridColumn) ((TreeSelection) treeViewer.getSelection()).getFirstElement();
+				int index = getCridColumnIndex(gridColumn);
+				modifyGridColumnIndex(gridColumn, index, 1);
+				treeViewer.refresh(gridColumn.getParent());
+				btnUP.setEnabled(true);
+				if (index + 2 >= ((Grid) gridColumn.getParent()).getCols().size()) {
+					btnDown.setEnabled(false);
+				}
 			}
 		});
 
 		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
-				// TODO Auto-generated method stub
 				Object obj = ((TreeSelection) event.getSelection()).getFirstElement();
 				if (obj instanceof Grid) {
-
+					btnAdd.setEnabled(true);
+					btnDel.setEnabled(false);
+					btnDown.setEnabled(false);
+					btnUP.setEnabled(false);
 				} else if (obj instanceof GridColumn) {
-
+					btnAdd.setEnabled(false);
+					if (gridColumns.contains(obj)) {
+						btnDel.setEnabled(true);
+					} else {
+						btnDel.setEnabled(false);
+					}
+					if (getCridColumnIndex((GridColumn) obj) + 1 < ((Grid) ((GridColumn) obj).getParent()).getCols().size()) {
+						btnDown.setEnabled(true);
+					} else {
+						btnDown.setEnabled(false);
+					}
+					if (getCridColumnIndex((GridColumn) obj) - 1 >= 0) {
+						btnUP.setEnabled(true);
+					} else {
+						btnUP.setEnabled(false);
+					}
 				} else {
-
+					btnAdd.setEnabled(false);
+					btnDel.setEnabled(false);
+					btnDown.setEnabled(false);
+					btnUP.setEnabled(false);
 				}
 			}
 		});
@@ -212,7 +280,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		});
 	}
 
-	private IProject getMetaProject() {
+	public IProject getMetaProject() {
 		for (IWizardPage page = this; page.getPreviousPage() != null; page = page.getPreviousPage()) {
 			if (page instanceof NewWizardPage) {
 				return ((NewWizardPage) page).getMetaProject();
@@ -221,7 +289,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		return null;
 	}
 
-	private IProject getAuroraProject() {
+	public IProject getAuroraProject() {
 		try {
 			return new AuroraMetaProject(getMetaProject()).getAuroraProject();
 		} catch (ResourceNotFoundException e) {
@@ -230,7 +298,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		return null;
 	}
 
-	private Object fileSelect(IContainer[] containers, String[] extFilter) {
+	public Object fileSelect(IContainer[] containers, String[] extFilter) {
 		MutilInputResourceSelector fss = new MutilInputResourceSelector(getShell());
 		fss.setExtFilter(extFilter);
 		fss.setInputs(containers);
@@ -244,6 +312,20 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 	public void setViewDiagram(ViewDiagram viewDiagram) {
 		this.viewDiagram = viewDiagram;
+	}
+
+	private int getCridColumnIndex(GridColumn gridColumn) {
+		Grid grid = (Grid) gridColumn.getParent();
+		return grid.getCols().indexOf(gridColumn);
+	}
+
+	private void modifyGridColumnIndex(GridColumn gridColumn, int index, int offset) {
+		Grid grid = (Grid) gridColumn.getParent();
+		grid.getCols().remove(gridColumn);
+		grid.getCols().add(index + offset, gridColumn);
+		int idx = grid.getChildren().indexOf(gridColumn);
+		grid.getChildren().remove(gridColumn);
+		grid.getChildren().add(idx + offset, gridColumn);
 	}
 
 	class TabRefSelect extends SelectionAdapter {
@@ -315,21 +397,39 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			switch (columnIndex) {
 			case 0:
 				if (element instanceof Grid) {
-					String name = ((Grid) element).getName();
-					if ("".equals(name)) {
-						name = "Grid";
+					String prompt = ((Grid) element).getPrompt();
+					if ("".equals(prompt) || prompt == null) {
+						prompt = "Grid";
 					}
-					return name;
+					return prompt;
 				}
 				break;
 			case 1:
 				if (!(element instanceof Grid) && (element instanceof GridColumn)) {
-					return ((GridColumn) element).getName();
+					String prompt = ((GridColumn) element).getPrompt();
+					if ("".equals(prompt) || prompt == null) {
+						prompt = "GridColumn";
+					}
+					return prompt;
 				}
 				break;
 			case 2:
 				if (element instanceof GridColumn) {
 					return ((GridColumn) element).getEditor();
+				}
+				break;
+			case 3:
+				if (element instanceof GridColumn) {
+					Renderer r = ((GridColumn) element).getRenderer();
+					if (Renderer.NONE_RENDERER.equals(r.getRendererType())) {
+						return null;
+					}
+					if (Renderer.INNER_FUNCTION.equals(r.getRendererType())) {
+						return r.getFunctionName();
+					}
+					if (Renderer.PAGE_REDIRECT.equals(r.getRendererType())) {
+						return r.getLabelText();
+					}
 				}
 				break;
 			default:
@@ -357,13 +457,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof Grid) {
 				Grid grid = (Grid) parentElement;
-				List<Object> gc = new ArrayList<Object>();
-				for (Object obj : grid.getCols()) {
-					if (obj instanceof GridColumn) {
-						gc.add(obj);
-					}
-				}
-				return gc.toArray();
+				return grid.getCols().toArray();
 			}
 			return null;
 		}
@@ -374,10 +468,35 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 		public boolean hasChildren(Object element) {
 			if (element instanceof Grid) {
-				return true;
+				Grid grid = (Grid) element;
+				return grid.getCols().size() > 0;
 			}
 			return false;
 		}
+	}
 
+	class TreeViewerAutoFitListener implements ITreeViewerListener {
+
+		public void treeExpanded(TreeExpansionEvent event) {
+			packColumns((TreeViewer) event.getSource());
+		}
+
+		public void treeCollapsed(TreeExpansionEvent event) {
+			packColumns((TreeViewer) event.getSource());
+		}
+
+		private void packColumns(final TreeViewer treeViewer) {
+			treeViewer.getControl().getShell().getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					TreeColumn[] treeColumns = treeViewer.getTree().getColumns();
+					for (TreeColumn treeColumn : treeColumns) {
+						if (treeColumn.getWidth() == 0) {
+							continue;
+						}
+						treeColumn.pack();
+					}
+				}
+			});
+		}
 	}
 }
