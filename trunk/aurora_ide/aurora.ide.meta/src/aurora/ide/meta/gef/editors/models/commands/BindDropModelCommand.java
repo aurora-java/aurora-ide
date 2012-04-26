@@ -44,6 +44,10 @@ public class BindDropModelCommand extends DropBMCommand {
 		return "query-field".equals(f.getName());
 	}
 
+	private boolean isRefFieldMap(CompositeMap f) {
+		return "ref-field".equals(f.getName());
+	}
+
 	private void fillGrid(List<CompositeMap> fields) {
 		for (CompositeMap f : fields) {
 			if (isQueryNameMap(f))
@@ -56,6 +60,8 @@ public class BindDropModelCommand extends DropBMCommand {
 			gc.setName(name);
 			if (this.getEditorMode().isForCreate()
 					|| this.getEditorMode().isForUpdate()) {
+				if (isRefFieldMap(f))
+					continue;
 				String type = Util.getType(f);
 				gc.setEditor(type);
 			}
