@@ -2,15 +2,12 @@ package aurora.ide.meta.gef.designer.gen;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.ide.undo.CreateFileOperation;
 
 import uncertain.composite.CompositeMap;
-import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
@@ -20,14 +17,7 @@ import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
 import aurora.ide.meta.gef.editors.models.Input;
 
-public class BaseBmGenerator {
-	public static final String xml_header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
-	public static final String bm_ns_pre = "bm";
-	public static final String bm_ns_uri = "http://www.aurora-framework.org/schema/bm";
-	public static final String f_ns_pre = "f";
-	public static final String f_ns_uri = "aurora.database.features";
-	public static final String o_ns_pre = "o";
-	public static final String o_ns_uri = "aurora.database.local.oracle";
+public class BaseBmGenerator extends AbstractBmGenerator {
 	/**
 	 * this will be used to generate relation`s refAlias<br/>
 	 * currently , we assume that ,seqRefAlias will never greater than 'z'(there
@@ -37,10 +27,11 @@ public class BaseBmGenerator {
 
 	private BMModel model;
 	private String name;
-	private IProject aProject;
 	private IFile file;
-	private HashMap<String, String> nsMapping = new HashMap<String, String>();
 	private ModelMerger merger;
+
+	public BaseBmGenerator() {
+	}
 
 	public BaseBmGenerator(IFile file) {
 		this();
@@ -56,12 +47,6 @@ public class BaseBmGenerator {
 			e.printStackTrace();
 		}
 		model = merger.getOriginalModel();
-		aProject = merger.getAuroraProject();
-	}
-
-	public BaseBmGenerator() {
-		nsMapping.put(bm_ns_uri, bm_ns_pre);
-		nsMapping.put(o_ns_uri, o_ns_pre);
 	}
 
 	public void process() throws Exception {
@@ -92,25 +77,8 @@ public class BaseBmGenerator {
 		}
 	}
 
-	private CompositeMap gen() {
-		CompositeMap map = genModelMap();
-		map.put("title", model.getTitle());
-		Record r = model.getDefaultDisplayRecord();
-		if (r != null)
-			map.put("defaultDisplayField", r.getName());
-		map.addChild(genFieldsMap());
-		map.addChild(genPkMap());
-		map.addChild(genFeatureMap());
-		map.addChild(genRelationMap());
-		return map;
-	}
-
-	protected CompositeMap genModelMap() {
-		CompositeMap map = newCompositeMap("model");
-		map.setNamespaceMapping(nsMapping);
-		for (String uri : nsMapping.keySet()) {
-			map.put("xmlns:" + nsMapping.get(uri), uri);
-		}
+	protected CompositeMap newModelMap() {
+		CompositeMap map = super.newModelMap();
 		map.put("alias", "e");
 		map.put("baseTable", name);
 		return map;
@@ -169,8 +137,7 @@ public class BaseBmGenerator {
 
 	private CompositeMap genFeatureMap() {
 		CompositeMap fMap = newCompositeMap("features");
-		CompositeMap spk = newCompositeMap("sequence-pk");
-		spk.setPrefix(o_ns_pre);
+		CompositeMap spk = newCompositeMap("sequence-pk", o_ns_pre);
 		fMap.addChild(spk);
 		return fMap;
 	}
@@ -203,9 +170,15 @@ public class BaseBmGenerator {
 		return Character.toString(seqRefAlias++);
 	}
 
-	protected CompositeMap newCompositeMap(String name) {
-		CompositeMap map = new CommentCompositeMap(name);
-		map.setPrefix(bm_ns_pre);// set a default prefix
-		return map;
+	@Override
+	protected void setUpModelMap(CompositeMap map) {
+		map.put("title", model.getTitle());
+		Record r = model.getDefaultDisplayRecord();
+		if (r != null)
+			map.put("defaultDisplayField", r.getName());
+		map.addChild(genFieldsMap());
+		map.addChild(genPkMap());
+		map.addChild(genFeatureMap());
+		map.addChild(genRelationMap());
 	}
 }
