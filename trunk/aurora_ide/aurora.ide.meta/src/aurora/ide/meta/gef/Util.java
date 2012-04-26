@@ -216,10 +216,15 @@ public class Util {
 			endS = getQueryFieldEndString(fn);
 			field = findFieldMapByQueryName(field);
 		}
-
 		String result = field != null ? field.getString("prompt", "prompt")
 				: "prompt:";
-		return result + endS;
+		if ("_from".equals(endS)) {
+			return result + "从";
+		}
+		if ("_to".equals(endS)) {
+			return result + "到";
+		}
+		return result;
 	}
 
 }
