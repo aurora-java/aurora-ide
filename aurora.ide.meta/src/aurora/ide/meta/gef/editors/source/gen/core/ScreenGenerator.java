@@ -1,6 +1,5 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -286,6 +285,8 @@ public class ScreenGenerator {
 	}
 
 	public String getNewLinkFilePath(String path) {
+		if (path == null)
+			path = "";
 		IPath newPath = new Path(path);
 		if (!"uip".equalsIgnoreCase(newPath.getFileExtension())) {
 			return path;
@@ -419,6 +420,7 @@ public class ScreenGenerator {
 	public String findDatasetId(Container container) {
 		return datasetGenerator.findDatasetId(container);
 	}
+
 	public Dataset findDataset(Container container) {
 		return datasetGenerator.findDataset(container);
 	}
@@ -443,7 +445,6 @@ public class ScreenGenerator {
 		}
 		return r;
 	}
-	
 
 	public void setIdGenerator(IDGenerator idGenerator) {
 		this.idGenerator = idGenerator;
