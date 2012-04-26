@@ -69,12 +69,17 @@ public class BMViewer {
 			this.editor = editor;
 		}
 
-		public ModelField() {
-			super();
-		}
+//		public ModelField() {
+//			super();
+//		}
 
 		public String getName() {
-			return fieldMap.get("name").toString();
+			if (REF_FIELD.equals(editor)) {
+				return fieldMap.get("name").toString();
+			}
+			String prompt = Util.getPrompt(fieldMap);
+			// return fieldMap.get("name").toString();
+			return prompt;
 		}
 	}
 
@@ -139,7 +144,7 @@ public class BMViewer {
 		}
 
 		protected final Object getAdapter(Object sourceObject) {
-			Class adapterType = IWorkbenchAdapter.class;
+			Class<?> adapterType = IWorkbenchAdapter.class;
 			if (sourceObject == null) {
 				return null;
 			}
@@ -421,20 +426,20 @@ public class BMViewer {
 			// }
 			// }
 
-//			CompositeMap refFields = modelMap.getChild("ref-fields"); //$NON-NLS-1$
-//			if (refFields != null) {
-//				Iterator childIterator = refFields.getChildIterator();
-//				while (childIterator != null && childIterator.hasNext()) {
-//					CompositeMap qf = (CompositeMap) childIterator.next();
-//					if ("ref-field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
-//						ModelField field = new ModelField();
-//						field.editor = ModelField.REF_FIELD;
-//						field.parent = model;
-//						field.fieldMap = qf;
-//						result.add(field);
-//					}
-//				}
-//			}
+			//			CompositeMap refFields = modelMap.getChild("ref-fields"); //$NON-NLS-1$
+			// if (refFields != null) {
+			// Iterator childIterator = refFields.getChildIterator();
+			// while (childIterator != null && childIterator.hasNext()) {
+			// CompositeMap qf = (CompositeMap) childIterator.next();
+			//					if ("ref-field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+			// ModelField field = new ModelField();
+			// field.editor = ModelField.REF_FIELD;
+			// field.parent = model;
+			// field.fieldMap = qf;
+			// result.add(field);
+			// }
+			// }
+			// }
 
 		} catch (CoreException e) {
 		} catch (ApplicationException e) {
