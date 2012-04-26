@@ -209,10 +209,17 @@ public class Util {
 	}
 
 	public static String getPrompt(CompositeMap field) {
+		String endS = "";
 		if (isQueryName(field)) {
+			CompositeMap qf = field;
+			String fn = qf.getString("name", "");
+			endS = getQueryFieldEndString(fn);
 			field = findFieldMapByQueryName(field);
 		}
-		return field != null ? field.getString("prompt", "prompt") : "prompt:";
+
+		String result = field != null ? field.getString("prompt", "prompt")
+				: "prompt:";
+		return result + endS;
 	}
 
 }
