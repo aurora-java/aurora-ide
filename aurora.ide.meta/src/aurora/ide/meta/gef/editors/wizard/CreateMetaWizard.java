@@ -67,12 +67,13 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 						selectPage.createDynamicTextComponents(template);
 					}
 				} else if (eq(event.getCurrentPage(), selectPage) && eq(event.getTargetPage(), settingPage)) {
-
-					List<Grid> grids = selectPage.getGrids();
-					List<TabItem> refTabItems = selectPage.getRefTabItems();
-					viewDiagram = selectPage.getViewDiagram();
-					settingPage.createCustom(viewDiagram, grids, refTabItems);
-
+					if (selectPage.isModify()) {
+						selectPage.setModify(false);
+						List<Grid> grids = selectPage.getGrids();
+						List<TabItem> refTabItems = selectPage.getRefTabItems();
+						viewDiagram = selectPage.getViewDiagram();
+						settingPage.createCustom(viewDiagram, grids, refTabItems);
+					}
 				}
 			}
 		});

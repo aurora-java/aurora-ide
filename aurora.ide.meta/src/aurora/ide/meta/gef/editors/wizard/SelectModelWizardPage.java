@@ -50,6 +50,8 @@ public class SelectModelWizardPage extends WizardPage {
 	private Composite composite;
 	private IPath bmPath;
 
+	private boolean modify = false;
+
 	public SelectModelWizardPage() {
 		super("aurora.wizard.select.Page"); //$NON-NLS-1$
 		setTitle(Messages.SettingWizardPage_Title);
@@ -146,10 +148,13 @@ public class SelectModelWizardPage extends WizardPage {
 					updateStatus("必须选择bm文件");
 					return;
 				}
+				if (!r.equals(bm.getModel())) {
+					modify = true;
+				}
 				bm.setModel((IFile) r);
 				if (checkFinish()) {
-					updateStatus(null);
 					fillViewDiagram();
+					updateStatus(null);
 				} else {
 					setPageComplete(false);
 				}
@@ -209,5 +214,13 @@ public class SelectModelWizardPage extends WizardPage {
 		} else {
 			return null;
 		}
+	}
+
+	public boolean isModify() {
+		return modify;
+	}
+
+	public void setModify(boolean modify) {
+		this.modify = modify;
 	}
 }

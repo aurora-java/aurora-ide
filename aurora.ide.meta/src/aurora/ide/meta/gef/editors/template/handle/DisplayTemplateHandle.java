@@ -35,26 +35,34 @@ public class DisplayTemplateHandle extends TemplateHandle {
 	protected void fillBox(Container ac, BMCompositeMap bmc) {
 		ac.getChildren().clear();
 		outer: for (CompositeMap map : getFieldsWithoutPK(bmc)) {
+			String renderer = null;
+			if (isDateType(map)) {
+				renderer = "Aurora.formatDate";
+			}
 			String filedName = map.getString("name");
 			for (String relationName : refRelat.keySet()) {
 				if (refRelat.get(relationName).contains(filedName)) {
 					for (CompositeMap ref : bmc.getRefFields()) {
 						if (relationName.equals(ref.getString("relationName"))) {
-							Label label = new Label();
-							label.setName(ref.getString("name"));
-							label.setPrompt(map.getString("prompt"));
-							((Container) ac).addChild(label);
+							ac.addChild(createLabel(map.getString("prompt"), ref.getString("name"), renderer));
 						}
 					}
 					continue outer;
 				}
 			}
-			Label label = new Label();
-			label.setName(filedName);
-			label.setPrompt(map.getString("prompt"));
-			((Container) ac).addChild(label);
+			ac.addChild(createLabel(map.getString("prompt"), filedName, renderer));
 		}
 
+	}
+
+	private Label createLabel(String prompt, String name, String renderer) {
+		Label label = new Label();
+		label.setName(name);
+		label.setPrompt(prompt);
+		if (renderer != null) {
+			label.setRenderer(renderer);
+		}
+		return label;
 	}
 
 	@Override
