@@ -2,11 +2,14 @@ package aurora.ide.meta.gef;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -18,10 +21,15 @@ import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
 
 import uncertain.composite.CompositeMap;
+import uncertain.schema.Attribute;
+import aurora.ide.builder.BuildContext;
+import aurora.ide.builder.ResourceUtil;
+import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.search.cache.CacheManager;
 
 public class Util {
 	/**
@@ -225,6 +233,71 @@ public class Util {
 			return result + "到";
 		}
 		return result;
+	}
+
+	public static String getRefFieldSourcePrompt(IProject auroraProject,
+			CompositeMap field) {
+
+		if (!"ref-field".equals(field.getName())) {
+			return null;
+		}
+		String relationName = getValueIgnoreCase(field, "relationName");
+		if (relationName == null) {
+			return null;
+		}
+		BMCompositeMap c_bm = new BMCompositeMap(field.getRoot());
+		CompositeMap relationMap = null;
+		List<CompositeMap> relations = c_bm.getRelations();
+		for (CompositeMap r : relations) {
+			if (relationName.equals(r.getString("name"))) {
+				relationMap = r;
+			}
+		}
+		if (relationMap == null) {
+			return null;
+		}
+		String bmPath = getValueIgnoreCase(relationMap, "refmodel");
+		IFile resource = ResourceUtil.getBMFile(auroraProject,
+				bmPath == null ? "" : bmPath);
+		if (resource instanceof IFile) {
+			IFile file = (IFile) resource;
+			CompositeMap map;
+			try {
+				map = CacheManager.getWholeBMCompositeMap(file);
+				BMCompositeMap bm = new BMCompositeMap(map);
+				String source = getValueIgnoreCase(field, "sourceField");
+				CompositeMap fieldByName = bm
+						.getFieldByName(source == null ? "" : source);
+				if (fieldByName != null) {
+					return getPrompt(fieldByName);
+				}
+			} catch (CoreException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public static String getValueIgnoreCase(Attribute a, BuildContext bc) {
+		return getValueIgnoreCase(a, bc.map);
+	}
+
+	public static String getValueIgnoreCase(Attribute a, CompositeMap cMap) {
+		String name = a.getName();
+		return getValueIgnoreCase(cMap, name);
+	}
+
+	public static String getValueIgnoreCase(CompositeMap cMap, String name) {
+		Set keySet = cMap.keySet();
+		for (Object object : keySet) {
+			if (object instanceof String
+					&& ((String) object).equalsIgnoreCase(name)) {
+				return cMap.get(object).toString();
+			}
+		}
+		return null;
 	}
 
 }

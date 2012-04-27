@@ -20,8 +20,11 @@ import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.util.DelegatingDragAdapter;
 import org.eclipse.jface.util.TransferDragSourceListener;
+import org.eclipse.jface.viewers.DecoratingStyledCellLabelProvider;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -32,6 +35,7 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 
 import uncertain.composite.CompositeMap;
@@ -69,17 +73,20 @@ public class BMViewer {
 			this.editor = editor;
 		}
 
-//		public ModelField() {
-//			super();
-//		}
+		public String getPrompt() {
+			String prompt = "";
+			if (REF_FIELD.equals(editor)) {
+				prompt = Util.getRefFieldSourcePrompt(getAuroraProject(),
+						fieldMap);
+			} else {
+				prompt = Util.getPrompt(fieldMap);
+			}
+			return prompt;
+		}
 
 		public String getName() {
-			if (REF_FIELD.equals(editor)) {
-				return fieldMap.get("name").toString();
-			}
-			String prompt = Util.getPrompt(fieldMap);
-			// return fieldMap.get("name").toString();
-			return prompt;
+			String fname = fieldMap.getString("name", "");
+			return "[" + fname + "]";
 		}
 	}
 
@@ -131,7 +138,8 @@ public class BMViewer {
 		}
 	}
 
-	private class VLabelProvider extends LabelProvider {
+	private class VLabelProvider extends LabelProvider implements
+			IStyledLabelProvider {
 		private ResourceManager resourceManager;
 
 		private ResourceManager getResourceManager() {
@@ -218,17 +226,32 @@ public class BMViewer {
 		}
 
 		public final String getText(Object element) {
+			return getStyledText(element).getString();
+		}
+
+		public StyledString getStyledText(Object element) {
+			StyledString s = new StyledString();
 			if (element instanceof IFile) {
-				return ((IFile) element).getFullPath().removeFileExtension()
-						.lastSegment();
+				s.append(((IFile) element).getFullPath().removeFileExtension()
+						.lastSegment());
+				s.append(" ");
+				String pkg = aurora.ide.search.core.Util
+						.getPKG(((IFile) element).getProjectRelativePath());
+				s.append("[" + pkg + "]", StyledString.DECORATIONS_STYLER);
+				return s;
 			}
 			if (element instanceof ModelField) {
-				return ((ModelField) element).getName();
+				s.append(((ModelField) element).getPrompt());
+				s.append(" ");
+				s.append(((ModelField) element).getName(),
+						StyledString.QUALIFIER_STYLER);
+				return s;
 			}
 			if (element instanceof String) {
-				return element.toString();
+				return s.append(element.toString());
 			}
-			return null;
+
+			return s;
 		}
 	}
 
@@ -332,7 +355,9 @@ public class BMViewer {
 		viewer.addDragSupport(DND.DROP_COPY, dragAdapter.getTransfers(),
 				dragAdapter);
 		viewer.setContentProvider(new ContentProvider());
-		viewer.setLabelProvider(new VLabelProvider());
+		viewer.setLabelProvider(new DecoratingStyledCellLabelProvider(
+				new VLabelProvider(), PlatformUI.getWorkbench()
+						.getDecoratorManager().getLabelDecorator(), null));
 		refreshInput();
 		viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
 	}
@@ -410,37 +435,6 @@ public class BMViewer {
 					result.add(field);
 				}
 			}
-
-			//			CompositeMap fields = modelMap.getChild("fields"); //$NON-NLS-1$
-			// if (fields != null) {
-			// Iterator childIterator = fields.getChildIterator();
-			// while (childIterator != null && childIterator.hasNext()) {
-			// CompositeMap qf = (CompositeMap) childIterator.next();
-			//					if ("field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
-			// ModelField field = new ModelField();
-			// field.editor = Util.getType(qf);
-			// field.parent = model;
-			// field.fieldMap = qf;
-			// result.add(field);
-			// }
-			// }
-			// }
-
-			//			CompositeMap refFields = modelMap.getChild("ref-fields"); //$NON-NLS-1$
-			// if (refFields != null) {
-			// Iterator childIterator = refFields.getChildIterator();
-			// while (childIterator != null && childIterator.hasNext()) {
-			// CompositeMap qf = (CompositeMap) childIterator.next();
-			//					if ("ref-field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
-			// ModelField field = new ModelField();
-			// field.editor = ModelField.REF_FIELD;
-			// field.parent = model;
-			// field.fieldMap = qf;
-			// result.add(field);
-			// }
-			// }
-			// }
-
 		} catch (CoreException e) {
 		} catch (ApplicationException e) {
 		}
