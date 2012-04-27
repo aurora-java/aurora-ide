@@ -16,7 +16,6 @@ import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
 import aurora.ide.search.cache.CacheManager;
-import aurora.ide.search.core.Util;
 
 public class ForQueryBmGenerator extends AbstractBmGenerator {
 
@@ -27,7 +26,7 @@ public class ForQueryBmGenerator extends AbstractBmGenerator {
 	public ForQueryBmGenerator(BMModel model, IFile baseBMFile) {
 		super();
 		this.model = model;
-		baseBmPath = Util.toPKG(baseBMFile.getFullPath().removeFileExtension());
+		baseBmPath = ResourceUtil.getBmPkgPath(baseBMFile);
 		this.auroraProject = baseBMFile.getProject();
 	}
 
@@ -43,14 +42,17 @@ public class ForQueryBmGenerator extends AbstractBmGenerator {
 
 	@Override
 	protected void setUpModelMap(CompositeMap map) {
-		map.addChild(genRefFieldsMap(model));
+		CompositeMap refMap = genRefFieldsMap(model);
+		if (refMap.getChildsNotNull().size() > 0)
+			map.addChild(refMap);
 		String refAlias = map.getString("alias");
 		if (refAlias == null || refAlias.length() == 0)
 			refAlias = "";
 		else
 			refAlias += ".";
 		CompositeMap qfMap = genQueryFieldMap(refAlias);
-		map.addChild(qfMap);
+		if (qfMap.getChildsNotNull().size() > 0)
+			map.addChild(qfMap);
 	}
 
 	private CompositeMap genRefFieldsMap(BMModel model) {
@@ -94,7 +96,7 @@ public class ForQueryBmGenerator extends AbstractBmGenerator {
 	private CompositeMap genQueryFieldMap(String refAlias) {
 		CompositeMap qfMap = newCompositeMap("query-fields");
 		ArrayList<Record> qfs = new ArrayList<Record>(model.getRecordList());
-		qfs.add(model.getPkRecord());
+		qfs.add(0, model.getPkRecord());
 		for (Record r : qfs) {
 			if (r.getBoolean(IDesignerConst.COLUMN_QUERYFIELD)) {
 				String qt = r.getStringNotNull(IDesignerConst.COLUMN_QUERY_OP);
