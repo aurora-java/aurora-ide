@@ -23,17 +23,19 @@ import aurora.ide.search.cache.CacheManager;
 public class DataSetFieldUtil {
 	private String fieldName;
 	private String bmPath;
+	private CompositeMap bmMap = null;
 
 	private AuroraMetaProject aProj;
+	private CompositeMap optionMap;
+	private CompositeMap currentField;
+	private String pkName;
+	private String options;
 
 	public DataSetFieldUtil(IProject project, String fieldName, String bmPath) {
 		super();
 		this.fieldName = fieldName;
 		this.bmPath = bmPath;
 		aProj = new AuroraMetaProject(project);
-	}
-
-	public DataSetFieldUtil() {
 	}
 
 	/**
@@ -73,7 +75,9 @@ public class DataSetFieldUtil {
 	 * @return return null if not found
 	 */
 	public CompositeMap getBmMap() {
-		return getBmMap(bmPath);
+		if (bmMap == null)
+			bmMap = getBmMap(bmPath);
+		return bmMap;
 	}
 
 	/**
@@ -82,12 +86,13 @@ public class DataSetFieldUtil {
 	 * @return return null if not found
 	 */
 	public String getOptions() {
-		CompositeMap fMap = getCurrentField();
-		if (fMap != null) {
-			String bmPath = fMap.getString("options");
-			return bmPath;
+		if (options == null) {
+			CompositeMap fMap = getCurrentField();
+			if (fMap != null) {
+				options = fMap.getString("options");
+			}
 		}
-		return null;
+		return options;
 	}
 
 	/**
@@ -98,7 +103,9 @@ public class DataSetFieldUtil {
 	 *         return null if not found
 	 */
 	public CompositeMap getOptionsMap() {
-		return getBmMap(getOptions());
+		if (optionMap == null)
+			optionMap = getBmMap(getOptions());
+		return optionMap;
 	}
 
 	/**
@@ -109,11 +116,15 @@ public class DataSetFieldUtil {
 		CompositeMap bmMap = getBmMap();
 		if (bmMap == null)
 			return null;
-		for (CompositeMap m : getLocalFields(bmMap)) {
-			if (m.getString("name").equalsIgnoreCase(fieldName))
-				return m;
+		if (currentField == null) {
+			for (CompositeMap m : getLocalFields(bmMap)) {
+				if (m.getString("name").equalsIgnoreCase(fieldName)) {
+					currentField = m;
+					break;
+				}
+			}
 		}
-		return null;
+		return currentField;
 	}
 
 	/**
@@ -126,18 +137,21 @@ public class DataSetFieldUtil {
 	public String getPK(CompositeMap bmMap) {
 		if (bmMap == null)
 			return null;
-		final String pk[] = { null };
-		bmMap.iterate(new IterationHandle() {
-
-			public int process(CompositeMap map) {
-				if (map.getName().equalsIgnoreCase("pk-field")) {
-					pk[0] = map.getString("name");
-					return IterationHandle.IT_BREAK;
-				}
-				return 0;
+		CompositeMap pkMap = bmMap.getChild("primary-key");
+		if (pkMap != null) {
+			@SuppressWarnings("unchecked")
+			List<CompositeMap> list = pkMap.getChildsNotNull();
+			if (list.size() > 0) {
+				return list.get(0).getString("name");
 			}
-		}, true);
-		return pk[0];
+		}
+		return null;
+	}
+
+	public String getPk() {
+		if (pkName == null)
+			pkName = getPK(getBmMap());
+		return pkName;
 	}
 
 	/**
