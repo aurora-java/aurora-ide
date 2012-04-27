@@ -328,7 +328,13 @@ public class BMViewer {
 					}
 				}
 				if (data instanceof BMViewer.ModelField) {
-					fs.add(((BMViewer.ModelField) data).fieldMap);
+					BMViewer.ModelField data2 = (BMViewer.ModelField) data;
+					CompositeMap fieldMap = data2.fieldMap;
+					if (ModelField.REF_FIELD.equals(data2.editor)) {
+						fieldMap = (CompositeMap) fieldMap.clone();
+						fieldMap.put("prompt", data2.getPrompt());
+					}
+					fs.add(fieldMap);
 				}
 				return fs;
 			}
