@@ -63,7 +63,7 @@ public class ForQueryBmGenerator extends AbstractBmGenerator {
 			IFile file = ResourceUtil.getBMFile(auroraProject, bmpath);
 			CompositeMap refBmMap = null;
 			try {
-				refBmMap = CacheManager.getCompositeMap(file);
+				refBmMap = CacheManager.getWholeBMCompositeMap(file);
 			} catch (CoreException e) {
 				e.printStackTrace();
 			} catch (ApplicationException e) {
