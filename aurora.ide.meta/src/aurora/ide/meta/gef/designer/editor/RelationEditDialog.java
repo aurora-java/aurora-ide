@@ -68,7 +68,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 	private ListViewer refFieldListViewer;
 	private String refTablePkName = "";
 
-	public java.util.List<CompositeMap> bmFieldWithoutPkList;
+	public java.util.List<CompositeMap> bmFieldWithoutPkList = new ArrayList<CompositeMap>();
 
 	/**
 	 * Create the dialog.
@@ -216,16 +216,19 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 	private void createRefFieldGroup(Composite container) {
 		Group composite = new Group(container, SWT.NONE);
 		composite.setText(DesignerMessages.RelationEditDialog_13);
-		composite.setLayout(null);
+		GridLayout gl_composite = new GridLayout(3, false);
+		gl_composite.verticalSpacing = 0;
+		gl_composite.marginHeight = 0;
+		gl_composite.horizontalSpacing = 0;
+		composite.setLayout(gl_composite);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3,
 				1));
 
 		Label label_2 = new Label(composite, SWT.NONE);
-		label_2.setBounds(8, 20, 48, 15);
 		label_2.setText(DesignerMessages.RelationEditDialog_14);
+		new Label(composite, SWT.NONE);
 
 		Label label_3 = new Label(composite, SWT.NONE);
-		label_3.setBounds(224, 20, 48, 15);
 		label_3.setText(DesignerMessages.RelationEditDialog_15);
 
 		bmFieldListViewer = new ListViewer(composite, SWT.BORDER | SWT.V_SCROLL
@@ -234,7 +237,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		bmFieldListViewer.setLabelProvider(new BmFieldLabelProvider());
 		bmFieldListViewer.setInput(bmFieldWithoutPkList);
 		List list = bmFieldListViewer.getList();
-		list.setBounds(8, 40, 170, 100);
+		list.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
 		createFieldOperateButtons(composite);
 
@@ -244,32 +247,42 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		refFieldListViewer.setLabelProvider(new BmFieldLabelProvider());
 		refFieldListViewer.setInput(refFieldList);
 		List list_1 = refFieldListViewer.getList();
-		list_1.setBounds(224, 40, 170, 100);
+		list_1.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 	}
 
 	private void createFieldOperateButtons(Composite composite) {
 		Composite composite_1 = new Composite(composite, SWT.NONE);
-		composite_1.setBounds(183, 40, 36, 100);
-		composite_1.setLayout(null);
+		composite_1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false,
+				true, 1, 1));
+		GridLayout gl_composite_1 = new GridLayout(1, false);
+		gl_composite_1.marginHeight = 0;
+		gl_composite_1.verticalSpacing = 0;
+		gl_composite_1.marginWidth = 0;
+		gl_composite_1.horizontalSpacing = 0;
+		composite_1.setLayout(gl_composite_1);
 
 		Button button = new Button(composite_1, SWT.NONE);
+		button.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1,
+				1));
 		button.addSelectionListener(new FieldOperationListener(1 << 1));
-		button.setBounds(0, 0, 36, 25);
 		button.setText(DesignerMessages.RelationEditDialog_16);
 
 		Button button_1 = new Button(composite_1, SWT.NONE);
+		button_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
+				1, 1));
 		button_1.addSelectionListener(new FieldOperationListener(1 << 2));
-		button_1.setBounds(0, 25, 36, 25);
 		button_1.setText(DesignerMessages.RelationEditDialog_17);
 
 		Button button_2 = new Button(composite_1, SWT.NONE);
+		button_2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
+				1, 1));
 		button_2.addSelectionListener(new FieldOperationListener(1 << 3));
-		button_2.setBounds(0, 50, 36, 25);
 		button_2.setText(DesignerMessages.RelationEditDialog_18);
 
 		Button button_3 = new Button(composite_1, SWT.NONE);
+		button_3.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
+				1, 1));
 		button_3.addSelectionListener(new FieldOperationListener(1 << 4));
-		button_3.setBounds(0, 75, 36, 25);
 		button_3.setText(DesignerMessages.RelationEditDialog_19);
 	}
 
