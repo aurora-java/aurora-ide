@@ -1,14 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="查询数据" iconPath="1.png" type="serach" category="查询">
+<template name="查询数据" iconPath="f.png" type="serach" category="查询">
 	<models>
 		<model id="model_id" name="BM"/>
 	</models>
 	
 	<grid id="grid_id" name="grid_name" model="model_id">
 		<toolBar>
-			<button type="add"/>
-			<button type="save"/>
-			<button type="delete"/>
 			<button type="excel"/>
 			<button type="clear"/>
 		</toolBar>

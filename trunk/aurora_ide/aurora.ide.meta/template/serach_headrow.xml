@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="Grid联动查询" iconPath="1.png" type="serach" category="查询">
+<template name="Grid联动查询" iconPath="gg.png" type="serach" category="查询">
 	<models>
 		<model id="model_hid" name="头BM"/>
 		<model id="model_rid" name="行BM"/>
@@ -7,9 +7,6 @@
 	
 	<grid id="grid_hid" name="grid_hname" model="model_hid">
 		<toolBar>
-			<button type="add"/>
-			<button type="save"/>
-			<button type="delete"/>
 			<button type="excel"/>
 			<button type="clear"/>
 		</toolBar>
@@ -17,8 +14,6 @@
 	
 	<grid id="grid_rid" name="grid_rname" model="model_rid" query="grid_hid">
 		<toolBar>
-			<button type="add"/>
-			<button type="delete"/>
 			<button type="excel"/>
 			<button type="clear"/>
 		</toolBar>
