@@ -224,6 +224,7 @@ public class Util {
 			endS = getQueryFieldEndString(fn);
 			field = findFieldMapByQueryName(field);
 		}
+		
 		String result = field != null ? field.getString("prompt", "prompt")
 				: "prompt:";
 		if ("_from".equals(endS)) {
