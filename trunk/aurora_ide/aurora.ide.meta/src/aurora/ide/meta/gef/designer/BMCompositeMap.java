@@ -9,6 +9,13 @@ import org.eclipse.core.resources.IFile;
 import uncertain.composite.CompositeMap;
 import aurora.ide.search.cache.CacheManager;
 
+/**
+ * useful methods set to get information of bm<br/>
+ * intend for <b>READ ONLY</b>
+ * 
+ * @author jessen
+ * 
+ */
 public class BMCompositeMap {
 
 	private CompositeMap bmMap;
@@ -25,12 +32,22 @@ public class BMCompositeMap {
 	private CompositeMap firstPkField;
 	private CompositeMap fieldOfPk;
 
+	/**
+	 * 
+	 * @param map
+	 *            the root of bm map,can not be null
+	 */
 	public BMCompositeMap(CompositeMap map) {
 		if (map == null)
 			throw new RuntimeException("parameter can not be null.");
 		this.bmMap = map;
 	}
 
+	/**
+	 * 
+	 * @param bmFile
+	 *            the file of bm
+	 */
 	public BMCompositeMap(IFile bmFile) {
 		try {
 			this.bmMap = CacheManager.getWholeBMCompositeMap(bmFile);
@@ -46,17 +63,15 @@ public class BMCompositeMap {
 	/**
 	 * reutrns a node under <b>primary-key</b> (not fields)
 	 * 
+	 * @see #getFieldOfPk
+	 * @see #getPrimaryKeys
 	 * @return
 	 */
 	public CompositeMap getFirstPkField() {
 		if (firstPkField == null) {
-			CompositeMap map = getPrimaryKeyMap();
-			if (map != null) {
-				@SuppressWarnings("unchecked")
-				List<CompositeMap> list = map.getChildsNotNull();
-				if (list.size() > 0)
-					firstPkField = list.get(0);
-			}
+			List<CompositeMap> list = getPrimaryKeys();
+			if (list.size() > 0)
+				firstPkField = list.get(0);
 		}
 		return firstPkField;
 	}
@@ -64,6 +79,7 @@ public class BMCompositeMap {
 	/**
 	 * reutrns a node under <b>fields</b> , and it is pk
 	 * 
+	 * @see #getFirstPkField
 	 * @return
 	 */
 	public CompositeMap getFieldOfPk() {
@@ -71,11 +87,7 @@ public class BMCompositeMap {
 			String pkn = getPkFieldName();
 			if (pkn == null)
 				return null;
-			for (CompositeMap m : getFields())
-				if (pkn.equals(m.getString("name"))) {
-					fieldOfPk = m;
-					break;
-				}
+			fieldOfPk = getFieldByName(pkn);
 		}
 		return fieldOfPk;
 	}
@@ -93,10 +105,63 @@ public class BMCompositeMap {
 		return null;
 	}
 
-	CompositeMap getFieldByProperty(String property, String value) {
-		for (CompositeMap m : getFields()) {
-			if (eq(m.getString(property), value))
+	/**
+	 * {@link BMCompositeMap#getChildByProperty(CompositeMap,String,String)}
+	 * 
+	 * @param property
+	 * @param value
+	 * @return
+	 */
+	public CompositeMap getFieldByProperty(String property, String value) {
+		return getChildByProperty(getFieldsMap(), property, value);
+	}
+
+	/**
+	 * if the <b> parMap</b> has children ,then search its children list<br/>
+	 * try to get the first child ,that its value of <b> property</b> equals <b>
+	 * value</b><br/>
+	 * note that, case of <b> property</b> is ignored<br/>
+	 * 
+	 * @see BMCompositeMap#getMapAttribute(CompositeMap, String)
+	 * 
+	 * @param parMap
+	 * @param property
+	 * @param value
+	 * @return
+	 */
+	public static CompositeMap getChildByProperty(CompositeMap parMap,
+			String property, String value) {
+		if (parMap == null || property == null)
+			return null;
+		@SuppressWarnings("unchecked")
+		List<CompositeMap> list = parMap.getChildsNotNull();
+		for (CompositeMap m : list) {
+			if (eq(getMapAttribute(m, property), value))
 				return m;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	List<CompositeMap> getChild(CompositeMap map) {
+		if (map == null)
+			return Collections.emptyList();
+		return map.getChildsNotNull();
+	}
+
+	/**
+	 * get value of map ,ignore key typecase
+	 * 
+	 * @param map
+	 * @param property
+	 * @return
+	 */
+	public static String getMapAttribute(CompositeMap map, String property) {
+		if (map == null || property == null)
+			return null;
+		for (Object key : map.keySet()) {
+			if (key.toString().equalsIgnoreCase(property))
+				return map.getString(key);
 		}
 		return null;
 	}
@@ -109,13 +174,20 @@ public class BMCompositeMap {
 		return getFieldByProperty("prompt", prompt);
 	}
 
-	private boolean eq(Object o1, Object o2) {
+	public static boolean eq(Object o1, Object o2) {
 		if (o1 == null)
 			return o2 == null;
 		return o1.equals(o2);
 	}
 
-	private String nns(String s) {
+	/**
+	 * if s==null return "" <br/>
+	 * else return s
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static String nns(String s) {
 		if (s == null)
 			return "";
 		return s;
@@ -160,12 +232,7 @@ public class BMCompositeMap {
 	 */
 	List<CompositeMap> getChildsOf(String nodeName) {
 		CompositeMap map = bmMap.getChild(nodeName);
-		if (map != null) {
-			@SuppressWarnings("unchecked")
-			List<CompositeMap> list = map.getChildsNotNull();
-			return list;
-		}
-		return Collections.emptyList();
+		return getChild(map);
 	}
 
 	/**
@@ -276,6 +343,6 @@ public class BMCompositeMap {
 	}
 
 	public String getDefaultDisplayFieldName() {
-		return bmMap.getString("defaultDisplayField");
+		return getMapAttribute(bmMap, "defaultDisplayField");
 	}
 }
