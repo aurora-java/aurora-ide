@@ -157,7 +157,7 @@ public class ForQueryBmGenerator extends AbstractBmGenerator {
 	private CompositeMap simpleQueryField(String field, String paraName,
 			String op, String refAlias_, String type) {
 		CompositeMap q = newCompositeMap("query-field");
-		q.put("name", field);
+		q.put("name", paraName);
 		DataType dt = DataType.fromString(type);
 		if (dt != null)
 			q.put("dataType", dt.getJavaType());
