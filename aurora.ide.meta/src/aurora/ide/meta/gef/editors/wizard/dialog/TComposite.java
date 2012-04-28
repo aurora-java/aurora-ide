@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.editors.wizard.dialog;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jface.resource.ImageRegistry;
@@ -22,7 +23,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.TypedListener;
@@ -33,13 +33,15 @@ import aurora.ide.meta.gef.editors.template.Template;
 public class TComposite extends SashForm {
 
 	private ImageRegistry images = MetaPlugin.getDefault().getImageRegistry();
-	private java.util.List<TLabel> labels = new ArrayList<TLabel>();
+	private Map<String, java.util.List<TLabel>> labels = new HashMap<String, java.util.List<TLabel>>();
+	private String category;
 	private int index = 0;
 	private Template template = null;
 	private int labelHeight = 120;
 	private int labelWidth = 120;
 
 	private Composite composite;
+	private Composite leftComposite;
 	private ScrolledComposite scrolledComposite;
 	private List list;
 
@@ -47,14 +49,19 @@ public class TComposite extends SashForm {
 		super(parent, style);
 		this.setLayout(new GridLayout(2, false));
 
-		list = new List(this, SWT.NONE);
-		list.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+		leftComposite = new Composite(this, SWT.None);
+		leftComposite.setLayout(new GridLayout());
+		leftComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		leftComposite.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		list = new List(leftComposite, SWT.NONE);
+		list.setLayoutData(new GridData(GridData.FILL_BOTH));
 		list.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
 		scrolledComposite = new ScrolledComposite(this, SWT.V_SCROLL);
 		scrolledComposite.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		scrolledComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		scrolledComposite.getVerticalBar().setIncrement(10);// 控制垂直方向滚动增量
+		scrolledComposite.setMinWidth(labelWidth * 3 + 20);
 
 		composite = new Composite(scrolledComposite, SWT.NONE);
 		composite.setLayout(new GridLayout(3, true));
@@ -65,25 +72,25 @@ public class TComposite extends SashForm {
 				case SWT.ARROW_UP:
 					if (index - 3 >= 0) {
 						index -= 3;
-						selectLabel(labels.get(index));
+						selectLabel(labels.get(category).get(index));
 					}
 					break;
 				case SWT.ARROW_DOWN:
-					if (index + 3 < labels.size()) {
+					if (index + 3 < labels.get(category).size()) {
 						index += 3;
-						selectLabel(labels.get(index));
+						selectLabel(labels.get(category).get(index));
 					}
 					break;
 				case SWT.ARROW_LEFT:
 					if (index - 1 >= 0) {
 						index--;
-						selectLabel(labels.get(index));
+						selectLabel(labels.get(category).get(index));
 					}
 					break;
 				case SWT.ARROW_RIGHT:
-					if (index + 1 < labels.size()) {
+					if (index + 1 < labels.get(category).size()) {
 						index++;
-						selectLabel(labels.get(index));
+						selectLabel(labels.get(category).get(index));
 					}
 					break;
 				default:
@@ -103,7 +110,7 @@ public class TComposite extends SashForm {
 			public void controlResized(org.eclipse.swt.events.ControlEvent e) {
 				// 计算 mainComposite 大小
 				Point size = composite.computeSize(composite.getSize().x, SWT.DEFAULT);
-				// 设置 mainCompoite 大小，如果不设置的话，就会出现上述的问题6
+				// 设置 mainCompoite 大小
 				composite.setSize(size);
 				// 重新设置滚动条大小
 				scrolledComposite.getVerticalBar().setMaximum(size.y);
@@ -118,17 +125,33 @@ public class TComposite extends SashForm {
 				}
 			}
 		});
+		scrolledComposite.setContent(composite);
+		scrolledComposite.setExpandHorizontal(true);
+		scrolledComposite.setExpandVertical(true);
 
 		this.setWeights(new int[] { 20, 80 });
 		this.setSashWidth(1);
 
 		for (String key : templates.keySet()) {
 			list.add(key);
+			labels.put(key, new ArrayList<TLabel>());
+			Collections.sort(templates.get(key), new Comparator<Template>() {
+				public int compare(Template o1, Template o2) {
+					return o1.getName().compareToIgnoreCase(o2.getName());
+				}
+			});
+			for (Template value : templates.get(key)) {
+				TLabel label = createLabel(value);
+				if (label != null) {
+					labels.get(key).add(label);
+				}
+			}
 		}
 
 		list.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				createLabels(templates);
+				category = list.getItem(list.getSelectionIndex());
+				selectLabels();
 				notifyListeners(SWT.Selection, new Event());
 				index = 0;
 			}
@@ -137,52 +160,43 @@ public class TComposite extends SashForm {
 
 		if (list.getItems().length > 0) {
 			list.select(0);
-			createLabels(templates);
+			category = list.getItem(list.getSelectionIndex());
+			selectLabels();
 		}
 	}
 
-	private void createLabels(Map<String, java.util.List<Template>> templates) {
-		String[] category = list.getSelection();
-		if (category == null || category.length <= 0) {
+	private void selectLabels() {
+		if (category == null) {
 			return;
 		}
-		java.util.List<Template> tm = templates.get(category[0]);
-		for (Control c : composite.getChildren()) {
-			if (c != null && !c.isDisposed()) {
-				c.dispose();
+		for (String key : labels.keySet()) {
+			if (key.equals(category)) {
+				for (TLabel label : labels.get(key)) {
+					label.setVisible(true);
+					((GridData) label.getLayoutData()).exclude = false;
+				}
+				continue;
+			}
+			for (TLabel label : labels.get(key)) {
+				label.setVisible(false);
+				((GridData) label.getLayoutData()).exclude = true;
 			}
 		}
-		labels.clear();
-		Collections.sort(tm, new Comparator<Template>() {
-			public int compare(Template o1, Template o2) {
-				return o1.getName().compareToIgnoreCase(o2.getName());
-			}
-		});
-		for (Template t : tm) {
-			labels.add(createLabel(t));
-		}
-		template = (Template) labels.get(0).getData();
-		setLabelChecked(labels.get(0), true);
-
-		scrolledComposite.setContent(composite);
-		scrolledComposite.setExpandHorizontal(true);
-		scrolledComposite.setExpandVertical(true);
-		int x = (int) Math.ceil(tm.size() / 3.0);
-		scrolledComposite.setMinWidth(labelWidth * 3 + 20);
+		int x = (int) Math.ceil(labels.get(category).size() / 3.0);
 		scrolledComposite.setMinHeight(x * labelHeight + x * 5 + 5);
-
 		composite.layout(true);
 	}
 
 	private TLabel createLabel(Template t) {
 		TLabel label = new TLabel(composite, SWT.CENTER);
-		label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		label.setCursor(getShell().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
-		label.setData(t);
 		GridData gd = new GridData();
 		gd.heightHint = labelHeight;
 		gd.widthHint = labelWidth;
 		label.setLayoutData(gd);
+		label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		label.setCursor(getShell().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
+		label.setData(t);
+//		label.setStructures(getStructures(t));
 		label.setText(t.getName());
 		label.setImage(getImage(t.getIcon()));
 		label.addMouseListener(new MouseAdapter() {
@@ -200,9 +214,9 @@ public class TComposite extends SashForm {
 		setLabelChecked(lbl, true);
 		template = (Template) lbl.getData();
 		notifyListeners(SWT.Selection, new Event());
-		for (int i = 0; i < labels.size(); i++) {
-			if (labels.get(i) != lbl) {
-				setLabelChecked(labels.get(i), false);
+		for (int i = 0; i < labels.get(category).size(); i++) {
+			if (!labels.get(category).get(i).equals(lbl)) {
+				setLabelChecked(labels.get(category).get(i), false);
 			} else {
 				index = i;
 			}
@@ -247,4 +261,16 @@ public class TComposite extends SashForm {
 		}
 		return images.get(path);
 	}
+
+	// private java.util.List<String> getStructures(Template t) {
+	// java.util.List<String> structures = new ArrayList<String>();
+	// for (Component c : t.getChildren()) {
+	// structures.add(c.getComponentType());
+	// }
+	// return structures;
+	// }
+
+	public Composite getLeftComposite() {
+		return leftComposite;
+	}	
 }

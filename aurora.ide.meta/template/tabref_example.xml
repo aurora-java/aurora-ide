@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<template name="tab引用" iconPath="1.png" type="serach" category="查询">
+<template name="tab引用" iconPath="t.png" type="serach" category="查询">
 	<models>
 		<initModel id="model_id_1" name="TabItem0 BM"/>
 		<initModel id="model_id_2" name="TabItem1 BM"/>

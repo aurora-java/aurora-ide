@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="维护数据" iconPath="1.png" type="update" category="维护">
+<template name="维护数据" iconPath="f.png" type="update" category="维护">
 	<models>
 		<model id="model_id" name="BM"/>
 	</models>

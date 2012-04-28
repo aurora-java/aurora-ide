@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<template name="头行维护数据" iconPath="1.png" type="update" category="维护">
+<template name="头行维护数据" iconPath="gg.png" type="update" category="维护">
 	<models>
 		<model id="model_head" name="头BM"/>
 		<model id="model_detail" name="行BM"/>
