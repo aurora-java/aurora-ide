@@ -129,7 +129,7 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 		}
 		MessageBox mb = new MessageBox(shell, SWT.ICON_INFORMATION);
 		mb.setText("Success");
-		mb.setMessage("process complate.");
+		mb.setMessage("process complete.");
 		mb.open();
 	}
 
