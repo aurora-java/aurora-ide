@@ -99,8 +99,10 @@ public class DatasetFieldMap extends AbstractComponentMap {
 
 				if (DatasetField.DISPLAY_FIELD.equals(key)) {
 					CompositeMap optionsMap = dataSetFieldUtil.getOptionsMap();
-					if (optionsMap != null)
-						value = optionsMap.getString("defaultDisplayField");
+					if (optionsMap != null) {
+						value = Util.getValueIgnoreCase(optionsMap,
+								"defaultDisplayField");
+					}
 				}
 				if (DatasetField.VALUE_FIELD.equals(key)) {
 					CompositeMap optionsMap = dataSetFieldUtil.getOptionsMap();
