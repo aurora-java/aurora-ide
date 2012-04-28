@@ -141,16 +141,17 @@ public abstract class TemplateHandle {
 	}
 
 	protected boolean isDateType(CompositeMap map) {
-		if ("TIMESTAMP".equalsIgnoreCase(map.getString("databasetype"))) {
+//		BMCompositeMap
+		if ("TIMESTAMP".equalsIgnoreCase(map.getString("databaseType"))) {
 			return true;
 		}
-		if ("DATE".equalsIgnoreCase(map.getString("databasetype"))) {
+		if ("DATE".equalsIgnoreCase(map.getString("databaseType"))) {
 			return true;
 		}
-		if ("java.util.Date".equalsIgnoreCase(map.getString("datatype"))) {
+		if ("java.util.Date".equalsIgnoreCase(map.getString("dataType"))) {
 			return true;
 		}
-		if ("java.sql.Date".equalsIgnoreCase(map.getString("datatype"))) {
+		if ("java.sql.Date".equalsIgnoreCase(map.getString("dataType"))) {
 			return true;
 		}
 		return false;
