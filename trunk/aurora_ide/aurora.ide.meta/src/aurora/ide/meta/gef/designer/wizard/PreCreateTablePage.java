@@ -220,7 +220,7 @@ public class PreCreateTablePage extends WizardPage {
 			case 3:
 				return od.exists ? "YES" : "NO"; //$NON-NLS-1$ //$NON-NLS-2$
 			case 4:
-				return od.create ? (od.exists ? "overide" : "create") : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				return od.create ? (od.exists ? "override" : "create") : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
 			return ""; //$NON-NLS-1$
 		}
