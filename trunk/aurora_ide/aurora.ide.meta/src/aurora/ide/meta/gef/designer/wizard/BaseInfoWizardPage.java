@@ -30,8 +30,8 @@ import aurora.ide.meta.project.AuroraMetaProjectNature;
 
 public class BaseInfoWizardPage extends WizardPage {
 
-	private static String fileNamePattern = "[\\w\\d_]+(."
-			+ IDesignerConst.EXTENSION + ")?";
+	private static String fileNamePattern = "[\\w\\d_]+(." //$NON-NLS-1$
+			+ IDesignerConst.EXTENSION + ")?"; //$NON-NLS-1$
 	private IResource resource;
 	private ValidateDirListener dirValidator = new ValidateDirListener();
 	private ValidateFileNameListener fnValidator = new ValidateFileNameListener();
@@ -43,9 +43,9 @@ public class BaseInfoWizardPage extends WizardPage {
 	 * Create the wizard.
 	 */
 	public BaseInfoWizardPage() {
-		super("BaseInfoWizardPage");
-		setTitle("Model Prototype 文件向导");
-		setDescription("Wizard Page description");
+		super("BaseInfoWizardPage"); //$NON-NLS-1$
+		setTitle(Messages.BaseInfoWizardPage_3);
+		setDescription(Messages.BaseInfoWizardPage_4);
 	}
 
 	void setCurrentSelection(IResource resource) {
@@ -66,7 +66,7 @@ public class BaseInfoWizardPage extends WizardPage {
 		Label label = new Label(container, SWT.NONE);
 		label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
-		label.setText("目录:");
+		label.setText(Messages.BaseInfoWizardPage_5);
 
 		text_dir = new Text(container, SWT.BORDER);
 		text_dir.addModifyListener(dirValidator);
@@ -74,7 +74,7 @@ public class BaseInfoWizardPage extends WizardPage {
 				1, 1));
 
 		Button button = new Button(container, SWT.NONE);
-		button.setText("浏览...");
+		button.setText(Messages.BaseInfoWizardPage_6);
 		button.addSelectionListener(new SelectionAdapter() {
 
 			public void widgetSelected(SelectionEvent e) {
@@ -86,20 +86,20 @@ public class BaseInfoWizardPage extends WizardPage {
 		Label label_1 = new Label(container, SWT.NONE);
 		label_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
-		label_1.setText("文件名:");
+		label_1.setText(Messages.BaseInfoWizardPage_7);
 
 		text_fileName = new Text(container, SWT.BORDER);
 		text_fileName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 				false, 1, 1));
 		text_fileName.addModifyListener(fnValidator);
 		text_dir.setText(getDefaultDir());
-		text_fileName.setText("");
+		text_fileName.setText(""); //$NON-NLS-1$
 		if (dirValidator.getMessage() == null)
 			text_fileName.forceFocus();
 		new Label(container, SWT.NONE);
 
 		Group group = new Group(container, SWT.NONE);
-		group.setText("预输入");
+		group.setText(Messages.BaseInfoWizardPage_9);
 		group.setLayout(new GridLayout(4, false));
 		group.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true, 3, 1));
 		new Label(group, SWT.NONE);
@@ -117,7 +117,7 @@ public class BaseInfoWizardPage extends WizardPage {
 		});
 		btnNewButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 				false, 1, 1));
-		btnNewButton.setText("Format");
+		btnNewButton.setText(Messages.BaseInfoWizardPage_10);
 	}
 
 	private void selectDir() {
@@ -134,19 +134,19 @@ public class BaseInfoWizardPage extends WizardPage {
 	private void format() {
 		String str = text.getText();
 		StringBuilder sb = new StringBuilder(str.length());
-		StringTokenizer st = new StringTokenizer(str, " ,;\t\n\r\f，。；　");
+		StringTokenizer st = new StringTokenizer(str, " ,;\t\n\r\f，。；　"); //$NON-NLS-1$
 		while (st.hasMoreElements())
-			sb.append(st.nextElement() + "\n");
+			sb.append(st.nextElement() + "\n"); //$NON-NLS-1$
 		text.setText(sb.toString());
 	}
 
 	private String getDefaultDir() {
 		if (resource == null)
-			return "";
+			return ""; //$NON-NLS-1$
 		IProject proj = resource.getProject();
 		try {
 			if (!AuroraMetaProjectNature.hasAuroraNature(proj))
-				return "";
+				return ""; //$NON-NLS-1$
 			AuroraMetaProject mProj = new AuroraMetaProject(proj);
 			IFolder folder = mProj.getModelFolder();
 			IPath path1 = folder.getFullPath();
@@ -159,7 +159,7 @@ public class BaseInfoWizardPage extends WizardPage {
 		} catch (Exception e) {
 		}
 
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	private class ValidateDirListener implements ModifyListener {
@@ -183,15 +183,15 @@ public class BaseInfoWizardPage extends WizardPage {
 		public String getMessage() {
 			String t = text_dir.getText();
 			if (t == null || t.trim().length() == 0) {
-				return "please select a valid directory.";
+				return Messages.BaseInfoWizardPage_0;
 			}
 			IResource res = ResourcesPlugin.getWorkspace().getRoot()
 					.findMember(t);
 			if (res == null || !(res instanceof IFolder)) {
-				return "please select a valid directory.";
+				return Messages.BaseInfoWizardPage_17;
 			}
 			if (!isInAuroraMetaProject(res)) {
-				return "the dir must in a aurora meta project.";
+				return Messages.BaseInfoWizardPage_18;
 			}
 			return null;
 		}
@@ -218,14 +218,14 @@ public class BaseInfoWizardPage extends WizardPage {
 		public String getMessage() {
 			String t = text_fileName.getText();
 			if (t == null || !t.toLowerCase().matches(fileNamePattern)) {
-				return "please enter a valid file name";
+				return Messages.BaseInfoWizardPage_19;
 			}
 			t = getRealFileName(t);
 			IResource res = ResourcesPlugin.getWorkspace().getRoot()
-					.findMember(text_dir.getText() + "/" + t);
+					.findMember(text_dir.getText() + "/" + t); //$NON-NLS-1$
 			if (res != null) {
 				String type = res.getClass().getSimpleName().toLowerCase();
-				return String.format("%s '%s' already exists.", type,
+				return String.format(Messages.BaseInfoWizardPage_21, type,
 						res.getName());
 			}
 			return null;
@@ -235,7 +235,7 @@ public class BaseInfoWizardPage extends WizardPage {
 	private String getRealFileName(String fn) {
 		int idx = fn.indexOf('.');
 		if (idx == -1)
-			fn += "." + IDesignerConst.EXTENSION;
+			fn += "." + IDesignerConst.EXTENSION; //$NON-NLS-1$
 		return fn;
 	}
 
@@ -254,7 +254,7 @@ public class BaseInfoWizardPage extends WizardPage {
 		String path = text_dir.getText();
 		String fn = text_fileName.getText();
 		fn = getRealFileName(fn);
-		return path.charAt(path.length() - 1) == '/' ? path + fn : path + "/"
+		return path.charAt(path.length() - 1) == '/' ? path + fn : path + "/" //$NON-NLS-1$
 				+ fn;
 	}
 
