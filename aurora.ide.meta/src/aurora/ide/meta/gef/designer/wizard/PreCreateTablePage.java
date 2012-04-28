@@ -39,9 +39,9 @@ public class PreCreateTablePage extends WizardPage {
 	 * Create the wizard.
 	 */
 	public PreCreateTablePage() {
-		super("wizardPage");
-		setTitle("Select Objects to create");
-		setDescription("please be careful when you override table (or sequence)");
+		super(Messages.PreCreateTablePage_0);
+		setTitle(Messages.PreCreateTablePage_1);
+		setDescription(Messages.PreCreateTablePage_2);
 	}
 
 	/**
@@ -75,33 +75,33 @@ public class PreCreateTablePage extends WizardPage {
 		TableColumn tblclmnNewColumn = tableViewerColumn.getColumn();
 		tblclmnNewColumn.setAlignment(SWT.CENTER);
 		tblclmnNewColumn.setWidth(100);
-		tblclmnNewColumn.setText("对象名");
+		tblclmnNewColumn.setText(Messages.PreCreateTablePage_3);
 
 		TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(
 				tableViewer, SWT.NONE);
 		TableColumn tblclmnNewColumn_1 = tableViewerColumn_1.getColumn();
 		tblclmnNewColumn_1.setAlignment(SWT.CENTER);
 		tblclmnNewColumn_1.setWidth(100);
-		tblclmnNewColumn_1.setText("类型");
+		tblclmnNewColumn_1.setText(Messages.PreCreateTablePage_4);
 
 		TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(
 				tableViewer, SWT.NONE);
 		TableColumn tblclmnNewColumn_2 = tableViewerColumn_2.getColumn();
 		tblclmnNewColumn_2.setAlignment(SWT.CENTER);
 		tblclmnNewColumn_2.setWidth(100);
-		tblclmnNewColumn_2.setText("存在");
+		tblclmnNewColumn_2.setText(Messages.PreCreateTablePage_5);
 
 		TableViewerColumn tableViewerColumn_3 = new TableViewerColumn(
 				tableViewer, SWT.NONE);
 		TableColumn tableColumn = tableViewerColumn_3.getColumn();
 		tableColumn.setAlignment(SWT.CENTER);
 		tableColumn.setWidth(100);
-		tableColumn.setText("创建");
+		tableColumn.setText(Messages.PreCreateTablePage_6);
 		tableViewer.setContentProvider(new ODContentProvider());
 		tableViewer.setLabelProvider(new ODLabelProvider());
 		Table table = tableViewer.getTable();
-		tableViewer.setColumnProperties(new String[] { "", "name", "type",
-				"exists", "create" });
+		tableViewer.setColumnProperties(new String[] { "", "name", "type", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				"exists", "create" }); //$NON-NLS-1$ //$NON-NLS-2$
 		tableViewer.setCellEditors(new CellEditor[] { null, null, null, null,
 				new CheckboxCellEditor(table) });
 		tableViewer.setCellModifier(new ODCellModifier());
@@ -125,7 +125,7 @@ public class PreCreateTablePage extends WizardPage {
 		});
 		btnNewButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false, 1, 1));
-		btnNewButton.setText("Select All");
+		btnNewButton.setText("Select All"); //$NON-NLS-1$
 
 		Button btnNewButton_1 = new Button(container, SWT.NONE);
 		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
@@ -139,7 +139,7 @@ public class PreCreateTablePage extends WizardPage {
 		});
 		btnNewButton_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false, 1, 1));
-		btnNewButton_1.setText("DeSelect All");
+		btnNewButton_1.setText("DeSelect All"); //$NON-NLS-1$
 
 		Button btnNewButton_3 = new Button(container, SWT.NONE);
 		btnNewButton_3.addSelectionListener(new SelectionAdapter() {
@@ -153,7 +153,7 @@ public class PreCreateTablePage extends WizardPage {
 		});
 		btnNewButton_3.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false, 1, 1));
-		btnNewButton_3.setText("Default");
+		btnNewButton_3.setText("Default"); //$NON-NLS-1$
 		new Label(container, SWT.NONE);
 	}
 
@@ -205,8 +205,8 @@ public class PreCreateTablePage extends WizardPage {
 			ObjectDescriptor od = (ObjectDescriptor) element;
 			Image img = null;
 			if (columnIndex == 4)
-				img = ImagesUtils.getImage(od.create ? "checked.gif"
-						: "unchecked.gif");
+				img = ImagesUtils.getImage(od.create ? "checked.gif" //$NON-NLS-1$
+						: "unchecked.gif"); //$NON-NLS-1$
 			return img;
 		}
 
@@ -218,11 +218,11 @@ public class PreCreateTablePage extends WizardPage {
 			case 2:
 				return od.type;
 			case 3:
-				return od.exists ? "YES" : "NO";
+				return od.exists ? "YES" : "NO"; //$NON-NLS-1$ //$NON-NLS-2$
 			case 4:
-				return od.create ? (od.exists ? "overide" : "create") : "";
+				return od.create ? (od.exists ? "overide" : "create") : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 
 	}
@@ -230,12 +230,12 @@ public class PreCreateTablePage extends WizardPage {
 	class ODCellModifier implements ICellModifier {
 
 		public boolean canModify(Object element, String property) {
-			return "create".equals(property);
+			return "create".equals(property); //$NON-NLS-1$
 		}
 
 		public Object getValue(Object element, String property) {
 			ObjectDescriptor od = (ObjectDescriptor) element;
-			if ("create".equals(property))
+			if ("create".equals(property)) //$NON-NLS-1$
 				return od.create;
 			return null;
 		}
@@ -243,7 +243,7 @@ public class PreCreateTablePage extends WizardPage {
 		public void modify(Object element, String property, Object value) {
 			ObjectDescriptor od = (ObjectDescriptor) ((TableItem) element)
 					.getData();
-			if ("create".equals(property)) {
+			if ("create".equals(property)) { //$NON-NLS-1$
 				od.create = (Boolean) value;
 				tableViewer.refresh(od);
 			}

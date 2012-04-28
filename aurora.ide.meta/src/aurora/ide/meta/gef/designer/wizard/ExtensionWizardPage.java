@@ -18,16 +18,18 @@ public class ExtensionWizardPage extends WizardPage {
 
 	private Tree tree;
 	private Text text;
-	private String[] infos = IDesignerConst.AE_TYPES;
-	private String emptyInfo = "<select an item for detail..>";
+	private String[] infos = {
+			Messages.ExtensionWizardPage_0,
+			Messages.ExtensionWizardPage_1, Messages.ExtensionWizardPage_2, Messages.ExtensionWizardPage_3 };
+	private String emptyInfo = "<select an item for detail..>"; //$NON-NLS-1$
 
 	/**
 	 * Create the wizard.
 	 */
 	public ExtensionWizardPage() {
-		super("ExtensionWizardPage");
-		setTitle("自动生成扩展bm");
-		setDescription("Wizard Page description");
+		super("ExtensionWizardPage"); //$NON-NLS-1$
+		setTitle(Messages.ExtensionWizardPage_6);
+		setDescription("Wizard Page description"); //$NON-NLS-1$
 	}
 
 	/**
@@ -60,7 +62,7 @@ public class ExtensionWizardPage extends WizardPage {
 		tree.setBounds(29, 20, 401, 93);
 		for (int i = 0; i < IDesignerConst.AE_TYPES.length; i++) {
 			TreeItem ti = new TreeItem(tree, SWT.NONE);
-			ti.setText("generate _for_" + IDesignerConst.AE_TYPES[i] + ".bm");
+			ti.setText("generate _for_" + IDesignerConst.AE_TYPES[i] + ".bm"); //$NON-NLS-1$ //$NON-NLS-2$
 			ti.setData(IDesignerConst.AE_TYPES[i]);
 		}
 		Button btnSelectAll = new Button(container, SWT.NONE);
@@ -72,7 +74,7 @@ public class ExtensionWizardPage extends WizardPage {
 			}
 		});
 		btnSelectAll.setBounds(451, 32, 98, 25);
-		btnSelectAll.setText("Select All");
+		btnSelectAll.setText("Select All"); //$NON-NLS-1$
 
 		Button btnDesselectAll = new Button(container, SWT.NONE);
 		btnDesselectAll.addSelectionListener(new SelectionAdapter() {
@@ -83,7 +85,7 @@ public class ExtensionWizardPage extends WizardPage {
 			}
 		});
 		btnDesselectAll.setBounds(451, 71, 98, 25);
-		btnDesselectAll.setText("Deselect All");
+		btnDesselectAll.setText("Deselect All"); //$NON-NLS-1$
 
 		text = new Text(container, SWT.READ_ONLY | SWT.MULTI);
 		text.setBackground(container.getBackground());
