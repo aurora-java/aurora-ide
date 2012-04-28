@@ -68,6 +68,9 @@ class DisplayScreenGenerator extends ScreenGenerator {
 	}
 
 	private boolean isBindTarget(Container c) {
+		if(true)
+			return false;
+		//TODO
 		Dataset findDataset = this.findDataset(c);
 		if (findDataset instanceof ResultDataSet) {
 			Container target = ((ResultDataSet) findDataset)
