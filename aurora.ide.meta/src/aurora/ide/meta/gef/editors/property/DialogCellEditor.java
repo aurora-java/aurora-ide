@@ -127,7 +127,8 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 	}
 
 	public void mouseDoubleClick(MouseEvent e) {
-		showDialog();
+		if (getButton().getEnabled())
+			showDialog();
 	}
 
 	public void mouseDown(MouseEvent e) {
