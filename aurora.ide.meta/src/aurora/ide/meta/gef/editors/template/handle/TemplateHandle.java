@@ -141,17 +141,16 @@ public abstract class TemplateHandle {
 	}
 
 	protected boolean isDateType(CompositeMap map) {
-//		BMCompositeMap
-		if ("TIMESTAMP".equalsIgnoreCase(map.getString("databaseType"))) {
+		if ("TIMESTAMP".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map, "databaseType"))) {
 			return true;
 		}
-		if ("DATE".equalsIgnoreCase(map.getString("databaseType"))) {
+		if ("DATE".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map, "databaseType"))) {
 			return true;
 		}
-		if ("java.util.Date".equalsIgnoreCase(map.getString("dataType"))) {
+		if ("java.util.Date".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map, "dataType"))) {
 			return true;
 		}
-		if ("java.sql.Date".equalsIgnoreCase(map.getString("dataType"))) {
+		if ("java.sql.Date".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map, "dataType"))) {
 			return true;
 		}
 		return false;
@@ -246,8 +245,8 @@ public abstract class TemplateHandle {
 		}
 		return fieldsWithoutPK;
 	}
-	
-	protected void setColNum(ViewDiagram viewDiagram,int col) {
+
+	protected void setColNum(ViewDiagram viewDiagram, int col) {
 		List<BOX> rowCols = new ArrayList<BOX>();
 		boolean hasContainer = false;
 		for (AuroraComponent ac : viewDiagram.getChildren()) {
