@@ -15,7 +15,7 @@ public class TabFolder extends Container {
 			PD_PROMPT, PD_WIDTH, PD_HEIGHT };
 
 	public TabFolder() {
-		setSize(new Dimension(700, 380));
+		setSize(new Dimension(650, 380));
 		this.setType("tabPanel");
 		addPropertyChangeListener(new TabItemOperationListener());
 	}
