@@ -35,7 +35,7 @@ public class Grid extends GridColumn implements DatasetBinder {
 
 	public Grid() {
 		super();
-		this.setSize(new Dimension(600, 300));
+		this.setSize(new Dimension(750, 380));
 		ResultDataSet dataset = new ResultDataSet();
 		dataset.setOwner(this);
 		// dataset.setUseParentBM(false);
