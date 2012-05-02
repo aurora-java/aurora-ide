@@ -52,7 +52,7 @@ import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
 import aurora.ide.meta.popup.actions.OpenBMofBmqAction;
 
-public class BMDesignPage extends FormPage {
+public class BMDesignPage extends FormPage implements PropertyChangeListener {
 	private Text quickAddText;
 	private BMModel model;
 	private BMModelViewer viewer;
@@ -470,30 +470,42 @@ public class BMDesignPage extends FormPage {
 
 	public void setModel(final BMModel model) {
 		this.model = model;
-		model.addPropertyChangeListener(new PropertyChangeListener() {
+		model.removePropertyChangeListener(this);
+		model.addPropertyChangeListener(this);
+	}
 
-			public void propertyChange(PropertyChangeEvent evt) {
-
-				if (evt.getPropertyName().equals(BMModel.STRUCTURE_RECORD)) {
-					defaultDisplayViewer.refresh();
-					setDirty(true);
-					return;
-				}
-				String[] pns = evt.getPropertyName().split(
-						DesignerMessages.BMDesignPage_14);
-				if (pns.length == 3
-						&& pns[0].equals(Record.class.getSimpleName())) {
-					Object old = evt.getOldValue();
-					if (old != null
-							&& !old.equals(DesignerMessages.BMDesignPage_15)) {
-						Record r = model.getAt(Integer.parseInt(pns[1]) - 1);
-						viewer.refresh(r);
-					}
-				}
-				setDirty(true);
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals(BMModel.STRUCTURE_RECORD)) {
+			autoUpdateDisplayField();
+			setDirty(true);
+			return;
+		}
+		String[] pns = evt.getPropertyName().split(
+				DesignerMessages.BMDesignPage_14);
+		if (pns.length == 3 && pns[0].equals(Record.class.getSimpleName())) {
+			Object old = evt.getOldValue();
+			if (old != null && !old.equals(DesignerMessages.BMDesignPage_15)) {
+				Record r = model.getAt(Integer.parseInt(pns[1]) - 1);
+				viewer.refresh(r);
 			}
+		}
+		setDirty(true);
+	}
 
-		});
+	private void autoUpdateDisplayField() {
+		List<Record> list = model.getRecordList();
+		boolean needUpdate = list.size() > 0;
+		for (Record r : list) {
+			if (r.getPrompt().equals(model.getDefaultDisplay())) {
+				needUpdate = false;
+				break;
+			}
+		}
+		if (needUpdate) {
+			defaultDisplayViewer.setSelection(new StructuredSelection(list
+					.get(0)));
+		}
+		defaultDisplayViewer.refresh();
 	}
 
 	public BMModel getModel() {
@@ -508,4 +520,5 @@ public class BMDesignPage extends FormPage {
 		isDirty = d;
 		getEditor().editorDirtyStateChanged();
 	}
+
 }
