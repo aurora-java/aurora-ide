@@ -71,7 +71,7 @@ public class ModelMerger {
 		CompositeMapParser parser = new CompositeMapParser(
 				new CommentCompositeLoader());
 		if (bmFile != null && bmFile.exists())
-			bmMap = parser.parseStream(bmFile.getContents());
+			bmMap = parser.parseStream(bmFile.getContents(true));
 		CompositeMap map = parser.parseStream(file.getContents());
 		model = ModelUtil.fromCompositeMap(map);
 	}
