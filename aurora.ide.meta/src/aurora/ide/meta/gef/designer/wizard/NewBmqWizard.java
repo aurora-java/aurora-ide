@@ -117,6 +117,9 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 		}
 		for (String s : input)
 			model.add(DesignerUtil.createRecord(s));
+		if (model.getRecordList().size() > 0) {
+			model.setDefaultDisplay(model.getRecordList().get(0).getPrompt());
+		}
 		CompositeMap map = ModelUtil.toCompositeMap(model);
 		return map;
 	}
