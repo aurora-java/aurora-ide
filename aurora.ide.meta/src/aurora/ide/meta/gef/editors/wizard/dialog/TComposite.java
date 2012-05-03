@@ -23,8 +23,10 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Sash;
 import org.eclipse.swt.widgets.TypedListener;
 
 import aurora.ide.meta.MetaPlugin;
@@ -45,8 +47,25 @@ public class TComposite extends SashForm {
 	private ScrolledComposite scrolledComposite;
 	private List list;
 
-	public TComposite(Composite parent, int style, final Map<String, java.util.List<Template>> templates) {
+	public TComposite(Composite parent, int style, Map<String, java.util.List<Template>> templates) {
 		super(parent, style);
+		createContent(templates);
+	}
+
+	public void clear() {
+		labels.clear();
+		category = null;
+		index = 0;
+		template = null;
+		for (Control c : this.getChildren()) {
+			if (c instanceof Sash) {
+				continue;
+			}
+			c.dispose();
+		}
+	}
+
+	public void createContent(Map<String, java.util.List<Template>> templates) {
 		this.setLayout(new GridLayout(2, false));
 
 		leftComposite = new Composite(this, SWT.None);
@@ -150,19 +169,22 @@ public class TComposite extends SashForm {
 
 		list.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				category = list.getItem(list.getSelectionIndex());
-				selectLabels();
-				notifyListeners(SWT.Selection, new Event());
+				int n = list.getSelectionIndex();
+				if (n < 0 || n >= list.getItemCount()) {
+					return;
+				}
+				category = list.getItem(n);
 				index = 0;
+				selectLabels();
 			}
-
 		});
 
 		if (list.getItems().length > 0) {
 			list.select(0);
-			category = list.getItem(list.getSelectionIndex());
+			category = list.getItem(0);
 			selectLabels();
 		}
+		this.layout();
 	}
 
 	private void selectLabels() {
@@ -185,6 +207,8 @@ public class TComposite extends SashForm {
 		int x = (int) Math.ceil(labels.get(category).size() / 3.0);
 		scrolledComposite.setMinHeight(x * labelHeight + x * 5 + 5);
 		composite.layout(true);
+		selectLabel(labels.get(category).get(index));
+		notifyListeners(SWT.Selection, new Event());
 	}
 
 	private TLabel createLabel(Template t) {
@@ -196,7 +220,7 @@ public class TComposite extends SashForm {
 		label.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		label.setCursor(getShell().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
 		label.setData(t);
-//		label.setStructures(getStructures(t));
+		// label.setStructures(getStructures(t));
 		label.setText(t.getName());
 		label.setImage(getImage(t.getIcon()));
 		label.addMouseListener(new MouseAdapter() {
@@ -272,5 +296,5 @@ public class TComposite extends SashForm {
 
 	public Composite getLeftComposite() {
 		return leftComposite;
-	}	
+	}
 }

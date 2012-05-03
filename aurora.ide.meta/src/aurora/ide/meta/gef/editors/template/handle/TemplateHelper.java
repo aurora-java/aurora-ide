@@ -1,8 +1,8 @@
 package aurora.ide.meta.gef.editors.template.handle;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +14,10 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.xml.sax.SAXException;
 
 import aurora.ide.meta.MetaPlugin;
@@ -62,8 +65,36 @@ public class TemplateHelper {
 
 	}
 
-	private void loadTemplate() {
-		IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
+	// private byte[] getBytesFromFile(File file) throws IOException {
+	// InputStream is = new FileInputStream(file);
+	// long length = file.length();
+	// if (length > Integer.MAX_VALUE) {
+	// throw new IOException("File is to large " + file.getName());
+	// }
+	// byte[] bytes = new byte[(int) length];
+	// int offset = 0;
+	// int numRead = 0;
+	// while (offset < bytes.length && (numRead = is.read(bytes, offset,
+	// bytes.length - offset)) >= 0) {
+	// offset += numRead;
+	// }
+	// if (offset < bytes.length) {
+	// throw new IOException("Could not completely read file " +
+	// file.getName());
+	// }
+	// is.close();
+	// return bytes;
+	// }
+
+	public void clearTemplate() {
+		templates.clear();
+	}
+
+	private void loadTemplate(IPath path) {
+		if (path == null) {
+			return;
+		}
+		templates.clear();
 		List<File> files = getFiles(path.toString(), ".xml");
 		SAXParser parser = null;
 		try {
@@ -76,11 +107,14 @@ public class TemplateHelper {
 		TemplateParse tp = new TemplateParse();
 		for (File f : files) {
 			try {
+				// InputStream bytes = new
+				// ByteArrayInputStream(getBytesFromFile(f));
 				parser.parse(f, tp);
 			} catch (SAXException e) {
 				e.printStackTrace();
 				continue;
 			} catch (IOException e) {
+				e.printStackTrace();
 				continue;
 			}
 			Template tm = tp.getTemplate();
@@ -102,17 +136,8 @@ public class TemplateHelper {
 			return files;
 		}
 
-		for (File f : file.listFiles(new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				if (dir.isDirectory()) {
-					return true;
-				} else if (name.toLowerCase().endsWith(extension)) {
-					return true;
-				}
-				return false;
-			}
-		})) {
-			if (f.isFile()) {
+		for (File f : file.listFiles()) {
+			if (f.isFile() && f.getName().toLowerCase().endsWith(extension)) {
 				files.add(f);
 			}
 		}
@@ -128,9 +153,9 @@ public class TemplateHelper {
 		return false;
 	}
 
-	public Map<String, List<Template>> getTemplates() {
+	public Map<String, List<Template>> getTemplates(IPath path) {
 		if (templates.size() <= 0) {
-			loadTemplate();
+			loadTemplate(path);
 		}
 		Map<String, List<Template>> tempMap = new HashMap<String, List<Template>>();
 		for (Template tm : templates.values()) {
@@ -142,9 +167,18 @@ public class TemplateHelper {
 		return tempMap;
 	}
 
-	public Template getTemplates(String key) {
+	public Template getTemplate(String key) {
 		if (templates.size() <= 0) {
-			loadTemplate();
+			URL ts = FileLocator.find(Platform.getBundle(MetaPlugin.PLUGIN_ID), new Path("template"), null);
+			try {
+				ts = FileLocator.toFileURL(ts);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+			TemplateHelper.getInstance().clearTemplate();
+			IPath path = new Path(ts.getPath());
+			loadTemplate(path);
 		}
 		return templates.get(key);
 	}
