@@ -97,7 +97,7 @@ public class SelectModelWizardPage extends WizardPage {
 			Group compoModel = new Group(composite, SWT.NONE);
 			compoModel.setLayout(new GridLayout(3, false));
 			compoModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			compoModel.setText("Model");
+			compoModel.setText("Model"); //$NON-NLS-1$
 			for (BMReference bm : TemplateHelper.getInstance().getBms()) {
 				createTextField(compoModel, bm);
 			}
@@ -111,7 +111,7 @@ public class SelectModelWizardPage extends WizardPage {
 			Group compoInitModel = new Group(composite, SWT.NONE);
 			compoInitModel.setLayout(new GridLayout(3, false));
 			compoInitModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			compoInitModel.setText("InitModel(可选)");
+			compoInitModel.setText(Messages.SelectModelWizardPage_InitModel);
 			for (BMReference bm : TemplateHelper.getInstance().getInitBms()) {
 				createTextField(compoInitModel, bm);
 			}
@@ -134,7 +134,7 @@ public class SelectModelWizardPage extends WizardPage {
 
 		txt.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				if (null == txt.getText() || "".equals(txt.getText())) {
+				if (null == txt.getText() || "".equals(txt.getText())) { //$NON-NLS-1$
 					setErrorMessage(null);
 					bm.setModel(null);
 					setPageComplete(checkFinish());
@@ -142,10 +142,10 @@ public class SelectModelWizardPage extends WizardPage {
 				}
 				IResource r = ResourcesPlugin.getWorkspace().getRoot().findMember(txt.getText());
 				if (r == null || !r.exists()) {
-					updateStatus("文件不存在");
+					updateStatus(Messages.SelectModelWizardPage_FileNotExist);
 					return;
-				} else if (!(r instanceof IFile) || (!r.getFileExtension().equalsIgnoreCase("bm"))) {
-					updateStatus("必须选择bm文件");
+				} else if (!(r instanceof IFile) || (!r.getFileExtension().equalsIgnoreCase("bm"))) { //$NON-NLS-1$
+					updateStatus(Messages.SelectModelWizardPage_MustSelectBm);
 					return;
 				}
 				if (!r.equals(bm.getModel())) {

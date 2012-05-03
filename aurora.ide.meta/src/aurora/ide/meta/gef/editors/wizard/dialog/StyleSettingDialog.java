@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 import aurora.ide.meta.gef.editors.models.link.Parameter;
+import aurora.ide.meta.gef.i18n.Messages;
 
 public class StyleSettingDialog extends Dialog {
 
@@ -51,7 +52,7 @@ public class StyleSettingDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
-		container.getShell().setText("参数设置");
+		container.getShell().setText(Messages.StyleSettingDialog_ParSetting);
 		PComposite pComposite = new PComposite(container, input, SWT.None);
 		pComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		return container;

@@ -25,6 +25,7 @@ import aurora.ide.builder.ResourceUtil;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.wizard.SetLinkOrRefWizardPage;
+import aurora.ide.meta.gef.i18n.Messages;
 
 public class CridColumnDialog extends Dialog {
 
@@ -47,7 +48,7 @@ public class CridColumnDialog extends Dialog {
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		Label lbl = new Label(composite, SWT.None);
-		lbl.setText("Prompt : ");
+		lbl.setText(Messages.CridColumnDialog_Prompt);
 		Text txtPrompt = new Text(composite, SWT.BORDER);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
@@ -60,7 +61,7 @@ public class CridColumnDialog extends Dialog {
 		});
 
 		lbl = new Label(composite, SWT.None);
-		lbl.setText("显示文本 : ");
+		lbl.setText(Messages.CridColumnDialog_Show);
 		Text txtTitle = new Text(composite, SWT.BORDER);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
@@ -73,16 +74,16 @@ public class CridColumnDialog extends Dialog {
 		});
 
 		lbl = new Label(composite, SWT.None);
-		lbl.setText("目标文件 : ");
+		lbl.setText(Messages.CridColumnDialog_Target);
 		final Text txtUrl = new Text(composite, SWT.BORDER);
 		txtUrl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		txtUrl.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				String webHome = ResourceUtil.getWebHome(page.getAuroraProject());
 				String path = getTextString((Text) e.getSource());
-				if (path.endsWith("uip")) {
-					path = path.substring(path.indexOf("ui_prototype") + "ui_prototype".length());
-				} else if (path.endsWith("screen")) {
+				if (path.endsWith("uip")) { //$NON-NLS-1$
+					path = path.substring(path.indexOf("ui_prototype") + "ui_prototype".length()); //$NON-NLS-1$ //$NON-NLS-2$
+				} else if (path.endsWith("screen")) { //$NON-NLS-1$
 					path = path.substring(path.indexOf(webHome) + webHome.length());
 				}
 				renderer.setOpenPath(path);
@@ -91,13 +92,13 @@ public class CridColumnDialog extends Dialog {
 		});
 
 		Button btnOpen = new Button(composite, SWT.NONE);
-		btnOpen.setText("选择");
+		btnOpen.setText(Messages.CridColumnDialog_Select);
 		btnOpen.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				String webHome = ResourceUtil.getWebHome(page.getAuroraProject());
 				IResource res = ResourcesPlugin.getWorkspace().getRoot().findMember(webHome);
-				IContainer uipFolder = page.getMetaProject().getFolder("ui_prototype");
-				Object obj = page.fileSelect(new IContainer[] { (IContainer) res, uipFolder }, new String[] { "screen", "uip" });
+				IContainer uipFolder = page.getMetaProject().getFolder("ui_prototype"); //$NON-NLS-1$
+				Object obj = page.fileSelect(new IContainer[] { (IContainer) res, uipFolder }, new String[] { "screen", "uip" }); //$NON-NLS-1$ //$NON-NLS-2$
 				if (obj instanceof IFile) {
 					String path = ((IFile) obj).getFullPath().toString();
 					txtUrl.setText(path);
@@ -106,7 +107,7 @@ public class CridColumnDialog extends Dialog {
 		});
 
 		Group group=new Group(container,SWT.NONE);
-		group.setText("参数设置");
+		group.setText(Messages.CridColumnDialog_ParSetting);
 		group.setLayout(new GridLayout());
 		group.setLayoutData(new GridData(GridData.FILL_BOTH));
 		PComposite pComposite = new PComposite(group, renderer.getParameters(), SWT.None);
@@ -124,19 +125,19 @@ public class CridColumnDialog extends Dialog {
 
 	private String getTextString(Text txt) {
 		String s = txt.getText();
-		if (s == null || "".equals(s.trim())) {
+		if (s == null || "".equals(s.trim())) { //$NON-NLS-1$
 			getButton(OK).setEnabled(false);
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		return s;
 	}
 
 	private void setOKButtonEnabled() {
-		if ("".equals(renderer.getLabelText()) || renderer.getLabelText() == null) {
+		if ("".equals(renderer.getLabelText()) || renderer.getLabelText() == null) { //$NON-NLS-1$
 			getButton(OK).setEnabled(false);
-		} else if ("".equals(renderer.getOpenPath()) || renderer.getOpenPath() == null) {
+		} else if ("".equals(renderer.getOpenPath()) || renderer.getOpenPath() == null) { //$NON-NLS-1$
 			getButton(OK).setEnabled(false);
-		} else if ("".equals(gridColumn.getPrompt()) || gridColumn.getPrompt() == null) {
+		} else if ("".equals(gridColumn.getPrompt()) || gridColumn.getPrompt() == null) { //$NON-NLS-1$
 			getButton(OK).setEnabled(false);
 		} else {
 			getButton(OK).setEnabled(true);
@@ -160,7 +161,7 @@ public class CridColumnDialog extends Dialog {
 	@Override
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
-		shell.setText("Add GridColumn Link");
+		shell.setText("Add GridColumn Link"); //$NON-NLS-1$
 	}
 
 	public GridColumn getGridColumn() {

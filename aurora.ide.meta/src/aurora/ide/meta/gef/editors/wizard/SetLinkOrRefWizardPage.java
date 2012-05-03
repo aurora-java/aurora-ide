@@ -59,7 +59,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 	public SetLinkOrRefWizardPage() {
 		super("aurora.wizard.setting.Page"); //$NON-NLS-1$
 		setTitle(Messages.SettingWizardPage_Title);
-		setDescription("Setting");
+		setDescription("Setting"); //$NON-NLS-1$
 		setPageComplete(true);
 	}
 
@@ -81,7 +81,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			Group gr = new Group(composite, SWT.None);
 			gr.setLayout(new GridLayout(4, false));
 			gr.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			gr.setText("Set tabref");
+			gr.setText("Set tabref"); //$NON-NLS-1$
 			for (TabItem ti : refTabItems) {
 				createRefField(ti, gr);
 			}
@@ -101,7 +101,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		Group gl = new Group(composite, SWT.None);
 		gl.setLayout(new GridLayout(2, false));
 		gl.setLayoutData(new GridData(GridData.FILL_BOTH));
-		gl.setText("Set grid");
+		gl.setText("Set grid"); //$NON-NLS-1$
 		GridData gd = new GridData(GridData.FILL_BOTH);
 
 		final TreeViewer treeViewer = new TreeViewer(gl, SWT.BORDER | SWT.FULL_SELECTION);
@@ -111,19 +111,19 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		TreeColumn treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		treeColumn.setMoveable(true);
 		treeColumn.setResizable(true);
-		treeColumn.setText("Grid");
+		treeColumn.setText("Grid"); //$NON-NLS-1$
 		treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		treeColumn.setMoveable(true);
 		treeColumn.setResizable(true);
-		treeColumn.setText("GridColumn");
+		treeColumn.setText("GridColumn"); //$NON-NLS-1$
 		treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		treeColumn.setMoveable(true);
 		treeColumn.setResizable(true);
-		treeColumn.setText("Editor");
+		treeColumn.setText("Editor"); //$NON-NLS-1$
 		treeColumn = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		treeColumn.setMoveable(true);
 		treeColumn.setResizable(true);
-		treeColumn.setText("Renderer");
+		treeColumn.setText("Renderer"); //$NON-NLS-1$
 
 		treeViewer.getTree().setLinesVisible(true);
 		treeViewer.getTree().setHeaderVisible(true);
@@ -137,7 +137,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		}
 
 		final Button btnAdd = new Button(gl, SWT.None);
-		btnAdd.setText("添加Link");
+		btnAdd.setText(Messages.SetLinkOrRefWizardPage_AddLink);
 		btnAdd.setEnabled(false);
 		gd = new GridData();
 		gd.widthHint = 80;
@@ -145,7 +145,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		btnAdd.setLayoutData(gd);
 
 		final Button btnDel = new Button(gl, SWT.None);
-		btnDel.setText("删除Link");
+		btnDel.setText(Messages.SetLinkOrRefWizardPage_DeleteLink);
 		btnDel.setEnabled(false);
 		gd = new GridData();
 		gd.widthHint = 80;
@@ -153,7 +153,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		btnDel.setLayoutData(gd);
 
 		final Button btnUP = new Button(gl, SWT.None);
-		btnUP.setText("上移");
+		btnUP.setText(Messages.SetLinkOrRefWizardPage_UP);
 		btnUP.setEnabled(false);
 		gd = new GridData();
 		gd.widthHint = 80;
@@ -161,7 +161,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		btnUP.setLayoutData(gd);
 
 		final Button btnDown = new Button(gl, SWT.None);
-		btnDown.setText("下移");
+		btnDown.setText(Messages.SetLinkOrRefWizardPage_Down);
 		btnDown.setEnabled(false);
 		gd = new GridData();
 		gd.widthHint = 80;
@@ -184,7 +184,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		btnDel.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				GridColumn gridColumn = (GridColumn) ((TreeSelection) treeViewer.getSelection()).getFirstElement();
-				if (DialogUtil.showConfirmDialogBox("是否删除GridColumn？") == SWT.OK) {
+				if (DialogUtil.showConfirmDialogBox(Messages.SetLinkOrRefWizardPage_IsDeleteGridColumn) == SWT.OK) {
 					Grid grid = (Grid) gridColumn.getParent();
 					grid.removeChild(gridColumn);
 					grid.getCols().remove(gridColumn);
@@ -257,15 +257,15 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 	private void createRefField(TabItem ti, Group gr) {
 		Label lbl = new Label(gr, SWT.None);
-		lbl.setText(ti.getName() + " : ");
+		lbl.setText(ti.getName() + Messages.SetLinkOrRefWizardPage_Colon);
 		Text txt = new Text(gr, SWT.BORDER);
 		txt.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button btnSelect = new Button(gr, SWT.None);
-		btnSelect.setText("选择文件");
+		btnSelect.setText(Messages.SetLinkOrRefWizardPage_SelectFile);
 
 		final Button btnParam = new Button(gr, SWT.None);
-		btnParam.setText("添加参数");
+		btnParam.setText(Messages.SetLinkOrRefWizardPage_AddPar);
 		btnParam.setEnabled(false);
 
 		btnSelect.addSelectionListener(new TabRefSelect(txt, btnParam, ti));
@@ -273,7 +273,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		txt.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				Text t = (Text) e.getSource();
-				if (null == t.getText() || "".equals(t.getText())) {
+				if (null == t.getText() || "".equals(t.getText())) { //$NON-NLS-1$
 					btnParam.setEnabled(false);
 				}
 			}
@@ -342,17 +342,17 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		public void widgetSelected(SelectionEvent e) {
 			String webHome = ResourceUtil.getWebHome(getAuroraProject());
 			IResource res = ResourcesPlugin.getWorkspace().getRoot().findMember(webHome);
-			IContainer uipFolder = getMetaProject().getFolder("ui_prototype");
-			Object obj = fileSelect(new IContainer[] { (IContainer) res, uipFolder }, new String[] { "screen", "uip" });
+			IContainer uipFolder = getMetaProject().getFolder("ui_prototype"); //$NON-NLS-1$
+			Object obj = fileSelect(new IContainer[] { (IContainer) res, uipFolder }, new String[] { "screen", "uip" }); //$NON-NLS-1$ //$NON-NLS-2$
 			if (!(obj instanceof IFile)) {
-				txt.setText("");
+				txt.setText(""); //$NON-NLS-1$
 				btn.setEnabled(false);
 			} else {
 				String path = ((IFile) obj).getFullPath().toString();
 				txt.setText(path);
-				if (path.endsWith("uip")) {
-					path = path.substring(path.indexOf("ui_prototype") + "ui_prototype".length());
-				} else if (path.endsWith("screen")) {
+				if (path.endsWith("uip")) { //$NON-NLS-1$
+					path = path.substring(path.indexOf("ui_prototype") + "ui_prototype".length()); //$NON-NLS-1$ //$NON-NLS-2$
+				} else if (path.endsWith("screen")) { //$NON-NLS-1$
 					path = path.substring(path.indexOf(webHome) + webHome.length());
 				}
 				ti.getTabRef().setOpenPath(path);
@@ -398,8 +398,8 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			case 0:
 				if (element instanceof Grid) {
 					String prompt = ((Grid) element).getPrompt();
-					if ("".equals(prompt) || prompt == null) {
-						prompt = "Grid";
+					if ("".equals(prompt) || prompt == null) { //$NON-NLS-1$
+						prompt = "Grid"; //$NON-NLS-1$
 					}
 					return prompt;
 				}
@@ -407,8 +407,8 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			case 1:
 				if (!(element instanceof Grid) && (element instanceof GridColumn)) {
 					String prompt = ((GridColumn) element).getPrompt();
-					if ("".equals(prompt) || prompt == null) {
-						prompt = "GridColumn";
+					if ("".equals(prompt) || prompt == null) { //$NON-NLS-1$
+						prompt = "GridColumn"; //$NON-NLS-1$
 					}
 					return prompt;
 				}
