@@ -4,6 +4,7 @@ import java.util.List;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.Util;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Dataset;
@@ -171,10 +172,15 @@ public class DatasetFieldMap extends AbstractComponentMap {
 			idMap.put("to", localField);
 			mappingMap.addChild(idMap);
 		}
+		CompositeMap optionsMap = dataSetFieldUtil.getOptionsMap();
+		BMCompositeMap opb = new BMCompositeMap(optionsMap);
 
 		for (CompositeMap lovMap : lovMaps) {
 			String source = Util.getCompositeValue("sourceField", lovMap);
 			String name = Util.getCompositeValue("name", lovMap);
+
+			if (opb.getFieldByName(source) == null)
+				continue;
 			if (source != null && name != null) {
 				CompositeMap m = sg.createCompositeMap("map");
 				m.put("from", source);
