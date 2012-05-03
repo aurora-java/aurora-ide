@@ -5,6 +5,7 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "aurora.ide.meta.gef.designer.wizard.messages"; //$NON-NLS-1$
 	public static String BaseInfoWizardPage_0;
+	public static String BaseInfoWizardPage_1;
 	public static String BaseInfoWizardPage_10;
 	public static String BaseInfoWizardPage_17;
 	public static String BaseInfoWizardPage_18;
