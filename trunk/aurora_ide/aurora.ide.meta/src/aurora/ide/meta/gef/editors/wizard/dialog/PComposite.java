@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.gef.editors.models.link.Parameter;
+import aurora.ide.meta.gef.i18n.Messages;
 
 public class PComposite extends Composite {
 
@@ -69,10 +70,10 @@ public class PComposite extends Composite {
 		paraViewer.setLabelProvider(new TableLabelProvider());
 		final Table table = paraViewer.getTable();
 		TableColumn column = new TableColumn(table, SWT.NONE);
-		column.setText("参数名称");
+		column.setText(Messages.PComposite_ParName);
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
-		column.setText("参数值");
+		column.setText(Messages.PComposite_ParValue);
 		column.setWidth(100);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
@@ -81,7 +82,7 @@ public class PComposite extends Composite {
 		Composite bs = new Composite(this, SWT.NONE);
 		bs.setLayout(new GridLayout());
 		Button add = new Button(bs, SWT.NONE);
-		add.setText(" New  ");
+		add.setText(Messages.PComposite_New);
 		add.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				AddParamDialog dialog = new AddParamDialog(getShell());
@@ -92,7 +93,7 @@ public class PComposite extends Composite {
 			}
 		});
 		final Button edit = new Button(bs, SWT.NONE);
-		edit.setText("  Edit  ");
+		edit.setText(Messages.PComposite_Edit);
 		edit.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				AddParamDialog dialog = new AddParamDialog(getShell(), c_parameter);
@@ -102,7 +103,7 @@ public class PComposite extends Composite {
 			}
 		});
 		final Button del = new Button(bs, SWT.NONE);
-		del.setText("Delete");
+		del.setText(Messages.PComposite_Delete);
 		edit.setEnabled(false);
 		del.setEnabled(false);
 		del.addSelectionListener(new SelectionAdapter() {
@@ -147,7 +148,7 @@ public class PComposite extends Composite {
 					return ((Parameter) element).getValue();
 				}
 			}
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -165,7 +166,7 @@ public class PComposite extends Composite {
 
 		protected void configureShell(Shell shell) {
 			super.configureShell(shell);
-			shell.setText("Parameter");
+			shell.setText("Parameter"); //$NON-NLS-1$
 			shell.setMinimumSize(400, 150);
 		}
 
@@ -173,7 +174,7 @@ public class PComposite extends Composite {
 			Composite composite = (Composite) super.createDialogArea(parent);
 			composite.setLayout(new GridLayout(2, false));
 			Label name = new Label(composite, SWT.NONE);
-			name.setText("Name :");
+			name.setText(Messages.PComposite_Name);
 			Text nameField = new Text(composite, SWT.BORDER);
 			nameField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			nameField.addModifyListener(new ModifyListener() {
@@ -186,7 +187,7 @@ public class PComposite extends Composite {
 			});
 
 			Label value = new Label(composite, SWT.NONE);
-			value.setText("Value :");
+			value.setText(Messages.PComposite_Value);
 			Text valueField = new Text(composite, SWT.BORDER);
 			valueField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			valueField.addModifyListener(new ModifyListener() {

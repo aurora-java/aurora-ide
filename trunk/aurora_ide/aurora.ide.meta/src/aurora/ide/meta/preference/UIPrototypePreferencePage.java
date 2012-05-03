@@ -25,6 +25,7 @@ import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.TComposite;
+import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.gef.util.FileDeleter;
 
 public class UIPrototypePreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
@@ -37,7 +38,7 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 
 	@Override
 	protected void performDefaults() {
-		URL ts = FileLocator.find(Platform.getBundle(MetaPlugin.PLUGIN_ID), new Path("template"), null);
+		URL ts = FileLocator.find(Platform.getBundle(MetaPlugin.PLUGIN_ID), new Path("template"), null); //$NON-NLS-1$
 		try {
 			ts = FileLocator.toFileURL(ts);
 		} catch (IOException e) {
@@ -65,7 +66,7 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
 
-		IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
+		IPath path = MetaPlugin.getDefault().getStateLocation().append("template"); //$NON-NLS-1$
 		TemplateHelper.getInstance().clearTemplate();
 		tComposite = new TComposite(container, SWT.BORDER, TemplateHelper.getInstance().getTemplates(path));
 		createButton();
@@ -84,7 +85,7 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 		formData.top = new FormAttachment(0, 0);
 		formData.height = 25;
 		formData.width = 25;
-		btn.setText("+");
+		btn.setText(Messages.UIPrototypePreferencePage_Add);
 		btn.setLayoutData(formData);
 
 		btn = new Button(buttonComposite, SWT.None);
@@ -92,7 +93,7 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 		formData.right = new FormAttachment(100, 0);
 		formData.height = 25;
 		formData.width = 25;
-		btn.setText("-");
+		btn.setText(Messages.UIPrototypePreferencePage_Delete);
 		btn.setLayoutData(formData);
 	}
 
@@ -121,8 +122,8 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 	}
 
 	private void reloadTemplates() {
-		if (SWT.OK == DialogUtil.showConfirmDialogBox("设为默认值将丢失自定义模板，是否继续？")) {
-			IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
+		if (SWT.OK == DialogUtil.showConfirmDialogBox(Messages.UIPrototypePreferencePage_Continue)) {
+			IPath path = MetaPlugin.getDefault().getStateLocation().append("template"); //$NON-NLS-1$
 			File templateDirectory = new File(path.toString());
 			FileDeleter.deleteDirectory(templateDirectory);
 			MetaPlugin.getDefault().copyTemplateFile();

@@ -12,6 +12,7 @@ import aurora.ide.meta.gef.editors.template.ButtonComponent;
 import aurora.ide.meta.gef.editors.template.Component;
 import aurora.ide.meta.gef.editors.template.TabRefComponent;
 import aurora.ide.meta.gef.editors.template.Template;
+import aurora.ide.meta.gef.i18n.Messages;
 
 public class TemplateParse extends DefaultHandler {
 	private Template template;
@@ -26,32 +27,32 @@ public class TemplateParse extends DefaultHandler {
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		this.qName = qName;
 		this.attributes = attributes;
-		if (qName.equals("template")) {
-			template.setName(getValue("name"));
-			template.setIcon(getValue("iconPath"));
-			String category = getValue("category");
-			template.setCategory("".equals(category) ? "自定义" : category);
-			template.setType(getValue("type"));
+		if (qName.equals("template")) { //$NON-NLS-1$
+			template.setName(getValue("name")); //$NON-NLS-1$
+			template.setIcon(getValue("iconPath")); //$NON-NLS-1$
+			String category = getValue("category"); //$NON-NLS-1$
+			template.setCategory("".equals(category) ? Messages.TemplateParse_Custom : category); //$NON-NLS-1$
+			template.setType(getValue("type")); //$NON-NLS-1$
 			stack.push(template);
-		} else if (qName.equals("model")) {
+		} else if (qName.equals("model")) { //$NON-NLS-1$
 			BMReference bm = new BMReference();
-			bm.setId(getValue("id"));
-			bm.setName(getValue("name"));
+			bm.setId(getValue("id")); //$NON-NLS-1$
+			bm.setName(getValue("name")); //$NON-NLS-1$
 			template.addModel(bm);
 			stack.push(null);
-		} else if (qName.equals("initModel")) {
+		} else if (qName.equals("initModel")) { //$NON-NLS-1$
 			BMReference bm = new BMReference();
-			bm.setId(getValue("id"));
-			bm.setName(getValue("name"));
+			bm.setId(getValue("id")); //$NON-NLS-1$
+			bm.setName(getValue("name")); //$NON-NLS-1$
 			template.addInitModel(bm);
 			stack.push(null);
-		} else if (qName.equals("button")) {
+		} else if (qName.equals("button")) { //$NON-NLS-1$
 			ButtonComponent btn = new ButtonComponent();
 			btn.setComponentType(qName);
-			btn.setId(getValue("id"));
-			btn.setTarget(getValue("target"));
-			btn.setText(getValue("text"));
-			btn.setType(getValue("type"));
+			btn.setId(getValue("id")); //$NON-NLS-1$
+			btn.setTarget(getValue("target")); //$NON-NLS-1$
+			btn.setText(getValue("text")); //$NON-NLS-1$
+			btn.setType(getValue("type")); //$NON-NLS-1$
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(btn);
 			}
@@ -59,9 +60,9 @@ public class TemplateParse extends DefaultHandler {
 			// template.addLink(btn);
 			// }
 			stack.push(btn);
-		} else if ("tabRef".equals(qName)) {
+		} else if ("tabRef".equals(qName)) { //$NON-NLS-1$
 			TabRefComponent ref = new TabRefComponent();
-			ref.setInitModel(getValue("initModel"));
+			ref.setInitModel(getValue("initModel")); //$NON-NLS-1$
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(ref);
 			}
@@ -69,25 +70,25 @@ public class TemplateParse extends DefaultHandler {
 			stack.push(ref);
 		} else if (AuroraModelFactory.isComponent(qName)) {
 			Component cpt = new Component();
-			if (!"".equals(getValue("model"))) {
+			if (!"".equals(getValue("model"))) { //$NON-NLS-1$ //$NON-NLS-2$
 				if (!(cpt instanceof BMBindComponent)) {
 					cpt = new BMBindComponent();
 				}
-				((BMBindComponent) cpt).setBmReferenceID(getValue("model"));
+				((BMBindComponent) cpt).setBmReferenceID(getValue("model")); //$NON-NLS-1$
 			}
-			if (!"".equals(getValue("query"))) {
+			if (!"".equals(getValue("query"))) { //$NON-NLS-1$ //$NON-NLS-2$
 				if (!(cpt instanceof BMBindComponent)) {
 					cpt = new BMBindComponent();
 				}
-				((BMBindComponent) cpt).setQueryComponent(getValue("query"));
+				((BMBindComponent) cpt).setQueryComponent(getValue("query")); //$NON-NLS-1$
 			}
 			cpt.setComponentType(qName);
-			cpt.setId(getValue("id"));
-			cpt.setName(getValue("name"));
+			cpt.setId(getValue("id")); //$NON-NLS-1$
+			cpt.setName(getValue("name")); //$NON-NLS-1$
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(cpt);
 			}
-			if ("grid".equals(qName)) {
+			if ("grid".equals(qName)) { //$NON-NLS-1$
 				template.addLink(cpt);
 			}
 			stack.push(cpt);
@@ -97,16 +98,16 @@ public class TemplateParse extends DefaultHandler {
 	}
 
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		if (qName.equals("description")) {
+		if (qName.equals("description")) { //$NON-NLS-1$
 			String desc = new String(ch, start, length).trim();
-			if (!"".equals(desc)) {
+			if (!"".equals(desc)) { //$NON-NLS-1$
 				template.setDescription(desc);
 			}
 		}
 	}
 
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		this.qName = "";
+		this.qName = ""; //$NON-NLS-1$
 		this.stack.pop();
 	}
 
@@ -119,7 +120,7 @@ public class TemplateParse extends DefaultHandler {
 
 	private String getValue(String name) {
 		String value = attributes.getValue(attributes.getIndex(name));
-		return value == null ? "" : value;
+		return value == null ? "" : value; //$NON-NLS-1$
 	}
 
 }
