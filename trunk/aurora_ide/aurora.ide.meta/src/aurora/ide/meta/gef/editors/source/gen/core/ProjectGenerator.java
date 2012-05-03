@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.editors.source.gen.core;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.util.List;
@@ -202,7 +203,15 @@ public class ProjectGenerator {
 
 	private void genNewFile(IFile newFile, String content)
 			throws InvocationTargetException {
-		InputStream is = new ByteArrayInputStream(content.getBytes());
+		InputStream is = null;
+		try {
+			is = new ByteArrayInputStream(content.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		if(is == null){
+			return;
+		}
 		if (newFile.exists() && isOverlap) {
 			try {
 				// newFile.delete(true, monitor);
