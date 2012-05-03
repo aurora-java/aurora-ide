@@ -28,6 +28,7 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 			} else if (IDesignerConst.AE_QUERY.equals(type)) {
 				bmg = new ForQueryBmGenerator(model, bmFile);
 			} else if (IDesignerConst.AE_MAINTAIN.equals(type)) {
+				bmg = new ForMaintainBmGenerator(model, bmFile);
 			} else if (IDesignerConst.AE_UPDATE.equals(type)) {
 			} else {
 				// System.out.println("unknown auto extend mode : " + type);
