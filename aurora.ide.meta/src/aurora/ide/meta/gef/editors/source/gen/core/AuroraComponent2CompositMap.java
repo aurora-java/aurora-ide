@@ -4,6 +4,7 @@ import java.util.List;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.api.composite.map.CommentCompositeMap;
+import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
@@ -127,13 +128,14 @@ public class AuroraComponent2CompositMap {
 			List<CompositeMap> lovFields = mf.lookupLovFields(rName, bmMap);
 			for (CompositeMap compositeMap : lovFields) {
 				CompositeMap clone = (CompositeMap) lovMap.clone();
-				String string = compositeMap.getString("name");
-		
-				if (opb.getFieldByName(string) == null)
+
+				String source = Util.getCompositeValue("sourceField",
+						compositeMap);
+				String name = Util.getCompositeValue("name", compositeMap);
+				if (opb.getFieldByName(source) == null)
 					continue;
-				
-				if (null != string && !"".equals(string)) {
-					clone.put("name", string);
+				if (null != name && !"".equals(name)) {
+					clone.put("name", name);
 					containerMap.addChild(clone);
 				}
 			}
