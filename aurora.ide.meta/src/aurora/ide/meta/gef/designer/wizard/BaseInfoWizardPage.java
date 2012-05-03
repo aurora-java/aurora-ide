@@ -134,7 +134,7 @@ public class BaseInfoWizardPage extends WizardPage {
 	private void format() {
 		String str = text.getText();
 		StringBuilder sb = new StringBuilder(str.length());
-		StringTokenizer st = new StringTokenizer(str, " ,;\t\n\r\f，。；　"); //$NON-NLS-1$
+		StringTokenizer st = new StringTokenizer(str, Messages.BaseInfoWizardPage_1); 
 		while (st.hasMoreElements())
 			sb.append(st.nextElement() + "\n"); //$NON-NLS-1$
 		text.setText(sb.toString());
