@@ -222,7 +222,7 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 				}
 			} catch (Exception e) {
 				IStatus s = new Status(IStatus.ERROR, MetaPlugin.PLUGIN_ID,
-						"文件解析异常:" + file.getFullPath(), e);
+						"Bad File Content:" + file.getFullPath(), e);
 				errorMsgs.add(s);
 			}
 		}

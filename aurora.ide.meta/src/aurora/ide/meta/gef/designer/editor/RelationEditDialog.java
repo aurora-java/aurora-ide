@@ -384,7 +384,8 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 						bmPkg);
 				CompositeMap bmMap = dsfu.getBmMap();
 				if (bmMap == null) {
-					DialogUtil.showErrorMessageBox("bm :" + bmPkg + ", 解析错误.");
+					DialogUtil.showErrorMessageBox("bm :" + bmPkg
+							+ ", has syntax error.");
 					return;
 				}
 				BMCompositeMap bmc = new BMCompositeMap(bmMap);

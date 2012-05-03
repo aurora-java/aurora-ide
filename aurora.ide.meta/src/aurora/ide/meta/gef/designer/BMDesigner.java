@@ -92,8 +92,8 @@ public class BMDesigner extends FormEditor {
 		try {
 			amp.getAuroraProject();
 		} catch (ResourceNotFoundException e) {
-			throw new PartInitException("原型工程:" + proj.getName()
-					+ " ,没有关联Aurora工程.");
+			throw new PartInitException("Meta Project:" + proj.getName()
+					+ " ,does not refers a Aurora Project.");
 		}
 		open();
 	}
