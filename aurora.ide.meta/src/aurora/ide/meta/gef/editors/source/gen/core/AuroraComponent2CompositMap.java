@@ -4,6 +4,7 @@ import java.util.List;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.api.composite.map.CommentCompositeMap;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.Button;
@@ -105,12 +106,16 @@ public class AuroraComponent2CompositMap {
 	}
 
 	public void doLovMap(Dataset ds, AuroraComponent ac, CompositeMap lovMap) {
-		if(ds == null){
-			return ;
+		if (ds == null) {
+			return;
 		}
 		CompositeMap containerMap = lovMap.getParent();
 		DataSetFieldUtil dataSetFieldUtil = new DataSetFieldUtil(
 				screenGenerator.getProject(), ac.getName(), ds.getModel());
+
+		CompositeMap optionsMap = dataSetFieldUtil.getOptionsMap();
+		BMCompositeMap opb = new BMCompositeMap(optionsMap);
+
 		CompositeMap bmMap = dataSetFieldUtil.getBmMap();
 		if (bmMap == null)
 			return;
@@ -123,6 +128,10 @@ public class AuroraComponent2CompositMap {
 			for (CompositeMap compositeMap : lovFields) {
 				CompositeMap clone = (CompositeMap) lovMap.clone();
 				String string = compositeMap.getString("name");
+		
+				if (opb.getFieldByName(string) == null)
+					continue;
+				
 				if (null != string && !"".equals(string)) {
 					clone.put("name", string);
 					containerMap.addChild(clone);

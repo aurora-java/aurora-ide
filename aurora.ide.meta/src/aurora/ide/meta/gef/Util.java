@@ -86,7 +86,7 @@ public class Util {
 		suffix = "_to";
 		if (fn.endsWith(suffix))
 			return suffix;
-		return null;
+		return "";
 	}
 
 	public static String supportEditor(String object) {
