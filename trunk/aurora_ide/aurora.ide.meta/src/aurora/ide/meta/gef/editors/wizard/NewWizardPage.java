@@ -8,6 +8,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -28,6 +29,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.TComposite;
@@ -187,7 +189,8 @@ public class NewWizardPage extends WizardPage {
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		composite.setText(Messages.NewWizardPage_Template);
 
-		createTemplate(composite, TemplateHelper.getInstance().getTemplates());
+		IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
+		createTemplate(composite, TemplateHelper.getInstance().getTemplates(path));
 
 		if (setPath(metaFolder)) {
 			txtFile.setFocus();
@@ -247,7 +250,7 @@ public class NewWizardPage extends WizardPage {
 
 	private void setTemplateDescription(String desc) {
 		if (desc == null) {
-			desc="";
+			desc = "";
 		}
 		lblDesc.setText(desc);
 		lblDesc.getParent().layout();
