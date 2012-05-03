@@ -27,9 +27,9 @@
          point="org.eclipse.ui.preferencePages">
       <page
             category="aurora.ide.preferencePage.TemplatesPage"
-            class="aurora.ide.meta.preference.UIPreferencePage"
+            class="aurora.ide.meta.preference.UIPrototypePreferencePage"
             id="aurora.ide.meta.preference.UI"
-            name="UI">
+            name="UI Prototype Template">
       </page>
     </extension>
      
