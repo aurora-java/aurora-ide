@@ -196,7 +196,26 @@ public class BMModel {
 	}
 
 	public void setAt(int idx, Record r) {
+		setAt(idx, r, false);
+	}
+
+	/**
+	 * 
+	 * @param idx
+	 * @param r
+	 * @param quite
+	 *            do not notify any listener
+	 */
+	public void setAt(int idx, Record r, boolean quite) {
 		records.set(idx, r);
+		if (!quite)
+			notifyModidy();
+	}
+
+	public void swap(int idx1, int idx2) {
+		Record r = records.get(idx1);
+		records.set(idx1, records.get(idx2));
+		records.set(idx2, r);
 		notifyModidy();
 	}
 
