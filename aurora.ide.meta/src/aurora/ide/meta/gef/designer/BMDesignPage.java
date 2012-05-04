@@ -288,8 +288,8 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 					IStructuredSelection ss = (IStructuredSelection) s;
 					Record r = (Record) ss.getFirstElement();
 					int idx = model.indexOf(r);
-					viewer.disposeEditorOf(idx);
-					viewer.disposeEditorOf(idx + n);
+					viewer.disposeEditor(idx);
+					viewer.disposeEditor(idx + n);
 					model.swap(idx, idx + n);
 					btnUp.setEnabled(!model.isFirst(r));
 					btnDown.setEnabled(!model.isLast(r));
