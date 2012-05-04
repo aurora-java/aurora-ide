@@ -113,7 +113,6 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 							|| rcel.getRecord() != record
 							|| !rcel.getColumnProperty().equals(colpro)) {
 						disposeEditor(key);
-						System.out.println("dispose " + key);
 						ce = null;
 					}
 				}
@@ -175,7 +174,6 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 				ce.addListener(new RecordCellEditorListener(rec, colpro, ce));
 				editorMap.put(key, ce);
 				setItemEditor(table, item, ce, row, c);
-				System.out.println(key);
 			} else {
 				// ce.getControl().setBounds(item.getBounds(c));
 				// System.out.println("skip at refresh :" + row + "," + c);
