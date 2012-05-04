@@ -17,6 +17,18 @@ public class RecordCellEditorListener implements ICellEditorListener {
 		this.editor = editor;
 	}
 
+	public String getColumnProperty() {
+		return prompt;
+	}
+
+	public CellEditor getCellEditor() {
+		return editor;
+	}
+
+	public Record getRecord() {
+		return record;
+	}
+
 	public void applyEditorValue() {
 		record.put(prompt, editor.getValue());
 	}

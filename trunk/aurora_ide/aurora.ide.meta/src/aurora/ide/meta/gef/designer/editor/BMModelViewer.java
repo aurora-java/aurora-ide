@@ -2,6 +2,8 @@ package aurora.ide.meta.gef.designer.editor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -23,6 +25,7 @@ import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
+import aurora.ide.meta.gef.designer.model.ModelUtil;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.property.BooleanCellEditor;
@@ -34,6 +37,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 
 	private HashMap<String, CellEditor> editorMap = new HashMap<String, CellEditor>(
 			1000);
+	private HashMap<String, RecordCellEditorListener> editorListenerMap = new HashMap<String, RecordCellEditorListener>();
 	private HashMap<String, String[]> operatorsMap = new HashMap<String, String[]>();
 
 	public BMModelViewer(Composite parent) {
@@ -102,23 +106,32 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 				String colpro = TABLE_COLUMN_PROPERTIES[c];
 				Object colval = record.get(colpro);
 				String key = r + "-" + c;
-				keys.remove(key);
 				CellEditor ce = editorMap.get(key);
+				RecordCellEditorListener rcel = editorListenerMap.get(key);
 				if (ce != null) {
-					Object v = ce.getValue();
-					if (v != null && v.equals(colval)) {
-						continue;
+					if (rcel.getCellEditor() != ce
+							|| rcel.getRecord() != record
+							|| !rcel.getColumnProperty().equals(colpro)) {
+						disposeEditor(key);
+						System.out.println("dispose " + key);
+						ce = null;
 					}
 				}
-				disposeEditor(key);
-				updateOptionEditor(ces[c], record);
-				setItemEditor(table, item, ces[c], r, c);
-				ces[c].setValue(colval);
-				// System.out.println(record.getPrompt() + ":" + colpro
-				// + "  updated");
-				ces[c].addListener(new RecordCellEditorListener(record, colpro,
-						ces[c]));
-				editorMap.put(key, ces[c]); //$NON-NLS-1$
+
+				if (ce == null) {
+					ce = ces[c];
+					setItemEditor(table, item, ce, r, c);
+					RecordCellEditorListener lis = new RecordCellEditorListener(
+							record, colpro, ce);
+					ce.addListener(lis);
+					setItemEditor(table, item, ce, r, c);
+					editorMap.put(key, ce);
+					editorListenerMap.put(key, lis);
+				}
+				keys.remove(key);
+				updateOptionEditor(ce, record);
+				if (!ModelUtil.eq(ce.getValue(), colval))
+					ce.setValue(colval);
 			}
 		}
 		for (String key : keys) {
@@ -139,23 +152,47 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 			TableItem item = table.getItem(r);
 			Record rec = (Record) item.getData();
 			if (rec == record) {
-				CellEditor[] ces = getNewCellEditors(record);
-				for (int c = 0; c < ces.length; c++) {
-					if (ces[c] == null)
-						continue;
-					String colpro = TABLE_COLUMN_PROPERTIES[c];
-					Object colval = rec.get(colpro);
-					String key = r + "-" + c;
-					disposeEditor(key);
-					updateOptionEditor(ces[c], rec);
-					setItemEditor(table, item, ces[c], r, c);
-					ces[c].setValue(colval);
-					ces[c].addListener(new RecordCellEditorListener(record,
-							colpro, ces[c]));
-					editorMap.put(key, ces[c]);
-				}
+				updateEditorOfRecord(rec, table, item, r);
 				break;
 			}
+		}
+	}
+
+	private Set<String> updateEditorOfRecord(Record rec, Table table,
+			TableItem item, int row) {
+		Set<String> updatedKey = new HashSet<String>();
+		CellEditor[] ces = getNewCellEditors(rec);
+		for (int c = 0; c < ces.length; c++) {
+			if (ces[c] == null)
+				continue;
+			String colpro = TABLE_COLUMN_PROPERTIES[c];
+			Object colval = rec.get(colpro);
+			String key = row + "-" + c;
+			updatedKey.add(key);
+			CellEditor ce = editorMap.get(key);
+			if (ce == null) {
+				ce = ces[c];
+				ce.addListener(new RecordCellEditorListener(rec, colpro, ce));
+				editorMap.put(key, ce);
+				setItemEditor(table, item, ce, row, c);
+				System.out.println(key);
+			} else {
+				// ce.getControl().setBounds(item.getBounds(c));
+				// System.out.println("skip at refresh :" + row + "," + c);
+				// disposeEditor(key);
+			}
+			updateOptionEditor(ce, rec);
+			if (!ModelUtil.eq(colval, ce.getValue()))
+				ce.setValue(colval);
+		}
+		return updatedKey;
+	}
+
+	public void disposeEditorOf(int row) {
+		Table table = getTable();
+		for (int c = 0; c < table.getColumnCount(); c++) {
+			String key = row + "-" + c;
+			disposeEditor(key);
 		}
 	}
 
@@ -165,6 +202,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 			ce.deactivate();
 			ce.dispose();
 			editorMap.put(key, null);
+			editorListenerMap.put(key, null);
 		}
 	}
 
