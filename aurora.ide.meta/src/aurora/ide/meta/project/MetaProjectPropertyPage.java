@@ -17,30 +17,25 @@ import org.eclipse.ui.dialogs.PropertyPage;
 
 import aurora.ide.AuroraProjectNature;
 import aurora.ide.helpers.DialogUtil;
+import aurora.ide.meta.exception.ResourceNotFoundException;
 
 public class MetaProjectPropertyPage extends PropertyPage {
+	AuroraMetaProject amp;
+
 	public MetaProjectPropertyPage() {
 	}
 
 	public static final String PROPERTY_ID = "aurora.ide.meta.project.property";
-	private static final String MODEL_PROTOTYPE = "LOCAL_WEB_URL";
-	private static final String UI_PROTOTYPE= "WEB_HOME";
-	private static final String TEMPLATE = "BM_HOME";
-	public static final QualifiedName MODEL_QN = new QualifiedName(PROPERTY_ID,
-			MODEL_PROTOTYPE);
-	public static final QualifiedName SCREEN_QN = new QualifiedName(
-			PROPERTY_ID, UI_PROTOTYPE);
-	public static final QualifiedName TEMPLATE_QN = new QualifiedName(
-			PROPERTY_ID, TEMPLATE);
+
 	public static final QualifiedName AURORA_PROJECT_QN = new QualifiedName(
 			PROPERTY_ID, "project");
 	private Text model;
 	private Text screen;
-	private Text template;
 	private Combo auroraProjectNameField;
 
 	protected Control createContents(Composite parent) {
 		this.noDefaultAndApplyButton();
+		amp = new AuroraMetaProject(this.getProject());
 		Composite content = new Composite(parent, SWT.NONE);
 		GridData gridData = new GridData(GridData.FILL_BOTH);
 		content.setLayoutData(gridData);
@@ -55,7 +50,7 @@ public class MetaProjectPropertyPage extends PropertyPage {
 		model.setLayoutData(gridData);
 		model.setEditable(false);
 		try {
-			String mf = getProject().getPersistentProperty(MODEL_QN);
+			String mf = amp.getModelFolder().getName();
 			if (filtEmpty(mf) != null) {
 				model.setText(mf);
 			}
@@ -70,24 +65,9 @@ public class MetaProjectPropertyPage extends PropertyPage {
 		screen.setLayoutData(gridData);
 		screen.setEditable(false);
 		try {
-			String mf = getProject().getPersistentProperty(SCREEN_QN);
+			String mf = amp.getScreenFolder().getName();
 			if (filtEmpty(mf) != null) {
 				screen.setText(mf);
-			}
-		} catch (Throwable e) {
-			DialogUtil.showExceptionMessageBox(e);
-		}
-
-		label = new Label(content, SWT.NONE);
-		label.setText("Template Folder: ");
-		this.template = new Text(content, SWT.BORDER);
-		gridData = new GridData(GridData.FILL_HORIZONTAL);
-		template.setLayoutData(gridData);
-		template.setEditable(false);
-		try {
-			String mf = getProject().getPersistentProperty(TEMPLATE_QN);
-			if (filtEmpty(mf) != null) {
-				template.setText(mf);
 			}
 		} catch (Throwable e) {
 			DialogUtil.showExceptionMessageBox(e);
@@ -118,14 +98,24 @@ public class MetaProjectPropertyPage extends PropertyPage {
 				auroraProjectNameField.add(p.getName());
 			}
 		}
+		IProject auroraProject = null;
+		try {
+			auroraProject = amp.getAuroraProject();
+		} catch (ResourceNotFoundException e1) {
+		}
 
 		try {
-			String mf = getProject().getPersistentProperty(AURORA_PROJECT_QN);
+			String mf = "";
+			if (auroraProject == null) {
+				mf = getProject().getPersistentProperty(AURORA_PROJECT_QN);
+			} else {
+				mf = auroraProject.getName();
+			}
 			if (filtEmpty(mf) != null) {
 				int indexOf = auroraProjectNameField.indexOf(mf);
 				if (indexOf > -1)
 					auroraProjectNameField.select(indexOf);
-				else{
+				else {
 					auroraProjectNameField.select(0);
 				}
 			}
@@ -145,6 +135,7 @@ public class MetaProjectPropertyPage extends PropertyPage {
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
+		amp.setAuroraProject(auroraProjectNameField.getText());
 
 		return true;
 	}
@@ -159,19 +150,19 @@ public class MetaProjectPropertyPage extends PropertyPage {
 		return str;
 	}
 
-	public static void savePersistentProperty(IProject newProject,
-			String auroraProjectName) {
-		try {
-			newProject.setPersistentProperty(MetaProjectPropertyPage.MODEL_QN,
-					"model_prototype");
-			newProject.setPersistentProperty(MetaProjectPropertyPage.SCREEN_QN,
-					"ui_prototype");
-			newProject.setPersistentProperty(
-					MetaProjectPropertyPage.TEMPLATE_QN, "template");
-			newProject.setPersistentProperty(
-					MetaProjectPropertyPage.AURORA_PROJECT_QN,
-					auroraProjectName);
-		} catch (CoreException e) {
-		}
-	}
+	// public static void savePersistentProperty(IProject newProject,
+	// String auroraProjectName) {
+	// MetaPlugin.getDefault();
+	// try {
+	// newProject.setPersistentProperty(MetaProjectPropertyPage.MODEL_QN,
+	// "model_prototype");
+	// newProject.setPersistentProperty(MetaProjectPropertyPage.SCREEN_QN,
+	// "ui_prototype");
+	// newProject.setPersistentProperty(
+	// MetaProjectPropertyPage.AURORA_PROJECT_QN,
+	// auroraProjectName);
+	// } catch (CoreException e) {
+	// }
+	// }
+
 }

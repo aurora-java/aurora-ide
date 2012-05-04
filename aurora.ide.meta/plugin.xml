@@ -62,7 +62,7 @@
             name="远程协作编辑器"/>
        -->   
 	</extension>
-  
+    
     <extension point="org.eclipse.ui.propertyPages">
 		<page
 			adaptable="true"
@@ -74,6 +74,7 @@
 			<filter name="nature" value="aurora.ide.meta.nature"/>
 		</page>
 	</extension>
+	  
 	
     <extension
           id="nature"
