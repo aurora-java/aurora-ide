@@ -13,8 +13,10 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -174,6 +176,8 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 				combo_1.select(i);
 				break;
 			}
+		localFieldComboViewer
+				.addSelectionChangedListener(new LocalFieldChangeListener());
 		new Label(container, SWT.NONE);
 
 		Label lblNewLabel_1 = new Label(container, SWT.NONE);
@@ -371,6 +375,34 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 	@Override
 	protected Point getInitialSize() {
 		return new Point(430, 414);
+	}
+
+	/**
+	 * when local field change <br/>
+	 * if current relation has none name ,then give it a name<br>
+	 * if current relation has a name ,but the name is most likely setted by
+	 * this method,then change it<br/>
+	 * else , the name is setted by user manual ,do not change
+	 */
+	private final class LocalFieldChangeListener implements
+			ISelectionChangedListener {
+
+		public void selectionChanged(SelectionChangedEvent event) {
+			Record r = getSelectedLocalField();
+			if (r == null)
+				return;
+			String relname = text_relname.getText();
+			boolean change = relname.length() == 0;
+			if (!change)
+				for (Record rr : model.getRecordList()) {
+					if (relname.equals("rel_" + rr.getName())) {
+						change = true;
+						break;
+					}
+				}
+			if (change)
+				text_relname.setText("rel_" + r.getName());
+		}
 	}
 
 	private final class RefModelModifyListener implements ModifyListener {
