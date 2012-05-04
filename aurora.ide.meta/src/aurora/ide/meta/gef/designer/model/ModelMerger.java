@@ -420,9 +420,7 @@ public class ModelMerger {
 	}
 
 	private String getMapString(CompositeMap map, String attr) {
-		String value = map.getString(attr);
-		if (value == null)
-			value = map.getString(attr.toLowerCase());
+		String value = BMCompositeMap.getMapAttribute(map, attr);
 		return value == null ? "" : value;
 	}
 
