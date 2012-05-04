@@ -300,14 +300,15 @@ public class CreateMetaProjectWizard extends BasicNewProjectResourceWizard {
 		IProject auroraProjectHandle = this.getAuroraProjectHandle();
 		String name = auroraProjectHandle == null ? "" : auroraProjectHandle
 				.getName();
-		MetaProjectPropertyPage.savePersistentProperty(newProject, name);
+		// MetaProjectPropertyPage.savePersistentProperty(newProject, name);
+		AuroraMetaProject amp = new AuroraMetaProject(newProject);
+		amp.setAuroraProject(name);
 
 		updatePerspective();
 		selectAndReveal(newProject);
 
 		return true;
 	}
-
 
 	private void createFolders() {
 		if (newProject == null) {

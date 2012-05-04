@@ -1,16 +1,35 @@
 package aurora.ide.meta.project;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.ide.undo.CreateFileOperation;
+import org.eclipse.ui.ide.undo.ResourceDescription;
+import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
+import uncertain.composite.CompositeMap;
 import aurora.ide.AuroraProjectNature;
+import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.search.cache.CacheManager;
 
 public class AuroraMetaProject {
 
 	private IProject project;
+
+	private static final String UIP_HOME = "ui_prototype";
+	private static final String MODEL_HOME = "model_prototype";
+	private static final String AURORA_PROJECT = "aurora_project";
 
 	// meta project
 	public AuroraMetaProject(IProject project) {
@@ -27,20 +46,26 @@ public class AuroraMetaProject {
 	}
 
 	public IFolder getScreenFolder() throws ResourceNotFoundException {
-		return this.getFolder(MetaProjectPropertyPage.SCREEN_QN);
+		return this.getFolder(UIP_HOME);
 	}
 
 	public IFolder getModelFolder() throws ResourceNotFoundException {
-		return this.getFolder(MetaProjectPropertyPage.MODEL_QN);
-	}
-
-	public IFolder getTemplateFolder() throws ResourceNotFoundException {
-		return this.getFolder(MetaProjectPropertyPage.TEMPLATE_QN);
+		return this.getFolder(MODEL_HOME);
 	}
 
 	public IProject getAuroraProject() throws ResourceNotFoundException {
 
-		String name = getPersistentProperty(MetaProjectPropertyPage.AURORA_PROJECT_QN);
+		String name = getPersistentProperty(AURORA_PROJECT);
+		if ("".equals(name)) {
+			try {
+				name = getProject().getPersistentProperty(
+						MetaProjectPropertyPage.AURORA_PROJECT_QN);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+		if (name == null || "".equals(name))
+			throw new ResourceNotFoundException();
 		IProject p = project.getWorkspace().getRoot().getProject(name);
 		try {
 			if (p.exists() && AuroraProjectNature.hasAuroraNature(p)) {
@@ -51,9 +76,22 @@ public class AuroraMetaProject {
 		throw new ResourceNotFoundException();
 	}
 
-	public IFolder getFolder(QualifiedName key)
-			throws ResourceNotFoundException {
+	public void setUIPFolder(String folderName) {
+		this.setPersistentProperty(UIP_HOME, folderName);
+	}
+
+	public void setModelFolder(String folderName) {
+		this.setPersistentProperty(MODEL_HOME, folderName);
+	}
+
+	public void setAuroraProject(String name) {
+		this.setPersistentProperty(AURORA_PROJECT, name);
+	}
+
+	public IFolder getFolder(String key) throws ResourceNotFoundException {
 		String name = getPersistentProperty(key);
+		if ("".equals(name) || name == null)
+			name = key;
 		IFolder folder = project.getFolder(name);
 		if (folder.exists()) {
 			return folder;
@@ -61,17 +99,89 @@ public class AuroraMetaProject {
 		throw new ResourceNotFoundException();
 	}
 
-	private String getPersistentProperty(QualifiedName key)
+	private String getPersistentProperty(String key)
 			throws ResourceNotFoundException {
-		try {
-			String persistentProperty = this.getProject()
-					.getPersistentProperty(key);
-			if (null != persistentProperty && !"".equals(persistentProperty)) {
-				return persistentProperty;
+		IFile config = this.getProject().getFile(".aurora");
+		if (config.exists()) {
+			try {
+				CompositeMap map = CacheManager.getCompositeMap(config);
+				return map.getString(key, "");
+			} catch (CoreException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
 			}
-		} catch (CoreException e) {
 		}
-		throw new ResourceNotFoundException();
+		return "";
 	}
 
+	private String setPersistentProperty(String key, String value) {
+		IFile config = this.getProject().getFile(".aurora");
+		CompositeMap map = new CompositeMap("config");
+		if (config.exists()) {
+			try {
+				CompositeMap _map = CacheManager.getCompositeMap(config);
+				map.copy(_map);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
+		map.put(key, value);
+		try {
+			genNewFile(config, map.toXML());
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		return key;
+	}
+
+	private void genNewFile(IFile newFile, String content)
+			throws ExecutionException {
+		InputStream is = null;
+		try {
+			is = new ByteArrayInputStream(content.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		if (is == null) {
+			return;
+		}
+		if (newFile.exists()) {
+			try {
+				newFile.setContents(is, true, false, null);
+				return;
+			} catch (CoreException e) {
+			} finally {
+				if (is != null)
+					try {
+						is.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+			}
+		}
+		CreateFileOperation cfo = new CreateFileOperation(newFile, null, is,
+				"create file.") { //$NON-NLS-1$
+			@Override
+			protected void setResourceDescriptions(
+					ResourceDescription[] descriptions) {
+				super.setResourceDescriptions(descriptions);
+			}
+
+			public IStatus computeExecutionStatus(IProgressMonitor monitor) {
+				IStatus status = super.computeExecutionStatus(monitor);
+				if (status.isOK()) {
+					// Overwrite is not allowed when we are creating a new
+					// file
+					status = computeCreateStatus(false);
+				}
+				return status;
+			}
+		};
+		cfo.execute(null, WorkspaceUndoUtil.getUIInfoAdapter(Display
+				.getDefault().getActiveShell()));
+	}
 }
