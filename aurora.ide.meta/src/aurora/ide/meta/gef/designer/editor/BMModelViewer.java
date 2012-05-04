@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
@@ -182,6 +185,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 		te.grabHorizontal = true;
 		Control ctrl = ce.getControl();
 		ctrl.addKeyListener(new FocusMoveKeyListener(r, c));
+		ctrl.addMouseListener(new AutoSelectListener(r, ctrl));
 		te.setEditor(ctrl, item, c);
 	}
 
@@ -228,6 +232,46 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 			operatorsMap.put(displayType, ss);
 		}
 		return ss;
+	}
+
+	private class AutoSelectListener implements MouseListener {
+
+		private int row;
+
+		public AutoSelectListener(int r, Control ctrl) {
+			this.row = r;
+			if (ctrl instanceof Composite) {
+				updateListenerTree((Composite) ctrl);
+			}
+		}
+
+		private void updateListenerTree(Composite com) {
+			for (Control c : com.getChildren()) {
+				c.addMouseListener(this);
+				if (c instanceof Composite) {
+					updateListenerTree((Composite) c);
+				}
+			}
+		}
+
+		public void mouseDoubleClick(MouseEvent e) {
+
+		}
+
+		public void mouseDown(MouseEvent e) {
+			Object input = getInput();
+			if (input instanceof BMModel) {
+				BMModel model = (BMModel) input;
+				if (model.getRecordList().size() > row) {
+					Record r = model.getAt(row);
+					setSelection(new StructuredSelection(r));
+				}
+			}
+		}
+
+		public void mouseUp(MouseEvent e) {
+
+		}
 	}
 
 	private class FocusMoveKeyListener extends KeyAdapter {
