@@ -2,8 +2,6 @@ package aurora.ide.meta.gef.designer.editor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -116,14 +114,12 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 						ce = null;
 					}
 				}
-
 				if (ce == null) {
 					ce = ces[c];
 					setItemEditor(table, item, ce, r, c);
 					RecordCellEditorListener lis = new RecordCellEditorListener(
 							record, colpro, ce);
 					ce.addListener(lis);
-					setItemEditor(table, item, ce, r, c);
 					editorMap.put(key, ce);
 					editorListenerMap.put(key, lis);
 				}
@@ -157,9 +153,8 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 		}
 	}
 
-	private Set<String> updateEditorOfRecord(Record rec, Table table,
-			TableItem item, int row) {
-		Set<String> updatedKey = new HashSet<String>();
+	private void updateEditorOfRecord(Record rec, Table table, TableItem item,
+			int row) {
 		CellEditor[] ces = getNewCellEditors(rec);
 		for (int c = 0; c < ces.length; c++) {
 			if (ces[c] == null)
@@ -167,26 +162,20 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 			String colpro = TABLE_COLUMN_PROPERTIES[c];
 			Object colval = rec.get(colpro);
 			String key = row + "-" + c;
-			updatedKey.add(key);
 			CellEditor ce = editorMap.get(key);
 			if (ce == null) {
 				ce = ces[c];
 				ce.addListener(new RecordCellEditorListener(rec, colpro, ce));
 				editorMap.put(key, ce);
 				setItemEditor(table, item, ce, row, c);
-			} else {
-				// ce.getControl().setBounds(item.getBounds(c));
-				// System.out.println("skip at refresh :" + row + "," + c);
-				// disposeEditor(key);
 			}
 			updateOptionEditor(ce, rec);
 			if (!ModelUtil.eq(colval, ce.getValue()))
 				ce.setValue(colval);
 		}
-		return updatedKey;
 	}
 
-	public void disposeEditorOf(int row) {
+	public void disposeEditor(int row) {
 		Table table = getTable();
 		for (int c = 0; c < table.getColumnCount(); c++) {
 			String key = row + "-" + c;
