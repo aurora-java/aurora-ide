@@ -21,16 +21,23 @@ public class Record implements IDesignerConst {
 	}
 
 	public final void put(String key, Object value) {
+		put(key, value, true);
+	}
+
+	public final void put(String key, Object value, boolean notify) {
 		String okey = key;
 		if (key != null)
 			key = key.toLowerCase();
 		Object old = map.get(key);
 		map.put(key, value);
-		if (old == null && value == null)
-			return;
-		if ((old == null && value != null) || (old != null && value == null)
-				|| (!old.equals(value)))
+		if (notify && !eq(old, value))
 			firePropertyChange(okey, old, value);
+	}
+
+	protected boolean eq(Object o1, Object o2) {
+		if (o1 == null)
+			return o2 == null;
+		return o1.equals(o2);
 	}
 
 	public String getString(String key) {
@@ -50,7 +57,7 @@ public class Record implements IDesignerConst {
 	}
 
 	public void setNum(int num) {
-		put(COLUMN_NUM, num);
+		put(COLUMN_NUM, num, false);
 	}
 
 	public String getPrompt() {
