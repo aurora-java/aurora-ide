@@ -120,9 +120,9 @@
         point="org.eclipse.core.runtime.contentTypes">
      <content-type
            default-charset="UTF-8"
-           file-extensions="uip"
-           id="aurora.ide.meta.uip"
-           name="Aurora UIP File"
+           file-extensions="uip,bmq"
+           id="aurora.ide.meta.contenttype"
+           name="Aurora Prototype File"
            priority="normal">
      </content-type>
   </extension>
