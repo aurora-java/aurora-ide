@@ -97,7 +97,8 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 		for (int r = 0; r < table.getItemCount(); r++) {
 			TableItem item = table.getItem(r);
 			Record record = (Record) item.getData();
-			CellEditor[] ces = getNewCellEditors(record);
+			CellEditor[] ces = getCellEditors();
+			CellEditor[] newCes = null;
 			for (int c = 0; c < ces.length; c++) {
 				if (ces[c] == null)
 					continue;
@@ -115,7 +116,9 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 					}
 				}
 				if (ce == null) {
-					ce = ces[c];
+					if (newCes == null)
+						newCes = getNewCellEditors(record);
+					ce = newCes[c];
 					setItemEditor(table, item, ce, r, c);
 					RecordCellEditorListener lis = new RecordCellEditorListener(
 							record, colpro, ce);
@@ -155,7 +158,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 
 	private void updateEditorOfRecord(Record rec, Table table, TableItem item,
 			int row) {
-		CellEditor[] ces = getNewCellEditors(rec);
+		CellEditor[] ces = getCellEditors();
 		for (int c = 0; c < ces.length; c++) {
 			if (ces[c] == null)
 				continue;
@@ -164,7 +167,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 			String key = row + "-" + c;
 			CellEditor ce = editorMap.get(key);
 			if (ce == null) {
-				ce = ces[c];
+				ce = getNewCellEditors(rec)[c];
 				ce.addListener(new RecordCellEditorListener(rec, colpro, ce));
 				editorMap.put(key, ce);
 				setItemEditor(table, item, ce, row, c);
@@ -318,6 +321,8 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 					return;
 				Control ctrl = ce.getControl();
 				ctrl.forceFocus();
+				setSelection(new StructuredSelection(getTable().getItem(nextR)
+						.getData()));
 				if (ctrl instanceof Text) {
 					((Text) ctrl).selectAll();
 				}
