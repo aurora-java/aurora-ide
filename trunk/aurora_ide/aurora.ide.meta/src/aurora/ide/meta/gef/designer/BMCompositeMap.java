@@ -160,7 +160,7 @@ public class BMCompositeMap {
 		if (map == null || property == null)
 			return null;
 		for (Object key : map.keySet()) {
-			if (key.toString().equalsIgnoreCase(property))
+			if (key != null && key.toString().equalsIgnoreCase(property))
 				return map.getString(key);
 		}
 		return null;
