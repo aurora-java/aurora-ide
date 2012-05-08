@@ -59,6 +59,11 @@ public class NewWizardPage extends WizardPage {
 		} else if (r instanceof IFile) {
 			r = ((IFile) r).getParent();
 		}
+		if (r instanceof IFolder) {
+			if (r.getLocation().toString().indexOf("ui_prototype") < 0) {
+				r = r.getProject();
+			}
+		}
 		metaFolder = r;
 	}
 
@@ -131,10 +136,10 @@ public class NewWizardPage extends WizardPage {
 				if (dialog.open() == Dialog.OK && dialog.getResult().length != 0) {
 					String path = dialog.getResult()[0].toString();
 					IResource container = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
-					if (!setPath(container)) {
-						txtPath.setText(path);
-					} else {
+					if (setPath(container)) {
 						txtFile.setFocus();
+					} else {
+						txtPath.setText(path);
 					}
 				}
 			}
@@ -194,6 +199,8 @@ public class NewWizardPage extends WizardPage {
 
 		if (setPath(metaFolder)) {
 			txtFile.setFocus();
+			updateStatus(null);
+			setPageComplete(false);
 		}
 		lblDesc = new Label(container, SWT.WRAP);
 		lblDesc.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
