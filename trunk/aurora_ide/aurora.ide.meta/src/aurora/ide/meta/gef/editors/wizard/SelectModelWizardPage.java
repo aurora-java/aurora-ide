@@ -105,6 +105,7 @@ public class SelectModelWizardPage extends WizardPage {
 		} else {
 			fillViewDiagram();
 			setPageComplete(true);
+			modify = true;
 		}
 
 		if (TemplateHelper.getInstance().getInitBms() != null && TemplateHelper.getInstance().getInitBms().size() > 0) {
