@@ -25,6 +25,8 @@ import aurora.ide.search.cache.CacheManager;
 
 public class AuroraMetaProject {
 
+	private static final String CONFIG_FILE_NAME = ".prototype";
+
 	private IProject project;
 
 	private static final String UIP_HOME = "ui_prototype";
@@ -101,7 +103,7 @@ public class AuroraMetaProject {
 
 	private String getPersistentProperty(String key)
 			throws ResourceNotFoundException {
-		IFile config = this.getProject().getFile(".aurora");
+		IFile config = this.getProject().getFile(CONFIG_FILE_NAME);
 		if (config.exists()) {
 			try {
 				CompositeMap map = CacheManager.getCompositeMap(config);
@@ -116,7 +118,7 @@ public class AuroraMetaProject {
 	}
 
 	private String setPersistentProperty(String key, String value) {
-		IFile config = this.getProject().getFile(".aurora");
+		IFile config = this.getProject().getFile(CONFIG_FILE_NAME);
 		CompositeMap map = new CompositeMap("config");
 		if (config.exists()) {
 			try {
