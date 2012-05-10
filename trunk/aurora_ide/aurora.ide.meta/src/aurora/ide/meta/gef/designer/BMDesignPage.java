@@ -49,6 +49,7 @@ import aurora.ide.meta.gef.designer.editor.RelationEditDialog;
 import aurora.ide.meta.gef.designer.editor.RelationViewer;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
+import aurora.ide.meta.gef.designer.model.RecordPropertyChangeEvent;
 import aurora.ide.meta.gef.designer.model.Relation;
 import aurora.ide.meta.popup.actions.OpenBMofBmqAction;
 
@@ -480,12 +481,10 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 			setDirty(true);
 			return;
 		}
-		String[] pns = evt.getPropertyName().split(
-				DesignerMessages.BMDesignPage_14);
-		if (pns.length == 3 && pns[0].equals(Record.class.getSimpleName())) {
+		if (evt instanceof RecordPropertyChangeEvent) {
+			Record r = (Record) evt.getSource();
 			Object old = evt.getOldValue();
-			if (old != null && !old.equals(DesignerMessages.BMDesignPage_15)) {
-				Record r = model.getAt(Integer.parseInt(pns[1]) - 1);
+			if (old != null && !old.equals("")) {
 				viewer.refresh(r);
 			}
 		}
@@ -501,11 +500,11 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 				break;
 			}
 		}
+		defaultDisplayViewer.refresh();
 		if (needUpdate) {
 			defaultDisplayViewer.setSelection(new StructuredSelection(list
 					.get(0)));
 		}
-		defaultDisplayViewer.refresh();
 	}
 
 	public BMModel getModel() {
