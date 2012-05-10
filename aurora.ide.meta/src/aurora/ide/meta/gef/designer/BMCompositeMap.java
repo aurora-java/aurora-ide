@@ -39,7 +39,7 @@ public class BMCompositeMap {
 	 */
 	public BMCompositeMap(CompositeMap map) {
 		if (map == null)
-			throw new RuntimeException("parameter can not be null.");
+			throw new NullPointerException("parameter can not be null.");
 		this.bmMap = map;
 	}
 
@@ -157,10 +157,16 @@ public class BMCompositeMap {
 	 * @return
 	 */
 	public static String getMapAttribute(CompositeMap map, String property) {
-		if (map == null || property == null)
-			return null;
+		if (map == null)
+			throw new NullPointerException("parameter map can not be null.");
+		if (property == null)
+			return map.getString(null);
+		// try to get value directly,maybe avoid loss of performance
+		String value = map.getString(property);
+		if (value != null)
+			return value;
 		for (Object key : map.keySet()) {
-			if (key != null && key.toString().equalsIgnoreCase(property))
+			if (key != null && property.equalsIgnoreCase(key.toString()))
 				return map.getString(key);
 		}
 		return null;
@@ -230,19 +236,19 @@ public class BMCompositeMap {
 	 * @param nodeName
 	 * @return
 	 */
-	List<CompositeMap> getChildsOf(String nodeName) {
+	List<CompositeMap> getChildOf(String nodeName) {
 		CompositeMap map = bmMap.getChild(nodeName);
 		return getChild(map);
 	}
 
 	/**
-	 * {@link #getChildsOf(String)}
+	 * {@link #getChildOf(String)}
 	 * 
 	 * @return
 	 */
 	public List<CompositeMap> getFields() {
 		if (fields == null)
-			fields = getChildsOf("fields");
+			fields = getChildOf("fields");
 		return fields;
 	}
 
@@ -283,49 +289,49 @@ public class BMCompositeMap {
 
 	/**
 	 * get all defined pk-fields under node <b>primary-key</b><br/>
-	 * {@link #getChildsOf(String)}
+	 * {@link #getChildOf(String)}
 	 * 
 	 * @return
 	 */
 	public List<CompositeMap> getPrimaryKeys() {
 		if (primaryKeys == null)
-			primaryKeys = getChildsOf("primary-key");
+			primaryKeys = getChildOf("primary-key");
 		return primaryKeys;
 	}
 
 	/**
 	 * get all defined relations under node <b>relations</b><br/>
-	 * {@link #getChildsOf(String)}
+	 * {@link #getChildOf(String)}
 	 * 
 	 * @return
 	 */
 	public List<CompositeMap> getRelations() {
 		if (relations == null)
-			relations = getChildsOf("relations");
+			relations = getChildOf("relations");
 		return relations;
 	}
 
 	/**
 	 * get all defined ref-fields under node <b>ref-fields</b><br/>
-	 * {@link #getChildsOf(String)}
+	 * {@link #getChildOf(String)}
 	 * 
 	 * @return
 	 */
 	public List<CompositeMap> getRefFields() {
 		if (refFields == null)
-			refFields = getChildsOf("ref-fields");
+			refFields = getChildOf("ref-fields");
 		return refFields;
 	}
 
 	/**
 	 * get all defined query-fields under node <b>query-fields</b><br/>
-	 * {@link #getChildsOf(String)}
+	 * {@link #getChildOf(String)}
 	 * 
 	 * @return
 	 */
 	public List<CompositeMap> getQueryFields() {
 		if (queryFields == null)
-			queryFields = getChildsOf("query-fields");
+			queryFields = getChildOf("query-fields");
 		return queryFields;
 	}
 
