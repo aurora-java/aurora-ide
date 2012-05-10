@@ -37,21 +37,17 @@ public class BMModel {
 	private PropertyChangeListener recordListener = new PropertyChangeListener() {
 
 		public void propertyChange(PropertyChangeEvent evt) {
-			Record r = (Record) evt.getSource();
-			firePropertyChange(Record.class.getSimpleName() + ":" + r.getNum()
-					+ ":" + evt.getPropertyName(), evt.getOldValue(),
-					evt.getNewValue());
+			RecordPropertyChangeEvent event = new RecordPropertyChangeEvent(evt);
+			firePropertyChange(event);
 		}
 	};
 
 	private PropertyChangeListener relationListener = new PropertyChangeListener() {
 
 		public void propertyChange(PropertyChangeEvent evt) {
-			Record r = (Record) evt.getSource();
-			firePropertyChange(
-					Relation.class.getSimpleName() + ":" + r.getNum() + ":"
-							+ evt.getPropertyName(), evt.getOldValue(),
-					evt.getNewValue());
+			RelationPropertyChangeEvent event = new RelationPropertyChangeEvent(
+					evt);
+			firePropertyChange(event);
 		}
 	};
 
@@ -253,6 +249,10 @@ public class BMModel {
 
 	protected void fireStructureChange(String prop, Object child) {
 		listeners.firePropertyChange(prop, null, child);
+	}
+
+	protected void firePropertyChange(PropertyChangeEvent event) {
+		listeners.firePropertyChange(event);
 	}
 
 	public String getTitle() {
