@@ -209,7 +209,7 @@ public class ProjectGenerator {
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
-		if(is == null){
+		if (is == null) {
 			return;
 		}
 		if (newFile.exists() && isOverlap) {
@@ -283,6 +283,8 @@ public class ProjectGenerator {
 		List<ILink> links = sg.getLinks();
 		for (ILink link : links) {
 			String openPath = ((ILink) link).getOpenPath();
+			if (null == openPath || "".equals(openPath))
+				continue;
 			IPath p = new Path(openPath);
 			if ("uip".equalsIgnoreCase(p.getFileExtension())) {
 				IFile fCurrentFile = this.screenFolder.getFile(p);
@@ -293,9 +295,9 @@ public class ProjectGenerator {
 						(ILink) link, newFile);
 				dsg.setIdGenerator(sg.getIdGenerator());
 				try {
-//					if (newFile.exists()) {
-//						continue;
-//					}
+					// if (newFile.exists()) {
+					// continue;
+					// }
 					ViewDiagram loadFile = this.loadFile(fCurrentFile);
 					if (loadFile == null)
 						continue;
