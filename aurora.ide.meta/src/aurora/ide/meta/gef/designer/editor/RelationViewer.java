@@ -50,8 +50,12 @@ public class RelationViewer extends TableViewer implements IDesignerConst {
 		column = new TableColumn(table, SWT.NONE);
 		column.setText(DesignerMessages.RelationViewer_5);
 		column.setWidth(100);
+		column = new TableColumn(table, SWT.NONE);
+		column.setText("Ref-Field");
+		column.setWidth(100);
 		setContentProvider(new BMModelContentProvider(BMModel.RELATION));
-		setLabelProvider(new BMModelLabelProvider(BMModel.RELATION));
+		setLabelProvider(new BMModelLabelProvider(BMModel.RELATION,
+				COLUMN_PROPERTIES));
 		setColumnProperties(COLUMN_PROPERTIES);
 		setCellModifier(new BMModelCellModifier(this, BMModel.RELATION));
 	}

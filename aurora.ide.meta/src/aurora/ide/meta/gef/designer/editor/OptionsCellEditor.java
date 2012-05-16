@@ -5,6 +5,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 
 import aurora.ide.AuroraPlugin;
@@ -39,8 +40,12 @@ public class OptionsCellEditor extends DialogCellEditor {
 
 	@Override
 	protected void doSetValue(Object value) {
-		if (value != null)
-			getLabel().setText(value.toString());
+		CLabel l = getLabel();
+		if (value != null) {
+			l.setText(value.toString());
+			l.setToolTipText(value.toString());
+		}
+		l.setToolTipText(null);
 	}
 
 	protected void showDialog() {

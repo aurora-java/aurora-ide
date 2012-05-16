@@ -75,16 +75,17 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 		column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
 		column.setText(DesignerMessages.BMModelViewer_5);
-		column.setWidth(100);
-		column = new TableColumn(table, SWT.NONE);
-		column.setText(DesignerMessages.BMModelViewer_6);
-		column.setWidth(100);
+		column.pack();
+		// column = new TableColumn(table, SWT.NONE);
+		// column.setText(DesignerMessages.BMModelViewer_6);
+		// column.setWidth(100);
 		column = new TableColumn(table, SWT.NONE);
 		column.setText("Options");
-		column.setWidth(200);
+		column.setWidth(100);
 		// ///////
 		setContentProvider(new BMModelContentProvider(BMModel.RECORD));
-		setLabelProvider(new BMModelLabelProvider(BMModel.RECORD));
+		setLabelProvider(new BMModelLabelProvider(BMModel.RECORD,
+				TABLE_COLUMN_PROPERTIES));
 		setCellModifier(new BMModelCellModifier(this, BMModel.RECORD));
 		setColumnProperties(TABLE_COLUMN_PROPERTIES);
 		setCellEditors(getNewCellEditors(null));
@@ -224,8 +225,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 				new ComboBoxCellEditor(table, data_types),
 				new StringCellEditor(table),
 				new ComboBoxCellEditor(table, editor_types),
-				new BooleanCellEditor(table),
-				new ComboBoxCellEditor(table, ss), new OptionsCellEditor(table) };
+				new BooleanCellEditor(table), new OptionsCellEditor(table) };
 	}
 
 	private String[] getOperators(String displayType) {
