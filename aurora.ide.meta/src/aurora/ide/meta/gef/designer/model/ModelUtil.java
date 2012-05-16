@@ -59,9 +59,18 @@ public class ModelUtil implements IDesignerConst {
 		if (r == null)
 			return null;
 		String[] keys = TABLE_COLUMN_PROPERTIES;
+		ArrayList<String> keyList = new ArrayList<String>();
 		for (int i = 2; i < keys.length; i++) {
-			map.put(keys[i], r.get(keys[i]));
+			keyList.add(keys[i]);
 		}
+		keyList.add(COLUMN_QUERYFIELD);
+		keyList.add(FOR_INSERT);
+		keyList.add(FOR_UPDATE);
+		keyList.add(FOR_QUERY);
+		keyList.add(FOR_DISPLAY);
+		keyList.add(FOR_LOV);
+		for (String k : keyList)
+			map.put(k, r.get(k));
 		return map;
 	}
 
@@ -134,6 +143,12 @@ public class ModelUtil implements IDesignerConst {
 				r.put(keys[i], map.getBoolean(keys[i]));
 			r.put(keys[i], map.get(keys[i]));
 		}
+		r.put(COLUMN_QUERYFIELD, map.get(COLUMN_QUERYFIELD));
+		r.put(FOR_INSERT, map.getBoolean(FOR_INSERT));
+		r.put(FOR_UPDATE, map.getBoolean(FOR_UPDATE));
+		r.put(FOR_QUERY, map.getBoolean(FOR_QUERY));
+		r.put(FOR_DISPLAY, map.getBoolean(FOR_DISPLAY));
+		r.put(FOR_LOV, map.getBoolean(FOR_LOV));
 		return r;
 	}
 
@@ -196,5 +211,27 @@ public class ModelUtil implements IDesignerConst {
 		if (o1 == null)
 			return o2 == null;
 		return o1.equals(o2);
+	}
+
+	public static String join(List<String> list, String sep) {
+		StringBuilder sb = new StringBuilder();
+		if (list.size() > 0)
+			sb.append(list.get(0));
+		for (int i = 1; i < list.size(); i++) {
+			sb.append(sep);
+			sb.append(list.get(i));
+		}
+		return sb.toString();
+	}
+
+	public static String join(String[] ss, String sep) {
+		StringBuilder sb = new StringBuilder();
+		if (ss.length > 0)
+			sb.append(ss[0]);
+		for (int i = 1; i < ss.length; i++) {
+			sb.append(sep);
+			sb.append(ss[i]);
+		}
+		return sb.toString();
 	}
 }
