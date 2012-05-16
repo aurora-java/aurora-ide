@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.gef.designer.IDesignerConst;
+import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.editors.property.ResourceSelector;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
@@ -38,6 +39,7 @@ public class BaseInfoWizardPage extends WizardPage {
 	private Text text_dir;
 	private Text text_fileName;
 	private Text text;
+	private BMModel model;
 
 	/**
 	 * Create the wizard.
@@ -134,7 +136,8 @@ public class BaseInfoWizardPage extends WizardPage {
 	private void format() {
 		String str = text.getText();
 		StringBuilder sb = new StringBuilder(str.length());
-		StringTokenizer st = new StringTokenizer(str, Messages.BaseInfoWizardPage_1); 
+		StringTokenizer st = new StringTokenizer(str,
+				Messages.BaseInfoWizardPage_1);
 		while (st.hasMoreElements())
 			sb.append(st.nextElement() + "\n"); //$NON-NLS-1$
 		text.setText(sb.toString());
@@ -258,6 +261,14 @@ public class BaseInfoWizardPage extends WizardPage {
 				+ fn;
 	}
 
+	public String getShortName() {
+		String fn = text_fileName.getText();
+		int idx = fn.indexOf('.');
+		if (idx != -1)
+			return fn.substring(0, idx);
+		return fn;
+	}
+
 	public String[] getPreInput() {
 		format();
 		String input = text.getText();
@@ -266,5 +277,9 @@ public class BaseInfoWizardPage extends WizardPage {
 		for (int i = 0; st.hasMoreElements(); i++)
 			ss[i] = st.nextToken();
 		return ss;
+	}
+
+	public void setModel(BMModel model) {
+		this.model = model;
 	}
 }
