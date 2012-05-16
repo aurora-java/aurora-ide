@@ -1,6 +1,6 @@
 package aurora.ide.meta.gef.designer;
 
-import aurora.ide.meta.gef.designer.editor.BMModelViewer;
+import aurora.ide.meta.gef.designer.model.Relation;
 
 public interface IDesignerConst {
 	String EXTENSION = "bmq"; //$NON-NLS-1$
@@ -17,16 +17,16 @@ public interface IDesignerConst {
 
 	String[] TABLE_COLUMN_PROPERTIES = { "", COLUMN_NUM, COLUMN_PROMPT, //$NON-NLS-1$
 			COLUMN_TYPE, COLUMN_NAME, COLUMN_EDITOR, COLUMN_QUERYFIELD,
-			COLUMN_QUERY_OP, COLUMN_OPTIONS };
+			COLUMN_OPTIONS };
 	// relationviewer column properties
 	String COLUMN_RELNAME = "rel_name"; //$NON-NLS-1$
 	String COLUMN_REFMODEL = "ref_model"; //$NON-NLS-1$
 	String COLUMN_LOCFIELD = "loc_field"; //$NON-NLS-1$
 	String COLUMN_SRCFIELD = "src_field"; //$NON-NLS-1$
 	String COLUMN_JOINTYPE = "join_type"; //$NON-NLS-1$
-	String[] COLUMN_PROPERTIES = { "", BMModelViewer.COLUMN_NUM, //$NON-NLS-1$
+	String[] COLUMN_PROPERTIES = { "", COLUMN_NUM, //$NON-NLS-1$
 			COLUMN_RELNAME, COLUMN_REFMODEL, COLUMN_LOCFIELD, COLUMN_SRCFIELD,
-			COLUMN_JOINTYPE };
+			COLUMN_JOINTYPE, Relation.REF_PROMPTS };
 
 	// query operator
 	String OP_EQ = "="; //$NON-NLS-1$
@@ -56,5 +56,13 @@ public interface IDesignerConst {
 	String AE_QUERY = "query"; //$NON-NLS-1$
 	String AE_UPDATE = "update"; //$NON-NLS-1$
 	String AE_MAINTAIN = "maintain"; //$NON-NLS-1$
-	String[] AE_TYPES = { AE_LOV, AE_QUERY, AE_UPDATE, AE_MAINTAIN };
+	String[] AE_TYPES = { AE_LOV, AE_QUERY, AE_MAINTAIN };
+	//
+	String FOR_UPDATE = "forUpdate";
+	String FOR_INSERT = "forInsert";
+	String FOR_DISPLAY = "forDisplay";
+	String FOR_QUERY = "forQuery";
+	String INSERT_EXPRESSION = "insertExpression";
+	String UPDATE_EXPRESSION = "updateExpression";
+	String FOR_LOV = "forLov";
 }
