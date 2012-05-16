@@ -1,12 +1,13 @@
 package aurora.ide.meta.gef.designer.gen;
 
-import uncertain.composite.CompositeMap;
+import org.eclipse.core.resources.IFile;
 
-public class ForUpdateBmGenerator extends AbstractBmGenerator {
+import aurora.ide.meta.gef.designer.model.BMModel;
 
-	@Override
-	protected void setUpModelMap(CompositeMap modelMap) {
+public class ForUpdateBmGenerator extends ForMaintainBmGenerator {
 
+	public ForUpdateBmGenerator(BMModel model, IFile baseBMFile) {
+		super(model, baseBMFile);
 	}
 
 }

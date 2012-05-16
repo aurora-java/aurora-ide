@@ -30,12 +30,12 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 			} else if (IDesignerConst.AE_MAINTAIN.equals(type)) {
 				bmg = new ForMaintainBmGenerator(model, bmFile);
 			} else if (IDesignerConst.AE_UPDATE.equals(type)) {
+				continue;
+				// bmg = new ForUpdateBmGenerator(model, bmFile);
 			} else {
 				// System.out.println("unknown auto extend mode : " + type);
 				continue;
 			}
-			if (bmg == null)
-				continue;
 			CompositeMap map = bmg.gen();
 			try {
 				if (map != null)
