@@ -50,8 +50,12 @@ public class ForMaintainBmGenerator extends AbstractBmGenerator {
 		for (Record r : model.getRecords(true)) {
 			CompositeMap m = newCompositeMap("field");
 			m.put("name", r.getName());
-			m.put("forInsert", r.isForInsert());
-			m.put("forUpdate", r.isForUpdate());
+			String ie = r.getInsertExpression();
+			if (ie != null && ie.length() > 0)
+				m.put("insertExpression", ie);
+			String ue = r.getInsertExpression();
+			if (ue != null && ie.length() > 0)
+				m.put("updateExpression", ue);
 			fieldsMap.addChild(m);
 		}
 

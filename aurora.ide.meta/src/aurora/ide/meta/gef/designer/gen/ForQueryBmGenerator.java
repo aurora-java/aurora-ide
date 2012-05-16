@@ -30,7 +30,6 @@ public class ForQueryBmGenerator extends ForMaintainBmGenerator {
 	@Override
 	protected void setUpModelMap(CompositeMap modelMap) {
 		genRefFieldMap(modelMap);
-		super.setUpModelMap(modelMap);
 	}
 
 	protected void genRefFieldMap(CompositeMap modelMap) {
