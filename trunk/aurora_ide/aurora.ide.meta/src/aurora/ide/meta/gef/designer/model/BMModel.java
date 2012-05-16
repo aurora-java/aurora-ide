@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 
-public class BMModel {
+public class BMModel implements IDesignerConst {
 	public static final String STRUCTURE_RECORD = "structure_record";
 	public static final String STRUCTURE_RELATION = "structure_relation";
 	public static final String TITLE = "title";
@@ -25,15 +24,7 @@ public class BMModel {
 	private String title = "";
 	private String autoExtend = "";
 	private String defaultDiaplay = "";
-	private Record pkRecord = new Record() {
-		{
-			setName("default_pk_name");// this name should be reset
-			setPrompt("primary-key");
-			setType(DataType.BIGNIT.getDisplayType());
-			put(IDesignerConst.COLUMN_QUERYFIELD, "true");
-			put(IDesignerConst.COLUMN_QUERY_OP, "=");
-		}
-	};
+	private Record pkRecord = new PkRecord();
 	private PropertyChangeListener recordListener = new PropertyChangeListener() {
 
 		public void propertyChange(PropertyChangeEvent evt) {
@@ -76,9 +67,32 @@ public class BMModel {
 		return null;
 	}
 
+	/**
+	 * get all record without pk field
+	 * 
+	 * @see #getRecords(boolean)
+	 * @return
+	 */
 	public Record[] getRecords() {
 		Record[] rcds = new Record[records.size()];
 		records.toArray(rcds);
+		return rcds;
+	}
+
+	/**
+	 * get all record
+	 * 
+	 * @see #getRecords()
+	 * @param includePk
+	 * @return
+	 */
+	public Record[] getRecords(boolean includePk) {
+		ArrayList<Record> list = new ArrayList<Record>(records.size() + 1);
+		if (includePk)
+			list.add(pkRecord);
+		list.addAll(records);
+		Record[] rcds = new Record[list.size()];
+		list.toArray(rcds);
 		return rcds;
 	}
 
@@ -270,7 +284,15 @@ public class BMModel {
 	}
 
 	public void setAutoExtends(String string) {
+		if (ModelUtil.eq(autoExtend, string))
+			return;
+		String old = this.autoExtend;
 		this.autoExtend = string;
+		firePropertyChange(AUTOEXTEND, old, string);
+	}
+
+	public void setAutoExtendsArray(String[] strs) {
+		setAutoExtends(ModelUtil.join(strs, "|"));
 	}
 
 	/**

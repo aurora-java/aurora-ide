@@ -64,12 +64,7 @@ public class Relation extends Record implements IDesignerConst {
 	}
 
 	public void setRefPromptsArray(String[] prompts) {
-		StringBuilder sb = new StringBuilder();
-		if (prompts.length > 0) {
-			sb.append(prompts[0]);
-			for (int i = 1; i < prompts.length; i++)
-				sb.append("," + prompts[i]);
-		}
-		setRefPrompts(sb.toString());
+		String refp = ModelUtil.join(prompts, ",");
+		setRefPrompts(refp);
 	}
 }

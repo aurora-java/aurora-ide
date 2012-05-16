@@ -92,7 +92,7 @@ public class Record implements IDesignerConst {
 		else if (obj instanceof Boolean) {
 			return (Boolean) obj;
 		} else if (obj instanceof String)
-			return obj.equals("true");
+			return Boolean.parseBoolean((String) obj);
 		return false;
 	}
 
@@ -150,5 +150,61 @@ public class Record implements IDesignerConst {
 
 	public void setEditor(String editor) {
 		put(COLUMN_EDITOR, editor);
+	}
+
+	public boolean isForUpdate() {
+		return getBoolean(FOR_UPDATE);
+	}
+
+	public void setForUpdate(boolean update) {
+		put(FOR_UPDATE, update);
+	}
+
+	public boolean isForInsert() {
+		return getBoolean(FOR_INSERT);
+	}
+
+	public void setForInsert(boolean insert) {
+		put(FOR_INSERT, insert);
+	}
+
+	public boolean isForDisplay() {
+		return getBoolean(FOR_DISPLAY);
+	}
+
+	public void setForDisplay(boolean display) {
+		put(FOR_DISPLAY, display);
+	}
+
+	public boolean isForQuery() {
+		return getBoolean(FOR_QUERY);
+	}
+
+	public void setForQuery(boolean query) {
+		put(FOR_QUERY, query);
+	}
+
+	public boolean isForLov() {
+		return getBoolean(FOR_LOV);
+	}
+
+	public void setForLov(boolean lov) {
+		put(FOR_LOV, lov);
+	}
+
+	public String getUpdateExpression() {
+		return getStringNotNull(UPDATE_EXPRESSION);
+	}
+
+	public void setUpdateExpression(String exp) {
+		put(UPDATE_EXPRESSION, exp);
+	}
+
+	public String getInsertExpression() {
+		return getStringNotNull(INSERT_EXPRESSION);
+	}
+
+	public void setInsertExpression(String exp) {
+		put(INSERT_EXPRESSION, exp);
 	}
 }
