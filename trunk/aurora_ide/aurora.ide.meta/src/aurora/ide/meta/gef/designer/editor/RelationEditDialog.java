@@ -374,7 +374,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(430, 414);
+		return new Point(430, 450);
 	}
 
 	/**

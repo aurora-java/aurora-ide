@@ -7,6 +7,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
+import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 
@@ -14,16 +15,27 @@ public class BMModelLabelProvider extends BaseLabelProvider implements
 		ITableLabelProvider, ITableColorProvider, ILabelProvider {
 	private Color COLOR_ODD = new Color(null, 245, 255, 255);
 	private Color COLOR_EVEN = new Color(null, 255, 255, 255);
-	private int columnNumIndx = 1;
 	private int type = BMModel.RECORD;
+	private String[] column_properties;
 
 	public BMModelLabelProvider(int type) {
 		super();
 		this.type = type;
 	}
 
+	public BMModelLabelProvider(int type, String[] properties) {
+		this.type = type;
+		this.column_properties = properties;
+	}
+
+	private String getProperty(int idx) {
+		if (column_properties == null || idx >= column_properties.length)
+			return null;
+		return column_properties[idx];
+	}
+
 	public Color getForeground(Object element, int columnIndex) {
-		if (columnIndex == columnNumIndx)
+		if (IDesignerConst.COLUMN_NUM.equals(getProperty(columnIndex)))
 			return new Color(null, 128, 128, 128);
 		return null;
 	}
@@ -39,16 +51,16 @@ public class BMModelLabelProvider extends BaseLabelProvider implements
 
 	public String getColumnText(Object element, int columnIndex) {
 		Record r = (Record) element;
-		if (columnIndex == columnNumIndx)
-			return "" + r.getNum();
+		// if (columnIndex == columnNumIndx)
+		// return "" + r.getNum();
+		// if (type == BMModel.RELATION)
 		// return
-		if (type == BMModel.RELATION)
-			return r.getStringNotNull(RelationViewer.COLUMN_PROPERTIES[columnIndex]);
-		return "";
+		// r.getStringNotNull(RelationViewer.COLUMN_PROPERTIES[columnIndex]);
+		// return "";
+		return r.getStringNotNull(getProperty(columnIndex));
 	}
 
 	public Image getImage(Object element) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
