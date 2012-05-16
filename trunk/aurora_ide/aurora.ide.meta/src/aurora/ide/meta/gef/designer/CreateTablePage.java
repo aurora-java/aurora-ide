@@ -4,8 +4,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.dialogs.IPageChangedListener;
-import org.eclipse.jface.dialogs.PageChangedEvent;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.text.Document;
@@ -16,6 +14,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
@@ -62,14 +61,6 @@ public class CreateTablePage extends FormPage {
 	 */
 	public CreateTablePage(FormEditor editor, String id, String title) {
 		super(editor, id, title);
-		editor.addPageChangedListener(new IPageChangedListener() {
-
-			public void pageChanged(PageChangedEvent event) {
-				if (event.getSelectedPage() == CreateTablePage.this) {
-					refresh();
-				}
-			}
-		});
 	}
 
 	public void setModel(BMModel model) {
@@ -83,9 +74,21 @@ public class CreateTablePage extends FormPage {
 		if (idx != -1)
 			name = name.substring(0, idx);
 		String sql = new SqlGenerator(model, name).gen();
-		if (!sql.equals(styledText.getText()))
+		if (!sql.equals(styledText.getText())) {
 			styledText.setText(sql);
+			ScrolledForm form = getManagedForm().getForm();
+			Point size = form.getSize();
+			form.pack();
+			form.setSize(size);
+		}
 		styledText.forceFocus();
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		super.setActive(active);
+		if (active)
+			refresh();
 	}
 
 	/**
@@ -97,15 +100,13 @@ public class CreateTablePage extends FormPage {
 	protected void createFormContent(IManagedForm managedForm) {
 		FormToolkit toolkit = managedForm.getToolkit();
 		ScrolledForm sform = managedForm.getForm();
+		sform.setLayout(new FillLayout(SWT.HORIZONTAL));
 		sform.setText("SQL Source Code");
-		Composite body = sform.getBody();
-		body.setLayout(new FillLayout(SWT.HORIZONTAL));
-
+		toolkit.decorateFormHeading(sform.getForm());
 		createActions(sform.getToolBarManager());
 
-		toolkit.decorateFormHeading(sform.getForm());
-		toolkit.paintBordersFor(sform);
-
+		Composite body = sform.getBody();
+		body.setLayout(new FillLayout(SWT.HORIZONTAL));
 		SourceViewer sourceViewer = new SourceViewer(body, null, SWT.BORDER
 				| SWT.H_SCROLL | SWT.V_SCROLL);
 		sourceViewer.configure(new SQLConfiguration(new ColorManager()));
@@ -115,7 +116,6 @@ public class CreateTablePage extends FormPage {
 		toolkit.paintBordersFor(styledText);
 		setFont();
 	}
-
 
 	private void setFont() {
 		@SuppressWarnings("deprecation")

@@ -4,7 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelection;
@@ -24,16 +24,14 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
@@ -51,7 +49,6 @@ import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.RecordPropertyChangeEvent;
 import aurora.ide.meta.gef.designer.model.Relation;
-import aurora.ide.meta.popup.actions.OpenBMofBmqAction;
 
 public class BMDesignPage extends FormPage implements PropertyChangeListener {
 	private Text quickAddText;
@@ -69,7 +66,6 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 	private Button btnDelRelation;
 	private RelationViewer relationViewer;
 	private ComboViewer defaultDisplayViewer;
-	private Menu menu;
 
 	/**
 	 * Create the form page.
@@ -99,17 +95,16 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 	 */
 
 	protected void createFormContent(IManagedForm managedForm) {
-		// FormToolkit toolkit = managedForm.getToolkit();
+		FormToolkit toolkit = managedForm.getToolkit();
 		ScrolledForm form = managedForm.getForm();
-		// form.setText("BM Quick Designer");
-		// form.setLayout(null);
+		form.setLayout(new FillLayout(SWT.HORIZONTAL));
+		if (model != null)
+			form.getForm().setText(model.getTitle());
+		toolkit.decorateFormHeading(form.getForm());
+		createActions(form.getToolBarManager());
 
 		Composite body = form.getBody();
-		createPopMenu(body);
-		body.setMenu(menu);
 		body.setLayout(new GridLayout(2, false));
-		// toolkit.decorateFormHeading(form.getForm());
-		// toolkit.paintBordersFor(body);
 		createTitleControl(body);
 		createQuickInputControl(managedForm);
 		SashForm sh = new SashForm(body, SWT.VERTICAL);
@@ -125,22 +120,15 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 		createRelationTable(com2);
 		new Label(com2, SWT.NONE);
 		sh.setWeights(new int[] { 2, 1 });
-		setUpMenu(body);
 	}
 
-	private void setUpMenu(Composite parent) {
-		for (Control c : parent.getChildren()) {
-			if (c instanceof Composite) {
-				if (c instanceof SashForm)
-					c.setMenu(menu);
-				else if (c.getClass().equals(Composite.class))
-					c.setMenu(menu);
-				if (c instanceof Table)
-					continue;
-				setUpMenu((Composite) c);
-			} else if (c instanceof Label)
-				c.setMenu(menu);
-		}
+	private void createActions(IToolBarManager toolBarManager) {
+		BMDesigner designer = (BMDesigner) getEditor();
+		toolBarManager.add(new OpenBMAction(designer.getInputFile(), designer));
+		toolBarManager.add(new SettingAction(model, designer));
+
+		// end
+		toolBarManager.update(true);
 	}
 
 	private void createTitleControl(Composite body) {
@@ -216,23 +204,6 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 						}
 					}
 				});
-	}
-
-	private void createPopMenu(Composite parent) {
-		menu = new Menu(parent);
-
-		MenuItem mntmOpenBm = new MenuItem(menu, SWT.NONE);
-		mntmOpenBm.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				OpenBMofBmqAction act = new OpenBMofBmqAction();
-				act.selectionChanged(null, new StructuredSelection(getEditor()
-						.getAdapter(IFile.class)));
-				act.setActivePart(null, getEditor());
-				act.run(null);
-			}
-		});
-		mntmOpenBm.setText(DesignerMessages.BMDesignPage_mntmOpenBm_text);
 	}
 
 	private void createQuickInputControl(IManagedForm managedForm) {
@@ -441,10 +412,9 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 						ISelection s = event.getSelection();
 						if (s instanceof IStructuredSelection) {
 							IStructuredSelection ss = (IStructuredSelection) s;
-							@SuppressWarnings("unchecked")
-							List<Relation> list = ss.toList();
-							btnEditRelation.setEnabled(list.size() == 1);
-							btnDelRelation.setEnabled(list.size() > 0);
+							Object[] arr = ss.toArray();
+							btnEditRelation.setEnabled(arr.length == 1);
+							btnDelRelation.setEnabled(arr.length > 0);
 						}
 					}
 				});
@@ -481,11 +451,18 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 			setDirty(true);
 			return;
 		}
+		if (evt.getPropertyName().equals(BMModel.TITLE)) {
+			getManagedForm().getForm().getForm()
+					.setText((String) evt.getNewValue());
+		}
 		if (evt instanceof RecordPropertyChangeEvent) {
 			Record r = (Record) evt.getSource();
 			Object old = evt.getOldValue();
 			if (old != null && !old.equals("")) {
 				viewer.refresh(r);
+				if (IDesignerConst.COLUMN_PROMPT.equals(evt.getPropertyName())) {
+					defaultDisplayViewer.refresh();
+				}
 			}
 		}
 		setDirty(true);
