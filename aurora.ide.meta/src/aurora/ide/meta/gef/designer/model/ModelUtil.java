@@ -63,7 +63,7 @@ public class ModelUtil implements IDesignerConst {
 		for (int i = 2; i < keys.length; i++) {
 			keyList.add(keys[i]);
 		}
-		keyList.add(COLUMN_QUERYFIELD);
+		keyList.add(COLUMN_QUERY_OP);
 		keyList.add(FOR_INSERT);
 		keyList.add(FOR_UPDATE);
 		keyList.add(FOR_QUERY);
@@ -143,7 +143,7 @@ public class ModelUtil implements IDesignerConst {
 				r.put(keys[i], map.getBoolean(keys[i]));
 			r.put(keys[i], map.get(keys[i]));
 		}
-		r.put(COLUMN_QUERYFIELD, map.get(COLUMN_QUERYFIELD));
+		r.put(COLUMN_QUERY_OP, map.get(COLUMN_QUERY_OP));
 		r.put(FOR_INSERT, map.getBoolean(FOR_INSERT));
 		r.put(FOR_UPDATE, map.getBoolean(FOR_UPDATE));
 		r.put(FOR_QUERY, map.getBoolean(FOR_QUERY));
