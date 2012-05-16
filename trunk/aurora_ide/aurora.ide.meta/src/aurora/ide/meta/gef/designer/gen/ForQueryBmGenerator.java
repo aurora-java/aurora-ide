@@ -13,6 +13,14 @@ import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Relation;
 import aurora.ide.search.cache.CacheManager;
 
+/**
+ * override base bm , and add ref-fields ,query fields to it(feature from parent
+ * class)
+ * 
+ * @see ForMaintainBmGenerator
+ * @author jessen
+ * 
+ */
 public class ForQueryBmGenerator extends ForMaintainBmGenerator {
 
 	public ForQueryBmGenerator(BMModel model, IFile baseBMFile) {
@@ -22,7 +30,7 @@ public class ForQueryBmGenerator extends ForMaintainBmGenerator {
 	@Override
 	protected void setUpModelMap(CompositeMap modelMap) {
 		genRefFieldMap(modelMap);
-		genQueryFieldMap(modelMap);
+		super.setUpModelMap(modelMap);
 	}
 
 	protected void genRefFieldMap(CompositeMap modelMap) {
