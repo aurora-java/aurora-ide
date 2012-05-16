@@ -23,17 +23,16 @@ import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.designer.BMDesigner;
-import aurora.ide.meta.gef.designer.DesignerUtil;
 import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
-import aurora.ide.meta.gef.designer.model.Record;
 
 public class NewBmqWizard extends Wizard implements INewWizard {
 	private BaseInfoWizardPage page1 = new BaseInfoWizardPage();
 	private ExtensionWizardPage page2 = new ExtensionWizardPage();
 	private IWorkbench workbench;
 	private IResource resource;
+	private BMModel model = new BMModel();
 
 	public NewBmqWizard() {
 	}
@@ -42,8 +41,15 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 	public void addPages() {
 		super.addPages();
 		page1.setCurrentSelection(resource);
+		page1.setModel(model);
+		page2.setModel(model);
 		addPage(page1);
 		addPage(page2);
+	}
+
+	@Override
+	public boolean canFinish() {
+		return getContainer().getCurrentPage() == page2;
 	}
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
@@ -59,10 +65,8 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 		String fullPath = page1.getFileFullPath();
 		IFile file = ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(new Path(fullPath));
-		String[] input = page1.getPreInput();
 		String[] userSel = page2.getUserSelection();
-		CompositeMap map = createModel(input, userSel, file.getFullPath()
-				.removeFileExtension().lastSegment());
+		CompositeMap map = createModel(userSel);
 		String xml = BaseBmGenerator.xml_header + map.toXML();
 		try {
 			byte[] bs = xml.getBytes("UTF-8");
@@ -98,28 +102,8 @@ public class NewBmqWizard extends Wizard implements INewWizard {
 		return false;
 	}
 
-	CompositeMap createModel(String[] input, String[] userSel, String name) {
-		BMModel model = new BMModel();
-		String pre = name;
-		if (pre.length() > 3)
-			pre = pre.substring(0, 3);
-		model.setNamePrefix(pre + "_c");
-		model.setTitle(name);
-		Record r = model.getPkRecord();
-		r.setName(name + "_pk");
-		if (userSel.length > 0) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < userSel.length - 1; i++)
-				sb.append(userSel[i] + "|");
-			sb.append(userSel[userSel.length - 1]);
-			model.setAutoExtends(sb.toString());
-
-		}
-		for (String s : input)
-			model.add(DesignerUtil.createRecord(s));
-		if (model.getRecordList().size() > 0) {
-			model.setDefaultDisplay(model.getRecordList().get(0).getPrompt());
-		}
+	CompositeMap createModel(String[] userSel) {
+		model.setAutoExtendsArray(userSel);
 		CompositeMap map = ModelUtil.toCompositeMap(model);
 		return map;
 	}
