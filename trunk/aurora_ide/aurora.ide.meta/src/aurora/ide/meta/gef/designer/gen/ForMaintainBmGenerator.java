@@ -53,8 +53,8 @@ public class ForMaintainBmGenerator extends AbstractBmGenerator {
 			String ie = r.getInsertExpression();
 			if (ie != null && ie.length() > 0)
 				m.put("insertExpression", ie);
-			String ue = r.getInsertExpression();
-			if (ue != null && ie.length() > 0)
+			String ue = r.getUpdateExpression();
+			if (ue != null && ue.length() > 0)
 				m.put("updateExpression", ue);
 			fieldsMap.addChild(m);
 		}

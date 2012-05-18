@@ -126,7 +126,11 @@ public class BaseBmGenerator extends AbstractBmGenerator {
 		map.put("forUpdate", r.isForUpdate());
 		if (Input.Combo.equals(editor) || Input.LOV.equals(editor)) {
 			String options = r.getString(IDesignerConst.COLUMN_OPTIONS);
-			map.put("options", options);
+			if (dt.getDisplayType().equalsIgnoreCase(IDesignerConst.LOOKUPCODE)) {
+				map.put("lookupCode", options);
+				map.put("lookupField", r.getName() + "_lookup");
+			} else
+				map.put("options", options);
 		}
 		return map;
 	}
