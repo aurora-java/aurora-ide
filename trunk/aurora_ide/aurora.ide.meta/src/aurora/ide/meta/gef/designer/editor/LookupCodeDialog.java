@@ -38,6 +38,7 @@ import aurora.ide.AuroraPlugin;
 import aurora.ide.api.composite.map.CommentCompositeLoader;
 import aurora.ide.api.composite.map.CommentCompositeMapParser;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.project.AuroraMetaProject;
 
 public class LookupCodeDialog extends Dialog implements SelectionListener,
@@ -66,9 +67,9 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 			}
 			IFile sys_code_file = null;
 			if (folder != null)
-				sys_code_file = folder.getFile("sys_code.code");
+				sys_code_file = folder.getFile(DesignerMessages.sys_code_file_name); 
 			if (sys_code_file == null)
-				errorMessage = "Error while reading sys_code definition file.";
+				errorMessage = DesignerMessages.LookupCodeDialog_3;
 			else {
 				CommentCompositeLoader loader = new CommentCompositeLoader();
 				CommentCompositeMapParser parser = new CommentCompositeMapParser(
@@ -76,8 +77,8 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 				try {
 					codemap = parser.parseStream(sys_code_file.getContents());
 				} catch (Exception e) {
-					errorMessage = "Error while reading sys_code definition file.";
-					errorMessage += "\n" + e.getMessage();
+					errorMessage = DesignerMessages.LookupCodeDialog_3;
+					errorMessage += "\n" + e.getMessage(); //$NON-NLS-1$
 				}
 			}
 		}
@@ -90,14 +91,14 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		getShell().setText("Select lookupCode");
+		getShell().setText(DesignerMessages.LookupCodeDialog_2);
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(new GridLayout(2, false));
 
 		Label lblLookupcode = new Label(container, SWT.NONE);
 		lblLookupcode.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 				false, 1, 1));
-		lblLookupcode.setText("LookupCode : ");
+		lblLookupcode.setText(DesignerMessages.LookupCodeDialog_1);
 
 		text = new Text(container, SWT.BORDER);
 		text.addVerifyListener(new VerifyListener() {
@@ -114,7 +115,7 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 		Label lblcode = new Label(container, SWT.NONE);
 		lblcode.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
-		lblcode.setText("已定义Code : ");
+		lblcode.setText(DesignerMessages.LookupCodeDialog_0);
 		if (errorMessage != null) {
 			Text errText = new Text(container, SWT.MULTI | SWT.READ_ONLY);
 			errText.setText(errorMessage);
@@ -232,7 +233,7 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 
 		public Color getForeground(Object element) {
 			String t = getText(element);
-			if (t.contains("<"))// means error
+			if (t.contains("<"))// means error //$NON-NLS-1$
 				return new Color(null, 255, 0, 0);
 			if (LookupCodeUtil.isValue(element)) {
 				return new Color(null, 128, 128, 128);

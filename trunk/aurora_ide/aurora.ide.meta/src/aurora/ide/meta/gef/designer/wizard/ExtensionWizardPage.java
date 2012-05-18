@@ -36,8 +36,8 @@ public class ExtensionWizardPage extends WizardPage implements
 		MouseTrackListener, MouseMoveListener, SelectionListener {
 
 	private Tree tree;
-	private String[] infos = { Messages.ExtensionWizardPage_0,
-			Messages.ExtensionWizardPage_1, Messages.ExtensionWizardPage_2 };
+	private String[] infos = { Messages.ExtensionWizardPage_1,
+			Messages.ExtensionWizardPage_0, Messages.ExtensionWizardPage_2 };
 	private String[] defaultSelection = {};
 	private Shell tip;
 	private Label label = null;
