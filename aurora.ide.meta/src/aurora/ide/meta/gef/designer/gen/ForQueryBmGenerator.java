@@ -3,11 +3,9 @@ package aurora.ide.meta.gef.designer.gen;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.builder.ResourceUtil;
-import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Relation;
@@ -47,10 +45,7 @@ public class ForQueryBmGenerator extends ForMaintainBmGenerator {
 			CompositeMap refBmMap = null;
 			try {
 				refBmMap = CacheManager.getWholeBMCompositeMap(file);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			} catch (ApplicationException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
 			}
 			if (refBmMap == null)
 				continue;
