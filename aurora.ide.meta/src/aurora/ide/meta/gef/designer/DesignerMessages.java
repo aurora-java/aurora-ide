@@ -63,6 +63,11 @@ public class DesignerMessages extends NLS {
 	public static String RelationViewer_4;
 	public static String RelationViewer_5;
 	public static String BMDesignPage_mntmOpenBm_text;
+	public static String LookupCodeDialog_0;
+	public static String LookupCodeDialog_1;
+	public static String LookupCodeDialog_2;
+	public static String LookupCodeDialog_3;
+	public static String sys_code_file_name;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, DesignerMessages.class);
