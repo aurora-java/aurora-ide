@@ -347,7 +347,11 @@ public class ModelMerger {
 		m.put("defaultEditor", editor);
 		if (editor.equals(Input.Combo) || editor.equals(Input.LOV)) {
 			String options = r.getString(IDesignerConst.COLUMN_OPTIONS);
-			m.put("options", options);
+			if (dt.getDisplayType().equalsIgnoreCase(IDesignerConst.LOOKUPCODE)) {
+				m.put("lookupCode", options);
+				m.put("lookupField", r.getName() + "_lookup");
+			} else
+				m.put("options", options);
 		}
 	}
 

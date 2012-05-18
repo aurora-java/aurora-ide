@@ -69,6 +69,8 @@ public class ModelUtil implements IDesignerConst {
 		keyList.add(FOR_QUERY);
 		keyList.add(FOR_DISPLAY);
 		keyList.add(FOR_LOV);
+		keyList.add(INSERT_EXPRESSION);
+		keyList.add(UPDATE_EXPRESSION);
 		for (String k : keyList)
 			map.put(k, r.get(k));
 		return map;
@@ -149,6 +151,9 @@ public class ModelUtil implements IDesignerConst {
 		r.put(FOR_QUERY, map.getBoolean(FOR_QUERY));
 		r.put(FOR_DISPLAY, map.getBoolean(FOR_DISPLAY));
 		r.put(FOR_LOV, map.getBoolean(FOR_LOV));
+		r.put(INSERT_EXPRESSION, map.getString(INSERT_EXPRESSION));
+		r.put(UPDATE_EXPRESSION, map.getString(UPDATE_EXPRESSION));
+
 		return r;
 	}
 
