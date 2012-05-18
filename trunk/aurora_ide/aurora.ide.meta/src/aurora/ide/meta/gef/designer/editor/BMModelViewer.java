@@ -19,7 +19,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
@@ -36,7 +35,6 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 	private HashMap<String, CellEditor> editorMap = new HashMap<String, CellEditor>(
 			1000);
 	private HashMap<String, RecordCellEditorListener> editorListenerMap = new HashMap<String, RecordCellEditorListener>();
-	private HashMap<String, String[]> operatorsMap = new HashMap<String, String[]>();
 
 	public BMModelViewer(Composite parent) {
 		super(parent);
@@ -120,6 +118,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 					if (newCes == null)
 						newCes = getNewCellEditors(record);
 					ce = newCes[c];
+					ce.setValue(colval);
 					setItemEditor(table, item, ce, r, c);
 					RecordCellEditorListener lis = new RecordCellEditorListener(
 							record, colpro, ce);
@@ -160,6 +159,7 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 	private void updateEditorOfRecord(Record rec, Table table, TableItem item,
 			int row) {
 		CellEditor[] ces = getCellEditors();
+		CellEditor[] newCes = null;
 		for (int c = 0; c < ces.length; c++) {
 			if (ces[c] == null)
 				continue;
@@ -168,7 +168,10 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 			String key = row + "-" + c;
 			CellEditor ce = editorMap.get(key);
 			if (ce == null) {
-				ce = getNewCellEditors(rec)[c];
+				if (newCes == null)
+					newCes = getNewCellEditors(rec);
+				ce = newCes[c];
+				ce.setValue(colval);
 				ce.addListener(new RecordCellEditorListener(rec, colpro, ce));
 				editorMap.put(key, ce);
 				setItemEditor(table, item, ce, row, c);
@@ -199,8 +202,12 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 
 	private void updateOptionEditor(CellEditor ce, Record rec) {
 		if (ce instanceof OptionsCellEditor) {
-			boolean needOptions = false;
-			needOptions = rec.getEditor().equals(Input.Combo);
+			boolean needOptions = LOOKUPCODE.equals(rec.getType());
+			((OptionsCellEditor) ce).setSelectionMode(needOptions ? 1 : 0);
+			if (needOptions)
+				rec.setEditor(Input.Combo);
+			if (!needOptions)
+				needOptions = rec.getEditor().equals(Input.Combo);
 			if (!needOptions)
 				needOptions = rec.getEditor().equals(Input.LOV);
 			((OptionsCellEditor) ce).setEnable(needOptions);
@@ -220,46 +227,11 @@ public class BMModelViewer extends TableViewer implements IDesignerConst {
 
 	private CellEditor[] getNewCellEditors(Record record) {
 		Table table = getTable();
-		String[] ss = getOperators(record == null ? "" : record.getType()); //$NON-NLS-1$
 		return new CellEditor[] { null, null, new StringCellEditor(table),
 				new ComboBoxCellEditor(table, data_types),
 				new StringCellEditor(table),
 				new ComboBoxCellEditor(table, editor_types),
 				new BooleanCellEditor(table), new OptionsCellEditor(table) };
-	}
-
-	private String[] getOperators(String displayType) {
-		String[] ss = operatorsMap.get(displayType);
-		if (ss == null) {
-			DataType dt = DataType.fromString(displayType);
-			if (dt == null)
-				return new String[0];
-			ArrayList<String> ops = new ArrayList<String>();
-			ops.add(OP_EQ);
-			switch (dt) {
-			case INTEGER:
-			case FLOAT:
-				ops.add(OP_GT);
-				ops.add(OP_LT);
-				ops.add(OP_GE);
-				ops.add(OP_LE);
-			case DATE:
-			case DATE_TIME:
-				ops.add(OP_INTERVAL);
-				break;
-			case TEXT:
-			case LONG_TEXT:
-				ops.add(OP_LIKE);
-				ops.add(OP_PRE_MATCH);
-				ops.add(OP_END_MATCH);
-				ops.add(OP_ANY_MATCH);
-				break;
-			}
-			ss = new String[ops.size()];
-			ops.toArray(ss);
-			operatorsMap.put(displayType, ss);
-		}
-		return ss;
 	}
 
 	private class AutoSelectListener implements MouseListener {

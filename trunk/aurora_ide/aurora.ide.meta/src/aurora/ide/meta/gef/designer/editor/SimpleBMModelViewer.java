@@ -1,6 +1,8 @@
 package aurora.ide.meta.gef.designer.editor;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
@@ -11,19 +13,22 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.editors.property.BooleanCellEditor;
+import aurora.ide.meta.gef.editors.property.StringCellEditor;
 
-public class SimpleBMModelViewer extends TableViewer {
+public class SimpleBMModelViewer extends TableViewer implements IDesignerConst {
 
-	String[] properties = new String[] { "", IDesignerConst.COLUMN_NUM,
-			IDesignerConst.COLUMN_PROMPT, IDesignerConst.COLUMN_NAME };
+	String[] properties = new String[] { "", COLUMN_NUM, COLUMN_PROMPT,
+			COLUMN_NAME };
 	CellEditor[] editors = new CellEditor[] { null, null, null, null };
 	private Table table;
 	private String mode = null;
+	private HashMap<String, String[]> operatorsMap = new HashMap<String, String[]>();
 
 	public SimpleBMModelViewer(Composite parent, int style) {
 		super(parent, style);
@@ -58,42 +63,47 @@ public class SimpleBMModelViewer extends TableViewer {
 		if (this.mode != null)
 			return;
 		this.mode = mode;
-		if (IDesignerConst.AE_LOV.equals(mode)) {
+		if (AE_LOV.equals(mode)) {
 			TableColumn column = new TableColumn(table, SWT.CENTER);
 			column.setText("Use in Lov");
 			column.pack();
 			column = new TableColumn(table, SWT.CENTER);
-			column.setText("For Quqery");
+			column.setText("For Query");
 			column.pack();
 			column = new TableColumn(table, SWT.CENTER);
 			column.setText("For Display");
 			column.pack();
-			properties = expand(properties, IDesignerConst.FOR_LOV,
-					IDesignerConst.FOR_QUERY, IDesignerConst.FOR_DISPLAY);
+			properties = expand(properties, FOR_LOV, FOR_QUERY, FOR_DISPLAY);
 			editors = expand(editors, new BooleanCellEditor(table),
 					new BooleanCellEditor(table), new BooleanCellEditor(table));
-		} else if (IDesignerConst.AE_MAINTAIN.equals(mode)) {
+		} else if (AE_MAINTAIN.equals(mode)) {
 			TableColumn column = new TableColumn(table, SWT.CENTER);
 			column.setText("For Insert");
 			column.pack();
 			column = new TableColumn(table, SWT.CENTER);
 			column.setText("For Update");
 			column.pack();
-			properties = expand(properties, IDesignerConst.FOR_INSERT,
-					IDesignerConst.FOR_UPDATE);
+			column = new TableColumn(table, SWT.CENTER);
+			column.setText("Insert Expression");
+			column.pack();
+			column = new TableColumn(table, SWT.CENTER);
+			column.setText("Update Expression");
+			column.pack();
+			properties = expand(properties, FOR_INSERT, FOR_UPDATE,
+					INSERT_EXPRESSION, UPDATE_EXPRESSION);
 			editors = expand(editors, new BooleanCellEditor(table),
-					new BooleanCellEditor(table));
-		} else if (IDesignerConst.AE_QUERY.equals(mode)) {
+					new BooleanCellEditor(table), new StringCellEditor(table),
+					new StringCellEditor(table));
+		} else if (AE_QUERY.equals(mode)) {
 			TableColumn column = new TableColumn(table, SWT.CENTER);
 			column.setText(DesignerMessages.BMModelViewer_5);
 			column.pack();
 			column = new TableColumn(table, SWT.CENTER);
 			column.setText(DesignerMessages.BMModelViewer_6);
 			column.setWidth(110);
-			properties = expand(properties, IDesignerConst.COLUMN_QUERYFIELD,
-					IDesignerConst.COLUMN_QUERY_OP);
+			properties = expand(properties, COLUMN_QUERYFIELD, COLUMN_QUERY_OP);
 			editors = expand(editors, new BooleanCellEditor(table),
-					new ComboBoxCellEditor(table, IDesignerConst.OPERATORS));
+					new ComboBoxCellEditor(table, OPERATORS));
 		}
 
 		setColumnProperties(properties);
@@ -119,17 +129,10 @@ public class SimpleBMModelViewer extends TableViewer {
 			for (int j = 0; j < editors.length; j++) {
 				if (editors[j] == null)
 					continue;
-
-				CellEditor ce = null;
-				if (editors[j] instanceof BooleanCellEditor)
-					ce = new BooleanCellEditor(table);
-				else if (editors[j] instanceof ComboBoxCellEditor) {
-					ComboBoxCellEditor cce = (ComboBoxCellEditor) editors[j];
-					ce = new ComboBoxCellEditor(table, cce.getItems());
-				} else
+				CellEditor ce = createCellEditor(table, rec, properties[j],
+						editors[j].getClass());
+				if (ce == null)
 					continue;
-				ce.addListener(new RecordCellEditorListener(rec, properties[j],
-						ce));
 				TableEditor te = new TableEditor(table);
 				te.horizontalAlignment = SWT.LEFT;
 				te.grabHorizontal = true;
@@ -137,5 +140,58 @@ public class SimpleBMModelViewer extends TableViewer {
 				ce.setValue(rec.get(properties[j]));
 			}
 		}
+	}
+
+	private CellEditor createCellEditor(Composite parent, Record record,
+			String property, Class<? extends CellEditor> type) {
+		CellEditor ce = null;
+		if (type.equals(StringCellEditor.class))
+			ce = new StringCellEditor(parent);
+		else if (type.equals(BooleanCellEditor.class))
+			ce = new BooleanCellEditor(parent);
+		else if (type.equals(ComboBoxCellEditor.class)) {
+			if (property.equals(COLUMN_QUERY_OP)) {
+				String[] ss = getOperators(record == null ? "" : record
+						.getType());
+				ce = new ComboBoxCellEditor(parent, ss);
+			}
+		}
+		if (ce != null)
+			ce.addListener(new RecordCellEditorListener(record, property, ce));
+		return ce;
+	}
+
+	private String[] getOperators(String displayType) {
+		String[] ss = operatorsMap.get(displayType);
+		if (ss == null) {
+			DataType dt = DataType.fromString(displayType);
+			if (dt == null)
+				return new String[0];
+			ArrayList<String> ops = new ArrayList<String>();
+			ops.add(OP_EQ);
+			switch (dt) {
+			case INTEGER:
+			case FLOAT:
+				ops.add(OP_GT);
+				ops.add(OP_LT);
+				ops.add(OP_GE);
+				ops.add(OP_LE);
+			case DATE:
+			case DATE_TIME:
+				ops.add(OP_INTERVAL);
+				break;
+			case TEXT:
+			case LONG_TEXT:
+				ops.add(OP_LIKE);
+				ops.add(OP_PRE_MATCH);
+				ops.add(OP_END_MATCH);
+				ops.add(OP_ANY_MATCH);
+				break;
+			}
+			ss = new String[ops.size()];
+			ops.toArray(ss);
+			operatorsMap.put(displayType, ss);
+		}
+		return ss;
 	}
 }
