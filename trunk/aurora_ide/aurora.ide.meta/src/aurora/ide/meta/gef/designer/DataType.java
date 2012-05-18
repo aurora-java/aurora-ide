@@ -23,6 +23,9 @@ public enum DataType {
 	},
 	DATE_TIME("date", "TIMESTAMP", "java.sql.Date", IDesignerConst.DATE_TIME,
 			IDesignerConst.OP_INTERVAL, Input.DATETIMEPICKER) {
+	},
+	LOOPUPCODE("varchar2(50)", "VARCHAR2", "java.lang.String",
+			IDesignerConst.LOOKUPCODE, IDesignerConst.OP_EQ, Input.Combo) {
 	};
 
 	private String sqlType;// use in generate sql

@@ -38,6 +38,8 @@ public class DesignerUtil implements IDesignerConst {
 		r.put(COLUMN_QUERYFIELD, false);
 		r.put(COLUMN_ISFOREIGN, false);
 		r.put(COLUMN_OPTIONS, "");
+		r.setForInsert(true);
+		r.setForUpdate(true);
 		return r;
 	}
 }
