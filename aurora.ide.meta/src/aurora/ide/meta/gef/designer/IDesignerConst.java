@@ -49,14 +49,15 @@ public interface IDesignerConst {
 	String FLOAT = "float"; //$NON-NLS-1$
 	String DATE = "date"; //$NON-NLS-1$
 	String DATE_TIME = "dateTime"; //$NON-NLS-1$
+	String LOOKUPCODE = "lookupCode";
 	String[] data_types = { TEXT, LONG_TEXT, INTEGER, BIGINT, FLOAT, DATE,
-			DATE_TIME };
+			DATE_TIME, LOOKUPCODE };
 	// auto extend types
 	String AE_LOV = "lov"; //$NON-NLS-1$
 	String AE_QUERY = "query"; //$NON-NLS-1$
 	String AE_UPDATE = "update"; //$NON-NLS-1$
 	String AE_MAINTAIN = "maintain"; //$NON-NLS-1$
-	String[] AE_TYPES = { AE_LOV, AE_QUERY, AE_MAINTAIN };
+	String[] AE_TYPES = { AE_QUERY, AE_LOV, AE_MAINTAIN };
 	//
 	String FOR_UPDATE = "forUpdate";
 	String FOR_INSERT = "forInsert";
