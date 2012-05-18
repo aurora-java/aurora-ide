@@ -118,6 +118,9 @@ public class ModelMerger {
 		PropertyChangeListener pcl = new PropertyChangeListener() {
 
 			public void propertyChange(PropertyChangeEvent evt) {
+				System.out.println(evt.getSource() + ":"
+						+ evt.getPropertyName() + "," + evt.getOldValue()
+						+ "->" + evt.getNewValue());
 				dirty = true;
 			}
 		};
@@ -191,7 +194,11 @@ public class ModelMerger {
 	private void updateRecordUseCompositeMap(Record r, CompositeMap fMap) {
 		r.setName(fMap.getString("name"));
 		r.setPrompt(fMap.getString("prompt"));
-		r.setOptions(fMap.getString("options"));
+		String code = getMapString(fMap, "lookupCode");
+		if (code == null || code.length() == 0)
+			r.setOptions(fMap.getString("options"));
+		else
+			r.setOptions(code);
 		r.setEditor(getMapString(fMap, "defaultEditor"));
 		// TODO update other property of record when read
 	}
