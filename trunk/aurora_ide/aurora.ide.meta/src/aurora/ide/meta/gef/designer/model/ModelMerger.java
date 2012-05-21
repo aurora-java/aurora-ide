@@ -118,9 +118,9 @@ public class ModelMerger {
 		PropertyChangeListener pcl = new PropertyChangeListener() {
 
 			public void propertyChange(PropertyChangeEvent evt) {
-				System.out.println(evt.getSource() + ":"
-						+ evt.getPropertyName() + "," + evt.getOldValue()
-						+ "->" + evt.getNewValue());
+				// System.out.println(evt.getSource() + ":"
+				// + evt.getPropertyName() + "," + evt.getOldValue()
+				// + "->" + evt.getNewValue());
 				dirty = true;
 			}
 		};
