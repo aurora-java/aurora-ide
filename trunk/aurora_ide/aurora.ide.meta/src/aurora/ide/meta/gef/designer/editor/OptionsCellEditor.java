@@ -31,8 +31,6 @@ public class OptionsCellEditor extends DialogCellEditor {
 
 	public void setEnable(boolean enabled) {
 		getButton().setEnabled(enabled);
-		if (enabled)
-			getButton().forceFocus();
 	}
 
 	public void setSelectionMode(int mode) {
@@ -52,12 +50,18 @@ public class OptionsCellEditor extends DialogCellEditor {
 
 	@Override
 	protected void doSetValue(Object value) {
+		updateLabelText(value);
+	}
+
+	private void updateLabelText(Object o) {
 		CLabel l = getLabel();
-		if (value != null) {
-			l.setText(value.toString());
-			l.setToolTipText(value.toString());
-		} else
-			l.setToolTipText("");
+		if (o == null) {
+			l.setText("");
+			l.setToolTipText(null);
+		} else {
+			l.setText(o.toString());
+			l.setToolTipText(o.toString());
+		}
 	}
 
 	protected void showDialog() {
@@ -66,7 +70,7 @@ public class OptionsCellEditor extends DialogCellEditor {
 			d.setValue(getLabel().getText());
 			d.setBlockOnOpen(true);
 			if (d.open() == Dialog.OK) {
-				getLabel().setText(d.getValue());
+				updateLabelText(d.getValue());
 				fireApplyEditorValue();
 			}
 			return;
@@ -86,7 +90,7 @@ public class OptionsCellEditor extends DialogCellEditor {
 				if (res instanceof IFile) {
 					String newValue = Util.toPKG(res.getFullPath()
 							.removeFileExtension());
-					getLabel().setText(newValue);
+					updateLabelText(newValue);
 					fireApplyEditorValue();
 				}
 			} catch (ResourceNotFoundException e1) {
