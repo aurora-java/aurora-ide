@@ -340,4 +340,20 @@ public class BMModel implements IDesignerConst {
 	public String getNamePrefix() {
 		return FIELD_NAME_PREFIX;
 	}
+
+	public Record getRecordByPrompt(String p) {
+		return getRecord(COLUMN_PROMPT, p);
+	}
+
+	public Record getRecordByName(String n) {
+		return getRecord(COLUMN_NAME, n);
+	}
+
+	public Record getRecord(String key, Object value) {
+		for (Record r : records) {
+			if (ModelUtil.eq(r.get(key), value))
+				return r;
+		}
+		return null;
+	}
 }
