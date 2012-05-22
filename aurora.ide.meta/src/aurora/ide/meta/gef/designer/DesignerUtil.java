@@ -18,7 +18,9 @@ public class DesignerUtil implements IDesignerConst {
 		typeMap.add(new Object[] { DesignerMessages.DesignerUtil_4,
 				DataType.LONG_TEXT });
 		typeMap.add(new Object[] { DesignerMessages.DesignerUtil_5,
-				DataType.TEXT });
+				DataType.LOOPUPCODE });
+		// the final pattern
+		typeMap.add(new Object[] { ".*", DataType.TEXT });
 	}
 
 	public static Record createRecord(String prompt) {
