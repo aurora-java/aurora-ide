@@ -28,6 +28,9 @@ public interface IDesignerConst {
 			COLUMN_RELNAME, COLUMN_REFMODEL, COLUMN_LOCFIELD, COLUMN_SRCFIELD,
 			COLUMN_JOINTYPE, Relation.REF_PROMPTS };
 
+	String[] JOIN_TYPES = new String[] { "LEFT OUTER", "RIGHT OUTER",
+			"FULL OUTER", "INNER", "CROSS" };
+
 	// query operator
 	String OP_EQ = "="; //$NON-NLS-1$
 	String OP_GT = ">"; //$NON-NLS-1$
