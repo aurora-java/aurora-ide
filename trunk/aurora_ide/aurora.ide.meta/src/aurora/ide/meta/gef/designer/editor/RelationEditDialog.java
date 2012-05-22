@@ -43,6 +43,7 @@ import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.designer.DesignerMessages;
+import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
@@ -201,15 +202,12 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		lblNewLabel_2.setText(DesignerMessages.RelationEditDialog_7);
 
 		com_jointype = new Combo(container, SWT.READ_ONLY);
-		String[] items = new String[] { "LEFT OUTER", "RIGHT OUTER", //$NON-NLS-1$ //$NON-NLS-2$
-				"FULL OUTER", "INNER", "CROSS" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		com_jointype.setItems(items);
+		com_jointype.setItems(IDesignerConst.JOIN_TYPES);
 		com_jointype.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 				false, 1, 1));
-		int idx = Arrays.asList(items).indexOf(relation.getJoinType());
-		if (idx == -1)
-			idx = 0;
-		com_jointype.select(idx);
+		int idx = Arrays.asList(IDesignerConst.JOIN_TYPES).indexOf(
+				relation.getJoinType());
+		com_jointype.select(idx == -1 ? 0 : idx);
 		new Label(container, SWT.NONE);
 
 		createRefFieldGroup(container);
@@ -313,31 +311,16 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		relation.setName(text_relname.getText());
 		relation.setRefTable(text_refmodel.getText());
 		Record r = getSelectedLocalField();
-		if (r != null)
-			relation.setLocalField(r.getPrompt());
-		else
-			relation.setLocalField(""); //$NON-NLS-1$
-		CompositeMap forMap = getSelectedForienField();
+		relation.setLocalField(r == null ? "" : r.getPrompt());
+		CompositeMap forMap = getSelectedForeignField();
 		if (forMap != null) {
+			updateLocalRecord(forMap);
 			String prompt = forMap.getString("prompt"); //$NON-NLS-1$
-			if (refTablePkName.equals(forMap.getString("name")))
-				for (Record rec : model.getRecordList()) {
-					if (rec.getPrompt().equals(relation.getLocalField())) {
-						String fpk = forMap.getString("name");
-						if (!model.getPkRecord().getName().equals(fpk))
-							rec.setName(fpk);
-						rec.setEditor(Input.Combo);
-						rec.setOptions(relation.getRefTable());
-						break;
-					}
-				}
 			relation.setSrcField(prompt == null ? "" : prompt); //$NON-NLS-1$
 		} else
 			relation.setSrcField(""); //$NON-NLS-1$
 		int idx = com_jointype.getSelectionIndex();
-		if (idx == -1)
-			idx = 0;
-		relation.setJoinType(com_jointype.getItem(idx));
+		relation.setJoinType(com_jointype.getItem(idx == -1 ? 0 : idx));
 		String[] refps = new String[refFieldList.size()];
 		for (int i = 0; i < refps.length; i++)
 			refps[i] = refFieldList.get(i).getString("prompt");
@@ -351,6 +334,27 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		widgetSelected(e);
 	}
 
+	/*
+	 * if the selected src field(from bm) is primary-key,then try to update some
+	 * information of local field
+	 */
+	private void updateLocalRecord(CompositeMap forMap) {
+		Record rec = model.getRecordByPrompt(relation.getLocalField());
+		if (rec == null)
+			return;
+		String fpk = forMap.getString("name");
+		boolean isForeign = refTablePkName.equals(fpk);
+		rec.put(IDesignerConst.COLUMN_ISFOREIGN, isForeign);
+		if (isForeign) {
+			// if foreign pkname equals local pkname,they are most likely
+			// the same bm
+			if (!model.getPkRecord().getName().equals(fpk))
+				rec.setName(fpk);
+			rec.setEditor(Input.Combo);
+			rec.setOptions(relation.getRefTable());
+		}
+	}
+
 	private Record getSelectedLocalField() {
 		ISelection s = localFieldComboViewer.getSelection();
 		if (s instanceof IStructuredSelection) {
@@ -360,7 +364,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		return null;
 	}
 
-	private CompositeMap getSelectedForienField() {
+	private CompositeMap getSelectedForeignField() {
 		ISelection s = bmFieldComboViewer.getSelection();
 		if (s instanceof IStructuredSelection) {
 			IStructuredSelection ss = (IStructuredSelection) s;
