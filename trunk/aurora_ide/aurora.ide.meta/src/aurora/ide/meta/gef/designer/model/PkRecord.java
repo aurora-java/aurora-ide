@@ -9,8 +9,8 @@ public class PkRecord extends Record {
 		setName("default_pk_name");// this name should be reset
 		setPrompt("primary-key");
 		setType(DataType.BIGNIT.getDisplayType());
-		put(COLUMN_QUERYFIELD, "true");
-		put(COLUMN_QUERY_OP, "=");
+		put(COLUMN_QUERYFIELD, true);
+		put(COLUMN_QUERY_OP, OP_EQ);
 		setForInsert(true);
 		setForUpdate(false);
 		// lov
