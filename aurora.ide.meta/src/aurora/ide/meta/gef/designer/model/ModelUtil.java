@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.designer.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 
 import uncertain.composite.CompositeMap;
@@ -240,5 +241,12 @@ public class ModelUtil implements IDesignerConst {
 			sb.append(ss[i]);
 		}
 		return sb.toString();
+	}
+
+	public static String computeNamePrefix(IFile inputFile) {
+		String fn = inputFile.getFullPath().removeFileExtension().lastSegment();
+		if (fn.length() > 3)
+			fn = fn.substring(0, 3);
+		return fn + "_c";
 	}
 }

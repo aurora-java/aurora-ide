@@ -1,7 +1,5 @@
 package aurora.ide.meta.gef.designer.model;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,19 +113,20 @@ public class ModelMerger {
 	 * @return
 	 */
 	public BMModel getMergedModel() {
-		PropertyChangeListener pcl = new PropertyChangeListener() {
-
-			public void propertyChange(PropertyChangeEvent evt) {
-				// System.out.println(evt.getSource() + ":"
-				// + evt.getPropertyName() + "," + evt.getOldValue()
-				// + "->" + evt.getNewValue());
-				dirty = true;
-			}
-		};
-		model.addPropertyChangeListener(pcl);
-		if (bmMap != null)
-			updateModel();
-		model.removePropertyChangeListener(pcl);
+		// PropertyChangeListener pcl = new PropertyChangeListener() {
+		//
+		// public void propertyChange(PropertyChangeEvent evt) {
+		// // System.out.println(evt.getSource() + ":"
+		// // + evt.getPropertyName() + "," + evt.getOldValue()
+		// // + "->" + evt.getNewValue());
+		// dirty = true;
+		// }
+		// };
+		// model.addPropertyChangeListener(pcl);
+		// if (bmMap != null)
+		// updateModel();
+		// model.removePropertyChangeListener(pcl);
+		model.setNamePrefix(ModelUtil.computeNamePrefix(file));
 		return model;
 	}
 
@@ -283,8 +282,8 @@ public class ModelMerger {
 	 * @return
 	 */
 	public CompositeMap getMergedCompositeMap() {
-		if (bmMap != null)
-			updateBmMap(bmMap, model);
+		// if (bmMap != null)
+		// updateBmMap(bmMap, model);
 		return bmMap;
 	}
 

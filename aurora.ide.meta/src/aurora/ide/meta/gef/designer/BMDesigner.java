@@ -98,7 +98,7 @@ public class BMDesigner extends FormEditor {
 		open();
 	}
 
-	private void open() {
+	private void open() throws PartInitException {
 		ModelMerger merger = new ModelMerger(inputFile);
 		try {
 			merger.initModel();
@@ -107,10 +107,8 @@ public class BMDesigner extends FormEditor {
 		}
 		model = merger.getMergedModel();
 		if (model == null)
-			model = new BMModel();
-		String tn = inputFile.getFullPath().removeFileExtension().lastSegment()
-				.toLowerCase();
-		model.setNamePrefix(tn + "_c");
+			throw new PartInitException("Can not load model from file :"
+					+ inputFile.getFullPath().toString());
 		dpage.setModel(model);
 		epage.setModel(model);
 		if (merger.isDirty()) {
