@@ -31,9 +31,9 @@ import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.gef.editors.VScreenEditor;
 import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
+import aurora.ide.meta.gef.editors.template.LinkComponent;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.search.ui.EditorOpener;
 
@@ -70,9 +70,9 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 					if (selectPage.isModify()) {
 						selectPage.setModify(false);
 						List<Grid> grids = selectPage.getGrids();
-						List<TabItem> refTabItems = selectPage.getRefTabItems();
+						List<LinkComponent> tabLink = selectPage.getTabLink();
 						viewDiagram = selectPage.getViewDiagram();
-						settingPage.createCustom(viewDiagram, grids, refTabItems);
+						settingPage.createCustom(viewDiagram, grids, tabLink);
 					}
 				}
 			}

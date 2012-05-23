@@ -46,6 +46,8 @@ import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
+import aurora.ide.meta.gef.editors.template.LinkComponent;
+import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.CridColumnDialog;
 import aurora.ide.meta.gef.editors.wizard.dialog.StyleSettingDialog;
 import aurora.ide.meta.gef.i18n.Messages;
@@ -69,7 +71,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		setControl(composite);
 	}
 
-	public void createCustom(ViewDiagram v, List<Grid> grids, List<TabItem> refTabItems) {
+	public void createCustom(ViewDiagram v, List<Grid> grids, List<LinkComponent> tabLink) {
 		this.viewDiagram = v;
 		for (Control c : composite.getChildren()) {
 			if (!c.isDisposed()) {
@@ -77,12 +79,13 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			}
 		}
 
-		if (refTabItems.size() > 0) {
+		if (tabLink.size() > 0) {
 			Group gr = new Group(composite, SWT.None);
 			gr.setLayout(new GridLayout(4, false));
 			gr.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			gr.setText("Set tabref"); //$NON-NLS-1$
-			for (TabItem ti : refTabItems) {
+			List<TabItem> tabItem = TemplateHelper.getInstance().getTabItem();
+			for (TabItem ti : tabItem) {
 				createRefField(ti, gr);
 			}
 		}
@@ -235,7 +238,8 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 					} else {
 						btnDel.setEnabled(false);
 					}
-					if (getCridColumnIndex((GridColumn) obj) + 1 < ((Grid) ((GridColumn) obj).getParent()).getCols().size()) {
+					if (getCridColumnIndex((GridColumn) obj) + 1 < ((Grid) ((GridColumn) obj).getParent()).getCols()
+							.size()) {
 						btnDown.setEnabled(true);
 					} else {
 						btnDown.setEnabled(false);

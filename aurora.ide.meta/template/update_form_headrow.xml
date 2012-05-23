@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="头行结构模板" iconPath="fgg.png" type="update" category="维护">
+<template name="头行结构模板" icon="fgg.png" type="update" category="维护">
 	<models>
 		<model id="model_hid" name="头BM"/>
 		<model id="model_rid" name="行BM"/>

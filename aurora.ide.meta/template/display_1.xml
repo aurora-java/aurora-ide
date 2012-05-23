@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="显示数据" iconPath="f.png" type="display" category="显示">
+<template name="显示数据" icon="f.png" type="display" category="显示">
 	<models>
 		<model id="model_head" name="Form绑定BM"/>
 	</models>

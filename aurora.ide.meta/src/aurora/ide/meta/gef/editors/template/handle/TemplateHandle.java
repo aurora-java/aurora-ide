@@ -34,6 +34,7 @@ public abstract class TemplateHandle {
 	protected Map<String, AuroraComponent> auroraComponents;
 	protected List<Grid> grids;
 	protected List<TabItem> refTabItems;
+//	public 
 
 	public TemplateHandle() {
 		initModelRelated = TemplateHelper.getInstance().getInitModelRelated();

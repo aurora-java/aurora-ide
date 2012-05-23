@@ -11,9 +11,9 @@ public class Template extends Component {
 	private String icon;
 	private String description;
 	private List<BMReference> bms = new ArrayList<BMReference>();
-	private List<BMReference> initBms = new ArrayList<BMReference>();
-	private List<Component> link = new ArrayList<Component>();
-	private List<Component> ref = new ArrayList<Component>();
+	private List<BMReference> linkBms = new ArrayList<BMReference>();
+	private List<Component> grid = new ArrayList<Component>();
+	private List<LinkComponent> link = new ArrayList<LinkComponent>();
 
 	public static final String TYPE_UPDATE = "update";
 	public static final String TYPE_DISPLAY = "display";
@@ -25,36 +25,36 @@ public class Template extends Component {
 
 	}
 
-	public List<BMReference> getInitBms() {
-		return initBms;
+	public List<BMReference> getLinkBms() {
+		return linkBms;
 	}
 
-	public void setInitBms(List<BMReference> initBms) {
-		this.initBms = initBms;
+	public void addLinkModel(BMReference linkBm) {
+		this.linkBms.add(linkBm);
+	}
+
+	public List<Component> getGrid() {
+		return grid;
+	}
+
+	public void AddGrid(Component grid) {
+		this.grid.add(grid);
+	}
+
+	public List<LinkComponent> getLink() {
+		return link;
+	}
+
+	public void addLink(LinkComponent link) {
+		this.link.add(link);
 	}
 
 	public void addModel(BMReference bm) {
 		bms.add(bm);
 	}
 
-	public void addInitModel(BMReference bm) {
-		initBms.add(bm);
-	}
-
-	public void addLink(Component c) {
-		link.add(c);
-	}
-
-	public void addRef(Component c) {
-		ref.add(c);
-	}
-
 	public List<BMReference> getBms() {
 		return bms;
-	}
-
-	public void setBms(List<BMReference> bms) {
-		this.bms = bms;
 	}
 
 	public String getIcon() {
@@ -105,26 +105,10 @@ public class Template extends Component {
 		this.category = category;
 	}
 
-	public List<Component> getLink() {
-		return link;
-	}
-
-	public void setLink(List<Component> link) {
-		this.link = link;
-	}
-
-	public List<Component> getRef() {
-		return ref;
-	}
-
-	public void setRef(List<Component> ref) {
-		this.ref = ref;
-	}
-
 	public void clear() {
 		List<BMReference> allBms = new ArrayList<BMReference>();
 		allBms.addAll(bms);
-		allBms.addAll(initBms);
+		allBms.addAll(linkBms);
 		for (BMReference b : allBms) {
 			b.setModel(null);
 		}

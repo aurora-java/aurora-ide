@@ -10,7 +10,8 @@ import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.ButtonComponent;
 import aurora.ide.meta.gef.editors.template.Component;
-import aurora.ide.meta.gef.editors.template.TabRefComponent;
+import aurora.ide.meta.gef.editors.template.LinkComponent;
+import aurora.ide.meta.gef.editors.template.TabComponent;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.i18n.Messages;
 
@@ -27,24 +28,19 @@ public class TemplateParse extends DefaultHandler {
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		this.qName = qName;
 		this.attributes = attributes;
-		if (qName.equals("template")) { //$NON-NLS-1$
-			template.setName(getValue("name")); //$NON-NLS-1$
-			template.setIcon(getValue("iconPath")); //$NON-NLS-1$
-			String category = getValue("category"); //$NON-NLS-1$
-			template.setCategory("".equals(category) ? Messages.TemplateParse_Custom : category); //$NON-NLS-1$
-			template.setType(getValue("type")); //$NON-NLS-1$
-			stack.push(template);
-		} else if (qName.equals("model")) { //$NON-NLS-1$
+		int loc = qName.indexOf(":");
+		if (loc >= 0) {
+			qName = qName.substring(loc + 1);
+		}
+		if ((!stack.isEmpty()) && stack.peek() != null && "models".equals(stack.peek().getName())) { //$NON-NLS-1$
 			BMReference bm = new BMReference();
 			bm.setId(getValue("id")); //$NON-NLS-1$
 			bm.setName(getValue("name")); //$NON-NLS-1$
-			template.addModel(bm);
-			stack.push(null);
-		} else if (qName.equals("initModel")) { //$NON-NLS-1$
-			BMReference bm = new BMReference();
-			bm.setId(getValue("id")); //$NON-NLS-1$
-			bm.setName(getValue("name")); //$NON-NLS-1$
-			template.addInitModel(bm);
+			if (qName.equals("model")) {
+				template.addModel(bm);
+			} else {
+				template.addLinkModel(bm);
+			}
 			stack.push(null);
 		} else if (qName.equals("button")) { //$NON-NLS-1$
 			ButtonComponent btn = new ButtonComponent();
@@ -56,18 +52,12 @@ public class TemplateParse extends DefaultHandler {
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(btn);
 			}
-			// if (ButtonClicker.B_OPEN.equals(btn.getType())) {
-			// template.addLink(btn);
-			// }
 			stack.push(btn);
-		} else if ("tabRef".equals(qName)) { //$NON-NLS-1$
-			TabRefComponent ref = new TabRefComponent();
-			ref.setInitModel(getValue("initModel")); //$NON-NLS-1$
-			if (!stack.empty() && stack.peek() != null) {
-				stack.peek().addChild(ref);
-			}
-			template.addRef(ref);
-			stack.push(ref);
+		} else if ("link".equals(qName)) { //$NON-NLS-1$
+			LinkComponent link = new LinkComponent();
+			link.setId(getValue("id"));
+			template.addLink(link);
+			stack.push(link);
 		} else if (AuroraModelFactory.isComponent(qName)) {
 			Component cpt = new Component();
 			if (!"".equals(getValue("model"))) { //$NON-NLS-1$ //$NON-NLS-2$
@@ -82,6 +72,11 @@ public class TemplateParse extends DefaultHandler {
 				}
 				((BMBindComponent) cpt).setQueryComponent(getValue("query")); //$NON-NLS-1$
 			}
+			if (qName.equals("tab")) {
+				cpt = new TabComponent();
+				((TabComponent) cpt).setModelQuery(getValue("model"));
+				((TabComponent) cpt).setRef(getValue("ref"));
+			}
 			cpt.setComponentType(qName);
 			cpt.setId(getValue("id")); //$NON-NLS-1$
 			cpt.setName(getValue("name")); //$NON-NLS-1$
@@ -89,11 +84,20 @@ public class TemplateParse extends DefaultHandler {
 				stack.peek().addChild(cpt);
 			}
 			if ("grid".equals(qName)) { //$NON-NLS-1$
-				template.addLink(cpt);
+				template.AddGrid(cpt);
 			}
 			stack.push(cpt);
+		} else if (qName.equals("template")) { //$NON-NLS-1$
+			template.setName(getValue("name")); //$NON-NLS-1$
+			template.setIcon(getValue("icon")); //$NON-NLS-1$
+			String category = getValue("category"); //$NON-NLS-1$
+			template.setCategory("".equals(category) ? Messages.TemplateParse_Custom : category); //$NON-NLS-1$
+			template.setType(getValue("type")); //$NON-NLS-1$
+			stack.push(template);
 		} else {
-			stack.push(null);
+			Component cp = new Component();
+			cp.setName(qName);
+			stack.push(cp);
 		}
 	}
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="创建或修改一组数据" iconPath="fg.png" type="create" category="创建">
+<template name="创建或修改一组数据" icon="fg.png" type="create" category="创建">
 	<models>
 		<model id="model_head" name="头表BM"/>
 		<model id="model_detail" name="行表BM"/>
