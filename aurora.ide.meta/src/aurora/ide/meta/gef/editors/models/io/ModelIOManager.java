@@ -5,6 +5,7 @@ import java.util.List;
 import uncertain.composite.CompositeMap;
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.InitProcedure;
 import aurora.ide.meta.gef.editors.models.ModelQuery;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 
@@ -13,8 +14,7 @@ public class ModelIOManager {
 	public static final String NS_CHILDLIST = "cl";
 	public static final String NS_CHILDLIST_URI = "http://meta.editor/childlist";
 	public static final String BIND_TEMPLATE = "bindTemplate";
-	public static final String initmodel_node_name = ModelQuery.class
-			.getSimpleName() + "s";
+	public static final String INIT_PROCEDURE = "init-procedure";
 	public static final String TEMPLATE_TYPE = "templatetype";
 
 	ModelIOContext mic = new ModelIOContext();
@@ -31,15 +31,18 @@ public class ModelIOManager {
 		root.setName(diagram.getClass().getSimpleName());
 		root.put(BIND_TEMPLATE, diagram.getBindTemplate());
 		root.put(TEMPLATE_TYPE, diagram.getTemplateType());
-		List<ModelQuery> imList = diagram.getInitModels();
-		if (imList.size() > 0) {
-			CompositeMap imMap = new CommentCompositeMap(initmodel_node_name);
-			InitModelHandler imhandler = new InitModelHandler();
-			for (ModelQuery im : imList) {
-				CompositeMap m = imhandler.toCompositeMap(im, mic);
-				imMap.addChild(m);
+		InitProcedure ip = diagram.getInitProcedure();
+		if (ip != null) {
+			List<ModelQuery> imList = ip.getModelQuerys();
+			if (imList.size() > 0) {
+				CompositeMap imMap = new CommentCompositeMap(INIT_PROCEDURE);
+				ModelQueryHandler imhandler = new ModelQueryHandler();
+				for (ModelQuery im : imList) {
+					CompositeMap m = imhandler.toCompositeMap(im, mic);
+					imMap.addChild(m);
+				}
+				root.addChild(imMap);
 			}
-			root.addChild(imMap);
 		}
 		for (AuroraComponent ac : diagram.getChildren()) {
 			IOHandler ioh = IOHandlerUtil.getHandler(ac);
@@ -59,8 +62,8 @@ public class ModelIOManager {
 		@SuppressWarnings("unchecked")
 		List<CompositeMap> list = root.getChildsNotNull();
 		for (CompositeMap map : list) {
-			if (map.getName().equals(initmodel_node_name)) {
-				restoreInitModels(dia, map);
+			if (map.getName().equals(INIT_PROCEDURE)) {
+				restoreInitProcedure(dia, map);
 				continue;
 			}
 			IOHandler ioh = IOHandlerUtil.getHandler(map);
@@ -70,12 +73,12 @@ public class ModelIOManager {
 		return dia;
 	}
 
-	private void restoreInitModels(ViewDiagram dia, CompositeMap imMap) {
+	private void restoreInitProcedure(ViewDiagram dia, CompositeMap imMap) {
 		List<CompositeMap> list = imMap.getChildsNotNull();
-		InitModelHandler imh = new InitModelHandler();
+		ModelQueryHandler imh = new ModelQueryHandler();
 		for (CompositeMap m : list) {
 			ModelQuery im = (ModelQuery) imh.fromCompositeMap(m, mic);
-			dia.addInitModels(im);
+			dia.addModelQuery(im);
 		}
 	}
 

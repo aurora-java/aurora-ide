@@ -29,11 +29,12 @@ public class TabRefHandler extends DefaultIOHandler {
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
 		super.storeComplexAttribute(map, ac);
 		TabRef ref = (TabRef) ac;
-		ModelQuery im = ref.getInitModel();
+		ModelQuery im = ref.getModelQuery();
 		if (im != null) {
 			ReferenceHandler rh = new ReferenceHandler();
 			CompositeMap imMap = rh.toCompositeMap(im, mic);
-			imMap.put(ReferenceHandler.COMMENT, ModelQuery.class.getSimpleName());
+			imMap.put(ReferenceHandler.COMMENT,
+					ModelQuery.class.getSimpleName());
 			map.addChild(imMap);
 		}
 		map.addChild(getParameterMap(ref, mic));
@@ -65,11 +66,11 @@ public class TabRefHandler extends DefaultIOHandler {
 			String mid = m.getString(ReferenceHandler.REF_ID);
 			ModelQuery im = (ModelQuery) mic.markMap.get(mid);
 			if (im != null) {
-				ref.setInitModel(im);
+				ref.setModelQuery(im);
 			} else {
 				// this may not happen,because initmodels are always create
 				// before tabref.
-				ReferenceDecl rd = new ReferenceDecl(mid, ref, "setInitModel",
+				ReferenceDecl rd = new ReferenceDecl(mid, ref, "setModelQuery",
 						ModelQuery.class);
 				mic.refDeclList.add(rd);
 			}
