@@ -22,7 +22,7 @@ import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
 import aurora.ide.meta.gef.editors.models.ILink;
-import aurora.ide.meta.gef.editors.models.InitModel;
+import aurora.ide.meta.gef.editors.models.ModelQuery;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.TabFolder;
@@ -80,8 +80,8 @@ public class ScreenGenerator {
 	}
 
 	private void genInitProceduce() {
-		List<InitModel> initModels = this.viewDiagram.getInitModels();
-		for (InitModel initModel : initModels) {
+		List<ModelQuery> initModels = this.viewDiagram.getInitModels();
+		for (ModelQuery initModel : initModels) {
 			CompositeMap procedureMap = screenMap.getChild("init-procedure");
 			if (procedureMap == null) {
 				procedureMap = createCompositeMap("init-procedure");
@@ -101,7 +101,7 @@ public class ScreenGenerator {
 		}
 	}
 
-	private String getRootPath(InitModel initModel) {
+	private String getRootPath(ModelQuery initModel) {
 		CompositeMap procedureMap = this.screenMap.getChild("init-procedure");
 		if (procedureMap == null)
 			return null;
@@ -215,7 +215,7 @@ public class ScreenGenerator {
 		String url = tabRef.getOpenPath();
 		url = this.getNewLinkFilePath(url);
 		List<Parameter> parameters = tabRef.getParameters();
-		InitModel initModel = tabRef.getInitModel();
+		ModelQuery initModel = tabRef.getInitModel();
 		// ${/model/head_info/record/@acp_req_type_code}
 		String rootPath = initModel == null ? "${/parameter/@" : "${/model/"
 				+ this.getRootPath(initModel) + "/record/@";

@@ -5,7 +5,7 @@ import java.util.List;
 import uncertain.composite.CompositeMap;
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.InitModel;
+import aurora.ide.meta.gef.editors.models.ModelQuery;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
 
@@ -29,11 +29,11 @@ public class TabRefHandler extends DefaultIOHandler {
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
 		super.storeComplexAttribute(map, ac);
 		TabRef ref = (TabRef) ac;
-		InitModel im = ref.getInitModel();
+		ModelQuery im = ref.getInitModel();
 		if (im != null) {
 			ReferenceHandler rh = new ReferenceHandler();
 			CompositeMap imMap = rh.toCompositeMap(im, mic);
-			imMap.put(ReferenceHandler.COMMENT, InitModel.class.getSimpleName());
+			imMap.put(ReferenceHandler.COMMENT, ModelQuery.class.getSimpleName());
 			map.addChild(imMap);
 		}
 		map.addChild(getParameterMap(ref, mic));
@@ -60,17 +60,17 @@ public class TabRefHandler extends DefaultIOHandler {
 		super.restoreComplexAttribute(ac, map);
 		TabRef ref = (TabRef) ac;
 		CompositeMap m = getMap(map, ReferenceHandler.NS_PREFIX,
-				ReferenceHandler.COMMENT, InitModel.class.getSimpleName());
+				ReferenceHandler.COMMENT, ModelQuery.class.getSimpleName());
 		if (m != null) {
 			String mid = m.getString(ReferenceHandler.REF_ID);
-			InitModel im = (InitModel) mic.markMap.get(mid);
+			ModelQuery im = (ModelQuery) mic.markMap.get(mid);
 			if (im != null) {
 				ref.setInitModel(im);
 			} else {
 				// this may not happen,because initmodels are always create
 				// before tabref.
 				ReferenceDecl rd = new ReferenceDecl(mid, ref, "setInitModel",
-						InitModel.class);
+						ModelQuery.class);
 				mic.refDeclList.add(rd);
 			}
 		}

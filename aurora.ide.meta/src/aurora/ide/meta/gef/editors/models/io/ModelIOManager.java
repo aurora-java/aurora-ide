@@ -5,7 +5,7 @@ import java.util.List;
 import uncertain.composite.CompositeMap;
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.InitModel;
+import aurora.ide.meta.gef.editors.models.ModelQuery;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 
 public class ModelIOManager {
@@ -13,7 +13,7 @@ public class ModelIOManager {
 	public static final String NS_CHILDLIST = "cl";
 	public static final String NS_CHILDLIST_URI = "http://meta.editor/childlist";
 	public static final String BIND_TEMPLATE = "bindTemplate";
-	public static final String initmodel_node_name = InitModel.class
+	public static final String initmodel_node_name = ModelQuery.class
 			.getSimpleName() + "s";
 	public static final String TEMPLATE_TYPE = "templatetype";
 
@@ -31,11 +31,11 @@ public class ModelIOManager {
 		root.setName(diagram.getClass().getSimpleName());
 		root.put(BIND_TEMPLATE, diagram.getBindTemplate());
 		root.put(TEMPLATE_TYPE, diagram.getTemplateType());
-		List<InitModel> imList = diagram.getInitModels();
+		List<ModelQuery> imList = diagram.getInitModels();
 		if (imList.size() > 0) {
 			CompositeMap imMap = new CommentCompositeMap(initmodel_node_name);
 			InitModelHandler imhandler = new InitModelHandler();
-			for (InitModel im : imList) {
+			for (ModelQuery im : imList) {
 				CompositeMap m = imhandler.toCompositeMap(im, mic);
 				imMap.addChild(m);
 			}
@@ -74,7 +74,7 @@ public class ModelIOManager {
 		List<CompositeMap> list = imMap.getChildsNotNull();
 		InitModelHandler imh = new InitModelHandler();
 		for (CompositeMap m : list) {
-			InitModel im = (InitModel) imh.fromCompositeMap(m, mic);
+			ModelQuery im = (ModelQuery) imh.fromCompositeMap(m, mic);
 			dia.addInitModels(im);
 		}
 	}

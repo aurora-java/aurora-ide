@@ -5,7 +5,7 @@ import java.util.List;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ILink;
-import aurora.ide.meta.gef.editors.models.InitModel;
+import aurora.ide.meta.gef.editors.models.ModelQuery;
 import aurora.ide.meta.gef.editors.models.TabItem;
 
 public class TabRef extends AuroraComponent implements ILink{
@@ -17,18 +17,10 @@ public class TabRef extends AuroraComponent implements ILink{
 
 	private String openPath;
 
-	private InitModel initModel;
+	private ModelQuery modelQuery;
 
 	public TabRef(){
 		
-	}
-	
-	public InitModel getInitModel() {
-		return initModel;
-	}
-
-	public void setInitModel(InitModel initModel) {
-		this.initModel = initModel;
 	}
 
 	private TabItem tabItem;
@@ -60,6 +52,14 @@ public class TabRef extends AuroraComponent implements ILink{
 
 	public void addParameter(Parameter para) {
 		paras.add(para);
+	}
+
+	public ModelQuery getModelQuery() {
+		return modelQuery;
+	}
+
+	public void setModelQuery(ModelQuery modelQuery) {
+		this.modelQuery = modelQuery;
 	}
 
 }
