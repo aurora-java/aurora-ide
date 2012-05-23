@@ -22,6 +22,7 @@ import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
 import aurora.ide.meta.gef.editors.models.ILink;
+import aurora.ide.meta.gef.editors.models.InitProcedure;
 import aurora.ide.meta.gef.editors.models.ModelQuery;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.Renderer;
@@ -80,7 +81,10 @@ public class ScreenGenerator {
 	}
 
 	private void genInitProceduce() {
-		List<ModelQuery> initModels = this.viewDiagram.getInitModels();
+		InitProcedure initProcedure = this.viewDiagram.getInitProcedure();
+		if (initProcedure == null)
+			return;
+		List<ModelQuery> initModels = initProcedure.getModelQuerys();
 		for (ModelQuery initModel : initModels) {
 			CompositeMap procedureMap = screenMap.getChild("init-procedure");
 			if (procedureMap == null) {
@@ -215,7 +219,7 @@ public class ScreenGenerator {
 		String url = tabRef.getOpenPath();
 		url = this.getNewLinkFilePath(url);
 		List<Parameter> parameters = tabRef.getParameters();
-		ModelQuery initModel = tabRef.getInitModel();
+		ModelQuery initModel = tabRef.getModelQuery();
 		// ${/model/head_info/record/@acp_req_type_code}
 		String rootPath = initModel == null ? "${/parameter/@" : "${/model/"
 				+ this.getRootPath(initModel) + "/record/@";
