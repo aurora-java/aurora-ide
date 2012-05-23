@@ -96,8 +96,6 @@ public class BaseInfoWizardPage extends WizardPage {
 		text_fileName.addModifyListener(fnValidator);
 		text_dir.setText(getDefaultDir());
 		text_fileName.setText(""); //$NON-NLS-1$
-		if (dirValidator.getMessage() == null)
-			text_fileName.forceFocus();
 		new Label(container, SWT.NONE);
 
 		Group group = new Group(container, SWT.NONE);
@@ -120,6 +118,14 @@ public class BaseInfoWizardPage extends WizardPage {
 		btnNewButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 				false, 1, 1));
 		btnNewButton.setText(Messages.BaseInfoWizardPage_10);
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		if (dirValidator.getMessage() == null
+				&& fnValidator.getMessage() != null)
+			text_fileName.forceFocus();
 	}
 
 	private void selectDir() {
