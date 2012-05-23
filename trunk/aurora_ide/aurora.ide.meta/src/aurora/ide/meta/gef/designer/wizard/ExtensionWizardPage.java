@@ -148,7 +148,7 @@ public class ExtensionWizardPage extends WizardPage implements
 				if (p.equals(s))
 					continue L1;
 			}
-			System.out.println("remove old:" + p);
+			// System.out.println("remove old:" + p);
 			list.remove(i--);
 		}
 		// create new
@@ -157,7 +157,7 @@ public class ExtensionWizardPage extends WizardPage implements
 				if (r.getPrompt().equals(s))
 					continue L;
 			}
-			System.out.println("create new:" + s);
+			// System.out.println("create new:" + s);
 			model.add(DesignerUtil.createRecord(s));
 		}
 		// reset default display
