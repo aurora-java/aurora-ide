@@ -4,7 +4,7 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ModelQuery;
 
-public class InitModelHandler extends DefaultIOHandler {
+public class ModelQueryHandler extends DefaultIOHandler {
 	public static final String PATH = "path";
 
 	@Override
