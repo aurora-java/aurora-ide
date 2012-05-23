@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template name="tab" iconPath="ft.png" type="serach" category="查询">
+<template name="tab" icon="ft.png" type="serach" category="查询">
 	<models>
 		<model id="model_hid" name="头BM"/>
 		<model id="model_rid" name="行BM"/>
@@ -12,25 +12,25 @@
 		<button id="btn_reset" type="reset" text="重置" target="form_id"/>
 	</hbox>
 	
-	<tabFolder>
-		<tabItem>
+	<tabPanel>
+		<tabs>
 			<grid id="grid_hid" name="grid_hname" model="model_hid" query="form_id">
 				<toolBar>
 					<button type="excel"/>
 					<button type="clear"/>
 				</toolBar>
 			</grid>
-		</tabItem>
+		</tabs>
 		
-		<tabItem>
+		<tabs>
 			<grid id="grid_rid" name="grid_rname" model="model_rid" query="grid_hid">
 				<toolBar>
 					<button type="excel"/>
 					<button type="clear"/>
 				</toolBar>
 			</grid>
-		</tabItem>
-	</tabFolder>
+		</tabs>
+	</tabPanel>
 	
 	<description><![CDATA[
 		头行结构的Grid，Grid放置在Tab上，头Grid可通过Form查询数据

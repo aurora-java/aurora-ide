@@ -29,9 +29,9 @@ import org.eclipse.swt.widgets.Text;
 import aurora.ide.AuroraProjectNature;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
+import aurora.ide.meta.gef.editors.template.LinkComponent;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.handle.TemplateFactory;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
@@ -45,7 +45,7 @@ public class SelectModelWizardPage extends WizardPage {
 
 	private ViewDiagram viewDiagram;
 	private List<Grid> grids;
-	private List<TabItem> refTabItems;
+	private List<LinkComponent> tabLink;
 
 	private Composite composite;
 	private IPath bmPath;
@@ -87,12 +87,13 @@ public class SelectModelWizardPage extends WizardPage {
 	public void createDynamicTextComponents(Template t) {
 		this.viewDiagram = TemplateHelper.getInstance().createView(t);
 		setPageComplete(false);
+		tabLink =t.getLink();
 		for (Control c : composite.getChildren()) {
 			if (!c.isDisposed()) {
 				c.dispose();
 			}
 		}
-
+		
 		if (TemplateHelper.getInstance().getBms() != null && TemplateHelper.getInstance().getBms().size() > 0) {
 			Group compoModel = new Group(composite, SWT.NONE);
 			compoModel.setLayout(new GridLayout(3, false));
@@ -187,7 +188,6 @@ public class SelectModelWizardPage extends WizardPage {
 		if (handle != null) {
 			handle.fill(viewDiagram);
 			grids = handle.getGrids();
-			refTabItems = handle.getRefTabItems();
 		}
 	}
 
@@ -204,13 +204,13 @@ public class SelectModelWizardPage extends WizardPage {
 		return grids;
 	}
 
-	public List<TabItem> getRefTabItems() {
-		return refTabItems;
+	public List<LinkComponent> getTabLink() {
+		return tabLink;
 	}
 
 	@Override
 	public IWizardPage getNextPage() {
-		if ((grids != null && grids.size() > 0) || (refTabItems != null && refTabItems.size() > 0)) {
+		if ((grids != null && grids.size() > 0) || (tabLink != null && tabLink.size() > 0)) {
 			return super.getNextPage();
 		} else {
 			return null;

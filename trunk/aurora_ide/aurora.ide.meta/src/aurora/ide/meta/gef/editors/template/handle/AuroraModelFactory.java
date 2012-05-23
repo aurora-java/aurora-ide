@@ -15,8 +15,9 @@ import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.VBox;
 
 public class AuroraModelFactory {
-	private static String[] types = { "toolbar", "form", "fieldset", "vbox", "hbox", "textfield", "numberfield", "lov", "combobox", "datepicker", "datetimepicker", "checkbox", "grid", "tabfolder",
-			"tabitem", "button", "tabref", "label" };
+	private static String[] types = { "toolbar", "form", "fieldset", "vbox", "hbox", "textfield", "numberfield", "lov",
+			"combobox", "datepicker", "datetimepicker", "checkbox", "grid", "tabpanel", "tab", "button", "tabref",
+			"label" };
 
 	public static boolean isComponent(String type) {
 		if (type == null) {
@@ -75,13 +76,13 @@ public class AuroraModelFactory {
 			return (T) new CheckBox();
 		} else if ("grid".equals(type)) {
 			return (T) new Grid();
-		} else if ("tabfolder".equals(type)) {
+		} else if ("tabpanel".equals(type)) {
 			return (T) new TabFolder();
-		} else if ("tabitem".equals(type)) {
+		} else if ("tab".equals(type)) {
 			return (T) new TabItem();
 		} else if ("button".equals(type)) {
 			return (T) new Button();
-		}else if("label".equals(type)){
+		} else if ("label".equals(type)) {
 			return (T) new Label();
 		}
 		return null;

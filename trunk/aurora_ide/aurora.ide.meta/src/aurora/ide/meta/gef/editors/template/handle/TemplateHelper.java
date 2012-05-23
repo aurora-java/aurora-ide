@@ -33,7 +33,7 @@ import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.ButtonComponent;
 import aurora.ide.meta.gef.editors.template.Component;
-import aurora.ide.meta.gef.editors.template.TabRefComponent;
+import aurora.ide.meta.gef.editors.template.TabComponent;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
 
@@ -64,27 +64,6 @@ public class TemplateHelper {
 	private TemplateHelper() {
 
 	}
-
-	// private byte[] getBytesFromFile(File file) throws IOException {
-	// InputStream is = new FileInputStream(file);
-	// long length = file.length();
-	// if (length > Integer.MAX_VALUE) {
-	// throw new IOException("File is to large " + file.getName());
-	// }
-	// byte[] bytes = new byte[(int) length];
-	// int offset = 0;
-	// int numRead = 0;
-	// while (offset < bytes.length && (numRead = is.read(bytes, offset,
-	// bytes.length - offset)) >= 0) {
-	// offset += numRead;
-	// }
-	// if (offset < bytes.length) {
-	// throw new IOException("Could not completely read file " +
-	// file.getName());
-	// }
-	// is.close();
-	// return bytes;
-	// }
 
 	public void clearTemplate() {
 		templates.clear();
@@ -204,7 +183,7 @@ public class TemplateHelper {
 	private void initVariable(Template template) {
 		template.clear();
 		bms = template.getBms();
-		initBms = template.getInitBms();
+		initBms = template.getLinkBms();
 		queryRelated = new HashMap<String, String>();
 		auroraComponents = new HashMap<String, AuroraComponent>();
 		modelRelated = new HashMap<BMReference, List<Container>>();
@@ -231,15 +210,12 @@ public class TemplateHelper {
 		if (ac instanceof TabItem) {
 			((TabItem) ac).setPrompt("tabItem" + tabItemIndex++);
 			tabItem.add((TabItem) ac);
+			fillTabRef((TabItem) ac, (TabComponent) c);
 		}
 		if (c.getChildren() == null) {
 			return ac;
 		}
 		for (Component c_child : c.getChildren()) {
-			if ((ac instanceof TabItem) && (c_child instanceof TabRefComponent)) {
-				fillTabRef((TabItem) ac, (TabRefComponent) c_child);
-				continue;
-			}
 			AuroraComponent ac_child = createAuroraComponent(c_child);
 			if ((c_child instanceof ButtonComponent) && (ac_child instanceof Button)) {
 				fillButton((ButtonComponent) c_child, (Button) ac_child);
@@ -287,13 +263,13 @@ public class TemplateHelper {
 		}
 	}
 
-	private void fillTabRef(TabItem ac, TabRefComponent c) {
+	private void fillTabRef(TabItem ac, TabComponent c) {
 		TabRef ref = ac.getTabRef();
 		if (ref == null) {
 			ref = new TabRef();
 		}
 		ac.setTabRef(ref);
-		String ibmId = c.getInitModel();
+		String ibmId = c.getModelQuery();
 		BMReference bm = null;
 		for (BMReference b : initBms) {
 			if (!ibmId.equals(b.getId())) {
@@ -385,5 +361,4 @@ public class TemplateHelper {
 	public List<TabItem> getTabItem() {
 		return tabItem;
 	}
-
 }
