@@ -15,7 +15,7 @@ import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.InitModel;
+import aurora.ide.meta.gef.editors.models.ModelQuery;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.Renderer;
@@ -181,7 +181,7 @@ public abstract class TemplateHandle {
 
 	protected void fillTabItem(TabItem ac, BMReference bm) {
 		String s = getBmPath(bm.getModel());
-		InitModel m = new InitModel();
+		ModelQuery m = new ModelQuery();
 		m.setPath(s);
 		ac.getTabRef().setInitModel(m);
 		viewDiagram.getInitModels().add(m);

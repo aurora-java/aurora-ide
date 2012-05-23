@@ -10,7 +10,8 @@ public class ViewDiagram extends Container {
 	public static final int DLabelWidth = 80;
 	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class, GridColumn.class, TabItem.class };
 
-	private List<InitModel> initModels = new ArrayList<InitModel>();
+	private InitProcedure initProcedure;
+	
 	private String bindTemplate = "";
 
 	private String templateType;
@@ -24,12 +25,14 @@ public class ViewDiagram extends Container {
 		return super.isResponsibleChild(component);
 	}
 
-	public List<InitModel> getInitModels() {
-		return initModels;
+	public InitProcedure getInitProcedure() {
+		return initProcedure;
 	}
 
-	public void addInitModels(InitModel initModel) {
-		this.initModels.add(initModel);
+	public void addModelQuery(ModelQuery model) {
+		if(initProcedure==null)
+			initProcedure = new InitProcedure();
+		initProcedure.addModelQuery(model);
 	}
 
 	public String getBindTemplate() {
