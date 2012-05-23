@@ -52,13 +52,13 @@ public class BaseBmGenerator extends AbstractBmGenerator {
 	public void process() throws Exception {
 		IFile bmFile = merger.getBMFile();
 		CompositeMap bmMap = null;
-		if (bmFile.exists()) {
-			// System.out.println("bm '" + bmFile.getFullPath()
-			// + "' already exists.");
-			bmMap = merger.getMergedCompositeMap();
-		}
-		if (bmMap == null)
-			bmMap = gen();
+		// if (bmFile.exists()) {
+		// // System.out.println("bm '" + bmFile.getFullPath()
+		// // + "' already exists.");
+		// bmMap = merger.getMergedCompositeMap();
+		// }
+		// if (bmMap == null)
+		bmMap = gen();
 		createOrWriteFile(bmFile, bmMap);
 		new ExtendBmGenerator(model, bmFile).gen();
 	}
