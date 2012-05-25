@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+
+import freemarker.template.TemplateException;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.exception.TemplateNotBindedException;
@@ -32,6 +35,7 @@ import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
+import aurora.ide.prototype.freemarker.FreeMarkerGenerator;
 
 public class ScreenGenerator {
 	private static final String label_style = ".item-label {HEIGHT: 22px; line-height: 22px; vertical-align: middle; text-decoration:underline; }";
@@ -69,6 +73,17 @@ public class ScreenGenerator {
 		run(view);
 
 		String xml = header + screenMap.toXML();
+		
+		FreeMarkerGenerator fmg = new FreeMarkerGenerator();
+		try {
+			fmg.gen(screenMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		}
+		
+		
 		return xml;
 	}
 
