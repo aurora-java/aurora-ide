@@ -1,19 +1,18 @@
 package aurora.ide.prototype.freemarker;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.StringWriter;
 import java.text.DateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.xml.sax.SAXException;
+
 import uncertain.composite.CompositeMap;
+import aurora.ide.helpers.AuroraResourceUtil;
 import aurora.ide.prototype.freemarker.model.ColumnMethod;
 import aurora.ide.prototype.freemarker.model.PropertiesMethod;
 import aurora.ide.prototype.freemarker.model.TemplateModelWrapper;
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -23,31 +22,21 @@ public class FreeMarkerGenerator {
 
 	private String format = DateFormat.getDateInstance().format(
 			new java.util.Date());
-	
+
 	private UID uid = new UID();
 
 	public FreeMarkerGenerator() {
 	}
 
-	public void gen(CompositeMap cm) throws IOException, TemplateException {
+	public String gen(CompositeMap cm) throws IOException, TemplateException,
+			SAXException {
 
-		/*
-		 * 在整个应用的生命周期中, 这个工作你应该只做一次。
-		 */
-		/* 创建和调整配置。 */
-		Configuration cfg = new Configuration();
-		cfg.setDirectoryForTemplateLoading(new File(
-				"/Users/shishiliyan/Desktop/work/aurora/workspace/aurora/freemarker_test/template"));
-		cfg.setObjectWrapper(new DefaultObjectWrapper());
-		/* 在整个应用的生命周期中,这个工作你可以执行多次 */
-		/* 获取或创建模板 */
-		Template temp = cfg.getTemplate("test3.ftl");
-		// TemplateSequenceModel childNodes = temp.getRootTreeNode()
-		// .getChildNodes();
+		Template temp = FMConfigration.Instance().getTemplate("");
+
 		/* 创建数据模型 */
 		Map root = new HashMap();
-		root.put("properties", new PropertiesMethod(this)); 
-		root.put("columns", new ColumnMethod(this)); 
+		root.put("properties", new PropertiesMethod(this));
+		root.put("columns", new ColumnMethod(this));
 
 		Map config = new HashMap();
 
@@ -57,25 +46,23 @@ public class FreeMarkerGenerator {
 		config.put("author", property);
 		config.put("revision", "1.0");
 		config.put("copyright", "add by aurora_ide team");
-		
-//		List childsNotNull = cm.getChildsNotNull();
-//		for (Object object : childsNotNull) {
-//			if(object instanceof CompositeMap){
-//				
-//			}
-//		}
-		
-		root.put("screen", new TemplateModelWrapper("none",cm,this));
+
+		root.put("screen", new TemplateModelWrapper("none", cm, this));
 
 		/* 将模板和数据模型合并 */
-		Writer out = new OutputStreamWriter(System.out);
+		// Writer out = new OutputStreamWriter(System.out);
+		StringWriter out = new StringWriter();
 		temp.process(root, out);
 		out.flush();
-
+		String string = out.toString();
+		CompositeMap loadFromString = AuroraResourceUtil.getCompsiteLoader()
+				.loadFromString(string, "UTF-8");
+		String xml = loadFromString.toXML();
+		return xml;
 	}
 
 	public UID getUid() {
 		return uid;
 	}
-	
+
 }

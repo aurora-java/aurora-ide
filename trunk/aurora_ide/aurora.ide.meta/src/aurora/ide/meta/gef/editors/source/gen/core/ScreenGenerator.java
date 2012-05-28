@@ -60,31 +60,37 @@ public class ScreenGenerator {
 		this.file = file;
 	}
 
-	public String genFile(String header, ViewDiagram view)
+//	public String genFile(String header, ViewDiagram view)
+//			throws TemplateNotBindedException {
+//		String bindTemplate = view.getBindTemplate();
+//
+//		if (bindTemplate == null || "".equals(bindTemplate))
+//			throw new TemplateNotBindedException();
+//		init(view);
+//		run(view);
+//
+//		String xml = header + screenMap.toXML();
+//		
+//		FreeMarkerGenerator fmg = new FreeMarkerGenerator();
+//		try {
+//			fmg.gen(screenMap);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (TemplateException e) {
+//			e.printStackTrace();
+//		}
+//		return xml;
+//	}
+	
+	public CompositeMap genCompositeMap(ViewDiagram view)
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
-		// if (view.isForDisplay()) {
-		// throw new TemplateNotBindedException();
-		// }
 
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
 		init(view);
 		run(view);
-
-		String xml = header + screenMap.toXML();
-		
-		FreeMarkerGenerator fmg = new FreeMarkerGenerator();
-		try {
-			fmg.gen(screenMap);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return xml;
+		return screenMap;
 	}
 
 	protected void run(ViewDiagram viewDiagram) {

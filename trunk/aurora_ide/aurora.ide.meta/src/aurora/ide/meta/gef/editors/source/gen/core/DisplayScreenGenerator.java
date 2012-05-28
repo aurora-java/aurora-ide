@@ -16,8 +16,6 @@ import aurora.ide.meta.gef.editors.models.link.Parameter;
 
 class DisplayScreenGenerator extends ScreenGenerator {
 
-	
-
 	private ILink link;
 
 	public DisplayScreenGenerator(IProject project, ILink link, IFile file) {
@@ -25,22 +23,32 @@ class DisplayScreenGenerator extends ScreenGenerator {
 		this.link = link;
 	}
 
-	@Override
-	public String genFile(String header, ViewDiagram view)
+	// public String genFile(String header, ViewDiagram view)
+	// throws TemplateNotBindedException {
+	// String bindTemplate = view.getBindTemplate();
+	//
+	// if (bindTemplate == null || "".equals(bindTemplate))
+	// throw new TemplateNotBindedException();
+	// init(view);
+	// run(view);
+	//
+	// bindModelQueryPara();
+	//
+	// String xml = header + this.getScreenMap().toXML();
+	// return xml;
+	// }
+
+	public CompositeMap genCompositeMap(ViewDiagram view)
 			throws TemplateNotBindedException {
+
 		String bindTemplate = view.getBindTemplate();
 
 		if (bindTemplate == null || "".equals(bindTemplate))
 			throw new TemplateNotBindedException();
 		init(view);
-		
-
 		run(view);
-
 		bindModelQueryPara();
-
-		String xml = header + this.getScreenMap().toXML();
-		return xml;
+		return this.getScreenMap();
 	}
 
 	private void bindModelQueryPara() {
@@ -68,9 +76,9 @@ class DisplayScreenGenerator extends ScreenGenerator {
 	}
 
 	private boolean isBindTarget(Container c) {
-		if(true)
+		if (true)
 			return false;
-		//TODO
+		// TODO
 		Dataset findDataset = this.findDataset(c);
 		if (findDataset instanceof ResultDataSet) {
 			Container target = ((ResultDataSet) findDataset)
