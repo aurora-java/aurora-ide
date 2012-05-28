@@ -22,6 +22,8 @@ public class TemplateModelWrapper implements TemplateHashModel {
 	private static final String IS_BOX = "isbox";
 
 	private static final String IS_LAYOUT = "islayout";
+	
+	private static final String HAS_CHILD = "haschild";
 
 	private static final String U_ID = "u_id";
 
@@ -43,7 +45,7 @@ public class TemplateModelWrapper implements TemplateHashModel {
 	private FreeMarkerGenerator fmg;
 
 	private static final String[] INNER_KEYS = { U_ID, CDATA, COMPONENTS,
-			RAWNAME, NAME, IS_LAYOUT, IS_BOX };
+			RAWNAME, NAME, IS_LAYOUT, IS_BOX,HAS_CHILD };
 
 	public TemplateModelWrapper(String name, CompositeMap cm,
 			FreeMarkerGenerator freeMarkerGenerator) {
@@ -113,6 +115,10 @@ public class TemplateModelWrapper implements TemplateHashModel {
 			return dow.wrap(fmg.getUid().getID(cm));
 		}
 		if (IS_LAYOUT.equalsIgnoreCase(key)) {
+			List childs = cm.getChildsNotNull();
+			return dow.wrap(childs.size() > 0);
+		}
+		if (HAS_CHILD.equalsIgnoreCase(key)) {
 			List childs = cm.getChildsNotNull();
 			return dow.wrap(childs.size() > 0);
 		}

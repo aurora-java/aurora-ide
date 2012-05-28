@@ -25,10 +25,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ide.undo.CreateFileOperation;
 import org.eclipse.ui.ide.undo.ResourceDescription;
 import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
+import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
 import aurora.ide.api.composite.map.CommentCompositeLoader;
+import aurora.ide.helpers.LogUtil;
 import aurora.ide.meta.exception.GeneratorException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.exception.TemplateNotBindedException;
@@ -38,9 +40,13 @@ import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
+import aurora.ide.prototype.freemarker.FMConfigration;
+import aurora.ide.prototype.freemarker.FreeMarkerGenerator;
 import aurora.ide.search.core.Message;
 import aurora.ide.search.core.Util;
 import aurora.ide.search.ui.MessageFormater;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 public class ProjectGenerator {
 	private IProject project;
@@ -137,7 +143,24 @@ public class ProjectGenerator {
 						return;
 					fCurrentFile = (IFile) files.get(i);
 					fNumberOfScannedFiles++;
-					processFile(fCurrentFile, monitor);
+					try {
+						processFile(fCurrentFile, monitor);
+					} catch (IOException e) {
+						// 没有找到摸版，代码生成终止。
+						break;
+					} catch (TemplateException e) {
+						// 摸版格式异常，代码生成终止。
+						LogUtil.getInstance().logError("摸版格式异常，代码生成终止。", e);
+						errorMessage = "摸版格式异常，代码生成终止。查看log获得详细信息。";
+						throw new InvocationTargetException(new GeneratorException());
+					} catch (TemplateNotBindedException e) {
+						// 文件未绑定摸版，忽略此文件。
+						continue;
+					} catch (SAXException e) {
+						// 生成文件格式不正确，忽律此文件。
+						LogUtil.getInstance().logError("生成文件格式不正确，忽律此文件。", e);
+						continue;
+					}
 				}
 			}
 		} finally {
@@ -172,6 +195,12 @@ public class ProjectGenerator {
 		}
 		if (screenFolder == null) {
 			errorMessage = Messages.ProjectGenerator__folder_erroe;
+			return false;
+		}
+		try {
+			 FMConfigration.Instance().getTemplate("");
+		} catch (IOException e) {
+			errorMessage = "没有找到摸版，代码生成终止。";
 			return false;
 		}
 		return true;
@@ -213,7 +242,7 @@ public class ProjectGenerator {
 			return;
 		}
 		if (newFile.exists() && isOverlap) {
-			try {
+			try {	
 				// newFile.delete(true, monitor);
 				newFile.setContents(is, true, false, null);
 				return;
@@ -255,25 +284,28 @@ public class ProjectGenerator {
 	}
 
 	private void processFile(IFile fCurrentFile, IProgressMonitor monitor)
-			throws InvocationTargetException {
+			throws InvocationTargetException, IOException, TemplateException,
+			TemplateNotBindedException, SAXException {
 		ScreenGenerator sg = new ScreenGenerator(project, fCurrentFile);
-		try {
-			IFile newFile = getNewFile(fCurrentFile);
-			if (newFile.exists() && !isOverlap) {
-				return;
-			}
-			ViewDiagram loadFile = this.loadFile(fCurrentFile);
-
-			String genFile = sg.genFile(header, loadFile);
-			genNewFile(newFile, genFile);
-			genRelationFile(sg, 0);
-
-		} catch (TemplateNotBindedException e) {
+		IFile newFile = getNewFile(fCurrentFile);
+		if (newFile.exists() && !isOverlap) {
+			return;
 		}
+		ViewDiagram loadFile = this.loadFile(fCurrentFile);
+
+		// String genFile = sg.genFile(header, loadFile);
+		CompositeMap screenMap = sg.genCompositeMap(loadFile);
+		FreeMarkerGenerator fmg = new FreeMarkerGenerator();
+		String genFile = fmg.gen(screenMap);
+
+		genNewFile(newFile, genFile);
+		genRelationFile(sg, 0);
+
 	}
 
 	private void genRelationFile(ScreenGenerator sg, int i)
-			throws InvocationTargetException {
+			throws InvocationTargetException, TemplateNotBindedException,
+			IOException, TemplateException, SAXException {
 		if (i > 10) {
 			// circle protected
 			// a-->b--a
@@ -294,19 +326,18 @@ public class ProjectGenerator {
 				ScreenGenerator dsg = new DisplayScreenGenerator(project,
 						(ILink) link, newFile);
 				dsg.setIdGenerator(sg.getIdGenerator());
-				try {
-					// if (newFile.exists()) {
-					// continue;
-					// }
-					ViewDiagram loadFile = this.loadFile(fCurrentFile);
-					if (loadFile == null)
-						continue;
-					String genFile = dsg.genFile(header, loadFile);
-					genNewFile(newFile, genFile);
+				ViewDiagram loadFile = this.loadFile(fCurrentFile);
+				if (loadFile == null)
+					continue;
+				// String genFile = dsg.genFile(header, loadFile);
 
-					genRelationFile(dsg, i);
-				} catch (TemplateNotBindedException e) {
-				}
+				CompositeMap screenMap = dsg.genCompositeMap(loadFile);
+				FreeMarkerGenerator fmg = new FreeMarkerGenerator();
+				String genFile = fmg.gen(screenMap);
+
+				genNewFile(newFile, genFile);
+
+				genRelationFile(dsg, i);
 			}
 		}
 	}

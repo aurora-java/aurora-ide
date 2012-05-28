@@ -37,10 +37,14 @@ public class PropertiesMethod implements TemplateMethodModel {
 		@SuppressWarnings("rawtypes")
 		Set keySet = map.keySet();
 		for (Object object : keySet) {
+			String string = map.getString(object, "");
+			if ("".equals(string)) {
+				continue;
+			}
 			r += object.toString();
 			r += "=";
 			r += "\"";
-			r += map.getString(object, "");
+			r += string;
 			r += "\"";
 			r += " ";
 		}
