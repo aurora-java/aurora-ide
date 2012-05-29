@@ -84,10 +84,26 @@ public class DatasetFieldMap extends AbstractComponentMap {
 				}
 				if (DatasetField.OPTIONS.equals(key)) {
 					value = dataSetFieldUtil.getOptions();
+					
 					if (value != null) {
 						Dataset ds = new ComboDataset();
 						ds.setModel(value.toString());
 						// ds.setPropertyValue(propName, val)
+						CompositeMap fillDatasets = sg.fillDatasetsMap(ds);
+						if (fillDatasets != null) {
+							value = fillDatasets.get("id");
+							CompositeMap dsParent = fillDatasets.getParent();
+							dsParent.removeChild(fillDatasets);
+							dsParent.addChild(0, fillDatasets);
+						}
+					}
+				}
+				if (DatasetField.LOOKUP_CODE.equals(key)) {
+					value = dataSetFieldUtil.getLookupCode();
+					
+					if (value != null) {
+						ComboDataset ds = new ComboDataset();
+						ds.setLookupCode(value.toString());
 						CompositeMap fillDatasets = sg.fillDatasetsMap(ds);
 						if (fillDatasets != null) {
 							value = fillDatasets.get("id");

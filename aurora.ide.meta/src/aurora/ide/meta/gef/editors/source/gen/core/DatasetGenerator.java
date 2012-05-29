@@ -20,7 +20,7 @@ import aurora.ide.meta.gef.editors.source.gen.ComboDataset;
 class DatasetGenerator {
 	private ScreenGenerator sg;
 	private Map<Dataset, String> datasetMaper = new HashMap<Dataset, String>();
-	
+
 	private List<ComboDataset> createdComboDatasets = new ArrayList<ComboDataset>();
 
 	DatasetGenerator(ScreenGenerator sg) {
@@ -64,22 +64,33 @@ class DatasetGenerator {
 		return dsMap;
 	}
 
-	private ComboDataset getCreateComboDataset(ComboDataset ds){
+	private ComboDataset getCreateComboDataset(ComboDataset ds) {
 		for (ComboDataset cds : createdComboDatasets) {
-			if(ds.getModel().equals(cds.getModel())){
-				return cds;
+			if (ds.getModel().equals(cds.getModel())) {
+				if (ds.getLookupCode() == cds.getLookupCode()) {
+					// null
+					return cds;
+				}
+				if (ds.getLookupCode() != null
+						&& ds.getLookupCode().equals(cds.getLookupCode())) {
+					return cds;
+				}
 			}
 		}
 		createdComboDatasets.add(ds);
 		return ds;
 	}
-	private CompositeMap createComboDatasetMap(String id, Dataset dataset) {
+
+	private CompositeMap createComboDatasetMap(String id, ComboDataset dataset) {
 		CompositeMap rds = sg.getA2Map().toCompositMap(dataset);
 		rds.put("id", id);
 		rds.put("autoCreate", true);
 		rds.put("model", dataset.getModel());
 		rds.put("loadData", true);
-		rds.put(ResultDataSet.PAGE_SIZE, null);
+		String lookupCode = dataset.getLookupCode();
+		if (lookupCode != null)
+			rds.put("lookupCode", lookupCode);
+		rds.remove(ResultDataSet.PAGE_SIZE);
 		return rds;
 	}
 
