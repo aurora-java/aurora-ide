@@ -15,6 +15,7 @@ import aurora.ide.builder.ResourceUtil;
 import aurora.ide.builder.SxsdUtil;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.project.AuroraMetaProject;
@@ -30,6 +31,7 @@ public class DataSetFieldUtil {
 	private CompositeMap currentField;
 	private String pkName;
 	private String options;
+	private String lookupCode;
 
 	public DataSetFieldUtil(IProject project, String fieldName, String bmPath) {
 		super();
@@ -93,6 +95,15 @@ public class DataSetFieldUtil {
 			}
 		}
 		return options;
+	}
+	public String getLookupCode() {
+		if (lookupCode == null) {
+			CompositeMap fMap = getCurrentField();
+			if (fMap != null) {
+				lookupCode = Util.getValueIgnoreCase(fMap, "lookupCode");
+			}
+		}
+		return lookupCode;
 	}
 
 	/**
