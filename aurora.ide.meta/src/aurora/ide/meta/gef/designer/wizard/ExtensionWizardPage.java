@@ -219,6 +219,7 @@ public class ExtensionWizardPage extends WizardPage implements
 
 	public void mouseMove(MouseEvent e) {
 		if (tip != null) {
+			tip.setVisible(false);
 			tip.dispose();
 			tip = null;
 			label = null;
