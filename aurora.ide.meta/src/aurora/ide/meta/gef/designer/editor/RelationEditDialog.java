@@ -42,6 +42,7 @@ import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
+import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.DesignerMessages;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
@@ -350,6 +351,7 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 			// the same bm
 			if (!model.getPkRecord().getName().equals(fpk))
 				rec.setName(fpk);
+			rec.setType(DataType.BIGNIT.getDisplayType());
 			rec.setEditor(Input.Combo);
 			rec.setOptions(relation.getRefTable());
 		}
