@@ -84,9 +84,9 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			gr.setLayout(new GridLayout(4, false));
 			gr.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			gr.setText("Set tabref"); //$NON-NLS-1$
-			List<TabItem> tabItem = TemplateHelper.getInstance().getTabItem();
-			for (TabItem ti : tabItem) {
-				createRefField(ti, gr);
+			//List<TabItem> tabItem = TemplateHelper.getInstance().getTabItem();
+			for (LinkComponent ti : tabLink) {
+//				createRefField(ti, gr);
 			}
 		}
 

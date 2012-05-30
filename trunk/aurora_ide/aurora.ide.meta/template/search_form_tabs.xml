@@ -13,23 +13,23 @@
 	</hbox>
 	
 	<tabPanel>
-		<tabs>
+		<tab>
 			<grid id="grid_hid" name="grid_hname" model="model_hid" query="form_id">
 				<toolBar>
 					<button type="excel"/>
 					<button type="clear"/>
 				</toolBar>
 			</grid>
-		</tabs>
+		</tab>
 		
-		<tabs>
+		<tab>
 			<grid id="grid_rid" name="grid_rname" model="model_rid" query="grid_hid">
 				<toolBar>
 					<button type="excel"/>
 					<button type="clear"/>
 				</toolBar>
 			</grid>
-		</tabs>
+		</tab>
 	</tabPanel>
 	
 	<description><![CDATA[
