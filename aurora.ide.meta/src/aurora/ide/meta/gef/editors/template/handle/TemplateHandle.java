@@ -34,7 +34,8 @@ public abstract class TemplateHandle {
 	protected Map<String, AuroraComponent> auroraComponents;
 	protected List<Grid> grids;
 	protected List<TabItem> refTabItems;
-//	public 
+
+	// public
 
 	public TemplateHandle() {
 		initModelRelated = TemplateHelper.getInstance().getInitModelRelated();
@@ -59,8 +60,7 @@ public abstract class TemplateHandle {
 		}
 
 		for (BMReference bm : queryModelRelated.keySet()) {
-			AuroraComponent ac = auroraComponents
-					.get(queryModelRelated.get(bm));
+			AuroraComponent ac = auroraComponents.get(queryModelRelated.get(bm));
 			if (ac instanceof Container) {
 				fillQueryBox((Container) ac, bm);
 			}
@@ -80,8 +80,7 @@ public abstract class TemplateHandle {
 	protected void fillBox(Container ac, BMCompositeMap bmc) {
 		ac.getChildren().clear();
 		for (CompositeMap map : getFieldsWithoutPK(bmc)) {
-			Input input = AuroraModelFactory
-					.createComponent(aurora.ide.meta.gef.Util.getType(map));
+			Input input = AuroraModelFactory.createComponent(aurora.ide.meta.gef.Util.getType(map));
 			input.setName(map.getString("name"));
 			String prompt = map.getString("prompt");
 			prompt = prompt == null ? "prompt" : prompt;
@@ -101,8 +100,7 @@ public abstract class TemplateHandle {
 		return s;
 	}
 
-	protected void fillContainer(Container ac, BMReference bm,
-			BMCompositeMap bmc) {
+	protected void fillContainer(Container ac, BMReference bm, BMCompositeMap bmc) {
 		Dataset ds = ac.getDataset();
 		String s = getBmPath(bm.getModel());
 		ds.setModel(s);
@@ -148,20 +146,16 @@ public abstract class TemplateHandle {
 	}
 
 	protected boolean isDateType(CompositeMap map) {
-		if ("TIMESTAMP".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map,
-				"databaseType"))) {
+		if ("TIMESTAMP".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map, "databaseType"))) {
 			return true;
 		}
-		if ("DATE".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map,
-				"databaseType"))) {
+		if ("DATE".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map, "databaseType"))) {
 			return true;
 		}
-		if ("java.util.Date".equalsIgnoreCase(BMCompositeMap.getMapAttribute(
-				map, "dataType"))) {
+		if ("java.util.Date".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map, "dataType"))) {
 			return true;
 		}
-		if ("java.sql.Date".equalsIgnoreCase(BMCompositeMap.getMapAttribute(
-				map, "dataType"))) {
+		if ("java.sql.Date".equalsIgnoreCase(BMCompositeMap.getMapAttribute(map, "dataType"))) {
 			return true;
 		}
 		return false;
@@ -183,8 +177,7 @@ public abstract class TemplateHandle {
 		ac.getChildren().clear();
 		BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
 		for (CompositeMap queryMap : getQueryFields(bmc)) {
-			Input input = AuroraModelFactory
-					.createComponent(aurora.ide.meta.gef.Util.getType(queryMap));
+			Input input = AuroraModelFactory.createComponent(aurora.ide.meta.gef.Util.getType(queryMap));
 			input.setName(queryMap.getString("name"));
 			input.setPrompt(aurora.ide.meta.gef.Util.getPrompt(queryMap));
 			ac.addChild(input);
@@ -211,8 +204,7 @@ public abstract class TemplateHandle {
 		Map<String, List<String>> refRelat = new HashMap<String, List<String>>();
 		for (CompositeMap relation : bmc.getRelations()) {
 			for (Object reference : relation.getChildsNotNull()) {
-				String localfield = ((CompositeMap) reference)
-						.getString("localfield");
+				String localfield = (BMCompositeMap.getMapAttribute((CompositeMap) reference, "localfield"));
 				String relationName = relation.getString("name");
 				if (localfield != null && relationName != null) {
 					if (refRelat.get(relationName) == null) {

@@ -47,7 +47,7 @@ public class SerachTemplateHandle extends TemplateHandle {
 			for (String relationName : refRelat.keySet()) {
 				if (refRelat.get(relationName).contains(filedName)) {
 					for (CompositeMap ref : bmc.getRefFields()) {
-						if (relationName.equals(ref.getString("relationName"))) {
+						if (relationName.equals(BMCompositeMap.getMapAttribute(ref, "relationName"))) {
 							GridColumn gc = createGridColumn(map, ref);
 							grid.addCol(gc);
 						}
