@@ -44,11 +44,10 @@ public class DatasetField extends AuroraComponent {
 	/** the title of LOV popup window */
 	public static final String TITLE = "title";
 	
-	public static final String LOOKUP_CODE ="lookupCode";
 
 	public static final String[] keys = { READONLY, REQUIRED, DEFAULT_VALUE,
 			CHECKED_VALUE, UNCHECKED_VALUE, DISPLAY_FIELD, OPTIONS,
-			VALUE_FIELD, RETURN_FIELD, LOV_SERVICE, TITLE,LOOKUP_CODE };
+			VALUE_FIELD, RETURN_FIELD, LOV_SERVICE, TITLE };
 
 	public static final String[] lov_keys = { READONLY, REQUIRED, LOV_SERVICE,
 			TITLE };
