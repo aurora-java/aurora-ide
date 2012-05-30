@@ -20,7 +20,7 @@
 		<style><![CDATA[.item-label {HEIGHT: 22px; line-height: 22px; vertical-align: middle; text-decoration:underline; }]]></style>
         <#if (screen.view.links)??>
     		<#list screen.view.links as l>
-    			<a:link url="${l.url}"/>
+    			<a:link id="${l.id}" url="${l.url}"/>
     		</#list>
     	</#if>
         <#if (screen.view.script)??>
