@@ -19,10 +19,12 @@ import freemarker.template.TemplateModelException;
 
 public class TemplateModelWrapper implements TemplateHashModel {
 
+	private static final String INIT_PROCEDURE = "initprocedure";
+
 	private static final String IS_BOX = "isbox";
 
 	private static final String IS_LAYOUT = "islayout";
-	
+
 	private static final String HAS_CHILD = "haschild";
 
 	private static final String U_ID = "u_id";
@@ -45,7 +47,7 @@ public class TemplateModelWrapper implements TemplateHashModel {
 	private FreeMarkerGenerator fmg;
 
 	private static final String[] INNER_KEYS = { U_ID, CDATA, COMPONENTS,
-			RAWNAME, NAME, IS_LAYOUT, IS_BOX,HAS_CHILD };
+			RAWNAME, NAME, IS_LAYOUT, IS_BOX, HAS_CHILD, INIT_PROCEDURE };
 
 	public TemplateModelWrapper(String name, CompositeMap cm,
 			FreeMarkerGenerator freeMarkerGenerator) {
@@ -125,7 +127,16 @@ public class TemplateModelWrapper implements TemplateHashModel {
 		if (IS_BOX.equalsIgnoreCase(key)) {
 			return dow.wrap(false);
 		}
-		
+		if (INIT_PROCEDURE.equalsIgnoreCase(key)) {
+			CompositeMap child = cm.getChild("init-procedure");
+			if (child != null) {
+				WarpperFactory wf = new WarpperFactory(fmg);
+				return wf.createWrapper(child);
+			}else{
+				return null;
+			}
+			
+		}
 
 		return dow.wrap("null");
 	}

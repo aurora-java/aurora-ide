@@ -74,14 +74,14 @@ public class BMViewer {
 		}
 
 		public String getPrompt() {
-			String prompt = "";
+			String prompt = null;
 			if (REF_FIELD.equals(editor)) {
 				prompt = Util.getRefFieldSourcePrompt(getAuroraProject(),
 						fieldMap);
 			} else {
 				prompt = Util.getPrompt(fieldMap);
 			}
-			return prompt;
+			return prompt == null ? fieldMap.getString("prompt", "") : prompt;
 		}
 
 		public String getName() {
@@ -221,7 +221,7 @@ public class BMViewer {
 			if (ModelField.REF_FIELD.equalsIgnoreCase(type))
 				return ImagesUtils.getImage("palette/ref.png");
 			if (ModelField.QUERY_FIELD.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/query.png");//$NON-NLS-1$
+				return ImagesUtils.getImage("palette/search.png");//$NON-NLS-1$
 			return ImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
 		}
 
@@ -423,6 +423,21 @@ public class BMViewer {
 					ModelField field = new ModelField(model, qf,
 							Util.getType(qf));
 					result.add(field);
+
+					// lookupfield
+					String lookupcode = Util.getValueIgnoreCase(qf,
+							"lookupcode");
+					String lookupfield = Util.getValueIgnoreCase(qf,
+							"lookupfield");
+					if (lookupcode != null && lookupfield != null) {
+						CompositeMap clone = (CompositeMap) qf.clone();
+						clone.remove("defaulteditor");
+						clone.remove("defaultEditor");
+						clone.put("name", lookupfield);
+						field = new ModelField(model, clone,
+								ModelField.REF_FIELD);
+						result.add(field);
+					}
 				}
 			}
 			List<CompositeMap> refFields = bmMap.getRefFields();
