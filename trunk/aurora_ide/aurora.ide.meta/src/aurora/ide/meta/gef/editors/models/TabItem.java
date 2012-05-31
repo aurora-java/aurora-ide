@@ -95,6 +95,7 @@ public class TabItem extends Container {
 				for (Parameter p : ref.getParameters()) {
 					tabRef.addParameter(p.clone());
 				}
+				tabRef.setModelQuery(ref.getModelQuery());
 			}
 			return tabRef;
 		}
