@@ -60,28 +60,28 @@ public class ScreenGenerator {
 		this.file = file;
 	}
 
-//	public String genFile(String header, ViewDiagram view)
-//			throws TemplateNotBindedException {
-//		String bindTemplate = view.getBindTemplate();
-//
-//		if (bindTemplate == null || "".equals(bindTemplate))
-//			throw new TemplateNotBindedException();
-//		init(view);
-//		run(view);
-//
-//		String xml = header + screenMap.toXML();
-//		
-//		FreeMarkerGenerator fmg = new FreeMarkerGenerator();
-//		try {
-//			fmg.gen(screenMap);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (TemplateException e) {
-//			e.printStackTrace();
-//		}
-//		return xml;
-//	}
-	
+	// public String genFile(String header, ViewDiagram view)
+	// throws TemplateNotBindedException {
+	// String bindTemplate = view.getBindTemplate();
+	//
+	// if (bindTemplate == null || "".equals(bindTemplate))
+	// throw new TemplateNotBindedException();
+	// init(view);
+	// run(view);
+	//
+	// String xml = header + screenMap.toXML();
+	//
+	// FreeMarkerGenerator fmg = new FreeMarkerGenerator();
+	// try {
+	// fmg.gen(screenMap);
+	// } catch (IOException e) {
+	// e.printStackTrace();
+	// } catch (TemplateException e) {
+	// e.printStackTrace();
+	// }
+	// return xml;
+	// }
+
 	public CompositeMap genCompositeMap(ViewDiagram view)
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
@@ -231,21 +231,22 @@ public class ScreenGenerator {
 		TabRef tabRef = ac.getTabRef();
 		if (tabRef != null) {
 			String refUrl = getRefUrl(tabRef);
-			childMap.put("ref", refUrl);
+			if (refUrl != null)
+				childMap.put("ref", refUrl);
 		}
 	}
 
 	private String getRefUrl(TabRef tabRef) {
 		tabRefs.add(tabRef);
 		String url = tabRef.getOpenPath();
+		if (url == null)
+			return null;
 		url = this.getNewLinkFilePath(url);
 		List<Parameter> parameters = tabRef.getParameters();
 		ModelQuery initModel = tabRef.getModelQuery();
 		// ${/model/head_info/record/@acp_req_type_code}
 		String rootPath = initModel == null ? "${/parameter/@" : "${/model/"
 				+ this.getRootPath(initModel) + "/record/@";
-		if (url == null)
-			return null;
 		IPath path = new Path("${/request/@context_path}");
 		path = path.append(url);
 		path = path.removeFileExtension().addFileExtension("screen");
