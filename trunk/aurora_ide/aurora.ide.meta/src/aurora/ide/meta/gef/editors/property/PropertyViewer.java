@@ -29,8 +29,8 @@ public class PropertyViewer extends Canvas implements PaintListener,
 	static final int LABELSTART = 5;//
 	static final int EDITORSTART = 3;// relative to ditorStart
 	static final int ROWHEIGHT = 20;
-	static final int MINWIDTHLEFT = 30;// 
-	static final int MINWIDTHRIGHT = 40;// 
+	static final int MINWIDTHLEFT = 30;//
+	static final int MINWIDTHRIGHT = 40;//
 	static final String EMPTYTEXT = "<No Properties>";
 	private ArrayList<PropertyItem> als = new ArrayList<PropertyItem>();
 	private int splitLineX = 80;
@@ -189,7 +189,7 @@ public class PropertyViewer extends Canvas implements PaintListener,
 			return;
 		}
 		int idx = e.y / ROWHEIGHT;
-		if (idx >= als.size()) {
+		if (idx < 0 || idx >= als.size()) {
 			setToolTipText(null);
 			return;
 		}
