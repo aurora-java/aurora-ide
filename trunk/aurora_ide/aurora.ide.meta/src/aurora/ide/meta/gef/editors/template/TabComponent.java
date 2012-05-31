@@ -1,6 +1,6 @@
 package aurora.ide.meta.gef.editors.template;
 
-public class TabComponent extends Component {
+public class TabComponent extends BMBindComponent {
 	private String ref;
 	private String modelQuery;
 

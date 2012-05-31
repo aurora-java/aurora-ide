@@ -13,8 +13,8 @@ public class CreateTemplateHandle extends TemplateHandle {
 	public void fill(ViewDiagram viewDiagram) {
 		setColNum(viewDiagram, 1);
 		this.viewDiagram = viewDiagram;
-		for (BMReference bm : modelRelated.keySet()) {
-			for (Container ac : modelRelated.get(bm)) {
+		for (BMReference bm : config.getModelRelated().keySet()) {
+			for (Container ac : config.getModelRelated().get(bm)) {
 				BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
 				fillContainer(ac, bm, bmc);
 			}

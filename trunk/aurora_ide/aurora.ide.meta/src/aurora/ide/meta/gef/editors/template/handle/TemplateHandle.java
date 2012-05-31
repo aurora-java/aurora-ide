@@ -28,22 +28,17 @@ import aurora.ide.search.core.Util;
 
 public abstract class TemplateHandle {
 	protected ViewDiagram viewDiagram;
-	protected Map<BMReference, List<Container>> modelRelated;
-	protected Map<BMReference, List<TabItem>> initModelRelated;
-	protected Map<BMReference, String> queryModelRelated;
-	protected Map<String, AuroraComponent> auroraComponents;
-	protected List<Grid> grids;
-	protected List<TabItem> refTabItems;
+	protected TemplateConfig config;
+	public static final String GRID = "grid";
+
+	// public static final String REF_TAB_ITEMS = "refTabItems";
 
 	// public
 
 	public TemplateHandle() {
-		initModelRelated = TemplateHelper.getInstance().getInitModelRelated();
-		queryModelRelated = TemplateHelper.getInstance().getQueryModelRelated();
-		auroraComponents = TemplateHelper.getInstance().getAuroraComponents();
-		modelRelated = TemplateHelper.getInstance().getModelRelated();
-		grids = new ArrayList<Grid>();
-		refTabItems = new ArrayList<TabItem>();
+		config = TemplateHelper.getInstance().getConfig();
+		config.put(GRID, new ArrayList<Grid>());
+		// config.put(REF_TAB_ITEMS, new ArrayList<TabItem>());
 	}
 
 	public void fill(ViewDiagram viewDiagram) {
@@ -52,23 +47,23 @@ public abstract class TemplateHandle {
 			ip.getModelQuerys().clear();
 		setColNum(viewDiagram, 1);
 		this.viewDiagram = viewDiagram;
-		for (BMReference bm : modelRelated.keySet()) {
-			for (Container ac : modelRelated.get(bm)) {
+		for (BMReference bm : config.getModelRelated().keySet()) {
+			for (Container ac : config.getModelRelated().get(bm)) {
 				BMCompositeMap bmc = new BMCompositeMap(bm.getModel());
 				fillContainer(ac, bm, bmc);
 			}
 		}
 
-		for (BMReference bm : queryModelRelated.keySet()) {
-			AuroraComponent ac = auroraComponents.get(queryModelRelated.get(bm));
+		for (BMReference bm : config.getQueryModelRelated().keySet()) {
+			AuroraComponent ac = config.getAuroraComponents().get(config.getQueryModelRelated().get(bm));
 			if (ac instanceof Container) {
 				fillQueryBox((Container) ac, bm);
 			}
 		}
 
-		for (BMReference bm : initModelRelated.keySet()) {
-			for (TabItem ac : initModelRelated.get(bm)) {
-				refTabItems.add(ac);
+		for (BMReference bm : config.getInitModelRelated().keySet()) {
+			for (TabItem ac : config.getInitModelRelated().get(bm)) {
+				// config.get(REF_TAB_ITEMS).add(ac);
 				if (bm.getModel() == null) {
 					continue;
 				}
@@ -127,7 +122,7 @@ public abstract class TemplateHandle {
 		}
 		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
 		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
-		grids.add(grid);
+		config.get(GRID).add(grid);
 	}
 
 	protected GridColumn createGridColumn(CompositeMap map) {
@@ -190,14 +185,6 @@ public abstract class TemplateHandle {
 		m.setPath(s);
 		ac.getTabRef().setModelQuery(m);
 		viewDiagram.addModelQuery(m);
-	}
-
-	public List<Grid> getGrids() {
-		return grids;
-	}
-
-	public List<TabItem> getRefTabItems() {
-		return refTabItems;
 	}
 
 	protected Map<String, List<String>> getReferenceRelation(BMCompositeMap bmc) {
@@ -268,5 +255,9 @@ public abstract class TemplateHandle {
 				rc.setCol(col);
 			}
 		}
+	}
+
+	public TemplateConfig getConfig() {
+		return config;
 	}
 }

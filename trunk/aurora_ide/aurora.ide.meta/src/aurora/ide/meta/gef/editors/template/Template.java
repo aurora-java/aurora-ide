@@ -12,7 +12,7 @@ public class Template extends Component {
 	private String description;
 	private List<BMReference> bms = new ArrayList<BMReference>();
 	private List<BMReference> linkBms = new ArrayList<BMReference>();
-	private List<Component> grid = new ArrayList<Component>();
+//	private List<Component> grid = new ArrayList<Component>();
 	private List<LinkComponent> link = new ArrayList<LinkComponent>();
 
 	public static final String TYPE_UPDATE = "update";
@@ -33,13 +33,13 @@ public class Template extends Component {
 		this.linkBms.add(linkBm);
 	}
 
-	public List<Component> getGrid() {
-		return grid;
-	}
-
-	public void AddGrid(Component grid) {
-		this.grid.add(grid);
-	}
+	// public List<Component> getGrid() {
+	// return grid;
+	// }
+	//
+	// public void AddGrid(Component grid) {
+	// this.grid.add(grid);
+	// }
 
 	public List<LinkComponent> getLink() {
 		return link;

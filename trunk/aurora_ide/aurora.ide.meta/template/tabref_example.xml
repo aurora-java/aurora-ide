@@ -2,7 +2,7 @@
 <template name="tab引用" icon="t.png" type="serach" category="查询">
 	<models>
 		<model-query id="model_id_1" name="TabItem0 BM"/>
-		<model-query id="model_id_2" name="TabItem1 BM"/>
+		<model id="model_id_2" name="TabItem1 BM"/>
 	</models>
 	
 	<links>
@@ -11,8 +11,16 @@
 	
 	
 	<tabPanel>
+		<tab>
+			<grid id="grid_id" name="grid_name" model="model_id_2">
+				<toolBar>
+					<button type="excel"/>
+					<button type="clear"/>
+				</toolBar>
+			</grid>
+		</tab>
 		<tab name="ref_1" ref="url_1" model="model_id_1"/>
-		<tab name="ref_2" ref="url_1" model="model_id_2"/>
+		<tab name="ref_2" ref="url_1" />
 	</tabPanel>
 	
 	<description><![CDATA[

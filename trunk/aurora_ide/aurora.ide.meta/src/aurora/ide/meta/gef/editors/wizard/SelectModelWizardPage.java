@@ -1,7 +1,5 @@
 package aurora.ide.meta.gef.editors.wizard;
 
-import java.util.List;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -28,11 +26,10 @@ import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.AuroraProjectNature;
 import aurora.ide.meta.exception.ResourceNotFoundException;
-import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
-import aurora.ide.meta.gef.editors.template.LinkComponent;
 import aurora.ide.meta.gef.editors.template.Template;
+import aurora.ide.meta.gef.editors.template.handle.TemplateConfig;
 import aurora.ide.meta.gef.editors.template.handle.TemplateFactory;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
@@ -44,8 +41,9 @@ import aurora.ide.project.propertypage.ProjectPropertyPage;
 public class SelectModelWizardPage extends WizardPage {
 
 	private ViewDiagram viewDiagram;
-	private List<Grid> grids;
-	private List<LinkComponent> tabLink;
+	// private List<Grid> grids;
+	// private List<LinkComponent> tabLink;
+	private TemplateConfig config;
 
 	private Composite composite;
 	private IPath bmPath;
@@ -84,23 +82,31 @@ public class SelectModelWizardPage extends WizardPage {
 		bmPath = null;
 	}
 
+	private TemplateConfig getConfig() {
+		if (config == null) {
+			config = TemplateHelper.getInstance().getConfig();
+		}
+		return config;
+	}
+
 	public void createDynamicTextComponents(Template t) {
 		this.viewDiagram = TemplateHelper.getInstance().createView(t);
+		getConfig();
 		setPageComplete(false);
-		tabLink =t.getLink();
+		// tabLink = config.get(TemplateHelper.LINK);
 		for (Control c : composite.getChildren()) {
 			if (!c.isDisposed()) {
 				c.dispose();
 			}
 		}
-		
-		if (TemplateHelper.getInstance().getBms() != null && TemplateHelper.getInstance().getBms().size() > 0) {
+
+		if (config.get(TemplateHelper.MODEL) != null && config.get(TemplateHelper.MODEL).size() > 0) {
 			Group compoModel = new Group(composite, SWT.NONE);
 			compoModel.setLayout(new GridLayout(3, false));
 			compoModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			compoModel.setText("Model"); //$NON-NLS-1$
-			for (BMReference bm : TemplateHelper.getInstance().getBms()) {
-				createTextField(compoModel, bm);
+			for (Object bm : config.get(TemplateHelper.MODEL)) {
+				createTextField(compoModel, (BMReference) bm);
 			}
 			compoModel.layout();
 		} else {
@@ -109,13 +115,13 @@ public class SelectModelWizardPage extends WizardPage {
 			modify = true;
 		}
 
-		if (TemplateHelper.getInstance().getInitBms() != null && TemplateHelper.getInstance().getInitBms().size() > 0) {
+		if (config.get(TemplateHelper.INIT_MODEL) != null && config.get(TemplateHelper.INIT_MODEL).size() > 0) {
 			Group compoInitModel = new Group(composite, SWT.NONE);
 			compoInitModel.setLayout(new GridLayout(3, false));
 			compoInitModel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			compoInitModel.setText(Messages.SelectModelWizardPage_InitModel);
-			for (BMReference bm : TemplateHelper.getInstance().getInitBms()) {
-				createTextField(compoInitModel, bm);
+			for (Object bm : config.get(TemplateHelper.INIT_MODEL)) {
+				createTextField(compoInitModel, (BMReference) bm);
 			}
 			compoInitModel.layout();
 		}
@@ -175,8 +181,8 @@ public class SelectModelWizardPage extends WizardPage {
 	}
 
 	private boolean checkFinish() {
-		for (BMReference bm : TemplateHelper.getInstance().getBms()) {
-			if (bm.getModel() == null) {
+		for (Object bm : config.get(TemplateHelper.MODEL)) {
+			if (((BMReference) bm).getModel() == null) {
 				return false;
 			}
 		}
@@ -187,7 +193,7 @@ public class SelectModelWizardPage extends WizardPage {
 		TemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType());
 		if (handle != null) {
 			handle.fill(viewDiagram);
-			grids = handle.getGrids();
+			// grids = handle.getGrids();
 		}
 	}
 
@@ -200,17 +206,10 @@ public class SelectModelWizardPage extends WizardPage {
 		return viewDiagram;
 	}
 
-	public List<Grid> getGrids() {
-		return grids;
-	}
-
-	public List<LinkComponent> getTabLink() {
-		return tabLink;
-	}
-
 	@Override
 	public IWizardPage getNextPage() {
-		if ((grids != null && grids.size() > 0) || (tabLink != null && tabLink.size() > 0)) {
+		if ((getConfig().get(TemplateHandle.GRID) != null && (getConfig().get(TemplateHandle.GRID).size() > 0))
+				|| ((getConfig().get(TemplateHelper.LINK) != null && (getConfig().get(TemplateHelper.LINK).size() > 0)))) {
 			return super.getNextPage();
 		} else {
 			return null;

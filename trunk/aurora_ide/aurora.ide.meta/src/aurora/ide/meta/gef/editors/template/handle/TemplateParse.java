@@ -59,32 +59,25 @@ public class TemplateParse extends DefaultHandler {
 			template.addLink(link);
 			stack.push(link);
 		} else if (AuroraModelFactory.isComponent(qName)) {
-			Component cpt = new Component();
-			if (!"".equals(getValue("model"))) { //$NON-NLS-1$ //$NON-NLS-2$
-				if (!(cpt instanceof BMBindComponent)) {
-					cpt = new BMBindComponent();
-				}
-				((BMBindComponent) cpt).setBmReferenceID(getValue("model")); //$NON-NLS-1$
-			}
-			if (!"".equals(getValue("query"))) { //$NON-NLS-1$ //$NON-NLS-2$
-				if (!(cpt instanceof BMBindComponent)) {
-					cpt = new BMBindComponent();
-				}
-				((BMBindComponent) cpt).setQueryComponent(getValue("query")); //$NON-NLS-1$
-			}
+			Component cpt = null;
 			if (qName.equals("tab")) {
 				cpt = new TabComponent();
 				((TabComponent) cpt).setModelQuery(getValue("model"));
 				((TabComponent) cpt).setRef(getValue("ref"));
+				((BMBindComponent) cpt).setBmReferenceID(getValue("model")); //$NON-NLS-1$
+				((BMBindComponent) cpt).setQueryComponent(getValue("query")); //$NON-NLS-1$
+			} else if (isBMBindComponent()) {
+				cpt = new BMBindComponent();
+				((BMBindComponent) cpt).setBmReferenceID(getValue("model")); //$NON-NLS-1$
+				((BMBindComponent) cpt).setQueryComponent(getValue("query")); //$NON-NLS-1$
+			} else {
+				cpt = new Component();
 			}
 			cpt.setComponentType(qName);
 			cpt.setId(getValue("id")); //$NON-NLS-1$
 			cpt.setName(getValue("name")); //$NON-NLS-1$
 			if (!stack.empty() && stack.peek() != null) {
 				stack.peek().addChild(cpt);
-			}
-			if ("grid".equals(qName)) { //$NON-NLS-1$
-				template.AddGrid(cpt);
 			}
 			stack.push(cpt);
 		} else if (qName.equals("template")) { //$NON-NLS-1$
@@ -95,9 +88,9 @@ public class TemplateParse extends DefaultHandler {
 			template.setType(getValue("type")); //$NON-NLS-1$
 			stack.push(template);
 		} else {
-			Component cp = new Component();
-			cp.setName(qName);
-			stack.push(cp);
+			Component c = new Component();
+			c.setName(qName);
+			stack.push(c);
 		}
 	}
 
@@ -127,4 +120,15 @@ public class TemplateParse extends DefaultHandler {
 		return value == null ? "" : value; //$NON-NLS-1$
 	}
 
+	private boolean isBMBindComponent() {
+		for (int i = 0; i < attributes.getLength(); i++) {
+			if ("model".equalsIgnoreCase(attributes.getQName(i))) {
+				return true;
+			}
+			if ("query".equalsIgnoreCase(attributes.getQName(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

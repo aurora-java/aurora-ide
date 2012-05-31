@@ -60,7 +60,7 @@ public class SerachTemplateHandle extends TemplateHandle {
 		}
 		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
 		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
-		grids.add(grid);
+		config.get(GRID).add(grid);
 	}
 
 	private GridColumn createGridColumn(CompositeMap map, CompositeMap ref) {

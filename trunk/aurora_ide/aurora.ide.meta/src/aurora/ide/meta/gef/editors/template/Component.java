@@ -9,8 +9,6 @@ public class Component {
 	private String name;
 	private String id;
 	private String componentType;
-	//private String url;
-//	private List<Parameter> paras = new ArrayList<Parameter>();
 
 	public Component() {
 		super();
@@ -58,20 +56,4 @@ public class Component {
 	public void setComponentType(String componentType) {
 		this.componentType = componentType;
 	}
-
-//	public List<Parameter> getParas() {
-//		return paras;
-//	}
-//
-//	public void setParas(List<Parameter> paras) {
-//		this.paras = paras;
-//	}
-
-//	public String getUrl() {
-//		return url;
-//	}
-//
-//	public void setUrl(String url) {
-//		this.url = url;
-//	}
 }

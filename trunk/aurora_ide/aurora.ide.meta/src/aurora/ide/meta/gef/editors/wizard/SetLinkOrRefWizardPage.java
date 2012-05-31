@@ -46,7 +46,8 @@ import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
-import aurora.ide.meta.gef.editors.template.LinkComponent;
+import aurora.ide.meta.gef.editors.template.handle.TemplateConfig;
+import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.CridColumnDialog;
 import aurora.ide.meta.gef.editors.wizard.dialog.StyleSettingDialog;
@@ -57,6 +58,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 	private Composite composite;
 	private ViewDiagram viewDiagram;
+	private TemplateConfig config;
 
 	public SetLinkOrRefWizardPage() {
 		super("aurora.wizard.setting.Page"); //$NON-NLS-1$
@@ -71,33 +73,33 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		setControl(composite);
 	}
 
-	public void createCustom(ViewDiagram v, List<Grid> grids, List<LinkComponent> tabLink) {
+	public void createCustom(ViewDiagram v) {
 		this.viewDiagram = v;
+		config = TemplateHelper.getInstance().getConfig();
 		for (Control c : composite.getChildren()) {
 			if (!c.isDisposed()) {
 				c.dispose();
 			}
 		}
 
-		if (tabLink.size() > 0) {
+		if (config.get(TemplateHelper.LINK).size() > 0) {
 			Group gr = new Group(composite, SWT.None);
 			gr.setLayout(new GridLayout(4, false));
 			gr.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			gr.setText("Set tabref"); //$NON-NLS-1$
-			List<TabItem> tabItem = TemplateHelper.getInstance().getTabItem();
-			for (TabItem ti : tabItem) {
-				createRefField(ti, gr);
+			for (Object ti : config.get(TemplateHelper.TAB_ITEM)) {
+				createRefField((TabItem) ti, gr);
 			}
 		}
 
-		if (grids.size() > 0) {
-			createGridSetting(grids);
+		if (config.get(TemplateHandle.GRID).size() > 0) {
+			createGridSetting(config.get(TemplateHandle.GRID));
 		}
 
 		composite.layout();
 	}
 
-	private void createGridSetting(List<Grid> grids) {
+	private void createGridSetting(List<Object> grids) {
 
 		final List<GridColumn> gridColumns = new ArrayList<GridColumn>();
 

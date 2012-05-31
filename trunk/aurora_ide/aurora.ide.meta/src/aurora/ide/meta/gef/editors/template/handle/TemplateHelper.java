@@ -33,6 +33,7 @@ import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.ButtonComponent;
 import aurora.ide.meta.gef.editors.template.Component;
+import aurora.ide.meta.gef.editors.template.LinkComponent;
 import aurora.ide.meta.gef.editors.template.TabComponent;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
@@ -43,16 +44,13 @@ public class TemplateHelper {
 
 	private static TemplateHelper tph = null;
 
+	private TemplateConfig config;
 	private Map<String, String> queryRelated;
-	private Map<BMReference, List<Container>> modelRelated;
-	private Map<BMReference, List<TabItem>> initModelRelated;
-	private Map<String, AuroraComponent> auroraComponents;
-	private Map<BMReference, String> queryModelRelated;
-	private List<BMReference> bms;
-	private List<BMReference> initBms;
-	private List<TabItem> tabItem;
-
 	private int tabItemIndex = 0;
+	public static final String MODEL = "bm";
+	public static final String TAB_ITEM = "tab";
+	public static final String LINK = "link";
+	public static final String INIT_MODEL = "initBm";
 
 	public static TemplateHelper getInstance() {
 		if (tph == null) {
@@ -86,8 +84,6 @@ public class TemplateHelper {
 		TemplateParse tp = new TemplateParse();
 		for (File f : files) {
 			try {
-				// InputStream bytes = new
-				// ByteArrayInputStream(getBytesFromFile(f));
 				parser.parse(f, tp);
 			} catch (SAXException e) {
 				e.printStackTrace();
@@ -155,7 +151,6 @@ public class TemplateHelper {
 				e.printStackTrace();
 				return null;
 			}
-			TemplateHelper.getInstance().clearTemplate();
 			IPath path = new Path(ts.getPath());
 			loadTemplate(path);
 		}
@@ -174,22 +169,19 @@ public class TemplateHelper {
 		fillQueryRelated();
 		viewDiagram.setTemplateType(template.getType());
 		viewDiagram.setBindTemplate(template.getPath());
-		if (tabItem.size() > 0) {
-			tabItem.get(0).setCurrent(true);
+		if (config.get(TAB_ITEM) != null && config.get(TAB_ITEM).size() > 0) {
+			((TabItem) config.get(TAB_ITEM).get(0)).setCurrent(true);
 		}
 		return viewDiagram;
 	}
 
 	private void initVariable(Template template) {
 		template.clear();
-		bms = template.getBms();
-		initBms = template.getLinkBms();
+		config = new TemplateConfig();
+		config.put(MODEL, template.getBms());
+		config.put(INIT_MODEL, template.getLinkBms());
+		config.put(LINK, template.getLink());
 		queryRelated = new HashMap<String, String>();
-		auroraComponents = new HashMap<String, AuroraComponent>();
-		modelRelated = new HashMap<BMReference, List<Container>>();
-		initModelRelated = new HashMap<BMReference, List<TabItem>>();
-		queryModelRelated = new HashMap<BMReference, String>();
-		tabItem = new ArrayList<TabItem>();
 		tabItemIndex = 0;
 	}
 
@@ -202,24 +194,23 @@ public class TemplateHelper {
 			ac.setName(c.getName());
 		}
 		if (null != c.getId() && !"".equals(c.getId())) {
-			auroraComponents.put(c.getId(), ac);
+			config.getAuroraComponents().put(c.getId(), ac);
 		}
 		if ((c instanceof BMBindComponent) && (ac instanceof Container)) {
 			fillContainer((BMBindComponent) c, (Container) ac);
 		}
 		if (ac instanceof TabItem) {
 			((TabItem) ac).setPrompt("tabItem" + tabItemIndex++);
-			tabItem.add((TabItem) ac);
 			fillTabRef((TabItem) ac, (TabComponent) c);
+		}
+		if ((c instanceof ButtonComponent) && (ac instanceof Button)) {
+			fillButton((ButtonComponent) c, (Button) ac);
 		}
 		if (c.getChildren() == null) {
 			return ac;
 		}
 		for (Component c_child : c.getChildren()) {
 			AuroraComponent ac_child = createAuroraComponent(c_child);
-			if ((c_child instanceof ButtonComponent) && (ac_child instanceof Button)) {
-				fillButton((ButtonComponent) c_child, (Button) ac_child);
-			}
 			if (ac instanceof Container) {
 				((Container) ac).addChild(ac_child);
 			}
@@ -229,15 +220,15 @@ public class TemplateHelper {
 
 	private void fillQueryRelated() {
 		for (String s : queryRelated.keySet()) {
-			Object obj = auroraComponents.get(s);
+			Object obj = config.getAuroraComponents().get(s);
 			if (obj instanceof Button) {
 				Button btn = (Button) obj;
-				AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
+				AuroraComponent ac = config.getAuroraComponents().get(queryRelated.get(s));
 				btn.getButtonClicker().setTargetComponent(ac);
 			} else if (obj instanceof Container) {
 				Container c = (Container) obj;
 				ResultDataSet ds = (ResultDataSet) c.getDataset();
-				AuroraComponent ac = auroraComponents.get(queryRelated.get(s));
+				AuroraComponent ac = config.getAuroraComponents().get(queryRelated.get(s));
 				if (ac instanceof Container) {
 					ds.setOwner(c);
 					ds.setQueryContainer((Container) ac);
@@ -264,6 +255,13 @@ public class TemplateHelper {
 	}
 
 	private void fillTabRef(TabItem ac, TabComponent c) {
+		if (!isRefTab(c)) {
+			return;
+		}
+		if (config.get(TAB_ITEM) == null) {
+			config.put(TAB_ITEM, new ArrayList<Object>());
+		}
+		config.get(TAB_ITEM).add(ac);
 		TabRef ref = ac.getTabRef();
 		if (ref == null) {
 			ref = new TabRef();
@@ -271,20 +269,32 @@ public class TemplateHelper {
 		ac.setTabRef(ref);
 		String ibmId = c.getModelQuery();
 		BMReference bm = null;
-		for (BMReference b : initBms) {
-			if (!ibmId.equals(b.getId())) {
+		for (Object b : config.get(INIT_MODEL)) {
+			if (!ibmId.equals(((BMReference) b).getId())) {
 				continue;
 			}
-			bm = b;
+			bm = (BMReference) b;
 			break;
 		}
 		if (bm == null) {
 			return;
 		}
-		if (initModelRelated.get(bm) == null) {
-			initModelRelated.put(bm, new ArrayList<TabItem>());
+		if (config.getInitModelRelated().get(bm) == null) {
+			config.getInitModelRelated().put(bm, new ArrayList<TabItem>());
 		}
-		initModelRelated.get(bm).add(ac);
+		config.getInitModelRelated().get(bm).add(ac);
+	}
+
+	private boolean isRefTab(TabComponent c) {
+		if (c.getRef() == null && "".equals(c.getRef().trim())) {
+			return false;
+		}
+		for (Object obj : config.get(LINK)) {
+			if (c.getRef().equals(((LinkComponent) obj).getId())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean contains(String[] ss, String s) {
@@ -305,11 +315,11 @@ public class TemplateHelper {
 			return;
 		}
 		BMReference bm = null;
-		for (BMReference b : bms) {
-			if (!bmId.equals(b.getId())) {
+		for (Object b : config.get(MODEL)) {
+			if (!bmId.equals(((BMReference) b).getId())) {
 				continue;
 			}
-			bm = b;
+			bm = (BMReference) b;
 			break;
 		}
 		if (bm == null) {
@@ -319,46 +329,22 @@ public class TemplateHelper {
 		ds.setOwner(ac);
 		ac.setDataset(ds);
 		ac.setSectionType(Container.SECTION_TYPE_RESULT);
-		if (modelRelated.get(bm) == null) {
-			modelRelated.put(bm, new ArrayList<Container>());
+		if (config.getModelRelated().get(bm) == null) {
+			config.getModelRelated().put(bm, new ArrayList<Container>());
 		}
-		modelRelated.get(bm).add(ac);
+		config.getModelRelated().get(bm).add(ac);
 		String qcId = c.getQueryComponent();
 		if (qcId != null && (!"".equals(qcId))) {
 			queryRelated.put(c.getId(), qcId);
-			queryModelRelated.put(bm, qcId);
+			config.getQueryModelRelated().put(bm, qcId);
 		}
 	}
 
-	public List<BMReference> getBms() {
-		return bms;
+	public TemplateConfig getConfig() {
+		return config;
 	}
 
-	public List<BMReference> getInitBms() {
-		return initBms;
-	}
-
-	public Map<String, String> getQueryRelated() {
-		return queryRelated;
-	}
-
-	public Map<BMReference, List<Container>> getModelRelated() {
-		return modelRelated;
-	}
-
-	public Map<BMReference, List<TabItem>> getInitModelRelated() {
-		return initModelRelated;
-	}
-
-	public Map<String, AuroraComponent> getAuroraComponents() {
-		return auroraComponents;
-	}
-
-	public Map<BMReference, String> getQueryModelRelated() {
-		return queryModelRelated;
-	}
-
-	public List<TabItem> getTabItem() {
-		return tabItem;
+	public void setConfig(TemplateConfig config) {
+		this.config = config;
 	}
 }
