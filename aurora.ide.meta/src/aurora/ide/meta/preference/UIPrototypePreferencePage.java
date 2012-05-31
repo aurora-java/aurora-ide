@@ -67,7 +67,7 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 		container.setLayout(layout);
 
 		IPath path = MetaPlugin.getDefault().getStateLocation().append("template"); //$NON-NLS-1$
-		TemplateHelper.getInstance().clearTemplate();
+		// TemplateHelper.getInstance().clearTemplate();
 		tComposite = new TComposite(container, SWT.BORDER, TemplateHelper.getInstance().getTemplates(path));
 		createButton();
 		return container;
