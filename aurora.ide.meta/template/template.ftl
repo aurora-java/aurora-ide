@@ -7,10 +7,10 @@
   $${config.copyright}
 -->
 <a:screen xmlns:a="http://www.aurora-framework.org/application">
-	<#if (screen[initProcedure])??>
+	<#if (screen.initProcedure)??>
 	<a:init-procedure>
-		<#if (screen[initProcedure][modelQuerys])??>
-			<#list (screen[initProcedure][modelQuerys]) as m>
+		<#if (screen.initProcedure.modelQuerys)??>
+			<#list (screen.initProcedure.modelQuerys) as m>
 		        <a:model-query ${properties(m.u_id)}/>
 			</#list>
 		</#if>

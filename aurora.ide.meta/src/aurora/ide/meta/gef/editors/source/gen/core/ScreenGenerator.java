@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,13 +114,17 @@ public class ScreenGenerator {
 				screenMap.addChild(0, procedureMap);
 			}
 
+			String modelPath = initModel.getPath();
 			CompositeMap mq = procedureMap.getChildByAttrib("model-query",
-					"model", initModel.getPath());
+					"model", modelPath);
 			if (mq == null) {
 				mq = createCompositeMap("model-query");
-				mq.put("model", initModel.getPath());
-				IPath path = new Path(initModel.getPath());
-				String p = this.idGenerator.genID(path.lastSegment(), 0);
+				mq.put("model", modelPath);
+
+				IPath path = new Path(
+						modelPath.replace('.', File.separatorChar));
+				String lastSegment = path.lastSegment();
+				String p = this.idGenerator.genID(lastSegment, 0);
 				mq.put("rootpath", p);
 				procedureMap.addChild(mq);
 			}
