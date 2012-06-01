@@ -6,10 +6,13 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.widgets.Display;
@@ -22,6 +25,7 @@ import aurora.ide.AuroraProjectNature;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.search.cache.CacheManager;
+import aurora.ide.search.core.Util;
 
 public class AuroraMetaProject {
 
@@ -53,6 +57,27 @@ public class AuroraMetaProject {
 
 	public IFolder getModelFolder() throws ResourceNotFoundException {
 		return this.getFolder(MODEL_HOME);
+	}
+
+	public IFile getNewScreenFile(IFile file) throws ResourceNotFoundException {
+		IResource screenFolder = getScreenFolder();
+		IPath makeRelativeTo = file.getProjectRelativePath().makeRelativeTo(
+				screenFolder.getProjectRelativePath());
+		return getNewScreenFile(makeRelativeTo);
+	}
+
+	private IFile getNewScreenFile(IPath makeRelativeTo)
+			throws ResourceNotFoundException {
+		makeRelativeTo = makeRelativeTo.removeFileExtension();
+		makeRelativeTo = makeRelativeTo.addFileExtension("screen"); //$NON-NLS-1$
+		IContainer auroraWebFolder = getAuroraWebFolder();
+		return auroraWebFolder.getFile(makeRelativeTo);
+	}
+
+	private IContainer getAuroraWebFolder() throws ResourceNotFoundException {
+		IResource auroraProject = getAuroraProject();
+		IContainer findWebInf = Util.findWebInf(auroraProject);
+		return (IContainer) (findWebInf == null ? null : findWebInf.getParent());
 	}
 
 	public IProject getAuroraProject() throws ResourceNotFoundException {

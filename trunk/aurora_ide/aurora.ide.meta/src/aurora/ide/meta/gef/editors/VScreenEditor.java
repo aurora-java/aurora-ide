@@ -61,6 +61,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	private MetaPropertyViewer propertyViewer;
 	private BMViewer bmViewer;
 	private EditorMode editorMode;
+	private IFile file;
 
 	public VScreenEditor() {
 		editorMode = new EditorMode(this);
@@ -84,6 +85,15 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
 
+	public Object getAdapter(Class adapter) {
+		if (IFile.class.equals(adapter)){
+			return file;
+		}			
+
+		return super.getAdapter(adapter);
+	}
+	
+	
 	/**
 	 * @see org.eclipse.gef.commands.CommandStackListener#commandStackChanged(java.util.EventObject)
 	 */
@@ -261,7 +271,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 			return;
 		}
 
-		IFile file = ((IFileEditorInput) input).getFile();
+		file = ((IFileEditorInput) input).getFile();
 		this.setPartName(file.getName());
 		InputStream is = null;
 		try {
