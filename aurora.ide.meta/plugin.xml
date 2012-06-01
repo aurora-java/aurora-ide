@@ -111,11 +111,32 @@
                tooltip="生成Aurora代码"
                toolbarPath="Aurora\meta"
                id="aurora.ide.meta.action.SourceCodeGenerator"
+               >
+         </action>
+         <action
+               label="OpenFile"
+               icon="icons/folder.png"
+               class="aurora.ide.meta.action.ToolbarOpenGeneratorFileAction"
+               tooltip="打开生成的文件"
+               toolbarPath="Aurora\meta"
+               id="aurora.ide.meta.action.ToolbarOpenGeneratorFileAction"
                style="pulldown"
                >
          </action>
       </actionSet>
    </extension>
+   
+<extension point="org.eclipse.ui.perspectiveExtensions"> 
+    <perspectiveExtension 
+      targetID="aurora.ide.perspectives.AuroraPerspective"> 
+      <actionSet id="aurora.meta.project.actionset"/> 
+    </perspectiveExtension> 
+</extension>
+   
+   
+   
+   
+   
   <extension
         point="org.eclipse.core.runtime.contentTypes">
      <content-type
@@ -184,10 +205,10 @@
            nameFilter="*.bmq"
            objectClass="org.eclipse.core.resources.IFile">
         <action
-              class="aurora.ide.meta.popup.actions.OpenBMofBmqAction"
+              class="aurora.ide.meta.popup.actions.OpenGeneratorFileAction"
               enablesFor="1"
-              id="aurora.ide.meta.openBmAction"
-              label="Open BM"
+              id="aurora.ide.meta.open.generated.bm.Action"
+              label="Open generated file"
               menubarPath="additions">
            <enablement>
               <and>
@@ -197,6 +218,33 @@
                  <objectState
                        name="extension"
                        value="bmq">
+                 </objectState>
+                 <objectState
+                       name="projectNature"
+                       value="aurora.ide.meta.nature">
+                 </objectState>
+              </and>
+           </enablement>
+        </action>
+     </objectContribution>
+     <objectContribution
+           id="aurora.ide.meta.pop.open.uip"
+           nameFilter="*.uip"
+           objectClass="org.eclipse.core.resources.IFile">
+        <action
+              class="aurora.ide.meta.popup.actions.OpenGeneratorFileAction"
+              enablesFor="1"
+              id="aurora.ide.meta.open.generated.screen.Action"
+              label="Open generated file"
+              menubarPath="additions">
+           <enablement>
+              <and>
+                 <objectClass
+                       name="org.eclipse.core.resources.IFile">
+                 </objectClass>
+                 <objectState
+                       name="extension"
+                       value="uip">
                  </objectState>
                  <objectState
                        name="projectNature"

@@ -49,6 +49,7 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 	public TabRef getLink() {
 		TabRef l = new TabRef();
 		l.setOpenPath(url);
+		l.setModelQuery(_ref.getModelQuery());
 		l.getParameters().addAll(pc.getParameters());
 
 		return l;

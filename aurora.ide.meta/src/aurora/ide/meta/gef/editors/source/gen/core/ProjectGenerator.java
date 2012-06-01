@@ -45,7 +45,6 @@ import aurora.ide.prototype.freemarker.FreeMarkerGenerator;
 import aurora.ide.search.core.Message;
 import aurora.ide.search.core.Util;
 import aurora.ide.search.ui.MessageFormater;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 public class ProjectGenerator {

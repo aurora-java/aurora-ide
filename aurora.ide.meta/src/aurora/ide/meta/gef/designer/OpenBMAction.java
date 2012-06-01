@@ -12,7 +12,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 
@@ -24,14 +23,14 @@ import aurora.ide.meta.gef.editors.ImagesUtils;
 public class OpenBMAction extends Action {
 
 	private IFile bmqFile;
-	private IWorkbenchPart part;
+	private IWorkbenchPage page;
 	private IFile baseBMFile;
 
-	public OpenBMAction(IFile bmqFile, IWorkbenchPart part) {
+	public OpenBMAction(IFile bmqFile, IWorkbenchPage page) {
 		super("Open BM", Action.AS_DROP_DOWN_MENU);
 		setImageDescriptor(ImagesUtils.getImageDescriptor("folder.png"));
 		this.bmqFile = bmqFile;
-		this.part = part;
+		this.page = page;
 
 	}
 
@@ -55,11 +54,15 @@ public class OpenBMAction extends Action {
 			return;
 		}
 		try {
-			IWorkbenchPage page = part.getSite().getPage();
+			IWorkbenchPage page = getPage();
 			IDE.openEditor(page, bmFile, "aurora.ide.BusinessModelEditor", true);
 		} catch (PartInitException e) {
 			// error will show in another way.
 		}
+	}
+
+	public IWorkbenchPage getPage() {
+		return page;
 	}
 
 	private IFile getFile(String sufix) throws ResourceNotFoundException {
@@ -80,17 +83,23 @@ public class OpenBMAction extends Action {
 
 		public Menu getMenu(Control parent) {
 			Menu menu = new Menu(parent);
+			fillMenu(menu);
+			return menu;
+		}
+
+		public void fillMenu(Menu menu) {
 			for (String s : IDesignerConst.AE_TYPES) {
 				MenuItem mi = new MenuItem(menu, SWT.NONE);
 				mi.setText("Open for " + s + " BM");
 				mi.setData(s);
 				mi.addSelectionListener(this);
 			}
-			return menu;
 		}
 
 		public Menu getMenu(Menu parent) {
-			return null;
+			Menu menu = new Menu(parent);
+			fillMenu(menu);
+			return menu;
 		}
 
 		public void widgetSelected(SelectionEvent e) {

@@ -124,7 +124,8 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 
 	private void createActions(IToolBarManager toolBarManager) {
 		BMDesigner designer = (BMDesigner) getEditor();
-		toolBarManager.add(new OpenBMAction(designer.getInputFile(), designer));
+		toolBarManager.add(new OpenBMAction(designer.getInputFile(), designer
+				.getSite().getPage()));
 		toolBarManager.add(new SettingAction(model, designer));
 
 		// end

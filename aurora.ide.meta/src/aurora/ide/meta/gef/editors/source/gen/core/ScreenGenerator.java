@@ -1,7 +1,6 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +10,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-
-import freemarker.template.TemplateException;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.exception.TemplateNotBindedException;
@@ -27,8 +24,8 @@ import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.IDatasetFieldDelegate;
 import aurora.ide.meta.gef.editors.models.ILink;
 import aurora.ide.meta.gef.editors.models.InitProcedure;
-import aurora.ide.meta.gef.editors.models.ModelQuery;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.ModelQuery;
 import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
@@ -36,7 +33,6 @@ import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.editors.models.link.TabRef;
-import aurora.ide.prototype.freemarker.FreeMarkerGenerator;
 
 public class ScreenGenerator {
 	private static final String label_style = ".item-label {HEIGHT: 22px; line-height: 22px; vertical-align: middle; text-decoration:underline; }";
