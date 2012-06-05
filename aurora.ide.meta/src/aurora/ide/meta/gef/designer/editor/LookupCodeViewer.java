@@ -82,7 +82,8 @@ public class LookupCodeViewer extends TreeViewer {
 		public String getText(Object element) {
 			if (LookupCodeUtil.isCode(element)) {
 				String code = LookupCodeUtil.getCode(element);
-				if (((CompositeMap) element).getBoolean("exists"))
+				Boolean b = ((CompositeMap) element).getBoolean("exists");
+				if (b != null && b.booleanValue())
 					code += "    (exists)";
 				return code;
 			}
