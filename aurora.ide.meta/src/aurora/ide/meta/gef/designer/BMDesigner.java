@@ -84,6 +84,11 @@ public class BMDesigner extends FormEditor {
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
 		super.init(site, input);
+		if (!(input instanceof IFileEditorInput)) {
+			setPartName(input.getName());
+			model = new BMModel();
+			return;
+		}
 		IFileEditorInput fi = (IFileEditorInput) input;
 		this.inputFile = fi.getFile();
 		setPartName(inputFile.getName());
