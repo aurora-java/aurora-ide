@@ -254,6 +254,18 @@
            </enablement>
         </action>
      </objectContribution>
+     <objectContribution
+           id="aurora.ide.meta.pop.createsyscode"
+           nameFilter="sys_code.code"
+           objectClass="org.eclipse.core.resources.IFile">
+        <action
+              class="aurora.ide.meta.popup.actions.CreateSysCodeAction"
+              enablesFor="1"
+              id="aurora.ide.meta.autoCreateSysCodeAction"
+              label="Create SYS_CODE"
+              menubarPath="additions">
+        </action>
+     </objectContribution>
   </extension>
     
 </plugin>
