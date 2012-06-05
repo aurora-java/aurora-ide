@@ -1,18 +1,12 @@
 package aurora.ide.meta.gef.designer.editor;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
@@ -35,11 +29,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.AuroraPlugin;
-import aurora.ide.api.composite.map.CommentCompositeLoader;
-import aurora.ide.api.composite.map.CommentCompositeMapParser;
-import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.DesignerMessages;
-import aurora.ide.meta.project.AuroraMetaProject;
 
 public class LookupCodeDialog extends Dialog implements SelectionListener,
 		ISelectionChangedListener, MouseListener {
@@ -48,7 +38,7 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 	CompositeMap codemap;
 	String errorMessage = null;
 	private Tree tree;
-	private TreeViewer treeViewer;
+	private LookupCodeViewer treeViewer;
 
 	/**
 	 * Create the dialog.
@@ -59,27 +49,10 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 		super(parentShell);
 		IFile file = AuroraPlugin.getActiveIFile();
 		if (file != null) {
-			AuroraMetaProject amp = new AuroraMetaProject(file.getProject());
-			IFolder folder = null;
 			try {
-				folder = amp.getModelFolder();
-			} catch (ResourceNotFoundException e) {
-			}
-			IFile sys_code_file = null;
-			if (folder != null)
-				sys_code_file = folder.getFile(DesignerMessages.sys_code_file_name); 
-			if (sys_code_file == null)
-				errorMessage = DesignerMessages.LookupCodeDialog_3;
-			else {
-				CommentCompositeLoader loader = new CommentCompositeLoader();
-				CommentCompositeMapParser parser = new CommentCompositeMapParser(
-						loader);
-				try {
-					codemap = parser.parseStream(sys_code_file.getContents());
-				} catch (Exception e) {
-					errorMessage = DesignerMessages.LookupCodeDialog_3;
-					errorMessage += "\n" + e.getMessage(); //$NON-NLS-1$
-				}
+				codemap = LookupCodeUtil.load(file.getProject());
+			} catch (Exception e) {
+				errorMessage = e.getMessage();
 			}
 		}
 	}
@@ -90,8 +63,8 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 	 * @param parent
 	 */
 	@Override
-	protected Control createDialogArea(Composite parent) {
-		getShell().setText(DesignerMessages.LookupCodeDialog_2);
+	public Control createDialogArea(Composite parent) {
+		parent.getShell().setText(DesignerMessages.LookupCodeDialog_2);
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(new GridLayout(2, false));
 
@@ -123,15 +96,14 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 			errText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
 					1, 1));
 		} else {
-			treeViewer = new TreeViewer(container, SWT.BORDER | SWT.V_SCROLL
-					| SWT.SINGLE);
+			treeViewer = new LookupCodeViewer(container, SWT.BORDER
+					| SWT.V_SCROLL | SWT.SINGLE);
 			tree = treeViewer.getTree();
 			tree.addMouseListener(this);
 			tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1,
 					1));
-			treeViewer.setContentProvider(new TreeConentProvider());
-			treeViewer.setLabelProvider(new TreeLabelProvider());
 			treeViewer.setInput(codemap);
+			treeViewer.select(value);
 			treeViewer.addSelectionChangedListener(this);
 		}
 		text.selectAll();
@@ -192,67 +164,13 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 
 	}
 
-	class TreeConentProvider implements ITreeContentProvider {
-
-		public void dispose() {
-
-		}
-
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-
-		}
-
-		public Object[] getElements(Object inputElement) {
-			return codemap.getChildsNotNull().toArray();
-		}
-
-		public Object[] getChildren(Object parentElement) {
-			CompositeMap m = (CompositeMap) parentElement;
-			return m.getChildsNotNull().toArray();
-		}
-
-		public Object getParent(Object element) {
-			CompositeMap m = (CompositeMap) element;
-			return m.getParent();
-		}
-
-		public boolean hasChildren(Object element) {
-			return LookupCodeUtil.isCode(element);
-		}
-	}
-
-	class TreeLabelProvider extends LabelProvider implements IColorProvider {
-
-		@Override
-		public String getText(Object element) {
-			if (LookupCodeUtil.isCode(element)) {
-				return LookupCodeUtil.getCodeName(element);
-			}
-			return LookupCodeUtil.getValueAsString(element);
-		}
-
-		public Color getForeground(Object element) {
-			String t = getText(element);
-			if (t.contains("<"))// means error //$NON-NLS-1$
-				return new Color(null, 255, 0, 0);
-			if (LookupCodeUtil.isValue(element)) {
-				return new Color(null, 128, 128, 128);
-			}
-			return null;
-		}
-
-		public Color getBackground(Object element) {
-			return null;
-		}
-	}
-
 	public void selectionChanged(SelectionChangedEvent event) {
 		ISelection sel = event.getSelection();
 		if (sel instanceof IStructuredSelection) {
 			Object m = ((IStructuredSelection) sel).getFirstElement();
-			m = LookupCodeUtil.getCode(m);
+			m = LookupCodeUtil.getCodeRoot(m);
 			if (m != null) {
-				text.setText(LookupCodeUtil.getCodeName(m));
+				text.setText(LookupCodeUtil.getCode(m));
 			}
 		}
 	}
