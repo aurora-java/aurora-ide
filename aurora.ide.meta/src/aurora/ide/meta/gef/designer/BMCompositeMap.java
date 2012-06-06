@@ -50,7 +50,9 @@ public class BMCompositeMap {
 	 */
 	public BMCompositeMap(IFile bmFile) {
 		try {
-			this.bmMap = CacheManager.getWholeBMCompositeMap(bmFile);
+			bmMap = CacheManager.getCompositeMap(bmFile);
+			if (bmMap.get("extend") != null)
+				bmMap = CacheManager.getWholeBMCompositeMap(bmFile);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
