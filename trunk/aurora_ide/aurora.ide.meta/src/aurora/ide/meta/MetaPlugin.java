@@ -14,7 +14,7 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import aurora.ide.meta.gef.util.FileCopyer;
+import aurora.ide.helpers.FileCopyer;
 
 /**
  * The activator class controls the plug-in life cycle

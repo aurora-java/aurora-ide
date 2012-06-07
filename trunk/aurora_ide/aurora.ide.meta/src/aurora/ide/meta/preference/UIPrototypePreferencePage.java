@@ -22,11 +22,11 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import aurora.ide.helpers.DialogUtil;
+import aurora.ide.helpers.FileDeleter;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.meta.gef.editors.wizard.dialog.TComposite;
 import aurora.ide.meta.gef.i18n.Messages;
-import aurora.ide.meta.gef.util.FileDeleter;
 
 public class UIPrototypePreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
