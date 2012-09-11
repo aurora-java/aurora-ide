@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Prompts View"
+            icon="icons/sample.gif"
+            category="aurora.viewer.category"
+            class="aurora.ide.views.prompts.view.PromptsView"
+            id="aurora.ide.views.prompts.view.PromptsView">
+      </view>
+   </extension>
+
+</plugin>
