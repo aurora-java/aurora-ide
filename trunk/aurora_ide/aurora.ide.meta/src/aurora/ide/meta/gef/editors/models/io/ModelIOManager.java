@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.editors.models.io;
 
+import java.util.Arrays;
 import java.util.List;
 
 import uncertain.composite.CompositeMap;
@@ -16,6 +17,7 @@ public class ModelIOManager {
 	public static final String BIND_TEMPLATE = "bindTemplate";
 	public static final String INIT_PROCEDURE = "init-procedure";
 	public static final String TEMPLATE_TYPE = "templatetype";
+	public static final String UNBINDMODELS = "unBindModels";
 
 	ModelIOContext mic = new ModelIOContext();
 
@@ -31,6 +33,11 @@ public class ModelIOManager {
 		root.setName(diagram.getClass().getSimpleName());
 		root.put(BIND_TEMPLATE, diagram.getBindTemplate());
 		root.put(TEMPLATE_TYPE, diagram.getTemplateType());
+		// about UnBindModels
+		List<String> list = diagram.getUnBindModels();
+		String str = StringUtil.join(list, ";");
+		root.put(UNBINDMODELS, str);
+		// end UnBindModels
 		InitProcedure ip = diagram.getInitProcedure();
 		if (ip != null) {
 			List<ModelQuery> imList = ip.getModelQuerys();
@@ -59,6 +66,10 @@ public class ModelIOManager {
 		String tpl = root.getString(BIND_TEMPLATE);
 		dia.setBindTemplate(tpl);
 		dia.setTemplateType(root.getString(TEMPLATE_TYPE));
+		// about UnBindModels
+		String str = root.getString(UNBINDMODELS);
+		dia.getUnBindModels().addAll(Arrays.asList(StringUtil.split(str, ";")));
+		// end UnBindModels
 		@SuppressWarnings("unchecked")
 		List<CompositeMap> list = root.getChildsNotNull();
 		for (CompositeMap map : list) {
