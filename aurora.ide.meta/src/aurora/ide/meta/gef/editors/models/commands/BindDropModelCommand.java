@@ -32,6 +32,7 @@ public class BindDropModelCommand extends DropBMCommand {
 
 	public void execute() {
 		List<CompositeMap> fields = (List<CompositeMap>) data;
+		// fieldset
 		if (container instanceof Form) {
 			fillForm(fields);
 		}
@@ -49,9 +50,14 @@ public class BindDropModelCommand extends DropBMCommand {
 	}
 
 	private void fillGrid(List<CompositeMap> fields) {
+		Dataset ds = Util.findDataset(container);
+		String model = ds.getModel();
 		for (CompositeMap f : fields) {
 			if (isQueryNameMap(f))
 				continue;
+			if (model == null || "".equals(model.trim())) {
+				ds.setModel(f.getString("model", ""));
+			}
 			String string = Util.getPrompt(f);
 			GridColumn gc = new GridColumn();
 			gc.setPrompt(string);
@@ -70,12 +76,16 @@ public class BindDropModelCommand extends DropBMCommand {
 	}
 
 	private void fillForm(List<CompositeMap> fields) {
+		Dataset ds = Util.findDataset(container);
+		String model = ds.getModel();
 		for (CompositeMap field : fields) {
 			if (isQueryNameMap(field)) {
-				Dataset findDataset = Util.findDataset(container);
-				if (findDataset instanceof ResultDataSet) {
+				if (ds instanceof ResultDataSet) {
 					continue;
 				}
+			}
+			if (model == null || "".equals(model.trim())) {
+				ds.setModel(field.getString("model", ""));
 			}
 			String name = (String) field.get("field");
 			name = name == null ? field.getString("name") : name;

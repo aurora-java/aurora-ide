@@ -38,12 +38,12 @@ public abstract class ContainerPart extends ComponentPart {
 		if (EditorMode.Template.equals(mode)) {
 			installEditPolicy(EditPolicy.LAYOUT_ROLE,
 					new TemplateContainerLayoutEditPolicy());
-			installEditPolicy("Drop BM", new BindDropModelEditPolicy());
 		}
 		if (EditorMode.None.equals(mode)) {
 			installEditPolicy(EditPolicy.LAYOUT_ROLE,
 					new ContainerLayoutEditPolicy());
 		}
+		installEditPolicy("Drop BM", new BindDropModelEditPolicy());
 	}
 
 	@Override

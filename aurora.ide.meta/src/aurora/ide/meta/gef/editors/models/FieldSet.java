@@ -10,6 +10,7 @@ public class FieldSet extends BOX {
 		setTitle("Fieldset");
 		this.setType("fieldSet");
 //		this.getDataset().setUseParentBM(false);
+		this.setSectionType(BOX.SECTION_TYPE_QUERY);
 	}
 
 	public int getHeadHight() {

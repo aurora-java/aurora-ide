@@ -322,6 +322,9 @@ public class BMViewer {
 							CompositeMap qf = (CompositeMap) childIterator
 									.next();
 							if ("field".equals(qf.getName())) { //$NON-NLS-1$
+								qf = (CompositeMap) qf.clone();
+								qf.put("model", aurora.ide.search.core.Util
+										.toBMPKG((IFile) data));
 								fs.add(qf);
 							}
 						}
@@ -334,6 +337,9 @@ public class BMViewer {
 						fieldMap = (CompositeMap) fieldMap.clone();
 						fieldMap.put("prompt", data2.getPrompt());
 					}
+					fieldMap.put("model",
+							aurora.ide.search.core.Util.toBMPKG(data2.parent));
+
 					fs.add(fieldMap);
 				}
 				return fs;

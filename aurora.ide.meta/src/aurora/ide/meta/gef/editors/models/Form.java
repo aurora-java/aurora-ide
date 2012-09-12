@@ -10,6 +10,7 @@ public class Form extends BOX {
 		setTitle("Form");
 //		this.getDataset().setUseParentBM(false);
 		this.setType("form");
+		this.setSectionType(BOX.SECTION_TYPE_QUERY);
 	}
 
 	public int getHeadHight() {

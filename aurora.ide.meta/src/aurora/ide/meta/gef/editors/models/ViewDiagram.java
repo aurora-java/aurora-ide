@@ -8,10 +8,13 @@ import aurora.ide.meta.gef.editors.template.Template;
 public class ViewDiagram extends Container {
 	private static final long serialVersionUID = -9196440587781890208L;
 	public static final int DLabelWidth = 80;
-	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class, GridColumn.class, TabItem.class };
+	private static Class<?>[] unsupported = { Toolbar.class, Navbar.class,
+			GridColumn.class, TabItem.class };
+
+	private List<String> unBindModels = new ArrayList<String>();
 
 	private InitProcedure initProcedure;
-	
+
 	private String bindTemplate = "";
 
 	private String templateType;
@@ -30,7 +33,7 @@ public class ViewDiagram extends Container {
 	}
 
 	public void addModelQuery(ModelQuery model) {
-		if(initProcedure==null)
+		if (initProcedure == null)
 			initProcedure = new InitProcedure();
 		initProcedure.addModelQuery(model);
 	}
@@ -52,17 +55,25 @@ public class ViewDiagram extends Container {
 		List<Container> containers = getContainers(this);
 		for (Container container : containers) {
 			String sectionType = container.getSectionType();
-			if (Container.SECTION_TYPE_QUERY.equals(sectionType) || Container.SECTION_TYPE_RESULT.equals(sectionType)) {
+			if (Container.SECTION_TYPE_QUERY.equals(sectionType)
+					|| Container.SECTION_TYPE_RESULT.equals(sectionType)) {
 				String model = container.getDataset().getModel();
 				if (null != model) {
 					models.add(model);
 				}
 			}
 		}
+		for (String m : unBindModels) {
+			if (!models.contains(m)) {
+				models.add(m);
+			}
+		}
+
 		return models;
 	}
 
-	public List<Container> getSectionContainers(Container container, String[] types) {
+	public List<Container> getSectionContainers(Container container,
+			String[] types) {
 		List<Container> containers = new ArrayList<Container>();
 		List<AuroraComponent> children = container.getChildren();
 		for (AuroraComponent ac : children) {
@@ -72,10 +83,10 @@ public class ViewDiagram extends Container {
 					containers.add((Container) ac);
 				containers.addAll(getSectionContainers((Container) ac, types));
 			}
-//			if(ac instanceof TabItem){
-//				TabBody body = ((TabItem) ac).getBody();
-//				containers.addAll(getSectionContainers(body, types));
-//			}
+			// if(ac instanceof TabItem){
+			// TabBody body = ((TabItem) ac).getBody();
+			// containers.addAll(getSectionContainers(body, types));
+			// }
 		}
 		return containers;
 	}
@@ -97,10 +108,10 @@ public class ViewDiagram extends Container {
 				containers.add((Container) ac);
 				containers.addAll(getContainers((Container) ac));
 			}
-//			if(ac instanceof TabItem){
-//				TabBody body = ((TabItem) ac).getBody();
-//				containers.addAll(getContainers(body));
-//			}
+			// if(ac instanceof TabItem){
+			// TabBody body = ((TabItem) ac).getBody();
+			// containers.addAll(getContainers(body));
+			// }
 		}
 		return containers;
 	}
@@ -127,5 +138,15 @@ public class ViewDiagram extends Container {
 
 	public boolean isForSearch() {
 		return Template.TYPE_SERACH.equals(templateType);
+	}
+
+	public List<String> getUnBindModels() {
+		return unBindModels;
+	}
+
+	public void addUnBindModel(String model) {
+		if (model == null || "".equals(model))
+			return;
+		this.unBindModels.add(model);
 	}
 }
