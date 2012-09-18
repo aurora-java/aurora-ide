@@ -161,6 +161,8 @@ public class ParameterDialog extends Dialog {
 	}
 
 	private Container findGrid(AuroraComponent ac) {
+		if (ac == null)
+			return null;
 		Container parent = ac.getParent();
 		if (parent instanceof Grid) {
 			return parent;

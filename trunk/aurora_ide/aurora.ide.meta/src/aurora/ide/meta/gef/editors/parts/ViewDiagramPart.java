@@ -14,6 +14,7 @@ import org.eclipse.gef.commands.CommandStackListener;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.figures.ViewDiagramLayout;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
+import aurora.ide.meta.gef.editors.policies.tplt.BindDropModelEditPolicy;
 import aurora.ide.meta.gef.editors.policies.tplt.TemplateDiagramLayoutEditPolicy;
 
 public class ViewDiagramPart extends ContainerPart {
@@ -64,6 +65,7 @@ public class ViewDiagramPart extends ContainerPart {
 		if (EditorMode.None.equals(mode)) {
 			installEditPolicy(EditPolicy.LAYOUT_ROLE,
 					new ContainerLayoutEditPolicy());
+			installEditPolicy("Drop BM", new BindDropModelEditPolicy());
 		}
 	}
 
@@ -105,7 +107,6 @@ public class ViewDiagramPart extends ContainerPart {
 
 	@Override
 	public Command getCommand(Request request) {
-		// TODO Auto-generated method stub
 		return super.getCommand(request);
 	}
 

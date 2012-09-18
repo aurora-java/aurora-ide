@@ -193,13 +193,15 @@ public class DatasetFieldMap extends AbstractComponentMap {
 			mappingMap.addChild(idMap);
 		}
 		CompositeMap optionsMap = dataSetFieldUtil.getOptionsMap();
-		BMCompositeMap opb = new BMCompositeMap(optionsMap);
+		BMCompositeMap opb = null;
+		if (optionsMap != null)
+			opb = new BMCompositeMap(optionsMap);
 
 		for (CompositeMap lovMap : lovMaps) {
 			String source = Util.getCompositeValue("sourceField", lovMap);
 			String name = Util.getCompositeValue("name", lovMap);
 
-			if (opb.getFieldByName(source) == null)
+			if (opb == null || opb.getFieldByName(source) == null)
 				continue;
 			if (source != null && name != null) {
 				CompositeMap m = sg.createCompositeMap("map");
@@ -219,13 +221,15 @@ public class DatasetFieldMap extends AbstractComponentMap {
 		for (String key : keys) {
 
 			if (AuroraComponent.READONLY.equals(key)) {
-				if (Boolean.TRUE.equals(value))
-					field.put(AuroraComponent.READONLY, value);
+				if (Boolean.TRUE.equals(ac.getPropertyValue(key)))
+					field.put(AuroraComponent.READONLY,
+							ac.getPropertyValue(key));
 				continue;
 			}
 			if (AuroraComponent.REQUIRED.equals(key)) {
-				if (Boolean.TRUE.equals(value))
-					field.put(AuroraComponent.REQUIRED, value);
+				if (Boolean.TRUE.equals(ac.getPropertyValue(key)))
+					field.put(AuroraComponent.REQUIRED,
+							ac.getPropertyValue(key));
 				continue;
 			}
 			if (DatasetField.LOV_SERVICE.equals(key)) {

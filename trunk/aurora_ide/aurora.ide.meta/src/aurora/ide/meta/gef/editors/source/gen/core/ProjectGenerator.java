@@ -157,7 +157,7 @@ public class ProjectGenerator {
 						continue;
 					} catch (SAXException e) {
 						// 生成文件格式不正确，忽律此文件。
-						LogUtil.getInstance().logError("生成文件格式不正确，忽律此文件。", e);
+						LogUtil.getInstance().logError("生成文件格式不正确，忽律此文件 : "+fCurrentFile.getName(), e);
 						continue;
 					}
 				}
