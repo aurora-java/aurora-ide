@@ -4,7 +4,7 @@ import java.util.Set;
 
 import uncertain.composite.CompositeMap;
 import uncertain.schema.Attribute;
-import aurora.ide.search.core.Util;
+import aurora.ide.helpers.CompositeMapUtil;
 
 public class ViewNode {
 	private CompositeMap cm;
@@ -52,7 +52,7 @@ public class ViewNode {
 	}
 
 	private String getPromptAttribute() {
-		return Util.getValueIgnoreCase(att, cm);
+		return CompositeMapUtil.getValueIgnoreCase(att, cm);
 	}
 
 	public Attribute getAttribute() {
