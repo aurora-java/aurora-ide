@@ -83,8 +83,8 @@ public class ScreenGenerator {
 			throws TemplateNotBindedException {
 		String bindTemplate = view.getBindTemplate();
 
-		if (bindTemplate == null || "".equals(bindTemplate))
-			throw new TemplateNotBindedException();
+//		if (bindTemplate == null || "".equals(bindTemplate))
+//			throw new TemplateNotBindedException();
 		init(view);
 		run(view);
 		return screenMap;

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -38,6 +39,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	private NewWizardPage newPage = new NewWizardPage();
 	private SelectModelWizardPage selectPage = new SelectModelWizardPage();
 	private SetLinkOrRefWizardPage settingPage = new SetLinkOrRefWizardPage();
+	private AddModelWizardPage modelsPage = new AddModelWizardPage(this);
 
 	private IWorkbench workbench;
 	private ViewDiagram viewDiagram;
@@ -48,6 +50,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		addPage(newPage);
 		addPage(selectPage);
 		addPage(settingPage);
+		addPage(modelsPage);
 	}
 
 	@Override
@@ -56,14 +59,17 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		WizardDialog dialog = (WizardDialog) getContainer();
 		dialog.addPageChangingListener(new IPageChangingListener() {
 			public void handlePageChanging(PageChangingEvent event) {
-				if (eq(event.getCurrentPage(), newPage) && eq(event.getTargetPage(), selectPage)) {
+				if (eq(event.getCurrentPage(), newPage)
+						&& eq(event.getTargetPage(), selectPage)) {
 					IProject metaProject = newPage.getMetaProject();
-					if (metaProject != null && (!eq(template, newPage.getTemplate()))) {
+					if (metaProject != null
+							&& (!eq(template, newPage.getTemplate()))) {
 						template = newPage.getTemplate();
 						selectPage.setBMPath(metaProject);
 						selectPage.createDynamicTextComponents(template);
 					}
-				} else if (eq(event.getCurrentPage(), selectPage) && eq(event.getTargetPage(), settingPage)) {
+				} else if (eq(event.getCurrentPage(), selectPage)
+						&& eq(event.getTargetPage(), settingPage)) {
 					if (selectPage.isModify()) {
 						selectPage.setModify(false);
 						viewDiagram = selectPage.getViewDiagram();
@@ -72,6 +78,29 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 				}
 			}
 		});
+	}
+
+	public IProject getMetaProject() {
+		return newPage.getMetaProject();
+	}
+
+	@Override
+	public IWizardPage getNextPage(IWizardPage page) {
+		if (page.equals(newPage) && newPage.isNoTemplate()) {
+			return modelsPage;
+		}
+		IWizardPage nextPage = super.getNextPage(page);
+		if (modelsPage.equals(nextPage)) {
+			return null;
+		}
+		return nextPage;
+	}
+
+	@Override
+	public IWizardPage getPreviousPage(IWizardPage page) {
+		if (modelsPage.equals(page))
+			return newPage;
+		return super.getPreviousPage(page);
 	}
 
 	private boolean eq(Object o1, Object o2) {
@@ -83,51 +112,67 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
-		if (viewDiagram == null) {
-			viewDiagram = selectPage.getViewDiagram();
+		ViewDiagram vd = viewDiagram;
+		if (newPage.isNoTemplate()) {
+			vd = new ViewDiagram();
+			List<String> models = this.modelsPage.getModels();
+			for (String m : models) {
+				vd.addUnBindModel(m);
+			}
+		} else if (vd == null) {
+			vd = selectPage.getViewDiagram();
 		}
-		EditorOpener editorOpener = new EditorOpener();
-		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(newPage.getPath() + "/" + newPage.getFileName()));
-		CommentCompositeMap rootMap = null;
 		try {
-			rootMap = (CommentCompositeMap) ModelIOManager.getNewInstance().toCompositeMap(viewDiagram);
-		} catch (RuntimeException e) {
+			performFinish(vd);
+		} catch (Exception e) {
+			DialogUtil.logErrorException(e);
 			e.printStackTrace();
-			DialogUtil.showExceptionMessageBox(e);
 			return false;
 		}
-		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + rootMap.toXML();
+		return true;
+	}
+
+	private void performFinish(ViewDiagram viewDiagram)
+			throws InvocationTargetException, InterruptedException,
+			PartInitException {
+		EditorOpener editorOpener = new EditorOpener();
+		IFile file = ResourcesPlugin
+				.getWorkspace()
+				.getRoot()
+				.getFile(
+						new Path(newPage.getPath() + "/"
+								+ newPage.getFileName()));
+		CommentCompositeMap rootMap = null;
+		rootMap = (CommentCompositeMap) ModelIOManager.getNewInstance()
+				.toCompositeMap(viewDiagram);
+		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+				+ rootMap.toXML();
 		InputStream is = null;
 		try {
 			is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException e1) {
+			DialogUtil.logErrorException(e1);
 			e1.printStackTrace();
 		}
-		final CreateFileOperation cfo = new CreateFileOperation(file, null, is, "create template.");
+		final CreateFileOperation cfo = new CreateFileOperation(file, null, is,
+				"create template.");
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {
 				try {
-					cfo.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
+					cfo.execute(monitor,
+							WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
 				} catch (ExecutionException e) {
+					DialogUtil.logErrorException(e);
 					e.printStackTrace();
 				}
 			}
 		};
-		try {
-			getContainer().run(true, true, op);
-			IEditorPart editor = editorOpener.open(workbench.getActiveWorkbenchWindow().getActivePage(), file, true);
-			if (editor instanceof VScreenEditor) {
-				((VScreenEditor) editor).markDirty();
-			}
-			return true;
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (PartInitException e) {
-			e.printStackTrace();
+		getContainer().run(true, true, op);
+		IEditorPart editor = editorOpener.open(workbench
+				.getActiveWorkbenchWindow().getActivePage(), file, true);
+		if (editor instanceof VScreenEditor) {
+			((VScreenEditor) editor).markDirty();
 		}
-		return false;
 	}
 
 	public boolean canFinish() {
@@ -136,7 +181,11 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			if (page.isPageComplete()) {
 				return true;
 			}
-		} else if ((page instanceof SetLinkOrRefWizardPage) && page.isPageComplete()) {
+		} else if ((page instanceof SetLinkOrRefWizardPage)
+				&& page.isPageComplete()) {
+			return true;
+		}
+		if (modelsPage.equals(page)) {
 			return true;
 		}
 		return false;

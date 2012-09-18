@@ -1,9 +1,9 @@
 package aurora.ide.meta.gef.editors;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -14,6 +14,10 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.PlatformObject;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
@@ -22,6 +26,7 @@ import org.eclipse.jface.util.DelegatingDragAdapter;
 import org.eclipse.jface.util.TransferDragSourceListener;
 import org.eclipse.jface.viewers.DecoratingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
@@ -35,12 +40,16 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.bm.BMUtil;
 import aurora.ide.helpers.ApplicationException;
+import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
@@ -48,6 +57,7 @@ import aurora.ide.meta.gef.editors.dnd.BMTransfer;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.property.ResourceSelector;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.project.propertypage.ProjectPropertyPage;
@@ -106,7 +116,7 @@ public class BMViewer {
 
 			if (inputElement instanceof ViewDiagram) {
 				if (!((ViewDiagram) inputElement).isBindTemplate()) {
-					return new String[] { Messages.BMViewer_No_template };
+					// return new String[] { Messages.BMViewer_No_template };
 				}
 
 				List<IFile> modelFiles = getModelFiles((ViewDiagram) inputElement);
@@ -313,36 +323,44 @@ public class BMViewer {
 					throws CoreException, ApplicationException {
 				List<CompositeMap> fs = new ArrayList<CompositeMap>();
 				if (data instanceof IFile) {
-					CompositeMap model = CacheManager
-							.getCompositeMap((IFile) data);
-					CompositeMap fields = model.getChild("fields"); //$NON-NLS-1$
-					if (fields != null) {
-						Iterator childIterator = fields.getChildIterator();
-						while (childIterator != null && childIterator.hasNext()) {
-							CompositeMap qf = (CompositeMap) childIterator
-									.next();
-							if ("field".equals(qf.getName())) { //$NON-NLS-1$
-								qf = (CompositeMap) qf.clone();
-								qf.put("model", aurora.ide.search.core.Util
-										.toBMPKG((IFile) data));
-								fs.add(qf);
-							}
-						}
+					ModelField[] createFields = createFields((IFile) data);
+					// CompositeMap model = CacheManager
+					// .getCompositeMap((IFile) data);
+					//					CompositeMap fields = model.getChild("fields"); //$NON-NLS-1$
+					// if (fields != null) {
+					// Iterator childIterator = fields.getChildIterator();
+					// while (childIterator != null && childIterator.hasNext())
+					// {
+					// CompositeMap qf = (CompositeMap) childIterator
+					// .next();
+					//							if ("field".equals(qf.getName())) { //$NON-NLS-1$
+					// qf = (CompositeMap) qf.clone();
+					// qf.put("model", aurora.ide.search.core.Util
+					// .toBMPKG((IFile) data));
+					// fs.add(qf);
+					// }
+					// }
+					// }
+					for (ModelField mf : createFields) {
+						fs.add(getFieldMap(mf));
 					}
 				}
 				if (data instanceof BMViewer.ModelField) {
-					BMViewer.ModelField data2 = (BMViewer.ModelField) data;
-					CompositeMap fieldMap = data2.fieldMap;
-					if (ModelField.REF_FIELD.equals(data2.editor)) {
-						fieldMap = (CompositeMap) fieldMap.clone();
-						fieldMap.put("prompt", data2.getPrompt());
-					}
-					fieldMap.put("model",
-							aurora.ide.search.core.Util.toBMPKG(data2.parent));
-
+					CompositeMap fieldMap = getFieldMap((ModelField) data);
 					fs.add(fieldMap);
 				}
 				return fs;
+			}
+
+			private CompositeMap getFieldMap(ModelField data) {
+				CompositeMap fieldMap = data.fieldMap;
+				if (ModelField.REF_FIELD.equals(data.editor)) {
+					fieldMap = (CompositeMap) fieldMap.clone();
+					fieldMap.put("prompt", data.getPrompt());
+				}
+				fieldMap.put("model",
+						aurora.ide.search.core.Util.toBMPKG(data.parent));
+				return fieldMap;
 			}
 
 			private List<CompositeMap> getData() {
@@ -372,6 +390,74 @@ public class BMViewer {
 						.getDecoratorManager().getLabelDecorator(), null));
 		refreshInput();
 		viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+		hookContextMenu();
+	}
+
+	private void hookContextMenu() {
+		MenuManager menuMgr = new MenuManager("#PopupMenu");
+		menuMgr.setRemoveAllWhenShown(true);
+		menuMgr.addMenuListener(new IMenuListener() {
+			public void menuAboutToShow(IMenuManager manager) {
+				Action addBM = new Action() {
+					public void run() {
+						addFile();
+						vse.markDirty();
+					}
+				};
+				addBM.setText("增加");
+				addBM.setImageDescriptor(ImagesUtils
+						.getImageDescriptor("palette/toolbar_btn_01.png"));
+				manager.add(addBM);
+				Action delBM = new Action() {
+					public void run() {
+						Object selectObject = getSelectObject();
+						if (selectObject instanceof IFile) {
+							String bmpkg = aurora.ide.search.core.Util
+									.toBMPKG((IFile) selectObject);
+							getViewDiagram().getUnBindModels().remove(bmpkg);
+							vse.markDirty();
+							refreshInput();
+						}
+					}
+				};
+				delBM.setText("删除");
+				delBM.setImageDescriptor(ImagesUtils
+						.getImageDescriptor("delete.gif"));
+				Object selectObject = getSelectObject();
+				if (selectObject instanceof IFile)
+					manager.add(delBM);
+			}
+		});
+		Menu menu = menuMgr.createContextMenu(viewer.getControl());
+		viewer.getControl().setMenu(menu);
+	}
+
+	public IFile openResourceSelector(Shell shell, String[] exts,
+			IContainer root) {
+		ResourceSelector fss = new ResourceSelector(shell);
+		fss.setExtFilter(exts);
+		fss.setInput((IContainer) root);
+		Object obj = fss.getSelection();
+		if (!(obj instanceof IFile)) {
+			return null;
+		}
+		return (IFile) obj;
+	}
+
+	protected void addFile() {
+		String[] as = { "bm" };
+		IContainer bmHome = getModelFolder();
+		if (bmHome == null || !bmHome.exists()) {
+			DialogUtil.showWarningMessageBox("找不到BM主目录，需要配置关联工程。");
+			return;
+		}
+		IFile file = openResourceSelector(this.viewer.getControl().getShell(),
+				as, bmHome);
+		if (file == null || !file.exists())
+			return;
+		String bmpkg = aurora.ide.search.core.Util.toBMPKG(file);
+		getViewDiagram().addUnBindModel(bmpkg);
+		refreshInput();
 	}
 
 	public void refreshInput() {
@@ -380,19 +466,19 @@ public class BMViewer {
 
 	public List<IFile> getModelFiles(ViewDiagram viewDiagram) {
 		List<IFile> files = new ArrayList<IFile>();
-		if (viewDiagram.isBindTemplate()) {
-			List<String> models = viewDiagram.getModels();
-			for (String classPath : models) {
-				try {
-					IResource bm = BMUtil.getBMResourceFromClassPath(
-							getAuroraProject(), classPath);
-					if (bm instanceof IFile && bm.exists()
-							&& !files.contains((IFile) bm)) {
-						files.add((IFile) bm);
-					}
-				} catch (ApplicationException e) {
+		// if (viewDiagram.isBindTemplate()) {
+		List<String> models = viewDiagram.getModels();
+		for (String classPath : models) {
+			try {
+				IResource bm = BMUtil.getBMResourceFromClassPath(
+						getAuroraProject(), classPath);
+				if (bm instanceof IFile && bm.exists()
+						&& !files.contains((IFile) bm)) {
+					files.add((IFile) bm);
 				}
+			} catch (ApplicationException e) {
 			}
+			// }
 		}
 
 		return files;
@@ -466,5 +552,13 @@ public class BMViewer {
 		} catch (ApplicationException e) {
 		}
 		return result.toArray(new ModelField[result.size()]);
+	}
+
+	private Object getSelectObject() {
+		TreeItem[] items = viewer.getTree().getSelection();
+		if (items.length > 0) {
+			return items[0].getData();
+		}
+		return null;
 	}
 }

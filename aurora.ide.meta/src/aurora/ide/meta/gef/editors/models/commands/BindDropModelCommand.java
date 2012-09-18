@@ -6,14 +6,15 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
-import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.Label;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
+import aurora.ide.meta.gef.editors.models.ViewDiagram;
 
 public class BindDropModelCommand extends DropBMCommand {
 
@@ -31,9 +32,10 @@ public class BindDropModelCommand extends DropBMCommand {
 	}
 
 	public void execute() {
+		@SuppressWarnings("unchecked")
 		List<CompositeMap> fields = (List<CompositeMap>) data;
 		// fieldset
-		if (container instanceof Form) {
+		if (container instanceof BOX || container instanceof ViewDiagram) {
 			fillForm(fields);
 		}
 		if (container instanceof GridColumn) {
@@ -51,12 +53,13 @@ public class BindDropModelCommand extends DropBMCommand {
 
 	private void fillGrid(List<CompositeMap> fields) {
 		Dataset ds = Util.findDataset(container);
-		String model = ds.getModel();
+		String model = ds == null ? null : ds.getModel();
 		for (CompositeMap f : fields) {
 			if (isQueryNameMap(f))
 				continue;
 			if (model == null || "".equals(model.trim())) {
-				ds.setModel(f.getString("model", ""));
+				if (ds != null)
+					ds.setModel(f.getString("model", ""));
 			}
 			String string = Util.getPrompt(f);
 			GridColumn gc = new GridColumn();
@@ -77,7 +80,7 @@ public class BindDropModelCommand extends DropBMCommand {
 
 	private void fillForm(List<CompositeMap> fields) {
 		Dataset ds = Util.findDataset(container);
-		String model = ds.getModel();
+		String model = ds == null ? null : ds.getModel();
 		for (CompositeMap field : fields) {
 			if (isQueryNameMap(field)) {
 				if (ds instanceof ResultDataSet) {
@@ -85,7 +88,8 @@ public class BindDropModelCommand extends DropBMCommand {
 				}
 			}
 			if (model == null || "".equals(model.trim())) {
-				ds.setModel(field.getString("model", ""));
+				if (ds != null)
+					ds.setModel(field.getString("model", ""));
 			}
 			String name = (String) field.get("field");
 			name = name == null ? field.getString("name") : name;

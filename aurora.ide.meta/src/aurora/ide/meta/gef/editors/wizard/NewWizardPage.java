@@ -19,10 +19,13 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -43,6 +46,8 @@ public class NewWizardPage extends WizardPage {
 	private IProject metaProject;
 	private IResource metaFolder;
 	private Label lblDesc;
+	private boolean isNoTemplate;
+	private Group composite;
 
 	public NewWizardPage() {
 		super("aurora.wizard.new.Page"); //$NON-NLS-1$
@@ -70,10 +75,12 @@ public class NewWizardPage extends WizardPage {
 	private IResource getMetaFolderBySelection() {
 		IResource r = null;
 		try {
-			ISelection obj = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
+			ISelection obj = PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage().getSelection();
 			if (obj instanceof StructuredSelection) {
 				StructuredSelection ts = (StructuredSelection) obj;
-				if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
+				if (!ts.isEmpty()
+						&& (ts.getFirstElement() instanceof IResource)) {
 					r = (IResource) ts.getFirstElement();
 					if (TemplateHelper.getInstance().isMetaProject(r)) { //$NON-NLS-1$ //$NON-NLS-2$
 						return r;
@@ -88,7 +95,9 @@ public class NewWizardPage extends WizardPage {
 	private IProject getMetaProjectByEditor() {
 		IResource r = null;
 		try {
-			r = (IResource) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
+			r = (IResource) PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage()
+					.getActiveEditor().getEditorInput().getAdapter(IFile.class);
 		} catch (NullPointerException e) {
 			return null;
 		}
@@ -131,11 +140,15 @@ public class NewWizardPage extends WizardPage {
 
 		btn.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				ContainerSelectionDialog dialog = new ContainerSelectionDialog(getShell(), ResourcesPlugin.getWorkspace().getRoot().getProject(), true, ""); //$NON-NLS-1$
+				ContainerSelectionDialog dialog = new ContainerSelectionDialog(
+						getShell(), ResourcesPlugin.getWorkspace().getRoot()
+								.getProject(), true, ""); //$NON-NLS-1$
 				dialog.setTitle(Messages.NewWizardPage_folder_4);
-				if (dialog.open() == Dialog.OK && dialog.getResult().length != 0) {
+				if (dialog.open() == Dialog.OK
+						&& dialog.getResult().length != 0) {
 					String path = dialog.getResult()[0].toString();
-					IResource container = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
+					IResource container = ResourcesPlugin.getWorkspace()
+							.getRoot().findMember(new Path(path));
 					if (setPath(container)) {
 						txtFile.setFocus();
 					} else {
@@ -151,13 +164,17 @@ public class NewWizardPage extends WizardPage {
 		if (container instanceof IProject) {
 			IResource r = ((IProject) container).findMember("ui_prototype");
 			if (r != null) {
-				path = r.getProject().getName() + "/" + r.getProjectRelativePath().toString();
+				path = r.getProject().getName() + "/"
+						+ r.getProjectRelativePath().toString();
 				txtPath.setText(path);
 				return true;
 			}
-		} else if ((container instanceof IFolder) && TemplateHelper.getInstance().isMetaProject(container)) {
-			if (container.getProjectRelativePath().toString().indexOf("ui_prototype") >= 0) {
-				path = container.getProject().getName() + "/" + container.getProjectRelativePath().toString();
+		} else if ((container instanceof IFolder)
+				&& TemplateHelper.getInstance().isMetaProject(container)) {
+			if (container.getProjectRelativePath().toString()
+					.indexOf("ui_prototype") >= 0) {
+				path = container.getProject().getName() + "/"
+						+ container.getProjectRelativePath().toString();
 				txtPath.setText(path);
 				return true;
 			}
@@ -165,7 +182,8 @@ public class NewWizardPage extends WizardPage {
 		return false;
 	}
 
-	private void createTemplate(Composite composite, Map<String, java.util.List<Template>> tempMap) {
+	private void createTemplate(Composite composite,
+			Map<String, java.util.List<Template>> tempMap) {
 		TComposite tComposite = new TComposite(composite, SWT.BORDER, tempMap);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.heightHint = 300;
@@ -189,13 +207,36 @@ public class NewWizardPage extends WizardPage {
 		container.setLayout(new GridLayout());
 		setControl(container);
 		createText(container);
-		Group composite = new Group(container, SWT.NONE);
+		final Button cc = new Button(container, SWT.CHECK);
+		cc.setText("不使用摸版");
+		cc.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		cc.addSelectionListener(new SelectionListener() {
+
+			public void widgetSelected(SelectionEvent e) {
+				setNoTemplate(cc.getSelection());
+//				composite.setEnabled(!isNoTemplate());
+				// if(isNoTemplate){
+				// composite.setForeground(null);
+				// }else{
+				// Color fg =
+				// Display.getDefault().getSystemColor(SWT.COLOR_GRAY);
+				// composite.setForeground(fg);
+				// }
+			}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+
+			}
+		});
+		composite = new Group(container, SWT.NONE);
 		composite.setLayout(new GridLayout());
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		composite.setText(Messages.NewWizardPage_Template);
 
-		IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
-		createTemplate(composite, TemplateHelper.getInstance().getTemplates(path));
+		IPath path = MetaPlugin.getDefault().getStateLocation()
+				.append("template");
+		createTemplate(composite,
+				TemplateHelper.getInstance().getTemplates(path));
 
 		if (setPath(metaFolder)) {
 			txtFile.setFocus();
@@ -207,6 +248,7 @@ public class NewWizardPage extends WizardPage {
 		if (template != null) {
 			setTemplateDescription(template.getDescription());
 		}
+
 	}
 
 	public String getPath() {
@@ -222,12 +264,14 @@ public class NewWizardPage extends WizardPage {
 	}
 
 	private void textChanged() {
-		IResource container = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(getPath()));
+		IResource container = ResourcesPlugin.getWorkspace().getRoot()
+				.findMember(new Path(getPath()));
 		String fileName = getFileName();
 		int dotLoc = fileName.lastIndexOf('.');
 		if (getPath().length() == 0) {
 			updateStatus(Messages.NewWizardPage_folder);
-		} else if (container == null || (container.getType() & (IResource.PROJECT | IResource.FOLDER)) == 0) {
+		} else if (container == null
+				|| (container.getType() & (IResource.PROJECT | IResource.FOLDER)) == 0) {
 			updateStatus(Messages.NewWizardPage_folder_2);
 		} else if (!container.isAccessible()) {
 			updateStatus(Messages.NewWizardPage_Project);
@@ -237,13 +281,15 @@ public class NewWizardPage extends WizardPage {
 			updateStatus(Messages.NewWizardPage__folder_3);
 		} else {
 			metaProject = container.getProject();
-			if (fileName != null && !fileName.equals("") && ((IContainer) container).getFile(new Path(fileName)).exists()) { //$NON-NLS-1$
+			if (fileName != null
+					&& !fileName.equals("") && ((IContainer) container).getFile(new Path(fileName)).exists()) { //$NON-NLS-1$
 				updateStatus(Messages.NewWizardPage_File);
 			} else if (fileName.length() == 0) {
 				updateStatus(Messages.NewWizardPage_File_1);
 			} else if (fileName.replace('\\', '/').indexOf('/', 1) > 0) {
 				updateStatus(Messages.NewWizardPage_File_2);
-			} else if (dotLoc != -1 && (!fileName.substring(dotLoc + 1).equalsIgnoreCase("uip"))) { //$NON-NLS-1$
+			} else if (dotLoc != -1
+					&& (!fileName.substring(dotLoc + 1).equalsIgnoreCase("uip"))) { //$NON-NLS-1$
 				updateStatus(Messages.NewWizardPage_File_3);
 			} else {
 				updateStatus(null);
@@ -274,6 +320,14 @@ public class NewWizardPage extends WizardPage {
 
 	public Template getTemplate() {
 		return template;
+	}
+
+	public boolean isNoTemplate() {
+		return isNoTemplate;
+	}
+
+	public void setNoTemplate(boolean isNoTemplate) {
+		this.isNoTemplate = isNoTemplate;
 	}
 
 }

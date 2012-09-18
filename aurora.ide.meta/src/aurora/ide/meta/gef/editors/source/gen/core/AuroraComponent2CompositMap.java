@@ -115,7 +115,10 @@ public class AuroraComponent2CompositMap {
 				screenGenerator.getProject(), ac.getName(), ds.getModel());
 
 		CompositeMap optionsMap = dataSetFieldUtil.getOptionsMap();
-		BMCompositeMap opb = new BMCompositeMap(optionsMap);
+		BMCompositeMap opb = null;
+		if (optionsMap != null) {
+			opb = new BMCompositeMap(optionsMap);
+		}
 
 		CompositeMap bmMap = dataSetFieldUtil.getBmMap();
 		if (bmMap == null)
@@ -132,7 +135,7 @@ public class AuroraComponent2CompositMap {
 				String source = Util.getCompositeValue("sourceField",
 						compositeMap);
 				String name = Util.getCompositeValue("name", compositeMap);
-				if (opb.getFieldByName(source) == null)
+				if (opb == null || opb.getFieldByName(source) == null)
 					continue;
 				if (null != name && !"".equals(name)) {
 					clone.put("name", name);

@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchWindow;
 
 import aurora.ide.AuroraMetaProjectNature;
+import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.Util;
@@ -260,6 +261,7 @@ public class SourceCodeGeneratorWizard extends Wizard {
 			getContainer().run(true, true, op);
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
+			DialogUtil.logErrorException(e);
 			this.mainPage.setErrorMessage(pg.getErrorMessage());
 			return false;
 		} catch (InterruptedException e) {

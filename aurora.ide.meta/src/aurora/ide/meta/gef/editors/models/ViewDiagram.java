@@ -148,5 +148,6 @@ public class ViewDiagram extends Container {
 		if (model == null || "".equals(model))
 			return;
 		this.unBindModels.add(model);
+		this.firePropertyChange("unBindModels", "", model);
 	}
 }
