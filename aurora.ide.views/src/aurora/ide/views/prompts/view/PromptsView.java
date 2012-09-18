@@ -49,8 +49,8 @@ import org.eclipse.ui.part.ViewPart;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.helpers.ApplicationException;
+import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.search.cache.CacheManager;
-import aurora.ide.search.core.Util;
 import aurora.ide.views.StringEditorInput;
 import aurora.ide.views.dialog.ResourceSelector;
 import aurora.ide.views.editor.PromptsEditor;
@@ -335,7 +335,7 @@ public class PromptsView extends ViewPart {
 
 		table.removeAll();
 
-		String promptPrefix = Util.getValueIgnoreCase(compositeMap,
+		String promptPrefix = CompositeMapUtil.getValueIgnoreCase(compositeMap,
 				"promptprefix");
 
 		promptPrefix = promptPrefix == null ? "" : promptPrefix;
