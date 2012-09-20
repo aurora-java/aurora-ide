@@ -48,10 +48,10 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.ViewPart;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.editor.editorInput.StringEditorInput;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.search.cache.CacheManager;
-import aurora.ide.views.StringEditorInput;
 import aurora.ide.views.dialog.ResourceSelector;
 import aurora.ide.views.editor.PromptsEditor;
 import aurora.ide.views.prompts.util.PromptsFinder;
