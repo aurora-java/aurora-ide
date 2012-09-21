@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ntlm:ntlm-config xmlns:ntlm="aurora.plugin.ntlm" procedure="spnego.spnego_login" returnPath="/spnego">
+	<instances>	
+		<ntlm:domain-instance username="bobbie" password="Hand1234" domain="MAS" domainController="172.20.0.72"/>	
+	</instances>	
+</ntlm:ntlm-config>

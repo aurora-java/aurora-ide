@@ -1,0 +1,4 @@
+<img src="${src}" title="看不清?点击切换图片." style="border:1px solid #bababa;cursor:pointer;${style}" width="78" height="20"  id="${id}"></img>
+<script>
+    new Aurora.ImageCode(${config});
+</script>

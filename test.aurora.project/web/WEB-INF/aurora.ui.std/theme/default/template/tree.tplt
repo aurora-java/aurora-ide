@@ -1,0 +1,5 @@
+<div style="${size};overflow:auto;${style}" class="${wrapClass}" id="${id}"><div atype="tree.body"></div></div>
+<script>
+	new Aurora.Tree(${config});
+	$('${id}').bind('${bindtarget}');
+</script>

@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>${page:title}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+${page:html.head.css} 
+${page:html.head.script}
+</head>
+<body >
+	<div id="${page:pageid}_msg" style="padding:10px;background-color:green;color:#ffffff;margin:7px;border:1px solid #cccccc;display:none"></div>
+	${page:init}
+	${page:content}	
+</body>
+</html>

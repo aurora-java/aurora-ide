@@ -1,0 +1,4 @@
+<script>
+new Aurora.DataSet(${config});
+${validscript}
+</script>

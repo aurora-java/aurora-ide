@@ -1,0 +1,30 @@
+<TABLE class="${wrapClass}" id="${id}_wrap" style="${style}" cellSpacing="0" cellPadding="0" border="0">
+<TBODY>
+    ${toolBar}  
+    <TR>
+        <TD class="layout-td-cell">
+            <DIV class="item-grid" id="${id}" style="width:${width}px;height:${tableHeight}px;${gridstyle}">
+                ${lockarea}
+                <DIV class="grid-ua" atype="grid.uc" style="width:${unlockwidth}px;">
+                    <DIV class="grid-uh" unselectable="on" onselectstart="return false;" style="width:${unlockwidth}px;-moz-user-select:none;text-align:left;height:${headHeight}px;"  atype="grid.uh">
+                        ${unlockarea}
+                    </DIV>
+                    <DIV class="grid-ub" atype="grid.ub" style="width:${unlockwidth}px;height:${bodyHeight}px;text-align:left;">
+                    </DIV>
+                </DIV>
+                <DIV style="clear:both;"></DIV>
+                <DIV atype="grid.spliter" class="grid-sp" style="display:none;"></DIV>
+                <A atype="grid.focus" href="#" class="grid-fs" tabIndex="-1"></A>
+            </DIV>
+        </TD>
+    </TR>
+    ${footerBar}
+    ${navbar}
+</TBODY>
+</TABLE>
+<SCRIPT LANGUAGE="JavaScript">
+    new Aurora.TreeGrid(${config});
+    $('${id}').bind('${bindtarget}');
+    ${events}
+</SCRIPT>
+${editors}

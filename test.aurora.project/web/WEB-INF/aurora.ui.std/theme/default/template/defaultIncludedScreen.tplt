@@ -1,0 +1,6 @@
+<!-- Begin of ${page:title} -->
+${page:html.head.css} 
+${page:html.head.script}
+${page:init}
+${page:content}	
+<!-- End of ${page:title} -->

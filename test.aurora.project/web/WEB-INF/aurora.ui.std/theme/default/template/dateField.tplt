@@ -1,0 +1,4 @@
+<DIV class="${wrapClass}" style="border:1px solid #CCCCCC;width:${width}px;height:${height}px;${style}" id="${id}"></DIV>
+<script>
+	new Aurora.DateField(${config}).predraw();
+</script>

@@ -1,0 +1,25 @@
+.item-btn button{
+	color:#ffffff;
+	font-weight:bold;
+}
+.form_head {
+    border-left:none;
+    color:#ffffff;
+    font-weight:bold;
+}
+.win-caption-label div {
+    color:#ffffff;
+    font-weight:bold;    
+}
+.item-lovButton {   
+    BACKGROUND: url(../base/itembar.gif) no-repeat 2px -38px;   
+}
+.week-alt {
+    background-color:none;
+}
+.item-dateField-head,.item-dateField-foot{  
+    background-color:#d2d7ea;
+}
+.item-dateField td.dateover {
+    background-color:#8197bf;
+}

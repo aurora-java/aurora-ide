@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache-based-resource-access-checker xmlns="aurora.security" 
+    			resourceCacheName="SystemResourceConfig" 
+    			accessCacheName="RoleServiceAccess" 
+    			accessCacheKeyPrefix="${/session/@role_id}." 
+    			loginFlag="login_flag"
+    			accessCheckFlag="access_flag"/>

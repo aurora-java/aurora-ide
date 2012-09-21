@@ -1,0 +1,5 @@
+<div class="${wrapClass}" id="${id}" style="-moz-user-select:none;outline:none;position:relative;width:${width}px;height:${height}px;overflow:hidden;${style}"></div>        
+<SCRIPT LANGUAGE="JavaScript">
+        new Aurora.Graphics(${config})${creates};
+        ${binding}
+</SCRIPT>

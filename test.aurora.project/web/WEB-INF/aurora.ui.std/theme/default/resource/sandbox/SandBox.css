@@ -1,0 +1,40 @@
+.sandbox {
+	border:1px solid #cccccc;
+	padding: 10px;
+	background-color: #F4F4F4;
+	font-size: 13px;
+	line-height: 22px;
+}
+.sandbox-content{
+	border:1px dashed #cccccc;
+	padding: 10px;
+	background-color: #ffffff;
+	white-space: pre-wrap;
+	*white-space: pre;
+	*word-wrap: break-word;
+	margin-bottom: 10px;
+}
+
+.wrapcontent{
+	width:945px;
+	height:305px;	
+	padding:2px;
+	border-width:1px;
+	border-color:#cccccc;
+	border-style:solid;	
+	font-Size:12px;
+	overflow-y:auto;
+	overflow-x:hidden;
+	white-space: pre-wrap;
+	*white-space: pre;
+	*word-wrap: break-word;
+}
+
+.tagcontent{
+	background-color:#e2f7ff;	
+	font-Size:12px; 
+	font-weight:bold;
+	white-space: pre-wrap;
+	*white-space: pre;
+	*word-wrap: break-word;
+}

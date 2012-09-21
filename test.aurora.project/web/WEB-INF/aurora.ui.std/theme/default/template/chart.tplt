@@ -1,0 +1,9 @@
+<div id="${id}_c" style="${style}"></div>        
+<SCRIPT LANGUAGE="JavaScript">
+        Aurora.Charts.getOptions().exporting.url = '${contextPath}/exportchart';
+        new Aurora.Charts.Chart(${config},
+	        function(){
+	        	$('${id}').bind('${bindtarget}');
+	        }
+        );
+</SCRIPT>

@@ -1,0 +1,13 @@
+<div class="${wrapClass}" id="${id}" style="width:${width}px;${style}">
+    <h3>Comments</h3>
+    <b style="font-family:Arial, Tahoma, Verdana;font-size:12px;color:#333333;line-height:18px;"><span atype="count">${length}</span> Responses to the article</b>
+	<div class="comment-content">${list}</div>
+	<div class="comment-post">
+		<div class="comment-post-title">发表评论</div>
+		<div class="comment-post-txt">${txt}</div>
+		<div class="comment-post-btn">${btn}</div>
+	</div>
+</div>
+<script>
+	new $A.Comment(${config});
+</script>

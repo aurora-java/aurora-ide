@@ -1,0 +1,9 @@
+<div class="${wrapClass}" id="${id}" style="width:${width}px;${style}">
+<pre class="sandbox-content">
+${view}
+</pre>
+${btn}
+</div>
+<script>
+	new $A.SandBox(${config});
+</script>

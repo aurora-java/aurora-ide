@@ -1,0 +1,4 @@
+<session-lock-checker xmlns="aurora.service.lock" defaultCheckAll="false" 
+	errorMessage="PROMPT.SERVICE_IN_LOCK" 
+	sessionKey="${/session/@session_id}"
+/>
