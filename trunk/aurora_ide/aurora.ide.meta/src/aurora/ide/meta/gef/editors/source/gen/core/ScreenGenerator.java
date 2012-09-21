@@ -55,6 +55,10 @@ public class ScreenGenerator {
 	public ScreenGenerator(IProject project, IFile file) {
 		this.project = project;
 		this.file = file;
+//		if(file.getName().contains("caution_money")){
+////			demo/sel_acr/SEL_ACR5100/caution_money.screen
+//			System.out.println();
+//		}
 	}
 
 	// public String genFile(String header, ViewDiagram view)

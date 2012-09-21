@@ -10,6 +10,7 @@ public class DatasetFieldHandler implements IOHandler {
 			{ DatasetField.REQUIRED, Boolean.class },
 			{ DatasetField.READONLY, Boolean.class },
 			{ DatasetField.LOV_GRID_HEIGHT, Integer.class },
+			{ DatasetField.LOV_WIDTH, Integer.class },
 			{ DatasetField.LOV_HEIGHT, Integer.class },
 			{ DatasetField.LOV_URL, String.class },
 			{ DatasetField.TITLE, String.class },

@@ -43,14 +43,13 @@ public class DatasetField extends AuroraComponent {
 	public static final String LOV_WIDTH = "lovWidth";
 	/** the title of LOV popup window */
 	public static final String TITLE = "title";
-	
 
 	public static final String[] keys = { READONLY, REQUIRED, DEFAULT_VALUE,
 			CHECKED_VALUE, UNCHECKED_VALUE, DISPLAY_FIELD, OPTIONS,
 			VALUE_FIELD, RETURN_FIELD, LOV_SERVICE, TITLE };
 
 	public static final String[] lov_keys = { READONLY, REQUIRED, LOV_SERVICE,
-			TITLE };
+			TITLE, LOV_HEIGHT, LOV_GRID_HEIGHT, LOV_WIDTH };
 
 	public static final IPropertyDescriptor PD_READONLY = new BooleanPropertyDescriptor(
 			READONLY, "*" + READONLY);
@@ -111,6 +110,8 @@ public class DatasetField extends AuroraComponent {
 			return getReturnField();
 		} else if (LOV_GRID_HEIGHT.equals(propName)) {
 			return getLovGridHeight();
+		} else if (LOV_WIDTH.equals(propName)) {
+			return getLovWidth();
 		} else if (LOV_HEIGHT.equals(propName)) {
 			return getLovHeight();
 		} else if (LOV_SERVICE.equals(propName)) {
@@ -147,6 +148,8 @@ public class DatasetField extends AuroraComponent {
 			setReturnField(nns(val));
 		} else if (LOV_GRID_HEIGHT.equals(propName)) {
 			setLovGridHeight((Integer) val);
+		} else if (LOV_WIDTH.equals(propName)) {
+			this.setLovWidth((Integer) val);
 		} else if (LOV_HEIGHT.equals(propName)) {
 			setLovHeight((Integer) val);
 		} else if (LOV_SERVICE.equals(propName)) {
@@ -292,6 +295,9 @@ public class DatasetField extends AuroraComponent {
 
 	public DatasetField() {
 		this.setType("field");
+		this.setLovGridHeight(350);
+		this.setLovHeight(500);
+		this.setLovWidth(500);
 	}
 
 	public boolean isRequired() {
