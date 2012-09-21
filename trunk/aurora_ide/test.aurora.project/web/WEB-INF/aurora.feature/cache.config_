@@ -1,0 +1,13 @@
+<cache-factory-config xmlns="uncertain.cache" defaultCacheFactory="InMemory" >
+	<cache-factories>
+		<map-based-cache-factory name="InMemory" />
+		<!--<memcached-client-factory xmlns="aurora.plugin.memcached" name="Memcached" serverList="localhost:9999"/>-->
+	</cache-factories>
+	<cache-mappings>
+		<cache-mapping name="BusinessModel" cacheFactory="InMemory" enabled="false"/>
+		<cache-mapping name="ProcedureConfig" cacheFactory="InMemory" enabled="false" />
+		<cache-mapping name="WebResource" cacheFactory="InMemory" enabled="false" />
+		<!--<cache-mapping name="ResponseCache" cacheFactory="Memcached" enabled="true" />-->
+		<cache-mapping name="ViewComponentTemplates" cacheFactory="InMemory" enabled="false" />
+	</cache-mappings>
+</cache-factory-config>

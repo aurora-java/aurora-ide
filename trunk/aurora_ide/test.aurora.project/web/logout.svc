@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:service xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" final-page="true" trace="true">
+    <a:init-procedure outputPath="/parameter">
+        <a:session-clear/>
+    </a:init-procedure>
+</a:service>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<amq:AMQ-client-instance xmlns:jms="aurora.plugin.jms" xmlns:amq="aurora.plugin.amq" url="failover:(tcp://[AMQ_IP]:[AMQ_PORT])">
+	    <amq:messageHandlers>
+	        <jms:DefaultMessageHandler name="refreshPriviledge" procedure="init.load_priviledge_check_data"/>
+	        <jms:DefaultMessageHandler name="refreshService" procedure="init.load_system_service"/>
+	    </amq:messageHandlers>
+	    <jms:consumers >
+	        <jms:consumer topic="application_foundation">
+	            <jms:events>
+	                <jms:event handler="refreshPriviledge" message="priviledge_setting_change"/>
+	                <jms:event handler="refreshService" message="service_config_change"/>
+	            </jms:events>
+	        </jms:consumer>
+	    </jms:consumers>
+</amq:AMQ-client-instance>

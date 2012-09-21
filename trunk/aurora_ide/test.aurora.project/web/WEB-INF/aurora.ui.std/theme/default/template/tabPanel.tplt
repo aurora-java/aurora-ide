@@ -1,0 +1,25 @@
+<TABLE cellSpacing="0" id="${id}" cellPadding="0" border="0" class="${wrapClass}" style="width:${width}px;height:${height}px;${style}">
+	<TBODY>
+		<TR>
+			<TD>
+			<DIV atype="scroll-left" class="tab-scroll tab-scroll-left scroll-disabled" style="display:${display}"></DIV>
+			<DIV class="item-tab-strip" style="overflow:hidden;width:${headwidth}px">
+				<DIV atype="tab.strips" style="width:${stripswidth}px;height:26px;border-bottom:1px solid #cccccc">${strips}</DIV>
+			</DIV>
+			<DIV atype="scroll-right" class="tab-scroll tab-scroll-right" style="display:${display}"></DIV>
+			</TD>
+		</TR>
+		<TR>
+			<TD>
+				<div class="item-tab-body" style="width:${bodywidth}px;height:${bodyheight}px;">
+					${bodys}
+				</div>
+			</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<SCRIPT LANGUAGE="JavaScript">
+	new Aurora.Tab(${config});
+	
+	${validscript}
+</SCRIPT>

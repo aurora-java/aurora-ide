@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spnego-config xmlns="aurora.plugin.spnego" username="bobbie" password="Hand123456789" domain="MAS.COM" host="172.20.0.72" procedure="spnego.spnego_login" loginchekpath="/spnego">	
+</spnego-config>

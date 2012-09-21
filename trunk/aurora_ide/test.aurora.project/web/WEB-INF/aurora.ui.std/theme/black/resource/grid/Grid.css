@@ -1,0 +1,122 @@
+.item-grid-wrap {
+	background-color: #ffffff;
+	border:1px solid #2a2d32;
+}
+.item-grid {		
+	/*position:relative;*/
+}
+.grid-lh, .grid-uh {
+	cursor: default;
+	-moz-user-select:none;
+	width:100%;
+	overflow: hidden;
+	background: url(../grid/grid_bg.gif) repeat-x; /*../grid/sky_blue_grid.gif*/
+	border-bottom:none !important;
+	border-bottom:1px solid #2a2d32;/*a4bed4*/
+}
+.grid-rowbox {
+	border-right:1px solid #cccccc;
+	background: url(../grid/row-box.gif) repeat-y;
+}
+.grid-rowbox center {
+	height:17px;
+	padding-top:5px;
+}
+.grid-lb table, .grid-lh table,  .grid-uh table, .grid-ub table{
+	table-layout:fixed;
+}
+.grid-hl{
+	position:static !important;
+	position:absolute;	
+}
+.grid-fs{
+	FONT-SIZE: 1px;	
+	LEFT: 0px;	
+	WIDTH: 1px;	
+	LINE-HEIGHT: 1px;	
+	POSITION: absolute;	
+	TOP: 0px;	
+	HEIGHT: 1px;	
+	moz-user-select: text;	
+	khtml-user-select: text;	
+	webkit-user-select: ignore;	
+	moz-outline: 0 none;
+	outline: 0 none
+}
+.ext-ie6 .grid-hl {
+	display:none;
+}
+.item-grid td div {
+	white-space:nowrap;
+	overflow:hidden;
+}
+.grid-hl TH {
+	height:0px;
+}
+.row-alt {
+	background-color:#fafafa;
+}
+.grid-la {
+	float:left;
+	border-right:1px solid #d0d0d0;
+}
+.grid-ua {
+	float:right;
+}
+.grid-hc {
+	border-right:1px solid #2a2d32;/*a4bed4*/
+	border-bottom:1px solid #2a2d32;/*a4bed4*/
+	background: url(../grid/grid_bg.gif) repeat-x;
+	color: #fff;	
+	padding:0px;
+	text-align:center;
+}
+.grid-lb{
+	cursor: default;
+	overflow: hidden;
+}
+.grid-ub{
+	CURSOR: default;
+	overflow: auto;
+}
+.grid-cell{
+	padding-left:2px;
+	padding-right:2px;
+	line-height:20px;
+	height:22px;
+}
+.cell-editor {
+	border:1px solid #cccccc;
+	margin:0px;
+	height:20px;
+}
+.grid-ub table {
+	border-right:1px solid #ededed;
+}
+.grid-ub td, .grid-lb td {
+	/*border-right:1px solid #bbbbbb;*/
+	border-bottom:1px solid #ededed;
+	padding:1px;
+	/**color: #808080;**/
+	height:22px;
+}
+.grid-toolbar {
+	border:none;
+	border-bottom:1px solid #2a2d32;
+}
+.grid-navbar {
+	border:none;
+	border-top:1px solid #2a2d32;
+	border-left:1px solid #ffffff;
+}
+.grid-sp {
+	position:absolute;
+	width:2px;
+	background-color:#cccccc;
+	left:0px;
+	top:0px;
+	z-index:100000;
+}
+.row-selected {
+	background-color:#DDDDDD;
+}

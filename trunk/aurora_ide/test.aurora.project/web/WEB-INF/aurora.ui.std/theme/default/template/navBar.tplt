@@ -1,0 +1,14 @@
+<DIV class="${wrapClass}" id="${id}" style="width:${width}px;${style}">
+	<DIV style="padding-left:4px;padding-right:4px;">${items}</DIV>
+</DIV>
+<SCRIPT LANGUAGE="JavaScript">
+	new Aurora.NavBar({
+		id:'${id}',
+		dataSet:'${dataset}',
+		inputId:'${inputid}',
+		comboBoxId:'${comboBoxId}',
+		width:${width},
+		type:'${navbartype}',
+		maxPageCount:${maxpagecount}
+	});
+</SCRIPT>

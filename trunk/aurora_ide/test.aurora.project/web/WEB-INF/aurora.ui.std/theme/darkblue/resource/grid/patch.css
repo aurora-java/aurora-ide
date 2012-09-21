@@ -1,0 +1,13 @@
+.item-grid-wrap .item-toolbar {
+	background-image: url(../grid/toolbar_bg.gif);
+}
+.item-grid-wrap .item-toolbar BUTTON{
+    color:#000000;
+    font-weight:normal;
+}
+.row-alt {
+    background-color:#F2F2F2;
+}
+.row-selected {
+    background-color:#DFE4EF;
+}

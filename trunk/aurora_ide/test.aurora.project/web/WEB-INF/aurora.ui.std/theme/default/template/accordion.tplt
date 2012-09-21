@@ -1,0 +1,15 @@
+<DIV class="${wrapClass}" id="${id}" style="${style}">
+</DIV>
+<SCRIPT LANGUAGE="JavaScript">
+    new Aurora.Grid({
+        id:'${id}',
+        width:${width},
+        selectable:${selectable},
+        selectionmodel:'${selectionmodel}',
+        height:${height},
+        columns:${columns}
+    });
+    $('${id}').bind('${bindtarget}');
+    ${events}
+</SCRIPT>
+${editors}

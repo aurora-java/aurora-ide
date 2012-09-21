@@ -1,0 +1,15 @@
+<div style="overflow-x:visible;z-index:2;${minheight}" class="${wrapClass} no-js navBar" id="${id}">	
+	<div id="adminmenuback" style="left:0px;">
+	</div>
+    <div id="adminmenuwrap">
+        <div id="adminmenushadow" class="adminmenushadow">
+        </div>
+		<ul id="adminmenu" role="navigation" atype="navigationbar.body">			
+		</ul>
+		<div style="margin:10px;">${information}</div>
+	</div>	
+</div>
+<script>
+	new Aurora.AccordionMenu(${config});	
+	$('${id}').bind('${bindtarget}');
+</script>

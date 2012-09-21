@@ -1,0 +1,1 @@
+<CacheBasedCheckerFactory xmlns="aurora.bm" cacheName="RoleBmAccess" cacheKeyPrefix="${/session/@role_id}." />
