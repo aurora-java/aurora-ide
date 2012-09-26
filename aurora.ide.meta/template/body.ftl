@@ -12,7 +12,11 @@
 	                		<#if (c.toolbar.components)??>
     	           			    <a:toolBar id="toolbar">
         	        				<#list c.toolbar.components as b>
-    									<a:button type="${b.type}"/>
+        	        					<#if b.type??>
+    										<a:button type="${b.type}"/>
+    										<#else>
+    										<a:button ${properties(b.u_id)}/>
+        	        					</#if>
     								</#list>
                 				</a:toolBar>	
                 			</#if>
