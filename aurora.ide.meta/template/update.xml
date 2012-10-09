@@ -20,6 +20,8 @@
 			<button type="clear"/>
 		</toolBar>
 	</grid>
+	<hbox>
+	</hbox>
 	
 	<description><![CDATA[
 		通过Form查询Grid数据，Grid数据可编辑

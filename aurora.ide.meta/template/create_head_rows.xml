@@ -16,7 +16,8 @@
 			<button type="delete"/>
 		</toolBar>
 	</grid>
-	
+	<hbox>
+	</hbox>
 	<description><![CDATA[
 		以头行结构显示。创建头行结构的行数据，并且显示头信息。头表BM需要返回一条数据或者接收link到此页面的参数后返回一条数据。
 	]]></description>

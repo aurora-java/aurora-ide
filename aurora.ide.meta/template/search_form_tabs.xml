@@ -31,7 +31,8 @@
 			</grid>
 		</tab>
 	</tabPanel>
-	
+	<hbox>
+	</hbox>
 	<description><![CDATA[
 		头行结构的Grid，Grid放置在Tab上，头Grid可通过Form查询数据
 	]]></description>

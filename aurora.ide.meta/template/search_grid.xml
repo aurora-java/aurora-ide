@@ -10,7 +10,8 @@
 			<button type="clear"/>
 		</toolBar>
 	</grid>
-	
+	<hbox>
+	</hbox>
 	<description><![CDATA[
 		通过Grid显示BM数据
 	]]></description>

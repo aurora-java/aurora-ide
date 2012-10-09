@@ -25,7 +25,8 @@
 			<button type="clear"/>
 		</toolBar>
 	</grid>
-	
+	<hbox>
+	</hbox>
 	<description><![CDATA[
 		头行结构的Grid，头Grid可通过Form查询数据
 	]]></description>
