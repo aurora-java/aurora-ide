@@ -11,7 +11,8 @@
 			<button type="delete"/>
 		</toolBar>
 	</grid>
-	
+	<hbox>
+	</hbox>
 	<description><![CDATA[
 		使用Grid，创建行表的详细数据。
 	]]></description>

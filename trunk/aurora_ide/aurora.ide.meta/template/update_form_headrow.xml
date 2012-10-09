@@ -31,7 +31,8 @@
 			<button type="clear"/>
 		</toolBar>
 	</grid>
-	
+	<hbox>
+	</hbox>
 	<description><![CDATA[
 		头行结构的Grid，头Grid可通过Form查询数据，Grid数据可编辑
 	]]></description>
