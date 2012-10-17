@@ -48,6 +48,7 @@ import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
+import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.property.ResourceSelector;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
@@ -131,6 +132,30 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		text_relname = new Text(container, SWT.BORDER);
 		text_relname.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 				false, 1, 1));
+		text_relname.addModifyListener(new ModifyListener() {
+
+			public void modifyText(ModifyEvent e) {
+				Relation[] rels = model.getRelations();
+				String newName = text_relname.getText();
+				Button b = getButton(IDialogConstants.IGNORE_ID);
+				boolean exists = false;
+				for (Relation r : rels) {
+					if (r == relation)
+						continue;
+					if (r.getName().equals(newName)) {
+						exists = true;
+						break;
+					}
+				}
+				if (b != null)
+					b.setEnabled(!exists);
+				text_relname.setBackground(exists ? ColorConstants.WRONG_COLOR
+						: null);
+				text_relname
+						.setToolTipText(exists ? "Relation name is already used."
+								: null);
+			}
+		});
 		text_relname.setText(relation.getName());
 		new Label(container, SWT.NONE);
 
@@ -349,8 +374,18 @@ public class RelationEditDialog extends Dialog implements SelectionListener {
 		if (isForeign) {
 			// if foreign pkname equals local pkname,they are most likely
 			// the same bm
-			if (!model.getPkRecord().getName().equals(fpk))
-				rec.setName(fpk);
+			if (!model.getPkRecord().getName().equals(fpk)) {
+				Record r = model.getRecordByName(fpk);
+				if (r == null || r == rec) {
+					rec.setName(fpk);
+				} else {
+					int suf = 0;
+					while (r != null && r != rec) {
+						r = model.getRecordByName(fpk + (++suf));
+					}
+					rec.setName(fpk + suf);
+				}
+			}
 			rec.setType(DataType.BIGNIT.getDisplayType());
 			rec.setEditor(Input.Combo);
 			rec.setOptions(relation.getRefTable());
