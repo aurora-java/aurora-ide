@@ -230,6 +230,10 @@ public class BaseInfoWizardPage extends WizardPage {
 				return Messages.BaseInfoWizardPage_19;
 			}
 			t = getRealFileName(t);
+			int extLen = 1 + IDesignerConst.EXTENSION.length();
+			if (t.length() > 27 + extLen)
+				return "Base file name is too long!(" + (t.length() - extLen)
+						+ ">27)";
 			IResource res = ResourcesPlugin.getWorkspace().getRoot()
 					.findMember(text_dir.getText() + "/" + t); //$NON-NLS-1$
 			if (res != null) {
