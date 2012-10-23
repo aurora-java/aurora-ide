@@ -13,6 +13,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
+import aurora.ide.helpers.StatusUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
@@ -76,7 +77,12 @@ public class AutoGenBuilder extends IncrementalProjectBuilder {
 			try {
 				new BaseBmGenerator(file).process();
 			} catch (Exception e) {
-				e.printStackTrace();
+				// StatusManager.getManager().handle(
+				// ErrorDialogUtil.createStatus(e, null),
+				// StatusManager.SHOW);
+				StatusUtil.showExceptionDialog(null, null,
+						"Error occured during build bm from " + file.getName(),
+						false, e);
 			}
 		}
 	}
@@ -97,6 +103,8 @@ public class AutoGenBuilder extends IncrementalProjectBuilder {
 		try {
 			getProject().accept(new SampleResourceVisitor());
 		} catch (CoreException e) {
+			StatusUtil.showExceptionDialog(null, null,
+					"Error occurred during AutoGenBuild.", false, e);
 		}
 	}
 
