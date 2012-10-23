@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.ide.undo.CreateFileOperation;
 
 import uncertain.composite.CompositeMap;
+import uncertain.composite.CompositeUtil;
 import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
@@ -84,11 +85,14 @@ public class BaseBmGenerator extends AbstractBmGenerator {
 		return map;
 	}
 
-	private CompositeMap genFieldsMap() {
+	private CompositeMap genFieldsMap() throws DuplicateException {
 		CompositeMap fMap = newCompositeMap("fields");
 		String pk_name = model.getPkRecord().getName();
 		boolean haspk = false;
 		for (Record r : model.getRecordList()) {
+			if (CompositeUtil.findChild(fMap, "field", "name", r.getName()) != null) {
+				throw new DuplicateException("field", "name", r.getName());
+			}
 			CompositeMap m = getNewFieldMap(r);
 			if (pk_name.equals(m.getString("name")))
 				haspk = true;
@@ -150,9 +154,11 @@ public class BaseBmGenerator extends AbstractBmGenerator {
 		return fMap;
 	}
 
-	private CompositeMap genRelationMap() {
+	private CompositeMap genRelationMap() throws DuplicateException {
 		CompositeMap rMap = newCompositeMap("relations");
 		for (Relation r : model.getRelationList()) {
+			if ((CompositeUtil.findChild(rMap, "relation", "name", r.getName())) != null)
+				throw new DuplicateException("relation", "name", r.getName());
 			rMap.addChild(getNewRelationMap(r));
 		}
 		return rMap;
@@ -179,7 +185,7 @@ public class BaseBmGenerator extends AbstractBmGenerator {
 	}
 
 	@Override
-	protected void setUpModelMap(CompositeMap map) {
+	protected void setUpModelMap(CompositeMap map) throws DuplicateException {
 		map.put("title", model.getTitle());
 		Record r = model.getDefaultDisplayRecord();
 		if (r != null)

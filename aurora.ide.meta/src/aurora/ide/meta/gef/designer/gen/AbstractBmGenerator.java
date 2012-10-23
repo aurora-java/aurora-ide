@@ -36,7 +36,7 @@ public abstract class AbstractBmGenerator {
 		return "e";
 	}
 
-	public CompositeMap gen() {
+	public CompositeMap gen() throws DuplicateException {
 		CompositeMap modelMap = newModelMap();
 		setUpModelMap(modelMap);
 		for (String uri : nsMapping.keySet()) {
@@ -51,8 +51,10 @@ public abstract class AbstractBmGenerator {
 	 * 
 	 * @param modelMap
 	 *            default created by {@link #newModelMap()}
+	 * @throws DuplicateException
 	 */
-	protected abstract void setUpModelMap(CompositeMap modelMap);
+	protected abstract void setUpModelMap(CompositeMap modelMap)
+			throws DuplicateException;
 
 	/**
 	 * create a model map,with name "model",and has a simple nsmapping

@@ -36,8 +36,8 @@ public class ExtendBmGenerator extends BaseBmGenerator {
 				// System.out.println("unknown auto extend mode : " + type);
 				continue;
 			}
-			CompositeMap map = bmg.gen();
 			try {
+				CompositeMap map = bmg.gen();
 				if (map != null)
 					createOrWriteFile(file, map);
 			} catch (Exception e) {
