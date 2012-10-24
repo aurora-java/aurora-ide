@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
@@ -20,6 +21,7 @@ import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
 import aurora.ide.meta.project.AuroraMetaProject;
 
 public class AutoGenBuilder extends IncrementalProjectBuilder {
+	public static final String MARKER_BUILD_ERROR = "aurora.ide.meta.builderror";
 	private IFolder mpFolder;
 
 	class SampleDeltaVisitor implements IResourceDeltaVisitor {
@@ -73,17 +75,39 @@ public class AutoGenBuilder extends IncrementalProjectBuilder {
 
 	void buildMeta(IResource resource) {
 		if (canBuild(resource)) {
+			deleteMarkers(resource);
 			IFile file = (IFile) resource;
 			try {
 				new BaseBmGenerator(file).process();
 			} catch (Exception e) {
-				// StatusManager.getManager().handle(
-				// ErrorDialogUtil.createStatus(e, null),
-				// StatusManager.SHOW);
-				StatusUtil.showExceptionDialog(null, null,
-						"Error occured during build bm from " + file.getName(),
-						false, e);
+				createMarker(resource, MARKER_BUILD_ERROR, e);
 			}
+		}
+	}
+
+	public static IMarker createMarker(IResource res, String marker_id,
+			Exception e) {
+		IMarker m = null;
+		try {
+			m = res.createMarker(marker_id);
+			m.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
+			m.setAttribute(IMarker.MESSAGE, e.getMessage());
+			m.setAttribute(IMarker.LINE_NUMBER, 0);
+		} catch (CoreException e1) {
+			StatusUtil.showExceptionDialog(null, null,
+					"Error occured while create markers on " + res.getName(),
+					false, e1);
+		}
+		return m;
+	}
+
+	public static void deleteMarkers(IResource res) {
+		try {
+			res.deleteMarkers(MARKER_BUILD_ERROR, false, 0);
+		} catch (CoreException e) {
+			StatusUtil.showExceptionDialog(null, null,
+					"Error occured while delete markers on " + res.getName(),
+					false, e);
 		}
 	}
 
