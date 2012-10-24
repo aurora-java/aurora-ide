@@ -58,9 +58,12 @@ public class GridLayoutEditPolicy extends FlowLayoutEditPolicy {
 			GridColumnPart gcp = (GridColumnPart) targetEditPart;
 			GridColumnFigure figure = (GridColumnFigure) gcp.getFigure();
 			GridColumn model = (GridColumn) gcp.getModel();
-			if (((DropRequest) request).getLocation().y > figure.getBounds().y
-					+ model.getHeadHight())
+			Rectangle bounds = figure.getBounds().getCopy();
+			figure.translateToAbsolute(bounds);
+			if (((DropRequest) request).getLocation().y > bounds.y
+					+ model.getHeadHight()) {
 				targetEditPart = targetEditPart.getParent();
+			}
 		}
 		// if (targetEditPart == null)
 		// System.out.println("getTargetEditPart:" + null);
