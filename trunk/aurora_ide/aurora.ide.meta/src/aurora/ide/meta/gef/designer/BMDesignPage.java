@@ -4,8 +4,16 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -35,11 +43,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.IMessageManager;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
+import aurora.ide.helpers.StatusUtil;
+import aurora.ide.meta.builder.AutoGenBuilder;
 import aurora.ide.meta.gef.designer.editor.BMModelContentProvider;
 import aurora.ide.meta.gef.designer.editor.BMModelLabelProvider;
 import aurora.ide.meta.gef.designer.editor.BMModelViewer;
@@ -50,7 +61,8 @@ import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.RecordPropertyChangeEvent;
 import aurora.ide.meta.gef.designer.model.Relation;
 
-public class BMDesignPage extends FormPage implements PropertyChangeListener {
+public class BMDesignPage extends FormPage implements PropertyChangeListener,
+		IResourceChangeListener, IResourceDeltaVisitor {
 	private Text quickAddText;
 	private BMModel model;
 	private BMModelViewer viewer;
@@ -66,6 +78,10 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 	private Button btnDelRelation;
 	private RelationViewer relationViewer;
 	private ComboViewer defaultDisplayViewer;
+	private IMessageManager messageManager;
+	private IFile inputFile;
+
+	private static String error_msg_key = "builderror";
 
 	/**
 	 * Create the form page.
@@ -97,7 +113,9 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 	protected void createFormContent(IManagedForm managedForm) {
 		FormToolkit toolkit = managedForm.getToolkit();
 		ScrolledForm form = managedForm.getForm();
+		messageManager = form.getForm().getMessageManager();
 		form.setLayout(new FillLayout(SWT.HORIZONTAL));
+		messageManager.setAutoUpdate(true);
 		if (model != null)
 			form.getForm().setText(model.getTitle());
 		toolkit.decorateFormHeading(form.getForm());
@@ -120,6 +138,7 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 		createRelationTable(com2);
 		new Label(com2, SWT.NONE);
 		sh.setWeights(new int[] { 2, 1 });
+		handleMarker();
 	}
 
 	private void createActions(IToolBarManager toolBarManager) {
@@ -444,6 +463,56 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener {
 		this.model = model;
 		model.removePropertyChangeListener(this);
 		model.addPropertyChangeListener(this);
+	}
+
+	public void resourceChanged(IResourceChangeEvent event) {
+		IResourceDelta delta = event.getDelta();
+		if (delta != null) {
+			try {
+				delta.accept(this);
+			} catch (CoreException e) {
+				StatusUtil.showExceptionDialog(getSite().getShell(), null,
+						null, true, e);
+			}
+		}
+	}
+
+	public boolean visit(IResourceDelta delta) throws CoreException {
+		if (inputFile.equals(delta.getResource())) {
+			addRemoveMarker();
+			return false;
+		}
+		return true;
+	}
+
+	private void handleMarker() {
+		inputFile = ((BMDesigner) getEditor()).getInputFile();
+		addRemoveMarker();
+		inputFile.getWorkspace().addResourceChangeListener(this,
+				IResourceChangeEvent.POST_BUILD);
+	}
+
+	void addRemoveMarker() {
+		getSite().getShell().getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				IMarker[] markers;
+				try {
+					markers = inputFile.findMarkers(
+							AutoGenBuilder.MARKER_BUILD_ERROR, false, 0);
+					if (markers.length > 0) {
+						IMarker m = markers[0];
+						String error = (String) m.getAttribute(IMarker.MESSAGE);
+						messageManager.addMessage(error_msg_key, error, null,
+								IMessageProvider.ERROR);
+					} else {
+						messageManager.removeMessage(error_msg_key);
+					}
+				} catch (CoreException e) {
+					StatusUtil.showExceptionDialog(getSite().getShell(), null,
+							null, false, e);
+				}
+			}
+		});
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
