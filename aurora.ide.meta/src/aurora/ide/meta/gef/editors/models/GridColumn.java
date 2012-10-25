@@ -10,6 +10,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
+import aurora.ide.meta.gef.editors.property.FootRendererEditDialog;
 import aurora.ide.meta.gef.editors.property.RendererEditDialog;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 
@@ -24,12 +25,14 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 			Input.DATETIMEPICKER };
 	public static final String EDITOR = "editor";
 	public static final String RENDERER = "renderer";
+	public static final String FOOTRENDERER = "footRenderer";
 
 	private List<GridColumn> cols = new ArrayList<GridColumn>();
 	// default row height 25
 	private int rowHight = 25;
 	private String editor = editors[0];
 	private Renderer renderer = new Renderer();
+	private FootRenderer footRenderer = new FootRenderer();
 	private DatasetField dsField = new DatasetField();
 
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
@@ -39,6 +42,8 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 			new ComboPropertyDescriptor(EDITOR, "editor", editors),
 			new DialogPropertyDescriptor(RENDERER, "renderer",
 					RendererEditDialog.class),
+			new DialogPropertyDescriptor(FOOTRENDERER, "footRenderer",
+					FootRendererEditDialog.class),
 			new BooleanPropertyDescriptor(READONLY, "*readOnly"),
 			new BooleanPropertyDescriptor(REQUIRED, "*required") };
 
@@ -63,6 +68,7 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 		this.setType("column");
 		setPrompt("prompt");
 		renderer.setColumn(this);
+		footRenderer.setColumn(this);
 	}
 
 	public void addCol(GridColumn col) {
@@ -86,6 +92,8 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 			return Arrays.asList(editors).indexOf(getEditor());
 		else if (RENDERER.equals(propName))
 			return getRenderer();
+		else if (FOOTRENDERER.equals(propName))
+			return getFootRenderer();
 		else if (READONLY.equals(propName)) {
 			return getDatasetField().isReadOnly();
 		} else if (REQUIRED.equals(propName))
@@ -115,6 +123,8 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 			setEditor(editors[(Integer) val]);
 		else if (RENDERER.equals(propName))
 			setRenderer((Renderer) val);
+		else if (FOOTRENDERER.equals(propName))
+			setFootRenderer((FootRenderer) val);
 		else if (READONLY.equals(propName)) {
 			setReadOnly((Boolean) val);
 		} else if (REQUIRED.equals(propName)) {
@@ -146,6 +156,16 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 
 	public Renderer getRenderer() {
 		return renderer;
+	}
+
+	public void setFootRenderer(FootRenderer r) {
+		this.footRenderer = r;
+		r.setColumn(this);
+		firePropertyChange(FOOTRENDERER, null, r);
+	}
+
+	public FootRenderer getFootRenderer() {
+		return footRenderer;
 	}
 
 	public String getEditor() {
