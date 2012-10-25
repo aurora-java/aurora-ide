@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.DatasetField;
+import aurora.ide.meta.gef.editors.models.FootRenderer;
 import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.Renderer;
 
@@ -29,6 +30,9 @@ public class GridColumnHandler extends DefaultIOHandler {
 		CompositeMap rMap = new RendererHandler().toCompositeMap(
 				gc.getRenderer(), mic);
 		map.addChild(rMap);
+		FootRenderer fr = gc.getFootRenderer();
+		if (fr.isEnabled())
+			map.addChild(new FootRendererHandler().toCompositeMap(fr, mic));
 	}
 
 	@Override
@@ -54,6 +58,12 @@ public class GridColumnHandler extends DefaultIOHandler {
 			Renderer r = (Renderer) new RendererHandler().fromCompositeMap(
 					rMap, mic);
 			gc.setRenderer(r);
+		}
+		rMap = map.getChild(FootRenderer.class.getSimpleName());
+		if (rMap != null) {
+			FootRenderer r = (FootRenderer) new FootRendererHandler()
+					.fromCompositeMap(rMap, mic);
+			gc.setFootRenderer(r);
 		}
 	}
 
