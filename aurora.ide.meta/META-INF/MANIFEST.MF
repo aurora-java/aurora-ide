@@ -20,3 +20,12 @@ Import-Package: org.eclipse.ui.forms,
  org.eclipse.ui.forms.editor,
  org.eclipse.ui.forms.events,
  org.eclipse.ui.forms.widgets
+Export-Package: aurora.ide.meta,
+ aurora.ide.meta.gef.designer,
+ aurora.ide.meta.gef.editors.models,
+ aurora.ide.meta.gef.editors.source.gen.core,
+ aurora.ide.meta.gef.editors.template,
+ aurora.ide.meta.gef.editors.template.handle,
+ aurora.ide.meta.gef.editors.wizard,
+ aurora.ide.meta.gef.editors.wizard.dialog,
+ aurora.ide.prototype.freemarker
