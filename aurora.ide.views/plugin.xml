@@ -12,5 +12,17 @@
             id="aurora.ide.views.prompts.view.PromptsView">
       </view>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="aurora.ide.wizard"
+            class="aurora.ide.views.wizard.NewScreenWizard"
+            finalPerspective="aurora.ide.perspectives.AuroraPerspective"
+            icon="icons/screen.png"
+            id="aurora.ide.views.screenwizard"
+            name="New Screen Wizard"
+            project="true">
+      </wizard>
+   </extension>
 
 </plugin>
