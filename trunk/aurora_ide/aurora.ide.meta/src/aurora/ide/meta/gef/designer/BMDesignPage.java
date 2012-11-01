@@ -267,7 +267,7 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 				new GridData(SWT.FILL, SWT.FILL, true, true, 1, 6));
 
 		new Label(body, SWT.NONE);
-		btnUp = new Button(body, SWT.FLAT);
+		btnUp = new Button(body, SWT.NONE);
 		btnUp.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1,
 				1));
 		btnUp.setText(DesignerMessages.BMDesignPage_3);
