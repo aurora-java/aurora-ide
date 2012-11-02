@@ -5,15 +5,15 @@ import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
 public class StringCellEditor extends CellEditor implements FocusListener,
-		KeyListener {
+		TraverseListener {
 	private Text text;
 	private boolean readOnly = false;
 
@@ -43,7 +43,7 @@ public class StringCellEditor extends CellEditor implements FocusListener,
 	protected Control createControl(Composite parent) {
 		text = new Text(parent, SWT.SINGLE);
 		text.addFocusListener(this);
-		text.addKeyListener(this);
+		text.addTraverseListener(this);
 		text.setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_IBEAM));
 		text.setEnabled(!readOnly);
 		return text;
@@ -78,15 +78,9 @@ public class StringCellEditor extends CellEditor implements FocusListener,
 		fireApplyEditorValue();
 	}
 
-	public void keyPressed(KeyEvent e) {
-		// 回车
-		if (e.keyCode == 13) {
+	public void keyTraversed(TraverseEvent e) {
+		if (e.character == SWT.CR || e.character == SWT.KEYPAD_CR) {
 			fireApplyEditorValue();
 		}
 	}
-
-	public void keyReleased(KeyEvent e) {
-
-	}
-
 }
