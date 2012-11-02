@@ -25,10 +25,16 @@
      
     <extension
          point="org.eclipse.ui.preferencePages">
+        <page
+            category="aurora.ide.preferencePage"
+            class="aurora.ide.preferencepages.AuroraPreferencePage"
+            id="aurora.ide.meta.preference"
+            name="%aurora.prototype">
+      </page>
       <page
-            category="aurora.ide.preferencePage.TemplatesPage"
+            category="aurora.ide.meta.preference"
             class="aurora.ide.meta.preference.UIPrototypePreferencePage"
-            id="aurora.ide.meta.preference.UI"
+            id="aurora.ide.meta.template.preference"
             name="UI Prototype Template">
       </page>
     </extension>
