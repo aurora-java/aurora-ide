@@ -86,14 +86,13 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	}
 
 	public Object getAdapter(Class adapter) {
-		if (IFile.class.equals(adapter)){
+		if (IFile.class.equals(adapter)) {
 			return file;
-		}			
+		}
 
 		return super.getAdapter(adapter);
 	}
-	
-	
+
 	/**
 	 * @see org.eclipse.gef.commands.CommandStackListener#commandStackChanged(java.util.EventObject)
 	 */
@@ -137,7 +136,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	/**
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#configureGraphicalViewer()
 	 */
-	protected void configureGraphicalViewer() {
+	public void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		getGraphicalViewer().setRootEditPart(new ScalableRootEditPart());
 		getGraphicalViewer().setEditPartFactory(
@@ -158,7 +157,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	/**
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#initializeGraphicalViewer()
 	 */
-	protected void initializeGraphicalViewer() {
+	public void initializeGraphicalViewer() {
 		getGraphicalViewer().setContents(diagram);
 		getGraphicalViewer().addDropTargetListener(
 				new BMTransferDropTargetListener(getGraphicalViewer()));
@@ -264,13 +263,13 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	/**
 	 * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
 	 */
-	protected void setInput(IEditorInput input) {
+	public void setInput(IEditorInput input) {
 		super.setInput(input);
 		if (!(input instanceof IFileEditorInput)) {
 			diagram = new ViewDiagram();
 			return;
 		}
-
+		
 		file = ((IFileEditorInput) input).getFile();
 		this.setPartName(file.getName());
 		InputStream is = null;
@@ -303,7 +302,10 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 
 	protected void createPropertyViewer(Composite c) {
 		propertyViewer = new MetaPropertyViewer(c, this);
-		propertyViewer.setCommandStack(getEditDomain().getCommandStack());
+		DefaultEditDomain editDomain = getEditDomain();
+		if (editDomain == null)
+			return;
+		propertyViewer.setCommandStack(editDomain.getCommandStack());
 	}
 
 	protected void createBMViewer(Composite c) {

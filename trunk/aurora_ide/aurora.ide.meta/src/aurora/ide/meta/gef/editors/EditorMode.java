@@ -13,7 +13,7 @@ public class EditorMode {
 		super();
 		this.vsEditor = vsEditor;
 	}
-
+	
 	public String getMode() {
 		ViewDiagram diagram = vsEditor.diagram;
 		if (diagram != null && diagram.isBindTemplate()) {

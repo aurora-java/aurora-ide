@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 
@@ -272,7 +273,10 @@ public class BMViewer {
 	}
 
 	private void init() {
-		Object file = vse.getEditorInput().getAdapter(IFile.class);
+		IEditorInput editorInput = vse.getEditorInput();
+		if (editorInput == null)
+			return;
+		Object file = editorInput.getAdapter(IFile.class);
 		if (file instanceof IFile) {
 			project = ((IFile) file).getProject();
 		}
