@@ -85,6 +85,8 @@ public class ScreenGenerator {
 
 	private CompositeMap createMapFromCom(Component ac2) {
 		String type = ac2.getComponentType().toLowerCase();
+		autoCorrectComponentType(ac2, type);
+
 		if ("grid".equals(type)) {
 			return createMapFromGrid(ac2);
 		} else if (ac2 instanceof ButtonComponent) {
@@ -94,6 +96,7 @@ public class ScreenGenerator {
 		} else if ("tabpanel".equals(type)) {
 			return createMapFromTabPanel(ac2);
 		}
+
 		CompositeMap map = newMap(ac2.getComponentType());
 		if (ac2.getChildren() != null) {
 			for (Component ac : ac2.getChildren()) {
@@ -102,6 +105,22 @@ public class ScreenGenerator {
 			}
 		}
 		return map;
+	}
+
+	/**
+	 * auto change ComponentType to a screen tag name<br/>
+	 * this is a way to fix case problem<br/>
+	 * e.g. hbox->hBox<br/>
+	 * any found problem can be add here
+	 * 
+	 * @param c
+	 * @param typeLowCase
+	 */
+	private void autoCorrectComponentType(Component c, String typeLowCase) {
+		if ("hbox".equals(typeLowCase))
+			c.setComponentType("hBox");
+		else if ("vbox".equals(typeLowCase))
+			c.setComponentType("vBox");
 	}
 
 	private CompositeMap createMapFromTabPanel(Component tp) {
@@ -126,29 +145,25 @@ public class ScreenGenerator {
 			if (c != null) {
 				if (ButtonClicker.B_SEARCH.equals(type)) {
 					String bmrID = ((BMBindComponent) c).getBmReferenceID();
-					BMReference bm = bmrMap.get(bmrID);
-					if (bm != null) {
-						String ds_id = getDataSetId(bm.getModel(), false);
-						String fName = "query_" + ds_id;
-						String function = "\nfunction %s() {\n\t$('%s').query();\n}";
-						scriptTemp
-								.append(String.format(function, fName, ds_id));
-						btnMap.put("click", fName);
-					}
+					BMReference bm = getBMReference(bmrID);
+					String ds_id = getDataSetId(bm.getModel(), false);
+					String fName = createDataSetFunction("query", ds_id);
+					btnMap.put("click", fName);
 				} else if (ButtonClicker.B_RESET.equals(type)) {
 					BMBindComponent bmbc = getQueryOwner(c);
 					if (bmbc != null) {
 						String bmrID = bmbc.getBmReferenceID();
-						BMReference bm = bmrMap.get(bmrID);
-						if (bm != null) {
-							String ds_id = getDataSetId(bm.getModel(), true);
-							String fName = "reset_" + ds_id;
-							String function = "\nfunction %s() {\n\t$('%s').reset();\n}";
-							scriptTemp.append(String.format(function, fName,
-									ds_id));
-							btnMap.put("click", fName);
-						}
+						BMReference bm = getBMReference(bmrID);
+						String ds_id = getDataSetId(bm.getModel(), true);
+						String fName = createDataSetFunction("reset", ds_id);
+						btnMap.put("click", fName);
 					}
+				} else if (ButtonClicker.B_SAVE.equals(type)) {
+					String bmrID = ((BMBindComponent) c).getBmReferenceID();
+					BMReference bm = getBMReference(bmrID);
+					String ds_id = getDataSetId(bm.getModel(), false);
+					String fName = createDataSetFunction("submit", ds_id);
+					btnMap.put("click", fName);
 				}
 			}
 
@@ -167,17 +182,13 @@ public class ScreenGenerator {
 			BMBindComponent bmbc = (BMBindComponent) ac2;
 			String bmrID = bmbc.getBmReferenceID();
 			BMReference bm = getBMReference(bmrID);
-			if (bm != null) {
-				fillBoxArea(map, bm, false);
-			}
+			fillBoxArea(map, bm, false);
 		} else if (ac2.getId() != null) {
 			BMBindComponent queryOwner = getQueryOwner(ac2);
 			if (queryOwner != null) {
 				String bmrID = queryOwner.getBmReferenceID();
 				BMReference bm = getBMReference(bmrID);
-				if (bm != null) {
-					fillBoxArea(map, bm, true);
-				}
+				fillBoxArea(map, bm, true);
 			}
 		}
 		return map;
@@ -252,6 +263,7 @@ public class ScreenGenerator {
 
 	private CompositeMap createMapFromGrid(Component ac2) {
 		CompositeMap map = newMap(ac2.getComponentType());
+		map.put("id", ac2.getId());
 		map.put("width", "800");
 		map.put("height", "400");
 		if (ac2.getChildren() != null) {
@@ -293,7 +305,6 @@ public class ScreenGenerator {
 	private void fillGridColumns(CompositeMap gridMap, BMCompositeMap bmc,
 			BMReference bm) {
 		CompositeMap cols = newMap("columns");
-
 		CompositeMap pkField = bmc.getFieldOfPk();
 		List<CompositeMap> fields = bmc.getFields(false, true);
 		if ("java.lang.String".equals(BMCompositeMap.getMapAttribute(pkField,
@@ -309,7 +320,7 @@ public class ScreenGenerator {
 				String editor = getRecommendEditor(f);
 				String editorId = editorMapping.get(editor);
 				if (editorId == null) {
-					editorId = editor + "_id";
+					editorId = gridMap.getString("id") + "_" + editor + "_id";
 					editorMapping.put(editor, editorId);
 				}
 				col.put("editor", editorId);
@@ -368,6 +379,13 @@ public class ScreenGenerator {
 		return bmrMap.get(bmrID);
 	}
 
+	/**
+	 * user defined query-field has no dataType,the editor of this field is
+	 * unknown
+	 * 
+	 * @param fieldName
+	 * @return
+	 */
 	private String gussesEditor(String fieldName) {
 		if (fieldName != null && fieldName.contains("date"))
 			return DataType.DATE.getDefaultEditor();
@@ -376,6 +394,21 @@ public class ScreenGenerator {
 
 	private boolean oneOf(String base, String... target) {
 		return Arrays.asList(target).contains(base);
+	}
+
+	/**
+	 * create a function ,add it to scriptTemp ,and return its functionName
+	 * 
+	 * @param op
+	 * @param ds_id
+	 * @return function name
+	 */
+	private String createDataSetFunction(String op, String ds_id) {
+		String fName = op + "_" + ds_id;
+		String function = String.format("\nfunction %s(){\n\t$('%s').%s();\n}",
+				fName, ds_id, op);
+		scriptTemp.append(function);
+		return fName;
 	}
 
 	/**

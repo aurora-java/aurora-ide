@@ -12,7 +12,7 @@ public class OldTemplateWizardPage extends NewScreenTemplatesWizardPage {
 
 	public OldTemplateWizardPage() {
 		super();
-		setTitle("使用自定义模板");
+		setTitle(Messages.OldTemplateWizardPage_0);
 	}
 
 	@Override

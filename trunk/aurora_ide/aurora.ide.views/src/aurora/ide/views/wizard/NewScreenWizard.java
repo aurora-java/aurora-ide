@@ -42,7 +42,7 @@ public class NewScreenWizard extends Wizard implements INewWizard {
 	static final Color WRONG_COLOR = new Color(null, 243, 180, 212);
 
 	public NewScreenWizard() {
-		setWindowTitle("新建Screen向导");
+		setWindowTitle(Messages.NewScreenWizard_0);
 		selectTplWizardPage.setUserInput(us);
 		selectBmWizardPage.setUserInput(us);
 	}
@@ -97,7 +97,7 @@ public class NewScreenWizard extends Wizard implements INewWizard {
 		String fn = us.fileName;
 		int idx = fn.indexOf('.');
 		if (idx == -1)
-			fn = fn + "." + AuroraConstant.ScreenFileExtension;
+			fn = fn + "." + AuroraConstant.ScreenFileExtension; //$NON-NLS-1$
 		path = path.append(fn);
 		IFile f = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 		if (!us.noUseModel) {
@@ -132,7 +132,7 @@ public class NewScreenWizard extends Wizard implements INewWizard {
 		try {
 			if (content == null || content.length() == 0) {
 				QualifiedName screenQN = AuroraConstant.ScreenQN;
-				CompositeMap rootElement = new CommentCompositeMap("a",
+				CompositeMap rootElement = new CommentCompositeMap("a", //$NON-NLS-1$
 						screenQN.getNameSpace(), screenQN.getLocalName());
 				content = AuroraResourceUtil.xml_decl
 						+ AuroraResourceUtil.getSign()
@@ -158,7 +158,7 @@ public class NewScreenWizard extends Wizard implements INewWizard {
 			is.close();
 		} else {
 			CreateFileOperation cfo = new CreateFileOperation(file, null, is,
-					"Create " + file.getFullPath());
+					"Create " + file.getFullPath()); //$NON-NLS-1$
 			cfo.execute(new NullProgressMonitor(), null);
 		}
 	}
@@ -166,8 +166,8 @@ public class NewScreenWizard extends Wizard implements INewWizard {
 	public class UserInput {
 		public boolean noUseModel = false;
 		public Template template = null;
-		public String dir = "";
-		public String fileName = "";
+		public String dir = ""; //$NON-NLS-1$
+		public String fileName = ""; //$NON-NLS-1$
 
 		public boolean isNoUseModel() {
 			return noUseModel;
