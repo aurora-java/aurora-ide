@@ -46,9 +46,9 @@ public class SelectBmWizardPage extends WizardPage {
 	 * Create the wizard.
 	 */
 	public SelectBmWizardPage() {
-		super("wizardPage");
-		setTitle("选择BM");
-		setDescription("Wizard Page description");
+		super("wizardPage"); //$NON-NLS-1$
+		setTitle(Messages.SelectBmWizardPage_1);
+		setDescription(Messages.SelectBmWizardPage_2);
 	}
 
 	public void setUserInput(UserInput input) {
@@ -83,13 +83,13 @@ public class SelectBmWizardPage extends WizardPage {
 		}
 		List<BMReference> list = us.template.getBms();
 		if (list != null && list.size() > 0) {
-			createGroup(container, "Model", list);
+			createGroup(container, "Model", list); //$NON-NLS-1$
 			setPageComplete(false);
 		}
 
 		list = us.template.getLinkBms();
 		if (list != null && list.size() > 0) {
-			createGroup(container, "Init-Model(optional)", list);
+			createGroup(container, "Init-Model(optional)", list); //$NON-NLS-1$
 		}
 		checkFinish();
 		container.layout();
@@ -99,7 +99,7 @@ public class SelectBmWizardPage extends WizardPage {
 			List<BMReference> content) {
 		Group group = new Group(container, SWT.NONE);
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		group.setText("Model");
+		group.setText(Messages.SelectBmWizardPage_5);
 		group.setLayout(new GridLayout(3, false));
 		for (BMReference bm : content) {
 			createInputField(group, bm);
@@ -111,20 +111,20 @@ public class SelectBmWizardPage extends WizardPage {
 		l.setText(bm.getName());
 		Text t = new Text(parent, SWT.BORDER);
 		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		t.setData("bm", bm);
+		t.setData("bm", bm); //$NON-NLS-1$
 		t.setText(getModelPath(bm));
 		finishFlag.put(t, validatePath(t.getText()) == null);
 		t.addModifyListener(validaor);
 		Button btn = new Button(parent, SWT.NONE);
 		btn.addSelectionListener(new ButtonSelectionListener(t, bm));
-		btn.setText("设置...");
+		btn.setText(Messages.SelectBmWizardPage_7);
 	}
 
 	private String getModelPath(BMReference bm) {
 		IFile f = bm.getModel();
 		if (f != null)
 			return f.getFullPath().toString();
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	void checkFinish() {
@@ -152,10 +152,10 @@ public class SelectBmWizardPage extends WizardPage {
 		IResource r = ResourcesPlugin.getWorkspace().getRoot().findMember(path);
 		String msg = null;
 		if (r == null) {
-			msg = "文件不存在。";
+			msg = Messages.SelectBmWizardPage_9;
 		} else if (!(r instanceof IFile)
 				|| !AuroraConstant.BMFileExtension.equals(r.getFileExtension())) {
-			msg = "文件不是有效的bm文件。";
+			msg = Messages.SelectBmWizardPage_10;
 		}
 		return msg;
 	}
@@ -169,7 +169,7 @@ public class SelectBmWizardPage extends WizardPage {
 			IResource r = ResourcesPlugin.getWorkspace().getRoot()
 					.findMember(path);
 			String msg = validatePath(path);
-			((BMReference) t.getData("bm")).setModel((IFile) r);
+			((BMReference) t.getData("bm")).setModel((IFile) r); //$NON-NLS-1$
 			t.setToolTipText(msg);
 			setErrorMessage(msg);
 			t.setBackground(msg == null ? null : NewScreenWizard.WRONG_COLOR);
@@ -190,7 +190,7 @@ public class SelectBmWizardPage extends WizardPage {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			ResourceSelector rs = new ResourceSelector(getShell());
-			rs.setExtFilter(new String[] { "bm" });
+			rs.setExtFilter(new String[] { "bm" }); //$NON-NLS-1$
 			IResource res = ResourcesPlugin.getWorkspace().getRoot()
 					.findMember(us.dir);
 			if (!(res instanceof IContainer)) {

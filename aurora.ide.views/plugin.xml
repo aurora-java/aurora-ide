@@ -28,7 +28,7 @@
             icon="icons/screen.png"
             id="aurora.ide.views.screenwizard"
             name="New Screen Wizard"
-            project="true">
+            project="false">
       </wizard>
    </extension>
 </plugin>

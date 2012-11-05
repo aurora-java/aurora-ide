@@ -42,8 +42,8 @@ public class SelectTemplatelWizardPage extends WizardPage {
 	 * Create the wizard.
 	 */
 	public SelectTemplatelWizardPage() {
-		super("wizardPage");
-		setTitle("选择模版");
+		super("wizardPage"); //$NON-NLS-1$
+		setTitle(Messages.SelectTemplatelWizardPage_1);
 		setDescription("Wizard Page description");
 		setPageComplete(false);
 	}
@@ -66,7 +66,7 @@ public class SelectTemplatelWizardPage extends WizardPage {
 		Label label = new Label(container, SWT.NONE);
 		label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
-		label.setText("目录：");
+		label.setText(Messages.SelectTemplatelWizardPage_3);
 
 		text_dir = new Text(container, SWT.BORDER);
 		text_dir.setText(us.dir);
@@ -87,12 +87,12 @@ public class SelectTemplatelWizardPage extends WizardPage {
 				text_fileName.forceFocus();
 			}
 		});
-		button.setText("浏览...");
+		button.setText(Messages.SelectTemplatelWizardPage_4);
 
 		Label label_1 = new Label(container, SWT.NONE);
 		label_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
-		label_1.setText("文件名：");
+		label_1.setText(Messages.SelectTemplatelWizardPage_5);
 
 		text_fileName = new Text(container, SWT.BORDER);
 		text_fileName.setText(us.fileName);
@@ -100,7 +100,7 @@ public class SelectTemplatelWizardPage extends WizardPage {
 				false, 1, 1));
 		new Label(container, SWT.NONE);
 		IPath path = MetaPlugin.getDefault().getStateLocation()
-				.append("template");
+				.append("template"); //$NON-NLS-1$
 		createTemplate(container,
 				TemplateHelper.getInstance().getTemplates(path));
 
@@ -146,12 +146,12 @@ public class SelectTemplatelWizardPage extends WizardPage {
 			}
 		});
 		chkUseModel.setSelection(us.noUseModel);
-		chkUseModel.setText("不使用模板");
+		chkUseModel.setText(Messages.SelectTemplatelWizardPage_7);
 	}
 
 	private void setTemplateDescription(String desc) {
 		if (desc == null) {
-			desc = "";
+			desc = ""; //$NON-NLS-1$
 		}
 		lblDesc.setText(desc);
 		lblDesc.redraw();
@@ -187,7 +187,7 @@ public class SelectTemplatelWizardPage extends WizardPage {
 				} else {
 					IResource res = workspace.getRoot().findMember(dir);
 					if (!(res instanceof IContainer)) {
-						msgs[0] = ("Path '" + dir + "' does not exists (or not a folder).");
+						msgs[0] = ("Path '" + dir + "' does not exists (or not a folder)."); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}
 				if (msgs[0] == null)
@@ -203,23 +203,23 @@ public class SelectTemplatelWizardPage extends WizardPage {
 					return;
 				int idx = fn.indexOf('.');
 				if (idx == -1)
-					fn = fn + "." + AuroraConstant.ScreenFileExtension;
+					fn = fn + "." + AuroraConstant.ScreenFileExtension; //$NON-NLS-1$
 				IPath path = new Path(text_dir.getText()).append(fn);
 				msgs[1] = null;
 				IResource res = workspace.getRoot().findMember(path);
 				if (res != null) {
-					msgs[1] = (res.getClass().getSimpleName() + " '" + fn + "' already exists.");
+					msgs[1] = (res.getClass().getSimpleName() + " '" + fn + "' already exists."); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 			}
 
 			boolean regExpCheck(String fn) {
-				if (!new Path("").isValidSegment(fn)) {
-					msgs[1] = "'" + fn + "' is not a valid segment";
+				if (!new Path("").isValidSegment(fn)) { //$NON-NLS-1$
+					msgs[1] = "'" + fn + "' is not a valid segment"; //$NON-NLS-1$ //$NON-NLS-2$
 					return false;
 				}
-				boolean res = fn.matches("[\\w\\d_]+(."
-						+ AuroraConstant.ScreenFileExtension + ")?");
-				msgs[1] = "File name '" + fn + "' is not valid.";
+				boolean res = fn.matches("[\\w\\d_]+(." //$NON-NLS-1$
+						+ AuroraConstant.ScreenFileExtension + ")?"); //$NON-NLS-1$
+				msgs[1] = "File name '" + fn + "' is not valid."; //$NON-NLS-1$ //$NON-NLS-2$
 				return res;
 			}
 		};
