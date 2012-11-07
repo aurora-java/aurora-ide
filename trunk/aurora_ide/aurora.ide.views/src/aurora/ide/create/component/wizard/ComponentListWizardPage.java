@@ -2,12 +2,10 @@ package aurora.ide.create.component.wizard;
 
 import java.util.List;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.PlatformObject;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
@@ -16,6 +14,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.WizardPage;
@@ -30,6 +29,7 @@ import org.eclipse.ui.model.IWorkbenchAdapter;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.create.component.ComponentListFactory;
 
 public class ComponentListWizardPage extends WizardPage implements
 		ISelectionChangedListener {
@@ -67,61 +67,11 @@ public class ComponentListWizardPage extends WizardPage implements
 	}
 
 	private class VLabelProvider extends LabelProvider {
-		private ResourceManager resourceManager;
 
-		private ResourceManager getResourceManager() {
-			if (resourceManager == null) {
-				resourceManager = new LocalResourceManager(
-						JFaceResources.getResources());
-			}
-
-			return resourceManager;
-		}
-
-		protected final Object getAdapter(Object sourceObject) {
-			Class<?> adapterType = IWorkbenchAdapter.class;
-			if (sourceObject == null) {
-				return null;
-			}
-			if (adapterType.isInstance(sourceObject)) {
-				return sourceObject;
-			}
-
-			if (sourceObject instanceof IAdaptable) {
-				IAdaptable adaptable = (IAdaptable) sourceObject;
-
-				Object result = adaptable.getAdapter(adapterType);
-				if (result != null) {
-					// Sanity-check
-					Assert.isTrue(adapterType.isInstance(result));
-					return result;
-				}
-			}
-
-			if (!(sourceObject instanceof PlatformObject)) {
-				Object result = Platform.getAdapterManager().getAdapter(
-						sourceObject, adapterType);
-				if (result != null) {
-					return result;
-				}
-			}
-			return null;
-		}
 
 		public final Image getImage(Object element) {
-			if (element instanceof IResource) {
-				// obtain the base image by querying the element
-				IWorkbenchAdapter adapter = (IWorkbenchAdapter) getAdapter(element);
-				if (adapter == null) {
-					return null;
-				}
-				ImageDescriptor descriptor = adapter
-						.getImageDescriptor(element);
-				if (descriptor == null) {
-					return null;
-				}
-
-				return (Image) getResourceManager().get(descriptor);
+			if (element instanceof CompositeMap) {
+				return ComponentListFactory.getImage((CompositeMap)element);
 			}
 			return null;
 		}
@@ -142,10 +92,16 @@ public class ComponentListWizardPage extends WizardPage implements
 	public ComponentListWizardPage(String pageName) {
 		super(pageName);
 	}
+	
+
+	private void init(CompositeMap createInput) {
+		this.viewer.setSelection(new StructuredSelection(createInput
+				.getChilds().get(0)));
+	}
 
 	@Override
 	public void createControl(Composite parent) {
-		Composite control = new Composite(parent,SWT.NONE);
+		Composite control = new Composite(parent, SWT.NONE);
 		control.setLayout(new GridLayout());
 		FilteredTree ff = new FilteredTree(control, SWT.SINGLE,
 				new PatternFilter(), true);
@@ -159,7 +115,9 @@ public class ComponentListWizardPage extends WizardPage implements
 
 		viewer.addSelectionChangedListener(this);
 		this.setControl(control);
-		setInput(createInput());
+		CompositeMap createInput = ComponentListFactory.createInput();
+		setInput(createInput);
+		init(createInput);
 
 	}
 
@@ -167,21 +125,9 @@ public class ComponentListWizardPage extends WizardPage implements
 		viewer.setInput(input);
 	}
 
-	public Object createInput() {
-		CompositeMap form = new CompositeMap("Form");
-		form.put("id", "form");
-		CompositeMap grid = new CompositeMap("Grid");
-		grid.put("id", "grid");
-		CompositeMap form_grid = new CompositeMap("Form + Grid");
-		grid.put("id", "form_grid");
-		
-		CompositeMap input = new CompositeMap();
-		input.addChild(form);
-		input.addChild(grid);
-		input.addChild(form_grid);
-		return input;
-	}
+	
 
+	
 	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		ISelection selection = event.getSelection();

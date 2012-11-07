@@ -1,17 +1,16 @@
 package aurora.ide.views.bm;
 
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.IRewriteTarget;
-import org.eclipse.jface.text.ITypedRegion;
+import java.util.List;
+
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTargetAdapter;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Shell;
 
+import uncertain.composite.CompositeMap;
 import aurora.ide.create.component.wizard.CreateComponentWizard;
 import aurora.ide.editor.textpage.TextPage;
 
@@ -51,52 +50,18 @@ public class BMTransferDropTargetListener extends DropTargetAdapter {
 		if (supportedType == false) {
 			return;
 		}
-
-		StyledText st = (StyledText) this.getTextPage().getAdapter(
-				StyledText.class);
-
-		int caretOffset = st.getCaretOffset();
-
-		IDocument document = (IDocument) getTextPage().getAdapter(
-				IDocument.class);
-
-		try {
-			ITypedRegion partition = document.getPartition(caretOffset);
-			int length = partition.getLength();
-			int offset = partition.getOffset();
-			partition.getType();
-			String string = document.get(offset, length);
-			System.out.println(partition.getType());
-			System.out.println(string);
-
-		} catch (BadLocationException e) {
-			e.printStackTrace();
+		IProject project = getTextPage().getFile().getProject();
+		Object a = event.data;
+		if (a instanceof List<?>) {
+			@SuppressWarnings("unchecked")
+			CreateComponentWizard ccw = new CreateComponentWizard(
+					(List<CompositeMap>) event.data, project, getTextPage());
+			WizardDialog wd = new WizardDialog(textPage.getSite().getShell(), ccw);
+			wd.addPageChangedListener(ccw);
+			wd.setHelpAvailable(false);
+			wd.setMinimumPageSize(800,400);
+			wd.open();
 		}
-
-		CreateComponentWizard ccw = new CreateComponentWizard();
-		WizardDialog wd = new WizardDialog(new Shell(), ccw);
-		wd.open();
-
-		IRewriteTarget target = (IRewriteTarget) this.getTextPage().getAdapter(
-				IRewriteTarget.class);
-		if (target != null)
-			target.beginCompoundChange();
-
-		// Point newSelection= st.getSelection();
-		// try {
-		// int modelOffset= widgetOffset2ModelOffset(viewer, newSelection.x);
-		try {
-			document.replace(caretOffset, 0, "lalalall");
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-		}
-		// } catch (BadLocationException e) {
-		// return;
-		// }
-		st.setSelectionRange(caretOffset, "lalalall".length());
-
-		// event
-		System.out.println("drop");
 	}
 
 	@Override

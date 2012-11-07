@@ -35,7 +35,6 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.model.IWorkbenchAdapter;
@@ -44,9 +43,9 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import uncertain.composite.CompositeMap;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.helpers.DialogUtil;
-import aurora.ide.project.propertypage.ProjectPropertyPage;
+import aurora.ide.meta.gef.Util;
+import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.search.cache.CacheManager;
-import aurora.ide.views.bm.BMCompositeMap;
 import aurora.ide.views.bm.BMTransfer;
 
 public class BMViewer {
@@ -71,9 +70,12 @@ public class BMViewer {
 		public String getPrompt() {
 			String prompt = null;
 			if (REF_FIELD.equals(editor)) {
-				prompt = Util.getRefFieldSourcePrompt(project, fieldMap);
+				if (project != null) {
+					prompt = Util
+							.getRefFieldSourcePrompt(project, fieldMap, "");
+				}
 			} else {
-				prompt = Util.getPrompt(fieldMap);
+				prompt = Util.getPrompt(fieldMap, "");
 			}
 			return prompt == null ? fieldMap.getString("prompt", "") : prompt;
 		}
@@ -95,13 +97,13 @@ public class BMViewer {
 		public Object[] getElements(Object inputElement) {
 			IProject auroraProject = project;
 			if (auroraProject == null) {
-				return new String[] { "Model不存在" };
+				return new String[] { "请选择Aurora工程" };
 			}
 			if (inputElement instanceof IFolder) {
 
 				List<IFile> modelFiles = getModelFiles((IFolder) inputElement);
 				if (modelFiles.size() == 0) {
-					return new String[] { "Model不存在" };
+					return new String[] {  "Model不存在"};
 				}
 				if (modelFiles.size() > 500) {
 					try {
@@ -118,7 +120,7 @@ public class BMViewer {
 
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof IFile) {
-				return createFields((IFile) parentElement);
+				// return createFields((IFile) parentElement);
 			}
 			if (parentElement instanceof IContainer) {
 				IContainer c = (IContainer) parentElement;
@@ -143,7 +145,7 @@ public class BMViewer {
 		}
 
 		public boolean hasChildren(Object element) {
-			return element instanceof IResource;
+			return element instanceof IContainer;
 		}
 	}
 
@@ -237,16 +239,18 @@ public class BMViewer {
 		public final String getText(Object element) {
 			if (element instanceof IFolder)
 				return ((IFolder) element).getName();
+			if(element instanceof String)
+				return element.toString();
 			return getStyledText(element).getString();
 		}
 
 		public StyledString getStyledText(Object element) {
 			StyledString s = new StyledString();
-			if (element instanceof IFolder){
+			if (element instanceof IFolder) {
 				s.append(((IFolder) element).getName());
 				return s;
 			}
-			
+
 			if (element instanceof IFile) {
 				s.append(((IFile) element).getFullPath().removeFileExtension()
 						.lastSegment());
@@ -293,23 +297,11 @@ public class BMViewer {
 
 	}
 
-	public BMViewer(Composite c, IProject project) {
-		this.project = project;
+	public BMViewer(Composite c) {
 		configrueTreeViewer(c);
 	}
 
-	public String getBMHome() {
-		try {
-			return project.getPersistentProperty(ProjectPropertyPage.BMQN);
-		} catch (CoreException e) {
-		}
-		return null;
-	}
-
 	private void configrueTreeViewer(Composite c) {
-		// ResourceSelector rs = new ResourceSelector(c,SWT.NONE);
-		//
-		// this.viewer= rs.getTreeViewer();
 		FilteredTree ff = new FilteredTree(c, SWT.SINGLE,
 				new CustomPatternFilter(), true);
 		viewer = ff.getViewer();
@@ -335,23 +327,7 @@ public class BMViewer {
 				List<CompositeMap> fs = new ArrayList<CompositeMap>();
 				if (data instanceof IFile) {
 					ModelField[] createFields = createFields((IFile) data);
-					// CompositeMap model = CacheManager
-					// .getCompositeMap((IFile) data);
-					//					CompositeMap fields = model.getChild("fields"); //$NON-NLS-1$
-					// if (fields != null) {
-					// Iterator childIterator = fields.getChildIterator();
-					// while (childIterator != null && childIterator.hasNext())
-					// {
-					// CompositeMap qf = (CompositeMap) childIterator
-					// .next();
-					//							if ("field".equals(qf.getName())) { //$NON-NLS-1$
-					// qf = (CompositeMap) qf.clone();
-					// qf.put("model", aurora.ide.search.core.Util
-					// .toBMPKG((IFile) data));
-					// fs.add(qf);
-					// }
-					// }
-					// }
+					
 					for (ModelField mf : createFields) {
 						fs.add(getFieldMap(mf));
 					}
@@ -504,12 +480,13 @@ public class BMViewer {
 	private ModelField[] createFields(IFile model) {
 		List<ModelField> result = new ArrayList<ModelField>();
 		try {
-			CompositeMap modelMap = CacheManager.getCompositeMap((IFile) model);
+			CompositeMap modelMap = CacheManager
+					.getWholeBMCompositeMap((IFile) model);
 
 			BMCompositeMap bmMap = new BMCompositeMap(modelMap);
 			List<CompositeMap> fields = bmMap.getFields();
 			for (CompositeMap qf : fields) {
-				if ("field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+				if ("field".equals(qf.getName()) && qf.get("name") != null && !isPK(bmMap, qf)) { //$NON-NLS-1$ //$NON-NLS-2$
 					ModelField field = new ModelField(model, qf,
 							Util.getType(qf));
 					result.add(field);
@@ -525,7 +502,8 @@ public class BMViewer {
 			}
 			List<CompositeMap> queryFields = bmMap.getQueryFields();
 			for (CompositeMap qf : queryFields) {
-				if ("query-field".equals(qf.getName()) && qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+				if ("query-field".equals(qf.getName())
+						&& qf.get("name") != null) { //$NON-NLS-1$ //$NON-NLS-2$
 					ModelField field = new ModelField(model, qf,
 							ModelField.QUERY_FIELD);
 					result.add(field);
@@ -537,15 +515,19 @@ public class BMViewer {
 		return result.toArray(new ModelField[result.size()]);
 	}
 
-	private Object getSelectObject() {
-		TreeItem[] items = viewer.getTree().getSelection();
-		if (items.length > 0) {
-			return items[0].getData();
+	private boolean isPK(BMCompositeMap bmMap, CompositeMap qf) {
+		qf.get("name");
+		List<CompositeMap> primaryKeys = bmMap.getPrimaryKeys();
+		for (CompositeMap compositeMap : primaryKeys) {
+			if (compositeMap.getString("name", "").equals(qf.get("name"))) {
+				return true;
+			}
 		}
-		return null;
+		return qf.getBoolean("isprimarykey", false);
 	}
 
 	public void setInput(IFolder web_classes) {
+		this.project = web_classes.getProject();
 		this.viewer.setInput(web_classes);
 		// this.viewer.refresh(true);
 	}
