@@ -10,6 +10,8 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyledText;
@@ -136,7 +138,7 @@ public class BusinessModelView extends ViewPart {
 				| SWT.V_SCROLL | SWT.BORDER);
 		sc1.setLayoutData(new GridData(GridData.FILL_VERTICAL));
 		modulesComposite = new ModulesComposite(sc1, SWT.NONE);
-		sc1.setMinSize(50, 400);
+		sc1.setMinSize(80, 400);
 		sc1.setContent(modulesComposite);
 
 		// modulesComposite.setLayout(new GridLayout());
@@ -146,7 +148,8 @@ public class BusinessModelView extends ViewPart {
 		// IProject project = ResourcesPlugin.getWorkspace().getRoot()
 		// .getProject("test.aurora.project");
 		modelsViewer = new BMViewer(p);
-		// this.setInput(project);
+		
+
 		createActions();
 		contributeToActionBars();
 	}
