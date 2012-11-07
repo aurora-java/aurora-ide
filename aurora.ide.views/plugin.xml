@@ -13,7 +13,7 @@
       </view>
       <view
             name="Business Model Viewer"
-            icon="icons/sample.gif"
+            icon="icons/bm.gif"
             category="aurora.viewer.category"
             class="aurora.ide.views.bm.view.BusinessModelView"
             id="aurora.ide.views.bm.view.BusinessModelView">

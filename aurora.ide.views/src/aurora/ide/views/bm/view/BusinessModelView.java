@@ -1,18 +1,30 @@
 package aurora.ide.views.bm.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuCreator;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPartListener;
@@ -25,6 +37,8 @@ import org.eclipse.ui.part.ViewPart;
 
 import aurora.ide.editor.textpage.TextPage;
 import aurora.ide.helpers.DialogUtil;
+import aurora.ide.helpers.ProjectUtil;
+import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.project.AuroraProject;
 import aurora.ide.screen.editor.ServiceEditor;
 import aurora.ide.views.Activator;
@@ -41,7 +55,6 @@ public class BusinessModelView extends ViewPart {
 		}
 	};
 	private IPartListener partListener = new IPartListener() {
-
 
 		@Override
 		public void partActivated(IWorkbenchPart part) {
@@ -66,7 +79,8 @@ public class BusinessModelView extends ViewPart {
 						.getTextPage();
 				StyledText textWidget = (StyledText) textPage
 						.getAdapter(StyledText.class);
-				BMTransferDropTargetListener listener = new BMTransferDropTargetListener(textPage);
+				BMTransferDropTargetListener listener = new BMTransferDropTargetListener(
+						textPage);
 				DropTarget realDropTarget = (DropTarget) textWidget
 						.getData(DND.DROP_TARGET_KEY);
 				if (realDropTarget == null)
@@ -86,6 +100,7 @@ public class BusinessModelView extends ViewPart {
 
 	private ModulesComposite modulesComposite;
 	private BMViewer modelsViewer;
+	private Action projectSelectionAtion;
 
 	public BusinessModelView() {
 		IWorkbench workbench = Activator.getDefault().getWorkbench();
@@ -93,12 +108,13 @@ public class BusinessModelView extends ViewPart {
 		IPartService partService = window.getPartService();
 		partService.addPartListener(partListener);
 		IWorkbenchPage activePage = window.getActivePage();
-		if(activePage!=null){
-			IEditorReference[] editorReferences = activePage.getEditorReferences();
+		if (activePage != null) {
+			IEditorReference[] editorReferences = activePage
+					.getEditorReferences();
 			for (IEditorReference e : editorReferences) {
 				IEditorPart editor = e.getEditor(false);
 				partListener.partOpened(editor);
-			}	
+			}
 		}
 	}
 
@@ -120,16 +136,19 @@ public class BusinessModelView extends ViewPart {
 				| SWT.V_SCROLL | SWT.BORDER);
 		sc1.setLayoutData(new GridData(GridData.FILL_VERTICAL));
 		modulesComposite = new ModulesComposite(sc1, SWT.NONE);
+		sc1.setMinSize(50, 400);
 		sc1.setContent(modulesComposite);
 
 		// modulesComposite.setLayout(new GridLayout());
 		modulesComposite.addListener(moduleChangedListener);
 
 		// test.aurora.project
-		IProject project = ResourcesPlugin.getWorkspace().getRoot()
-				.getProject("sel_app");
-		modelsViewer = new BMViewer(p, project);
-		this.setInput(project);
+		// IProject project = ResourcesPlugin.getWorkspace().getRoot()
+		// .getProject("test.aurora.project");
+		modelsViewer = new BMViewer(p);
+		// this.setInput(project);
+		createActions();
+		contributeToActionBars();
 	}
 
 	public void setInput(IProject p) {
@@ -152,6 +171,88 @@ public class BusinessModelView extends ViewPart {
 	@Override
 	public void setFocus() {
 
+	}
+
+	private void contributeToActionBars() {
+		IActionBars bars = getViewSite().getActionBars();
+		IMenuManager menuManager = bars.getMenuManager();
+		fillLocalPullDown(menuManager);
+		fillLocalToolBar(bars.getToolBarManager());
+	}
+
+	private void fillLocalPullDown(IMenuManager manager) {
+		// manager.add(action1);
+		// manager.add(action2);
+	}
+
+
+	private void createActions() {
+
+		projectSelectionAtion = new Action("Project Selection",
+				Action.AS_DROP_DOWN_MENU) {
+			private List<IProject> projects;
+			{
+				projects = ProjectUtil.getALLAuroraProjects();
+			}
+
+			@Override
+			public IMenuCreator getMenuCreator() {
+				return new MenuCreator();
+			}
+
+			@Override
+			public void run() {
+				if (projects != null && projects.size() > 0) {
+					setInput(projects.get(0));
+				}
+			}
+
+			class MenuCreator implements IMenuCreator, SelectionListener {
+
+				public void dispose() {
+
+				}
+
+				public Menu getMenu(Control parent) {
+					Menu menu = new Menu(parent);
+					fillMenu(menu);
+					return menu;
+				}
+
+				public void fillMenu(Menu menu) {
+
+					for (IProject p : projects) {
+						MenuItem mi = new MenuItem(menu, SWT.NONE);
+						mi.setText("Load : " + p.getName());
+						mi.setData(p);
+						mi.setImage(ImagesUtils.getImage("prj_obj.gif"));
+						mi.addSelectionListener(this);
+					}
+				}
+
+				public Menu getMenu(Menu parent) {
+					Menu menu = new Menu(parent);
+					fillMenu(menu);
+					return menu;
+				}
+
+				public void widgetSelected(SelectionEvent e) {
+					MenuItem mi = (MenuItem) e.getSource();
+					setInput((IProject) mi.getData());
+				}
+
+				public void widgetDefaultSelected(SelectionEvent e) {
+
+				}
+			}
+
+		};
+		projectSelectionAtion.setImageDescriptor(ImagesUtils
+				.getImageDescriptor("prj_obj.gif"));
+	}
+
+	private void fillLocalToolBar(IToolBarManager toolBarManager) {
+		toolBarManager.add(this.projectSelectionAtion);
 	}
 
 }

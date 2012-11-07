@@ -4,6 +4,8 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -48,6 +50,11 @@ public class ModulesComposite extends Composite {
 
 	public void setInput(IContainer container) {
 		try {
+			Control[] children = this.getChildren();
+			for (Control c : children) {
+				c.dispose();
+			}
+			
 			this.setLayout(new GridLayout());
 			this.createModuleControl(this, container);
 			IResource[] members = container.members();
@@ -56,22 +63,27 @@ public class ModulesComposite extends Composite {
 					this.createModuleControl(this, (IContainer) r);
 				}
 			}
-			Control[] children = this.getChildren();
-			for (Control control : children) {
-				control.getSize();
-			}
-			 this.pack();
+			this.redraw(); 
+			this.pack();
+			this.layout();
+			 
 		} catch (CoreException e) {
 			DialogUtil.logErrorException(e);
 		}
 	}
 
 	private void createModuleControl(Composite parent, IContainer container) {
-		Button b = new Button(parent, SWT.TOGGLE | SWT.FLAT);
+		final Button b = new Button(parent, SWT.TOGGLE | SWT.FLAT);
 		b.setData(container);
 		b.addSelectionListener(bsl);
 		b.setText(container.getName());
 		b.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		b.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				b.removeSelectionListener(bsl);
+			}
+		});
 	}
 
 }
