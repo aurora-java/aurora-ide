@@ -11,6 +11,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -23,6 +24,7 @@ import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import uncertain.composite.CompositeMap;
 import aurora.ide.AuroraProjectNature;
 import aurora.ide.helpers.ApplicationException;
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.search.cache.CacheManager;
 import aurora.ide.search.core.Util;
@@ -85,15 +87,18 @@ public class AuroraMetaProject {
 		String name = getPersistentProperty(AURORA_PROJECT);
 		if ("".equals(name)) {
 			try {
-				name = getProject().getPersistentProperty(
-						MetaProjectPropertyPage.AURORA_PROJECT_QN);
+				IProject project2 = getProject();
+				if(project2!=null){
+					name = project2.getPersistentProperty(
+							MetaProjectPropertyPage.AURORA_PROJECT_QN);
+				}
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}
 		}
 		if (name == null || "".equals(name))
 			throw new ResourceNotFoundException();
-		IProject p = project.getWorkspace().getRoot().getProject(name);
+		IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
 		try {
 			if (p.exists() && AuroraProjectNature.hasAuroraNature(p)) {
 				return p;
@@ -128,7 +133,11 @@ public class AuroraMetaProject {
 
 	private String getPersistentProperty(String key)
 			throws ResourceNotFoundException {
-		IFile config = this.getProject().getFile(CONFIG_FILE_NAME);
+		IProject project2 = this.getProject();
+		if(project2 == null || !project2.exists()){
+			return "";
+		}
+		IFile config = project2.getFile(CONFIG_FILE_NAME);
 		if (config.exists()) {
 			try {
 				CompositeMap map = CacheManager.getCompositeMap(config);

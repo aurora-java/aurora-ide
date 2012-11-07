@@ -26,7 +26,6 @@ import org.eclipse.jface.util.DelegatingDragAdapter;
 import org.eclipse.jface.util.TransferDragSourceListener;
 import org.eclipse.jface.viewers.DecoratingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
@@ -88,9 +87,9 @@ public class BMViewer {
 			String prompt = null;
 			if (REF_FIELD.equals(editor)) {
 				prompt = Util.getRefFieldSourcePrompt(getAuroraProject(),
-						fieldMap);
+						fieldMap,"");
 			} else {
-				prompt = Util.getPrompt(fieldMap);
+				prompt = Util.getPrompt(fieldMap,"");
 			}
 			return prompt == null ? fieldMap.getString("prompt", "") : prompt;
 		}

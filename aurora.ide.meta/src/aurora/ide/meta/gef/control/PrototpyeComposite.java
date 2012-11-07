@@ -60,7 +60,7 @@ public class PrototpyeComposite extends GraphicalEditor implements
 
 		Composite cpt = new Composite(sashForm, SWT.NONE);
 		cpt.setLayout(new GridLayout());
-		Composite bottom = new Composite(cpt, SWT.NONE);
+		Composite bottom = new Composite(cpt, SWT.NONE|SWT.BORDER);
 		bottom.setLayoutData(new GridData(GridData.FILL_BOTH));
 		bottom.setLayout(new FillLayout());
 
@@ -91,13 +91,13 @@ public class PrototpyeComposite extends GraphicalEditor implements
 		gv.setContents(diagram);
 	}
 
-//	public void markDirty() {
-//		Command cmd = new Command() {
-//
-//		};
-//		this.getEditDomain().getCommandStack().execute(cmd);
-//		firePropertyChange(IEditorPart.PROP_DIRTY);
-//	}
+	// public void markDirty() {
+	// Command cmd = new Command() {
+	//
+	// };
+	// this.getEditDomain().getCommandStack().execute(cmd);
+	// firePropertyChange(IEditorPart.PROP_DIRTY);
+	// }
 
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		// if (IFile.class.equals(adapter)) {
@@ -220,8 +220,8 @@ public class PrototpyeComposite extends GraphicalEditor implements
 		return root;
 	}
 
-//	public void gotoMarker(IMarker marker) {
-//	}
+	// public void gotoMarker(IMarker marker) {
+	// }
 
 	/**
 	 * @see org.eclipse.ui.ISaveablePart#isSaveAsAllowed()
@@ -303,6 +303,9 @@ public class PrototpyeComposite extends GraphicalEditor implements
 
 	public void setInput(ViewDiagram viewDiagram) {
 		this.diagram = viewDiagram;
+		GraphicalViewer gv = getGraphicalViewer();
+		if (gv != null)
+			gv.setContents(diagram);
 	}
 
 	@Override
