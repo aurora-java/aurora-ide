@@ -1,5 +1,7 @@
 package aurora.ide.meta.project;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -17,6 +19,7 @@ import org.eclipse.ui.dialogs.PropertyPage;
 
 import aurora.ide.AuroraProjectNature;
 import aurora.ide.helpers.DialogUtil;
+import aurora.ide.helpers.ProjectUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 
 public class MetaProjectPropertyPage extends PropertyPage {
@@ -85,18 +88,10 @@ public class MetaProjectPropertyPage extends PropertyPage {
 		auroraProjectNameField.setFont(parent.getFont());
 		auroraProjectNameField.select(0);
 
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IProject[] projects = workspace.getRoot().getProjects();
 		auroraProjectNameField.add("");
+		List<IProject> projects = ProjectUtil.getALLAuroraProjects();
 		for (IProject p : projects) {
-			boolean hasAuroraNature = false;
-			try {
-				hasAuroraNature = AuroraProjectNature.hasAuroraNature(p);
-			} catch (CoreException e) {
-			}
-			if (hasAuroraNature) {
-				auroraProjectNameField.add(p.getName());
-			}
+			auroraProjectNameField.add(p.getName());
 		}
 		IProject auroraProject = null;
 		try {

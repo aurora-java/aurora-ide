@@ -174,7 +174,7 @@ public abstract class TemplateHandle {
 		for (CompositeMap queryMap : getQueryFields(bmc)) {
 			Input input = AuroraModelFactory.createComponent(aurora.ide.meta.gef.Util.getType(queryMap));
 			input.setName(queryMap.getString("name"));
-			input.setPrompt(aurora.ide.meta.gef.Util.getPrompt(queryMap));
+			input.setPrompt(aurora.ide.meta.gef.Util.getPrompt(queryMap,""));
 			ac.addChild(input);
 		}
 	}

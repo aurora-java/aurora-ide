@@ -61,7 +61,7 @@ public class BindDropModelCommand extends DropBMCommand {
 				if (ds != null)
 					ds.setModel(f.getString("model", ""));
 			}
-			String string = Util.getPrompt(f);
+			String string = Util.getPrompt(f,"");
 			GridColumn gc = new GridColumn();
 			gc.setPrompt(string);
 			String name = f.getString("name");
@@ -103,7 +103,7 @@ public class BindDropModelCommand extends DropBMCommand {
 			}
 			input.setType(type);
 			input.setName(name);
-			input.setPrompt(Util.getPrompt(field));
+			input.setPrompt(Util.getPrompt(field,""));
 			container.addChild(input);
 		}
 	}

@@ -216,7 +216,7 @@ public class Util {
 		return true;
 	}
 
-	public static String getPrompt(CompositeMap field) {
+	public static String getPrompt(CompositeMap field, String defaultValue) {
 		String endS = "";
 		if (isQueryName(field)) {
 			CompositeMap qf = field;
@@ -224,9 +224,9 @@ public class Util {
 			endS = getQueryFieldEndString(fn);
 			field = findFieldMapByQueryName(field);
 		}
-		
-		String result = field != null ? field.getString("prompt", "prompt")
-				: "prompt:";
+
+		String result = field != null ? field.getString("prompt", defaultValue)
+				: defaultValue;
 		if ("_from".equals(endS)) {
 			return result + "从";
 		}
@@ -237,7 +237,7 @@ public class Util {
 	}
 
 	public static String getRefFieldSourcePrompt(IProject auroraProject,
-			CompositeMap field) {
+			CompositeMap field, String defaultValue) {
 
 		if (!"ref-field".equals(field.getName())) {
 			return null;
@@ -270,7 +270,7 @@ public class Util {
 				CompositeMap fieldByName = bm
 						.getFieldByName(source == null ? "" : source);
 				if (fieldByName != null) {
-					return getPrompt(fieldByName);
+					return getPrompt(fieldByName, defaultValue);
 				}
 			} catch (CoreException e) {
 				e.printStackTrace();
