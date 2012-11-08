@@ -125,10 +125,17 @@ public class ScreenGenerator {
 
 	private CompositeMap createMapFromTabPanel(Component tp) {
 		CompositeMap tpMap = newMap(tp.getComponentType());
+		tpMap.put("width", 850);
+		tpMap.put("height", 350);
 		CompositeMap tabsMap = newMap("tabs");
 		tpMap.addChild(tabsMap);
+		int idx = 1;
 		for (Component c : tp.getChildren()) {
-			tabsMap.addChild(createMapFromCom(c));
+			CompositeMap tab = createMapFromCom(c);
+			if (tab.getName().equals("tab")) {
+				tab.put("prompt", "tab" + idx++);
+			}
+			tabsMap.addChild(tab);
 		}
 		return tpMap;
 	}
@@ -177,6 +184,7 @@ public class ScreenGenerator {
 		String type = ac2.getComponentType().toLowerCase();
 		if (oneOf(type, "field", "form")) {
 			map.put("column", 3);
+			map.put("title", type);
 		}
 		if (ac2 instanceof BMBindComponent) {
 			BMBindComponent bmbc = (BMBindComponent) ac2;
@@ -265,7 +273,7 @@ public class ScreenGenerator {
 		CompositeMap map = newMap(ac2.getComponentType());
 		map.put("id", ac2.getId());
 		map.put("width", "800");
-		map.put("height", "400");
+		map.put("height", "300");
 		if (ac2.getChildren() != null) {
 			for (Component c : ac2.getChildren()) {
 				CompositeMap m = createMapFromCom(c);
