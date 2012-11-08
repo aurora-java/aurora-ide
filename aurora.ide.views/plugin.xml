@@ -4,6 +4,7 @@
 
    <extension
          point="org.eclipse.ui.views">
+     <!--
       <view
             name="Prompts Viewer"
             icon="icons/sample.gif"
@@ -11,6 +12,7 @@
             class="aurora.ide.views.prompts.view.PromptsView"
             id="aurora.ide.views.prompts.view.PromptsView">
       </view>
+      -->
       <view
             name="Business Model Viewer"
             icon="icons/bm.gif"
