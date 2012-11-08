@@ -1,8 +1,8 @@
 package aurora.ide.views.bm.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -35,6 +35,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.ViewPart;
 
 import aurora.ide.editor.textpage.TextPage;
@@ -138,7 +140,7 @@ public class BusinessModelView extends ViewPart {
 				| SWT.V_SCROLL | SWT.BORDER);
 		sc1.setLayoutData(new GridData(GridData.FILL_VERTICAL));
 		modulesComposite = new ModulesComposite(sc1, SWT.NONE);
-		sc1.setMinSize(80, 400);
+		sc1.setMinSize(70, 400);
 		sc1.setContent(modulesComposite);
 
 		// modulesComposite.setLayout(new GridLayout());
@@ -148,8 +150,22 @@ public class BusinessModelView extends ViewPart {
 		// IProject project = ResourcesPlugin.getWorkspace().getRoot()
 		// .getProject("test.aurora.project");
 		modelsViewer = new BMViewer(p);
-		
+		modelsViewer.getViewer().addDoubleClickListener(
+				new IDoubleClickListener() {
 
+					@Override
+					public void doubleClick(DoubleClickEvent event) {
+						Object selectObject = modelsViewer.getSelectObject();
+						if (selectObject instanceof IFile) {
+							try {
+								IDE.openEditor(getSite().getPage(),
+										(IFile) selectObject, true);
+							} catch (PartInitException e) {
+								DialogUtil.logErrorException(e);
+							}
+						}
+					}
+				});
 		createActions();
 		contributeToActionBars();
 	}
@@ -187,7 +203,6 @@ public class BusinessModelView extends ViewPart {
 		// manager.add(action1);
 		// manager.add(action2);
 	}
-
 
 	private void createActions() {
 

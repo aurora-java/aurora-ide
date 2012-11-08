@@ -35,6 +35,7 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.model.IWorkbenchAdapter;
@@ -304,7 +305,7 @@ public class BMViewer {
 	private void configrueTreeViewer(Composite c) {
 		FilteredTree ff = new FilteredTree(c, SWT.SINGLE,
 				new CustomPatternFilter(), true);
-		viewer = ff.getViewer();
+		setViewer(ff.getViewer());
 		DelegatingDragAdapter dragAdapter = new DelegatingDragAdapter();
 		dragAdapter.addDragSourceListener(new TransferDragSourceListener() {
 			public Transfer getTransfer() {
@@ -315,8 +316,10 @@ public class BMViewer {
 				// enable drag listener if there is a viewer selection
 
 				List<CompositeMap> data = getData();
-				if (data == null)
+				if (data == null){
+					event.doit = false;
 					return;
+				}
 				event.detail = DND.DROP_COPY;
 				event.doit = true;
 				BMTransfer.getInstance().setObject(data);
@@ -324,6 +327,9 @@ public class BMViewer {
 
 			protected List<CompositeMap> getFields(Object data)
 					throws CoreException, ApplicationException {
+				if(data instanceof IContainer){
+					return null;
+				}
 				List<CompositeMap> fs = new ArrayList<CompositeMap>();
 				if (data instanceof IFile) {
 					ModelField[] createFields = createFields((IFile) data);
@@ -351,7 +357,7 @@ public class BMViewer {
 			}
 
 			private List<CompositeMap> getData() {
-				TreeSelection selection = (TreeSelection) viewer.getSelection();
+				TreeSelection selection = (TreeSelection) getViewer().getSelection();
 				Object obj = selection.getFirstElement();
 				try {
 					return getFields(obj);
@@ -369,18 +375,18 @@ public class BMViewer {
 				BMTransfer.getInstance().setObject(null);
 			}
 		});
-		viewer.addDragSupport(DND.DROP_COPY, dragAdapter.getTransfers(),
+		getViewer().addDragSupport(DND.DROP_COPY, dragAdapter.getTransfers(),
 				dragAdapter);
-		viewer.setContentProvider(new ContentProvider());
+		getViewer().setContentProvider(new ContentProvider());
 
 		DecoratingStyledCellLabelProvider labelProvider = new DecoratingStyledCellLabelProvider(
 				new VLabelProvider(), PlatformUI.getWorkbench()
 						.getDecoratorManager().getLabelDecorator(), null);
 
-		viewer.setLabelProvider(labelProvider);
+		getViewer().setLabelProvider(labelProvider);
 
 		// refreshInput();
-		viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+		getViewer().getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
 		// hookContextMenu();
 	}
 
@@ -516,7 +522,6 @@ public class BMViewer {
 	}
 
 	private boolean isPK(BMCompositeMap bmMap, CompositeMap qf) {
-		qf.get("name");
 		List<CompositeMap> primaryKeys = bmMap.getPrimaryKeys();
 		for (CompositeMap compositeMap : primaryKeys) {
 			if (compositeMap.getString("name", "").equals(qf.get("name"))) {
@@ -528,7 +533,21 @@ public class BMViewer {
 
 	public void setInput(IFolder web_classes) {
 		this.project = web_classes.getProject();
-		this.viewer.setInput(web_classes);
-		// this.viewer.refresh(true);
+		this.getViewer().setInput(web_classes);
+	}
+
+	public TreeViewer getViewer() {
+		return viewer;
+	}
+
+	private void setViewer(TreeViewer viewer) {
+		this.viewer = viewer;
+	}
+	public Object getSelectObject() {
+		TreeItem[] items = viewer.getTree().getSelection();
+		if (items.length > 0) {
+			return items[0].getData();
+		}
+		return null;
 	}
 }
