@@ -28,7 +28,7 @@ public class ModulesComposite extends Composite {
 
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			if (active != null) {
+			if (active != null && !active.isDisposed()) {
 				active.setSelection(false);
 			}
 			if (e.widget instanceof Button) {
@@ -54,7 +54,7 @@ public class ModulesComposite extends Composite {
 			for (Control c : children) {
 				c.dispose();
 			}
-			
+
 			this.setLayout(new GridLayout());
 			this.createModuleControl(this, container);
 			IResource[] members = container.members();
@@ -63,10 +63,10 @@ public class ModulesComposite extends Composite {
 					this.createModuleControl(this, (IContainer) r);
 				}
 			}
-			this.redraw(); 
-			this.pack();
+			// this.redraw();
 			this.layout();
-			 
+			this.pack();
+
 		} catch (CoreException e) {
 			DialogUtil.logErrorException(e);
 		}

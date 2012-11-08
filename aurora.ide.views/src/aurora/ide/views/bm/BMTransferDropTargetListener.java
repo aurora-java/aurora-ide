@@ -8,7 +8,6 @@ import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTargetAdapter;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.Transfer;
-import org.eclipse.swt.widgets.Shell;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.create.component.wizard.CreateComponentWizard;
@@ -35,14 +34,21 @@ public class BMTransferDropTargetListener extends DropTargetAdapter {
 	}
 
 	public void dragOver(DropTargetEvent event) {
-		event.feedback |= DND.FEEDBACK_SCROLL;
-		// event.feedback |= DND.FEEDBACK_EXPAND;
-		// event.feedback = DND.FEEDBACK_NONE;
-		event.feedback |= DND.FEEDBACK_SELECT;
-		// event.feedback = DND.FEEDBACK_INSERT_BEFORE;
-		// event.feedback = DND.FEEDBACK_INSERT_AFTER;
-		// event.feedback = DND.FEEDBACK_SCROLL;
-		// event.feedback = DND.FEEDBACK_EXPAND;
+		boolean supportedType = transfer.isSupportedType(event.currentDataType);
+		if (supportedType == true) {
+			event.feedback |= DND.FEEDBACK_SCROLL;
+			event.feedback |= DND.FEEDBACK_SELECT;
+			return;
+		}
+	}
+
+	@Override
+	public void dragEnter(DropTargetEvent event) {
+//		boolean supportedType = transfer.isSupportedType(event.currentDataType);
+//		if (supportedType == true) {
+//			return;
+//		}
+		super.dragEnter(event);
 	}
 
 	public void drop(DropTargetEvent event) {
@@ -60,7 +66,7 @@ public class BMTransferDropTargetListener extends DropTargetAdapter {
 			wd.addPageChangedListener(ccw);
 			wd.setHelpAvailable(false);
 			wd.setMinimumPageSize(800,400);
-			wd.open();
+			int open = wd.open();
 		}
 	}
 
