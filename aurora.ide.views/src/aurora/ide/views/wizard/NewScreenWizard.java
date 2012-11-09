@@ -92,6 +92,14 @@ public class NewScreenWizard extends Wizard implements INewWizard {
 	}
 
 	@Override
+	public boolean canFinish() {
+		IWizardPage page = getContainer().getCurrentPage();
+		if (page == selectTplWizardPage)
+			return false;
+		return page.isPageComplete();
+	}
+
+	@Override
 	public boolean performFinish() {
 		IPath path = new Path(us.dir);
 		String fn = us.fileName;
