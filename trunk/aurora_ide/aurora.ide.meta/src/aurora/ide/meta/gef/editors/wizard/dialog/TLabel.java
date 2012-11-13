@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TypedListener;
 
+import aurora.ide.meta.ImageFromPlugin;
 import aurora.ide.meta.MetaPlugin;
 
 public class TLabel extends Composite {
@@ -45,9 +46,10 @@ public class TLabel extends Composite {
 					int hegiht = 0;
 					GC gc = e.gc;
 					for (String s : structures) {
-						ImageDescriptor image = MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "template/thumbnails/" + s + ".png");
+//						ImageDescriptor image = MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, "template/thumbnails/" + s + ".png");
+						Image image =ImageFromPlugin.getImage("template/thumbnails/" + s + ".png");
 						if (image != null) {
-							gc.drawImage(image.createImage(), 3, hegiht + 3);
+							gc.drawImage(image, 3, hegiht + 3);
 							hegiht = image.getImageData().height + 3;
 
 						}

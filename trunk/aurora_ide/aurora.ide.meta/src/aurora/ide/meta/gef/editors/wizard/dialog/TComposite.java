@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -18,7 +17,6 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -29,12 +27,12 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Sash;
 import org.eclipse.swt.widgets.TypedListener;
 
-import aurora.ide.meta.MetaPlugin;
+import aurora.ide.meta.ImageFromPlugin;
 import aurora.ide.meta.gef.editors.template.Template;
 
 public class TComposite extends SashForm {
 
-	private ImageRegistry images = MetaPlugin.getDefault().getImageRegistry();
+	
 	private Map<String, java.util.List<TLabel>> labels = new HashMap<String, java.util.List<TLabel>>();
 	private String category;
 	private int index = 0;
@@ -222,7 +220,7 @@ public class TComposite extends SashForm {
 		label.setData(t);
 		// label.setStructures(getStructures(t));
 		label.setText(t.getName());
-		label.setImage(getImage(t.getIcon()));
+		label.setImage(ImageFromPlugin.getImage(t.getIcon()));
 		label.addMouseListener(new MouseAdapter() {
 			public void mouseDown(MouseEvent e) {
 				TLabel lbl = (TLabel) e.getSource();
@@ -278,13 +276,7 @@ public class TComposite extends SashForm {
 		}
 	}
 
-	private Image getImage(String path) {
-		if (images.get(path) == null) {
-			Image image = MetaPlugin.imageDescriptorFromPlugin(MetaPlugin.PLUGIN_ID, path).createImage();
-			images.put(path, image);
-		}
-		return images.get(path);
-	}
+	
 
 	// private java.util.List<String> getStructures(Template t) {
 	// java.util.List<String> structures = new ArrayList<String>();
