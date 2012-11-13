@@ -172,13 +172,9 @@ public class BusinessModelView extends ViewPart {
 
 	public void setInput(IProject p) {
 		AuroraProject ap = new AuroraProject(p);
-		try {
-			IFolder web_classes = ap.getWeb_classes();
+		IFolder web_classes = ap.getWeb_classes();
+		if (web_classes != null)
 			setInput(web_classes);
-		} catch (CoreException e) {
-			DialogUtil.logErrorException(e);
-			e.printStackTrace();
-		}
 		// modelsViewer
 	}
 

@@ -88,7 +88,6 @@ public class CreateComponentWizard extends Wizard implements
 		prototpyePage.setDescription("组件定制");
 		super.addPages();
 	}
-	
 
 	@Override
 	public boolean performFinish() {
@@ -114,8 +113,8 @@ public class CreateComponentWizard extends Wizard implements
 					if (inSameLine) {
 						int endLine = datasetsMap.getLocation().getEndLine();
 						dsOffset = DocumentUtil.getMapLineOffset(document,
-								datasetsMap, 0, false);
-						dslength = document.getLineLength(endLine);
+								datasetsMap, -1, false);
+						dslength = document.getLineLength(endLine-1);
 					} else {
 						dsOffset = DocumentUtil.getMapLineOffset(document,
 								datasetsMap, -1, false);
@@ -134,15 +133,14 @@ public class CreateComponentWizard extends Wizard implements
 			boolean inSameLine = this.isInSameLine(viewMap);
 			if (inSameLine) {
 				int endLine = viewMap.getLocation().getEndLine();
-				viewOffset = document.getLineOffset(endLine);
-				viewLength = document.getLineLength(endLine);
-			}
-			if ("begin".equals(afterMap.getName()) && inSameLine == false) {
+				viewOffset = document.getLineOffset(endLine - 1);
+				viewLength = document.getLineLength(endLine - 1);
+			} else if ("begin".equals(afterMap.getName())) {
 				CompositeMap aMap = this.bodyMap == null ? viewMap : bodyMap;
 				viewOffset = DocumentUtil.getMapLineOffset(document, aMap, 0,
 						true);
 
-			} else if ("end".equals(afterMap.getName()) && inSameLine == false) {
+			} else if ("end".equals(afterMap.getName())) {
 				CompositeMap aMap = this.bodyMap == null ? viewMap : bodyMap;
 				viewOffset = DocumentUtil.getMapLineOffset(document, aMap, -1,
 						false);
@@ -178,7 +176,7 @@ public class CreateComponentWizard extends Wizard implements
 		if (screenMap == null) {
 			return generate.toXML();
 		}
-		if (viewMap == null || isInSameLine(datasetsMap)) {
+		if (viewMap == null || isInSameLine(viewMap)) {
 			return generate.getChild("view").toXML();
 		}
 		if (viewMap != null) {
@@ -246,7 +244,7 @@ public class CreateComponentWizard extends Wizard implements
 			prototpyePage.setInput(viewDiagramCreator
 					.createPrototypeDiagram(currentSelectionObject));
 			prototpyePage.setPageComplete(true);
-		}else{
+		} else {
 			prototpyePage.setPageComplete(false);
 		}
 		this.getContainer().updateButtons();
