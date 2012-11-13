@@ -20,9 +20,9 @@ import org.eclipse.swt.widgets.Shell;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.IColorConstants;
 import aurora.ide.editor.textpage.scanners.SQLCodeScanner;
+import aurora.ide.helpers.DBManager;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.statistics.DBManager;
 
 public abstract class CreateTableAction extends Action {
 	private IProject aProj;
@@ -46,6 +46,7 @@ public abstract class CreateTableAction extends Action {
 			mb.setMessage("Table : " + getTableName(sql) + " created.");
 			mb.open();
 		} catch (Exception e) {
+			e.printStackTrace();
 			DialogUtil.showErrorMessageBox(e.getMessage());
 			// e.printStackTrace();
 		} finally {
