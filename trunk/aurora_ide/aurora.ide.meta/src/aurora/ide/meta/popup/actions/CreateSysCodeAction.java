@@ -20,12 +20,16 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.bm.AuroraDataBase;
+import aurora.ide.helpers.ApplicationException;
+import aurora.ide.helpers.StatusUtil;
+import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.editor.LookupCodeUtil;
 import aurora.ide.meta.gef.designer.wizard.CreateSyscodeWizard;
 import aurora.ide.meta.project.AuroraMetaProject;
@@ -51,8 +55,18 @@ public class CreateSysCodeAction implements IObjectActionDelegate,
 			conn = new AuroraDataBase(project).getDBConnection();
 			conn.setAutoCommit(false);
 			stmt = conn.createStatement();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ApplicationException e) {
+			StatusUtil.showExceptionDialog(shell,
+					"Error", Messages.AutoCreateTableAction_1, true, e); //$NON-NLS-1$
+			return false;
+		} catch (SQLException e) {
+			StatusUtil.showExceptionDialog(shell,
+					"Error", Messages.AutoCreateTableAction_3, //$NON-NLS-1$
+					true, e);
+			return false;
+		} catch (ResourceNotFoundException e) {
+			StatusUtil.showExceptionDialog(shell,
+					"Error", Messages.AutoCreateTableAction_5, true, e); //$NON-NLS-1$
 			return false;
 		}
 		return true;
@@ -63,13 +77,11 @@ public class CreateSysCodeAction implements IObjectActionDelegate,
 			try {
 				stmt.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
 			}
 		if (conn != null)
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
 			}
 	}
 
@@ -103,10 +115,10 @@ public class CreateSysCodeAction implements IObjectActionDelegate,
 
 	public void run(IProgressMonitor monitor) throws InvocationTargetException,
 			InterruptedException {
-		monitor.beginTask("create sys_code", list.size());
+		monitor.beginTask(Messages.CreateSysCodeAction_6, list.size());
 		for (CompositeMap m : list) {
 			String code = LookupCodeUtil.getCode(m);
-			monitor.setTaskName("create sys_code " + code + "...");
+			monitor.setTaskName(NLS.bind(Messages.CreateSysCodeAction_7, code));
 			// /
 			String sql = getSql(m);
 			try {
@@ -130,21 +142,22 @@ public class CreateSysCodeAction implements IObjectActionDelegate,
 	private String getSql(CompositeMap m) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		String code = LookupCodeUtil.getCode(m);
-		root.put("code", code);
-		root.put("codename", m.getString("code_name"));
-		root.put("codeprompt", m.getString("code_prompt"));
-		root.put("codenameprompt", m.getString("code_name_prompt"));
+		root.put("code", code); //$NON-NLS-1$
+		root.put("codename", m.getString("code_name")); //$NON-NLS-1$ //$NON-NLS-2$
+		root.put("codeprompt", m.getString("code_prompt")); //$NON-NLS-1$ //$NON-NLS-2$
+		root.put("codenameprompt", m.getString("code_name_prompt")); //$NON-NLS-1$ //$NON-NLS-2$
 		List<HashMap<String, String>> values = new ArrayList<HashMap<String, String>>();
-		root.put("values", values);
+		root.put("values", values); //$NON-NLS-1$
+		@SuppressWarnings("unchecked")
 		List<CompositeMap> list = m.getChildsNotNull();
 		for (CompositeMap v : list) {
 			HashMap<String, String> value = new HashMap<String, String>();
-			value.put("value", LookupCodeUtil.getValue(v));
-			value.put("zhs", LookupCodeUtil.getValueNameZHS(v));
-			value.put("us", LookupCodeUtil.getValueNameUS(v));
+			value.put("value", LookupCodeUtil.getValue(v)); //$NON-NLS-1$
+			value.put("zhs", LookupCodeUtil.getValueNameZHS(v)); //$NON-NLS-1$
+			value.put("us", LookupCodeUtil.getValueNameUS(v)); //$NON-NLS-1$
 			values.add(value);
 		}
-		String sql = "";
+		String sql = ""; //$NON-NLS-1$
 		OutputStreamWriter writer = null;
 		try {
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -152,7 +165,7 @@ public class CreateSysCodeAction implements IObjectActionDelegate,
 			Template tpl = LookupCodeUtil.getSourceTemplate();
 			if (tpl != null)
 				tpl.process(root, writer);
-			sql = bos.toString().replace("\r\n", "\n").replace('\r', '\n');
+			sql = bos.toString().replace("\r\n", "\n").replace('\r', '\n'); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (TemplateException e) {

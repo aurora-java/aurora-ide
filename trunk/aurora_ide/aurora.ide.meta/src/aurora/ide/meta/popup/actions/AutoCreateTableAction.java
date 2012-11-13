@@ -21,6 +21,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -30,7 +31,10 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.bm.AuroraDataBase;
+import aurora.ide.helpers.ApplicationException;
+import aurora.ide.helpers.StatusUtil;
 import aurora.ide.meta.MetaPlugin;
+import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.gen.SqlGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
@@ -70,8 +74,18 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 			IProject project = amp.getAuroraProject();
 			conn = new AuroraDataBase(project).getDBConnection();
 			stmt = conn.createStatement();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ApplicationException e) {
+			StatusUtil.showExceptionDialog(shell,
+					"Error", Messages.AutoCreateTableAction_1, true, e); //$NON-NLS-1$
+			return false;
+		} catch (SQLException e) {
+			StatusUtil.showExceptionDialog(shell,
+					"Error", Messages.AutoCreateTableAction_3, //$NON-NLS-1$
+					true, e);
+			return false;
+		} catch (ResourceNotFoundException e) {
+			StatusUtil.showExceptionDialog(shell,
+					"Error", Messages.AutoCreateTableAction_5, true, e); //$NON-NLS-1$
 			return false;
 		}
 		return true;
@@ -82,13 +96,11 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 			try {
 				stmt.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
 			}
 		if (conn != null)
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
 			}
 	}
 
@@ -123,29 +135,31 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 		if (errorMsgs.size() > 0) {
 			MultiStatus status = new MultiStatus(MetaPlugin.PLUGIN_ID,
 					IStatus.ERROR, getStatusChildren(), null, null);
-			ErrorDialog.openError(shell, "Problem Occurred",
-					"Some problems occurred during create table.", status);
+			ErrorDialog.openError(shell, Messages.AutoCreateTableAction_6,
+					Messages.AutoCreateTableAction_7, status);
 			return;
 		}
 		MessageBox mb = new MessageBox(shell, SWT.ICON_INFORMATION);
-		mb.setText("Success");
-		mb.setMessage("process complete.");
+		mb.setText(Messages.AutoCreateTableAction_8);
+		mb.setMessage(Messages.AutoCreateTableAction_9);
 		mb.open();
 	}
 
 	private void createTable(String sql, String tableName) throws SQLException {
-		String[] sqls = sql.split(";\\s*");
+		String[] sqls = sql.split(";\\s*"); //$NON-NLS-1$
 		try {
 			for (String s : sqls)
 				stmt.executeUpdate(s);
 		} catch (SQLException e) {
-			if (e.getMessage().indexOf("ORA-00955") != -1) {
-				stmt.executeUpdate("drop table " + tableName);
+			if (e.getMessage().indexOf("ORA-00955") != -1) { //$NON-NLS-1$
+				stmt.executeUpdate(NLS.bind(Messages.AutoCreateTableAction_12,
+						tableName));
 				for (String s : sqls)
 					stmt.executeUpdate(s);
 			} else {
 				IStatus s = new Status(IStatus.WARNING, MetaPlugin.PLUGIN_ID,
-						"Table '" + tableName + "' create failed. ", e);
+						NLS.bind(Messages.AutoCreateTableAction_13, tableName),
+						e);
 				errorMsgs.add(s);
 			}
 		}
@@ -153,14 +167,17 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 
 	private void createSequence(String seqName) throws SQLException {
 		try {
-			stmt.executeUpdate("create sequence " + seqName);
+			stmt.executeUpdate(NLS.bind(Messages.AutoCreateTableAction_15,
+					seqName));
 		} catch (SQLException e) {
-			if (e.getMessage().indexOf("ORA-00955") != -1) {
-				stmt.executeUpdate("drop sequence " + seqName);
-				stmt.executeUpdate("create sequence " + seqName);
+			if (e.getMessage().indexOf("ORA-00955") != -1) { //$NON-NLS-1$
+				stmt.executeUpdate(NLS.bind(Messages.AutoCreateTableAction_17,
+						seqName));
+				stmt.executeUpdate(NLS.bind(Messages.AutoCreateTableAction_15,
+						seqName));
 			} else {
 				IStatus s = new Status(IStatus.WARNING, MetaPlugin.PLUGIN_ID,
-						"Sequence '" + seqName + "' create failed. ", e);
+						NLS.bind(Messages.AutoCreateTableAction_19, seqName), e);
 				errorMsgs.add(s);
 			}
 		}
@@ -193,7 +210,7 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 
 	public void run(IProgressMonitor monitor) throws InvocationTargetException,
 			InterruptedException {
-		monitor.beginTask("create table or sequences...", config.size());
+		monitor.beginTask(Messages.AutoCreateTableAction_22, config.size());
 		for (IFile file : als) {
 			try {
 				CompositeMap map = CacheManager.getCompositeMap(file);
@@ -206,23 +223,27 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 							.lastSegment().toLowerCase();
 					String seqName = tableName + "_s";
 					if (config.get(tableName)) {
-						monitor.subTask("create table " + tableName + "...");
+						monitor.subTask(NLS.bind(
+								Messages.AutoCreateTableAction_24, tableName));
 						createTable(sql, tableName);
 					}
 					monitor.worked(1);
 					if (config.get(seqName)) {
-						monitor.subTask("create sequence " + seqName + "...");
+						monitor.subTask(NLS.bind(
+								Messages.AutoCreateTableAction_26, seqName));
 						createSequence(seqName);
 					}
 					monitor.worked(1);
 				} catch (SQLException e) {
 					IStatus s = new Status(IStatus.ERROR, MetaPlugin.PLUGIN_ID,
-							"unknow error:" + e.getMessage(), e);
+							NLS.bind(Messages.AutoCreateTableAction_28,
+									e.getMessage()), e);
 					errorMsgs.add(s);
 				}
 			} catch (Exception e) {
 				IStatus s = new Status(IStatus.ERROR, MetaPlugin.PLUGIN_ID,
-						"Bad File Content:" + file.getFullPath(), e);
+						NLS.bind(Messages.AutoCreateTableAction_29,
+								file.getFullPath()), e);
 				errorMsgs.add(s);
 			}
 		}
