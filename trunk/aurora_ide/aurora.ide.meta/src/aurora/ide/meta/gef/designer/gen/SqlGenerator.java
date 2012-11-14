@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.designer.gen;
 
+import java.util.ArrayList;
+
 import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
@@ -9,9 +11,9 @@ public class SqlGenerator implements IDesignerConst {
 	private static final String line_sep = String.format("%n");
 	private static final String prefix = "    ";
 	private static final String header = "create table %s (" + line_sep;
-	private static final String tail = ");";
+	private static final String tail = ")";
 	private static final String column_model = prefix + "%%-%ds %%s";
-	private static final String comment_model = "comment on column %%-%ss is '%%s';%%n";
+	private static final String comment_model = "comment on column %%-%ss is '%%s'";
 
 	private BMModel model;
 	private String name;
@@ -22,7 +24,8 @@ public class SqlGenerator implements IDesignerConst {
 		this.name = name;
 	}
 
-	public String gen() {
+	public String[] gen() {
+		ArrayList<String> sqls = new ArrayList<String>();
 		Record[] rs = model.getRecords();
 		StringBuilder sb = new StringBuilder(10000);
 		sb.append(String.format(header, name));
@@ -39,19 +42,20 @@ public class SqlGenerator implements IDesignerConst {
 					+ t + line_sep);
 		}
 		sb.append(tail);
-		addComment(sb);
-		return sb.toString();
+		sqls.add(sb.toString());
+		addComment(sqls);
+		String[] sqlArr = new String[sqls.size()];
+		sqls.toArray(sqlArr);
+		return sqlArr;
 	}
 
-	private void addComment(StringBuilder sb) {
-		sb.append(line_sep);
-		sb.append("-- Add comments to the columns " + line_sep);
+	private void addComment(ArrayList<String> sqls) {
 		String cm = String.format(comment_model, name.length() + 1
 				+ maxNameLength);
 		Record pkr = model.getPkRecord();
-		sb.append(String.format(cm, name + "." + pkr.getName(), pkr.getPrompt()));
+		sqls.add(String.format(cm, name + "." + pkr.getName(), pkr.getPrompt()));
 		for (Record r : model.getRecordList()) {
-			sb.append(String.format(cm, name + "." + r.getName(), r.getPrompt()));
+			sqls.add(String.format(cm, name + "." + r.getName(), r.getPrompt()));
 		}
 	}
 
