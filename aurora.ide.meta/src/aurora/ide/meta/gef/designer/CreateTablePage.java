@@ -14,7 +14,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
@@ -40,6 +39,7 @@ public class CreateTablePage extends FormPage {
 	private IProject aProj;
 
 	private StyledText styledText;
+	private String[] sqlArr;
 
 	/**
 	 * Create the form page.
@@ -73,15 +73,23 @@ public class CreateTablePage extends FormPage {
 		int idx = name.indexOf('.');
 		if (idx != -1)
 			name = name.substring(0, idx);
-		String sql = new SqlGenerator(model, name).gen();
-		if (!sql.equals(styledText.getText())) {
-			styledText.setText(sql);
-			ScrolledForm form = getManagedForm().getForm();
-			Point size = form.getSize();
-			form.pack();
-			form.setSize(size);
+		sqlArr = new SqlGenerator(model, name).gen();
+		String text = join(sqlArr);
+		if (!text.equals(styledText.getText())) {
+			styledText.setText(text);
+			// ScrolledForm form = getManagedForm().getForm();
+			// Point size = form.getSize();
+			// form.pack();
+			// form.setSize(size);
 		}
 		styledText.forceFocus();
+	}
+
+	private String join(String[] strs) {
+		StringBuilder sb = new StringBuilder();
+		for (String s : strs)
+			sb.append(s).append(";\n");
+		return sb.toString();
 	}
 
 	@Override
@@ -108,7 +116,7 @@ public class CreateTablePage extends FormPage {
 		Composite body = sform.getBody();
 		body.setLayout(new FillLayout(SWT.HORIZONTAL));
 		SourceViewer sourceViewer = new SourceViewer(body, null, SWT.BORDER
-				| SWT.H_SCROLL | SWT.V_SCROLL);
+				| SWT.H_SCROLL | SWT.V_SCROLL | SWT.READ_ONLY);
 		sourceViewer.configure(new SQLConfiguration(new ColorManager()));
 		Document document = new Document();
 		sourceViewer.setDocument(document);
@@ -154,8 +162,8 @@ public class CreateTablePage extends FormPage {
 		tbm.add(new CreateTableAction(aProj) {
 
 			@Override
-			public String getSQL() {
-				return styledText.getText();
+			public String[] getSQLs() {
+				return sqlArr;
 			}
 
 			@Override

@@ -26,6 +26,7 @@ import aurora.ide.meta.gef.editors.ImagesUtils;
 
 public abstract class CreateTableAction extends Action {
 	private IProject aProj;
+	private String tableName;
 
 	public CreateTableAction(IProject aProj) {
 		super("Create Table", ImagesUtils.getImageDescriptor("run.gif"));
@@ -39,16 +40,15 @@ public abstract class CreateTableAction extends Action {
 		try {
 			conn = dbm.getConnection();
 			stmt = conn.createStatement();
-			String sql = getSQL();
+			String[] sql = getSQLs();
+			tableName = getTableName(sql[0]);
 			create(stmt, sql);
 			MessageBox mb = new MessageBox(getShell(), SWT.APPLICATION_MODAL);
 			mb.setText("Success");
-			mb.setMessage("Table : " + getTableName(sql) + " created.");
+			mb.setMessage("Table : " + tableName + " created.");
 			mb.open();
 		} catch (Exception e) {
-			e.printStackTrace();
 			DialogUtil.showErrorMessageBox(e.getMessage());
-			// e.printStackTrace();
 		} finally {
 			try {
 				if (stmt != null)
@@ -61,26 +61,24 @@ public abstract class CreateTableAction extends Action {
 		}
 	}
 
-	private void create(Statement stmt, String sql) throws SQLException {
-		String[] sqls = sql.split(";\\s*");
+	private void create(Statement stmt, String[] sqls) throws SQLException {
 		try {
 			for (String s : sqls)
 				stmt.executeUpdate(s);
 		} catch (SQLException e) {
 			if (isForce() && e.getMessage().indexOf("ORA-00955") != -1) {
-				drop(stmt, sql);
+				drop(stmt, tableName);
 				for (String s : sqls)
 					stmt.executeUpdate(s);
 			} else
 				throw e;
 		}
-		stmt.executeQuery("create sequence " + getTableName(sql) + "_s");
+		stmt.executeUpdate("create sequence " + tableName + "_s");
 	}
 
-	private void drop(Statement stmt, String sql) throws SQLException {
-		String tableName = getTableName(sql);
-		stmt.executeQuery("drop table " + tableName);
-		stmt.executeQuery("drop sequence " + tableName + "_s");
+	private void drop(Statement stmt, String tableName) throws SQLException {
+		stmt.executeUpdate("drop table " + tableName);
+		stmt.executeUpdate("drop sequence " + tableName + "_s");
 	}
 
 	private String getTableName(String sql) {
@@ -121,7 +119,7 @@ public abstract class CreateTableAction extends Action {
 		return shell;
 	}
 
-	public abstract String getSQL();
+	public abstract String[] getSQLs();
 
 	public abstract boolean isForce();
 }

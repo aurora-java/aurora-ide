@@ -145,15 +145,14 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 		mb.open();
 	}
 
-	private void createTable(String sql, String tableName) throws SQLException {
-		String[] sqls = sql.split(";\\s*"); //$NON-NLS-1$
+	private void createTable(String[] sqls, String tableName)
+			throws SQLException {
 		try {
 			for (String s : sqls)
 				stmt.executeUpdate(s);
 		} catch (SQLException e) {
 			if (e.getMessage().indexOf("ORA-00955") != -1) { //$NON-NLS-1$
-				stmt.executeUpdate(NLS.bind(Messages.AutoCreateTableAction_12,
-						tableName));
+				stmt.executeUpdate("drop table " + tableName);
 				for (String s : sqls)
 					stmt.executeUpdate(s);
 			} else {
@@ -217,7 +216,7 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 				BMModel model = ModelUtil.fromCompositeMap(map);
 				SqlGenerator sqlg = new SqlGenerator(model, file.getFullPath()
 						.removeFileExtension().lastSegment());
-				String sql = sqlg.gen();
+				String[] sqls = sqlg.gen();
 				try {
 					String tableName = file.getFullPath().removeFileExtension()
 							.lastSegment().toLowerCase();
@@ -225,7 +224,7 @@ public class AutoCreateTableAction implements IObjectActionDelegate,
 					if (config.get(tableName)) {
 						monitor.subTask(NLS.bind(
 								Messages.AutoCreateTableAction_24, tableName));
-						createTable(sql, tableName);
+						createTable(sqls, tableName);
 					}
 					monitor.worked(1);
 					if (config.get(seqName)) {
