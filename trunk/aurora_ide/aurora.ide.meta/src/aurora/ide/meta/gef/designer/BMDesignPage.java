@@ -10,6 +10,7 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -24,13 +25,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -143,10 +144,10 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 
 	private void createActions(IToolBarManager toolBarManager) {
 		BMDesigner designer = (BMDesigner) getEditor();
+		toolBarManager.add(new ImportFieldAction(model, designer));
 		toolBarManager.add(new OpenBMAction(designer.getInputFile(), designer
 				.getSite().getPage()));
 		toolBarManager.add(new SettingAction(model, designer));
-
 		// end
 		toolBarManager.update(true);
 	}
@@ -178,11 +179,10 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 
 			}
 		});
-		titleText.addKeyListener(new KeyAdapter() {
+		titleText.addTraverseListener(new TraverseListener() {
 
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.keyCode == 13)
+			public void keyTraversed(TraverseEvent e) {
+				if (e.character == SWT.CR || e.character == SWT.KEYPAD_CR)
 					model.setTitle(titleText.getText());
 			}
 		});
@@ -250,12 +250,11 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 				createNewLine();
 			}
 		});
-		quickAddText.addKeyListener(new KeyAdapter() {
+		quickAddText.addTraverseListener(new TraverseListener() {
 
-			public void keyPressed(KeyEvent e) {
-				if (e.keyCode == 13) {
+			public void keyTraversed(TraverseEvent e) {
+				if (e.character == SWT.CR || e.character == SWT.KEYPAD_CR)
 					createNewLine();
-				}
 			}
 		});
 	}
@@ -375,12 +374,10 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 					if (newRel != null) {
 						model.add(newRel);
 						relationViewer.refresh();
-						for (Record r : model.getRecordList()) {
-							if (r.getPrompt().equals(newRel.getLocalField())) {
-								viewer.refresh(r);
-								break;
-							}
-						}
+						Record r = model.getRecordByPrompt(newRel
+								.getLocalField());
+						if (r != null)
+							viewer.refresh(r);
 					}
 				}
 			}
@@ -399,12 +396,9 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 				if (red.open() == IDialogConstants.OK_ID) {
 					Relation rel = red.getRelation();
 					relationViewer.refresh();
-					for (Record r : model.getRecordList()) {
-						if (r.getPrompt().equals(rel.getLocalField())) {
-							viewer.refresh(r);
-							break;
-						}
-					}
+					Record r = model.getRecordByPrompt(rel.getLocalField());
+					if (r != null)
+						viewer.refresh(r);
 				}
 			}
 		});
@@ -472,7 +466,7 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 				delta.accept(this);
 			} catch (CoreException e) {
 				StatusUtil.showExceptionDialog(getSite().getShell(), null,
-						null, true, e);
+						null, false, e);
 			}
 		}
 	}
@@ -488,12 +482,17 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 	private void handleMarker() {
 		inputFile = ((BMDesigner) getEditor()).getInputFile();
 		addRemoveMarker();
-		inputFile.getWorkspace().addResourceChangeListener(this,
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(this,
 				IResourceChangeEvent.POST_BUILD);
 	}
 
+	public void dispose() {
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+		super.dispose();
+	}
+
 	void addRemoveMarker() {
-		getSite().getShell().getDisplay().asyncExec(new Runnable() {
+		getSite().getShell().getDisplay().syncExec(new Runnable() {
 			public void run() {
 				IMarker[] markers;
 				try {
@@ -509,7 +508,7 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 					}
 				} catch (CoreException e) {
 					StatusUtil.showExceptionDialog(getSite().getShell(), null,
-							null, false, e);
+							null, true, e);
 				}
 			}
 		});
