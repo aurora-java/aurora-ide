@@ -5,7 +5,6 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.action.IMenuManager;
@@ -18,6 +17,8 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.events.MenuEvent;
+import org.eclipse.swt.events.MenuListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -200,13 +201,14 @@ public class BusinessModelView extends ViewPart {
 		// manager.add(action2);
 	}
 
+
 	private void createActions() {
 
 		projectSelectionAtion = new Action("Project Selection",
 				Action.AS_DROP_DOWN_MENU) {
 			private List<IProject> projects;
 			{
-				projects = ProjectUtil.getALLAuroraProjects();
+				this.setId("projectSelectionAtion");
 			}
 
 			@Override
@@ -223,18 +225,30 @@ public class BusinessModelView extends ViewPart {
 
 			class MenuCreator implements IMenuCreator, SelectionListener {
 
+
 				public void dispose() {
 
 				}
 
 				public Menu getMenu(Control parent) {
-					Menu menu = new Menu(parent);
-					fillMenu(menu);
+					final Menu menu = new Menu(parent);
+					menu.addMenuListener(new MenuListener() {
+
+						@Override
+						public void menuShown(MenuEvent e) {
+							fillMenu(menu);
+						}
+
+						@Override
+						public void menuHidden(MenuEvent e) {
+
+						}
+					});
 					return menu;
 				}
 
 				public void fillMenu(Menu menu) {
-
+					projects = ProjectUtil.getALLAuroraProjects();
 					for (IProject p : projects) {
 						MenuItem mi = new MenuItem(menu, SWT.NONE);
 						mi.setText("Load : " + p.getName());
@@ -244,9 +258,19 @@ public class BusinessModelView extends ViewPart {
 					}
 				}
 
+
 				public Menu getMenu(Menu parent) {
-					Menu menu = new Menu(parent);
-					fillMenu(menu);
+					final Menu menu = new Menu(parent);
+					menu.addMenuListener(new MenuListener() {
+						@Override
+						public void menuShown(MenuEvent e) {
+							fillMenu(menu);
+						}
+						@Override
+						public void menuHidden(MenuEvent e) {
+						}
+					});
+
 					return menu;
 				}
 
