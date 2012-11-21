@@ -453,6 +453,10 @@ public class BMDesignPage extends FormPage implements PropertyChangeListener,
 			viewer.refresh();
 	}
 
+	public void refreshRecordViewer() {
+		viewer.refresh();
+	}
+
 	public void setModel(final BMModel model) {
 		this.model = model;
 		model.removePropertyChangeListener(this);

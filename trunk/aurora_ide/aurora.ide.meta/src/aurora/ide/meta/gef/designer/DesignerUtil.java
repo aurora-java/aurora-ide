@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.designer;
 
 import java.util.ArrayList;
 
+import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.designer.model.Record;
 
 public class DesignerUtil implements IDesignerConst {
@@ -40,6 +41,32 @@ public class DesignerUtil implements IDesignerConst {
 		r.put(COLUMN_QUERYFIELD, false);
 		r.put(COLUMN_ISFOREIGN, false);
 		// r.put(COLUMN_OPTIONS, "");
+		r.setForInsert(true);
+		r.setForUpdate(true);
+		return r;
+	}
+
+	public static Record createRecord(CompositeMap bmField) {
+		Record r = new Record();
+		r.setName(bmField.getString("name"));
+		String pt = bmField.getString("prompt");
+		if (pt != null)
+			r.setPrompt(pt);
+		DataType type = DataType.TEXT;
+		String datatype = BMCompositeMap.getMapAttribute(bmField, "datatype");
+		if ("java.util.Date".equals(datatype))
+			type = DataType.DATE;
+		for (DataType dt : DataType.values()) {
+			if (dt.getJavaType().equals(datatype)) {
+				type = dt;
+				break;
+			}
+		}
+		r.put(COLUMN_TYPE, type.getDisplayType());
+		r.put(COLUMN_EDITOR, type.getDefaultEditor());
+		r.put(COLUMN_QUERY_OP, type.getDefaultOperator());
+		r.put(COLUMN_QUERYFIELD, false);
+		r.put(COLUMN_ISFOREIGN, false);
 		r.setForInsert(true);
 		r.setForUpdate(true);
 		return r;
