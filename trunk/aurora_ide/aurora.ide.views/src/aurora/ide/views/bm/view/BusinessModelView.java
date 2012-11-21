@@ -209,6 +209,7 @@ public class BusinessModelView extends ViewPart {
 			private List<IProject> projects;
 			{
 				this.setId("projectSelectionAtion");
+				projects = ProjectUtil.getALLAuroraProjects();
 			}
 
 			@Override
