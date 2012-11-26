@@ -31,4 +31,16 @@
             project="false">
       </wizard>
    </extension>
+   
+    <extension
+         point="org.eclipse.ui.preferencePages">
+      <!--viewer-->
+      <page
+         category="aurora.ide.viewer.preferencePage"
+         class="aurora.ide.views.prompts.preference.PromptsRegisterPreferencePage"
+         id="aurora.ide.views.prompts.preference.PromptsRegisterPreferencePage"
+         name="Prompts Register">
+	  </page>
+   </extension>
+   
 </plugin>
