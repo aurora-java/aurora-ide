@@ -1,7 +1,10 @@
 package aurora.ide.views.prompts.view;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -46,16 +49,24 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.ViewPart;
+import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.editor.editorInput.StringEditorInput;
+import aurora.ide.freemarker.FreeMarkerGenerator;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.helpers.CompositeMapUtil;
+import aurora.ide.helpers.DialogUtil;
 import aurora.ide.search.cache.CacheManager;
 import aurora.ide.views.dialog.ResourceSelector;
 import aurora.ide.views.editor.PromptsEditor;
+import aurora.ide.views.prompts.preference.PromptsRegisterSqlConfigration;
 import aurora.ide.views.prompts.util.PromptsFinder;
-import aurora.ide.views.prompts.util.Script;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
 
 public class PromptsView extends ViewPart {
 
@@ -204,9 +215,10 @@ public class PromptsView extends ViewPart {
 
 				if (result == null || compositeMap == null)
 					return;
-				StringBuilder sb = new StringBuilder();
-
+				// StringBuilder sb = new StringBuilder();
+				String result = "";
 				List<ViewNode> sNodes = getSelectedViewNodes();
+				List<TemplateModel> prompts = new ArrayList<TemplateModel>();
 				for (ViewNode n : sNodes) {
 					String code = n.getPromptsCode();
 					if (promptsCode.contains(code)) {
@@ -214,21 +226,51 @@ public class PromptsView extends ViewPart {
 					} else {
 						promptsCode.add(code);
 					}
-					String d = Script.DeletePromptCode.replace(
-							Script.PROMPT_CODE, code);
-					String i = Script.InsertZHSPrompt.replace(
-							Script.PROMPT_CODE, code);
-					i = i.replace(Script.TEXT, n.getZhsPrompt());
-					sb.append(d);
-					sb.append("\n");
-					sb.append(i);
-					sb.append("\n");
-					sb.append("\n");
+
+					Map root = new HashMap();
+					try {
+						DefaultObjectWrapper dow = new DefaultObjectWrapper();
+						Map prompt = new HashMap();
+						prompt.put("code", code);
+						prompt.put("zhs", n.getZhsPrompt());
+						prompts.add(dow.wrap(prompt));
+						root.put("prompts", dow.wrap(prompts));
+
+					} catch (TemplateModelException e1) {
+						DialogUtil.logErrorException(e1);
+					}
+					try {
+						PromptsRegisterSqlConfigration config = new PromptsRegisterSqlConfigration();
+						Template template;
+						template = config.getTemplate();
+						FreeMarkerGenerator fg = new FreeMarkerGenerator();
+						result = fg.gen(template, root);
+					} catch (IOException e1) {
+						DialogUtil.logErrorException(e1);
+						e1.printStackTrace();
+					} catch (SAXException e1) {
+						DialogUtil.logErrorException(e1);
+						e1.printStackTrace();
+					} catch (TemplateException e1) {
+						DialogUtil.logErrorException(e1);
+						e1.printStackTrace();
+					}
+
+					// String d = Script.DeletePromptCode.replace(
+					// Script.PROMPT_CODE, code);
+					// String i = Script.InsertZHSPrompt.replace(
+					// Script.PROMPT_CODE, code);
+					// i = i.replace(Script.TEXT, n.getZhsPrompt());
+					// sb.append(d);
+					// sb.append("\n");
+					// sb.append(i);
+					// sb.append("\n");
+					// sb.append("\n");
 				}
 
 				try {
 					IDE.openEditor(getSite().getPage(), new StringEditorInput(
-							sb.toString()), "org.eclipse.ui.DefaultTextEditor");
+							result), "org.eclipse.ui.DefaultTextEditor");
 				} catch (PartInitException e1) {
 					e1.printStackTrace();
 				}
@@ -347,8 +389,8 @@ public class PromptsView extends ViewPart {
 		this.viewer.setInput(result);
 
 		updateCellEditor();
-		
-		if(selectALL!=null)
+
+		if (selectALL != null)
 			selectALL.run();
 
 	}
