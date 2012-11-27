@@ -1,5 +1,6 @@
 package aurora.ide.meta.builder;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -13,6 +14,10 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.swt.widgets.Display;
 
 import aurora.ide.helpers.StatusUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
@@ -22,6 +27,7 @@ import aurora.ide.meta.project.AuroraMetaProject;
 
 public class AutoGenBuilder extends IncrementalProjectBuilder {
 	public static final String MARKER_BUILD_ERROR = "aurora.ide.meta.builderror";
+	private ArrayList<IResource> filesToBuild = new ArrayList<IResource>();
 	private IFolder mpFolder;
 
 	class SampleDeltaVisitor implements IResourceDeltaVisitor {
@@ -34,7 +40,7 @@ public class AutoGenBuilder extends IncrementalProjectBuilder {
 			case IResourceDelta.REMOVED:
 				break;
 			case IResourceDelta.CHANGED:
-				buildMeta(resource);
+				filesToBuild.add(resource);
 				break;
 			}
 			return true;
@@ -43,7 +49,7 @@ public class AutoGenBuilder extends IncrementalProjectBuilder {
 
 	class SampleResourceVisitor implements IResourceVisitor {
 		public boolean visit(IResource resource) {
-			buildMeta(resource);
+			filesToBuild.add(resource);
 			return true;
 		}
 	}
@@ -75,9 +81,9 @@ public class AutoGenBuilder extends IncrementalProjectBuilder {
 
 	void buildMeta(IResource resource) {
 		if (canBuild(resource)) {
-			deleteMarkers(resource);
-			IFile file = (IFile) resource;
 			try {
+				deleteMarkers(resource);
+				IFile file = (IFile) resource;
 				new BaseBmGenerator(file).process();
 			} catch (Exception e) {
 				createMarker(resource, MARKER_BUILD_ERROR, e);
@@ -125,7 +131,9 @@ public class AutoGenBuilder extends IncrementalProjectBuilder {
 	protected void fullBuild(final IProgressMonitor monitor)
 			throws CoreException {
 		try {
+			filesToBuild.clear();
 			getProject().accept(new SampleResourceVisitor());
+			buildFiles(monitor);
 		} catch (CoreException e) {
 			StatusUtil.showExceptionDialog(null, null,
 					"Error occurred during AutoGenBuild.", false, e);
@@ -134,6 +142,59 @@ public class AutoGenBuilder extends IncrementalProjectBuilder {
 
 	protected void incrementalBuild(IResourceDelta delta,
 			IProgressMonitor monitor) throws CoreException {
+		filesToBuild.clear();
 		delta.accept(new SampleDeltaVisitor());
+		buildFiles(monitor);
+	}
+
+	private void buildFiles(final IProgressMonitor monitor) {
+		monitor.beginTask("build " + getProject().getName(),
+				filesToBuild.size());
+		final Object[] status = { 0, 0, null };
+		Job job = new Job("update status") {
+
+			@Override
+			protected IStatus run(IProgressMonitor innerMonitor) {
+				while (!monitor.isCanceled()) {
+					IResource res = (IResource) status[2];
+					if (res != null) {
+						updateStatus(res);
+					}
+					try {
+						Thread.sleep(200);
+					} catch (InterruptedException e) {
+						return Status.OK_STATUS;
+					}
+				}
+				return Status.OK_STATUS;
+			}
+
+			private void updateStatus(final IResource res) {
+				Display.getDefault().asyncExec(new Runnable() {
+
+					public void run() {
+						status[1] = (Integer) status[1] + (Integer) status[0];
+						monitor.subTask("build " + status[1] + " of "
+								+ filesToBuild.size() + " "
+								+ res.getFullPath().toString());
+						monitor.worked((Integer) status[0]);
+						status[0] = 0;
+					}
+				});
+			}
+
+		};
+		job.setSystem(true);
+		job.schedule(1);
+		for (IResource res : filesToBuild) {
+			if (monitor.isCanceled()) {
+				break;
+			}
+			status[0] = ((Integer) status[0]) + 1;
+			status[2] = res;
+			buildMeta(res);
+		}
+		job.cancel();
+		monitor.done();
 	}
 }
