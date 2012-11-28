@@ -140,23 +140,25 @@ public class ModelUtil implements IDesignerConst {
 	 * @return
 	 */
 	private static Record getRecord(CompositeMap map) {
-		Record r = new Record();
+		boolean ispk = PK.equals(map.getName());
+		Record r = ispk ? new PkRecord() : new Record();
 		String[] keys = TABLE_COLUMN_PROPERTIES;
 		for (int i = 2; i < keys.length; i++) {
 			if (COLUMN_QUERYFIELD.equals(keys[i]))
 				r.put(keys[i], map.getBoolean(keys[i]));
 			r.put(keys[i], map.get(keys[i]));
 		}
-		r.put(COLUMN_QUERY_OP, map.get(COLUMN_QUERY_OP));
-		r.put(FOR_INSERT, map.getBoolean(FOR_INSERT));
-		r.put(FOR_UPDATE, map.getBoolean(FOR_UPDATE));
-		r.put(FOR_QUERY, map.getBoolean(FOR_QUERY));
-		r.put(FOR_DISPLAY, map.getBoolean(FOR_DISPLAY));
-		r.put(FOR_LOV, map.getBoolean(FOR_LOV));
-		r.put(COLUMN_ISFOREIGN, map.getBoolean(COLUMN_ISFOREIGN));
-		r.put(INSERT_EXPRESSION, map.getString(INSERT_EXPRESSION));
-		r.put(UPDATE_EXPRESSION, map.getString(UPDATE_EXPRESSION));
-
+		if (!ispk) {
+			r.put(COLUMN_QUERY_OP, map.get(COLUMN_QUERY_OP));
+			r.put(FOR_INSERT, map.getBoolean(FOR_INSERT));
+			r.put(FOR_UPDATE, map.getBoolean(FOR_UPDATE));
+			r.put(FOR_QUERY, map.getBoolean(FOR_QUERY));
+			r.put(FOR_DISPLAY, map.getBoolean(FOR_DISPLAY));
+			r.put(FOR_LOV, map.getBoolean(FOR_LOV));
+			r.put(COLUMN_ISFOREIGN, map.getBoolean(COLUMN_ISFOREIGN));
+			r.put(INSERT_EXPRESSION, map.getString(INSERT_EXPRESSION));
+			r.put(UPDATE_EXPRESSION, map.getString(UPDATE_EXPRESSION));
+		}
 		return r;
 	}
 

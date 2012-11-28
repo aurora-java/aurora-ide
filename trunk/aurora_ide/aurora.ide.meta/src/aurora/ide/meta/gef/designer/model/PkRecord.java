@@ -14,7 +14,7 @@ public class PkRecord extends Record {
 		setForInsert(true);
 		setForUpdate(false);
 		// lov
-		setForDisplay(true);
+		setForDisplay(false);
 		setForQuery(false);
 		setForLov(true);
 	}
