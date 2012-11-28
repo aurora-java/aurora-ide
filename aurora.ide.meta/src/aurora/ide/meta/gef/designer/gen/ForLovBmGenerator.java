@@ -65,7 +65,7 @@ public class ForLovBmGenerator extends AbstractBmGenerator {
 		// }
 		// }
 		map.addChild(fieldsMap);
-		map.addChild(genEmptyQueryFieldsMap());
+		// map.addChild(genEmptyQueryFieldsMap());
 	}
 
 	/**
