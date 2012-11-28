@@ -315,8 +315,10 @@ public class ScreenGenerator {
 		CompositeMap cols = newMap("columns");
 		CompositeMap pkField = bmc.getFieldOfPk();
 		List<CompositeMap> fields = bmc.getFields(false, true);
-		if ("java.lang.String".equals(BMCompositeMap.getMapAttribute(pkField,
-				"datatype"))) {
+
+		if (pkField != null
+				&& "java.lang.String".equals(BMCompositeMap.getMapAttribute(
+						pkField, "datatype"))) {
 			fields.add(0, pkField);
 		}
 		HashMap<String, String> editorMapping = new HashMap<String, String>();
