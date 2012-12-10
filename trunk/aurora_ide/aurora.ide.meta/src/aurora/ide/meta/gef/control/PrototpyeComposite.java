@@ -37,6 +37,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.WorkbenchEncoding;
 import org.eclipse.ui.actions.ActionFactory;
 
 import aurora.ide.editor.editorInput.StringEditorInput;
@@ -287,7 +288,7 @@ public class PrototpyeComposite extends GraphicalEditor implements
 				return false;
 			}
 		};
-		this.setInput(new StringEditorInput(""));
+		this.setInput(new StringEditorInput("",WorkbenchEncoding.getWorkbenchDefaultEncoding()));
 		getCommandStack().addCommandStackListener(this);
 
 		initializeActionRegistry();
