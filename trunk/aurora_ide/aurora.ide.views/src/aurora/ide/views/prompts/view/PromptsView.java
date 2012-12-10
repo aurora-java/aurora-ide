@@ -294,7 +294,7 @@ public class PromptsView extends ViewPart {
 				}
 				try {
 					IDE.openEditor(getSite().getPage(), new StringEditorInput(
-							compositeMap.toXML(),WorkbenchEncoding.getWorkbenchDefaultEncoding()),
+							compositeMap.toXML(),"utf-8"),
 							"org.eclipse.ui.DefaultTextEditor");
 				} catch (PartInitException e1) {
 					e1.printStackTrace();
