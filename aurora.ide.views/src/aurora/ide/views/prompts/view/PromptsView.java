@@ -46,6 +46,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.WorkbenchEncoding;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.ViewPart;
@@ -270,7 +271,7 @@ public class PromptsView extends ViewPart {
 
 				try {
 					IDE.openEditor(getSite().getPage(), new StringEditorInput(
-							result), "org.eclipse.ui.DefaultTextEditor");
+							result,"utf-8"), "org.eclipse.ui.DefaultTextEditor");
 				} catch (PartInitException e1) {
 					e1.printStackTrace();
 				}
@@ -293,7 +294,7 @@ public class PromptsView extends ViewPart {
 				}
 				try {
 					IDE.openEditor(getSite().getPage(), new StringEditorInput(
-							compositeMap.toXML()),
+							compositeMap.toXML(),WorkbenchEncoding.getWorkbenchDefaultEncoding()),
 							"org.eclipse.ui.DefaultTextEditor");
 				} catch (PartInitException e1) {
 					e1.printStackTrace();
