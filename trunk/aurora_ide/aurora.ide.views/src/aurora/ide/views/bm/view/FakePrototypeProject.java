@@ -829,4 +829,11 @@ public class FakePrototypeProject implements IProject {
 
 	}
 
+	@Override
+	public void accept(IResourceProxyVisitor visitor, int depth, int memberFlags)
+			throws CoreException {
+		// TODO Auto-generated method stub
+
+	}
+
 }
