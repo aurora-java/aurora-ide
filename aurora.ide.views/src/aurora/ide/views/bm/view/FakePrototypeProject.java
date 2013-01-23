@@ -819,7 +819,6 @@ public class FakePrototypeProject implements IProject {
 	public void setDescription(IProjectDescription description,
 			IProgressMonitor monitor) throws CoreException {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -829,7 +828,6 @@ public class FakePrototypeProject implements IProject {
 
 	}
 
-	@Override
 	public void accept(IResourceProxyVisitor visitor, int depth, int memberFlags)
 			throws CoreException {
 		// TODO Auto-generated method stub
