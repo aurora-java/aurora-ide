@@ -1,0 +1,12 @@
+body {
+	font-family: "Microsoft YaHei";
+	font-size: 75%;
+}
+p {
+	text-indent: 2em;
+}
+
+.menu_path {
+	font-weight: bold;
+	color:rgb(90,163,187);
+}
