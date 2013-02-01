@@ -49,7 +49,7 @@ import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
-import aurora.ide.meta.gef.editors.parts.AuroraPartFactory;
+import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
 
 public class VScreenEditor extends FlayoutBMGEFEditor {
@@ -140,7 +140,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		super.configureGraphicalViewer();
 		getGraphicalViewer().setRootEditPart(new ScalableRootEditPart());
 		getGraphicalViewer().setEditPartFactory(
-				new AuroraPartFactory(editorMode));
+				new ExtAuroraPartFactory(editorMode));
 		getGraphicalViewer().setKeyHandler(
 				new GraphicalViewerKeyHandler(getGraphicalViewer())
 						.setParent(getCommonKeyHandler()));
@@ -246,7 +246,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	 */
 	protected PaletteRoot getPaletteRoot() {
 		if (root == null)
-			root = VScreenEditorPaletteFactory.createPalette(this.editorMode);
+			root = VScreenEditorExtPaletteFactory.createPalette(this.editorMode);
 		return root;
 	}
 

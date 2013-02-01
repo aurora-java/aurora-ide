@@ -63,7 +63,7 @@ public abstract class DefaultIOHandler implements IOHandler {
 		for (AuroraComponent a : list) {
 			if (!isStoreable(a))
 				continue;
-			IOHandler ioh = IOHandlerUtil.getHandler(a);
+			IOHandler ioh = ExtIOHandlerUtil.getHandler(a);
 			childList.addChild(ioh.toCompositeMap(a, mic));
 		}
 		map.addChild(childList);
@@ -123,7 +123,7 @@ public abstract class DefaultIOHandler implements IOHandler {
 		@SuppressWarnings("unchecked")
 		List<CompositeMap> list = childList.getChildsNotNull();
 		for (CompositeMap m : list) {
-			IOHandler ioh1 = IOHandlerUtil.getHandler(m);
+			IOHandler ioh1 = ExtIOHandlerUtil.getHandler(m);
 			container.addChild(ioh1.fromCompositeMap(m, mic));
 		}
 	}

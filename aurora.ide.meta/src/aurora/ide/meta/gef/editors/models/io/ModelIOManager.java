@@ -52,7 +52,7 @@ public class ModelIOManager {
 			}
 		}
 		for (AuroraComponent ac : diagram.getChildren()) {
-			IOHandler ioh = IOHandlerUtil.getHandler(ac);
+			IOHandler ioh = ExtIOHandlerUtil.getHandler(ac);
 			root.addChild(ioh.toCompositeMap(ac, mic));
 		}
 		return root;
@@ -77,7 +77,7 @@ public class ModelIOManager {
 				restoreInitProcedure(dia, map);
 				continue;
 			}
-			IOHandler ioh = IOHandlerUtil.getHandler(map);
+			IOHandler ioh = ExtIOHandlerUtil.getHandler(map);
 			dia.addChild(ioh.fromCompositeMap(map, mic));
 		}
 		recoverReference(dia);
