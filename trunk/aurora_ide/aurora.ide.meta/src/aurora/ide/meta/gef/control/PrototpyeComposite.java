@@ -43,10 +43,10 @@ import org.eclipse.ui.actions.ActionFactory;
 import aurora.ide.editor.editorInput.StringEditorInput;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.EditorMode;
-import aurora.ide.meta.gef.editors.VScreenEditorPaletteFactory;
+import aurora.ide.meta.gef.editors.VScreenEditorExtPaletteFactory;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.parts.AuroraPartFactory;
+import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
 
 public class PrototpyeComposite extends GraphicalEditor implements
@@ -156,7 +156,7 @@ public class PrototpyeComposite extends GraphicalEditor implements
 		super.configureGraphicalViewer();
 		getGraphicalViewer().setRootEditPart(new ScalableRootEditPart());
 		getGraphicalViewer().setEditPartFactory(
-				new AuroraPartFactory(editorMode));
+				new ExtAuroraPartFactory(editorMode));
 		getGraphicalViewer().setKeyHandler(
 				new GraphicalViewerKeyHandler(getGraphicalViewer())
 						.setParent(getCommonKeyHandler()));
@@ -217,7 +217,7 @@ public class PrototpyeComposite extends GraphicalEditor implements
 	 */
 	protected PaletteRoot getPaletteRoot() {
 		if (root == null)
-			root = VScreenEditorPaletteFactory.createPalette(this.editorMode);
+			root = VScreenEditorExtPaletteFactory.createPalette(this.editorMode);
 		return root;
 	}
 
