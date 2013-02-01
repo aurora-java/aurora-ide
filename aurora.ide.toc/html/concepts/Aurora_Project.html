@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Aurora Project</title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	</head>
+
+	<body>
+		<h3>Aurora Project</h3>
+		<p>
+			Aurora工程是在普通Java Web工程的基础之上增加aurora nature而来的。
+			具体的做法是：在工程上点右键，<strong>设置为Aurora工程</strong>。再次操作则取消设置。
+			Aurora工程需要具备以下特点:
+			<ul>
+				<li>
+					具有WEB-INF目录
+				</li>
+				<li>
+					WEB-INF目录下有classes、lib目录
+				</li>
+				<li>
+					Aurora工程所必需的配置文件
+				</li>
+			</ul>
+			<pre>
+      [webRoot]
+        └─WEB-INF
+            ├─ [各种其他配置文件]
+            ├─classes
+            ├─lib
+            │  ├─ [其他jar包]
+            │  └─ aurora.jar
+            └─ web.xml
+	</pre>
+		</p>
+		<p>
+			Aurora工程会有一个额外的工程属性配置页面，可以通过<span class="menu_path">右击工程 > Properties (Alt + Enter)</span>（或者，选定工程，菜单<span class="menu_path">Project > Properties</span>），进入Aurora工程设置。
+			新建Aurora工程，或设置为Aurora工程时，这些工程属性会自动设置，用户也可以手动更改设置。
+			<br/>
+			<strong>注意：</strong>当一个工程有多个WEB-INF目录时，请特别注意一下此项设置。
+		</p>
+		<p>
+			正确设置Aurora工程属性对于IDE有重要意义，IDE会据此获取web主目录、bm主目录 、数据库连接配置等重要信息。
+			<br/>
+			此外，<a href="../concepts/Aurora_Prototype_Project.html" shape="rect">Aurora原型工程</a>必须关联一个配置正确的Aurora工程。
+		</p>
+		<img alt="Related concepts" border="0" src="../images/ngrelc.png"/>
+		<br clear="none"/>
+		<a href="../concepts/Aurora_Prototype_Project.html" shape="rect">Aurora原型工程</a>
+		<br clear="none"/>
+		<a href="../concepts/Aurora_Builder.html" shape="rect">Aurora Builder</a>
+	</body>
+</html>
