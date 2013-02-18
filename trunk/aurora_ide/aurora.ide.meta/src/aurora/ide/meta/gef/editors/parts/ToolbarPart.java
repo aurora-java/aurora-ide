@@ -4,8 +4,10 @@ import java.beans.PropertyChangeEvent;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.ToolbarFigure;
+import aurora.ide.meta.gef.editors.layout.ToolbarBackLayout2;
 import aurora.ide.meta.gef.editors.models.IProperties;
 
 public class ToolbarPart extends ContainerPart {
@@ -40,5 +42,12 @@ public class ToolbarPart extends ContainerPart {
 	@Override
 	protected void refreshChildren() {
 		super.refreshChildren();
+	}
+	public boolean isLayoutHorizontal() {
+		return true;
+	}
+	public Rectangle layout() {
+		ToolbarBackLayout2 layout = new ToolbarBackLayout2();
+		return layout.layout(this);
 	}
 }

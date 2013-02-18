@@ -1,10 +1,12 @@
 package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.figures.GridFigure;
+import aurora.ide.meta.gef.editors.layout.GridBackLayout;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.policies.GridLayoutEditPolicy;
 import aurora.ide.meta.gef.editors.policies.tplt.TemplateGridLayoutEditPolicy;
@@ -40,5 +42,9 @@ public class GridPart extends ContainerPart {
 	@Override
 	public int getResizeDirection() {
 		return NSEW;
+	}
+	public Rectangle layout() {
+		GridBackLayout layout = new GridBackLayout();
+		return layout.layout(this);
 	}
 }

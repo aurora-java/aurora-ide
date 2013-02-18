@@ -2,8 +2,10 @@ package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.InputField;
+import aurora.ide.meta.gef.editors.layout.InputFieldLayout;
 import aurora.ide.meta.gef.editors.models.Input;
 
 public class InputPart extends ComponentPart {
@@ -47,6 +49,10 @@ public class InputPart extends ComponentPart {
 	@Override
 	public int getResizeDirection() {
 		return EAST_WEST;
+	}
+	public Rectangle layout() {
+		InputFieldLayout layout = new InputFieldLayout();
+		return layout.layout(this);
 	}
 
 }

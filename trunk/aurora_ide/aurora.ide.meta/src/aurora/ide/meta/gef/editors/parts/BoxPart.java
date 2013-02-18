@@ -5,9 +5,11 @@ import java.beans.PropertyChangeEvent;
 import org.eclipse.draw2d.AbstractLabeledBorder;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
+import aurora.ide.meta.gef.editors.layout.RowColBackLayout;
 import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.models.IProperties;
 
@@ -53,6 +55,20 @@ public class BoxPart extends ContainerPart {
 	@Override
 	public int getResizeDirection() {
 		return NSEW;
+	}
+
+	public boolean isLayoutHorizontal() {
+		BOX model = (BOX) getModel();
+		int col = model.getCol();
+		return col > 1;
+	}
+
+	private static final Insets BOX_PADDING = new Insets(8, 16, 8, 6);
+
+	public Rectangle layout() {
+		RowColBackLayout rowColBackLayout = new RowColBackLayout();
+		rowColBackLayout.setPadding(BOX_PADDING);
+		return rowColBackLayout.layout(this);
 	}
 
 }

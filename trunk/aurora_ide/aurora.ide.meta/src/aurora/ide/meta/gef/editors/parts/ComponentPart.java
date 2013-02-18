@@ -5,11 +5,13 @@ import java.beans.PropertyChangeListener;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import aurora.ide.meta.gef.editors.EditorMode;
+import aurora.ide.meta.gef.editors.layout.BackLayout;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.IProperties;
 import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
@@ -91,6 +93,10 @@ public abstract class ComponentPart extends AbstractGraphicalEditPart implements
 
 	public IPropertySource2 getPropertySource2() {
 		return (IPropertySource2) getModel();
+	}
+
+	public Rectangle layout() {
+		return new BackLayout().layout(this);
 	}
 
 }
