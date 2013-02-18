@@ -71,7 +71,7 @@ public class ExtensionLoader {
 						String id = ice.getAttribute("id");
 						String name = ice.getAttribute("name");
 						String ioHandler = ice.getAttribute("ioHandler");
-						String types = ice.getAttribute("ioHandler");
+						String types = ice.getAttribute("types");
 						ExtensionComponent ec = new ExtensionComponent(
 								categoryId, creator, descriptor, id, name,
 								ioHandler);
