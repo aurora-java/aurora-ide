@@ -4,12 +4,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editpolicies.SelectionHandlesEditPolicy;
 
 import aurora.ide.meta.gef.editors.figures.NavbarFigure;
+import aurora.ide.meta.gef.editors.layout.ToolbarBackLayout2;
 import aurora.ide.meta.gef.editors.models.Navbar;
 
 public class NavbarPart extends ContainerPart {
@@ -52,6 +54,10 @@ public class NavbarPart extends ContainerPart {
 
 	public Navbar getModel() {
 		return (Navbar) super.getModel();
+	}
+	public Rectangle layout() {
+		ToolbarBackLayout2 layout = new ToolbarBackLayout2();
+		return layout.layout(this);
 	}
 
 }

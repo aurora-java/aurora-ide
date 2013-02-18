@@ -62,4 +62,8 @@ public abstract class ContainerPart extends ComponentPart {
 			}
 		}
 	}
+
+	public boolean isLayoutHorizontal() {
+		return false;
+	}
 }

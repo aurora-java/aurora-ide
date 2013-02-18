@@ -6,6 +6,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.FlowLayoutEditPolicy;
+import org.eclipse.gef.editpolicies.OrderedLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.DropRequest;
 
@@ -125,13 +126,14 @@ public class ContainerLayoutEditPolicy extends FlowLayoutEditPolicy {
 	protected boolean isLayoutHorizontal() {
 		EditPart part = getHost();
 		if (part instanceof ContainerPart) {
-			Class<? extends Object> modelClass = part.getModel().getClass();
-			if (modelClass.equals(HBox.class)
-					|| modelClass.equals(FieldSet.class)
-					|| modelClass.equals(Form.class)
-					|| modelClass.equals(Toolbar.class)
-					|| modelClass.equals(TabFolder.class))
-				return true;
+			return ((ContainerPart) part).isLayoutHorizontal();
+//			Class<? extends Object> modelClass = part.getModel().getClass();
+//			if (modelClass.equals(HBox.class)
+//					|| modelClass.equals(FieldSet.class)
+//					|| modelClass.equals(Form.class)
+//					|| modelClass.equals(Toolbar.class)
+//					|| modelClass.equals(TabFolder.class))
+//				return true;
 		}
 		return false;
 	}
