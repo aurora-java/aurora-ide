@@ -2,6 +2,7 @@ package aurora.ide.create.component;
 
 import java.util.List;
 
+import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
@@ -145,11 +146,12 @@ public class ViewDiagramCreator {
 		String name = (String) field.get("field");
 		name = name == null ? field.getString("name") : name;
 		name = name == null ? "" : name;
-		AuroraComponent input = new Input();
 		String type = Util.getType(field);
-		if (CheckBox.CHECKBOX.equals(type)) {
-			input = new CheckBox();
-		}
+//		AuroraComponent input = new Input();
+//		if (CheckBox.CHECKBOX.equals(type)) {
+//			input = new CheckBox();
+//		}
+		AuroraComponent input = ComponentFactory.createComponent(type);
 		input.setType(type);
 		input.setName(name);
 		input.setPrompt(Util.getPrompt(field, ""));
