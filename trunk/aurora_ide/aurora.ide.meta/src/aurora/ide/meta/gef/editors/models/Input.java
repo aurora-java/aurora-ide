@@ -8,7 +8,7 @@ import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 
-public class Input extends AuroraComponent implements IDatasetFieldDelegate,
+abstract public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 		DatasetBinder {
 
 	/**
@@ -20,7 +20,7 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 	public static final String NUMBER = "numberField"; //$NON-NLS-1$
 	public static final String Combo = "comboBox"; //$NON-NLS-1$
 	public static final String LOV = "lov"; //$NON-NLS-1$
-	public static final String CAL = "datePicker"; //$NON-NLS-1$
+	public static final String DATE_PICKER = "datePicker"; //$NON-NLS-1$
 	public static final String DATETIMEPICKER = "dateTimePicker"; //$NON-NLS-1$
 
 	public static final String CASE_LOWER = "lower"; //$NON-NLS-1$
@@ -29,7 +29,7 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 	private static final String[] CASE_TYPES = { CASE_ANY, CASE_UPPER,
 			CASE_LOWER };
 	private static final String[] CAL_ENABLES = { "pre", "next", "both", "none" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-	public static final String[] INPUT_TYPES = { TEXT, NUMBER, Combo, LOV, CAL,
+	public static final String[] INPUT_TYPES = { TEXT, NUMBER, Combo, LOV, DATE_PICKER,
 			DATETIMEPICKER, CheckBox.CHECKBOX };
 	// property key
 	// number
@@ -143,7 +143,7 @@ public class Input extends AuroraComponent implements IDatasetFieldDelegate,
 		String type = getType();
 		if (NUMBER.equals(type))
 			return pds_number;
-		else if (CAL.equals(type) || DATETIMEPICKER.equals(type))
+		else if (DATE_PICKER.equals(type) || DATETIMEPICKER.equals(type))
 			return pds_datepicker;
 		else if (Combo.equals(type))
 			return pds_combo;

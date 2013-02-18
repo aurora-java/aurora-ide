@@ -16,12 +16,13 @@ import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 
 public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 
+	public static final String GRIDCOLUMN = "gridcolumn";
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3032139528088861361L;
 	private static final String[] editors = { "", Input.TEXT, Input.NUMBER,
-			Input.Combo, Input.LOV, CheckBox.CHECKBOX, Input.CAL,
+			Input.Combo, Input.LOV, CheckBox.CHECKBOX, Input.DATE_PICKER,
 			Input.DATETIMEPICKER };
 	public static final String EDITOR = "editor";
 	public static final String RENDERER = "renderer";
@@ -65,7 +66,7 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 		this.col = 999;
 		this.headHight = 25;
 		this.setSize(new Dimension(100, rowHight * 2 + 10));
-		this.setType("column");
+		this.setType(GRIDCOLUMN);
 		setPrompt("prompt");
 		renderer.setColumn(this);
 		footRenderer.setColumn(this);

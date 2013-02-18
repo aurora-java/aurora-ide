@@ -7,6 +7,7 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
+import aurora.ide.meta.gef.editors.components.input.NumberField;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.parts.TabFolderPart;
@@ -32,6 +33,15 @@ public class TabFolderCreator extends ComponentCreator {
 	public EditPart createEditPart(Object model) {
 		if (model instanceof TabFolder)
 			return new TabFolderPart();
+		return null;
+	}
+	public AuroraComponent createComponent(String type) {
+		String t = TabFolder.TAB_PANEL;
+		if (t.equalsIgnoreCase(type)) {
+			TabFolder c = new TabFolder();
+			c.setType(t);
+			return c;
+		}
 		return null;
 	}
 

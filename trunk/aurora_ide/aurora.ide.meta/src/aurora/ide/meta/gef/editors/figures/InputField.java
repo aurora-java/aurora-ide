@@ -117,7 +117,7 @@ public class InputField extends Figure {
 		String type = model.getType();
 		if (Input.Combo.equals(type))
 			return ImagesUtils.getImage("palette/itembar_01.png");
-		if (Input.CAL.equals(type) || Input.DATETIMEPICKER.equals(type))
+		if (Input.DATE_PICKER.equals(type) || Input.DATETIMEPICKER.equals(type))
 			return ImagesUtils.getImage("palette/itembar_02.png");
 		if (Input.LOV.equals(type))
 			return ImagesUtils.getImage("palette/itembar_03.png");

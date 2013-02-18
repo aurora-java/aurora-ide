@@ -6,12 +6,18 @@ public class TabBody extends Container {
 
 	private static final long serialVersionUID = -9196440587781890208L;
 	public static final String VISIBLE = "visible";
+	public static String TAB_BODY="tabbody";
 	@SuppressWarnings("rawtypes")
 	private static Class[] unsupported = { Toolbar.class, Navbar.class,
 			GridColumn.class, TabItem.class, TabBody.class };
 	private boolean visible = false;
 	private TabItem tabItem;
 
+	public TabBody(){
+		this.setType(TAB_BODY);
+	}
+	
+	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean isResponsibleChild(AuroraComponent component) {

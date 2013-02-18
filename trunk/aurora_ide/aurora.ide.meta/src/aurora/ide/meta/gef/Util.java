@@ -57,7 +57,7 @@ public class Util {
 				return Input.TEXT;
 			}
 			if ("java.util.Date".equals(field.getString("datatype"))) {
-				return Input.CAL;
+				return Input.DATE_PICKER;
 			}
 		}
 		return Input.TEXT;

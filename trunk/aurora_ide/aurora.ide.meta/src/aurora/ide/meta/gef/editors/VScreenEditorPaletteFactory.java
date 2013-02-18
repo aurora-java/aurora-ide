@@ -163,7 +163,7 @@ public class VScreenEditorPaletteFactory {
 						Input.class) {
 					public Object getNewObject() {
 						Input newObject = (Input) super.getNewObject();
-						newObject.setType(Input.CAL);
+						newObject.setType(Input.DATE_PICKER);
 						return newObject;
 					}
 				}, ImagesUtils.getImageDescriptor("palette/itembar_02.png"),

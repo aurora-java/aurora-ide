@@ -5,9 +5,11 @@ import java.util.List;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 
+import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.extensions.ExtensionComponent;
 import aurora.ide.meta.extensions.ExtensionLoader;
 import aurora.ide.meta.gef.editors.EditorMode;
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 
 /**
@@ -30,20 +32,31 @@ public class ExtAuroraPartFactory implements EditPartFactory {
 			}
 			return part;
 		}
-		List<ExtensionComponent> extensionComponents = ExtensionLoader
-				.getExtensionComponents();
-		for (ExtensionComponent ec : extensionComponents) {
-			EditPart createEditPart = ec.getCreator().createEditPart(model);
-			if (createEditPart == null) {
-				continue;
-			}
+		EditPart createEditPart = ComponentFactory
+				.createEditPart((AuroraComponent) model);
+		if (createEditPart != null) {
 			createEditPart.setParent(context);
 			createEditPart.setModel(model);
 			if (createEditPart instanceof ComponentPart) {
 				((ComponentPart) createEditPart).setEditorMode(editorMode);
 			}
-			return createEditPart;
 		}
-		return null;
+		return createEditPart;
+		// List<ExtensionComponent> extensionComponents = ExtensionLoader
+		// .getExtensionComponents();
+		//
+		// for (ExtensionComponent ec : extensionComponents) {
+		// EditPart createEditPart = ec.getCreator().createEditPart(model);
+		// if (createEditPart == null) {
+		// continue;
+		// }
+		// createEditPart.setParent(context);
+		// createEditPart.setModel(model);
+		// if (createEditPart instanceof ComponentPart) {
+		// ((ComponentPart) createEditPart).setEditorMode(editorMode);
+		// }
+		// return createEditPart;
+		// }
+		// return null;
 	}
 }

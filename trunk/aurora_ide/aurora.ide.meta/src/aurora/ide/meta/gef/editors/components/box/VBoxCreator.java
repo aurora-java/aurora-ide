@@ -9,6 +9,7 @@ import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Grid;
+import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.VBox;
 import aurora.ide.meta.gef.editors.parts.BoxPart;
 
@@ -16,22 +17,34 @@ public class VBoxCreator extends ComponentCreator {
 
 	public VBoxCreator() {
 	}
-	
-	public PaletteEntry createPaletteEntry(){
-		CombinedTemplateCreationEntry	combined = new CombinedTemplateCreationEntry("VBox", "Create a  VBox",
-				Grid.class, new SimpleFactory(VBox.class),
+
+	public PaletteEntry createPaletteEntry() {
+		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
+				"VBox", "Create a  VBox", Grid.class, new SimpleFactory(
+						VBox.class),
 				ImagesUtils.getImageDescriptor("palette/vbox.png"),
 				ImagesUtils.getImageDescriptor("palette/vbox.png"));
 		return combined;
 	}
-	public EditPart createEditPart(Object model){
-		if(model instanceof VBox){
+
+	public EditPart createEditPart(Object model) {
+		if (model instanceof VBox) {
 			return new BoxPart();
 		}
 		return null;
 	}
+
 	public Class<? extends AuroraComponent> clazz() {
 		return VBox.class;
 	}
 
+	public AuroraComponent createComponent(String type) {
+		String t = VBox.V_BOX;
+		if (t.equalsIgnoreCase(type)) {
+			VBox c = new VBox();
+			c.setType(t);
+			return c;
+		}
+		return null;
+	}
 }

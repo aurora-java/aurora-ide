@@ -15,7 +15,7 @@ public class ExtIOHandlerUtil {
 				.getExtensionComponents();
 		for (ExtensionComponent ec : extensionComponents) {
 			if (ac.getClass().equals(ec.getCreator().clazz())) {
-				DefaultIOHandler ioHandler = ec.getIoHandler();
+				DefaultIOHandler ioHandler = ec.getIoHandler("");
 				if (ioHandler != null)
 					return ioHandler;
 			}
@@ -29,7 +29,7 @@ public class ExtIOHandlerUtil {
 				.getExtensionComponents();
 		for (ExtensionComponent ec : extensionComponents) {
 			if (map.getName().equals(ec.getCreator().clazz().getSimpleName())) {
-				DefaultIOHandler ioHandler = ec.getIoHandler();
+				DefaultIOHandler ioHandler = ec.getIoHandler("");
 				if (ioHandler != null)
 					return ioHandler;
 			}

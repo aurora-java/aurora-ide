@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors.models;
 
 public class Form extends BOX {
+	public static final String FORM = "form";
 	/**
 	 * 
 	 */
@@ -9,7 +10,7 @@ public class Form extends BOX {
 	public Form() {
 		setTitle("Form");
 //		this.getDataset().setUseParentBM(false);
-		this.setType("form");
+		this.setType(FORM);
 		this.setSectionType(BOX.SECTION_TYPE_QUERY);
 	}
 

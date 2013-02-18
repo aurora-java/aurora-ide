@@ -94,7 +94,7 @@ public class GridColumnFigure extends Figure {
 	private Image getImageOfEditor(String editor) {
 		if (Input.Combo.equals(editor))
 			return ImagesUtils.getImage("palette/itembar_01.png");
-		else if (Input.CAL.equals(editor)
+		else if (Input.DATE_PICKER.equals(editor)
 				|| Input.DATETIMEPICKER.equals(editor))
 			return ImagesUtils.getImage("palette/itembar_02.png");
 		else if (Input.LOV.equals(editor))

@@ -11,6 +11,7 @@ import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.TabBody;
 import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.models.TabItem;
+import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.parts.TabBodyPart;
 import aurora.ide.meta.gef.editors.parts.TabFolderPart;
 import aurora.ide.meta.gef.editors.parts.TabItemPart;
@@ -38,6 +39,27 @@ public class TabItemCreator extends ComponentCreator {
 			return new TabItemPart();
 		if (model instanceof TabBody)
 			return new TabBodyPart();
+		return null;
+	}
+	public AuroraComponent createComponent(String type) {
+		String t = TabItem.TAB;
+		if (t.equalsIgnoreCase(type)) {
+			TabItem c = new TabItem();
+			c.setType(t);
+			return c;
+		}
+		t = TabBody.TAB_BODY;
+		if (t.equalsIgnoreCase(type)) {
+			TabBody c = new TabBody();
+			c.setType(t);
+			return c;
+		}
+		t = TabRef.TABREF;
+		if (t.equalsIgnoreCase(type)) {
+			TabRef c = new TabRef();
+			c.setType(t);
+			return c;
+		}
 		return null;
 	}
 

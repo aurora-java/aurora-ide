@@ -19,7 +19,7 @@ public enum DataType {
 			IDesignerConst.OP_INTERVAL, Input.NUMBER) {
 	},
 	DATE("date", "DATE", "java.sql.Date", IDesignerConst.DATE,
-			IDesignerConst.OP_INTERVAL, Input.CAL) {
+			IDesignerConst.OP_INTERVAL, Input.DATE_PICKER) {
 	},
 	DATE_TIME("date", "TIMESTAMP", "java.sql.Date", IDesignerConst.DATE_TIME,
 			IDesignerConst.OP_INTERVAL, Input.DATETIMEPICKER) {

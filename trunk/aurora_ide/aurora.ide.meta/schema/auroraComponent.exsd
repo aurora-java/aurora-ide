@@ -97,6 +97,13 @@
                </appInfo>
             </annotation>
          </attribute>
+         <attribute name="types" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

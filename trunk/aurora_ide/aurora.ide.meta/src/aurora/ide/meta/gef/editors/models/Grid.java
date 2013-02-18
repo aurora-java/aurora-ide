@@ -11,6 +11,8 @@ import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
 
 public class Grid extends GridColumn implements DatasetBinder {
 
+	public static final String GRID = "grid";
+
 	/**
 	 * 
 	 */
@@ -41,7 +43,7 @@ public class Grid extends GridColumn implements DatasetBinder {
 		// dataset.setUseParentBM(false);
 		this.setSectionType(BOX.SECTION_TYPE_RESULT);
 		setDataset(dataset);
-		this.setType("grid");
+		this.setType(GRID);
 		setPrompt("");
 	}
 

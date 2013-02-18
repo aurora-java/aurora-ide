@@ -13,6 +13,7 @@ import aurora.ide.meta.gef.editors.property.IntegerPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
 
 public class Button extends AuroraComponent {
+	public static final String BUTTON = "button";
 	/**
 	 * 
 	 */
@@ -48,7 +49,7 @@ public class Button extends AuroraComponent {
 					ButtonClickEditDialog.class) };
 
 	private String buttonType = DEFAULT;
-	private String text = "button"; //$NON-NLS-1$
+	private String text = BUTTON; //$NON-NLS-1$
 	private String icon = ""; //$NON-NLS-1$
 	private String title = ""; //$NON-NLS-1$
 	private AuroraComponent targetComponent;
@@ -57,7 +58,7 @@ public class Button extends AuroraComponent {
 
 	public Button() {
 		setSize(new Dimension(80, 20));
-		this.setType("button"); //$NON-NLS-1$
+		this.setType(BUTTON); //$NON-NLS-1$
 		buttonClicker.setButton(this);
 	}
 

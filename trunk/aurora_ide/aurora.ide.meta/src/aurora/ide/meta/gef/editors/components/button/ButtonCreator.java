@@ -32,5 +32,13 @@ public class ButtonCreator extends ComponentCreator {
 			return new ButtonPart();
 		return null;
 	}
+	public AuroraComponent createComponent(String type){
+		if(Button.BUTTON.equalsIgnoreCase(type)) {
+			Button button = new Button();
+			button.setType(Button.BUTTON);
+			return button;
+		}
+		return null;
+	}
 
 }

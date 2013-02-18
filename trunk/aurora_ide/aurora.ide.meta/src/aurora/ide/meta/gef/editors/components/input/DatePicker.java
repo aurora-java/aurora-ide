@@ -4,6 +4,6 @@ import aurora.ide.meta.gef.editors.models.Input;
 
 public class DatePicker extends Input {
 public DatePicker(){
-	this.setType(CAL);
+	this.setType(DATE_PICKER);
 }
 }

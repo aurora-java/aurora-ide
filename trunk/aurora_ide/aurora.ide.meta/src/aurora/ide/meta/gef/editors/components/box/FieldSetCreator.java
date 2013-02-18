@@ -7,6 +7,7 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
+import aurora.ide.meta.gef.editors.components.input.DateTimePicker;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.FieldSet;
 import aurora.ide.meta.gef.editors.parts.BoxPart;
@@ -31,5 +32,14 @@ public class FieldSetCreator extends ComponentCreator {
 	}
 	public Class<? extends AuroraComponent> clazz() {
 		return FieldSet.class;
+	}
+	public AuroraComponent createComponent(String type) {
+		String t = FieldSet.FIELD_SET;
+		if (t.equalsIgnoreCase(type)) {
+			FieldSet c = new FieldSet();
+			c.setType(t);
+			return c;
+		}
+		return null;
 	}
 }
