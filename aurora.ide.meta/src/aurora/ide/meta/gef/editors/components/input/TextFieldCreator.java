@@ -9,6 +9,7 @@ import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Input;
+import aurora.ide.meta.gef.editors.models.TabFolder;
 import aurora.ide.meta.gef.editors.parts.InputPart;
 
 public class TextFieldCreator extends ComponentCreator {
@@ -41,5 +42,14 @@ public class TextFieldCreator extends ComponentCreator {
 	}
 	public Class<? extends AuroraComponent> clazz() {
 		return TextField.class;
+	}
+	public AuroraComponent createComponent(String type) {
+		String t = TextField.TEXT;
+		if (t.equalsIgnoreCase(type)) {
+			TextField c = new TextField();
+			c.setType(t);
+			return c;
+		}
+		return null;
 	}
 }

@@ -8,6 +8,7 @@ import org.eclipse.gef.requests.SimpleFactory;
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.parts.InputPart;
 
 public class ComboxCreator extends ComponentCreator {
@@ -42,5 +43,13 @@ public class ComboxCreator extends ComponentCreator {
 
 	public Class<? extends AuroraComponent> clazz() {
 		return Combox.class;
+	}
+	public AuroraComponent createComponent(String type){
+		if(Combox.Combo.equalsIgnoreCase(type)) {
+			Combox c = new Combox();
+			c.setType(Combox.Combo);
+			return c;
+		}
+		return null;
 	}
 }

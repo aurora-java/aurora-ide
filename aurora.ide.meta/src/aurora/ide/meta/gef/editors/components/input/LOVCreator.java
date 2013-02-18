@@ -8,6 +8,7 @@ import org.eclipse.gef.requests.SimpleFactory;
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.Label;
 import aurora.ide.meta.gef.editors.parts.InputPart;
 
 public class LOVCreator extends ComponentCreator {
@@ -42,6 +43,15 @@ public class LOVCreator extends ComponentCreator {
 
 	public Class<? extends AuroraComponent> clazz() {
 		return LOV.class;
+	}
+	public AuroraComponent createComponent(String type) {
+		String t = LOV.LOV;
+		if (t.equalsIgnoreCase(type)) {
+			LOV c = new LOV();
+			c.setType(t);
+			return c;
+		}
+		return null;
 	}
 
 }

@@ -11,6 +11,7 @@ import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.property.TabRefPropertyDescriptor;
 
 public class TabItem extends Container {
+	public static final String TAB = "tab";
 	public static final String SCREEN_REF = "ref";
 	private static final long serialVersionUID = -6198220551287976461L;
 	private static IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
@@ -25,7 +26,7 @@ public class TabItem extends Container {
 
 	public TabItem() {
 		setWidth(65);
-		this.setType("tab");
+		this.setType(TAB);
 		setPrompt("tabItem" + idx++);
 		body.setTabItem(this);
 	}

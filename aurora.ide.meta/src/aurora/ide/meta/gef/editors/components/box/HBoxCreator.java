@@ -32,4 +32,14 @@ public class HBoxCreator extends ComponentCreator {
 	public Class<? extends AuroraComponent> clazz() {
 		return HBox.class;
 	}
+	public AuroraComponent createComponent(String type) {
+		String t = HBox.H_BOX;
+		if (t.equalsIgnoreCase(type)) {
+			HBox c = new HBox();
+			c.setType(t);
+			return c;
+		}
+		return null;
+	}
+	
 }

@@ -8,12 +8,14 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class Toolbar extends RowCol {
 
+	public static final String TOOLBAR = "toolbar";
 	static final long serialVersionUID = 1;
 
 	public Toolbar() {
 		this.row = 1;
 		this.col = 999;
 		this.headHight = 2;
+		this.setType(TOOLBAR);
 		this.setSize(new Dimension(1, 25));
 	}
 

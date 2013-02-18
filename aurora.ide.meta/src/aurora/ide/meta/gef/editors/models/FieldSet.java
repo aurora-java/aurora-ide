@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors.models;
 
 public class FieldSet extends BOX {
+	public static final String FIELD_SET = "fieldSet";
 	/**
 	 * 
 	 */
@@ -8,7 +9,7 @@ public class FieldSet extends BOX {
 
 	public FieldSet() {
 		setTitle("Fieldset");
-		this.setType("fieldSet");
+		this.setType(FIELD_SET);
 //		this.getDataset().setUseParentBM(false);
 		this.setSectionType(BOX.SECTION_TYPE_QUERY);
 	}

@@ -217,7 +217,7 @@ public class BMViewer {
 			String type = model.editor;
 			if (Input.Combo.equalsIgnoreCase(type))
 				return ImagesUtils.getImage("palette/itembar_01.png"); //$NON-NLS-1$
-			if (Input.CAL.equalsIgnoreCase(type)
+			if (Input.DATE_PICKER.equalsIgnoreCase(type)
 					|| Input.DATETIMEPICKER.equalsIgnoreCase(type))
 				return ImagesUtils.getImage("palette/itembar_02.png"); //$NON-NLS-1$
 			if (Input.LOV.equalsIgnoreCase(type))

@@ -9,6 +9,7 @@ import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Grid;
+import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.models.GridSelectionCol;
 import aurora.ide.meta.gef.editors.models.Navbar;
 import aurora.ide.meta.gef.editors.parts.GridPart;
@@ -42,5 +43,14 @@ public class GridCreator extends ComponentCreator {
 
 	public Class<? extends AuroraComponent> clazz() {
 		return Grid.class;
+	}
+	public AuroraComponent createComponent(String type) {
+		String t = Grid.GRID;
+		if (t.equalsIgnoreCase(type)) {
+			Grid c = new Grid();
+			c.setType(t);
+			return c;
+		}
+		return null;
 	}
 }

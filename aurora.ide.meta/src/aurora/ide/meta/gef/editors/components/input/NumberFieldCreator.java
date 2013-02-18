@@ -43,4 +43,13 @@ public class NumberFieldCreator extends ComponentCreator {
 	public Class<? extends AuroraComponent> clazz() {
 		return NumberField.class;
 	}
+	public AuroraComponent createComponent(String type) {
+		String t = NumberField.NUMBER;
+		if (t.equalsIgnoreCase(type)) {
+			NumberField c = new NumberField();
+			c.setType(t);
+			return c;
+		}
+		return null;
+	}
 }

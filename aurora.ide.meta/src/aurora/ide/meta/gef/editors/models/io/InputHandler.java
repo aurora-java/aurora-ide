@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.editors.models.io;
 import org.eclipse.draw2d.geometry.Dimension;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.DatasetField;
@@ -59,8 +60,10 @@ public class InputHandler extends DefaultIOHandler {
 
 	@Override
 	protected AuroraComponent getNewObject(CompositeMap map) {
-		if (CheckBox.CHECKBOX.equals(map.getName()))
-			return new CheckBox();
-		return new Input();
+		String type = map.getString("type");
+		return ComponentFactory.createComponent(type);
+//		if (CheckBox.CHECKBOX.equals(map.getName()))
+//			return new CheckBox();
+//		return new Input();
 	}
 }

@@ -4,6 +4,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class VBox extends BOX {
+	public static final String V_BOX = "vBox";
 	/**
 	 * 
 	 */
@@ -13,7 +14,7 @@ public class VBox extends BOX {
 
 	public VBox() {
 		setSize(new Dimension(300, 80));
-		this.setType("vBox");
+		this.setType(V_BOX);
 	}
 
 	public int getHeadHight() {

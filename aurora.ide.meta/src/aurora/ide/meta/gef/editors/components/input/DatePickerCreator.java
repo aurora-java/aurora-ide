@@ -44,4 +44,14 @@ public class DatePickerCreator extends ComponentCreator {
 	public Class<? extends AuroraComponent> clazz() {
 		return DatePicker.class;
 	}
+
+	public AuroraComponent createComponent(String type) {
+		String t = DatePicker.DATE_PICKER;
+		if (t.equalsIgnoreCase(type)) {
+			DatePicker c = new DatePicker();
+			c.setType(t);
+			return c;
+		}
+		return null;
+	}
 }

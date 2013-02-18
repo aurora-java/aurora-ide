@@ -16,5 +16,7 @@ public class ComponentCreator {
 	public Class<? extends AuroraComponent> clazz() {
 		return null;
 	}
-
+	public AuroraComponent createComponent(String type){
+		return null;
+	}
 }

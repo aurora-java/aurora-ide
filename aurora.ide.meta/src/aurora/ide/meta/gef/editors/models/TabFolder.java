@@ -10,13 +10,14 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class TabFolder extends Container {
 
+	public static final String TAB_PANEL = "tabPanel";
 	private static final long serialVersionUID = 628304066767323457L;
 	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
 			PD_PROMPT, PD_WIDTH, PD_HEIGHT };
 
 	public TabFolder() {
 		setSize(new Dimension(800, 420));
-		this.setType("tabPanel");
+		this.setType(TAB_PANEL);
 		addPropertyChangeListener(new TabItemOperationListener());
 	}
 

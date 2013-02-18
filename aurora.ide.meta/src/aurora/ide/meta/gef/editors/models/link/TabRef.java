@@ -10,6 +10,8 @@ import aurora.ide.meta.gef.editors.models.TabItem;
 
 public class TabRef extends AuroraComponent implements ILink{
 
+	public static final String TABREF = "tabref";
+
 	/**
 	 * 
 	 */
@@ -20,7 +22,7 @@ public class TabRef extends AuroraComponent implements ILink{
 	private ModelQuery modelQuery;
 
 	public TabRef(){
-		
+		this.setType(TABREF);
 	}
 
 	private TabItem tabItem;

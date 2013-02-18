@@ -27,7 +27,7 @@
      
     <extension
          point="org.eclipse.ui.preferencePages">
-        <page
+      <page
             category="aurora.ide.preferencePage"
             class="aurora.ide.preferencepages.AuroraPreferencePage"
             id="aurora.ide.meta.preference"
@@ -325,7 +325,8 @@
            descriptor="aurora.ide.meta.component.LabelDesc"
            id="aurora.ide.meta.component.label"
            ioHandler="aurora.ide.meta.gef.editors.models.io.LabelHandler"
-           name="label">
+           name="label"
+           types="label">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.input"
@@ -333,7 +334,8 @@
            descriptor="aurora.ide.meta.component.TextFieldDesc"
            id="aurora.ide.meta.component.TextField"
            ioHandler="aurora.ide.meta.gef.editors.models.io.InputHandler"
-           name="textfield">
+           name="textfield"
+           types="textfield">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.input"
@@ -341,7 +343,8 @@
            descriptor="aurora.ide.meta.component.NumberFieldDesc"
            id="aurora.ide.meta.component.numberfield"
            ioHandler="aurora.ide.meta.gef.editors.models.io.InputHandler"
-           name="numberfield">
+           name="numberfield"
+           types="numberfield">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.input"
@@ -349,7 +352,8 @@
            descriptor="aurora.ide.meta.component.ComboxDesc"
            id="aurora.ide.meta.component.combox"
            ioHandler="aurora.ide.meta.gef.editors.models.io.InputHandler"
-           name="combox">
+           name="combobox"
+           types="combobox">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.input"
@@ -357,7 +361,8 @@
            descriptor="aurora.ide.meta.component.DatePickerDesc"
            id="aurora.ide.meta.component.datepicker"
            ioHandler="aurora.ide.meta.gef.editors.models.io.InputHandler"
-           name="datepicker">
+           name="datepicker"
+           types="datepicker">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.input"
@@ -365,7 +370,8 @@
            descriptor="aurora.ide.meta.component.DateTimePickerDesc"
            id="aurora.ide.meta.component.datetimepicker"
            ioHandler="aurora.ide.meta.gef.editors.models.io.InputHandler"
-           name="datetimepicker">
+           name="datetimepicker"
+           types="datetimepicker">
      </component>
   	 <component
            categoryId="aurora.ide.meta.palette.category.input"
@@ -373,7 +379,8 @@
            descriptor="aurora.ide.meta.component.LOVDesc"
            id="aurora.ide.meta.component.lov"
            ioHandler="aurora.ide.meta.gef.editors.models.io.InputHandler"
-           name="lov">
+           name="lov"
+           types="lov">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.input"
@@ -381,7 +388,8 @@
            descriptor="aurora.ide.meta.component.CheckBoxDesc"
            id="aurora.ide.meta.component.checkbox"
            ioHandler="aurora.ide.meta.gef.editors.models.io.InputHandler"
-           name="checkbox">
+           name="checkbox"
+           types="checkbox">
      </component>
 	 <component
            categoryId="aurora.ide.meta.palette.category.input"
@@ -389,7 +397,8 @@
            descriptor="aurora.ide.meta.component.InputDesc"
            id="aurora.ide.meta.component.input"
            ioHandler="aurora.ide.meta.gef.editors.models.io.InputHandler"
-           name="input">
+           name="input"
+           types="input">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.button"
@@ -397,7 +406,8 @@
            descriptor="aurora.ide.meta.component.ButtonDesc"
            id="aurora.ide.meta.component.button"
            ioHandler="aurora.ide.meta.gef.editors.models.io.ButtonHandler"
-           name="button">
+           name="button"
+           types="button">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.layout"
@@ -405,7 +415,8 @@
            descriptor="aurora.ide.meta.component.FormDesc"
            id="aurora.ide.meta.component.form"
            ioHandler="aurora.ide.meta.gef.editors.models.io.BoxHandler"
-           name="form">
+           name="form"
+           types="form">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.layout"
@@ -413,7 +424,8 @@
            descriptor="aurora.ide.meta.component.FieldSetDesc"
            id="aurora.ide.meta.component.fieldset"
            ioHandler="aurora.ide.meta.gef.editors.models.io.BoxHandler"
-           name="fieldset">
+           name="fieldset"
+           types="fieldset">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.layout"
@@ -421,7 +433,8 @@
            descriptor="aurora.ide.meta.component.HBoxDesc"
            id="aurora.ide.meta.component.hbox"
            ioHandler="aurora.ide.meta.gef.editors.models.io.BoxHandler"
-           name="hbox">
+           name="hbox"
+           types="hbox">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.layout"
@@ -429,14 +442,16 @@
            descriptor="aurora.ide.meta.component.VBoxDesc"
            id="aurora.ide.meta.component.vbox"
            ioHandler="aurora.ide.meta.gef.editors.models.io.BoxHandler"
-           name="vbox">
+           name="vbox"
+           types="vbox">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.layout"
            creator="aurora.ide.meta.gef.editors.components.grid.ToolbarCreator"
            descriptor="aurora.ide.meta.component.ToolbarDesc"
            id="aurora.ide.meta.component.toolbar"
-           name="toolbar">
+           name="toolbar"
+           types="toolbar">
      </component>
      
       <component
@@ -445,7 +460,8 @@
            descriptor="aurora.ide.meta.component.GridDesc"
            id="aurora.ide.meta.component.grid"
            ioHandler="aurora.ide.meta.gef.editors.models.io.GridHandler"
-           name="grid">
+           name="grid"
+           types="grid">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.grid"
@@ -453,25 +469,26 @@
            descriptor="aurora.ide.meta.component.GridColumnDesc"
            id="aurora.ide.meta.component.gridcolumn"
            ioHandler="aurora.ide.meta.gef.editors.models.io.GridColumnHandler"
-           name="gridcolumn">
+           name="gridcolumn"
+           types="gridcolumn">
      </component>
-     
      <component
            categoryId="aurora.ide.meta.palette.category.tab"
            creator="aurora.ide.meta.gef.editors.components.tab.TabFolderCreator"
            descriptor="aurora.ide.meta.component.TabFolderDesc"
            id="aurora.ide.meta.component.tabFolder"
-            ioHandler="aurora.ide.meta.gef.editors.models.io.TabHandler"
-           name="tabFolder">
+           ioHandler="aurora.ide.meta.gef.editors.models.io.TabHandler"
+           name="tabFolder"
+           types="tabpanel">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.tab"
            creator="aurora.ide.meta.gef.editors.components.tab.TabItemCreator"
            descriptor="aurora.ide.meta.component.TabItemDesc"
            id="aurora.ide.meta.component.tabItem"
-            ioHandler="aurora.ide.meta.gef.editors.models.io.TabItemHandler"
-           name="tabItem">
+           ioHandler="aurora.ide.meta.gef.editors.models.io.TabItemHandler"
+           name="tabItem"
+           types="tab,tabref,tabbody">
      </component>
   </extension>
-    
 </plugin>

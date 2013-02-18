@@ -5,6 +5,7 @@ import org.eclipse.gef.palette.PaletteEntry;
 
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.HBox;
 import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.parts.InputPart;
 
@@ -23,5 +24,13 @@ public class InputCreator extends ComponentCreator {
 	public Class<? extends AuroraComponent> clazz() {
 		return Input.class;
 	}
-
+	public AuroraComponent createComponent(String type) {
+//		String t = HBox.H_BOX;
+//		if (t.equalsIgnoreCase(type)) {
+//			HBox c = new HBox();
+//			c.setType(t);
+//			return c;
+//		}
+		return null;
+	}
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.action.Action;
 
+import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
@@ -28,7 +29,7 @@ public class TypeChangeUtil {
 		ArrayList<Action> als = new ArrayList<Action>();
 		if (ac instanceof Input) {
 			String[] types = { Input.TEXT, Input.NUMBER, Input.Combo,
-					Input.LOV, Input.CAL, Input.DATETIMEPICKER };
+					Input.LOV, Input.DATE_PICKER, Input.DATETIMEPICKER };
 			if (ac instanceof CheckBox) {
 				for (String s : types) {
 					InputTypeChangeAction action = new InputTypeChangeAction(s);
@@ -94,7 +95,7 @@ public class TypeChangeUtil {
 			String imageKey = "";
 			if (Input.Combo.equals(text))
 				imageKey = "palette/itembar_01.png";
-			else if (Input.CAL.equals(text)
+			else if (Input.DATE_PICKER.equals(text)
 					|| Input.DATETIMEPICKER.equals(text))
 				imageKey = "palette/itembar_02.png";
 			else if (Input.LOV.endsWith(text))
@@ -123,16 +124,18 @@ public class TypeChangeUtil {
 		}
 
 		public void apply() {
-			newInput = null;
-			if (type_change_mode == TYPE_CHANGE_MODE1) {
-				input.setType(newType);
-				return;
-			} else if (type_change_mode == TYPE_CHANGE_MODE2) {
-				newInput = new CheckBox();
-			} else if (type_change_mode == TYPE_CHANGE_MODE3) {
-				newInput = new Input();
-				newInput.setType(newType);
-			}
+			newInput = (Input)ComponentFactory.createComponent(newType);
+			
+//			newInput = null;
+//			if (type_change_mode == TYPE_CHANGE_MODE1) {
+//				input.setType(newType);
+//				return;
+//			} else if (type_change_mode == TYPE_CHANGE_MODE2) {
+//				newInput = new CheckBox();
+//			} else if (type_change_mode == TYPE_CHANGE_MODE3) {
+//				newInput = new Input();
+//				newInput.setType(newType);
+//			}
 			newInput.setReadOnly(input.isReadOnly());
 			newInput.setRequired(input.isRequired());
 			newInput.setPrompt(input.getPrompt());
