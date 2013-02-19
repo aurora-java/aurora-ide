@@ -82,16 +82,17 @@ public class SelectModelWizardPage extends WizardPage {
 		bmPath = null;
 	}
 
-	private TemplateConfig getConfig() {
-		if (config == null) {
-			config = TemplateHelper.getInstance().getConfig();
-		}
-		return config;
-	}
+	// private TemplateConfig getConfig() {
+	// if (config == null) {
+	// config = TemplateHelper.getInstance().getConfig();
+	// }
+	// return config;
+	// }
 
-	public void createDynamicTextComponents(Template t) {
-		this.viewDiagram = TemplateHelper.getInstance().createView(t);
-		getConfig();
+	public void createDynamicTextComponents(ViewDiagram viewDiagram, TemplateConfig config) {
+		this.viewDiagram = viewDiagram;// TemplateHelper.getInstance().createView(t);
+		this.config = config;
+		// getConfig();
 		setPageComplete(false);
 		// tabLink = config.get(TemplateHelper.LINK);
 		for (Control c : composite.getChildren()) {
@@ -190,7 +191,7 @@ public class SelectModelWizardPage extends WizardPage {
 	}
 
 	private void fillViewDiagram() {
-		TemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType());
+		TemplateHandle handle = TemplateFactory.getTemplateHandle(viewDiagram.getTemplateType(),config);
 		if (handle != null) {
 			handle.fill(viewDiagram);
 			// grids = handle.getGrids();
@@ -208,8 +209,8 @@ public class SelectModelWizardPage extends WizardPage {
 
 	@Override
 	public IWizardPage getNextPage() {
-		if ((getConfig().get(TemplateHandle.GRID) != null && (getConfig().get(TemplateHandle.GRID).size() > 0))
-				|| ((getConfig().get(TemplateHelper.LINK) != null && (getConfig().get(TemplateHelper.LINK).size() > 0)))) {
+		if ((config.get(TemplateHandle.GRID) != null && (config.get(TemplateHandle.GRID).size() > 0))
+				|| ((config.get(TemplateHelper.LINK) != null && (config.get(TemplateHelper.LINK).size() > 0)))) {
 			return super.getNextPage();
 		} else {
 			return null;

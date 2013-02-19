@@ -36,6 +36,8 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 	private TComposite tComposite;
 	private boolean isDefault = false;
 
+	private TemplateHelper helper = new TemplateHelper();;
+
 	@Override
 	protected void performDefaults() {
 		URL ts = FileLocator.find(Platform.getBundle(MetaPlugin.PLUGIN_ID), new Path("template"), null); //$NON-NLS-1$
@@ -46,9 +48,9 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 			return;
 		}
 		tComposite.clear();
-		TemplateHelper.getInstance().clearTemplate();
+		helper.clearTemplate();
 		IPath path = new Path(ts.getPath());
-		tComposite.createContent(TemplateHelper.getInstance().getTemplates(path));
+		tComposite.createContent(helper.getTemplates(path));
 		createButton();
 		tComposite.getLeftComposite().layout();
 		isDefault = true;
@@ -68,7 +70,7 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 
 		IPath path = MetaPlugin.getDefault().getStateLocation().append("template"); //$NON-NLS-1$
 		// TemplateHelper.getInstance().clearTemplate();
-		tComposite = new TComposite(container, SWT.BORDER, TemplateHelper.getInstance().getTemplates(path));
+		tComposite = new TComposite(container, SWT.BORDER, helper.getTemplates(path));
 		createButton();
 		return container;
 	}
@@ -117,7 +119,7 @@ public class UIPrototypePreferencePage extends PreferencePage implements IWorkbe
 
 	@Override
 	public boolean performCancel() {
-		TemplateHelper.getInstance().clearTemplate();
+		helper.clearTemplate();
 		return super.performCancel();
 	}
 

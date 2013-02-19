@@ -33,10 +33,12 @@ import aurora.ide.meta.gef.editors.VScreenEditor;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.template.Template;
+import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.search.ui.EditorOpener;
 
 public class CreateMetaWizard extends Wizard implements INewWizard {
-	private NewWizardPage newPage = new NewWizardPage();
+	private TemplateHelper helper = new TemplateHelper();
+	private NewWizardPage newPage = new NewWizardPage(helper);
 	private SelectModelWizardPage selectPage = new SelectModelWizardPage();
 	private SetLinkOrRefWizardPage settingPage = new SetLinkOrRefWizardPage();
 	private AddModelWizardPage modelsPage = new AddModelWizardPage(this);
@@ -59,21 +61,19 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		WizardDialog dialog = (WizardDialog) getContainer();
 		dialog.addPageChangingListener(new IPageChangingListener() {
 			public void handlePageChanging(PageChangingEvent event) {
-				if (eq(event.getCurrentPage(), newPage)
-						&& eq(event.getTargetPage(), selectPage)) {
+				if (eq(event.getCurrentPage(), newPage) && eq(event.getTargetPage(), selectPage)) {
 					IProject metaProject = newPage.getMetaProject();
-					if (metaProject != null
-							&& (!eq(template, newPage.getTemplate()))) {
+					if (metaProject != null && (!eq(template, newPage.getTemplate()))) {
 						template = newPage.getTemplate();
 						selectPage.setBMPath(metaProject);
-						selectPage.createDynamicTextComponents(template);
+						viewDiagram = helper.createView(template);
+						selectPage.createDynamicTextComponents(viewDiagram, helper.getConfig());
 					}
-				} else if (eq(event.getCurrentPage(), selectPage)
-						&& eq(event.getTargetPage(), settingPage)) {
+				} else if (eq(event.getCurrentPage(), selectPage) && eq(event.getTargetPage(), settingPage)) {
 					if (selectPage.isModify()) {
 						selectPage.setModify(false);
-						viewDiagram = selectPage.getViewDiagram();
-						settingPage.createCustom(viewDiagram);
+						// viewDiagram = selectPage.getViewDiagram();
+						settingPage.createCustom(viewDiagram, helper.getConfig());
 					}
 				}
 			}
@@ -132,21 +132,14 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		return true;
 	}
 
-	private void performFinish(ViewDiagram viewDiagram)
-			throws InvocationTargetException, InterruptedException,
+	private void performFinish(ViewDiagram viewDiagram) throws InvocationTargetException, InterruptedException,
 			PartInitException {
 		EditorOpener editorOpener = new EditorOpener();
-		IFile file = ResourcesPlugin
-				.getWorkspace()
-				.getRoot()
-				.getFile(
-						new Path(newPage.getPath() + "/"
-								+ newPage.getFileName()));
+		IFile file = ResourcesPlugin.getWorkspace().getRoot()
+				.getFile(new Path(newPage.getPath() + "/" + newPage.getFileName()));
 		CommentCompositeMap rootMap = null;
-		rootMap = (CommentCompositeMap) ModelIOManager.getNewInstance()
-				.toCompositeMap(viewDiagram);
-		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-				+ rootMap.toXML();
+		rootMap = (CommentCompositeMap) ModelIOManager.getNewInstance().toCompositeMap(viewDiagram);
+		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + rootMap.toXML();
 		InputStream is = null;
 		try {
 			is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
@@ -154,13 +147,11 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			DialogUtil.logErrorException(e1);
 			e1.printStackTrace();
 		}
-		final CreateFileOperation cfo = new CreateFileOperation(file, null, is,
-				"create template.");
+		final CreateFileOperation cfo = new CreateFileOperation(file, null, is, "create template.");
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {
 				try {
-					cfo.execute(monitor,
-							WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
+					cfo.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
 				} catch (ExecutionException e) {
 					DialogUtil.logErrorException(e);
 					e.printStackTrace();
@@ -168,8 +159,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			}
 		};
 		getContainer().run(true, true, op);
-		IEditorPart editor = editorOpener.open(workbench
-				.getActiveWorkbenchWindow().getActivePage(), file, true);
+		IEditorPart editor = editorOpener.open(workbench.getActiveWorkbenchWindow().getActivePage(), file, true);
 		if (editor instanceof VScreenEditor) {
 			((VScreenEditor) editor).markDirty();
 		}
@@ -181,8 +171,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 			if (page.isPageComplete()) {
 				return true;
 			}
-		} else if ((page instanceof SetLinkOrRefWizardPage)
-				&& page.isPageComplete()) {
+		} else if ((page instanceof SetLinkOrRefWizardPage) && page.isPageComplete()) {
 			return true;
 		}
 		if (modelsPage.equals(page)) {

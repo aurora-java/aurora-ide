@@ -48,9 +48,11 @@ public class NewWizardPage extends WizardPage {
 	private Label lblDesc;
 	private boolean isNoTemplate;
 	private Group composite;
+	private TemplateHelper helper;
 
-	public NewWizardPage() {
+	public NewWizardPage(TemplateHelper helper) {
 		super("aurora.wizard.new.Page"); //$NON-NLS-1$
+		this.helper = helper;
 		setTitle(Messages.NewWizardPage_Title);
 		setDescription(Messages.NewWizardPage_Desc);
 		setPageComplete(false);
@@ -75,14 +77,12 @@ public class NewWizardPage extends WizardPage {
 	private IResource getMetaFolderBySelection() {
 		IResource r = null;
 		try {
-			ISelection obj = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage().getSelection();
+			ISelection obj = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
 			if (obj instanceof StructuredSelection) {
 				StructuredSelection ts = (StructuredSelection) obj;
-				if (!ts.isEmpty()
-						&& (ts.getFirstElement() instanceof IResource)) {
+				if (!ts.isEmpty() && (ts.getFirstElement() instanceof IResource)) {
 					r = (IResource) ts.getFirstElement();
-					if (TemplateHelper.getInstance().isMetaProject(r)) { //$NON-NLS-1$ //$NON-NLS-2$
+					if (helper.isMetaProject(r)) { //$NON-NLS-1$ //$NON-NLS-2$
 						return r;
 					}
 				}
@@ -95,16 +95,15 @@ public class NewWizardPage extends WizardPage {
 	private IProject getMetaProjectByEditor() {
 		IResource r = null;
 		try {
-			r = (IResource) PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage()
-					.getActiveEditor().getEditorInput().getAdapter(IFile.class);
+			r = (IResource) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()
+					.getEditorInput().getAdapter(IFile.class);
 		} catch (NullPointerException e) {
 			return null;
 		}
 		if (r == null) {
 			return null;
 		}
-		if (TemplateHelper.getInstance().isMetaProject(r)) {
+		if (helper.isMetaProject(r)) {
 			return r.getProject();
 		}
 		return null;
@@ -140,15 +139,12 @@ public class NewWizardPage extends WizardPage {
 
 		btn.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				ContainerSelectionDialog dialog = new ContainerSelectionDialog(
-						getShell(), ResourcesPlugin.getWorkspace().getRoot()
-								.getProject(), true, ""); //$NON-NLS-1$
+				ContainerSelectionDialog dialog = new ContainerSelectionDialog(getShell(), ResourcesPlugin
+						.getWorkspace().getRoot().getProject(), true, ""); //$NON-NLS-1$
 				dialog.setTitle(Messages.NewWizardPage_folder_4);
-				if (dialog.open() == Dialog.OK
-						&& dialog.getResult().length != 0) {
+				if (dialog.open() == Dialog.OK && dialog.getResult().length != 0) {
 					String path = dialog.getResult()[0].toString();
-					IResource container = ResourcesPlugin.getWorkspace()
-							.getRoot().findMember(new Path(path));
+					IResource container = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
 					if (setPath(container)) {
 						txtFile.setFocus();
 					} else {
@@ -164,17 +160,13 @@ public class NewWizardPage extends WizardPage {
 		if (container instanceof IProject) {
 			IResource r = ((IProject) container).findMember("ui_prototype");
 			if (r != null) {
-				path = r.getProject().getName() + "/"
-						+ r.getProjectRelativePath().toString();
+				path = r.getProject().getName() + "/" + r.getProjectRelativePath().toString();
 				txtPath.setText(path);
 				return true;
 			}
-		} else if ((container instanceof IFolder)
-				&& TemplateHelper.getInstance().isMetaProject(container)) {
-			if (container.getProjectRelativePath().toString()
-					.indexOf("ui_prototype") >= 0) {
-				path = container.getProject().getName() + "/"
-						+ container.getProjectRelativePath().toString();
+		} else if ((container instanceof IFolder) && helper.isMetaProject(container)) {
+			if (container.getProjectRelativePath().toString().indexOf("ui_prototype") >= 0) {
+				path = container.getProject().getName() + "/" + container.getProjectRelativePath().toString();
 				txtPath.setText(path);
 				return true;
 			}
@@ -182,8 +174,7 @@ public class NewWizardPage extends WizardPage {
 		return false;
 	}
 
-	private void createTemplate(Composite composite,
-			Map<String, java.util.List<Template>> tempMap) {
+	private void createTemplate(Composite composite, Map<String, java.util.List<Template>> tempMap) {
 		TComposite tComposite = new TComposite(composite, SWT.BORDER, tempMap);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.heightHint = 300;
@@ -214,7 +205,7 @@ public class NewWizardPage extends WizardPage {
 
 			public void widgetSelected(SelectionEvent e) {
 				setNoTemplate(cc.getSelection());
-//				composite.setEnabled(!isNoTemplate());
+				// composite.setEnabled(!isNoTemplate());
 				// if(isNoTemplate){
 				// composite.setForeground(null);
 				// }else{
@@ -233,10 +224,8 @@ public class NewWizardPage extends WizardPage {
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		composite.setText(Messages.NewWizardPage_Template);
 
-		IPath path = MetaPlugin.getDefault().getStateLocation()
-				.append("template");
-		createTemplate(composite,
-				TemplateHelper.getInstance().getTemplates(path));
+		IPath path = MetaPlugin.getDefault().getStateLocation().append("template");
+		createTemplate(composite, helper.getTemplates(path));
 
 		if (setPath(metaFolder)) {
 			txtFile.setFocus();
@@ -264,18 +253,16 @@ public class NewWizardPage extends WizardPage {
 	}
 
 	private void textChanged() {
-		IResource container = ResourcesPlugin.getWorkspace().getRoot()
-				.findMember(new Path(getPath()));
+		IResource container = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(getPath()));
 		String fileName = getFileName();
 		int dotLoc = fileName.lastIndexOf('.');
 		if (getPath().length() == 0) {
 			updateStatus(Messages.NewWizardPage_folder);
-		} else if (container == null
-				|| (container.getType() & (IResource.PROJECT | IResource.FOLDER)) == 0) {
+		} else if (container == null || (container.getType() & (IResource.PROJECT | IResource.FOLDER)) == 0) {
 			updateStatus(Messages.NewWizardPage_folder_2);
 		} else if (!container.isAccessible()) {
 			updateStatus(Messages.NewWizardPage_Project);
-		} else if (!TemplateHelper.getInstance().isMetaProject(container)) { //$NON-NLS-1$
+		} else if (!helper.isMetaProject(container)) { //$NON-NLS-1$
 			updateStatus(Messages.NewWizardPage_Project_2);
 		} else if (getPath().lastIndexOf("ui_prototype") == -1) { //$NON-NLS-1$
 			updateStatus(Messages.NewWizardPage__folder_3);
@@ -288,8 +275,7 @@ public class NewWizardPage extends WizardPage {
 				updateStatus(Messages.NewWizardPage_File_1);
 			} else if (fileName.replace('\\', '/').indexOf('/', 1) > 0) {
 				updateStatus(Messages.NewWizardPage_File_2);
-			} else if (dotLoc != -1
-					&& (!fileName.substring(dotLoc + 1).equalsIgnoreCase("uip"))) { //$NON-NLS-1$
+			} else if (dotLoc != -1 && (!fileName.substring(dotLoc + 1).equalsIgnoreCase("uip"))) { //$NON-NLS-1$
 				updateStatus(Messages.NewWizardPage_File_3);
 			} else {
 				updateStatus(null);

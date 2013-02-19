@@ -10,6 +10,10 @@ import aurora.ide.meta.gef.editors.template.BMReference;
 
 public class CreateTemplateHandle extends TemplateHandle {
 
+	public CreateTemplateHandle(TemplateConfig config) {
+		super(config);
+	}
+
 	public void fill(ViewDiagram viewDiagram) {
 		setColNum(viewDiagram, 1);
 		this.viewDiagram = viewDiagram;
