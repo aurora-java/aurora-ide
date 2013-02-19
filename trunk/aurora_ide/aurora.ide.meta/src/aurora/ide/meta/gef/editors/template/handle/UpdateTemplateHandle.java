@@ -6,6 +6,10 @@ import aurora.ide.meta.gef.editors.models.ViewDiagram;
 
 public class UpdateTemplateHandle extends TemplateHandle {
 
+	public UpdateTemplateHandle(TemplateConfig config) {
+		super(config);
+	}
+
 	@Override
 	public void fill(ViewDiagram viewDiagram) {
 		super.fill(viewDiagram);

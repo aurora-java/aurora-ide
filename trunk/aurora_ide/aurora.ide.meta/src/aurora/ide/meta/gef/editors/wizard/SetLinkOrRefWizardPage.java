@@ -58,7 +58,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 
 	private Composite composite;
 	private ViewDiagram viewDiagram;
-	private TemplateConfig config;
+	//private TemplateConfig config;
 
 	public SetLinkOrRefWizardPage() {
 		super("aurora.wizard.setting.Page"); //$NON-NLS-1$
@@ -73,9 +73,9 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		setControl(composite);
 	}
 
-	public void createCustom(ViewDiagram v) {
+	public void createCustom(ViewDiagram v,TemplateConfig config) {
 		this.viewDiagram = v;
-		config = TemplateHelper.getInstance().getConfig();
+		//config = TemplateHelper.getInstance().getConfig();
 		for (Control c : composite.getChildren()) {
 			if (!c.isDisposed()) {
 				c.dispose();

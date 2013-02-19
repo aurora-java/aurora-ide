@@ -16,6 +16,10 @@ import aurora.ide.meta.gef.editors.template.BMReference;
 
 public class DisplayTemplateHandle extends TemplateHandle {
 
+	public DisplayTemplateHandle(TemplateConfig config) {
+		super(config);
+	}
+
 	private Map<String, List<String>> refRelat;
 
 	@Override

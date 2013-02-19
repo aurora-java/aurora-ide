@@ -15,6 +15,10 @@ import aurora.ide.meta.gef.editors.template.BMReference;
 
 public class SerachTemplateHandle extends TemplateHandle {
 
+	public SerachTemplateHandle(TemplateConfig config) {
+		super(config);
+	}
+
 	private Map<String, List<String>> refRelat;
 
 	@Override

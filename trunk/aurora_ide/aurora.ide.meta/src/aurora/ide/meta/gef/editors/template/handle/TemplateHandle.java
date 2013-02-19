@@ -35,8 +35,9 @@ public abstract class TemplateHandle {
 
 	// public
 
-	public TemplateHandle() {
-		config = TemplateHelper.getInstance().getConfig();
+	public TemplateHandle(TemplateConfig config) {
+		this.config=config;
+		//config = TemplateHelper.getInstance().getConfig();
 		config.put(GRID, new ArrayList<Grid>());
 		// config.put(REF_TAB_ITEMS, new ArrayList<TabItem>());
 	}

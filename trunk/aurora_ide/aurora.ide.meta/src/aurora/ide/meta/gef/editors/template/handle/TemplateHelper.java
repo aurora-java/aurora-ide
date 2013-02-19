@@ -42,7 +42,7 @@ public class TemplateHelper {
 
 	private static Map<String, Template> templates = new HashMap<String, Template>();
 
-	private static TemplateHelper tph = null;
+	//private static TemplateHelper tph = null;
 
 	private TemplateConfig config;
 	private Map<String, String> queryRelated;
@@ -52,14 +52,14 @@ public class TemplateHelper {
 	public static final String LINK = "link";
 	public static final String INIT_MODEL = "initBm";
 
-	public static TemplateHelper getInstance() {
-		if (tph == null) {
-			tph = new TemplateHelper();
-		}
-		return tph;
-	}
+//	public static TemplateHelper getInstance() {
+//		if (tph == null) {
+//			tph = new TemplateHelper();
+//		}
+//		return tph;
+//	}
 
-	private TemplateHelper() {
+	public TemplateHelper() {
 
 	}
 
