@@ -2,6 +2,7 @@ package aurora.ide.meta.gef.editors.models;
 
 public class QueryDataSet extends Dataset {
 
+	public static final String QUERYDATASET = "querydataset";
 	/**
 	 * 
 	 */
@@ -9,5 +10,6 @@ public class QueryDataSet extends Dataset {
 
 	public QueryDataSet() {
 		this.setUse4Query(true);
+		this.setType(QUERYDATASET);
 	}
 }

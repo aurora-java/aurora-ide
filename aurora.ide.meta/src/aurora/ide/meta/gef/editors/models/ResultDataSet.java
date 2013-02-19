@@ -9,6 +9,7 @@ import aurora.ide.meta.gef.editors.property.IntegerPropertyDescriptor;
 
 public class ResultDataSet extends Dataset {
 
+	public static final String RESULTDATASET = "resultdataset";
 	/**
 	 * 
 	 */
@@ -49,6 +50,7 @@ public class ResultDataSet extends Dataset {
 	public ResultDataSet() {
 		this.setUse4Query(false);
 		this.setPageSize(DEFAULT_PAGE_SIZE);
+		this.setType(RESULTDATASET);
 	}
 
 	public IPropertyDescriptor[] getPropertyDescriptors() {
