@@ -5,6 +5,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class Navbar extends RowCol {
 
+	public static final String NAVBAR = "navbar";
 	static final long serialVersionUID = 1;
 
 	public Navbar() {
@@ -12,6 +13,7 @@ public class Navbar extends RowCol {
 		this.col = 999;
 		this.headHight = 2;
 		this.setSize(new Dimension(1, 25));
+		this.setType(NAVBAR);
 	}
 
 	@Override

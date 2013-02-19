@@ -461,7 +461,7 @@
            id="aurora.ide.meta.component.grid"
            ioHandler="aurora.ide.meta.gef.editors.models.io.GridHandler"
            name="grid"
-           types="grid">
+           types="grid,navbar,gridselectioncol">
      </component>
      <component
            categoryId="aurora.ide.meta.palette.category.grid"
