@@ -102,7 +102,7 @@ public class SelectTemplatelWizardPage extends WizardPage {
 		IPath path = MetaPlugin.getDefault().getStateLocation()
 				.append("template"); //$NON-NLS-1$
 		createTemplate(container,
-				TemplateHelper.getInstance().getTemplates(path));
+				new TemplateHelper().getTemplates(path));
 
 		createBottomComposite(container);
 		initValidator();

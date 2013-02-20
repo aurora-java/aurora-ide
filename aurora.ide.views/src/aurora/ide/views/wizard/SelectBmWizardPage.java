@@ -28,6 +28,7 @@ import aurora.ide.helpers.AuroraConstant;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Template;
+import aurora.ide.meta.gef.editors.template.handle.TemplateConfig;
 import aurora.ide.meta.gef.editors.template.handle.TemplateFactory;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
@@ -42,6 +43,9 @@ public class SelectBmWizardPage extends WizardPage {
 	HashMap<Object, Boolean> finishFlag = new HashMap<Object, Boolean>();
 	ViewDiagram view = null;
 
+	private TemplateHelper helper=new TemplateHelper();
+	private TemplateConfig config;
+	
 	/**
 	 * Create the wizard.
 	 */
@@ -68,7 +72,8 @@ public class SelectBmWizardPage extends WizardPage {
 
 	public void setVisible(boolean v) {
 		if (tpl != us.template) {
-			view = TemplateHelper.getInstance().createView(us.template);
+			view = helper.createView(us.template);
+			config=helper.getConfig();
 			finishFlag.clear();
 			dynamicCreate();
 		}
@@ -136,7 +141,7 @@ public class SelectBmWizardPage extends WizardPage {
 		}
 		if (res) {
 			TemplateHandle handle = TemplateFactory.getTemplateHandle(view
-					.getTemplateType());
+					.getTemplateType(),config);
 			if (handle != null) {
 				handle.fill(view);
 			}
