@@ -14,6 +14,7 @@ public class BoxHandler extends ContainerHandler {
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
+		super.storeSimpleAttribute(map, ac);
 		BOX box = (BOX) ac;
 		map.put(BOX.TITLE, box.getTitle());
 		map.put(BOX.PROMPT, box.getPrompt());
@@ -28,6 +29,7 @@ public class BoxHandler extends ContainerHandler {
 
 	@Override
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
+		super.restoreSimpleAttribute(ac, map);
 		BOX box = (BOX) ac;
 		box.setTitle(map.getString(BOX.TITLE));
 		box.setPrompt(map.getString(BOX.PROMPT));

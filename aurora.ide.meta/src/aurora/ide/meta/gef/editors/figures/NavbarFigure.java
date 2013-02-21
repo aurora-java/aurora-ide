@@ -16,7 +16,9 @@ import aurora.ide.meta.gef.editors.models.Navbar;
  */
 public class NavbarFigure extends Figure {
 
-	private String[] texts = { Messages.NavbarFigure_0, Messages.NavbarFigure_1, Messages.NavbarFigure_2, Messages.NavbarFigure_3, Messages.NavbarFigure_4 };
+	private String[] texts = { Messages.NavbarFigure_0,
+			Messages.NavbarFigure_1, Messages.NavbarFigure_2,
+			Messages.NavbarFigure_3, Messages.NavbarFigure_4 };
 	private static String simpleText = Messages.NavbarFigure_5;
 	private Navbar model;
 	private static Image bgImg = ImagesUtils.getImage("toolbar_bg.gif"); //$NON-NLS-1$
@@ -39,7 +41,7 @@ public class NavbarFigure extends Figure {
 	 * @see org.eclipse.draw2d.Label#paintFigure(org.eclipse.draw2d.Graphics)
 	 */
 	protected void paintFigure(Graphics g) {
-		String type = model.getType();
+		String type = model.getNavBarType();
 		if (type.equals(Grid.NAVBAR_NONE))
 			return;
 		super.paintFigure(g);

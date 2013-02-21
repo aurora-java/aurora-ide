@@ -1,17 +1,18 @@
 package aurora.ide.meta.gef.editors.models;
 
+import org.eclipse.swt.graphics.Image;
+
 import aurora.ide.meta.gef.editors.property.DialogEditableObject;
 import aurora.ide.meta.gef.editors.property.PropertySourceUtil;
 
-import org.eclipse.swt.graphics.Image;
-
-public class QueryContainer extends AuroraComponent implements
+public class ContainerHolder extends AuroraComponent implements
 		DialogEditableObject {
 	private static final long serialVersionUID = -309816316947594532L;
 	private Container target = null;
 	private AuroraComponent owner = null;
+	private String containerType = BOX.SECTION_TYPE_QUERY;
 
-	public QueryContainer() {
+	public ContainerHolder() {
 		super();
 	}
 
@@ -47,10 +48,11 @@ public class QueryContainer extends AuroraComponent implements
 		return target.getDataset().getId();
 	}
 
-	public QueryContainer clone() {
-		QueryContainer qc = new QueryContainer();
+	public ContainerHolder clone() {
+		ContainerHolder qc = new ContainerHolder();
 		qc.target = target;
 		qc.owner = owner;
+		qc.containerType = containerType;
 		return qc;
 	}
 
@@ -58,6 +60,14 @@ public class QueryContainer extends AuroraComponent implements
 		if (target == null)
 			return null;
 		return PropertySourceUtil.getImageOf(target);
+	}
+
+	public String getContainerType() {
+		return containerType;
+	}
+
+	public void setContainerType(String containerType) {
+		this.containerType = containerType;
 	}
 
 }

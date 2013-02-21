@@ -1,0 +1,86 @@
+package aurora.ide.meta.gef.editors.policies;
+
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editpolicies.FlowLayoutEditPolicy;
+import org.eclipse.gef.requests.CreateRequest;
+
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.editors.models.Container;
+import aurora.ide.meta.gef.editors.models.commands.CreateComponentCommand;
+import aurora.ide.meta.gef.editors.parts.QueryFormPart;
+import aurora.ide.meta.gef.editors.parts.QueryFormToolBarPart;
+
+public class QueryFormLayoutEditPolicy extends FlowLayoutEditPolicy {
+
+	private EditPart targetEditPart;
+
+	protected Command getCreateCommand(CreateRequest request) {
+		if (shouldIgonre())
+			return null;
+		if (request.getNewObject() instanceof AuroraComponent) {
+			EditPart host = getHost();
+			Container parentModel = (Container) host.getModel();
+			AuroraComponent ac = (AuroraComponent) request.getNewObject();
+			if (!parentModel.isResponsibleChild(ac)) {
+				return null;
+			}
+			EditPart reference = getInsertionReference(request);
+			CreateComponentCommand cmd = new CreateComponentCommand();
+			cmd.setTargetContainer(parentModel);
+			cmd.setChild(ac);
+			cmd.setReferenceModel((AuroraComponent) (reference == null ? null
+					: reference.getModel()));
+			return cmd;
+		}
+		return null;
+	}
+
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		targetEditPart = super.getTargetEditPart(request);
+		if (targetEditPart instanceof QueryFormToolBarPart) {
+			targetEditPart = targetEditPart.getParent();
+		}
+		return targetEditPart;
+	}
+
+	protected boolean shouldIgonre() {
+		return targetEditPart instanceof QueryFormToolBarPart
+				|| targetEditPart instanceof QueryFormPart;
+	}
+
+	protected Command getDeleteDependantCommand(Request request) {
+		return null;
+	}
+
+	@Override
+	protected EditPolicy createChildEditPolicy(EditPart child) {
+		return null;
+	}
+
+	@Override
+	protected Command createAddCommand(EditPart child, EditPart after) {
+		return null;
+	}
+
+	@Override
+	protected Command createMoveChildCommand(EditPart child, EditPart after) {
+		return null;
+	}
+
+	protected boolean isLayoutHorizontal() {
+		return false;
+	}
+
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		if (shouldIgonre()) {
+			return;
+		}
+		super.showLayoutTargetFeedback(request);
+	}
+
+}

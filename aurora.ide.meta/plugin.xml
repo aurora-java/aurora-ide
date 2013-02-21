@@ -490,5 +490,13 @@
            name="tabItem"
            types="tab,tabref,tabbody">
      </component>
+     <component
+           categoryId="aurora.ide.meta.palette.category.layout"
+           creator="aurora.ide.meta.gef.editors.components.box.QueryFormCreator"
+           descriptor="aurora.ide.meta.component.QueryFormDesc"
+           id="aurora.ide.meta.component.queryform"
+           name="queryForm"
+           types="queryForm,formToolbar,formBody">
+     </component>
   </extension>
 </plugin>

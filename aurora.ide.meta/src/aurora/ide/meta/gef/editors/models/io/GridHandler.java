@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
 
-import aurora.ide.api.composite.map.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.Grid;
@@ -17,6 +17,7 @@ public class GridHandler extends ContainerHandler {
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
+		super.storeSimpleAttribute(map, ac);
 		Grid g = (Grid) ac;
 		map.put(Grid.NAVBAR_TYPE, g.getNavBarType());
 		map.put(Grid.WIDTH, g.getSize().width);
@@ -30,6 +31,7 @@ public class GridHandler extends ContainerHandler {
 
 	@Override
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
+		super.restoreSimpleAttribute(ac, map);
 		Grid g = (Grid) ac;
 		g.setNavbarType(map.getString(Grid.NAVBAR_TYPE));
 		Integer w = map.getInt(Grid.WIDTH);

@@ -13,6 +13,7 @@ public class InputHandler extends DefaultIOHandler {
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
+		super.storeSimpleAttribute(map, ac);
 		Input input = (Input) ac;
 		String type = input.getType();
 		map.put(Input.PROMPT, input.getPrompt());
@@ -35,6 +36,7 @@ public class InputHandler extends DefaultIOHandler {
 
 	@Override
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
+		super.restoreSimpleAttribute(ac, map);
 		Input input = (Input) ac;
 		input.setPrompt(map.getString(Input.PROMPT));
 		input.setType(map.getString(Input.TYPE));
@@ -62,8 +64,8 @@ public class InputHandler extends DefaultIOHandler {
 	protected AuroraComponent getNewObject(CompositeMap map) {
 		String type = map.getString("type");
 		return ComponentFactory.createComponent(type);
-//		if (CheckBox.CHECKBOX.equals(map.getName()))
-//			return new CheckBox();
-//		return new Input();
+		// if (CheckBox.CHECKBOX.equals(map.getName()))
+		// return new CheckBox();
+		// return new Input();
 	}
 }

@@ -12,32 +12,31 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.QueryContainer;
+import aurora.ide.meta.gef.editors.models.ContainerHolder;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
 
-public class QueryContainerEditDialog extends EditWizard {
-	private String section_type_filter = Container.SECTION_TYPE_QUERY;
-	private QueryContainer queryContainer = null;
+public class ContainerHolderEditDialog extends EditWizard {
+	private ContainerHolder containerHolder = null;
 	private Container tmpTarget = null;
 
-	public QueryContainerEditDialog() {
+	public ContainerHolderEditDialog() {
 		super();
-		setWindowTitle("QueryDataSet"); //$NON-NLS-1$
+		setWindowTitle("Container"); //$NON-NLS-1$
 	}
 
 	public void addPages() {
-		addPage(new InnerPage("QueryContainerSelection")); //$NON-NLS-1$
+		addPage(new InnerPage("ContainerSelection")); //$NON-NLS-1$
 	}
 
 	@Override
 	public void setDialogEdiableObject(DialogEditableObject obj) {
-		queryContainer = (QueryContainer) obj;
+		containerHolder = (ContainerHolder) obj;
 	}
 
 	@Override
 	public boolean performFinish() {
 		if (tmpTarget != null)
-			queryContainer.setTarget(tmpTarget);
+			containerHolder.setTarget(tmpTarget);
 		return true;
 	}
 
@@ -49,7 +48,7 @@ public class QueryContainerEditDialog extends EditWizard {
 		}
 
 		public void createControl(Composite parent) {
-			AuroraComponent comp = (AuroraComponent) queryContainer
+			AuroraComponent comp = (AuroraComponent) containerHolder
 					.getContextInfo();
 			ViewDiagram root = null;
 			while (comp != null) {
@@ -65,7 +64,8 @@ public class QueryContainerEditDialog extends EditWizard {
 			TreeViewer tv = mts.getTreeViewer();
 			tv.setFilters(new ViewerFilter[] {
 					ModelTreeSelector.CONTAINER_FILTER,
-					ModelTreeSelector.getSectionFilter(section_type_filter) });
+					ModelTreeSelector.getSectionFilter(containerHolder
+							.getContainerType()) });
 			final Tree tree = tv.getTree();
 			mts.setRoot(root);
 			mts.refreshTree();

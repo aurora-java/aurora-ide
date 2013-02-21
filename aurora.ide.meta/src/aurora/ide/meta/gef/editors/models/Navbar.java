@@ -3,40 +3,33 @@ package aurora.ide.meta.gef.editors.models;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
-public class Navbar extends RowCol {
+public class Navbar extends AuroraComponent {
 
-	public static final String NAVBAR = "navbar";
 	static final long serialVersionUID = 1;
+	private String navbarType = "complex";
 
 	public Navbar() {
-		this.row = 1;
-		this.col = 999;
-		this.headHight = 2;
 		this.setSize(new Dimension(1, 25));
-		this.setType(NAVBAR);
+		this.setType("navbar");
 	}
 
-	@Override
-	public String getType() {
-		return super.getType();
+	public String getNavBarType() {
+		return navbarType;
 	}
 
-	@Override
 	/**
 	 * Grid.NAVBAR_SIMPLE or Grid.NAVBAR_COMPLEX
 	 */
-	public void setType(String type) {
-		super.setType(type);
+	public void setNavBarType(String type) {
+		String oldType = this.navbarType;
+		this.navbarType = type;
+		if (type != Grid.NAVBAR_NONE) {
+			firePropertyChange("NavBarType", oldType, type);
+		}
 	}
 
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		return NONE_PROPS;
 	}
-
-	public boolean isResponsibleChild(AuroraComponent component) {
-		// not allow any child
-		return false;
-	}
-
 }

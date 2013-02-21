@@ -6,7 +6,7 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
-import aurora.ide.meta.gef.editors.models.QueryContainer;
+import aurora.ide.meta.gef.editors.models.ContainerHolder;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 
@@ -37,7 +37,7 @@ public class DataSetHandler extends DefaultIOHandler {
 		if (ac instanceof ResultDataSet) {
 			ResultDataSet rds = (ResultDataSet) ac;
 			ReferenceHandler roh = new ReferenceHandler();
-			QueryContainer qc = (QueryContainer) rds.getQueryContainer();
+			ContainerHolder qc = (ContainerHolder) rds.getQueryContainer();
 			if (qc != null) {
 				Container cont = qc.getTarget();
 				if (cont != null) {
@@ -83,7 +83,7 @@ public class DataSetHandler extends DefaultIOHandler {
 					continue;
 				String comment = m.getString(ReferenceHandler.COMMENT);
 				String refId = m.getString(ReferenceHandler.REF_ID);
-				QueryContainer qc = rds.getQueryContainer();
+				ContainerHolder qc = rds.getQueryContainer();
 				AuroraComponent a = mic.markMap.get(refId);
 				if (COMMENT_TARGET.equals(comment)) {
 					if (a != null) {

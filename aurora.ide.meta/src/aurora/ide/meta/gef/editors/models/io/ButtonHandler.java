@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
 
-import aurora.ide.api.composite.map.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.ButtonClicker;
@@ -17,6 +17,7 @@ public class ButtonHandler extends DefaultIOHandler {
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
+		super.storeSimpleAttribute(map, ac);
 		Button b = (Button) ac;
 		map.put(Button.BUTTON_TYPE, b.getButtonType());
 		if (!b.isOnToolBar()) {
@@ -75,6 +76,7 @@ public class ButtonHandler extends DefaultIOHandler {
 
 	@Override
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
+		super.restoreSimpleAttribute(ac, map);
 		Button b = (Button) ac;
 		b.setButtonType(map.getString(Button.BUTTON_TYPE));
 		if (!map.getParent().getName()
