@@ -6,7 +6,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 public class Navbar extends AuroraComponent {
 
 	static final long serialVersionUID = 1;
-	private String navbarType = "complex";
+	private String navbarType = Grid.NAVBAR_NONE;
 
 	public Navbar() {
 		this.setSize(new Dimension(1, 25));
