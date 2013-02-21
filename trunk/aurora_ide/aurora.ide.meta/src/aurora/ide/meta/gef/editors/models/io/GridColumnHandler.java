@@ -15,6 +15,7 @@ public class GridColumnHandler extends DefaultIOHandler {
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
+		super.storeSimpleAttribute(map, ac);
 		GridColumn gc = (GridColumn) ac;
 		map.put(GridColumn.PROMPT, gc.getPrompt());
 		map.put(GridColumn.WIDTH, gc.getSize().width);
@@ -37,6 +38,7 @@ public class GridColumnHandler extends DefaultIOHandler {
 
 	@Override
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
+		super.restoreSimpleAttribute(ac, map);
 		GridColumn gc = (GridColumn) ac;
 		gc.setPrompt(map.getString(GridColumn.PROMPT));
 		gc.setSize(new Dimension(map.getInt(GridColumn.WIDTH),

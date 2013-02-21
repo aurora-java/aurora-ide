@@ -23,7 +23,7 @@ public class ResultDataSet extends Dataset {
 	private static final IPropertyDescriptor PD_SELECTION_MODE = new ComboPropertyDescriptor(
 			SELECTION_MODE, "*SelectionModel", selectionModes);
 
-	private QueryContainer queryContainer = new QueryContainer();
+	private ContainerHolder queryContainer = new ContainerHolder();
 	public static final String QUERY_CONTAINER = "queryContainer";
 
 	public static final int DEFAULT_PAGE_SIZE = 10;
@@ -81,7 +81,7 @@ public class ResultDataSet extends Dataset {
 			setSelectable((Boolean) val);
 		} else if (QUERY_DATASET.equals(propName)) {
 		} else if (QUERY_CONTAINER.equals(propName))
-			setQueryContainer((QueryContainer) val);
+			setQueryContainer((ContainerHolder) val);
 		else
 			super.setPropertyValue(propName, val);
 	}
@@ -92,11 +92,11 @@ public class ResultDataSet extends Dataset {
 		return "";
 	}
 
-	public QueryContainer getQueryContainer() {
+	public ContainerHolder getQueryContainer() {
 		return queryContainer;
 	}
 
-	public void setQueryContainer(QueryContainer queryContainer) {
+	public void setQueryContainer(ContainerHolder queryContainer) {
 		this.queryContainer = queryContainer;
 	}
 

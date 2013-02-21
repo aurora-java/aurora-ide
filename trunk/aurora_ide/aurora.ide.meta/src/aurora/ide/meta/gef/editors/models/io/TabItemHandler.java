@@ -9,6 +9,7 @@ public class TabItemHandler extends DefaultIOHandler {
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
+		super.storeSimpleAttribute(map, ac);
 		TabItem ti = (TabItem) ac;
 		map.put(TabItem.PROMPT, ti.getPrompt());
 		map.put(TabItem.WIDTH, ti.getWidth());
@@ -17,6 +18,7 @@ public class TabItemHandler extends DefaultIOHandler {
 
 	@Override
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
+		super.restoreSimpleAttribute(ac, map);
 		TabItem ti = (TabItem) ac;
 		ti.setPrompt(map.getString(TabItem.PROMPT));
 		ti.setWidth(map.getInt(TabItem.WIDTH));

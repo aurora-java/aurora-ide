@@ -13,12 +13,14 @@ public class TabHandler extends DefaultIOHandler {
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
+		super.storeSimpleAttribute(map, ac);
 		TabFolder tf = (TabFolder) ac;
 		map.put(TabFolder.PROMPT, tf.getPrompt());
 	}
 
 	@Override
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
+		super.restoreSimpleAttribute(ac, map);
 		TabFolder tf = (TabFolder) ac;
 		tf.setPrompt(map.getString(TabFolder.PROMPT));
 	}

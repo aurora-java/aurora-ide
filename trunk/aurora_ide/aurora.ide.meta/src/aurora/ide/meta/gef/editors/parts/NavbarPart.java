@@ -1,20 +1,13 @@
 package aurora.ide.meta.gef.editors.parts;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.Request;
-import org.eclipse.gef.RequestConstants;
-import org.eclipse.gef.editpolicies.SelectionHandlesEditPolicy;
 
 import aurora.ide.meta.gef.editors.figures.NavbarFigure;
-import aurora.ide.meta.gef.editors.layout.ToolbarBackLayout2;
 import aurora.ide.meta.gef.editors.models.Navbar;
+import aurora.ide.meta.gef.editors.policies.NoSelectionEditPolicy;
 
-public class NavbarPart extends ContainerPart {
+public class NavbarPart extends ComponentPart {
 
 	@Override
 	protected IFigure createFigure() {
@@ -25,22 +18,8 @@ public class NavbarPart extends ContainerPart {
 
 	@Override
 	protected void createEditPolicies() {
-		installEditPolicy("translate_selection_to_parent",
-				new SelectionHandlesEditPolicy() {
-
-					@Override
-					protected List createSelectionHandles() {
-						return Collections.EMPTY_LIST;
-					}
-
-					public EditPart getTargetEditPart(Request request) {
-						if (RequestConstants.REQ_SELECTION.equals(request
-								.getType()))
-							return getHost().getParent();
-						return null;
-					}
-
-				});
+		installEditPolicy(NoSelectionEditPolicy.TRANS_SELECTION_KEY,
+				new NoSelectionEditPolicy());
 	}
 
 	protected void refreshVisuals() {
@@ -55,9 +34,9 @@ public class NavbarPart extends ContainerPart {
 	public Navbar getModel() {
 		return (Navbar) super.getModel();
 	}
+
 	public Rectangle layout() {
-		ToolbarBackLayout2 layout = new ToolbarBackLayout2();
-		return layout.layout(this);
+		return new Rectangle(0, 0, 1, 25);
 	}
 
 }

@@ -81,7 +81,7 @@ public class Grid extends GridColumn implements DatasetBinder {
 	public void setNavbarType(String type) {
 		if (eq(getNavBarType(), type))
 			return;
-		navBar.setType(type);
+		navBar.setNavBarType(type);
 		if (eq(getNavBarType(), NAVBAR_NONE)) {
 			removeChild(navBar);
 		} else {
@@ -181,7 +181,7 @@ public class Grid extends GridColumn implements DatasetBinder {
 	}
 
 	public String getNavBarType() {
-		return navBar.getType();
+		return navBar.getNavBarType();
 	}
 
 	@Override

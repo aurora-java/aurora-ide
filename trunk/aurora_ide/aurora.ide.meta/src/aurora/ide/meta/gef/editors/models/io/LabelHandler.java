@@ -16,6 +16,7 @@ public class LabelHandler extends DefaultIOHandler {
 
 	@Override
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
+		super.storeSimpleAttribute(map, ac);
 		Label label = (Label) ac;
 		String type = label.getType();
 		map.put(Label.PROMPT, label.getPrompt());
@@ -34,6 +35,7 @@ public class LabelHandler extends DefaultIOHandler {
 
 	@Override
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
+		super.restoreSimpleAttribute(ac, map);
 		Label label = (Label) ac;
 		label.setPrompt(map.getString(Label.PROMPT));
 		label.setType(map.getString(Label.TYPE));

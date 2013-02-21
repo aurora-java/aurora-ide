@@ -12,7 +12,7 @@ import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.DatasetBinder;
 import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.QueryContainer;
+import aurora.ide.meta.gef.editors.models.ContainerHolder;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.source.gen.ComboDataset;
@@ -111,7 +111,7 @@ class DatasetGenerator {
 		} else {
 			rds.put("model", dataset.getModel());
 		}
-		QueryContainer qs = (QueryContainer) dataset
+		ContainerHolder qs = (ContainerHolder) dataset
 				.getPropertyValue(ResultDataSet.QUERY_CONTAINER);
 		if (qs != null) {
 			Container target = qs.getTarget();

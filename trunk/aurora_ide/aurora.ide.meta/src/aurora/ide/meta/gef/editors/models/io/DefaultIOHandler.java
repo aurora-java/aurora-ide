@@ -2,14 +2,15 @@ package aurora.ide.meta.gef.editors.models.io;
 
 import java.util.List;
 
-import aurora.ide.api.composite.map.CommentCompositeMap;
 import uncertain.composite.CompositeMap;
+import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 
 public abstract class DefaultIOHandler implements IOHandler {
 	public static final String CHILD_LIST = "CHILD_LIST";
 	public static final String MARKID = "markid";
+	public static final String COMPONENT_TYPE = "component_type";
 	public static final String SECTION_TYPE = "sectiontype";
 	protected ModelIOContext mic;
 
@@ -38,7 +39,7 @@ public abstract class DefaultIOHandler implements IOHandler {
 	 * @param ac
 	 */
 	protected void storeSimpleAttribute(CompositeMap map, AuroraComponent ac) {
-
+		map.put(COMPONENT_TYPE, ac.getType());
 	}
 
 	/**
@@ -47,7 +48,9 @@ public abstract class DefaultIOHandler implements IOHandler {
 	 * @param ac
 	 */
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
-
+		String component_type = map.getString(COMPONENT_TYPE);
+		if (component_type != null)
+			ac.setType(component_type);
 	}
 
 	/**
