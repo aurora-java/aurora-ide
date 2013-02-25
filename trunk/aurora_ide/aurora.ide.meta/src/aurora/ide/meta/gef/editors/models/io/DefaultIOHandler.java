@@ -48,9 +48,6 @@ public abstract class DefaultIOHandler implements IOHandler {
 	 * @param ac
 	 */
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
-		String component_type = map.getString(COMPONENT_TYPE);
-		if (component_type != null)
-			ac.setType(component_type);
 	}
 
 	/**
@@ -102,7 +99,9 @@ public abstract class DefaultIOHandler implements IOHandler {
 	 * @param map
 	 */
 	protected void restoreSimpleAttribute(AuroraComponent ac, CompositeMap map) {
-
+		String component_type = map.getString(COMPONENT_TYPE);
+		if (component_type != null)
+			ac.setType(component_type);
 	}
 
 	/**

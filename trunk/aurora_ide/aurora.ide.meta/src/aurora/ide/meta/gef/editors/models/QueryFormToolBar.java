@@ -17,4 +17,7 @@ public class QueryFormToolBar extends HBox {
 		addChild(btnMore);
 	}
 
+	public HBox getHBox() {
+		return hBox;
+	}
 }

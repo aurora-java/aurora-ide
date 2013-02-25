@@ -29,7 +29,7 @@ public class QueryFormBodyPart extends BoxPart {
 				g.setForegroundColor(ColorConstants.EDITOR_BORDER);
 				g.setLineStyle(Graphics.LINE_DOT);
 				g.drawRoundRectangle(r, 6, 6);
-			}
+			};
 		});
 		return figure;
 	}
@@ -46,6 +46,10 @@ public class QueryFormBodyPart extends BoxPart {
 	@Override
 	public boolean isLayoutHorizontal() {
 		return ((BOX) getModel()).getCol() > 1;
+	}
+
+	public Rectangle layout() {
+		return super.layout();
 	}
 
 	@Override

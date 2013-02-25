@@ -48,6 +48,14 @@ public class QueryForm extends BOX {
 		return 0;
 	}
 
+	public QueryFormToolBar getToolBar() {
+		return toolBar;
+	}
+
+	public QueryFormBody getBody() {
+		return body;
+	}
+
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		return pds;

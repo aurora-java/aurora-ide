@@ -495,6 +495,7 @@
            creator="aurora.ide.meta.gef.editors.components.box.QueryFormCreator"
            descriptor="aurora.ide.meta.component.QueryFormDesc"
            id="aurora.ide.meta.component.queryform"
+           ioHandler="aurora.ide.meta.gef.editors.models.io.QueryFormHandler"
            name="queryForm"
            types="queryForm,formToolbar,formBody">
      </component>
