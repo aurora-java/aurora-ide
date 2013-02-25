@@ -17,8 +17,14 @@ public class NoSelectionEditPolicy extends SelectionHandlesEditPolicy {
 	}
 
 	public EditPart getTargetEditPart(Request request) {
-		if (RequestConstants.REQ_SELECTION.equals(request.getType()))
-			return getHost().getParent();
+		if (RequestConstants.REQ_SELECTION.equals(request.getType())) {
+			EditPart part = getHost();
+			while (part != null
+					&& part.getEditPolicy(TRANS_SELECTION_KEY) instanceof NoSelectionEditPolicy) {
+				part = part.getParent();
+			}
+			return part;
+		}
 		return null;
 	}
 
