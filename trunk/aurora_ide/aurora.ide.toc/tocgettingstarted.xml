@@ -3,7 +3,8 @@
 
 <toc label="Getting Started" link_to="toc.xml#gettingstarted"> 
 	<topic label="Main Topic"  href="html/gettingstarted/maintopic.html"> 
-		<topic label="Sub Topic" href="html/gettingstarted/subtopic.html" /> 
+		<topic href="html/gettingstarted/subtopic.html" label="Sub Topic">
+  </topic> 
 	</topic>
 	<topic label="Main Topic 2">
 		<topic label="Sub Topic 2" href="html/gettingstarted/subtopic2.html" />
