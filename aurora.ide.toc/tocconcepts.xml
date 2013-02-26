@@ -2,9 +2,37 @@
 <?NLS TYPE="org.eclipse.help.toc"?>
 
 <toc label="Concepts" link_to="toc.xml#concepts"> 
-	<topic label="Aurora Project"  href="html/concepts/Aurora_Project.html"/>
+	<topic label="Aurora project"  href="html/concepts/maintopic.html"> 
+		<topic label="Sub Topic" href="html/concepts/subtopic.html" />
+  <topic label="Topic">
+  </topic> 
+	</topic>
 	<topic label="Aurora Builder"  href="html/concepts/Aurora_Builder.html"/>
-	<topic label="Main Topic 2">
+	<topic label="编辑器(Editor)">
 		<topic label="Sub Topic 2" href="html/concepts/subtopic2.html" /> 
-	</topic> 
+	</topic>
+ <topic label="视图(Viewer)">
+    <topic label="Topic">
+    </topic>
+ </topic>
+ <topic label="Builder">
+    <topic label="Topic">
+    </topic>
+ </topic>
+ <topic label="检索与引用">
+    <topic label="Topic">
+    </topic>
+ </topic>
+ <topic label="重构">
+    <topic label="Topic">
+    </topic>
+ </topic>
+ <topic label="首选项(Preferences)">
+    <topic label="Topic">
+    </topic>
+ </topic>
+ <topic label="快速原型工具">
+    <topic label="Topic">
+    </topic>
+ </topic> 
 </toc>
