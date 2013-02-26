@@ -2,22 +2,19 @@ package aurora.ide.create.component;
 
 import java.util.List;
 
+import uncertain.composite.CompositeMap;
 import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.ViewDiagram;
-
-import uncertain.composite.CompositeMap;
 
 public class ViewDiagramCreator {
 
