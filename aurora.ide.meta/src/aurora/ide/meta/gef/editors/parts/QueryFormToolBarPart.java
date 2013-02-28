@@ -9,6 +9,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Path;
 
 import aurora.ide.helpers.ImagesUtils;
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
@@ -28,6 +29,19 @@ public class QueryFormToolBarPart extends BoxPart {
 
 			public void paintBackground(IFigure figure, Graphics graphics,
 					Insets insets) {
+				int d = 6;
+				Path path = new Path(null);
+				Rectangle rect = figure.getBounds();
+				path.addArc(rect.x, rect.y, d, d, 90, 90);
+				path.lineTo(rect.x, rect.y + rect.height - d / 2);
+				path.addArc(rect.x, rect.y + rect.height - d, d, d, 180, 90);
+				path.lineTo(rect.x + rect.width - d / 2, rect.y + rect.height);
+				path.addArc(rect.x + rect.width - d, rect.y + rect.height - d,
+						d, d, -90, 90);
+				path.lineTo(rect.x + rect.width, rect.y + d / 2);
+				path.addArc(rect.x + rect.width - d, rect.y, d, d, 0, 90);
+				path.close();
+				graphics.setClip(path);
 				graphics.drawImage(bgImage, new Rectangle(bgImage.getBounds()),
 						figure.getBounds());
 			}

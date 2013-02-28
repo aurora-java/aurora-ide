@@ -23,6 +23,7 @@ public class DatasetFieldHandler implements IOHandler {
 		CompositeMap dfMap = new CommentCompositeMap();
 		dfMap.setName(DatasetField.class.getSimpleName());
 		dfMap.put(DefaultIOHandler.COMPONENT_TYPE, ac.getType());
+		dfMap.put(DefaultIOHandler.MARKID, ac.markid);
 		for (Object[] key : keymap) {
 			Object val = df.getPropertyValue(key[0]);
 			if (val == null || "".equals(val)
@@ -35,6 +36,9 @@ public class DatasetFieldHandler implements IOHandler {
 
 	public DatasetField fromCompositeMap(CompositeMap map, ModelIOContext mic) {
 		DatasetField df = new DatasetField();
+		String markid = map.getString(DefaultIOHandler.MARKID);
+		if (markid != null)
+			df.markid = markid;
 		String component_type = map.getString(DefaultIOHandler.COMPONENT_TYPE);
 		if (component_type != null)
 			df.setType(component_type);

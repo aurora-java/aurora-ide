@@ -31,9 +31,11 @@ public class ContainerHolderHandler extends DefaultIOHandler {
 		super.storeComplexAttribute(map, ac);
 		ContainerHolder ch = (ContainerHolder) ac;
 		AuroraComponent owner = ch.getOwner();
-		map.put("owner", owner.markid);
+		if (owner != null)
+			map.put("owner", owner.markid);
 		Container target = ch.getTarget();
-		map.put("target", target.markid);
+		if (target != null)
+			map.put("target", target.markid);
 	}
 
 	@Override
@@ -41,16 +43,21 @@ public class ContainerHolderHandler extends DefaultIOHandler {
 		super.restoreComplexAttribute(ac, map);
 		ContainerHolder ch = (ContainerHolder) ac;
 		String ownerid = map.getString("owner");
-		if (mic.markMap.get(ownerid) != null) {
-			ch.setOwner(mic.markMap.get(ownerid));
-		} else {
-			ReferenceDecl rd = new ReferenceDecl(ownerid, ac, "setOwner",
-					AuroraComponent.class);
+		if (ownerid != null) {
+			if (mic.markMap.get(ownerid) != null) {
+				ch.setOwner(mic.markMap.get(ownerid));
+			} else {
+				ReferenceDecl rd = new ReferenceDecl(ownerid, ac, "setOwner",
+						AuroraComponent.class);
+				mic.refDeclList.add(rd);
+			}
+		}
+		String targetid = map.getString("target");
+		if (targetid != null) {
+			ReferenceDecl rd = new ReferenceDecl(targetid, ac, "setTarget",
+					Container.class);
 			mic.refDeclList.add(rd);
 		}
-		ReferenceDecl rd = new ReferenceDecl(map.getString("target"), ac,
-				"setTarget", Container.class);
-		mic.refDeclList.add(rd);
 	}
 
 }
