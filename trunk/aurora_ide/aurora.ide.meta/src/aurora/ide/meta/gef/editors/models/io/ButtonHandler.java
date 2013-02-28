@@ -46,7 +46,10 @@ public class ButtonHandler extends DefaultIOHandler {
 					|| ButtonClicker.B_RESET.equals(aid)) {
 				AuroraComponent a = bc.getTargetComponent();
 				if (a != null) {
-					bcMap.put(COMMENT_TARGET, a.markid);
+					ReferenceHandler roh = new ReferenceHandler();
+					CompositeMap tcMap = roh.toCompositeMap(a, mic);
+					tcMap.put(ReferenceHandler.COMMENT, COMMENT_TARGET);
+					bcMap.addChild(tcMap);
 				}
 			} else if (ButtonClicker.B_OPEN.equals(aid)) {
 				bcMap.put("openPath", bc.getOpenPath());
@@ -106,14 +109,16 @@ public class ButtonHandler extends DefaultIOHandler {
 				return;
 			String aid = bcMap.getString("id");
 			bc.setActionID(aid);
-			String markid = bcMap.getString(MARKID);
-			if (markid != null)
-				bc.markid = markid;
+			String bcmarkid = bcMap.getString(MARKID);
+			if (bcmarkid != null)
+				bc.markid = bcmarkid;
 			if (ButtonClicker.B_SEARCH.equals(aid)
 					|| ButtonClicker.B_SAVE.equals(aid)
 					|| ButtonClicker.B_RESET.equals(aid)) {
-				markid = bcMap.getString(COMMENT_TARGET);
-				if (markid != null) {
+				CompositeMap tMap = getMap(bcMap, ReferenceHandler.NS_PREFIX,
+						ReferenceHandler.COMMENT, COMMENT_TARGET);
+				if (tMap != null) {
+					String markid = tMap.getString(ReferenceHandler.REF_ID);
 					AuroraComponent a = mic.markMap.get(markid);
 					if (a != null) {
 						bc.setTargetComponent(a);
@@ -126,6 +131,7 @@ public class ButtonHandler extends DefaultIOHandler {
 						mic.refDeclList.add(rd);
 					}
 				}
+
 			} else if (ButtonClicker.B_OPEN.equals(aid)) {
 				bc.setOpenPath(bcMap.getString("openPath"));
 			} else if (ButtonClicker.B_CLOSE.equals(aid)) {

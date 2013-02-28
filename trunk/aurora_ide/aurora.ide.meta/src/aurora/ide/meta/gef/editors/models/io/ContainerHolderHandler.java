@@ -31,19 +31,28 @@ public class ContainerHolderHandler extends DefaultIOHandler {
 		super.storeComplexAttribute(map, ac);
 		ContainerHolder ch = (ContainerHolder) ac;
 		AuroraComponent owner = ch.getOwner();
-		if (owner != null)
-			map.put("owner", owner.markid);
+		ReferenceHandler rh = new ReferenceHandler();
+		if (owner != null) {
+			CompositeMap ownerMap = rh.toCompositeMap(owner, mic);
+			ownerMap.put(ReferenceHandler.COMMENT, "owner");
+			map.addChild(ownerMap);
+		}
 		Container target = ch.getTarget();
-		if (target != null)
-			map.put("target", target.markid);
+		if (target != null) {
+			CompositeMap targetMap = rh.toCompositeMap(target, mic);
+			targetMap.put(ReferenceHandler.COMMENT, "target");
+			map.addChild(targetMap);
+		}
 	}
 
 	@Override
 	protected void restoreComplexAttribute(AuroraComponent ac, CompositeMap map) {
 		super.restoreComplexAttribute(ac, map);
 		ContainerHolder ch = (ContainerHolder) ac;
-		String ownerid = map.getString("owner");
-		if (ownerid != null) {
+		CompositeMap ownerMap = getMap(map, ReferenceHandler.NS_PREFIX,
+				ReferenceHandler.COMMENT, "owner");
+		if (ownerMap != null) {
+			String ownerid = ownerMap.getString(ReferenceHandler.REF_ID);
 			if (mic.markMap.get(ownerid) != null) {
 				ch.setOwner(mic.markMap.get(ownerid));
 			} else {
@@ -52,8 +61,10 @@ public class ContainerHolderHandler extends DefaultIOHandler {
 				mic.refDeclList.add(rd);
 			}
 		}
-		String targetid = map.getString("target");
-		if (targetid != null) {
+		CompositeMap targetMap = getMap(map, ReferenceHandler.NS_PREFIX,
+				ReferenceHandler.COMMENT, "target");
+		if (targetMap != null) {
+			String targetid = targetMap.getString(ReferenceHandler.REF_ID);
 			ReferenceDecl rd = new ReferenceDecl(targetid, ac, "setTarget",
 					Container.class);
 			mic.refDeclList.add(rd);
