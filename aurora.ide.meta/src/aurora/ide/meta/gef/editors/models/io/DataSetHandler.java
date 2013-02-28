@@ -1,9 +1,12 @@
 package aurora.ide.meta.gef.editors.models.io;
 
+import java.util.List;
+
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.ContainerHolder;
+import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
+import aurora.ide.meta.gef.editors.models.ContainerHolder;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 
@@ -33,17 +36,22 @@ public class DataSetHandler extends DefaultIOHandler {
 		super.storeComplexAttribute(map, ac);
 		if (ac instanceof ResultDataSet) {
 			ResultDataSet rds = (ResultDataSet) ac;
+			ReferenceHandler roh = new ReferenceHandler();
 			ContainerHolder qc = (ContainerHolder) rds.getQueryContainer();
 			if (qc != null) {
-				ContainerHolderHandler chh = new ContainerHolderHandler();
-				CompositeMap qcMap = chh.toCompositeMap(qc, mic);
-				qcMap.setName("QueryContainer");
-				map.addChild(qcMap);
+				Container cont = qc.getTarget();
+				if (cont != null) {
+					CompositeMap tMap = roh.toCompositeMap(cont, mic);
+					tMap.put(ReferenceHandler.COMMENT, COMMENT_TARGET);
+					map.addChild(tMap);
+				}
 			}
 			// owner
 			AuroraComponent owner = rds.getOwner();
 			if (owner != null) {
-				map.put(COMMENT_OWNER, owner.markid);
+				CompositeMap oMap = roh.toCompositeMap(owner, mic);
+				oMap.put(ReferenceHandler.COMMENT, COMMENT_OWNER);
+				map.addChild(oMap);
 			}
 		}
 	}
@@ -68,15 +76,32 @@ public class DataSetHandler extends DefaultIOHandler {
 		super.restoreComplexAttribute(ac, map);
 		if (ac instanceof ResultDataSet) {
 			ResultDataSet rds = (ResultDataSet) ac;
-			CompositeMap qcMap = map.getChild("QueryContainer");
-			if (qcMap != null) {
-				ContainerHolder ch = (ContainerHolder) new ContainerHolderHandler()
-						.fromCompositeMap(qcMap, mic);
-				rds.setQueryContainer(ch);
-			}
-			String ownerid = map.getString(COMMENT_OWNER);
-			if (ownerid != null) {
-				rds.setOwner(mic.markMap.get(ownerid));
+			@SuppressWarnings("unchecked")
+			List<CompositeMap> list = map.getChildsNotNull();
+			for (CompositeMap m : list) {
+				if (!ReferenceHandler.NS_PREFIX.equals(m.getPrefix()))
+					continue;
+				String comment = m.getString(ReferenceHandler.COMMENT);
+				String refId = m.getString(ReferenceHandler.REF_ID);
+				ContainerHolder qc = rds.getQueryContainer();
+				AuroraComponent a = mic.markMap.get(refId);
+				if (COMMENT_TARGET.equals(comment)) {
+					if (a != null) {
+						qc.setTarget((Container) a);
+						continue;
+					}
+					ReferenceDecl rd = new ReferenceDecl(refId, qc,
+							"setTarget", Container.class);
+					mic.refDeclList.add(rd);
+				} else if (COMMENT_OWNER.equals(comment)) {
+					if (a != null) {
+						rds.setOwner(a);
+						continue;
+					}
+					ReferenceDecl rd = new ReferenceDecl(refId, rds,
+							"setOwner", AuroraComponent.class);
+					mic.refDeclList.add(rd);
+				}
 			}
 		}
 	}
