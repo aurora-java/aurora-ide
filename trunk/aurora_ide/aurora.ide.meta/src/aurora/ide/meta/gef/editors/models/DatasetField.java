@@ -294,7 +294,7 @@ public class DatasetField extends AuroraComponent {
 	}
 
 	public DatasetField() {
-		this.setType("field");
+		this.setType("datasetfield");
 		this.setLovGridHeight(350);
 		this.setLovHeight(500);
 		this.setLovWidth(500);
