@@ -14,6 +14,7 @@
  <topic label="视图(Viewer)">
     <topic label="Topic">
     </topic>
+    <topic label="Aurora 代码统计" 	href="html/concepts/Aurora_Statistics.html"/>
  </topic>
  <topic label="Builder">
     <topic label="Topic">
@@ -34,5 +35,6 @@
  <topic label="快速原型工具">
     <topic label="Topic">
     </topic>
+    <topic label="Aurora Prototype"	href="html/concepts/Aurora_Prototype.html"/>
  </topic> 
 </toc>
