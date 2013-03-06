@@ -49,7 +49,7 @@ public class Renderer extends AuroraComponent implements DialogEditableObject,IL
 	private String rendererType = NONE_RENDERER;
 
 	public Renderer() {
-
+		this.setType("renderer");
 	}
 
 	public void setColumn(GridColumn col) {

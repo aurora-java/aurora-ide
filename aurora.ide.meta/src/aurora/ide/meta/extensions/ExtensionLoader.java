@@ -91,4 +91,30 @@ public class ExtensionLoader {
 		return extensionComponents;
 	}
 
+	public static List<String> getTypesByCategoryId(String categoryId) {
+		List<String> types = new ArrayList<String>();
+		List<ExtensionComponent> extensionComponents = ExtensionLoader
+				.getExtensionComponents();
+		for (ExtensionComponent ec : extensionComponents) {
+			if (categoryId.equals(ec.getCategoryId())) {
+				List<String> _types = ec.getTypes();
+				for (String t : _types) {
+					types.add(t.toLowerCase());
+				}
+			}
+		}
+		return types;
+	}
+
+	public static List<String> getComponentNamesByCategoryId(String categoryId) {
+		List<String> names = new ArrayList<String>();
+		List<ExtensionComponent> extensionComponents = ExtensionLoader
+				.getExtensionComponents();
+		for (ExtensionComponent ec : extensionComponents) {
+			if (categoryId.equals(ec.getCategoryId())) {
+				names.add(ec.getName().toLowerCase());
+			}
+		}
+		return names;
+	}
 }

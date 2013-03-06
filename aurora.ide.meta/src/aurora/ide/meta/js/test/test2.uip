@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewDiagram bindTemplate="" unBindModels="aaa_for_query;bmq_emp_for_query;con_contract_ref_authority">
+    <NumberField name="ref_authority_id" component_type="numberField" emptyText="" markid="79a55f23" prompt="CON_CONTRACT_REF_AUTHORITY.REF_AUTHORITY_ID" type="numberField" typeCase="" width="120">
+        <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="58093139" readOnly="false" required="false" uncheckedValue="N"/>
+    </NumberField>
+    <NumberField name="contract_header_id" component_type="numberField" emptyText="" markid="22e53ca2" prompt="CON_CONTRACT_REF_AUTHORITY.CONTRACT_HEADER_ID" type="numberField" typeCase="" width="120">
+        <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="77efc193" readOnly="false" required="false" uncheckedValue="N"/>
+    </NumberField>
+    <NumberField name="company_id" component_type="numberField" emptyText="" markid="4b393da7" prompt="CON_CONTRACT_REF_AUTHORITY.COMPANY_ID" type="numberField" typeCase="" width="120">
+        <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="1afec586" readOnly="false" required="false" uncheckedValue="N"/>
+    </NumberField>
+    <NumberField name="employee_id" component_type="numberField" emptyText="" markid="24295637" prompt="CON_CONTRACT_REF_AUTHORITY.EMPLOYEE_ID" type="numberField" typeCase="" width="120">
+        <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="15db476d" readOnly="false" required="false" uncheckedValue="N"/>
+    </NumberField>
+    <Button name="" component_type="button" height="20" markid="4276f4a9" text="button" type="" width="80">
+        <ButtonClicker id="query" markid="14042330">
+            <ref:Grid xmlns:ref="meta.reference" comment="target" referenceid="2eeccf6e"/>
+        </ButtonClicker>
+        <parameters/>
+    </Button>
+    <Button name="" component_type="button" height="20" markid="5d14798a" text="button" type="" width="80">
+        <ButtonClicker id="custom" markid="1404d7f0">
+            <function><![CDATA[function fun_alert(){
+	alert("hello");
+}]]></function>
+        </ButtonClicker>
+        <parameters/>
+    </Button>
+    <Button name="" component_type="button" height="20" markid="8ba0dd4" text="button" type="" width="80">
+        <ButtonClicker id="reset" markid="3aefe6fd">
+            <ref:Form xmlns:ref="meta.reference" comment="target" referenceid="586ca3ef"/>
+        </ButtonClicker>
+        <parameters/>
+    </Button>
+    <Grid name="" component_type="grid" height="380" markid="2eeccf6e" navBarType="" sectiontype="SECTION_TYPE_RESULT" width="750">
+        <Dataset name="" autoQuery="false" class="aurora.ide.meta.gef.editors.models.ResultDataSet" component_type="resultdataset" markid="2e64e02" model="aaa_for_query" pageSize="10" selectionModel="">
+            <ref:Grid xmlns:ref="meta.reference" comment="owner" referenceid="2eeccf6e"/>
+        </Dataset>
+        <CHILD_LIST>
+            <GridColumn name="aaa_pk" component_type="gridcolumn" editor="" markid="2d3d0953" prompt="primary_key" width="100">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="47845cb3" readOnly="false" required="false" uncheckedValue="N"/>
+                <Renderer name="" component_type="renderer" displaytext="" functionname="" markid="22f3f59" openpath="" renderertype="NONE_RENDERER">
+                    <function/>
+                    <parameters/>
+                </Renderer>
+            </GridColumn>
+            <GridColumn name="c1" component_type="gridcolumn" editor="" markid="63709dc6" prompt="ff" width="100">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="4823ec74" readOnly="false" required="false" uncheckedValue="N"/>
+                <Renderer name="" component_type="renderer" displaytext="" functionname="" markid="7686652a" openpath="" renderertype="NONE_RENDERER">
+                    <function/>
+                    <parameters/>
+                </Renderer>
+            </GridColumn>
+            <GridColumn name="c2" component_type="gridcolumn" editor="" markid="3b1e7dd" prompt="b" width="100">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="4b5bc191" readOnly="false" required="false" uncheckedValue="N"/>
+                <Renderer name="" component_type="renderer" displaytext="" functionname="" markid="14ed6010" openpath="" renderertype="NONE_RENDERER">
+                    <function/>
+                    <parameters/>
+                </Renderer>
+            </GridColumn>
+            <GridColumn name="c3" component_type="gridcolumn" editor="" markid="eb5a4f6" prompt="a" width="100">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="39c573cd" readOnly="false" required="false" uncheckedValue="N"/>
+                <Renderer name="" component_type="renderer" displaytext="" functionname="" markid="37611a05" openpath="" renderertype="NONE_RENDERER">
+                    <function/>
+                    <parameters/>
+                </Renderer>
+            </GridColumn>
+            <GridColumn name="c4" component_type="gridcolumn" editor="" markid="5e9423f7" prompt="d" width="100">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="50c442db" readOnly="false" required="false" uncheckedValue="N"/>
+                <Renderer name="" component_type="renderer" displaytext="" functionname="" markid="4fc55da3" openpath="" renderertype="NONE_RENDERER">
+                    <function/>
+                    <parameters/>
+                </Renderer>
+            </GridColumn>
+            <GridColumn name="c5" component_type="gridcolumn" editor="" markid="1fcf6aa3" prompt="fa" width="100">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="45051da4" readOnly="false" required="false" uncheckedValue="N"/>
+                <Renderer name="" component_type="renderer" displaytext="" functionname="" markid="6a6203a5" openpath="" renderertype="NONE_RENDERER">
+                    <function/>
+                    <parameters/>
+                </Renderer>
+            </GridColumn>
+            <GridColumn name="c6" component_type="gridcolumn" editor="" markid="73ad1d2c" prompt="name" width="100">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="f331de2" readOnly="false" required="false" uncheckedValue="N"/>
+                <Renderer name="" component_type="renderer" displaytext="" functionname="" markid="6a566f08" openpath="" renderertype="NONE_RENDERER">
+                    <function/>
+                    <parameters/>
+                </Renderer>
+            </GridColumn>
+            <GridColumn name="c7" component_type="gridcolumn" editor="" markid="124022f3" prompt="number" width="100">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="39582e88" readOnly="false" required="false" uncheckedValue="N"/>
+                <Renderer name="" component_type="renderer" displaytext="" functionname="" markid="30b688e1" openpath="" renderertype="NONE_RENDERER">
+                    <function/>
+                    <parameters/>
+                </Renderer>
+            </GridColumn>
+        </CHILD_LIST>
+    </Grid>
+    <TextField name="enabled_flag" component_type="textField" emptyText="" markid="499aed36" prompt="CON_CONTRACT_REF_AUTHORITY.ENABLED_FLAG" type="textField" typeCase="" width="120">
+        <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="5a4b99fa" readOnly="false" required="false" uncheckedValue="N"/>
+    </TextField>
+    <Form name="" column="3" component_type="form" height="198" labelWidth="80" markid="586ca3ef" prompt="" row="3" sectiontype="SECTION_TYPE_QUERY" title="Form" width="658">
+        <Dataset name="" class="aurora.ide.meta.gef.editors.models.QueryDataSet" component_type="querydataset" markid="447ecd43" model="bmq_emp_for_query"/>
+        <CHILD_LIST>
+            <TextField name="bmq_emp_pk" component_type="textField" emptyText="" markid="15e19d13" prompt="primary_key" type="textField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="f0f559e" readOnly="false" required="false" uncheckedValue="N"/>
+            </TextField>
+            <CheckBox name="eno" component_type="checkBox" emptyText="" markid="2fc8c0e6" prompt="编号" text="text" type="checkBox" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" defaultValue="N" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="24f0548c" readOnly="false" required="false" uncheckedValue="N"/>
+            </CheckBox>
+            <TextField name="name" component_type="textField" emptyText="" markid="3dd261e0" prompt="姓名" type="textField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="3f17d8d5" readOnly="false" required="false" uncheckedValue="N"/>
+            </TextField>
+            <NumberField name="age" component_type="numberField" emptyText="" markid="1fa68b9c" prompt="年龄" type="numberField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="6f17beff" readOnly="false" required="false" uncheckedValue="N"/>
+            </NumberField>
+            <TextField name="phone" component_type="textField" emptyText="" markid="5ecc357d" prompt="电话" type="textField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="30cbd22a" readOnly="false" required="false" uncheckedValue="N"/>
+            </TextField>
+            <TextField name="address" component_type="textField" emptyText="" markid="51504155" prompt="住址" type="textField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="6bf15d27" readOnly="false" required="false" uncheckedValue="N"/>
+            </TextField>
+            <Combox name="deptno" component_type="comboBox" emptyText="" markid="4ceb1c86" prompt="部门" type="comboBox" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="5f9dc8dd" readOnly="false" required="false" uncheckedValue="N"/>
+            </Combox>
+            <Combox name="jobno" component_type="comboBox" emptyText="" markid="17372afb" prompt="工作" type="comboBox" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="26e6d0a5" readOnly="false" required="false" uncheckedValue="N"/>
+            </Combox>
+            <LOV name="mgr" component_type="lov" emptyText="" markid="625a80df" prompt="上级" type="lov" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="23c2e2eb" readOnly="false" required="false" uncheckedValue="N"/>
+            </LOV>
+            <TextField name="dname_ref" component_type="textField" emptyText="" markid="5bd55614" prompt="部门名称" type="textField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="13066a26" readOnly="false" required="false" uncheckedValue="N"/>
+            </TextField>
+            <TextField name="jname_ref" component_type="textField" emptyText="" markid="5f0101fb" prompt="工作名称" type="textField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="3b293677" readOnly="false" required="false" uncheckedValue="N"/>
+            </TextField>
+            <TextField name="name_ref" component_type="textField" emptyText="" markid="6ac604" prompt="姓名" type="textField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="61ee30d2" readOnly="false" required="false" uncheckedValue="N"/>
+            </TextField>
+            <NumberField name="age_from" component_type="numberField" emptyText="" markid="46116f2" prompt="年龄从" type="numberField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="2296c1d" readOnly="false" required="false" uncheckedValue="N"/>
+            </NumberField>
+            <NumberField name="age_to" component_type="numberField" emptyText="" markid="f4efcb0" prompt="年龄到" type="numberField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="aaf8eaa" readOnly="false" required="false" uncheckedValue="N"/>
+            </NumberField>
+            <TextField name="phone" component_type="textField" emptyText="" markid="7869971" prompt="电话" type="textField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="15c3cd93" readOnly="false" required="false" uncheckedValue="N"/>
+            </TextField>
+            <TextField name="address" component_type="textField" emptyText="" markid="4fc5a2f9" prompt="住址" type="textField" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="384eb259" readOnly="false" required="false" uncheckedValue="N"/>
+            </TextField>
+            <Combox name="deptno" component_type="comboBox" emptyText="" markid="3830b652" prompt="部门" type="comboBox" typeCase="" width="120">
+                <DatasetField checkedValue="Y" component_type="datasetfield" lovGridHeight="350" lovHeight="500" lovWidth="500" markid="611de50" readOnly="false" required="false" uncheckedValue="N"/>
+            </Combox>
+        </CHILD_LIST>
+    </Form>
+</ViewDiagram>

@@ -1,0 +1,329 @@
+var screen;
+var view;
+var dataSets;
+var screenBody;
+var script;
+// var screenBody;
+var idSets = new Object();
+
+function run() {
+	// println(idSets['aaa']);
+	init();
+	genDataset();
+	genScriptLinks();
+	calBindTarget();
+	screenBody = new CompositeMap(context);
+	screenBody.setPrefix('a');
+	screenBody.setName('screenBody');
+	view.addChild(screenBody);
+	return screen;
+}
+function calBindTarget(){
+	var dss = parser.getDatasets();
+	for ( var i = 0; i < dss.size(); i++) {
+		var ds = dss.get(i);
+		if(ds.getParent().getString('component_type','')=='grid'){
+			ds.getParent().put('bindTarget',ds.getString('ds_id',''));
+			return;
+		}
+		var fields = parser.getDatasetFields(ds);
+		for ( var k = 0; k < fields.size(); k++) {
+			var field = fields.get(k);
+			var ds_id = ds.getString('ds_id','');
+			field.getParent().put('bindTarget',ds_id);
+			//parser.debug(field.getParent().getParent().toXML());
+		}
+	}
+}
+function genDataset() {
+	var dss = parser.getDatasets();
+	for ( var i = 0; i < dss.size(); i++) {
+		var ds = dss.get(i);
+		var ds_id = genDatasetID(ds);
+		ds.put('ds_id', ds_id);
+	}
+	for ( var i = 0; i < dss.size(); i++) {
+		var ds = dss.get(i);
+		var type = ds.getString('component_type', '');
+		if (type == 'querydataset') {
+			ds.put("autoCreate", true);
+		}
+		if (type == 'resultdataset') {
+			var query = ds.getChildByAttrib('comment', 'target');
+			if (query != null) {
+				var form = getModel(query.getString('referenceid'));
+				if (form.ds.type == 'querydataset') {
+					ds.put('query_ds', form.ds.id);
+				} else if (form.ds.type == 'resultdataset') {
+					ds.put("bindName", rds.getString("id", ""));
+					ds.put('bindTarget', qds);
+				}
+			} else {
+				ds.put('autoQuery', true);
+				ds.put('pageSize', null);
+			}
+		}
+	}
+	for ( var i = 0; i < dss.size(); i++) {
+		var ds = dss.get(i);
+		var fields = parser.getDatasetFields(ds);
+		var newDS  = new CompositeMap(ds.clone());
+		newDS.setPrefix('a');
+		newDS.setName('dataset');
+
+		for ( var k = 0; k < fields.size(); k++) {
+			var field = fields.get(k);
+			field.put('field_name', field.getParent().getString('name', ''));
+			field.put('field_type', field.getParent().getString('component_type', ''));
+			
+			if (isLov(field)) {
+				genLovDSField(field);
+			}
+			if (isCombo(field)) {
+				genComboDSField(field);
+			}
+
+			newDS.addChild(field.clone());
+		}
+		dataSets.addChild(newDS);
+	}
+}
+function genLovDSField(field) {
+	var lovMaps = parser.getLovMaps(field);
+	field.put('lovService', field.getString('options', ''));
+	if (lovMaps != null) {
+		parser.bindMapping(field, lovMaps);
+	}
+}
+function genComboDSField(field) {
+	var model = field.getString('options', '');
+	var lookupCode = null;
+	if (model == '') {
+		lookupCode = field.getString('lookupCode', '');
+	}
+	if(model!=''||lookupCode!=''){
+		dataSets.addChild(createComboDatasetMap(model, lookupCode));
+	}
+	field.put('displayField', parser.getComboDisplayField(field));
+	field.put('valueField', parser.getComboValueField(field));
+}
+
+function isLov(field) {
+	var type = field.getParent().getString('component_type', '');
+	if (type == 'gridcolumn') {
+		type = field.getParent().getString('editor', '');
+	}
+	return type == 'lov';
+}
+function isCombo(field) {
+	var type = field.getParent().getString('component_type', '');
+	if (type == 'gridcolumn') {
+		type = field.getParent().getString('editor', '');
+	}
+	return type == 'comboBox';
+}
+
+function createComboDatasetMap(model, lookupCode) {
+	var rds = createMap('a', 'dataset');
+	rds["ds_id"] = genDatasetID(rds);
+	rds["autoCreate"] = true;
+	rds["model"] = String(model);
+	rds["loadData"]= true;
+	if (lookupCode != null)
+		rds["lookupCode"]=String(lookupCode);
+	return rds;
+}
+
+function genScriptLinks() {
+	var buttons = parser.getComponents('button');
+	for ( var i = 0; i < buttons.size(); i++) {
+		var button = buttons.get(i);
+		var functionName = genFuncitonName(button);
+		button.put('click', functionName);
+		var datasetID = parser.getButtonTargetDatasetID(button);
+		var clicker = button.getChild('ButtonClicker');
+		if (clicker != null) {
+			var id = clicker.getString('id');
+			if (id == 'custom') {
+				var s = clicker.getChild('function').getText();
+				functionName = parser.getFunctionName(s);
+				button.put('click', functionName);
+				script.addChild(genScript(s));
+			}
+			if (id == 'query') {
+				var s = queryScript(functionName, datasetID);
+				script.addChild(genScript(s));
+			}
+			if (id == 'save') {
+				var s = saveScript(functionName, datasetID);
+				script.addChild(genScript(s));
+			}
+			if (id == 'reset') {
+				var s = resetScript(functionName, datasetID);
+				script.addChild(genScript(s));
+			}
+			if (id == 'open') {
+				var link = genLink(clicker);
+				view.addChild(link.map);
+				var parameters = parser.getButtonOpenParameters(button);
+				var s = openScript(functionName, link.id,parameters);
+				script.addChild(genScript(s));
+			}
+			if (id == 'close') {
+				var windowID = clicker.getString('closeWindowID', '');
+				var s = closeScript(functionName, windowID);
+				script.addChild(genScript(s));
+			}
+		}
+
+	}
+	var renderers = parser.getComponents('renderer');
+	for ( var i = 0; i < renderers.size(); i++) {
+		var renderer = renderers.get(i);
+		var type = renderer.getString('renderertype');
+		if ('INNER_FUNCTION' == type) {
+			renderer.put('renderer', renderer.getString('functionname',''));
+		}
+		if ('PAGE_REDIRECT' == type) {
+			var functionName = genFuncitonName(renderer);
+			var parametersDetail = parser.getParametersDetail(renderer,"linkUrl");
+			renderer.put('renderer', functionName);
+			var link = genLink(renderer);
+			view.addChild(link.map);
+			var openFunctionName = genUID('function', 0);
+			var s1 = rendererOpenScript(openFunctionName,link.id,parametersDetail);
+			var s = rendererHrefScript(functionName,renderer.getString('labelText',''),openFunctionName,'', parametersDetail);
+			script.addChild(genScript(s));
+			script.addChild(genScript(s1));
+		}
+		if ('USER_FUNCTION' == type) {
+			var s = renderer.getChild('function').getText();
+			functionName = parser.getFuncitonName(s);
+			renderer.put('renderer', functionName);
+			script.addChild(genScript(s));
+		}
+	}
+}
+
+function genScript(text) {
+	var s = new CompositeMap("script");
+	s['text'] = String(text);
+	return s;
+}
+function genLink(map) {
+	var openpath = map.getString('openpath');
+	var obj = new Object();
+	obj.map = new CompositeMap("link");
+	obj.id = genLinkID(obj.map);
+	obj.map.put('url', openpath);
+	obj.map.put('id', id);
+	return obj;
+}
+
+function genFuncitonName(map) {
+	var fName = genUID('functionName', 0);
+	return fName;
+}
+
+function genUID(id, i) {
+	var oldID = id;
+	if (i > 0) {
+		id = id + "_" + i;
+	}
+	if (idSets[id] == null || idSets[id] == undefined) {
+		idSets[id] = id;
+		return id;
+	} else {
+		i++;
+		return genUID(oldID, i);
+	}
+}
+function genWindowID(map) {
+	return genUID('window', 0);
+}
+function genDatasetID(map) {
+	return genUID('ds', 0);
+}
+function genLinkID(map) {
+	return genUID('link', 0);
+}
+function genEditorID(map) {
+	return genUID('editor', 0);
+}
+
+function init() {
+	screen = new CompositeMap("screen");
+	var prefix_a = 'a';
+	screen
+			.setNameSpace(prefix_a,
+					'http://www.aurora-framework.org/application');
+	view = createMap(prefix_a, 'view');
+	dataSets = createMap(prefix_a, 'dataSets');
+
+
+	script = view.createChild('script');
+	screen.addChild(view);
+	view.addChild(dataSets);
+	
+}
+
+function createMap(p, name) {
+	var node = new CompositeMap(name);
+	node.setPrefix(p);
+	return node;
+}
+
+function hrefScript(functionName, labelText, newWindowName, parameter) {
+	return "function " + functionName
+			+ "(value,record, name){return '<a href=\"javascript:"
+			+ newWindowName + "(record)\">" + labelText + "</a>';}";
+}
+
+function queryScript(functionName, datasetId) {
+	return "function " + functionName + "(){$('" + datasetId + "').query();}";
+}
+
+function resetScript(functionName, datasetId) {
+	return "function " + functionName + "(){$('" + datasetId + "').reset();}";
+}
+
+function saveScript(functionName, datasetId) {
+	return " function " + functionName + "(){$('" + datasetId + "').submit();}";
+}
+
+function openScript(functionName, linkId,parameters) {
+	return " function "
+			+ functionName
+			+ "() {var linkUrl = $('"
+			+ linkId
+			+ "'); "
+			+ parameters
+			+ " new Aurora.Window({id: '"
+			+ windowId
+			+ "',url:linkUrl.getUrl(),title: 'Title',height: 435,width: 620});}";
+
+}
+
+function closeScript(functionName, windowId) {
+	return "function " + functionName + "(){$('" + windowId + "').close();}";
+}
+function rendererHrefScript(functionName, labelText, newWindowName, parameters) {
+	var s = "function " + functionName
+			+ "(value,record, name){return '<a href=\"javascript:"
+			+ newWindowName + "(" + parameters[0] + ")\">" + labelText + "</a>';}";
+	return s;
+}
+function rendererOpenScript(functionName, linkId,parameters) {
+	var s = " function "
+			+ functionName
+			+ "("
+			+ parameters[1]
+			+ ") {var linkUrl = $('"
+			+ linkId
+			+ "'); "
+			+ parameters[2]
+			+ " new Aurora.Window({id: '"
+			+ genUID('window', 0)
+			+ "',url:linkUrl.getUrl(),title: 'Title',height: 435,width: 620});}";
+	return s;
+}
