@@ -1,13 +1,9 @@
 package aurora.ide.meta.gef.editors.models.io;
 
-import java.util.List;
-
 import org.eclipse.draw2d.geometry.Dimension;
 
 import uncertain.composite.CompositeMap;
-import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.models.Grid;
 import aurora.ide.meta.gef.editors.models.GridSelectionCol;
 import aurora.ide.meta.gef.editors.models.Navbar;
@@ -58,13 +54,25 @@ public class GridHandler extends ContainerHandler {
 		Grid g = (Grid) ac;
 		if (!g.hasToolbar())
 			return;
-		List<Button> btns = g.getToobarButtons();
-		CompositeMap tbMap = new CommentCompositeMap(
-				Toolbar.class.getSimpleName());
-		for (Button b : btns) {
-			tbMap.addChild(new ButtonHandler().toCompositeMap(b, mic));
+		Toolbar toolbar = g.getToolbar();
+		if (toolbar != null) {
+			CompositeMap tbMap = new DefaultIOHandler() {
+
+				@Override
+				protected AuroraComponent getNewObject(CompositeMap map) {
+					return new Toolbar();
+				}
+			}.toCompositeMap(toolbar, mic);
+			map.addChild(tbMap);
 		}
-		map.addChild(tbMap);
+		// List<Button> btns = g.getToobarButtons();
+		//
+		// CompositeMap tbMap = new CommentCompositeMap(
+		// Toolbar.class.getSimpleName());
+		// for (Button b : btns) {
+		// tbMap.addChild(new ButtonHandler().toCompositeMap(b, mic));
+		// }
+		// map.addChild(tbMap);
 	}
 
 	@Override
@@ -74,12 +82,19 @@ public class GridHandler extends ContainerHandler {
 		CompositeMap tbMap = map.getChild(Toolbar.class.getSimpleName());
 		if (tbMap == null)
 			return;
-		Toolbar tb = new Toolbar();
-		@SuppressWarnings("unchecked")
-		List<CompositeMap> list = tbMap.getChildsNotNull();
-		for (CompositeMap m : list) {
-			tb.addChild(new ButtonHandler().fromCompositeMap(m, mic));
-		}
+		Toolbar tb = (Toolbar) new DefaultIOHandler() {
+
+			@Override
+			protected AuroraComponent getNewObject(CompositeMap map) {
+				return new Toolbar();
+			}
+		}.fromCompositeMap(tbMap, mic);
+		// Toolbar tb = new Toolbar();
+		// @SuppressWarnings("unchecked")
+		// List<CompositeMap> list = tbMap.getChildsNotNull();
+		// for (CompositeMap m : list) {
+		// tb.addChild(new ButtonHandler().fromCompositeMap(m, mic));
+		// }
 		g.addChild(tb);
 	}
 }

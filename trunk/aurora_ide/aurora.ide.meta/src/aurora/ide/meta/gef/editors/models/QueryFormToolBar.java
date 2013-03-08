@@ -11,13 +11,30 @@ public class QueryFormToolBar extends HBox {
 		super();
 		setType("formToolbar");
 		addChild(hBox);
-		btnQuery.setText("HAP.QUERY");
-		btnMore.setText("HAP.MORE");
+		btnQuery.setText("查询");
+		btnMore.setText("更多");
 		addChild(btnQuery);
-		addChild(btnMore);
+		// addChild(btnMore);
 	}
 
 	public HBox getHBox() {
 		return hBox;
+	}
+
+	@Override
+	public void setDataset(Dataset ds) {
+		if (hBox != null)
+			hBox.setDataset(ds);
+	}
+
+	public void setHasMore(boolean more) {
+		if (more && !getChildren().contains(btnMore))
+			addChild(btnMore);
+		if (!more && getChildren().contains(btnMore))
+			removeChild(btnMore);
+	}
+
+	public boolean hasMore() {
+		return getChildren().contains(btnMore);
 	}
 }

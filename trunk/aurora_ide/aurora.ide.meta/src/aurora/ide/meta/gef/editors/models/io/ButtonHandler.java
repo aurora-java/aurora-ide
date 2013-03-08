@@ -20,10 +20,10 @@ public class ButtonHandler extends DefaultIOHandler {
 		super.storeSimpleAttribute(map, ac);
 		Button b = (Button) ac;
 		map.put(Button.BUTTON_TYPE, b.getButtonType());
-		if (!b.isOnToolBar()) {
-			map.put(Button.WIDTH, b.getSize().width);
-			map.put(Button.HEIGHT, b.getSize().height);
-		}
+		// if (!b.isOnToolBar()) {
+		map.put(Button.WIDTH, b.getSize().width);
+		map.put(Button.HEIGHT, b.getSize().height);
+		// }
 		if (b.getButtonType().equals(Button.DEFAULT)) {
 			map.put(Button.BUTTON_TEXT, b.getText());
 		}
@@ -80,11 +80,11 @@ public class ButtonHandler extends DefaultIOHandler {
 		super.restoreSimpleAttribute(ac, map);
 		Button b = (Button) ac;
 		b.setButtonType(map.getString(Button.BUTTON_TYPE));
-		if (!map.getParent().getName()
-				.equalsIgnoreCase(Toolbar.class.getSimpleName())) {
-			b.setSize(new Dimension(map.getInt(Button.WIDTH), map
-					.getInt(Button.HEIGHT)));
-		}
+		// if (!map.getParent().getName()
+		// .equalsIgnoreCase(Toolbar.class.getSimpleName())) {
+		b.setSize(new Dimension(map.getInt(Button.WIDTH), map
+				.getInt(Button.HEIGHT)));
+		// }
 		if (b.getButtonType().equals(Button.DEFAULT)) {
 			String text = map.getString(Button.BUTTON_TEXT);
 			if (text != null)
