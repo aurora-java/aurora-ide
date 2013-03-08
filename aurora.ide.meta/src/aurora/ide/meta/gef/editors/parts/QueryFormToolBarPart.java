@@ -13,8 +13,12 @@ import org.eclipse.swt.graphics.Path;
 
 import aurora.ide.helpers.ImagesUtils;
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
+import aurora.ide.meta.gef.editors.figures.ColorConstants;
+import aurora.ide.meta.gef.editors.figures.FigureUtil;
 import aurora.ide.meta.gef.editors.layout.RowColBackLayout;
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.BOX;
+import aurora.ide.meta.gef.editors.models.QueryForm;
 import aurora.ide.meta.gef.editors.policies.NoSelectionEditPolicy;
 
 public class QueryFormToolBarPart extends BoxPart {
@@ -29,7 +33,7 @@ public class QueryFormToolBarPart extends BoxPart {
 
 			public void paintBackground(IFigure figure, Graphics graphics,
 					Insets insets) {
-				int d = 6;
+				int d = 12;
 				Path path = new Path(null);
 				Rectangle rect = figure.getBounds();
 				path.addArc(rect.x, rect.y, d, d, 90, 90);
@@ -44,6 +48,19 @@ public class QueryFormToolBarPart extends BoxPart {
 				graphics.setClip(path);
 				graphics.drawImage(bgImage, new Rectangle(bgImage.getBounds()),
 						figure.getBounds());
+				List<IFigure> childs = figure.getChildren();
+				if (childs.get(0).getChildren().size() == 0) {
+					Rectangle hBoxRect = childs.get(0).getBounds();
+					hBoxRect = hBoxRect.getShrinked(new Insets(10, 10, 10, 10));
+					graphics.setForegroundColor(ColorConstants.WHITE);
+					graphics.fillRectangle(hBoxRect);
+					graphics.setForegroundColor(ColorConstants.EDITOR_BORDER);
+					graphics.drawRectangle(hBoxRect);
+					String hint = ((QueryForm) getParent().getModel())
+							.getDefaultQueryHint();
+					FigureUtil.paintText(graphics, hBoxRect.translate(3, 1),
+							hint, -1, 0);
+				}
 			}
 		});
 		return figure;
@@ -68,25 +85,25 @@ public class QueryFormToolBarPart extends BoxPart {
 	public Rectangle layout() {
 		@SuppressWarnings("unchecked")
 		List<ComponentPart> list = getChildren();
-		Rectangle rect = getFigure().getBounds();
+		Rectangle rect = ((AuroraComponent) getModel()).getBounds();
 		int buttonGap = 10;
 		rect.height = 40;
-		IFigure f1 = list.get(1).getFigure();
-		Rectangle r1 = list.get(1).layout();
-		r1.x = rect.width + rect.x - (r1.width + buttonGap) * 2;
-		r1.y = rect.y + (rect.height - r1.height) / 2;
-		f1.setBounds(r1);
-
-		IFigure f2 = list.get(2).getFigure();
-		Rectangle r2 = r1.getTranslated(r1.width + buttonGap, 0);
-		f2.setBounds(r2);
-
+		int buttonWidth = 80;
+		for (int i = list.size() - 1; i > 0; i--) {
+			IFigure f1 = list.get(i).getFigure();
+			Rectangle r1 = list.get(i).layout();
+			buttonWidth = r1.width;
+			r1.x = rect.width + rect.x - (r1.width + buttonGap)
+					* (list.size() - i);
+			r1.y = rect.y + (rect.height - r1.height) / 2;
+			f1.setBounds(r1);
+		}
 		ComponentPart hbox = list.get(0);
 		IFigure f0 = hbox.getFigure();
 		if (f0.getBorder() != null)
 			f0.setBorder(null);
-		f0.setBounds(new Rectangle(rect.x, rect.y, rect.width - r1.width * 2
-				- buttonGap * 3, rect.height));
+		f0.setBounds(new Rectangle(rect.x, rect.y, rect.width - buttonWidth
+				* (list.size() - 1) - buttonGap * list.size(), rect.height));
 		RowColBackLayout rowColBackLayout = new RowColBackLayout();
 		rowColBackLayout.setPadding(new Insets(6, 0, 0, 0));
 		rowColBackLayout.layout(hbox);

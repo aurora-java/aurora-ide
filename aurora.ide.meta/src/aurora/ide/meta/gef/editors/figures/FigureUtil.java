@@ -33,4 +33,33 @@ public class FigureUtil {
 			g.drawLine(p1, p2);
 		}
 	}
+
+	/**
+	 * 
+	 * @param g
+	 * @param r
+	 * @param s
+	 * @param halign
+	 *            -1,0,1(LEFT,CENTER,RIGHT)
+	 * @param valign
+	 *            -1,0,1(TOP,MIDDLE,BOTTOM)
+	 */
+	public static void paintText(Graphics g, Rectangle r, String s, int halign,
+			int valign) {
+		if (r == null || s == null)
+			return;
+		Dimension d = FigureUtilities.getStringExtents(s, g.getFont());
+		int x = r.x, y = r.y;
+		if (halign == 0) {
+			x = r.x + ((r.width - d.width) >> 1);
+		} else if (halign == 1) {
+			x = r.x + r.width - d.width;
+		}
+		if (valign == 0) {
+			y = r.y + ((r.height - d.height) >> 1);
+		} else if (valign == 1) {
+			y = r.y + r.height - d.height;
+		}
+		g.drawString(s, x, y);
+	}
 }

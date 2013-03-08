@@ -10,7 +10,7 @@ import org.eclipse.gef.requests.CreateRequest;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.commands.CreateComponentCommand;
-import aurora.ide.meta.gef.editors.parts.QueryFormPart;
+import aurora.ide.meta.gef.editors.models.commands.MoveRemoteChildCmpCmd;
 import aurora.ide.meta.gef.editors.parts.QueryFormToolBarPart;
 
 public class QueryFormLayoutEditPolicy extends FlowLayoutEditPolicy {
@@ -48,8 +48,7 @@ public class QueryFormLayoutEditPolicy extends FlowLayoutEditPolicy {
 	}
 
 	protected boolean shouldIgonre() {
-		return targetEditPart instanceof QueryFormToolBarPart
-				|| targetEditPart instanceof QueryFormPart;
+		return targetEditPart instanceof QueryFormToolBarPart;
 	}
 
 	protected Command getDeleteDependantCommand(Request request) {
@@ -63,7 +62,20 @@ public class QueryFormLayoutEditPolicy extends FlowLayoutEditPolicy {
 
 	@Override
 	protected Command createAddCommand(EditPart child, EditPart after) {
-		return null;
+		if (targetEditPart == null)
+			return null;
+		MoveRemoteChildCmpCmd cmd = new MoveRemoteChildCmpCmd();
+		cmd.setComponentToMove((AuroraComponent) child.getModel());
+		if (targetEditPart.getModel() instanceof Container) {
+			Container dest = (Container) targetEditPart.getModel();
+			AuroraComponent ac = (AuroraComponent) child.getModel();
+			if (!dest.isResponsibleChild(ac))
+				return null;
+			cmd.setTargetContainer(dest);
+		}
+		cmd.setReferenceComponent(after == null ? null
+				: (AuroraComponent) after.getModel());
+		return cmd;
 	}
 
 	@Override

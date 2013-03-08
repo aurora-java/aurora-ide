@@ -4,6 +4,7 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.ContainerHolder;
+import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.HBox;
 import aurora.ide.meta.gef.editors.models.QueryForm;
@@ -38,6 +39,12 @@ public class QueryFormHandler extends DefaultIOHandler {
 	protected void storeComplexAttribute(CompositeMap map, AuroraComponent ac) {
 		super.storeComplexAttribute(map, ac);
 		QueryForm qf = (QueryForm) ac;
+		Dataset ds = qf.getDataset();
+		if (ds != null) {
+			DataSetHandler dsh = new DataSetHandler();
+			CompositeMap dsMap = dsh.toCompositeMap(ds, mic);
+			map.addChild(dsMap);
+		}
 		ContainerHolder holder = qf.getResultTargetContainer();
 		if (holder != null) {
 			CompositeMap holderMap = new ContainerHolderHandler()
@@ -51,6 +58,12 @@ public class QueryFormHandler extends DefaultIOHandler {
 	protected void restoreComplexAttribute(AuroraComponent ac, CompositeMap map) {
 		super.restoreComplexAttribute(ac, map);
 		QueryForm qf = (QueryForm) ac;
+		CompositeMap dsMap = map.getChild(Dataset.class.getSimpleName());
+		if (dsMap != null) {
+			Dataset ds = (Dataset) new DataSetHandler().fromCompositeMap(dsMap,
+					mic);
+			qf.setDataset(ds);
+		}
 		CompositeMap holderMap = map.getChild("ResultTarget");
 		if (holderMap != null) {
 			ContainerHolder qh = (ContainerHolder) new ContainerHolderHandler()
@@ -64,14 +77,21 @@ public class QueryFormHandler extends DefaultIOHandler {
 		// super.storeChildren(map, container);
 		QueryForm qf = (QueryForm) container;
 		BoxHandler bh = new BoxHandler();
-		CompositeMap toolBarMap = bh.toCompositeMap(qf.getToolBar().getHBox(),
-				mic);
-		toolBarMap.setName(QueryFormToolBar.class.getSimpleName());
-		map.addChild(toolBarMap);
-		CompositeMap bodyMap = bh.toCompositeMap(qf.getBody(), mic);
-		bodyMap.setName(QueryFormBody.class.getSimpleName());
-		map.addChild(bodyMap);
-
+		if (qf.getToolBar().getHBox().getChildren().size() > 0) {
+			CompositeMap toolBarMap = bh.toCompositeMap(qf.getToolBar()
+					.getHBox(), mic);
+			toolBarMap.removeChild(toolBarMap.getChild(Dataset.class
+					.getSimpleName()));
+			toolBarMap.setName(QueryFormToolBar.class.getSimpleName());
+			toolBarMap.put(COMPONENT_TYPE, qf.getToolBar().getType());// override
+			map.addChild(toolBarMap);
+		}
+		if (qf.getBody() != null) {
+			CompositeMap bodyMap = bh.toCompositeMap(qf.getBody(), mic);
+			bodyMap.removeChild(bodyMap.getChild(Dataset.class.getSimpleName()));
+			bodyMap.setName(QueryFormBody.class.getSimpleName());
+			map.addChild(bodyMap);
+		}
 	}
 
 	@Override
@@ -84,6 +104,7 @@ public class QueryFormHandler extends DefaultIOHandler {
 		if (toolBarMap != null) {
 			toolBarMap.setName("HBox");
 			HBox box = (HBox) bh.fromCompositeMap(toolBarMap, mic);
+			box.setType(HBox.H_BOX);
 			qf.getToolBar().getHBox().getChildren().addAll(box.getChildren());
 		}
 		CompositeMap bodyMap = map
@@ -91,7 +112,11 @@ public class QueryFormHandler extends DefaultIOHandler {
 		if (bodyMap != null) {
 			bodyMap.setName("Form");
 			Form box = (Form) bh.fromCompositeMap(bodyMap, mic);
-			qf.getBody().getChildren().addAll(box.getChildren());
+			QueryFormBody body = new QueryFormBody();
+			body.setLabelWidth(box.getLabelWidth());
+			body.setCol(box.getCol());
+			body.getChildren().addAll(box.getChildren());
+			qf.addChild(body);
 		}
 	}
 

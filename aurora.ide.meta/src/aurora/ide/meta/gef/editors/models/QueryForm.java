@@ -1,5 +1,8 @@
 package aurora.ide.meta.gef.editors.models;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
@@ -7,7 +10,7 @@ import aurora.ide.meta.gef.editors.property.ContainerHolderEditDialog;
 import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
 
-public class QueryForm extends BOX {
+public class QueryForm extends BOX implements PropertyChangeListener {
 	/**
 	 * 
 	 */
@@ -17,31 +20,34 @@ public class QueryForm extends BOX {
 	public static String RESULT_TARGET_CONTAINER_KEY = "resultTargetContainer";
 	public static String QUERY_HOOK_KEY = "queryHook";
 	private QueryFormToolBar toolBar = new QueryFormToolBar();
-	private QueryFormBody body = new QueryFormBody();
+	// private QueryFormBody body = new QueryFormBody();
 	private String defaultQueryField = "";
 	private String defaultQueryHint = "";
 	private String queryHook = "";
 	private ContainerHolder resultTargetContainer = null;
 	protected static IPropertyDescriptor PD_QUERY_FIELD = new StringPropertyDescriptor(
-			DEFAULT_QUERY_FIELD_KEY, "QueryField");
+			DEFAULT_QUERY_FIELD_KEY, DEFAULT_QUERY_FIELD_KEY);
 	protected static IPropertyDescriptor PD_QUERY_HINT = new StringPropertyDescriptor(
-			DEFAULT_QUERY_HINT_KEY, "QueryHint");
+			DEFAULT_QUERY_HINT_KEY, DEFAULT_QUERY_HINT_KEY);
 	protected static IPropertyDescriptor PD_RESULT_TARGET = new DialogPropertyDescriptor(
-			RESULT_TARGET_CONTAINER_KEY, "ResultTarget",
+			RESULT_TARGET_CONTAINER_KEY, "resultTarget",
 			ContainerHolderEditDialog.class);
 	private IPropertyDescriptor[] pds = new IPropertyDescriptor[] { PD_PROMPT,
 			PD_QUERY_FIELD, PD_QUERY_HINT, PD_RESULT_TARGET, PD_LABELWIDTH };
 
 	public QueryForm() {
 		this.setType("queryForm");
+		this.setDataset(new QueryDataSet());
 		this.setSectionType(BOX.SECTION_TYPE_QUERY);
 		setCol(1);
+		toolBar.setDataset(getDataset());
 		addChild(toolBar);
-		addChild(body);
+		// addChild(body);
 		resultTargetContainer = new ContainerHolder();
 		resultTargetContainer.setOwner(this);
 		resultTargetContainer.setContainerType(BOX.SECTION_TYPE_RESULT);
 		setSize(new Dimension(600, 400));
+		addPropertyChangeListener(this);
 	}
 
 	public int getHeadHight() {
@@ -49,11 +55,28 @@ public class QueryForm extends BOX {
 	}
 
 	public QueryFormToolBar getToolBar() {
-		return toolBar;
+		for (AuroraComponent ac : getChildren()) {
+			if (ac instanceof QueryFormToolBar)
+				return (QueryFormToolBar) ac;
+		}
+		return null;
 	}
 
 	public QueryFormBody getBody() {
-		return body;
+		for (AuroraComponent ac : getChildren()) {
+			if (ac instanceof QueryFormBody)
+				return (QueryFormBody) ac;
+		}
+		return null;
+	}
+
+	public void setDataset(Dataset ds) {
+		super.setDataset(ds);
+		if (toolBar != null)
+			toolBar.setDataset(ds);
+		QueryFormBody body = getBody();
+		if (body != null)
+			body.setDataset(ds);
 	}
 
 	@Override
@@ -97,7 +120,10 @@ public class QueryForm extends BOX {
 	}
 
 	public void setDefaultQueryHint(String defaultQueryHint) {
+		String old = this.defaultQueryField;
 		this.defaultQueryHint = defaultQueryHint;
+		toolBar.firePropertyChange(DEFAULT_QUERY_HINT_KEY, old,
+				defaultQueryHint);
 	}
 
 	public ContainerHolder getResultTargetContainer() {
@@ -106,6 +132,24 @@ public class QueryForm extends BOX {
 
 	public void setResultTargetContainer(ContainerHolder resultTargetContainer) {
 		this.resultTargetContainer = resultTargetContainer;
+		resultTargetContainer.setOwner(this);
 	}
 
+	@Override
+	public boolean isResponsibleChild(AuroraComponent component) {
+		if (component instanceof QueryFormToolBar)
+			return getToolBar() == null;
+		if (component instanceof QueryFormBody)
+			return getBody() == null;
+		return false;
+	}
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals(CHILDREN)) {
+			Object newVal = evt.getNewValue();
+			if (newVal instanceof QueryFormBody) {
+				toolBar.setHasMore(getChildren().contains(newVal));
+			}
+		}
+	}
 }

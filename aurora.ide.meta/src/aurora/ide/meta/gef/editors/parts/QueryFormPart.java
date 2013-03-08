@@ -39,8 +39,9 @@ public class QueryFormPart extends BoxPart {
 
 	@Override
 	protected void addChild(EditPart child, int index) {
-		child.installEditPolicy(NoSelectionEditPolicy.TRANS_SELECTION_KEY,
-				new NoSelectionEditPolicy());
+		if (child instanceof QueryFormToolBarPart)
+			child.installEditPolicy(NoSelectionEditPolicy.TRANS_SELECTION_KEY,
+					new NoSelectionEditPolicy());
 		super.addChild(child, index);
 	}
 

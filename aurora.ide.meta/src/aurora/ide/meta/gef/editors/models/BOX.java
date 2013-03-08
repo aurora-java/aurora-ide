@@ -112,6 +112,8 @@ public class BOX extends RowCol {
 			return false;
 		if (component instanceof TabItem)
 			return false;
+		if (component instanceof QueryFormBody)
+			return false;
 		return super.isResponsibleChild(component);
 	}
 

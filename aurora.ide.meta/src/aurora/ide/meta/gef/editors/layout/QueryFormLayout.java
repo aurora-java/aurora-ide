@@ -2,9 +2,9 @@ package aurora.ide.meta.gef.editors.layout;
 
 import java.util.List;
 
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.QueryFormPart;
 
@@ -20,19 +20,17 @@ public class QueryFormLayout extends BackLayout {
 		List<ComponentPart> list = part.getChildren();
 		for (int i = 0; i < list.size(); i++) {
 			ComponentPart cp = list.get(i);
-			Rectangle r = new Rectangle();
+			Rectangle r = ((AuroraComponent) cp.getModel()).getBounds();
+			applyToModel(cp, r.getCopy().setSize(rect.width, 40));
+			r = cp.layout();
 			r.x = rect.x;
 			r.y = rect.y + maxHeight;
 			r.width = rect.width;
-			r.height = 40;
 			cp.getFigure().setBounds(r);
-			applyToModel(cp, r);
-			r = cp.layout();
-			cp.getFigure().setSize(new Dimension(rect.width, r.height));
 			maxHeight += r.height + GAP;
 		}
 		rect.height = maxHeight;
-		if (list.size() > 0)
+		if (list.size() > 1)
 			rect.height -= GAP;
 		return rect;
 	}

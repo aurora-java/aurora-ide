@@ -9,9 +9,7 @@ import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.QueryForm;
-import aurora.ide.meta.gef.editors.models.QueryFormBody;
 import aurora.ide.meta.gef.editors.models.QueryFormToolBar;
-import aurora.ide.meta.gef.editors.parts.QueryFormBodyPart;
 import aurora.ide.meta.gef.editors.parts.QueryFormPart;
 import aurora.ide.meta.gef.editors.parts.QueryFormToolBarPart;
 
@@ -34,8 +32,6 @@ public class QueryFormCreator extends ComponentCreator {
 			return new QueryFormPart();
 		else if (model instanceof QueryFormToolBar)
 			return new QueryFormToolBarPart();
-		else if (model instanceof QueryFormBody)
-			return new QueryFormBodyPart();
 		return null;
 	}
 
