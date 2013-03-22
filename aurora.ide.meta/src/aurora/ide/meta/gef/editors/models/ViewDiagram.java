@@ -19,6 +19,11 @@ public class ViewDiagram extends Container {
 
 	private String templateType;
 
+	public ViewDiagram() {
+		super();
+		setType("screenBody");
+	}
+
 	@Override
 	public boolean isResponsibleChild(AuroraComponent component) {
 		Class<?> cls = component.getClass();
