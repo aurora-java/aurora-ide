@@ -20,7 +20,7 @@ import org.eclipse.ui.views.properties.IPropertySheetEntryListener;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class PropertySheetEntry extends EventManager implements
 		IPropertySheetEntry {

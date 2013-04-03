@@ -33,14 +33,15 @@ import aurora.ide.editor.textpage.JavaScriptConfiguration;
 import aurora.ide.meta.gef.editors.composite.IPathChangeListener;
 import aurora.ide.meta.gef.editors.composite.ScreenUIPBrowseButton;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.ButtonClicker;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.TabFolder;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
+import aurora.ide.meta.gef.util.MessageUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.ButtonClicker;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.TabFolder;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class ButtonClickEditDialog extends EditWizard {
 
@@ -50,7 +51,7 @@ public class ButtonClickEditDialog extends EditWizard {
 			Messages.ButtonClickEditDialog_0, Messages.ButtonClickEditDialog_1,
 			Messages.ButtonClickEditDialog_2, Messages.ButtonClickEditDialog_3,
 			Messages.ButtonClickEditDialog_4, Messages.ButtonClickEditDialog_5 };
-	private Button[] radios = new Button[ButtonClicker.action_texts.length];
+	private Button[] radios = new Button[MessageUtil.button_action_texts().length];
 	private String section_type_filter = Container.SECTION_TYPE_QUERY;
 	private Composite composite_right;
 	private ButtonClicker clicker = null;
@@ -67,7 +68,7 @@ public class ButtonClickEditDialog extends EditWizard {
 	}
 
 	@Override
-	public void setDialogEdiableObject(DialogEditableObject obj) {
+	public void setDialogEdiableObject(IDialogEditableObject obj) {
 		clicker = (ButtonClicker) obj;
 	}
 
@@ -111,9 +112,9 @@ public class ButtonClickEditDialog extends EditWizard {
 			composite_right = new Composite(sashForm, SWT.NONE);
 
 			boolean created = false;
-			for (int i = 0; i < ButtonClicker.action_texts.length; i++) {
+			for (int i = 0; i < MessageUtil.button_action_texts().length; i++) {
 				radios[i] = new Button(composite_left, SWT.RADIO);
-				radios[i].setText(ButtonClicker.action_texts[i]);
+				radios[i].setText(MessageUtil.button_action_texts()[i]);
 				radios[i].addSelectionListener(this);
 				if (ButtonClicker.action_ids[i].equals(clicker.getActionID())) {
 					radios[i].setSelection(true);
@@ -155,7 +156,7 @@ public class ButtonClickEditDialog extends EditWizard {
 
 		private void create_query() {
 			AuroraComponent comp = (AuroraComponent) clicker.getContextInfo();
-			ViewDiagram root = getRoot(comp);
+			ScreenBody root = getRoot(comp);
 			if (root == null) {
 				setErrorMessage(Messages.ButtonClickEditDialog_9);
 				setPageComplete(false);
@@ -238,37 +239,37 @@ public class ButtonClickEditDialog extends EditWizard {
 					}
 				}
 			});
-//			btn.addSelectionListener(new SelectionListener() {
-//				public void widgetSelected(SelectionEvent e) {
-//					MutilInputResourceSelector fss = new MutilInputResourceSelector(
-//							composite_right.getShell());
-//					IFolder webHome = ResourceUtil
-//							.getWebHomeFolder(auroraProject);
-//					fss.setExtFilter(new String[] { "screen", "uip" });
-//					IContainer uipFolder = getUIPFolder();
-//					fss.setInputs(new IContainer[] { webHome, uipFolder });
-//					Object obj = fss.getSelection();
-//					if (!(obj instanceof IFile)) {
-//						return;
-//					}
-//					IFile file = (IFile) obj;
-//					IPath path = file.getFullPath();
-//					IContainer web = Util.findWebInf(file).getParent();
-//					path = path.makeRelativeTo(web.getFullPath());
-//					tmpPath = path.toString();
-//					text.setText(tmpPath);
-//				}
-//
-//				public void widgetDefaultSelected(SelectionEvent e) {
-//				}
-//			});
+			// btn.addSelectionListener(new SelectionListener() {
+			// public void widgetSelected(SelectionEvent e) {
+			// MutilInputResourceSelector fss = new MutilInputResourceSelector(
+			// composite_right.getShell());
+			// IFolder webHome = ResourceUtil
+			// .getWebHomeFolder(auroraProject);
+			// fss.setExtFilter(new String[] { "screen", "uip" });
+			// IContainer uipFolder = getUIPFolder();
+			// fss.setInputs(new IContainer[] { webHome, uipFolder });
+			// Object obj = fss.getSelection();
+			// if (!(obj instanceof IFile)) {
+			// return;
+			// }
+			// IFile file = (IFile) obj;
+			// IPath path = file.getFullPath();
+			// IContainer web = Util.findWebInf(file).getParent();
+			// path = path.makeRelativeTo(web.getFullPath());
+			// tmpPath = path.toString();
+			// text.setText(tmpPath);
+			// }
+			//
+			// public void widgetDefaultSelected(SelectionEvent e) {
+			// }
+			// });
 
 			createParaTable(composite_right);
 		}
 
 		private void createParaTable(Composite composite_right) {
 			AuroraComponent comp = (AuroraComponent) clicker.getContextInfo();
-			ViewDiagram root = getRoot(comp);
+			ScreenBody root = getRoot(comp);
 			if (root == null) {
 				setErrorMessage(Messages.ButtonClickEditDialog_9);
 				setPageComplete(false);
@@ -281,11 +282,11 @@ public class ButtonClickEditDialog extends EditWizard {
 			pc.setParameters(clicker.getParameters());
 		}
 
-		private ViewDiagram getRoot(AuroraComponent comp) {
-			ViewDiagram root = null;
+		private ScreenBody getRoot(AuroraComponent comp) {
+			ScreenBody root = null;
 			while (comp != null) {
-				if (comp instanceof ViewDiagram) {
-					root = (ViewDiagram) comp;
+				if (comp instanceof ScreenBody) {
+					root = (ScreenBody) comp;
 					break;
 				}
 				comp = comp.getParent();
@@ -293,17 +294,17 @@ public class ButtonClickEditDialog extends EditWizard {
 			return root;
 		}
 
-//		public IContainer getUIPFolder() {
-//			IFile activeIFile = AuroraPlugin.getActiveIFile();
-//			IProject proj = activeIFile.getProject();
-//			AuroraMetaProject mProj = new AuroraMetaProject(proj);
-//			try {
-//				return mProj.getScreenFolder();
-//			} catch (ResourceNotFoundException e) {
-//				e.printStackTrace();
-//			}
-//			return mProj.getProject();
-//		}
+		// public IContainer getUIPFolder() {
+		// IFile activeIFile = AuroraPlugin.getActiveIFile();
+		// IProject proj = activeIFile.getProject();
+		// AuroraMetaProject mProj = new AuroraMetaProject(proj);
+		// try {
+		// return mProj.getScreenFolder();
+		// } catch (ResourceNotFoundException e) {
+		// e.printStackTrace();
+		// }
+		// return mProj.getProject();
+		// }
 
 		private void create_close() {
 			composite_right.setLayout(new GridLayout(2, false));

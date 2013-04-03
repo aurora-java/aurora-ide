@@ -10,7 +10,7 @@ import aurora.ide.api.javascript.JavascriptRhino;
 
 public abstract class EditWizard extends Wizard {
 
-	public abstract void setDialogEdiableObject(DialogEditableObject obj);
+	public abstract void setDialogEdiableObject(IDialogEditableObject obj);
 
 	protected String validateFunction(String jsCode) {
 		try {

@@ -4,11 +4,15 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 
-public class BooleanPropertyDescriptor extends PropertyDescriptor {
+public class BooleanPropertyDescriptor extends StylePropertyDescriptor {
 	private boolean readOnly = false;
 
 	public BooleanPropertyDescriptor(Object id, String displayName) {
 		super(id, displayName);
+	}
+
+	public BooleanPropertyDescriptor(Object id, String displayName, int style) {
+		super(id, displayName, style);
 	}
 
 	public BooleanPropertyDescriptor(Object id, String displayName,

@@ -29,11 +29,12 @@ import aurora.ide.editor.textpage.JavaScriptConfiguration;
 import aurora.ide.meta.gef.editors.composite.IPathChangeListener;
 import aurora.ide.meta.gef.editors.composite.ScreenUIPBrowseButton;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Renderer;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
+import aurora.ide.meta.gef.util.MessageUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Renderer;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class RendererEditDialog extends EditWizard {
 
@@ -57,7 +58,7 @@ public class RendererEditDialog extends EditWizard {
 	}
 
 	@Override
-	public void setDialogEdiableObject(DialogEditableObject obj) {
+	public void setDialogEdiableObject(IDialogEditableObject obj) {
 		renderer = (Renderer) obj;
 	}
 
@@ -258,10 +259,10 @@ public class RendererEditDialog extends EditWizard {
 
 		private void createParaTable(Composite composite_right) {
 			AuroraComponent comp = (AuroraComponent) renderer.getContextInfo();
-			ViewDiagram root = null;
+			ScreenBody root = null;
 			while (comp != null) {
-				if (comp instanceof ViewDiagram) {
-					root = (ViewDiagram) comp;
+				if (comp instanceof ScreenBody) {
+					root = (ScreenBody) comp;
 					break;
 				}
 				comp = comp.getParent();
@@ -293,7 +294,7 @@ public class RendererEditDialog extends EditWizard {
 
 				public void widgetSelected(SelectionEvent e) {
 					int idx = list.getSelectionIndex();
-					l.setText(Renderer.INNER_RENDERER_DESC[idx]);
+					l.setText(MessageUtil.INNER_RENDERER_DESC()[idx]);
 					tmpFunctionName = Renderer.INNER_FUNCTIONS[idx];
 					setErrorMessage(null);
 					setPageComplete(true);
@@ -306,7 +307,7 @@ public class RendererEditDialog extends EditWizard {
 			for (int i = 0; i < Renderer.INNER_FUNCTIONS.length; i++) {
 				if (Renderer.INNER_FUNCTIONS[i].equals(tmpFunctionName)) {
 					list.select(i);
-					l.setText(Renderer.INNER_RENDERER_DESC[i]);
+					l.setText(MessageUtil.INNER_RENDERER_DESC()[i]);
 					break;
 				}
 			}

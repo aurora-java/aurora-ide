@@ -4,7 +4,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 
-public class IntegerPropertyDescriptor extends PropertyDescriptor {
+public class IntegerPropertyDescriptor extends StylePropertyDescriptor {
 	private int min = 0, max = Integer.MAX_VALUE, step1 = 5, step2 = 30;
 	private boolean readOnly = false;
 

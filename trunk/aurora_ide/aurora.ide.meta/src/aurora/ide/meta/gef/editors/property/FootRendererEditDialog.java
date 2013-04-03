@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Label;
 import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
-import aurora.ide.meta.gef.editors.models.FootRenderer;
+import aurora.plugin.source.gen.screen.model.FootRenderer;
 
 public class FootRendererEditDialog extends EditWizard {
 
@@ -45,7 +45,7 @@ public class FootRendererEditDialog extends EditWizard {
 	}
 
 	@Override
-	public void setDialogEdiableObject(DialogEditableObject obj) {
+	public void setDialogEdiableObject(IDialogEditableObject obj) {
 		renderer = (FootRenderer) obj;
 	}
 

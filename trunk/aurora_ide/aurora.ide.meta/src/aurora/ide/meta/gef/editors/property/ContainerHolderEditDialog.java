@@ -10,10 +10,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.ContainerHolder;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.models.old.ContainerHolder;
+import aurora.ide.meta.gef.editors.models.old.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class ContainerHolderEditDialog extends EditWizard {
 	private ContainerHolder containerHolder = null;
@@ -29,7 +30,7 @@ public class ContainerHolderEditDialog extends EditWizard {
 	}
 
 	@Override
-	public void setDialogEdiableObject(DialogEditableObject obj) {
+	public void setDialogEdiableObject(IDialogEditableObject obj) {
 		containerHolder = (ContainerHolder) obj;
 	}
 
@@ -50,10 +51,10 @@ public class ContainerHolderEditDialog extends EditWizard {
 		public void createControl(Composite parent) {
 			AuroraComponent comp = (AuroraComponent) containerHolder
 					.getContextInfo();
-			ViewDiagram root = null;
+			ScreenBody root = null;
 			while (comp != null) {
-				if (comp instanceof ViewDiagram) {
-					root = (ViewDiagram) comp;
+				if (comp instanceof ScreenBody) {
+					root = (ScreenBody) comp;
 					break;
 				}
 				comp = comp.getParent();
