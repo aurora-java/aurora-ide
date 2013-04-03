@@ -3,10 +3,10 @@ package aurora.ide.meta.gef.editors.template.handle;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class CreateTemplateHandle extends TemplateHandle {
 
@@ -14,7 +14,7 @@ public class CreateTemplateHandle extends TemplateHandle {
 		super(config);
 	}
 
-	public void fill(ViewDiagram viewDiagram) {
+	public void fill(ScreenBody viewDiagram) {
 		setColNum(viewDiagram, 1);
 		this.viewDiagram = viewDiagram;
 		for (BMReference bm : config.getModelRelated().keySet()) {

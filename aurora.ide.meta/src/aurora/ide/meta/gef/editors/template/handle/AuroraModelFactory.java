@@ -5,7 +5,7 @@ import java.util.List;
 import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.extensions.ExtensionComponent;
 import aurora.ide.meta.extensions.ExtensionLoader;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class AuroraModelFactory {
 	private static String[] types = { "toolbar", "form", "fieldset", "vbox",

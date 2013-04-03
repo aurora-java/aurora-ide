@@ -21,14 +21,6 @@ import org.eclipse.core.runtime.Platform;
 import org.xml.sax.SAXException;
 
 import aurora.ide.meta.MetaPlugin;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.models.ButtonClicker;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.ButtonComponent;
@@ -37,6 +29,13 @@ import aurora.ide.meta.gef.editors.template.LinkComponent;
 import aurora.ide.meta.gef.editors.template.TabComponent;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.project.AuroraMetaProjectNature;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.ButtonClicker;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.ResultDataSet;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class TemplateHelper {
 
@@ -157,9 +156,9 @@ public class TemplateHelper {
 		return templates.get(key);
 	}
 
-	public ViewDiagram createView(Template template) {
+	public ScreenBody createView(Template template) {
 		initVariable(template);
-		ViewDiagram viewDiagram = new ViewDiagram();
+		ScreenBody viewDiagram = new ScreenBody();
 		for (Component c : template.getChildren()) {
 			AuroraComponent ac = createAuroraComponent(c);
 			if (ac instanceof AuroraComponent) {
@@ -262,11 +261,11 @@ public class TemplateHelper {
 			config.put(TAB_ITEM, new ArrayList<Object>());
 		}
 		config.get(TAB_ITEM).add(ac);
-		TabRef ref = ac.getTabRef();
-		if (ref == null) {
-			ref = new TabRef();
-		}
-		ac.setTabRef(ref);
+//		TabRef ref = ac.getTabRef();
+//		if (ref == null) {
+//			ref = new TabRef();
+//		}
+//		ac.setTabRef(ref);
 		String ibmId = c.getModelQuery();
 		BMReference bm = null;
 		for (Object b : config.get(INIT_MODEL)) {
