@@ -4,14 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import aurora.ide.meta.gef.editors.models.Form;
-import aurora.ide.meta.gef.editors.models.RowCol;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
+import aurora.plugin.source.gen.screen.model.RowCol;
 
 public class RowColBackLayout extends BackLayout {
 
@@ -43,7 +41,7 @@ public class RowColBackLayout extends BackLayout {
 				return;
 			row = rowCol.getRow();
 			Rectangle fBounds = parent.getFigure().getBounds();
-			selfRectangle = fBounds.isEmpty() ? rowCol.getBoundsCopy()
+			selfRectangle = fBounds.isEmpty() ?toDraw2d(  rowCol.getBoundsCopy())
 					: fBounds;
 			// selfRectangle = rowCol.getBounds() ;
 			titleHight = rowCol.getHeadHight();
@@ -148,7 +146,7 @@ public class RowColBackLayout extends BackLayout {
 		Rectangle selfRectangle = zero.getCopy().setLocation(
 				parent.getFigure().getBounds().getLocation());
 		List children = parent.getChildren();
-		Rectangle modelRectangle = parent.getComponent().getBoundsCopy();
+		Rectangle modelRectangle = toDraw2d( parent.getComponent().getBoundsCopy());
 		if (children.size() == 0 || /*don't layout self yet*/selfRectangle.equals(zero))
 			return modelRectangle;
 		for (int i = 0; i < children.size(); i++) {

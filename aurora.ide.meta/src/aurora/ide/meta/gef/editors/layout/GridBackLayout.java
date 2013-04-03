@@ -10,11 +10,11 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.GridColumnFigure;
-import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.GridPart;
 import aurora.ide.meta.gef.editors.parts.NavbarPart;
 import aurora.ide.meta.gef.editors.parts.ToolbarPart;
+import aurora.plugin.source.gen.screen.model.Container;
 
 public class GridBackLayout extends BackLayout {
 
@@ -53,7 +53,7 @@ public class GridBackLayout extends BackLayout {
 			col = 100;
 			row = 1;
 			Rectangle fBounds = parent.getFigure().getBounds();
-			selfRectangle = fBounds.isEmpty() ? box.getBoundsCopy() : fBounds;
+			selfRectangle = fBounds.isEmpty() ? toDraw2d( box.getBoundsCopy()) : fBounds;
 			titleHight = this.hasToolbar() ? 25 : 0;
 			location.x = 0;
 			location.y = titleHight;
@@ -266,7 +266,7 @@ public class GridBackLayout extends BackLayout {
 		// selfRectangle.width, 35));
 		// horizontalScrollBar.setVisible(true);
 
-		selfRectangle = parent.getComponent().getBoundsCopy();
+		selfRectangle = toDraw2d( parent.getComponent().getBoundsCopy());
 		// return this.selfRectangle.setWidth(selfRectangle.width);
 		return this.selfRectangle.setSize(selfRectangle.getSize());
 	}
