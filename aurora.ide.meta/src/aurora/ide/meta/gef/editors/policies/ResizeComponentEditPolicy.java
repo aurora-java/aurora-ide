@@ -19,8 +19,8 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.tools.ResizeTracker;
 
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.commands.ResizeCmpCmd;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class ResizeComponentEditPolicy extends NonResizableEditPolicy {
 	private int resizeDirections = PositionConstants.NSEW;
