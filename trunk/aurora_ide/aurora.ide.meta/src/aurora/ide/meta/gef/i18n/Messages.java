@@ -4,6 +4,9 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "aurora.ide.meta.gef.i18n.messages"; //$NON-NLS-1$
+	public static  String Renderer_10 ;
+	public static  String Renderer_11 ;
+	public static  String Renderer_12 ;
 	public static String BindDropModelEditPolicy_0;
 	public static String BindDropModelEditPolicy_1;
 	public static String BMViewer_No_aurora_project;

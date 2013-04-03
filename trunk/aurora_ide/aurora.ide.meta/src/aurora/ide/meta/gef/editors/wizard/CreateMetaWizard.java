@@ -27,14 +27,18 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.undo.CreateFileOperation;
 import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 
+import uncertain.composite.CompositeMap;
+
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.gef.editors.VScreenEditor;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.search.ui.EditorOpener;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
+import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 
 public class CreateMetaWizard extends Wizard implements INewWizard {
 	private TemplateHelper helper = new TemplateHelper();
@@ -44,7 +48,7 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 	private AddModelWizardPage modelsPage = new AddModelWizardPage(this);
 
 	private IWorkbench workbench;
-	private ViewDiagram viewDiagram;
+	private ScreenBody viewDiagram;
 
 	private Template template;
 
@@ -112,9 +116,9 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
-		ViewDiagram vd = viewDiagram;
+		ScreenBody vd = viewDiagram;
 		if (newPage.isNoTemplate()) {
-			vd = new ViewDiagram();
+			vd = new ScreenBody();
 			List<String> models = this.modelsPage.getModels();
 			for (String m : models) {
 				vd.addUnBindModel(m);
@@ -132,13 +136,15 @@ public class CreateMetaWizard extends Wizard implements INewWizard {
 		return true;
 	}
 
-	private void performFinish(ViewDiagram viewDiagram) throws InvocationTargetException, InterruptedException,
+	private void performFinish(ScreenBody viewDiagram) throws InvocationTargetException, InterruptedException,
 			PartInitException {
 		EditorOpener editorOpener = new EditorOpener();
 		IFile file = ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(new Path(newPage.getPath() + "/" + newPage.getFileName()));
-		CommentCompositeMap rootMap = null;
-		rootMap = (CommentCompositeMap) ModelIOManager.getNewInstance().toCompositeMap(viewDiagram);
+		CompositeMap rootMap = null;
+//		rootMap = (CommentCompositeMap) ModelIOManager.getNewInstance().toCompositeMap(viewDiagram);
+//		new CompositeMap2Object().createScreenBody(rootMap);
+		rootMap =new Object2CompositeMap().createCompositeMap(viewDiagram);
 		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + rootMap.toXML();
 		InputStream is = null;
 		try {

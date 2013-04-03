@@ -11,8 +11,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.i18n.Messages;
+import aurora.plugin.source.gen.screen.model.Parameter;
 
 public class StyleSettingDialog extends Dialog {
 

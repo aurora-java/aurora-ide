@@ -26,9 +26,7 @@ import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.AuroraProjectNature;
 import aurora.ide.meta.exception.ResourceNotFoundException;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
-import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.handle.TemplateConfig;
 import aurora.ide.meta.gef.editors.template.handle.TemplateFactory;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
@@ -37,10 +35,11 @@ import aurora.ide.meta.gef.editors.wizard.dialog.SelectModelDialog;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.project.propertypage.ProjectPropertyPage;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class SelectModelWizardPage extends WizardPage {
 
-	private ViewDiagram viewDiagram;
+	private ScreenBody viewDiagram;
 	// private List<Grid> grids;
 	// private List<LinkComponent> tabLink;
 	private TemplateConfig config;
@@ -89,7 +88,7 @@ public class SelectModelWizardPage extends WizardPage {
 	// return config;
 	// }
 
-	public void createDynamicTextComponents(ViewDiagram viewDiagram, TemplateConfig config) {
+	public void createDynamicTextComponents(ScreenBody viewDiagram, TemplateConfig config) {
 		this.viewDiagram = viewDiagram;// TemplateHelper.getInstance().createView(t);
 		this.config = config;
 		// getConfig();
@@ -203,7 +202,7 @@ public class SelectModelWizardPage extends WizardPage {
 		setPageComplete(message == null);
 	}
 
-	public ViewDiagram getViewDiagram() {
+	public ScreenBody getViewDiagram() {
 		return viewDiagram;
 	}
 

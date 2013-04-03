@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="basecomponent" type="abstract"  descrition="基础组件" >
+<attribute name="" description="" editor="" editable="" fitter=""/>
+</component>
