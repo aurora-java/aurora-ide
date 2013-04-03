@@ -4,14 +4,14 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class TemplateDiagramLayoutEditPolicy extends
 		ContainerLayoutEditPolicy {
 	protected Command getCreateCommand(CreateRequest request) {
 		Object parent = getHost().getModel();
-		if (parent instanceof ViewDiagram) {
+		if (parent instanceof ScreenBody) {
 			return null;
 		}
 		return super.getCreateCommand(request);
@@ -19,7 +19,7 @@ public class TemplateDiagramLayoutEditPolicy extends
 
 	protected Command createAddCommand(EditPart child, EditPart after) {
 		Object parent = getHost().getModel();
-		if (parent instanceof ViewDiagram) {
+		if (parent instanceof ScreenBody) {
 			return null;
 		}
 		return super.createAddCommand(child, after);

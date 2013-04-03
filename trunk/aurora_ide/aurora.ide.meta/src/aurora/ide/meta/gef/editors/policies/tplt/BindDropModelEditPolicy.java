@@ -7,11 +7,11 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.commands.BindDropModelCommand;
 import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
 import aurora.ide.meta.gef.editors.request.DropBMRequest;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class BindDropModelEditPolicy extends AbstractEditPolicy {
 
@@ -50,7 +50,7 @@ public class BindDropModelEditPolicy extends AbstractEditPolicy {
 		cmd.setData(data);
 
 		ViewDiagramPart diagramPart = this.getDiagramPart(getHost());
-		cmd.setDiagram((ViewDiagram) diagramPart.getComponent());
+		cmd.setDiagram((ScreenBody) diagramPart.getComponent());
 
 		cmd.setEditorMode(diagramPart.getEditorMode());
 		cmd.setContainer(container);
