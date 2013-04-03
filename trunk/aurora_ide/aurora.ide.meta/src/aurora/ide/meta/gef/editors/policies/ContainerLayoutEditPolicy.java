@@ -6,17 +6,9 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.FlowLayoutEditPolicy;
-import org.eclipse.gef.editpolicies.OrderedLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.DropRequest;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.FieldSet;
-import aurora.ide.meta.gef.editors.models.Form;
-import aurora.ide.meta.gef.editors.models.HBox;
-import aurora.ide.meta.gef.editors.models.TabFolder;
-import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.models.commands.CreateComponentCommand;
 import aurora.ide.meta.gef.editors.models.commands.MoveChildCmpCmd;
 import aurora.ide.meta.gef.editors.models.commands.MoveRemoteChildCmpCmd;
@@ -25,6 +17,8 @@ import aurora.ide.meta.gef.editors.parts.ContainerPart;
 import aurora.ide.meta.gef.editors.parts.TabBodyPart;
 import aurora.ide.meta.gef.editors.parts.TabFolderPart;
 import aurora.ide.meta.gef.editors.parts.TabItemPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Container;
 
 public class ContainerLayoutEditPolicy extends FlowLayoutEditPolicy {
 	private EditPart targetEditPart = null;

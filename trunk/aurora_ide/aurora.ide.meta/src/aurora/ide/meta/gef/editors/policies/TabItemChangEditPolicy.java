@@ -5,7 +5,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
-import aurora.ide.meta.gef.editors.models.TabItem;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class TabItemChangEditPolicy extends GraphicalEditPolicy {
 
