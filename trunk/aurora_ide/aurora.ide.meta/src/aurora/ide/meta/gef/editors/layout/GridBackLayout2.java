@@ -200,7 +200,7 @@ public class GridBackLayout2 extends RowColBackLayout {
 		// selfRectangle.width, 35));
 		// horizontalScrollBar.setVisible(true);
 
-		selfRectangle = parent.getComponent().getBoundsCopy();
+		selfRectangle = toDraw2d( parent.getComponent().getBoundsCopy());
 		return this.selfRectangle.setWidth(selfRectangle.width);
 	}
 

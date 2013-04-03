@@ -7,11 +7,11 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.TabBodyPart;
 import aurora.ide.meta.gef.editors.parts.TabFolderPart;
 import aurora.ide.meta.gef.editors.parts.TabItemPart;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class TabFolderLayout extends BackLayout {
 	private static final Insets PADDING = new Insets(8, 16, 8, 6);
@@ -27,7 +27,7 @@ public class TabFolderLayout extends BackLayout {
 		for (ComponentPart cp : list) {
 			if (cp instanceof TabItemPart) {
 				TabItemPart tip = (TabItemPart) cp;
-				Rectangle bounds = tip.getModel().getBoundsCopy();
+				Rectangle bounds = toDraw2d( tip.getModel().getBoundsCopy());
 				bounds.setLocation(pos);
 				pos.x += bounds.width + 2;
 				tabItemTotalWidth = pos.x;

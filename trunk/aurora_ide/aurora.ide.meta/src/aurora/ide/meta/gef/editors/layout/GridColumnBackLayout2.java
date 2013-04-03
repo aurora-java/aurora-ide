@@ -46,7 +46,7 @@ public class GridColumnBackLayout2 extends RowColBackLayout {
 			// return selfRectangle.expand(1, 1);
 			return selfRectangle;
 		}
-		selfRectangle = parent.getComponent().getBoundsCopy();
+		selfRectangle = toDraw2d(parent.getComponent().getBoundsCopy());
 		return selfRectangle;
 	}
 

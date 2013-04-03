@@ -7,9 +7,9 @@ import java.util.Map;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.GridColumnPart;
+import aurora.plugin.source.gen.screen.model.GridColumn;
 
 public class GridColumnBackLayout extends BackLayout {
 
@@ -43,7 +43,7 @@ public class GridColumnBackLayout extends BackLayout {
 			col = 100;
 			row = 1;
 			Rectangle fBounds = parent.getFigure().getBounds();
-			selfRectangle = fBounds.isEmpty() ? box.getBoundsCopy() : fBounds;
+			selfRectangle = fBounds.isEmpty() ? toDraw2d( box.getBoundsCopy()) : fBounds;
 			titleHight = 25;
 			location.x = 0;
 			location.y = titleHight + 0 - 1;
@@ -145,7 +145,7 @@ public class GridColumnBackLayout extends BackLayout {
 			// return selfRectangle.expand(1, 1);
 			return selfRectangle;
 		}
-		selfRectangle = parent.getComponent().getBoundsCopy();
+		selfRectangle = toDraw2d( parent.getComponent().getBoundsCopy());
 		return selfRectangle;
 	}
 

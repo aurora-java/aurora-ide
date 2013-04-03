@@ -8,10 +8,10 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import aurora.ide.meta.gef.editors.models.BOX;
-import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.parts.BoxPart;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
+import aurora.plugin.source.gen.screen.model.BOX;
+import aurora.plugin.source.gen.screen.model.Form;
 
 public class BoxBackLayout extends BackLayout {
 
@@ -44,7 +44,8 @@ public class BoxBackLayout extends BackLayout {
 			col = box.getCol();
 			row = box.getRow();
 			Rectangle fBounds = parent.getFigure().getBounds();
-			selfRectangle = fBounds.isEmpty() ? box.getBoundsCopy() : fBounds;
+			selfRectangle = fBounds.isEmpty() ? toDraw2d(box.getBoundsCopy())
+					: fBounds;
 			titleHight = box.getHeadHight();
 			location.x = PADDING.left;
 			location.y = titleHight + PADDING.top;
@@ -132,10 +133,10 @@ public class BoxBackLayout extends BackLayout {
 	}
 
 	private Rectangle calculateRectangle(ComponentPart parent) {
-		if(parent.getComponent() instanceof Form){
+		if (parent.getComponent() instanceof Form) {
 			return this.calculateFormRectangle(parent);
 		}
-			
+
 		Rectangle selfRectangle = zero.getCopy().setLocation(
 				parent.getFigure().getBounds().getLocation());
 		List children = parent.getChildren();
@@ -146,22 +147,24 @@ public class BoxBackLayout extends BackLayout {
 		if (!selfRectangle.isEmpty()) {
 			return selfRectangle.expand(5, 5);
 		}
-		selfRectangle = parent.getComponent().getBoundsCopy();
+		selfRectangle = toDraw2d(parent.getComponent().getBoundsCopy());
 		return selfRectangle;
 	}
+
 	private Rectangle calculateFormRectangle(ComponentPart parent) {
 		Rectangle selfRectangle = zero.getCopy().setLocation(
 				parent.getFigure().getBounds().getLocation());
-		List children =  parent.getChildren();
+		List children = parent.getChildren();
 		for (int i = 0; i < children.size(); i++) {
 			ComponentPart cp = (ComponentPart) children.get(i);
 			selfRectangle.union(cp.getFigure().getBounds().getCopy());
 		}
 		if (selfRectangle.width > this.selfRectangle.width) {
 			// return selfRectangle.expand(1, 1);
-			return this.selfRectangle.getCopy().setWidth(selfRectangle.width+50);
+			return this.selfRectangle.getCopy().setWidth(
+					selfRectangle.width + 50);
 		}
-		selfRectangle = parent.getComponent().getBoundsCopy();
+		selfRectangle = toDraw2d(parent.getComponent().getBoundsCopy());
 		return this.selfRectangle.setWidth(selfRectangle.width);
 	}
 
