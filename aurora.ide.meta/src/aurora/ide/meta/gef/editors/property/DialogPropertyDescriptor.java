@@ -4,7 +4,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 
-public class DialogPropertyDescriptor extends PropertyDescriptor {
+public class DialogPropertyDescriptor extends StylePropertyDescriptor {
 	private Class<? extends EditWizard> clazz;
 
 	public DialogPropertyDescriptor(Object id, String displayName,

@@ -4,7 +4,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 
-public class AddLinkPropertyDescriptor extends PropertyDescriptor {
+public class AddLinkPropertyDescriptor extends StylePropertyDescriptor {
 
 	public AddLinkPropertyDescriptor(Object id, String displayName) {
 		super(id, displayName);

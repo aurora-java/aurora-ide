@@ -16,11 +16,13 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 
+import aurora.ide.meta.gef.util.ImageUtil;
+
 public class DialogCellEditor extends CellEditor implements SelectionListener,
 		MouseListener {
 	private Button button;
 	private CLabel label;
-	private DialogEditableObject value;
+	private IDialogEditableObject value;
 	private Class<? extends EditWizard> clazz;
 	Shell shell;
 
@@ -72,9 +74,9 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 
 	@Override
 	protected void doSetValue(Object value) {
-		this.value = (DialogEditableObject) value;
+		this.value = (IDialogEditableObject) value;
 		label.setText(this.value.getDescripition());
-		label.setImage(this.value.getDisplayImage());
+		label.setImage(ImageUtil.getImage((IDialogEditableObject) value));
 	}
 
 	public void activate(ColumnViewerEditorActivationEvent activationEvent) {
@@ -104,13 +106,13 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 	protected void showDialog() {
 		try {
 			EditWizard wizard = clazz.newInstance();
-			DialogEditableObject objClone = value.clone();
+			IDialogEditableObject objClone = value.clone();
 			wizard.setDialogEdiableObject(objClone);
 			WizardDialog wd = new WizardDialog(shell, wizard);
 			if (wd.open() == WizardDialog.OK) {
 				value = objClone;
 				label.setText(value.getDescripition());
-				label.setImage(value.getDisplayImage());
+				label.setImage(ImageUtil.getImage((IDialogEditableObject) value));
 				fireApplyEditorValue();
 			}
 		} catch (Exception e1) {

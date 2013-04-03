@@ -33,7 +33,7 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
  * 
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class ComboPropertyDescriptor extends PropertyDescriptor {
+public class ComboPropertyDescriptor extends StylePropertyDescriptor {
 
 	/**
 	 * The labels to display in the combo box
@@ -54,6 +54,12 @@ public class ComboPropertyDescriptor extends PropertyDescriptor {
 	public ComboPropertyDescriptor(Object id, String displayName,
 			String[] labelsArray) {
 		super(id, displayName);
+		labels = labelsArray;
+	}
+
+	public ComboPropertyDescriptor(Object id, String displayName,
+			String[] labelsArray, int style) {
+		super(id, displayName, style);
 		labels = labelsArray;
 	}
 

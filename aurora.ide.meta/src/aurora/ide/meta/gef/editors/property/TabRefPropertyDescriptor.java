@@ -4,7 +4,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 
-public class TabRefPropertyDescriptor extends PropertyDescriptor {
+public class TabRefPropertyDescriptor extends StylePropertyDescriptor {
 
 	public TabRefPropertyDescriptor(Object id, String displayName) {
 		super(id, displayName);

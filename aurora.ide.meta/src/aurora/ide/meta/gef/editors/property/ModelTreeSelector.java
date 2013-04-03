@@ -18,12 +18,12 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.TabBody;
-import aurora.ide.meta.gef.editors.models.TabFolder;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.TabBody;
+import aurora.plugin.source.gen.screen.model.TabFolder;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class ModelTreeSelector extends Composite implements
 		ITreeContentProvider, ILabelProvider, IColorProvider {
@@ -39,7 +39,7 @@ public class ModelTreeSelector extends Composite implements
 	};
 
 	public static final Color invalid_color = new Color(null, 200, 200, 200);
-	private ViewDiagram root = null;
+	private ScreenBody root = null;
 	private AuroraComponent selection = null;
 	private TreeViewer viewer = null;
 
@@ -58,7 +58,7 @@ public class ModelTreeSelector extends Composite implements
 			viewer.setSelection(new StructuredSelection(selection));
 	}
 
-	public ViewDiagram getRoot() {
+	public ScreenBody getRoot() {
 		return root;
 	}
 
@@ -66,7 +66,7 @@ public class ModelTreeSelector extends Composite implements
 		return viewer;
 	}
 
-	public void setRoot(ViewDiagram root) {
+	public void setRoot(ScreenBody root) {
 		this.root = root;
 	}
 
@@ -141,7 +141,7 @@ public class ModelTreeSelector extends Composite implements
 	public String getText(Object element) {
 		AuroraComponent ac = (AuroraComponent) element;
 		String prop = ac.getPrompt();
-		String aType = ac.getType();
+		String aType = ac.getComponentType();
 		if (prop == null || prop.length() == 0)
 			return aType;
 		return aType + " [" + prop + "]";

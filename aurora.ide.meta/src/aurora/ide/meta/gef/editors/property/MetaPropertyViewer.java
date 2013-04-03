@@ -36,7 +36,7 @@ public class MetaPropertyViewer implements ISelectionChangedListener,
 	public IPropertySource getPropertySource(Object object) {
 		if (object instanceof ComponentPart)
 			return PropertySourceUtil
-					.translate(((ComponentPart) object).getPropertySource2(),
+					.translate(((ComponentPart) object).getComponent(),
 							commandStack);
 		return null;
 	}
