@@ -7,11 +7,10 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.Toolbar;
-import aurora.ide.meta.gef.editors.models.VBox;
 import aurora.ide.meta.gef.editors.parts.BoxPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.VBox;
 
 public class VBoxCreator extends ComponentCreator {
 
@@ -42,7 +41,7 @@ public class VBoxCreator extends ComponentCreator {
 		String t = VBox.V_BOX;
 		if (t.equalsIgnoreCase(type)) {
 			VBox c = new VBox();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;
