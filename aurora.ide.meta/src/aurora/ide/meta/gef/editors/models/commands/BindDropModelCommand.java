@@ -6,16 +6,14 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.editors.EditorMode;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.BOX;
-import aurora.ide.meta.gef.editors.models.CheckBox;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Dataset;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.Label;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.BOX;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.Dataset;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.Label;
+import aurora.plugin.source.gen.screen.model.ResultDataSet;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class BindDropModelCommand extends DropBMCommand {
 
@@ -36,7 +34,7 @@ public class BindDropModelCommand extends DropBMCommand {
 		@SuppressWarnings("unchecked")
 		List<CompositeMap> fields = (List<CompositeMap>) data;
 		// fieldset
-		if (container instanceof BOX || container instanceof ViewDiagram) {
+		if (container instanceof BOX || container instanceof ScreenBody) {
 			fillForm(fields);
 		}
 		if (container instanceof GridColumn) {
@@ -103,7 +101,7 @@ public class BindDropModelCommand extends DropBMCommand {
 //				input = new CheckBox();
 //			}
 			AuroraComponent input =ComponentFactory.createComponent(type);
-			input.setType(type);
+			input.setComponentType(type);
 			input.setName(name);
 			input.setPrompt(Util.getPrompt(field,""));
 			container.addChild(input);

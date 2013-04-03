@@ -2,9 +2,9 @@ package aurora.ide.meta.gef.editors.models.commands;
 
 import org.eclipse.gef.commands.Command;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.TabBody;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.TabBody;
 
 public class DeleteComponentCommand extends Command {
 	protected Container container;

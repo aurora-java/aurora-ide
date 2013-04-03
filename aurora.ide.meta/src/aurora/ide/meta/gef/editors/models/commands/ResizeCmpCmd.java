@@ -4,7 +4,8 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.ide.meta.gef.util.BoundsConvert;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class ResizeCmpCmd extends Command {
 
@@ -25,8 +26,9 @@ public class ResizeCmpCmd extends Command {
 
 	@Override
 	public void execute() {
-		oldBounds = hostModel.getBoundsCopy();
-		hostModel.setBounds(hostModel.getBoundsCopy().resize(sizeDelta));
+		Rectangle draw2d = BoundsConvert.toDraw2d(hostModel.getBoundsCopy());
+		oldBounds = draw2d;
+		hostModel.setBounds(BoundsConvert.toAurora(draw2d.resize(sizeDelta)));
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class ResizeCmpCmd extends Command {
 
 	@Override
 	public void undo() {
-		hostModel.setBounds(oldBounds);
+		hostModel.setBounds(BoundsConvert.toAurora(oldBounds));
 	}
 
 	public void setHostModel(AuroraComponent model) {
