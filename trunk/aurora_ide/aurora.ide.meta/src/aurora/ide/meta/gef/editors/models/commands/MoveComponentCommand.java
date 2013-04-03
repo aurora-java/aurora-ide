@@ -3,8 +3,9 @@ package aurora.ide.meta.gef.editors.models.commands;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.TabBody;
+import aurora.ide.meta.gef.util.BoundsConvert;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.TabBody;
 
 public class MoveComponentCommand extends Command {
 	private AuroraComponent node;
@@ -22,8 +23,8 @@ public class MoveComponentCommand extends Command {
 	}
 
 	public void execute() {
-		oldPos = this.node.getLocation();
-		node.setLocation(newPos);
+		oldPos = BoundsConvert.toDraw2d(this.node.getLocation());
+		node.setLocation(BoundsConvert.toAurora(newPos));
 	}
 
 	public String getLabel() {
@@ -31,11 +32,11 @@ public class MoveComponentCommand extends Command {
 	}
 
 	public void redo() {
-		this.node.setLocation(newPos);
+		this.node.setLocation(BoundsConvert.toAurora(newPos));
 	}
 
 	public void undo() {
-		this.node.setLocation(oldPos);
+		this.node.setLocation(BoundsConvert.toAurora(oldPos));
 	}
 
 	@Override

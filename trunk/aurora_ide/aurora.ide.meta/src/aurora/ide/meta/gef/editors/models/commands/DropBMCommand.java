@@ -5,16 +5,16 @@ import java.util.List;
 import org.eclipse.gef.commands.Command;
 
 import uncertain.composite.CompositeMap;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class DropBMCommand extends Command {
-	private ViewDiagram diagram;
+	private ScreenBody diagram;
 
-	public ViewDiagram getDiagram() {
+	public ScreenBody getDiagram() {
 		return diagram;
 	}
 
-	public void setDiagram(ViewDiagram diagram) {
+	public void setDiagram(ScreenBody diagram) {
 		this.diagram = diagram;
 	}
 
