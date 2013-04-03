@@ -8,7 +8,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.ToolbarFigure;
 import aurora.ide.meta.gef.editors.layout.ToolbarBackLayout2;
-import aurora.ide.meta.gef.editors.models.IProperties;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 
 public class ToolbarPart extends ContainerPart {
 
@@ -25,7 +25,7 @@ public class ToolbarPart extends ContainerPart {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		String prop = evt.getPropertyName();
-		if (IProperties.CHILDREN.equals(prop)) {
+		if (ComponentInnerProperties.CHILDREN.equals(prop)) {
 			// TODO only test
 			// Object newValue = evt.getNewValue();
 			// if (newValue instanceof Button) {

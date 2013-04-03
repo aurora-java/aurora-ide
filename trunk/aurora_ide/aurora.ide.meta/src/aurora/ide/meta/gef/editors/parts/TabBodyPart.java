@@ -8,9 +8,8 @@ import org.eclipse.gef.EditPart;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.figures.FigureUtil;
 import aurora.ide.meta.gef.editors.figures.ViewDiagramLayout;
-import aurora.ide.meta.gef.editors.models.TabBody;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.link.TabRef;
+import aurora.plugin.source.gen.screen.model.TabBody;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class TabBodyPart extends ContainerPart {
 
@@ -24,12 +23,12 @@ public class TabBodyPart extends ContainerPart {
 				if (body != null) {
 					TabItem ti = body.getTabItem();
 					if (ti != null) {
-						TabRef tr = ti.getTabRef();
-						if (tr != null) {
-							graphics.setForegroundColor(ColorConstants.LINK_COLOR);
-							FigureUtil.paintTextAtCenter(graphics, getBounds(),
-									tr.getOpenPath());
-						}
+//						TabRef tr = ti.getTabRef();
+//						if (tr != null) {
+//							graphics.setForegroundColor(ColorConstants.LINK_COLOR);
+//							FigureUtil.paintTextAtCenter(graphics, getBounds(),
+//									tr.getOpenPath());
+//						}
 					}
 				}
 			}

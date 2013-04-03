@@ -1,16 +1,12 @@
 package aurora.ide.meta.gef.editors.parts;
 
-import java.util.List;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 
 import aurora.ide.meta.extensions.ComponentFactory;
-import aurora.ide.meta.extensions.ExtensionComponent;
-import aurora.ide.meta.extensions.ExtensionLoader;
 import aurora.ide.meta.gef.editors.EditorMode;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 /**
  */
@@ -23,7 +19,7 @@ public class ExtAuroraPartFactory implements EditPartFactory {
 	}
 
 	public EditPart createEditPart(EditPart context, Object model) {
-		if (model instanceof ViewDiagram) {
+		if (model instanceof ScreenBody) {
 			EditPart part = new ViewDiagramPart();
 			part.setParent(context);
 			part.setModel(model);

@@ -10,8 +10,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.layout.RowColBackLayout;
-import aurora.ide.meta.gef.editors.models.BOX;
-import aurora.ide.meta.gef.editors.models.IProperties;
+import aurora.plugin.source.gen.screen.model.BOX;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class BoxPart extends ContainerPart {
 
@@ -41,13 +41,16 @@ public class BoxPart extends ContainerPart {
 	public void applyToModel() {
 		super.applyToModel();
 		Rectangle bounds = this.getFigure().getBounds();
-		this.getComponent().applyToModel(bounds);
+		this.getComponent().applyToModel(
+				new aurora.plugin.source.gen.screen.model.Rectangle(bounds.x,
+						bounds.y, bounds.width, bounds.height));
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		super.propertyChange(evt);
 		String prop = evt.getPropertyName();
-		if (IProperties.ROW.equals(prop) || IProperties.COL.equals(prop)) {
+		if (ComponentProperties.row.equals(prop)
+				|| ComponentProperties.column.equals(prop)) {
 			this.getFigure().revalidate();
 		}
 	}

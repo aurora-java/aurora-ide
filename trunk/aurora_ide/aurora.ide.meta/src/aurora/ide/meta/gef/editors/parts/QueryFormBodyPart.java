@@ -8,7 +8,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
-import aurora.ide.meta.gef.editors.models.BOX;
+import aurora.plugin.source.gen.screen.model.BOX;
 
 public class QueryFormBodyPart extends BoxPart {
 

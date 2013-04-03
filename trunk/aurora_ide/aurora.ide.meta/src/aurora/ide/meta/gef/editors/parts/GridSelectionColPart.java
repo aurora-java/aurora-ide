@@ -10,7 +10,7 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editpolicies.SelectionHandlesEditPolicy;
 
 import aurora.ide.meta.gef.editors.figures.GridSelectionColFigure;
-import aurora.ide.meta.gef.editors.models.GridSelectionCol;
+import aurora.plugin.source.gen.screen.model.GridSelectionCol;
 
 public class GridSelectionColPart extends ContainerPart {
 

@@ -6,8 +6,8 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 
 import aurora.ide.meta.gef.editors.figures.TabItemFigure;
-import aurora.ide.meta.gef.editors.models.TabItem;
 import aurora.ide.meta.gef.editors.policies.TabItemChangEditPolicy;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class TabItemPart extends ComponentPart {
 

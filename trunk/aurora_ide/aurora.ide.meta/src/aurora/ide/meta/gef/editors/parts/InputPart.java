@@ -6,7 +6,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.InputField;
 import aurora.ide.meta.gef.editors.layout.InputFieldLayout;
-import aurora.ide.meta.gef.editors.models.Input;
+import aurora.plugin.source.gen.screen.model.Input;
 
 public class InputPart extends ComponentPart {
 
@@ -27,7 +27,7 @@ public class InputPart extends ComponentPart {
 	 */
 	protected void refreshVisuals() {
 		super.refreshVisuals();
-		getFigure().setToolTip(new Label(getModel().getType()));
+		getFigure().setToolTip(new Label(getModel().getComponentType()));
 	}
 
 	public Input getModel() {
