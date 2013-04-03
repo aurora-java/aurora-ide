@@ -1,6 +1,6 @@
 package aurora.ide.meta.gef.editors.policies.tplt;
 
-import aurora.ide.meta.gef.editors.models.Container;
+import aurora.plugin.source.gen.screen.model.Container;
 
 public class TemplateModeUtil {
 	static public boolean isBindTemplate(Object model) {
