@@ -7,10 +7,9 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.FieldSet;
-import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.parts.BoxPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Form;
 
 public class FormCreator extends ComponentCreator {
 
@@ -37,7 +36,7 @@ public class FormCreator extends ComponentCreator {
 		String t = Form.FORM;
 		if (t.equalsIgnoreCase(type)) {
 			Form c = new Form();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;

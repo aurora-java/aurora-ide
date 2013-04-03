@@ -7,10 +7,10 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.HBox;
 import aurora.ide.meta.gef.editors.parts.BoxPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.HBox;
 
 public class HBoxCreator extends ComponentCreator {
 
@@ -36,7 +36,7 @@ public class HBoxCreator extends ComponentCreator {
 		String t = HBox.H_BOX;
 		if (t.equalsIgnoreCase(type)) {
 			HBox c = new HBox();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;
