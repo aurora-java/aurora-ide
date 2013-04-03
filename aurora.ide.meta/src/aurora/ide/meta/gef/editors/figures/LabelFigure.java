@@ -5,7 +5,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import aurora.ide.meta.gef.editors.models.Label;
+import aurora.plugin.source.gen.screen.model.Label;
 
 public class LabelFigure extends InputField {
 

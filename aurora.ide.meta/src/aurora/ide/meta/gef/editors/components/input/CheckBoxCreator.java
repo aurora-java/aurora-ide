@@ -7,10 +7,9 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.models.CheckBox;
 import aurora.ide.meta.gef.editors.parts.CheckBoxPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.CheckBox;
 
 public class CheckBoxCreator extends ComponentCreator {
 
@@ -38,7 +37,7 @@ public class CheckBoxCreator extends ComponentCreator {
 	public AuroraComponent createComponent(String type){
 		if(CheckBox.CHECKBOX.equalsIgnoreCase(type)) {
 			CheckBox c = new CheckBox();
-			c.setType(CheckBox.CHECKBOX);
+			c.setComponentType(CheckBox.CHECKBOX);
 			return c;
 		}
 		return null;

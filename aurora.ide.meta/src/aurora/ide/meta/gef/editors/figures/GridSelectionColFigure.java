@@ -6,8 +6,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.GridSelectionCol;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
+import aurora.plugin.source.gen.screen.model.GridSelectionCol;
+import aurora.plugin.source.gen.screen.model.ResultDataSet;
 
 /**
  * 

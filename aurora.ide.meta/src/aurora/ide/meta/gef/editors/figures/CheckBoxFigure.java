@@ -1,14 +1,14 @@
 package aurora.ide.meta.gef.editors.figures;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.CheckBox;
-
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
+
+import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.plugin.source.gen.screen.model.CheckBox;
 
 public class CheckBoxFigure extends InputField {
 	private static final Image img_unchecked = ImagesUtils

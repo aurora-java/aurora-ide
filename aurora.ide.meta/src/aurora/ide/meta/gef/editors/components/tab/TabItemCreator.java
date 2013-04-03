@@ -7,14 +7,11 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.TabBody;
-import aurora.ide.meta.gef.editors.models.TabFolder;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.parts.TabBodyPart;
-import aurora.ide.meta.gef.editors.parts.TabFolderPart;
 import aurora.ide.meta.gef.editors.parts.TabItemPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.TabBody;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class TabItemCreator extends ComponentCreator {
 
@@ -45,21 +42,21 @@ public class TabItemCreator extends ComponentCreator {
 		String t = TabItem.TAB;
 		if (t.equalsIgnoreCase(type)) {
 			TabItem c = new TabItem();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		t = TabBody.TAB_BODY;
 		if (t.equalsIgnoreCase(type)) {
 			TabBody c = new TabBody();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
-		t = TabRef.TABREF;
-		if (t.equalsIgnoreCase(type)) {
-			TabRef c = new TabRef();
-			c.setType(t);
-			return c;
-		}
+//		t = TabRef.TABREF;
+//		if (t.equalsIgnoreCase(type)) {
+//			TabRef c = new TabRef();
+//			c.setComponentType(t);
+//			return c;
+//		}
 		return null;
 	}
 

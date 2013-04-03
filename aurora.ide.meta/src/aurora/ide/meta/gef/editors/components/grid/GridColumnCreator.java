@@ -7,10 +7,9 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Form;
-import aurora.ide.meta.gef.editors.models.GridColumn;
 import aurora.ide.meta.gef.editors.parts.GridColumnPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.GridColumn;
 
 public class GridColumnCreator extends ComponentCreator {
 
@@ -39,7 +38,7 @@ public class GridColumnCreator extends ComponentCreator {
 		String t = GridColumn.GRIDCOLUMN;
 		if (t.equalsIgnoreCase(type)) {
 			GridColumn c = new GridColumn();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;

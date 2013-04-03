@@ -7,10 +7,9 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.components.input.TextField;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Toolbar;
 import aurora.ide.meta.gef.editors.parts.ToolbarPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Toolbar;
 
 public class ToolbarCreator extends ComponentCreator {
 
@@ -36,7 +35,7 @@ public class ToolbarCreator extends ComponentCreator {
 		String t = Toolbar.TOOLBAR;
 		if (t.equalsIgnoreCase(type)) {
 			Toolbar c = new Toolbar();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;

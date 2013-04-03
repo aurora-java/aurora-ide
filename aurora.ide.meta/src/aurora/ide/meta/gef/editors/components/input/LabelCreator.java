@@ -7,10 +7,9 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.HBox;
-import aurora.ide.meta.gef.editors.models.Label;
 import aurora.ide.meta.gef.editors.parts.LabelPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Label;
 
 public class LabelCreator extends ComponentCreator {
 
@@ -41,7 +40,7 @@ public class LabelCreator extends ComponentCreator {
 		String t = Label.Label;
 		if (t.equalsIgnoreCase(type)) {
 			Label c = new Label();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;

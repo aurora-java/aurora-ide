@@ -13,8 +13,8 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 /**
  */
@@ -27,7 +27,7 @@ public class InputField extends Figure {
 
 	public void setModel(Input model) {
 		this.model = model;
-		setToolTip(new Label(model.getType()));
+		setToolTip(new Label(model.getComponentType()));
 	}
 
 	public int getLabelWidth() {
@@ -35,7 +35,7 @@ public class InputField extends Figure {
 		if (parent instanceof BoxFigure) {
 			return ((BoxFigure) parent).getLabelWidth();
 		} else {
-			return ViewDiagram.DLabelWidth;
+			return ScreenBody.DLabelWidth;
 		}
 	}
 
@@ -114,7 +114,7 @@ public class InputField extends Figure {
 	}
 
 	private Image getImage() {
-		String type = model.getType();
+		String type = model.getComponentType();
 		if (Input.Combo.equals(type))
 			return ImagesUtils.getImage("palette/itembar_01.png");
 		if (Input.DATE_PICKER.equals(type) || Input.DATETIMEPICKER.equals(type))

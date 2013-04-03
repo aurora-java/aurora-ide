@@ -7,9 +7,9 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
 import aurora.ide.meta.gef.editors.parts.ButtonPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Button;
 
 public class ButtonCreator extends ComponentCreator {
 
@@ -35,7 +35,7 @@ public class ButtonCreator extends ComponentCreator {
 	public AuroraComponent createComponent(String type){
 		if(Button.BUTTON.equalsIgnoreCase(type)) {
 			Button button = new Button();
-			button.setType(Button.BUTTON);
+			button.setComponentType(Button.BUTTON);
 			return button;
 		}
 		return null;
