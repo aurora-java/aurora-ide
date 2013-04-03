@@ -5,13 +5,13 @@ import java.util.Map;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.Renderer;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.Renderer;
+import aurora.plugin.source.gen.screen.model.ResultDataSet;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class SerachTemplateHandle extends TemplateHandle {
 
@@ -22,7 +22,7 @@ public class SerachTemplateHandle extends TemplateHandle {
 	private Map<String, List<String>> refRelat;
 
 	@Override
-	public void fill(ViewDiagram viewDiagram) {
+	public void fill(ScreenBody viewDiagram) {
 		super.fill(viewDiagram);
 	}
 
@@ -45,7 +45,7 @@ public class SerachTemplateHandle extends TemplateHandle {
 				i--;
 			}
 		}
-		grid.getCols().clear();
+//		grid.getCols().clear();
 		outer: for (CompositeMap map : getFieldsWithoutPK(bmc)) {
 			String filedName = map.getString("name");
 			for (String relationName : refRelat.keySet()) {

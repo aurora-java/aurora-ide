@@ -9,25 +9,23 @@ import org.eclipse.core.resources.IFile;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.BOX;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Dataset;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.InitProcedure;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.ModelQuery;
-import aurora.ide.meta.gef.editors.models.QueryDataSet;
-import aurora.ide.meta.gef.editors.models.Renderer;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.search.core.Util;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.BOX;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.Dataset;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.QueryDataSet;
+import aurora.plugin.source.gen.screen.model.Renderer;
+import aurora.plugin.source.gen.screen.model.ResultDataSet;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public abstract class TemplateHandle {
-	protected ViewDiagram viewDiagram;
+	protected ScreenBody viewDiagram;
 	protected TemplateConfig config;
 	public static final String GRID = "grid";
 
@@ -42,11 +40,11 @@ public abstract class TemplateHandle {
 		// config.put(REF_TAB_ITEMS, new ArrayList<TabItem>());
 	}
 
-	public void fill(ViewDiagram viewDiagram) {
-		InitProcedure ip = viewDiagram.getInitProcedure();
-		if (ip != null)
-			ip.getModelQuerys().clear();
-		setColNum(viewDiagram, 1);
+	public void fill(ScreenBody viewDiagram) {
+//		InitProcedure ip = viewDiagram.getInitProcedure();
+//		if (ip != null)
+//			ip.getModelQuerys().clear();
+		setColNum(viewDiagram, 1); 
 		this.viewDiagram = viewDiagram;
 		for (BMReference bm : config.getModelRelated().keySet()) {
 			for (Container ac : config.getModelRelated().get(bm)) {
@@ -116,7 +114,7 @@ public abstract class TemplateHandle {
 				i--;
 			}
 		}
-		grid.getCols().clear();
+//		grid.getCols().clear();
 		for (CompositeMap map : getFieldsWithoutPK(bmc)) {
 			GridColumn gc = createGridColumn(map);
 			grid.addCol(gc);
@@ -182,10 +180,10 @@ public abstract class TemplateHandle {
 
 	protected void fillTabItem(TabItem ac, BMReference bm) {
 		String s = getBmPath(bm.getModel());
-		ModelQuery m = new ModelQuery();
-		m.setPath(s);
-		ac.getTabRef().setModelQuery(m);
-		viewDiagram.addModelQuery(m);
+//		ModelQuery m = new ModelQuery();
+//		m.setPath(s);
+//		ac.getTabRef().setModelQuery(m);
+//		viewDiagram.addModelQuery(m);
 	}
 
 	protected Map<String, List<String>> getReferenceRelation(BMCompositeMap bmc) {
@@ -239,7 +237,7 @@ public abstract class TemplateHandle {
 		return fieldsWithoutPK;
 	}
 
-	protected void setColNum(ViewDiagram viewDiagram, int col) {
+	protected void setColNum(ScreenBody viewDiagram, int col) {
 		List<BOX> rowCols = new ArrayList<BOX>();
 		boolean hasContainer = false;
 		for (AuroraComponent ac : viewDiagram.getChildren()) {
