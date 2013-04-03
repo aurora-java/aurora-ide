@@ -7,16 +7,16 @@ import org.eclipse.jface.action.Action;
 
 import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.BOX;
-import aurora.ide.meta.gef.editors.models.CheckBox;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.FieldSet;
-import aurora.ide.meta.gef.editors.models.Form;
-import aurora.ide.meta.gef.editors.models.HBox;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.VBox;
 import aurora.ide.meta.gef.editors.models.commands.ChangeTypeCommand;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.BOX;
+import aurora.plugin.source.gen.screen.model.CheckBox;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.FieldSet;
+import aurora.plugin.source.gen.screen.model.Form;
+import aurora.plugin.source.gen.screen.model.HBox;
+import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.VBox;
 
 public class TypeChangeUtil {
 	private CommandStack commandStack;
@@ -38,7 +38,7 @@ public class TypeChangeUtil {
 				}
 			} else {
 				for (String s : types) {
-					if (s.equals(ac.getType()))
+					if (s.equals(ac.getComponentType()))
 						s = CheckBox.CHECKBOX;
 					InputTypeChangeAction action = new InputTypeChangeAction(s);
 					action.setInput((Input) ac);
@@ -111,7 +111,7 @@ public class TypeChangeUtil {
 
 		public void setInput(Input input) {
 			this.input = input;
-			oldType = input.getType();
+			oldType = input.getComponentType();
 			if (CheckBox.CHECKBOX.equals(newType)) {
 				type_change_mode = TYPE_CHANGE_MODE2;
 			} else if (input.getClass().equals(CheckBox.class))
@@ -152,7 +152,7 @@ public class TypeChangeUtil {
 		@Override
 		public void unApply() {
 			if (type_change_mode == TYPE_CHANGE_MODE1) {
-				input.setType(oldType);
+				input.setComponentType(oldType);
 				return;
 			}
 			Container cont = this.newInput.getParent();

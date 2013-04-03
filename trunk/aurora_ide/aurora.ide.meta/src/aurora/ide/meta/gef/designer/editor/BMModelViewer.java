@@ -24,9 +24,9 @@ import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
 import aurora.ide.meta.gef.designer.model.Record;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.property.BooleanCellEditor;
 import aurora.ide.meta.gef.editors.property.StringCellEditor;
+import aurora.plugin.source.gen.screen.model.Input;
 
 public class BMModelViewer extends TableViewer implements IDesignerConst {
 

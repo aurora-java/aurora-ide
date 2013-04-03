@@ -45,9 +45,9 @@ import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.VScreenEditorExtPaletteFactory;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class PrototpyeComposite extends GraphicalEditor implements
 		ISelectionChangedListener {
@@ -78,7 +78,7 @@ public class PrototpyeComposite extends GraphicalEditor implements
 	}
 
 	public static final String CONTEXT_MENU_KEY = "aurora.ide.gef.prototpye.composite.contextmenu";
-	private ViewDiagram diagram;
+	private ScreenBody diagram;
 	private PaletteRoot root;
 	private KeyHandler sharedKeyHandler;
 	private MetaPropertyViewer propertyViewer;
@@ -86,7 +86,7 @@ public class PrototpyeComposite extends GraphicalEditor implements
 
 	// private IFile file;
 
-	public void setDiagram(ViewDiagram diagram) {
+	public void setDiagram(ScreenBody diagram) {
 		this.diagram = diagram;
 		GraphicalViewer gv = getGraphicalViewer();
 		gv.setContents(diagram);
@@ -249,7 +249,7 @@ public class PrototpyeComposite extends GraphicalEditor implements
 	protected void createBMViewer(Composite c) {
 	}
 
-	public ViewDiagram getDiagram() {
+	public ScreenBody getDiagram() {
 		return diagram;
 	}
 
@@ -302,7 +302,7 @@ public class PrototpyeComposite extends GraphicalEditor implements
 		this.control = control;
 	}
 
-	public void setInput(ViewDiagram viewDiagram) {
+	public void setInput(ScreenBody viewDiagram) {
 		this.diagram = viewDiagram;
 		GraphicalViewer gv = getGraphicalViewer();
 		if (gv != null)

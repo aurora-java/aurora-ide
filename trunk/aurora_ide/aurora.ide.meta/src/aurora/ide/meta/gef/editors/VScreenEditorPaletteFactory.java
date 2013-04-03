@@ -14,19 +14,20 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.models.CheckBox;
-import aurora.ide.meta.gef.editors.models.FieldSet;
-import aurora.ide.meta.gef.editors.models.Form;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.HBox;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.Label;
-import aurora.ide.meta.gef.editors.models.TabFolder;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.Toolbar;
-import aurora.ide.meta.gef.editors.models.VBox;
+import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.CheckBox;
+import aurora.plugin.source.gen.screen.model.FieldSet;
+import aurora.plugin.source.gen.screen.model.Form;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.HBox;
+import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.Label;
+import aurora.plugin.source.gen.screen.model.TabFolder;
+import aurora.plugin.source.gen.screen.model.TabItem;
+import aurora.plugin.source.gen.screen.model.Toolbar;
+import aurora.plugin.source.gen.screen.model.VBox;
+
 
 public class VScreenEditorPaletteFactory {
 
@@ -127,7 +128,7 @@ public class VScreenEditorPaletteFactory {
 				new SimpleFactory(Input.class) {
 					public Object getNewObject() {
 						Input newObject = (Input) super.getNewObject();
-						newObject.setType(Input.TEXT);
+						newObject.setComponentType(Input.TEXT);
 						return newObject;
 					}
 				}, ImagesUtils.getImageDescriptor("palette/input_edit.png"),
@@ -139,7 +140,7 @@ public class VScreenEditorPaletteFactory {
 						Input.class) {
 					public Object getNewObject() {
 						Input newObject = (Input) super.getNewObject();
-						newObject.setType(Input.NUMBER);
+						newObject.setComponentType(Input.NUMBER);
 						return newObject;
 					}
 				}, ImagesUtils.getImageDescriptor("palette/input_edit.png"),
@@ -151,7 +152,7 @@ public class VScreenEditorPaletteFactory {
 						Input.class) {
 					public Object getNewObject() {
 						Input newObject = (Input) super.getNewObject();
-						newObject.setType(Input.Combo);
+						newObject.setComponentType(Input.Combo);
 						return newObject;
 					}
 				}, ImagesUtils.getImageDescriptor("palette/itembar_01.png"),
@@ -163,7 +164,7 @@ public class VScreenEditorPaletteFactory {
 						Input.class) {
 					public Object getNewObject() {
 						Input newObject = (Input) super.getNewObject();
-						newObject.setType(Input.DATE_PICKER);
+						newObject.setComponentType(Input.DATE_PICKER);
 						return newObject;
 					}
 				}, ImagesUtils.getImageDescriptor("palette/itembar_02.png"),
@@ -174,7 +175,7 @@ public class VScreenEditorPaletteFactory {
 						Input.class) {
 					public Object getNewObject() {
 						Input newObject = (Input) super.getNewObject();
-						newObject.setType(Input.DATETIMEPICKER);
+						newObject.setComponentType(Input.DATETIMEPICKER);
 						return newObject;
 					}
 				}, ImagesUtils.getImageDescriptor("palette/itembar_02.png"),
@@ -185,7 +186,7 @@ public class VScreenEditorPaletteFactory {
 				Input.class, new SimpleFactory(Input.class) {
 					public Object getNewObject() {
 						Input newObject = (Input) super.getNewObject();
-						newObject.setType(Input.LOV);
+						newObject.setComponentType(Input.LOV);
 						return newObject;
 					}
 				}, ImagesUtils.getImageDescriptor("palette/itembar_03.png"),

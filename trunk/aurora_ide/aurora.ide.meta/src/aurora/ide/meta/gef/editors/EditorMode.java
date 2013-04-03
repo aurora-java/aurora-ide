@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors;
 
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+
 
 public class EditorMode {
 	public static final String Template = "Template";
@@ -15,7 +16,7 @@ public class EditorMode {
 	}
 	
 	public String getMode() {
-		ViewDiagram diagram = vsEditor.diagram;
+		ScreenBody diagram = vsEditor.diagram;
 		if (diagram != null && diagram.isBindTemplate()) {
 			return Template;
 		}

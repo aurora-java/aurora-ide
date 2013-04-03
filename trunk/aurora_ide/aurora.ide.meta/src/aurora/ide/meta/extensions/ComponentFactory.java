@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.eclipse.gef.EditPart;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.io.DefaultIOHandler;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class ComponentFactory {
 	public static AuroraComponent createComponent(String type) {
@@ -24,7 +24,7 @@ public class ComponentFactory {
 	public static EditPart createEditPart(AuroraComponent model) {
 		if (model == null)
 			return null;
-		String type = model.getType();
+		String type = model.getComponentType();
 		if (type == null || "".equals(type.trim()))
 			return null;
 		List<ExtensionComponent> extensionComponents = ExtensionLoader
@@ -39,7 +39,7 @@ public class ComponentFactory {
 	public static DefaultIOHandler getIOHandler(AuroraComponent model) {
 		if (model == null)
 			return null;
-		String type = model.getType();
+		String type = model.getComponentType();
 		DefaultIOHandler ioHandler = getIOHandler(type);
 		return ioHandler;
 	}

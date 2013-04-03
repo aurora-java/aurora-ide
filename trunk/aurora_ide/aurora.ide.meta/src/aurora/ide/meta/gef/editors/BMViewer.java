@@ -54,14 +54,14 @@ import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.Util;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.dnd.BMTransfer;
-import aurora.ide.meta.gef.editors.models.CheckBox;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.property.ResourceSelector;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.project.propertypage.ProjectPropertyPage;
 import aurora.ide.search.cache.CacheManager;
+import aurora.plugin.source.gen.screen.model.CheckBox;
+import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class BMViewer {
 
@@ -114,12 +114,12 @@ public class BMViewer {
 				return new String[] { Messages.BMViewer_No_aurora_project };
 			}
 
-			if (inputElement instanceof ViewDiagram) {
-				if (!((ViewDiagram) inputElement).isBindTemplate()) {
+			if (inputElement instanceof ScreenBody) {
+				if (!((ScreenBody) inputElement).isBindTemplate()) {
 					// return new String[] { Messages.BMViewer_No_template };
 				}
 
-				List<IFile> modelFiles = getModelFiles((ViewDiagram) inputElement);
+				List<IFile> modelFiles = getModelFiles((ScreenBody) inputElement);
 
 				if (modelFiles.size() == 0) {
 					return new String[] { Messages.BMViewer_No_model };
@@ -467,7 +467,7 @@ public class BMViewer {
 		viewer.setInput(getViewDiagram());
 	}
 
-	public List<IFile> getModelFiles(ViewDiagram viewDiagram) {
+	public List<IFile> getModelFiles(ScreenBody viewDiagram) {
 		List<IFile> files = new ArrayList<IFile>();
 		// if (viewDiagram.isBindTemplate()) {
 		List<String> models = viewDiagram.getModels();
@@ -497,10 +497,10 @@ public class BMViewer {
 		return null;
 	}
 
-	private ViewDiagram getViewDiagram() {
+	private ScreenBody getViewDiagram() {
 		Object model = vse.getDiagram();
-		if (model instanceof ViewDiagram) {
-			return (ViewDiagram) model;
+		if (model instanceof ScreenBody) {
+			return (ScreenBody) model;
 		}
 		return null;
 	}

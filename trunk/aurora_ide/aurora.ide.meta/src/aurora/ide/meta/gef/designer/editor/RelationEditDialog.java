@@ -49,11 +49,11 @@ import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.property.ResourceSelector;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.core.Util;
+import aurora.plugin.source.gen.screen.model.Input;
 
 public class RelationEditDialog extends Dialog implements SelectionListener {
 	private Text text_relname;
