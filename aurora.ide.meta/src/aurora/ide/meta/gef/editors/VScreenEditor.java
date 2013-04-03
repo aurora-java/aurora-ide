@@ -47,15 +47,17 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.editor.InputFileListener;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
+import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 
 public class VScreenEditor extends FlayoutBMGEFEditor {
 
 	public static final String CONTEXT_MENU_KEY = "aurora.ide.meta.gef.editor.contextmenu";
-	ViewDiagram diagram;
+	ScreenBody diagram;
 	private PaletteRoot root;
 	private KeyHandler sharedKeyHandler;
 	private MetaPropertyViewer propertyViewer;
@@ -69,7 +71,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 				new InputFileListener(this));
 	}
 
-	public void setDiagram(ViewDiagram diagram) {
+	public void setDiagram(ScreenBody diagram) {
 		this.diagram = diagram;
 		GraphicalViewer gv = getGraphicalViewer();
 		gv.setContents(diagram);
@@ -123,10 +125,12 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	 * @throws IOException
 	 */
 	protected void createOutputStream(OutputStream os) throws IOException {
-		ModelIOManager mim = ModelIOManager.getNewInstance();
-		CompositeMap rootMap = mim.toCompositeMap(diagram);
-		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-				+ rootMap.toXML();
+//		ModelIOManager mim = ModelIOManager.getNewInstance();
+//		CompositeMap rootMap = mim.toCompositeMap(diagram);
+//		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+//				+ rootMap.toXML();
+		Object2CompositeMap o2c = new Object2CompositeMap();
+		String xml = o2c.createXML(diagram);
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,
 				"UTF-8"));
 		bw.write(xml);
@@ -266,7 +270,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	public void setInput(IEditorInput input) {
 		super.setInput(input);
 		if (!(input instanceof IFileEditorInput)) {
-			diagram = new ViewDiagram();
+			diagram = new ScreenBody();
 			return;
 		}
 		
@@ -277,8 +281,11 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 			is = file.getContents(false);
 			CompositeLoader parser = new CompositeLoader();
 			CompositeMap rootMap = parser.loadFromStream(is);
-			ModelIOManager mim = ModelIOManager.getNewInstance();
-			diagram = mim.fromCompositeMap(rootMap);
+//			ModelIOManager mim = ModelIOManager.getNewInstance();
+			CompositeMap2Object c2o= new CompositeMap2Object();
+			diagram = c2o.createScreenBody(rootMap);
+//			diagram = mim.fromCompositeMap(rootMap);
+			
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -293,7 +300,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 				e.printStackTrace();
 			}
 			if (diagram == null) {
-				diagram = new ViewDiagram();
+				diagram = new ScreenBody();
 			}
 			DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
 			setEditDomain(defaultEditDomain);
@@ -312,7 +319,7 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		bmViewer = new BMViewer(c, this);
 	}
 
-	public ViewDiagram getDiagram() {
+	public ScreenBody getDiagram() {
 		return diagram;
 	}
 

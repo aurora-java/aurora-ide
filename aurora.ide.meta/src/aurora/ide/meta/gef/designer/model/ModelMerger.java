@@ -22,9 +22,9 @@ import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.designer.DataType;
 import aurora.ide.meta.gef.designer.IDesignerConst;
 import aurora.ide.meta.gef.designer.gen.BaseBmGenerator;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.source.gen.DataSetFieldUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
+import aurora.plugin.source.gen.screen.model.Input;
 
 public class ModelMerger {
 	private IFile file;

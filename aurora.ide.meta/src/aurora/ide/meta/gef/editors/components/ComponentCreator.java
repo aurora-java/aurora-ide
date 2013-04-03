@@ -3,7 +3,7 @@ package aurora.ide.meta.gef.editors.components;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.palette.PaletteEntry;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class ComponentCreator {
 	

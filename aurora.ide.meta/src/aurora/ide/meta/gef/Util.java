@@ -26,10 +26,10 @@ import aurora.ide.builder.BuildContext;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Dataset;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.search.cache.CacheManager;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.Dataset;
+import aurora.plugin.source.gen.screen.model.Input;
 
 public class Util {
 	/**

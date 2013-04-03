@@ -15,9 +15,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.ui.actions.ActionFactory;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 /**
  * Provides a context menu for the flow editor.

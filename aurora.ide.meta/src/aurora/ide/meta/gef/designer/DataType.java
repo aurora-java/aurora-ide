@@ -1,6 +1,6 @@
 package aurora.ide.meta.gef.designer;
 
-import aurora.ide.meta.gef.editors.models.Input;
+import aurora.plugin.source.gen.screen.model.Input;
 
 public enum DataType {
 	TEXT("varchar2(50)", "VARCHAR2", "java.lang.String", IDesignerConst.TEXT,

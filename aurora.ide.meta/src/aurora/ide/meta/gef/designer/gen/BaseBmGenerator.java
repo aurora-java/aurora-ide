@@ -16,7 +16,7 @@ import aurora.ide.meta.gef.designer.model.ModelMerger;
 import aurora.ide.meta.gef.designer.model.ModelUtil;
 import aurora.ide.meta.gef.designer.model.Record;
 import aurora.ide.meta.gef.designer.model.Relation;
-import aurora.ide.meta.gef.editors.models.Input;
+import aurora.plugin.source.gen.screen.model.Input;
 
 public class BaseBmGenerator extends AbstractBmGenerator {
 	/**
