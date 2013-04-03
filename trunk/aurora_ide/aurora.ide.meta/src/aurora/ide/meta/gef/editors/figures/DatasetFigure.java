@@ -9,8 +9,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.models.Dataset;
+import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.Dataset;
 
 /**
  */
@@ -29,7 +29,7 @@ public class DatasetFigure extends Figure {
 	public DatasetFigure(Dataset model) {
 		this.setModel(model);
 
-		this.setSize(model.getSize());
+//		this.setSize(model.getSize());
 	}
 
 	@Override
@@ -45,11 +45,11 @@ public class DatasetFigure extends Figure {
 
 		// Dimension iconSize = new Dimension(bgImage.getBounds().width,
 		// bgImage.getBounds().height);
-		Dimension textExtents = FigureUtilities.getTextExtents(model.getId(),
+		Dimension textExtents = FigureUtilities.getTextExtents("",
 				getFont());
 
 		Rectangle rect = getBounds();
-		String text = model.getId();
+		String text = "";
 		org.eclipse.swt.graphics.Rectangle b2 = bgImage.getBounds();
 		Rectangle r1 = new Rectangle(b2.x, b2.y, b2.width, b2.height);
 
@@ -66,7 +66,7 @@ public class DatasetFigure extends Figure {
 		Image bgImage = getBgImage();
 		Dimension iconSize = new Dimension(bgImage.getBounds().width,
 				bgImage.getBounds().height);
-		Dimension textExtents = FigureUtilities.getTextExtents(model.getId(),
+		Dimension textExtents = FigureUtilities.getTextExtents("",
 				getFont());
 		Dimension dimension = new Dimension(iconSize.width + textExtents.width,
 				Math.max(iconSize.height, textExtents.height));

@@ -7,10 +7,10 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.CheckBox;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.Renderer;
+import aurora.plugin.source.gen.screen.model.CheckBox;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.Renderer;
 
 public class GridColumnFigure extends Figure {
 	private static Image checkImg = ImagesUtils

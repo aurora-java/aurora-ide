@@ -7,8 +7,8 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.parts.InputPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class NumberFieldCreator extends ComponentCreator {
 
@@ -47,7 +47,7 @@ public class NumberFieldCreator extends ComponentCreator {
 		String t = NumberField.NUMBER;
 		if (t.equalsIgnoreCase(type)) {
 			NumberField c = new NumberField();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;

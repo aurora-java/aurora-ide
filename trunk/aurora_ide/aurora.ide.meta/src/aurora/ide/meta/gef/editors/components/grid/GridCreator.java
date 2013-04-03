@@ -7,14 +7,13 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.GridSelectionCol;
-import aurora.ide.meta.gef.editors.models.Navbar;
 import aurora.ide.meta.gef.editors.parts.GridPart;
 import aurora.ide.meta.gef.editors.parts.GridSelectionColPart;
 import aurora.ide.meta.gef.editors.parts.NavbarPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.GridSelectionCol;
+import aurora.plugin.source.gen.screen.model.Navbar;
 
 public class GridCreator extends ComponentCreator {
 
@@ -48,7 +47,7 @@ public class GridCreator extends ComponentCreator {
 		String t = Grid.GRID;
 		if (t.equalsIgnoreCase(type)) {
 			Grid c = new Grid();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;

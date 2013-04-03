@@ -1,9 +1,9 @@
 package aurora.ide.meta.gef.editors.components.input;
 
-import aurora.ide.meta.gef.editors.models.Input;
+import aurora.plugin.source.gen.screen.model.Input;
 
 public class TextField extends Input {
 	public TextField() {
-		this.setType(TEXT);
+		this.setComponentType(TEXT);
 	}
 }

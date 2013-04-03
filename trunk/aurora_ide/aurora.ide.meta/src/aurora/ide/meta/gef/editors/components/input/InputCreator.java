@@ -4,10 +4,9 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.palette.PaletteEntry;
 
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.HBox;
-import aurora.ide.meta.gef.editors.models.Input;
 import aurora.ide.meta.gef.editors.parts.InputPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Input;
 
 public class InputCreator extends ComponentCreator {
 

@@ -9,7 +9,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.TabItem;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class TabItemFigure extends Figure {
 	private static Image bgImg = ImagesUtils.getImage("toolbar_bg");

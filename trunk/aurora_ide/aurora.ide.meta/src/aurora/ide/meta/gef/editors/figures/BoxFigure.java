@@ -4,11 +4,11 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
 
-import aurora.ide.meta.gef.editors.models.BOX;
-import aurora.ide.meta.gef.editors.models.FieldSet;
-import aurora.ide.meta.gef.editors.models.Form;
-import aurora.ide.meta.gef.editors.models.HBox;
-import aurora.ide.meta.gef.editors.models.VBox;
+import aurora.plugin.source.gen.screen.model.BOX;
+import aurora.plugin.source.gen.screen.model.FieldSet;
+import aurora.plugin.source.gen.screen.model.Form;
+import aurora.plugin.source.gen.screen.model.HBox;
+import aurora.plugin.source.gen.screen.model.VBox;
 
 /**
 

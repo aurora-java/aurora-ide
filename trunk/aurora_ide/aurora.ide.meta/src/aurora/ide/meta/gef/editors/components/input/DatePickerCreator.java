@@ -7,8 +7,8 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.parts.InputPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class DatePickerCreator extends ComponentCreator {
 
@@ -49,7 +49,7 @@ public class DatePickerCreator extends ComponentCreator {
 		String t = DatePicker.DATE_PICKER;
 		if (t.equalsIgnoreCase(type)) {
 			DatePicker c = new DatePicker();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;

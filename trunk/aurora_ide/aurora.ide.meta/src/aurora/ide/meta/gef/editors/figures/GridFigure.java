@@ -4,7 +4,7 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
 
-import aurora.ide.meta.gef.editors.models.Container;
+import aurora.plugin.source.gen.screen.model.Container;
 
 /**
  * 

@@ -10,7 +10,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.Button;
+import aurora.ide.meta.gef.util.BoundsConvert;
+import aurora.ide.meta.gef.util.MessageUtil;
+import aurora.plugin.source.gen.screen.model.Button;
 
 /**
  */
@@ -38,7 +40,7 @@ public class ButtonFigure extends Figure {
 		super.paintFigure(g);
 		g.pushState();
 		Rectangle rect = getBounds();
-		Dimension dim = model.getSize();
+		Dimension dim = BoundsConvert.getSize(model);
 		IFigure parentFigure = getParent();
 		if (!(parentFigure instanceof ToolbarFigure)) {
 			g.drawImage(bgImg, 0, 0, 3, 2, rect.x, rect.y, 3, 2);// tl
@@ -57,7 +59,7 @@ public class ButtonFigure extends Figure {
 			g.drawImage(bgImg, 3, 4, 3, 2, rect.x + dim.width - 3, rect.y
 					+ dim.height - 2, 3, 2);// br
 		}
-		String text = model.getText();
+		String text =MessageUtil.getButtonText(model);
 		Dimension textExtents = FigureUtilities.getTextExtents(text, getFont());
 		Rectangle r1 = getStdImgRect();
 		g.setForegroundColor(ColorConstants.BLACK);

@@ -6,9 +6,9 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.TabFolder;
-import aurora.ide.meta.gef.editors.models.TabItem;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.TabFolder;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class TabFolderFigure extends Figure {
 

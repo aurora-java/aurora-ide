@@ -7,8 +7,8 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.parts.InputPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class DateTimePickerCreator extends ComponentCreator {
 
@@ -45,7 +45,7 @@ public class DateTimePickerCreator extends ComponentCreator {
 		String t = DateTimePicker.DATETIMEPICKER;
 		if (t.equalsIgnoreCase(type)) {
 			DateTimePicker c = new DateTimePicker();
-			c.setType(t);
+			c.setComponentType(t);
 			return c;
 		}
 		return null;
