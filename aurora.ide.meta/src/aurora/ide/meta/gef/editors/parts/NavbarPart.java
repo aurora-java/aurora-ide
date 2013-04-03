@@ -4,8 +4,8 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.NavbarFigure;
-import aurora.ide.meta.gef.editors.models.Navbar;
 import aurora.ide.meta.gef.editors.policies.NoSelectionEditPolicy;
+import aurora.plugin.source.gen.screen.model.Navbar;
 
 public class NavbarPart extends ComponentPart {
 

@@ -5,7 +5,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.TabFolderFigure;
 import aurora.ide.meta.gef.editors.layout.TabFolderLayout;
-import aurora.ide.meta.gef.editors.models.TabFolder;
+import aurora.plugin.source.gen.screen.model.TabFolder;
 
 public class TabFolderPart extends ContainerPart {
 

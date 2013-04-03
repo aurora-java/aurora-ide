@@ -4,9 +4,9 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 
 import aurora.ide.meta.gef.editors.figures.DatasetFigure;
-import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.policies.NodeDirectEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
+import aurora.plugin.source.gen.screen.model.Dataset;
 
 public class DatasetPart extends ComponentPart {
 

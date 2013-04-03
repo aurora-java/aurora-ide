@@ -7,13 +7,13 @@ import java.util.List;
 import org.eclipse.gef.EditPolicy;
 
 import aurora.ide.meta.gef.editors.EditorMode;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Dataset;
-import aurora.ide.meta.gef.editors.models.IProperties;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
 import aurora.ide.meta.gef.editors.policies.tplt.BindDropModelEditPolicy;
 import aurora.ide.meta.gef.editors.policies.tplt.TemplateContainerLayoutEditPolicy;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.Dataset;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 
 public abstract class ContainerPart extends ComponentPart {
 
@@ -50,7 +50,7 @@ public abstract class ContainerPart extends ComponentPart {
 	public void propertyChange(PropertyChangeEvent evt) {
 		super.propertyChange(evt);
 		String prop = evt.getPropertyName();
-		if (IProperties.CHILDREN.equals(prop))
+		if (ComponentInnerProperties.CHILDREN.equals(prop))
 			refreshChildren();
 	}
 

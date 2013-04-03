@@ -6,25 +6,24 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 
 import aurora.ide.meta.gef.editors.EditorMode;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.models.CheckBox;
-import aurora.ide.meta.gef.editors.models.FieldSet;
-import aurora.ide.meta.gef.editors.models.Form;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.GridSelectionCol;
-import aurora.ide.meta.gef.editors.models.HBox;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.Label;
-import aurora.ide.meta.gef.editors.models.Navbar;
-import aurora.ide.meta.gef.editors.models.Radio;
-import aurora.ide.meta.gef.editors.models.TabBody;
-import aurora.ide.meta.gef.editors.models.TabFolder;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.Toolbar;
-import aurora.ide.meta.gef.editors.models.VBox;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.CheckBox;
+import aurora.plugin.source.gen.screen.model.FieldSet;
+import aurora.plugin.source.gen.screen.model.Form;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.GridSelectionCol;
+import aurora.plugin.source.gen.screen.model.HBox;
+import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.Label;
+import aurora.plugin.source.gen.screen.model.Navbar;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.TabBody;
+import aurora.plugin.source.gen.screen.model.TabFolder;
+import aurora.plugin.source.gen.screen.model.TabItem;
+import aurora.plugin.source.gen.screen.model.Toolbar;
+import aurora.plugin.source.gen.screen.model.VBox;
 
 /**
  */
@@ -33,13 +32,13 @@ public class AuroraPartFactory implements EditPartFactory {
 	private static HashMap<Class<? extends AuroraComponent>, Class<? extends ComponentPart>> map = 
 			new HashMap<Class<? extends AuroraComponent>, Class<? extends ComponentPart>>(20);
 	static {
-		map.put(ViewDiagram.class, ViewDiagramPart.class);
+		map.put(ScreenBody.class, ViewDiagramPart.class);
 		map.put(Form.class, BoxPart.class);
 		map.put(FieldSet.class, BoxPart.class);
 		map.put(HBox.class, BoxPart.class);
 		map.put(VBox.class, BoxPart.class);
 		map.put(CheckBox.class, CheckBoxPart.class);
-		map.put(Radio.class, RadioPart.class);
+//		map.put(Radio.class, RadioPart.class);
 		map.put(Input.class, InputPart.class);
 		map.put(Grid.class, GridPart.class);
 		map.put(Button.class, ButtonPart.class);

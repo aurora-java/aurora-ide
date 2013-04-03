@@ -12,24 +12,29 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.layout.BackLayout;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.IProperties;
 import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
 import aurora.ide.meta.gef.editors.policies.ResizeComponentEditPolicy;
 import aurora.ide.meta.gef.editors.policies.tplt.TemplateNodeEditPolicy;
 import aurora.ide.meta.gef.editors.property.IPropertySource2;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public abstract class ComponentPart extends AbstractGraphicalEditPart implements
-		PropertyChangeListener, IProperties, PositionConstants {
+		PropertyChangeListener, PositionConstants {
 	protected static final String RESIZE_KEY = "resize-key";
 	private EditorMode editorMode;
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		this.getFigure().getBounds();
 		String prop = evt.getPropertyName();
-		if (!IProperties.CHILDREN.equals(prop))
+		if (!ComponentInnerProperties.CHILDREN.equals(prop))
 			this.refreshVisuals();
-		if (IProperties.SIZE.equals(prop) || IProperties.BOUNDS.equals(prop)) {
+		if (ComponentProperties.height.equals(prop)
+				|| ComponentProperties.width.equals(prop)
+				|| ComponentInnerProperties.BOUNDS.equals(prop)
+				|| ComponentInnerProperties.SIZE.equals(prop)
+				|| ComponentInnerProperties.LOCATION.equals(prop)) {
 			this.getFigure().revalidate();
 		}
 	}

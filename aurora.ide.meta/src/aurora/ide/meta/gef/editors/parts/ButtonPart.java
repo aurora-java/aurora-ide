@@ -4,7 +4,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 
 import aurora.ide.meta.gef.editors.figures.ButtonFigure;
-import aurora.ide.meta.gef.editors.models.Button;
+import aurora.plugin.source.gen.screen.model.Button;
 
 public class ButtonPart extends ComponentPart {
 

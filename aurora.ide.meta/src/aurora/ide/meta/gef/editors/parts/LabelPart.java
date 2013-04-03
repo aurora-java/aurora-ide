@@ -3,7 +3,7 @@ package aurora.ide.meta.gef.editors.parts;
 import org.eclipse.draw2d.IFigure;
 
 import aurora.ide.meta.gef.editors.figures.LabelFigure;
-import aurora.ide.meta.gef.editors.models.Label;
+import aurora.plugin.source.gen.screen.model.Label;
 
 public class LabelPart extends InputPart {
 

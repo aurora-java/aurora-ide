@@ -7,9 +7,9 @@ import org.eclipse.gef.EditPolicy;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.figures.GridFigure;
 import aurora.ide.meta.gef.editors.layout.GridBackLayout;
-import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.policies.GridLayoutEditPolicy;
 import aurora.ide.meta.gef.editors.policies.tplt.TemplateGridLayoutEditPolicy;
+import aurora.plugin.source.gen.screen.model.Container;
 
 public class GridPart extends ContainerPart {
 

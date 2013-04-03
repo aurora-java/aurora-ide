@@ -3,7 +3,7 @@ package aurora.ide.meta.gef.editors.parts;
 import org.eclipse.draw2d.IFigure;
 
 import aurora.ide.meta.gef.editors.figures.CheckBoxFigure;
-import aurora.ide.meta.gef.editors.models.CheckBox;
+import aurora.plugin.source.gen.screen.model.CheckBox;
 
 public class CheckBoxPart extends InputPart {
 	protected IFigure createFigure() {
