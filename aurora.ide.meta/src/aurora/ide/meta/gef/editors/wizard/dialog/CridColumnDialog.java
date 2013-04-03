@@ -22,10 +22,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.builder.ResourceUtil;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.Renderer;
 import aurora.ide.meta.gef.editors.wizard.SetLinkOrRefWizardPage;
 import aurora.ide.meta.gef.i18n.Messages;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.Renderer;
 
 public class CridColumnDialog extends Dialog {
 

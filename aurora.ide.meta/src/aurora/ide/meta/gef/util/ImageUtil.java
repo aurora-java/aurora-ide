@@ -1,0 +1,27 @@
+package aurora.ide.meta.gef.util;
+
+import org.eclipse.swt.graphics.Image;
+
+import aurora.ide.meta.gef.editors.property.IDialogEditableObject;
+import aurora.ide.meta.gef.editors.property.PropertySourceUtil;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Button;
+
+public class ImageUtil {
+	public static Image getImage(IDialogEditableObject value){
+		Object contextInfo = value.getContextInfo();
+		if(contextInfo instanceof Button){
+			AuroraComponent targetComponent = ((Button) contextInfo).getButtonClicker().getTargetComponent();
+			if(targetComponent!=null){
+				return PropertySourceUtil.getImageOf(targetComponent);
+			}
+		}
+		return null;
+		
+//		if (targetComponent != null
+//				&& (B_SEARCH.equals(actionID) || B_SAVE.equals(actionID) || B_RESET
+//						.equals(actionID)))
+//			return PropertySourceUtil.getImageOf(targetComponent);
+		
+	}
+}

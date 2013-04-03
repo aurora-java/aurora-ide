@@ -15,12 +15,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.models.link.Parameter;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.Parameter;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class ParameterDialog extends Dialog {
 	private Container[] containers;
@@ -138,7 +138,7 @@ public class ParameterDialog extends Dialog {
 	}
 
 	private Container findForm() {
-		ViewDiagram diagram = getDiagram(context);
+		ScreenBody diagram = getDiagram(context);
 		if (diagram != null) {
 			List<Container> sectionContainers = diagram.getSectionContainers(
 					diagram, new String[] { Container.SECTION_TYPE_QUERY });
@@ -149,11 +149,11 @@ public class ParameterDialog extends Dialog {
 		return null;
 	}
 
-	private ViewDiagram getDiagram(AuroraComponent ac) {
+	private ScreenBody getDiagram(AuroraComponent ac) {
 		if (ac != null) {
 			Container parent = ac.getParent();
-			if (parent instanceof ViewDiagram) {
-				return (ViewDiagram) parent;
+			if (parent instanceof ScreenBody) {
+				return (ScreenBody) parent;
 			}
 			return getDiagram(parent);
 		}

@@ -126,7 +126,6 @@ function createComboDatasetMap(model, lookupCode) {
 	var rds = createMap('a', 'dataset');
 	rds["ds_id"] = genDatasetID(rds);
 	rds["autoCreate"] = true;
-	rds["component_type"] = "combodataset";
 	rds["model"] = String(model);
 	rds["loadData"]= true;
 	if (lookupCode != null)

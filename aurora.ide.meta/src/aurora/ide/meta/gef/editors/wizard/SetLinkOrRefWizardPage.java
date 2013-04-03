@@ -40,11 +40,7 @@ import org.eclipse.swt.widgets.TreeColumn;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.Renderer;
-import aurora.ide.meta.gef.editors.models.TabItem;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.ide.meta.gef.editors.models.old.ViewDiagram;
 import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
 import aurora.ide.meta.gef.editors.template.handle.TemplateConfig;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
@@ -53,11 +49,16 @@ import aurora.ide.meta.gef.editors.wizard.dialog.CridColumnDialog;
 import aurora.ide.meta.gef.editors.wizard.dialog.StyleSettingDialog;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.Renderer;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class SetLinkOrRefWizardPage extends WizardPage {
 
 	private Composite composite;
-	private ViewDiagram viewDiagram;
+	private ScreenBody viewDiagram;
 	//private TemplateConfig config;
 
 	public SetLinkOrRefWizardPage() {
@@ -73,7 +74,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		setControl(composite);
 	}
 
-	public void createCustom(ViewDiagram v,TemplateConfig config) {
+	public void createCustom(ScreenBody v,TemplateConfig config) {
 		this.viewDiagram = v;
 		//config = TemplateHelper.getInstance().getConfig();
 		for (Control c : composite.getChildren()) {
@@ -192,7 +193,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 				if (DialogUtil.showConfirmDialogBox(Messages.SetLinkOrRefWizardPage_IsDeleteGridColumn) == SWT.OK) {
 					Grid grid = (Grid) gridColumn.getParent();
 					grid.removeChild(gridColumn);
-					grid.getCols().remove(gridColumn);
+					grid.getChildren().remove(gridColumn);
 					gridColumns.remove(gridColumn);
 					treeViewer.refresh(grid);
 				}
@@ -219,7 +220,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 				modifyGridColumnIndex(gridColumn, index, 1);
 				treeViewer.refresh(gridColumn.getParent());
 				btnUP.setEnabled(true);
-				if (index + 2 >= ((Grid) gridColumn.getParent()).getCols().size()) {
+				if (index + 2 >= ((Grid) gridColumn.getParent()).getChildren().size()) {
 					btnDown.setEnabled(false);
 				}
 			}
@@ -240,7 +241,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 					} else {
 						btnDel.setEnabled(false);
 					}
-					if (getCridColumnIndex((GridColumn) obj) + 1 < ((Grid) ((GridColumn) obj).getParent()).getCols()
+					if (getCridColumnIndex((GridColumn) obj) + 1 < ((Grid) ((GridColumn) obj).getParent()).getChildren()
 							.size()) {
 						btnDown.setEnabled(true);
 					} else {
@@ -312,23 +313,23 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		return obj;
 	}
 
-	public ViewDiagram getViewDiagram() {
+	public ScreenBody getViewDiagram() {
 		return viewDiagram;
 	}
 
-	public void setViewDiagram(ViewDiagram viewDiagram) {
+	public void setViewDiagram(ScreenBody viewDiagram) {
 		this.viewDiagram = viewDiagram;
 	}
 
 	private int getCridColumnIndex(GridColumn gridColumn) {
 		Grid grid = (Grid) gridColumn.getParent();
-		return grid.getCols().indexOf(gridColumn);
+		return grid.getChildren().indexOf(gridColumn);
 	}
 
 	private void modifyGridColumnIndex(GridColumn gridColumn, int index, int offset) {
 		Grid grid = (Grid) gridColumn.getParent();
-		grid.getCols().remove(gridColumn);
-		grid.getCols().add(index + offset, gridColumn);
+		grid.getChildren().remove(gridColumn);
+		grid.getChildren().add(index + offset, gridColumn);
 		int idx = grid.getChildren().indexOf(gridColumn);
 		grid.getChildren().remove(gridColumn);
 		grid.getChildren().add(idx + offset, gridColumn);
@@ -361,7 +362,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 				} else if (path.endsWith("screen")) { //$NON-NLS-1$
 					path = path.substring(path.indexOf(webHome) + webHome.length());
 				}
-				ti.getTabRef().setOpenPath(path);
+//				ti.getTabRef().setOpenPath(path);
 				btn.setEnabled(true);
 			}
 		}
@@ -375,7 +376,9 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		}
 
 		public void widgetSelected(SelectionEvent e) {
-			StyleSettingDialog dialog = new StyleSettingDialog(getShell(), ti.getTabRef().getParameters());
+			StyleSettingDialog dialog = new StyleSettingDialog(getShell(),
+//					ti.getTabRef().getParameters()
+					null);
 			dialog.open();
 		}
 	}
@@ -463,7 +466,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof Grid) {
 				Grid grid = (Grid) parentElement;
-				return grid.getCols().toArray();
+				return grid.getChildren().toArray();
 			}
 			return null;
 		}
@@ -475,7 +478,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 		public boolean hasChildren(Object element) {
 			if (element instanceof Grid) {
 				Grid grid = (Grid) element;
-				return grid.getCols().size() > 0;
+				return grid.getChildren().size() > 0;
 			}
 			return false;
 		}

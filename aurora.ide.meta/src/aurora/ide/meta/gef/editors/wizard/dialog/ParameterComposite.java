@@ -25,10 +25,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.models.link.Parameter;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.Parameter;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class ParameterComposite extends Composite {
 
@@ -38,11 +38,11 @@ public class ParameterComposite extends Composite {
 
 	private List<Parameter> input = new ArrayList<Parameter>();
 
-	private ViewDiagram diagram;
+	private ScreenBody diagram;
 
 	private AuroraComponent context;
 
-	public ParameterComposite(ViewDiagram diagram, Composite parent, int style,AuroraComponent context) {
+	public ParameterComposite(ScreenBody diagram, Composite parent, int style,AuroraComponent context) {
 		super(parent, style);
 		createControl();
 		this.diagram = diagram;

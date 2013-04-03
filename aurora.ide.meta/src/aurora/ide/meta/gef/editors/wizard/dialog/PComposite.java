@@ -29,8 +29,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
-import aurora.ide.meta.gef.editors.models.link.Parameter;
 import aurora.ide.meta.gef.i18n.Messages;
+import aurora.plugin.source.gen.screen.model.Parameter;
 
 public class PComposite extends Composite {
 

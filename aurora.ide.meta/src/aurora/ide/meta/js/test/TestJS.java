@@ -5,24 +5,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Script;
 import org.mozilla.javascript.Scriptable;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
 import aurora.ide.api.composite.map.CommentCompositeLoader;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
+import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.meta.js.ScriptEngine;
+import aurora.ide.meta.js.object.CompositeMapObject;
+import aurora.ide.prototype.freemarker.test.FMTester;
 
 public class TestJS {
 
 	static String loadJS() {
 		InputStream resourceAsStream = null;
 		try {
-			resourceAsStream = TestJS.class
-					.getResourceAsStream("test.js");
+			resourceAsStream = TestJS.class.getResourceAsStream("test.js");
 			InputStreamReader osw = new InputStreamReader(resourceAsStream);
 			BufferedReader r = new BufferedReader(osw);
 			StringBuilder b = new StringBuilder();
@@ -57,7 +55,7 @@ public class TestJS {
 			CompositeLoader parser = new CommentCompositeLoader();
 			CompositeMap rootMap = parser.loadFromStream(is);
 			rootMap.put("file_path", "a/b/c/d.uip");
-//			rootMap.getChildByAttrib(attrib_key, attrib_value)
+			// rootMap.getChildByAttrib(attrib_key, attrib_value)
 			// ModelIOManager mim = ModelIOManager.getNewInstance();
 			// diagram = mim.fromCompositeMap(rootMap);
 			return rootMap;
@@ -82,8 +80,14 @@ public class TestJS {
 		ScriptEngine en = new ScriptEngine();
 		Scriptable scope = en.createScope(loadCompositeMap());
 		try {
-			Object eval = en.eval(loadJS(), scope);
+			CompositeMapObject eval = (CompositeMapObject) en.eval(loadJS(),
+					scope);
 			System.out.println(eval);
+			//
+			// String head = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n";
+			String gen = new FMTester(eval.getData()).gen();
+			CompositeMap map = CompositeMapUtil.loaderFromString(gen);
+			System.out.println(map.toXML());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
