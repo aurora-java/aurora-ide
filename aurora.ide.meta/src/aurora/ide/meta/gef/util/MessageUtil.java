@@ -15,7 +15,7 @@ public class MessageUtil {
 		else if (Button.SAVE.equals(buttonType))
 			return "保存";
 		else if (Button.EXCEL.equals(buttonType))
-			return "";
+			return "导出";
 		return "button";
 	}
 

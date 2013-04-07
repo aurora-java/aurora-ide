@@ -11,6 +11,9 @@ public class IntegerPropertyDescriptor extends StylePropertyDescriptor {
 	public IntegerPropertyDescriptor(Object id, String displayName) {
 		super(id, displayName);
 	}
+	public IntegerPropertyDescriptor(Object id, String displayName,int style) {
+		super(id, displayName,style);
+	}
 
 	public IntegerPropertyDescriptor(Object id, String displayName,
 			boolean readOnly) {
