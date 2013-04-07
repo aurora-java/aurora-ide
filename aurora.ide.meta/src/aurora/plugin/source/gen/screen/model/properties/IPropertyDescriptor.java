@@ -10,6 +10,11 @@ public interface IPropertyDescriptor {
 	int editable = 1 << 6;
 	int save = 1 << 7;
 	int inner = 1 << 8;
+	int _boolean = 1<<9;
+	int _int = 1<<10;
+	int _float = 1<<11;
+	
+	
 
 	/**
 	 * Returns a brief description of this property. This localized string is

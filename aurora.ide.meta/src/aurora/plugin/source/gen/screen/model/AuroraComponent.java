@@ -10,11 +10,7 @@ import aurora.plugin.source.gen.screen.model.properties.PropertyEditSupport;
 abstract public class AuroraComponent extends PropertyEditSupport implements
 		Cloneable {
 
-	/**
-	 * the markeid is only used in model io operation,to mark the component
-	 * reference relation
-	 */
-	public transient String markid = Integer.toHexString(hashCode());
+	
 
 	// private String componentType = "";
 

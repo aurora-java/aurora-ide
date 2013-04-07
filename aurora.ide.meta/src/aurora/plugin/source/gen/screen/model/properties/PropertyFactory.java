@@ -10,81 +10,82 @@ public class PropertyFactory implements ComponentInnerProperties,
 	}
 
 	public IPropertyDescriptor[] createPropertyDescriptors(String componentType) {
-		if("button".equalsIgnoreCase(componentType)){
+		if ("button".equalsIgnoreCase(componentType)) {
 			return this.button();
 		}
-		if("box".equalsIgnoreCase(componentType)){
+		if ("box".equalsIgnoreCase(componentType)) {
 			return this.box();
 		}
-		if("buttonClick".equalsIgnoreCase(componentType)){
+		if ("inner_buttonclicker".equalsIgnoreCase(componentType)) {
 			return this.buttonClick();
 		}
-		if("checkbox".equalsIgnoreCase(componentType)){
+		if ("checkbox".equalsIgnoreCase(componentType)) {
 			return this.checkbox();
 		}
-		if("combox".equalsIgnoreCase(componentType)){
+		if ("combox".equalsIgnoreCase(componentType)) {
 			return this.combox();
 		}
-		
-		if("dataset".equalsIgnoreCase(componentType)){
+
+		if ("dataset".equalsIgnoreCase(componentType)) {
 			return this.dataset();
 		}
-		if("datasetfield".equalsIgnoreCase(componentType)){
+		if ("datasetfield".equalsIgnoreCase(componentType)) {
 			return this.datasetfield();
 		}
-		if("datepicker".equalsIgnoreCase(componentType)){
+		if ("datepicker".equalsIgnoreCase(componentType)) {
 			return this.datepicker();
 		}
-		if("datetimepicker".equalsIgnoreCase(componentType)){
+		if ("datetimepicker".equalsIgnoreCase(componentType)) {
 			return this.datetimepicker();
 		}
-		if("fieldset".equalsIgnoreCase(componentType)){
+		if ("fieldset".equalsIgnoreCase(componentType)) {
 			return this.fieldset();
 		}
-		if("footrenderer".equalsIgnoreCase(componentType)){
+		if ("footrenderer".equalsIgnoreCase(componentType)) {
 			return this.footrenderer();
 		}
-		
-		if("form".equalsIgnoreCase(componentType)){
+
+		if ("form".equalsIgnoreCase(componentType)) {
 			return this.form();
 		}
-		if("grid".equalsIgnoreCase(componentType)){
+		if ("grid".equalsIgnoreCase(componentType)) {
 			return this.grid();
-		}if("gridcolumn".equalsIgnoreCase(componentType)){
+		}
+		if ("gridcolumn".equalsIgnoreCase(componentType)) {
 			return this.gridcolumn();
 		}
-		if("gridselectioncol".equalsIgnoreCase(componentType)){
+		if ("gridselectioncol".equalsIgnoreCase(componentType)) {
 			return this.gridselectioncol();
 		}
-		if("hbox".equalsIgnoreCase(componentType)){
+		if ("hbox".equalsIgnoreCase(componentType)) {
 			return this.hbox();
 		}
-		if("label".equalsIgnoreCase(componentType)){
+		if ("label".equalsIgnoreCase(componentType)) {
 			return this.label();
 		}
-		if("lov".equalsIgnoreCase(componentType)){
+		if ("lov".equalsIgnoreCase(componentType)) {
 			return this.lov();
 		}
-		
-		if("numberfield".equalsIgnoreCase(componentType)){
+
+		if ("numberfield".equalsIgnoreCase(componentType)) {
 			return this.numberfield();
 		}
-		if("renderer".equalsIgnoreCase(componentType)){
+		if ("renderer".equalsIgnoreCase(componentType)) {
 			return this.renderer();
 		}
-		if("tabitem".equalsIgnoreCase(componentType)){
+		if ("tabitem".equalsIgnoreCase(componentType)) {
 			return this.tabitem();
 		}
-		if("textfield".equalsIgnoreCase(componentType)){
+		if ("textfield".equalsIgnoreCase(componentType)) {
 			return this.textfield();
 		}
-		if("vbox".equalsIgnoreCase(componentType)){
+		if ("vbox".equalsIgnoreCase(componentType)) {
 			return this.vbox();
 		}
-		if("screenbody".equalsIgnoreCase(componentType)){
+		if ("screenbody".equalsIgnoreCase(componentType)) {
 			return this.screenbody();
 		}
-		
+
 		return this.defaultpPD();
 	}
 
@@ -96,6 +97,27 @@ public class PropertyFactory implements ComponentInnerProperties,
 	protected DefaultPropertyDescriptor dss(String id) {
 		DefaultPropertyDescriptor dpd = new DefaultPropertyDescriptor(id,
 				IPropertyDescriptor.simple | IPropertyDescriptor.save);
+		return dpd;
+	}
+
+	protected DefaultPropertyDescriptor dssb(String id) {
+		DefaultPropertyDescriptor dpd = new DefaultPropertyDescriptor(id,
+				IPropertyDescriptor.simple | IPropertyDescriptor.save
+						| IPropertyDescriptor._boolean);
+		return dpd;
+	}
+
+	protected DefaultPropertyDescriptor dssi(String id) {
+		DefaultPropertyDescriptor dpd = new DefaultPropertyDescriptor(id,
+				IPropertyDescriptor.simple | IPropertyDescriptor.save
+						| IPropertyDescriptor._int);
+		return dpd;
+	}
+
+	protected DefaultPropertyDescriptor dssf(String id) {
+		DefaultPropertyDescriptor dpd = new DefaultPropertyDescriptor(id,
+				IPropertyDescriptor.simple | IPropertyDescriptor.save
+						| IPropertyDescriptor._float);
 		return dpd;
 	}
 
@@ -112,8 +134,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(type),
 				dss(icon),
@@ -159,16 +181,16 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(CONTAINER_SECTION_TYPE, IPropertyDescriptor.inner),
 				d(DATASET_DELEGATE, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save),
-				dss(row),
-				dss(column),
+				dssi(row),
+				dssi(column),
 				dss(title),
-				dss(labelWidth),
+				dssi(labelWidth),
 				d(CHILDREN, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save
 						| IPropertyDescriptor.list) };
@@ -180,9 +202,9 @@ public class PropertyFactory implements ComponentInnerProperties,
 				dss(COMPONENT_TYPE, IPropertyDescriptor.inner),
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
-				dss(width),
-				dss(height),
-				dss(labelWidth),
+				dssi(width),
+				dssi(height),
+				dssi(labelWidth),
 				d(CHILDREN, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save
 						| IPropertyDescriptor.list) };
@@ -194,9 +216,9 @@ public class PropertyFactory implements ComponentInnerProperties,
 				dss(COMPONENT_TYPE, IPropertyDescriptor.inner),
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
-				dss(width),
-				dss(height),
-				dss(labelWidth),
+				dssi(width),
+				dssi(height),
+				dssi(labelWidth),
 				d(CHILDREN, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save
 						| IPropertyDescriptor.list) };
@@ -209,16 +231,16 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(CONTAINER_SECTION_TYPE, IPropertyDescriptor.inner),
 				d(DATASET_DELEGATE, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save),
-				dss(row),
-				dss(column),
+				dssi(row),
+				dssi(column),
 				dss(title),
-				dss(labelWidth),
+				dssi(labelWidth),
 				d(CHILDREN, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save
 						| IPropertyDescriptor.list) };
@@ -231,16 +253,16 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(CONTAINER_SECTION_TYPE, IPropertyDescriptor.inner),
 				d(DATASET_DELEGATE, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save),
-				dss(row),
-				dss(column),
+				dssi(row),
+				dssi(column),
 				dss(title),
-				dss(labelWidth),
+				dssi(labelWidth),
 				d(CHILDREN, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save
 						| IPropertyDescriptor.list) };
@@ -251,7 +273,7 @@ public class PropertyFactory implements ComponentInnerProperties,
 				dss(model),
 				dss(COMPONENT_MARKER_ID, IPropertyDescriptor.inner),
 				dss(COMPONENT_TYPE, IPropertyDescriptor.inner),
-				dss(pageSize),
+				dssi(pageSize),
 				dss(selectionModel),
 				d(DATASET_QUERY_CONTAINER, IPropertyDescriptor.inner
 						| IPropertyDescriptor.reference
@@ -268,7 +290,7 @@ public class PropertyFactory implements ComponentInnerProperties,
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save
 						| IPropertyDescriptor.list) };
 	}
-	
+
 	private IPropertyDescriptor[] container() {
 		return new IPropertyDescriptor[] {
 				dss(COMPONENT_MARKER_ID, IPropertyDescriptor.inner),
@@ -276,8 +298,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(CONTAINER_SECTION_TYPE, IPropertyDescriptor.inner),
 				d(DATASET_DELEGATE, IPropertyDescriptor.containment
@@ -292,8 +314,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				dss(COMPONENT_MARKER_ID, IPropertyDescriptor.inner),
 				dss(COMPONENT_TYPE, IPropertyDescriptor.inner),
 				d(LOCATION, IPropertyDescriptor.containment
-						| IPropertyDescriptor.inner), dss(prompt), dss(width),
-				dss(height), dss(name) };
+						| IPropertyDescriptor.inner), dss(prompt), dssi(width),
+				dssi(height), dss(name) };
 	}
 
 	private IPropertyDescriptor[] input() {
@@ -303,8 +325,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(emptyText),
 				d(DATASET_FIELD_DELEGATE, IPropertyDescriptor.containment
@@ -318,8 +340,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(emptyText),
 				dss(typeCase),
@@ -334,8 +356,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(renderer),
 				d(DATASET_FIELD_DELEGATE, IPropertyDescriptor.containment
@@ -349,12 +371,12 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(emptyText),
-				dss(enableBesideDays),
-				dss(enableMonthBtn),
+				dssb(enableBesideDays),
+				dssb(enableMonthBtn),
 				d(DATASET_FIELD_DELEGATE, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save) };
 	}
@@ -366,12 +388,12 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(emptyText),
-				dss(enableBesideDays),
-				dss(enableMonthBtn),
+				dssb(enableBesideDays),
+				dssb(enableMonthBtn),
 				d(DATASET_FIELD_DELEGATE, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save) };
 	}
@@ -383,8 +405,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(emptyText),
 				d(DATASET_FIELD_DELEGATE, IPropertyDescriptor.containment
@@ -398,8 +420,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(emptyText),
 				d(DATASET_FIELD_DELEGATE, IPropertyDescriptor.containment
@@ -412,13 +434,13 @@ public class PropertyFactory implements ComponentInnerProperties,
 				dss(COMPONENT_TYPE, IPropertyDescriptor.inner),
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
-				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(prompt),
+				dssi(width),
+				dssi(height),
 				dss(name),
-				dss(allowDecimals),
-				dss(allowNegative),
-				dss(allowFormat),
+				dssb(allowDecimals),
+				dssb(allowNegative),
+				dssb(allowFormat),
 				dss(emptyText),
 				d(DATASET_FIELD_DELEGATE, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save) };
@@ -431,8 +453,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(text),
 				d(DATASET_FIELD_DELEGATE, IPropertyDescriptor.containment
@@ -445,9 +467,9 @@ public class PropertyFactory implements ComponentInnerProperties,
 				dss(COMPONENT_TYPE, IPropertyDescriptor.inner), dss(name),
 				dss(checkedValue), dss(uncheckedValue), dss(displayField),
 				dss(options), dss(valueField), dss(returnField),
-				dss(lovGridHeight), dss(lovHeight), dss(lovService),
-				dss(lovUrl), dss(lovWidth), dss(title), dss(required),
-				dss(readOnly), dss(defaultValue) };
+				dssi(lovGridHeight), dssi(lovHeight), dss(lovService),
+				dss(lovUrl), dssi(lovWidth), dss(title), dssb(required),
+				dssb(readOnly), dss(defaultValue) };
 	}
 
 	private IPropertyDescriptor[] tabitem() {
@@ -458,8 +480,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				d(CHILDREN, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save
@@ -473,8 +495,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				// dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(CONTAINER_SECTION_TYPE, IPropertyDescriptor.inner),
 				d(DATASET_DELEGATE, IPropertyDescriptor.containment
@@ -483,10 +505,10 @@ public class PropertyFactory implements ComponentInnerProperties,
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save),
 				d(GRID_NAVBAR, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save),
-				dss(row),
-				dss(column),
+				dssi(row),
+				dssi(column),
 				dss(title),
-				dss(labelWidth),
+				dssi(labelWidth),
 				d(CHILDREN, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner | IPropertyDescriptor.save
 						| IPropertyDescriptor.list) };
@@ -499,8 +521,8 @@ public class PropertyFactory implements ComponentInnerProperties,
 				d(LOCATION, IPropertyDescriptor.containment
 						| IPropertyDescriptor.inner),
 				dss(prompt),
-				dss(width),
-				dss(height),
+				dssi(width),
+				dssi(height),
 				dss(name),
 				dss(editor),
 				d(GRID_COLUMN_RENDERER, IPropertyDescriptor.inner

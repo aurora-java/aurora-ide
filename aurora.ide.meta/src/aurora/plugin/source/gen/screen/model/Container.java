@@ -128,7 +128,10 @@ abstract public class Container extends AuroraComponent implements
 		}
 		if (ComponentInnerProperties.CHILDREN.equals(propId)
 				&& val instanceof List) {
-			this.children = (List<AuroraComponent>) val;
+			this.children = new ArrayList<AuroraComponent>();
+			for (AuroraComponent c : (List<AuroraComponent>) val) {
+				this.addChild(c);
+			}
 			return;
 		}
 		super.setPropertyValue(propId, val);
