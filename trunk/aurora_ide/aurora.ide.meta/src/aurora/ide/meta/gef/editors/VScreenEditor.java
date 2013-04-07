@@ -47,7 +47,6 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.editor.InputFileListener;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
-import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
