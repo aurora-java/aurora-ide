@@ -2,10 +2,6 @@ package aurora.plugin.source.gen.screen.model.properties;
 
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
-import aurora.ide.meta.gef.editors.models.CheckBox;
-import aurora.ide.meta.gef.editors.models.DatasetField;
-import aurora.ide.meta.gef.editors.models.Input;
-import aurora.ide.meta.gef.editors.models.Navbar;
 import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.ButtonClickEditDialog;
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
@@ -18,6 +14,9 @@ import aurora.ide.meta.gef.editors.property.StylePropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.TabRefPropertyDescriptor;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.CheckBox;
+import aurora.plugin.source.gen.screen.model.DatasetField;
+import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.VBox;
 
 public class EditablePropertyFactory implements ComponentInnerProperties,
@@ -97,7 +96,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 				new IntegerPropertyDescriptor(height, "Height"), //$NON-NLS-1$
 				new StringPropertyDescriptor(title, "Title"), //$NON-NLS-1$
 				new ComboPropertyDescriptor(type,
-						"Type", new String[] { "新增", "删除", "保存", "导出", "清除" }) }; //$NON-NLS-1$
+						"Type",Button.std_types ) }; //$NON-NLS-1$
 		IPropertyDescriptor[] inner_pds = new IPropertyDescriptor[] {
 				new StringPropertyDescriptor(text, "Text"), //$NON-NLS-1$
 				PD_NAME, new IntegerPropertyDescriptor(width, "Width"), //$NON-NLS-1$
@@ -119,11 +118,11 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	public static final IPropertyDescriptor PD_TEXT = new StringPropertyDescriptor(
 			text, text);
 	public static final IPropertyDescriptor PD_CHECKED_VALUE = new StringPropertyDescriptor(
-			DatasetField.CHECKED_VALUE, "*" + DatasetField.CHECKED_VALUE,
+			checkedValue, "*" + checkedValue,
 			StylePropertyDescriptor.component
 					| StylePropertyDescriptor.datasetfield);
 	public static final IPropertyDescriptor PD_UNCHECKED_VALUE = new StringPropertyDescriptor(
-			DatasetField.UNCHECKED_VALUE, "*" + DatasetField.UNCHECKED_VALUE,
+			uncheckedValue, "*" + uncheckedValue,
 			StylePropertyDescriptor.component
 					| StylePropertyDescriptor.datasetfield);
 	private static final String[] editors = { "", Input.TEXT, Input.NUMBER,
@@ -156,7 +155,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 
 	private IPropertyDescriptor[] grid() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_HEIGHT,
-				PD_NAVBAR_TYPE };
+				PD_NAVBAR_TYPE, PD_SELECTION_MODE,PD_PAGE_SIZE };
 	}
 
 	public static final String NAVBAR_NONE = "";
@@ -165,7 +164,6 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	public static final String NAVBAR = "navBar";
 	private static final String[] navBarTypes = { NAVBAR_NONE, NAVBAR_SIMPLE,
 			NAVBAR_COMPLEX };
-	private Navbar navBar = new Navbar();
 
 	private static final IPropertyDescriptor PD_NAVBAR_TYPE = new ComboPropertyDescriptor(
 			navBarType, "NavBarType", navBarTypes);
@@ -304,21 +302,22 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 			height, "Height");
 	protected static final IPropertyDescriptor PD_NAME = new StringPropertyDescriptor(
 			name, "Name");
-	private static final IPropertyDescriptor[] pds = { PD_PROMPT };
 	public static final IPropertyDescriptor[] NONE_PROPS = new IPropertyDescriptor[0];
 
 	public static final String SELECT_NONE = "";
 	public static final String SELECT_MULTI = "multiple";
 	public static final String SELECT_SINGLE = "single";
-	public static final String SELECTION_MODE = "selectionModel";
+//	public static final String SELECTION_MODE = "selectionModel";
 	private static final String[] selectionModes = { SELECT_NONE, SELECT_MULTI,
 			SELECT_SINGLE };
 	private static final IPropertyDescriptor PD_SELECTION_MODE = new ComboPropertyDescriptor(
-			SELECTION_MODE, "*SelectionModel", selectionModes,
+			selectionModel, "*SelectionModel", selectionModes,
 			StylePropertyDescriptor.component
-					| StylePropertyDescriptor.datasetfield);
+					| StylePropertyDescriptor.dataset);
 
-	// new IntegerPropertyDescriptor(PAGE_SIZE, "*pageSize"),
+	private static final IPropertyDescriptor PD_PAGE_SIZE = new IntegerPropertyDescriptor(
+			pageSize, "*pageSize", StylePropertyDescriptor.component
+					| StylePropertyDescriptor.dataset);
 
 	private IPropertyDescriptor[] screenbody() {
 		return NONE_PROPS;

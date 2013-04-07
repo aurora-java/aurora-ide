@@ -1,14 +1,13 @@
 package aurora.plugin.source.gen.screen.model;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Collections;
 import java.util.List;
 
-import uncertain.composite.CompositeMap;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
-import aurora.plugin.source.gen.screen.model.properties.IPropertyDescriptor;
-
-
-public class Grid extends GridColumn implements DatasetBinder,IDatasetDelegate {
+public class Grid extends GridColumn implements DatasetBinder, IDatasetDelegate {
 
 	public static final String GRID = "grid";
 
@@ -26,10 +25,12 @@ public class Grid extends GridColumn implements DatasetBinder,IDatasetDelegate {
 			NAVBAR_COMPLEX };
 	private Navbar navBar = new Navbar();
 
-//	private static final IPropertyDescriptor PD_NAVBAR_TYPE = new ComboPropertyDescriptor(
-//			NAVBAR_TYPE, "NavBarType", navBarTypes);
-//	private static final IPropertyDescriptor[] pds = new IPropertyDescriptor[] {
-//			PD_PROMPT, PD_WIDTH, PD_HEIGHT, PD_NAVBAR_TYPE };
+	// private static final IPropertyDescriptor PD_NAVBAR_TYPE = new
+	// ComboPropertyDescriptor(
+	// NAVBAR_TYPE, "NavBarType", navBarTypes);
+	// private static final IPropertyDescriptor[] pds = new
+	// IPropertyDescriptor[] {
+	// PD_PROMPT, PD_WIDTH, PD_HEIGHT, PD_NAVBAR_TYPE };
 
 	private Toolbar toolbar;
 
@@ -37,7 +38,7 @@ public class Grid extends GridColumn implements DatasetBinder,IDatasetDelegate {
 		super();
 		this.setSize(750, 380);
 		ResultDataSet dataset = new ResultDataSet();
-//		dataset.setOwner(this);
+		// dataset.setOwner(this);
 		// dataset.setUseParentBM(false);
 		this.setSectionType(BOX.SECTION_TYPE_RESULT);
 		setDataset(dataset);
@@ -56,16 +57,26 @@ public class Grid extends GridColumn implements DatasetBinder,IDatasetDelegate {
 	@Override
 	public void setDataset(Dataset dataset) {
 		super.setDataset(dataset);
-//		((ResultDataSet) dataset).setOwner(this);
-		setSelectionMode(getDataset().getSelectionMode());
+		dataset.addPropertyChangeListener(new PropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (ComponentProperties.selectionModel.equals(evt
+						.getPropertyName())) {
+					setSelectionMode("" + evt.getNewValue());
+				}
+			}
+		});
+		((ResultDataSet) dataset).setOwner(this);
+		// setSelectionMode(getDataset().getSelectionMode());
 	}
 
 	public void setSelectionMode(String sm) {
 		if (gsc.getSelectionMode().equals(sm))
 			return;
 		gsc.setSelectionMode(sm);
-		getDataset().setSelectionMode(sm);
-		getDataset().setSelectable(!sm.equals(ResultDataSet.SELECT_NONE));
+		// getDataset().setSelectionMode(sm);
+		// getDataset().setSelectable(!sm.equals(ResultDataSet.SELECT_NONE));
 		if (gsc.getSelectionMode().equals(ResultDataSet.SELECT_NONE)) {
 			removeChild(gsc);
 		} else {
@@ -162,29 +173,29 @@ public class Grid extends GridColumn implements DatasetBinder,IDatasetDelegate {
 		return super.isResponsibleChild(child);
 	}
 
-
-//	public Object getPropertyValue(Object propName) {
-//		if (NAVBAR_TYPE.equals(propName))
-//			return Arrays.asList(navBarTypes).indexOf(getNavBarType());
-//		Object val = getDataset().getPropertyValue(propName);
-//		if (val != null)
-//			return val;
-//		return super.getPropertyValue(propName);
-//	}
+	public Object getPropertyValue(String propName) {
+		if (ComponentProperties.navBarType.equals(propName)) {
+			return this.getNavBarType();
+		}
+		// return Arrays.asList(navBarTypes).indexOf(getNavBarType());
+		// Object val = getDataset().getPropertyValue(propName);
+		// if (val != null)
+		// return val;
+		return super.getPropertyValue(propName);
+	}
 
 	public String getNavBarType() {
 		return navBar.getNavBarType();
 	}
 
-
-//	public void setPropertyValue(Object propName, Object val) {
-//		if (NAVBAR_TYPE.equals(propName))
-//			setNavbarType(navBarTypes[(Integer) val]);
-//		getDataset().setPropertyValue(propName, val);
-//		super.setPropertyValue(propName, val);
-//		if (ResultDataSet.SELECTION_MODE.equals(propName)) {
-//			setSelectionMode(getDataset().getSelectionMode());
-//		}
-//	}
+	public void setPropertyValue(String propName, Object val) {
+		if (ComponentProperties.navBarType.equals(propName))
+			setNavbarType("" + val);
+		// getDataset().setPropertyValue(propName, val);
+		// if (ComponentProperties.selectionModel.equals(propName)) {
+		// setSelectionMode(getDataset().getSelectionMode());
+		// }
+		super.setPropertyValue(propName, val);
+	}
 
 }

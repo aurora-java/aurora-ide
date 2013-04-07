@@ -5,6 +5,12 @@ import java.beans.PropertyChangeSupport;
 
 
 abstract public class PropertyEditSupport {
+	
+	/**
+	 * the markeid is only used in model io operation,to mark the component
+	 * reference relation
+	 */
+	public transient String markid = Integer.toHexString(hashCode());
 	transient protected PropertyChangeSupport listeners = new PropertyChangeSupport(
 			this);
 

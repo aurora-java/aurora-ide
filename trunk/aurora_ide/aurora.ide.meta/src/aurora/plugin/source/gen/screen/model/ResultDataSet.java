@@ -2,7 +2,6 @@ package aurora.plugin.source.gen.screen.model;
 
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
-import aurora.plugin.source.gen.screen.model.properties.IPropertyDescriptor;
 
 public class ResultDataSet extends Dataset {
 
@@ -143,6 +142,14 @@ public class ResultDataSet extends Dataset {
 				container);
 		// queryContainer.setTarget(container);
 	}
+	public void setPropertyValue(String propName, Object val) {
+		if (ComponentProperties.selectionModel.equals(propName)){
+			setSelectable(!val.equals(ResultDataSet.SELECT_NONE));
+		}
+		super.setPropertyValue(propName, val);
+	}
+	
+//	getDataset().
 	// public AuroraComponent getOwner() {
 	// return owner;
 	// }
