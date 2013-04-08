@@ -1,4 +1,229 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<component name="basecomponent" type="abstract"  descrition="基础组件" >
-<attribute name="" description="" editor="" editable="" fitter=""/>
-</component>
+<?xml version="1.0" encoding="utf-8"?>
+<components>
+	<component type="button" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="type" style="simple,save" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="icon" style="simple,save" />
+		<attribute id="title" style="simple,save" />
+		<attribute id="text" style="simple,save" />
+		<attribute id="button_clicker" style="containment,save,inner" />
+	</component>
+
+
+	<component type="inner_buttonclicker" category="inner">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="button_click_target_component" style="reference,save,inner" />
+		<attribute id="button_click_actionid" style="simple,save,inner" />
+		<attribute id="button_click_openpath" style="simple,save,inner" />
+		<attribute id="button_click_closewindowid" style="simple,save,inner" />
+		<attribute id="button_click_function" style="simple,save,inner" />
+		<attribute id="button_click_openpath" style="simple,save,inner" />
+		<attribute id="button_click_parameters" style="containment,save,inner,list" />
+	</component>
+
+	<component type="inner_paramerter" category="inner">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="parameter_name" style="simple,save,inner" />
+		<attribute id="parameter_value" style="simple,save,inner" />
+	</component>
+
+
+	<component type="vbox,hbox" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="labelWidth" style="simple,save,_int" />
+		<attribute id="component_children" style="containment,save,inner,list" />
+	</component>
+
+	<component type="fieldset,form" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="title" style="simple,save" />
+		<attribute id="row" style="simple,save,_int" />
+		<attribute id="column" style="simple,save,_int" />
+		<attribute id="labelWidth" style="simple,save,_int" />
+		<attribute id="container_section_type" style="simple,save,inner" />
+		<attribute id="i_dataset_delegate" style="containment,save,inner" />
+		<attribute id="component_children" style="containment,save,inner,list" />
+	</component>
+
+	<component type="resultdataset" category="inner">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="model" style="simple,save" />
+		<attribute id="pageSize" style="simple,save,_int" />
+		<attribute id="selectionModel" style="simple,save" />
+		<attribute id="dataset_query_container" style="reference,save,inner" />
+	</component>
+
+	<component type="querydataset" category="inner">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="model" style="simple,save" />
+		<attribute id="autoCreate" style="simple,save,_boolean" />
+		<attribute id="autoQuery" style="simple,save,_boolean" />
+		<attribute id="lookupcode" style="simple,save" />
+	</component>
+
+	<component type="screenbody" category="inner">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="diagram_bind_template" style="simple,save,inner" />
+		<attribute id="diagram_bind_template_type" style="simple,save,inner" />
+		<attribute id="component_children" style="containment,save,inner,list" />
+	</component>
+
+	<component type="textfield" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="emptyText" style="simple,save" />
+		<attribute id="typeCase" style="simple,save" />
+		<attribute id="i_dataset_field_delegate" style="containment,save,inner" />
+	</component>
+
+	<component type="label" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="renderer" style="simple,save" />
+		<attribute id="i_dataset_field_delegate" style="containment,save,inner" />
+	</component>
+
+	<component type="datetimepicker,datepicker" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="emptyText" style="simple,save" />
+		<attribute id="enableBesideDays" style="simple,save" />
+		<attribute id="enableMonthBtn" style="simple,save" />
+		<attribute id="i_dataset_field_delegate" style="containment,save,inner" />
+	</component>
+
+	<component type="combox,lov" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="emptyText" style="simple,save" />
+		<attribute id="i_dataset_field_delegate" style="containment,save,inner" />
+	</component>
+
+	<component type="checkbox" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="text" style="simple,save" />
+		<attribute id="i_dataset_field_delegate" style="containment,save,inner" />
+	</component>
+
+	<component type="numberfield" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="emptyText" style="simple,save" />
+		<attribute id="allowDecimals" style="simple,save,_boolean" />
+		<attribute id="allowNegative" style="simple,save,_boolean" />
+		<attribute id="allowFormat" style="simple,save,_boolean" />
+		<attribute id="i_dataset_field_delegate" style="containment,save,inner" />
+	</component>
+
+	<component type="datasetfield" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="title" style="simple,save" />
+		<attribute id="checkedValue" style="simple,save" />
+		<attribute id="uncheckedValue" style="simple,save" />
+		<attribute id="displayField" style="simple,save" />
+		<attribute id="options" style="simple,save" />
+		<attribute id="valueField" style="simple,save" />
+		<attribute id="returnField" style="simple,save" />
+		<attribute id="lovGridHeight" style="simple,save,_int" />
+		<attribute id="lovHeight" style="simple,save,_int" />
+		<attribute id="lovService" style="simple,save" />
+		<attribute id="lovWidth" style="simple,save,_int" />
+		<attribute id="lovUrl" style="simple,save" />
+		<attribute id="required" style="simple,save,_boolean" />
+		<attribute id="readOnly" style="simple,save,_boolean" />
+		<attribute id="defaultValue" style="simple,save" />
+	</component>
+
+	<component type="tabitem" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="TAB_ITEM_CURRENT" style="simple,save,inner,_boolean" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="component_children" style="containment,save,inner,list" />
+	</component>
+
+	<component type="grid" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="navBarType" style="simple,save" />
+		<attribute id="container_section_type" style="simple,save,inner" />
+		<attribute id="i_dataset_delegate" style="containment,save,inner" />
+		<attribute id="toolbar" style="containment,save" />
+		<attribute id="component_children" style="containment,save,inner,list" />
+	</component>
+	<component type="toolbar" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="component_children" style="containment,save,inner,list" />
+	</component>
+
+	<component type="gridcolumn" category="aurora">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="prompt" style="simple,save" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="name" style="simple,save" />
+		<attribute id="editor" style="simple,save" />
+		<attribute id="i_dataset_field_delegate" style="containment,save,inner" />
+		<attribute id="renderer" style="containment,save" />
+		<attribute id="footrenderer" style="containment,save" />
+		<attribute id="component_children" style="containment,save,inner,list" />
+	</component>
+
+	<component type="gridselectioncol" category="inner">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="width" style="simple,save,_int" />
+		<attribute id="height" style="simple,save,_int" />
+		<attribute id="grid_selection_mode" style="simple,save,inner" />
+	</component>
+
+	<component type="footrenderer" category="inner">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="foot_renderer_type" style="simple,save,inner" />
+		<attribute id="foot_renderer_funcrion" style="simple,save,inner" />
+	</component>
+
+	<component type="renderer" category="inner">
+		<attribute id="component_type" style="simple,save,inner" />
+		<attribute id="renderer_open_path" style="simple,save,inner" />
+		<attribute id="renderer_labeltext" style="simple,save,inner" />
+		<attribute id="renderer_function_name" style="simple,save,inner" />
+		<attribute id="renderer_function" style="simple,save,inner" />
+		<attribute id="renderer_type" style="simple,save,inner" />
+		<attribute id="renderer_parameters" style="containment,save,inner,list" />
+	</component>
+</components>

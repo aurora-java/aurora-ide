@@ -8,7 +8,6 @@ import aurora.ide.meta.gef.editors.models.commands.ChangePropertyCommand;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.IDatasetDelegate;
 import aurora.plugin.source.gen.screen.model.IDatasetFieldDelegate;
-import aurora.plugin.source.gen.screen.model.properties.EditablePropertyFactory;
 
 public class DefaultPropertySource implements IPropertySource {
 	// private Object id;

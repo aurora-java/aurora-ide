@@ -16,6 +16,7 @@ public interface ComponentInnerProperties {
 	String BUTTON_CLICK_PARAMETERS = "button_click_parameters";
 	String BUTTON_CLICKER = "button_clicker";
 	String GRIDCOLUMN_ROWHIGHT = "gridcolumn_rowhight";
+	String GRID_COLUMNS = "grid_columns";
 	String FOOT_RENDERER_TYPE = "foot_renderer_type";
 	String FOOT_RENDERER_FUNCTION = "foot_renderer_funcrion";
 	
@@ -51,6 +52,7 @@ public interface ComponentInnerProperties {
 	String BOUNDS = "component_bounds";
 	String SIZE = "size";
 	String TAB_SCREEN_REF = "tab_screen_ref";
+	String TOOLBAR = "toolbar";
 	
 	
 	
