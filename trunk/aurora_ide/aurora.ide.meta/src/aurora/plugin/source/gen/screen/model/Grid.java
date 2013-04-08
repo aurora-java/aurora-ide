@@ -2,9 +2,11 @@ package aurora.plugin.source.gen.screen.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class Grid extends GridColumn implements DatasetBinder, IDatasetDelegate {
@@ -23,7 +25,7 @@ public class Grid extends GridColumn implements DatasetBinder, IDatasetDelegate 
 	public static final String NAVBAR = "navBar";
 	private static final String[] navBarTypes = { NAVBAR_NONE, NAVBAR_SIMPLE,
 			NAVBAR_COMPLEX };
-	private Navbar navBar = new Navbar();
+	private Navbar navBar;
 
 	// private static final IPropertyDescriptor PD_NAVBAR_TYPE = new
 	// ComboPropertyDescriptor(
@@ -37,6 +39,7 @@ public class Grid extends GridColumn implements DatasetBinder, IDatasetDelegate 
 	public Grid() {
 		super();
 		this.setSize(750, 380);
+		navBar = new Navbar();
 		ResultDataSet dataset = new ResultDataSet();
 		// dataset.setOwner(this);
 		// dataset.setUseParentBM(false);
@@ -68,7 +71,7 @@ public class Grid extends GridColumn implements DatasetBinder, IDatasetDelegate 
 			}
 		});
 		((ResultDataSet) dataset).setOwner(this);
-		// setSelectionMode(getDataset().getSelectionMode());
+		setSelectionMode(getDataset().getSelectionMode());
 	}
 
 	public void setSelectionMode(String sm) {
@@ -88,6 +91,8 @@ public class Grid extends GridColumn implements DatasetBinder, IDatasetDelegate 
 	}
 
 	public void setNavbarType(String type) {
+		if (navBar == null)
+			return;
 		if (eq(getNavBarType(), type))
 			return;
 		navBar.setNavBarType(type);
@@ -147,10 +152,10 @@ public class Grid extends GridColumn implements DatasetBinder, IDatasetDelegate 
 			return (Toolbar) getFirstChild(Toolbar.class);
 	}
 
-	// public void setToolbar(Toolbar tl) {
-	// this.toolbar = tl;
-	// this.addChild(tl, 0);
-	// }
+	public void setToolbar(Toolbar tl) {
+		this.toolbar = tl;
+		this.addChild(tl, 0);
+	}
 
 	public boolean hasSelectionCol() {
 		return getChildren().indexOf(gsc) != -1;
@@ -177,6 +182,12 @@ public class Grid extends GridColumn implements DatasetBinder, IDatasetDelegate 
 		if (ComponentProperties.navBarType.equals(propName)) {
 			return this.getNavBarType();
 		}
+		if (ComponentInnerProperties.TOOLBAR.equals(propName)) {
+			return this.getToolbar();
+		}
+		if (ComponentInnerProperties.CHILDREN.equals(propName)) {
+			return this.getCols();
+		}
 		// return Arrays.asList(navBarTypes).indexOf(getNavBarType());
 		// Object val = getDataset().getPropertyValue(propName);
 		// if (val != null)
@@ -184,13 +195,29 @@ public class Grid extends GridColumn implements DatasetBinder, IDatasetDelegate 
 		return super.getPropertyValue(propName);
 	}
 
+	private List<AuroraComponent> getCols() {
+		List<AuroraComponent> children = this.getChildren();
+		List<AuroraComponent> cols = new ArrayList<AuroraComponent>();
+		for (AuroraComponent c : children) {
+			if (GridColumn.GRIDCOLUMN.equals(c.getComponentType())) {
+				cols.add(c);
+			}
+		}
+		return cols;
+	}
+
 	public String getNavBarType() {
+		if (navBar == null)
+			return NAVBAR_NONE;
 		return navBar.getNavBarType();
 	}
 
 	public void setPropertyValue(String propName, Object val) {
 		if (ComponentProperties.navBarType.equals(propName))
 			setNavbarType("" + val);
+		if (ComponentInnerProperties.TOOLBAR.equals(propName) && val instanceof Toolbar) {
+			this.setToolbar((Toolbar) val);
+		}
 		// getDataset().setPropertyValue(propName, val);
 		// if (ComponentProperties.selectionModel.equals(propName)) {
 		// setSelectionMode(getDataset().getSelectionMode());

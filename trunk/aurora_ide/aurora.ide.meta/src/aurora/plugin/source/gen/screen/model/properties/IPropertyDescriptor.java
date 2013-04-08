@@ -13,6 +13,8 @@ public interface IPropertyDescriptor {
 	int _boolean = 1<<9;
 	int _int = 1<<10;
 	int _float = 1<<11;
+//	int none = 1<<62;
+	int none = 0;
 	
 	
 

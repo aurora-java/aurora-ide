@@ -1,5 +1,6 @@
 package aurora.plugin.source.gen.screen.model;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -239,7 +240,9 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 		if (ComponentProperties.renderer.equals(propId)) {
 			return this.getRenderer();
 		}
-
+		if (ComponentInnerProperties.DATASET_FIELD_DELEGATE.equals(propId)) {
+			return dsField;
+		}
 		return super.getPropertyValue(propId);
 	}
 
@@ -255,7 +258,25 @@ public class GridColumn extends RowCol implements IDatasetFieldDelegate {
 			this.setFootRenderer((FootRenderer) val);
 			return;
 		}
+		if (ComponentInnerProperties.DATASET_FIELD_DELEGATE.equals(propId)
+				&& val instanceof DatasetField) {
+			this.setDatasetField((DatasetField) val);
+			return;
+		}
 		super.setPropertyValue(propId, val);
 	}
+	public void addPropertyChangeListener(PropertyChangeListener l) {
+		super.addPropertyChangeListener(l);
+		if (dsField != null) {
+			dsField.addPropertyChangeListener(l);
+		}
+	}
 
+	@Override
+	public void removePropertyChangeListener(PropertyChangeListener l) {
+		super.removePropertyChangeListener(l);
+		if (dsField != null) {
+			dsField.removePropertyChangeListener(l);
+		}
+	}
 }

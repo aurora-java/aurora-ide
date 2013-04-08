@@ -8,6 +8,7 @@ import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.properties.DefaultPropertyDescriptor;
 import aurora.plugin.source.gen.screen.model.properties.IPropertyDescriptor;
 import aurora.plugin.source.gen.screen.model.properties.PropertyFactory;
+import aurora.plugin.source.gen.screen.model.properties.TestPropertyFactory;
 
 public class Object2CompositeMap implements KEYS {
 
