@@ -2,10 +2,10 @@ package aurora.ide.meta.gef.util;
 
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.property.IDialogEditableObject;
 import aurora.ide.meta.gef.editors.property.PropertySourceUtil;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.IDialogEditableObject;
 
 public class ImageUtil {
 	public static Image getImage(IDialogEditableObject value){
