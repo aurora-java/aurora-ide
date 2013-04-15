@@ -32,23 +32,19 @@ public class EditablePropertyDescriptor extends DefaultPropertyDescriptor
 		super(id, style);
 	}
 
-	@Override
 	public CellEditor createPropertyEditor(Composite parent) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String getCategory() {
 		return category;
 	}
 
-	@Override
 	public String[] getFilterFlags() {
 		return filterFlags;
 	}
 
-	@Override
 	public Object getHelpContextIds() {
 		// TODO Auto-generated method stub
 		return helpIds;
@@ -69,7 +65,6 @@ public class EditablePropertyDescriptor extends DefaultPropertyDescriptor
 		return new LabelProvider();
 	}
 
-	@Override
 	public boolean isCompatibleWith(IPropertyDescriptor anotherProperty) {
 		return false;
 	}
