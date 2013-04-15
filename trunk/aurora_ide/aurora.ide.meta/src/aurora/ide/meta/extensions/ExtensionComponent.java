@@ -5,7 +5,6 @@ import java.util.List;
 
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.io.DefaultIOHandler;
 
 public class ExtensionComponent {
 	private String categoryId;
@@ -16,7 +15,6 @@ public class ExtensionComponent {
 	private List<String> types = new ArrayList<String>();
 	private ComponentCreator cc;
 	private String ioHandler;
-	private DefaultIOHandler dio;
 
 	public ExtensionComponent(String categoryId, String creator,
 			String descriptor, String id, String name, String ioHandler) {
@@ -80,20 +78,20 @@ public class ExtensionComponent {
 		this.categoryId = categoryId;
 	}
 
-	public DefaultIOHandler getIoHandler(String type) {
-		if (dio == null) {
-			try {
-				dio = (DefaultIOHandler) Class.forName(ioHandler).newInstance();
-			} catch (InstantiationException e) {
-				DialogUtil.logErrorException(e);
-			} catch (IllegalAccessException e) {
-				DialogUtil.logErrorException(e);
-			} catch (ClassNotFoundException e) {
-				DialogUtil.logErrorException(e);
-			}
-		}
-		return dio;
-	}
+//	public DefaultIOHandler getIoHandler(String type) {
+//		if (dio == null) {
+//			try {
+//				dio = (DefaultIOHandler) Class.forName(ioHandler).newInstance();
+//			} catch (InstantiationException e) {
+//				DialogUtil.logErrorException(e);
+//			} catch (IllegalAccessException e) {
+//				DialogUtil.logErrorException(e);
+//			} catch (ClassNotFoundException e) {
+//				DialogUtil.logErrorException(e);
+//			}
+//		}
+//		return dio;
+//	}
 
 	public void setIoHandler(String ioHandler) {
 		this.ioHandler = ioHandler;
