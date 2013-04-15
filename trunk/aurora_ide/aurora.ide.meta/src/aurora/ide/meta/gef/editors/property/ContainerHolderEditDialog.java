@@ -14,6 +14,7 @@ import aurora.ide.meta.gef.editors.models.old.ContainerHolder;
 import aurora.ide.meta.gef.editors.models.old.ViewDiagram;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.IDialogEditableObject;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class ContainerHolderEditDialog extends EditWizard {

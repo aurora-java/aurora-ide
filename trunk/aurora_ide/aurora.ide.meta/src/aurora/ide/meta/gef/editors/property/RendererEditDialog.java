@@ -33,6 +33,7 @@ import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
 import aurora.ide.meta.gef.util.MessageUtil;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.IDialogEditableObject;
 import aurora.plugin.source.gen.screen.model.Renderer;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 
