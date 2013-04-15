@@ -27,6 +27,7 @@ import aurora.ide.editor.textpage.ColorManager;
 import aurora.ide.editor.textpage.JavaScriptConfiguration;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.plugin.source.gen.screen.model.FootRenderer;
+import aurora.plugin.source.gen.screen.model.IDialogEditableObject;
 
 public class FootRendererEditDialog extends EditWizard {
 

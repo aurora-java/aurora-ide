@@ -39,6 +39,7 @@ import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.ButtonClicker;
 import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.IDialogEditableObject;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.TabFolder;
 import aurora.plugin.source.gen.screen.model.TabItem;

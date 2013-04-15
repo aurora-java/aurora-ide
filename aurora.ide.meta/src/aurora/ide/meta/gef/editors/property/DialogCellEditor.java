@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 
 import aurora.ide.meta.gef.util.ImageUtil;
+import aurora.plugin.source.gen.screen.model.IDialogEditableObject;
 
 public class DialogCellEditor extends CellEditor implements SelectionListener,
 		MouseListener {

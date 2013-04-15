@@ -7,6 +7,7 @@ import org.mozilla.javascript.ast.FunctionNode;
 import org.mozilla.javascript.ast.Name;
 
 import aurora.ide.api.javascript.JavascriptRhino;
+import aurora.plugin.source.gen.screen.model.IDialogEditableObject;
 
 public abstract class EditWizard extends Wizard {
 
