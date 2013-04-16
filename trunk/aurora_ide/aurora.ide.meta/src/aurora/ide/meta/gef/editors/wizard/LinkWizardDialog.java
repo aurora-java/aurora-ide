@@ -20,21 +20,21 @@ public class LinkWizardDialog extends WizardDialog {
 
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		if(wizard.isNeedDelete()){
-			((GridLayout) parent.getLayout()).numColumns++;
-			Button del = new Button(parent,SWT.NONE);
-			del.setText("   Delete   ");
-			del.addSelectionListener(new SelectionListener(){
-
-				public void widgetSelected(SelectionEvent e) {
-					wizard.delButtonClicked();
-					close();
-				}
-
-				public void widgetDefaultSelected(SelectionEvent e) {
-				}
-			});
-		}
+//		if(wizard.isNeedDelete()){
+//			((GridLayout) parent.getLayout()).numColumns++;
+//			Button del = new Button(parent,SWT.NONE);
+//			del.setText("   Delete   ");
+//			del.addSelectionListener(new SelectionListener(){
+//
+//				public void widgetSelected(SelectionEvent e) {
+//					wizard.delButtonClicked();
+//					close();
+//				}
+//
+//				public void widgetDefaultSelected(SelectionEvent e) {
+//				}
+//			});
+//		}
 		super.createButtonsForButtonBar(parent);
 	}
 

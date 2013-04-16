@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Text;
 import aurora.ide.AuroraPlugin;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
-import aurora.ide.meta.gef.editors.models.link.Link;
+//import aurora.ide.meta.gef.editors.models.link.Link;
 import aurora.ide.meta.gef.editors.property.ResourceSelector;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.search.core.Util;
@@ -44,21 +44,21 @@ public class CreateEditLinkWizardPage extends WizardPage {
 		this.setDescription("Create & Edit Link.");
 	}
 
-	public void init(Link link) {
-		if (link != null) {
-			url = link.getUrl();
-			model = link.getModel();
-			modelAction = link.getModelaction();
-		}
-	}
+//	public void init(Link link) {
+//		if (link != null) {
+//			url = link.getUrl();
+//			model = link.getModel();
+//			modelAction = link.getModelaction();
+//		}
+//	}
 
-	public Link getLink() {
-		Link l = new Link();
-		l.setUrl(url);
-		l.setModel(model);
-		l.setModelaction(modelAction);
-		return l;
-	}
+//	public Link getLink() {
+//		Link l = new Link();
+//		l.setUrl(url);
+//		l.setModel(model);
+//		l.setModelaction(modelAction);
+//		return l;
+//	}
 
 	public void createControl(final Composite parent) {
 		Composite root = new Composite(parent, SWT.NONE);

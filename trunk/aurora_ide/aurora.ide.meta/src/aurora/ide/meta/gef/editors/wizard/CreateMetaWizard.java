@@ -32,7 +32,6 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.gef.editors.VScreenEditor;
-import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.search.ui.EditorOpener;

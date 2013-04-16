@@ -16,12 +16,12 @@ import aurora.ide.AuroraPlugin;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.editors.composite.IPathChangeListener;
 import aurora.ide.meta.gef.editors.composite.ScreenUIPBrowseButton;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.models.link.TabRef;
+//import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.property.Messages;
 import aurora.ide.meta.gef.editors.wizard.dialog.ParameterComposite;
 import aurora.ide.meta.project.AuroraMetaProject;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class CreateEditTabRefWizardPage extends WizardPage {
 
@@ -31,7 +31,7 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 
 	private ParameterComposite pc;
 
-	private TabRef _ref;
+//	private TabRef _ref;
 
 	protected CreateEditTabRefWizardPage() {
 		super("Create & Edit Ref");
@@ -39,21 +39,21 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 		this.setDescription("Create & Edit Ref.");
 	}
 
-	public void init(TabRef link) {
-		if (link != null) {
-			url = link.getOpenPath();
-			_ref = link;
-		}
-	}
+//	public void init(TabRef link) {
+//		if (link != null) {
+//			url = link.getOpenPath();
+//			_ref = link;
+//		}
+//	}
 
-	public TabRef getLink() {
-		TabRef l = new TabRef();
-		l.setOpenPath(url);
-		l.setModelQuery(_ref.getModelQuery());
-		l.getParameters().addAll(pc.getParameters());
-
-		return l;
-	}
+//	public TabRef getLink() {
+//		TabRef l = new TabRef();
+//		l.setOpenPath(url);
+//		l.setModelQuery(_ref.getModelQuery());
+//		l.getParameters().addAll(pc.getParameters());
+//
+//		return l;
+//	}
 
 	public void createControl(final Composite parent) {
 		Composite root = new Composite(parent, SWT.NONE);
@@ -94,25 +94,25 @@ public class CreateEditTabRefWizardPage extends WizardPage {
 
 	private void createParaTable(Composite composite_right) {
 
-		AuroraComponent comp = (AuroraComponent) _ref.getTabItem();
-		ViewDiagram root = null;
-		while (comp != null) {
-			if (comp instanceof ViewDiagram) {
-				root = (ViewDiagram) comp;
-				break;
-			}
-			comp = comp.getParent();
-		}
-		if (root == null) {
-			setErrorMessage(Messages.ButtonClickEditDialog_9);
-			setPageComplete(false);
-			return;
-		}
-		GridData data = new GridData(GridData.FILL_BOTH);
-		data.horizontalSpan = 3;
-		pc = new ParameterComposite(root, composite_right, SWT.NONE, comp);
-		pc.setLayoutData(data);
-		pc.setParameters(_ref.getParameters());
+//		AuroraComponent comp = (AuroraComponent) _ref.getTabItem();
+//		ScreenBody root = null;
+//		while (comp != null) {
+//			if (comp instanceof ScreenBody) {
+//				root = (ScreenBody) comp;
+//				break;
+//			}
+//			comp = comp.getParent();
+//		}
+//		if (root == null) {
+//			setErrorMessage(Messages.ButtonClickEditDialog_9);
+//			setPageComplete(false);
+//			return;
+//		}
+//		GridData data = new GridData(GridData.FILL_BOTH);
+//		data.horizontalSpan = 3;
+//		pc = new ParameterComposite(root, composite_right, SWT.NONE, comp);
+//		pc.setLayoutData(data);
+//		pc.setParameters(_ref.getParameters());
 	}
 
 	// public IResource getWebHome() {
