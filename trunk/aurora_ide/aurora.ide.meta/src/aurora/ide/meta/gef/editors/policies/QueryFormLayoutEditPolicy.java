@@ -7,11 +7,11 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.FlowLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.commands.CreateComponentCommand;
 import aurora.ide.meta.gef.editors.models.commands.MoveRemoteChildCmpCmd;
 import aurora.ide.meta.gef.editors.parts.QueryFormToolBarPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Container;
 
 public class QueryFormLayoutEditPolicy extends FlowLayoutEditPolicy {
 

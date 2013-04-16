@@ -16,8 +16,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 
-import aurora.ide.meta.gef.editors.models.link.DeadTabRef;
-import aurora.ide.meta.gef.editors.models.link.TabRef;
+//import aurora.ide.meta.gef.editors.models.link.DeadTabRef;
+//import aurora.ide.meta.gef.editors.models.link.TabRef;
 import aurora.ide.meta.gef.editors.wizard.CreateEditTabRefWizard;
 import aurora.ide.meta.gef.editors.wizard.TabRefWizardDialog;
 
@@ -25,7 +25,7 @@ public class TabRefCellEditor extends CellEditor implements SelectionListener,
 		MouseListener {
 	private Button button;
 	private CLabel label;
-	private TabRef value;
+//	private TabRef value;
 	Shell shell;
 
 	public TabRefCellEditor(Composite parent) {
@@ -48,7 +48,8 @@ public class TabRefCellEditor extends CellEditor implements SelectionListener,
 
 	@Override
 	protected Object doGetValue() {
-		return value;
+//		return value;
+		return null;
 	}
 
 	@Override
@@ -58,13 +59,13 @@ public class TabRefCellEditor extends CellEditor implements SelectionListener,
 
 	@Override
 	protected void doSetValue(Object value) {
-		if (value instanceof TabRef) {
-			this.value = (TabRef) value;
-			String url = this.value.getOpenPath();
-			label.setText(url == null || "".equals(url) ? "" : url);
-		} else {
-			value = null;
-		}
+//		if (value instanceof TabRef) {
+//			this.value = (TabRef) value;
+//			String url = this.value.getOpenPath();
+//			label.setText(url == null || "".equals(url) ? "" : url);
+//		} else {
+//			value = null;
+//		}
 	}
 
 	public void activate(ColumnViewerEditorActivationEvent activationEvent) {
@@ -92,21 +93,21 @@ public class TabRefCellEditor extends CellEditor implements SelectionListener,
 	}
 
 	private void showDialog() {
-		try {
-			CreateEditTabRefWizard w = new CreateEditTabRefWizard(value);
-			w.setWindowTitle("Ref");
-			TabRefWizardDialog wd = new TabRefWizardDialog(shell, w);
-			if (wd.open() == WizardDialog.OK) {
-				if (w.isDel()) {
-					value = new DeadTabRef();
-				} else {
-					value = w.getResult();
-				}
-				fireApplyEditorValue();
-			}
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			CreateEditTabRefWizard w = new CreateEditTabRefWizard(value);
+//			w.setWindowTitle("Ref");
+//			TabRefWizardDialog wd = new TabRefWizardDialog(shell, w);
+//			if (wd.open() == WizardDialog.OK) {
+//				if (w.isDel()) {
+//					value = new DeadTabRef();
+//				} else {
+//					value = w.getResult();
+//				}
+//				fireApplyEditorValue();
+//			}
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
 	}
 
 	public void widgetSelected(SelectionEvent e) {

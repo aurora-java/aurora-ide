@@ -5,8 +5,8 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.CheckBox;
-import aurora.plugin.source.gen.screen.model.DatasetField;
 import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.QueryForm;
 import aurora.plugin.source.gen.screen.model.VBox;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
@@ -76,8 +76,35 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 		if ("screenbody".equalsIgnoreCase(componentType)) {
 			return this.screenbody();
 		}
+		if ("formBody".equalsIgnoreCase(componentType)) {
+			return this.formBody();
+		}
+		if ("queryForm".equalsIgnoreCase(componentType)) {
+			return this.queryForm();
+		}
 		return NONE_PROPS;
 
+	}
+
+	private IPropertyDescriptor[] queryForm() {
+
+		IPropertyDescriptor PD_QUERY_FIELD = new StringPropertyDescriptor(
+				QueryForm.DEFAULT_QUERY_FIELD_KEY,
+				QueryForm.DEFAULT_QUERY_FIELD_KEY);
+		IPropertyDescriptor PD_QUERY_HINT = new StringPropertyDescriptor(
+				QueryForm.DEFAULT_QUERY_HINT_KEY,
+				QueryForm.DEFAULT_QUERY_HINT_KEY);
+		IPropertyDescriptor PD_RESULT_TARGET = new DialogPropertyDescriptor(
+				QueryForm.RESULT_TARGET_CONTAINER_HOLDER_KEY, "resultTarget",
+				ContainerHolderEditDialog.class);
+		IPropertyDescriptor[] pds = new IPropertyDescriptor[] { PD_QUERY_FIELD,
+				PD_QUERY_HINT, PD_RESULT_TARGET };
+
+		return pds;
+	}
+
+	private IPropertyDescriptor[] formBody() {
+		return new IPropertyDescriptor[] { PD_COL, PD_LABELWIDTH };
 	}
 
 	private IPropertyDescriptor[] button(AuroraComponent component) {
@@ -87,8 +114,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 				new IntegerPropertyDescriptor(width, "Width"), //$NON-NLS-1$
 				new IntegerPropertyDescriptor(height, "Height"), //$NON-NLS-1$
 				new StringPropertyDescriptor(title, "Title"), //$NON-NLS-1$
-				new ComboPropertyDescriptor(type,
-						"Type",Button.std_types ) }; //$NON-NLS-1$
+				new ComboPropertyDescriptor(type, "Type", Button.std_types) }; //$NON-NLS-1$
 		IPropertyDescriptor[] inner_pds = new IPropertyDescriptor[] {
 				new StringPropertyDescriptor(text, "Text"), //$NON-NLS-1$
 				PD_NAME, new IntegerPropertyDescriptor(width, "Width"), //$NON-NLS-1$
@@ -110,8 +136,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	public static final IPropertyDescriptor PD_TEXT = new StringPropertyDescriptor(
 			text, text);
 	public static final IPropertyDescriptor PD_CHECKED_VALUE = new StringPropertyDescriptor(
-			checkedValue, "*" + checkedValue,
-			StylePropertyDescriptor.component
+			checkedValue, "*" + checkedValue, StylePropertyDescriptor.component
 					| StylePropertyDescriptor.datasetfield);
 	public static final IPropertyDescriptor PD_UNCHECKED_VALUE = new StringPropertyDescriptor(
 			uncheckedValue, "*" + uncheckedValue,
@@ -147,7 +172,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 
 	private IPropertyDescriptor[] grid() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_HEIGHT,
-				PD_NAVBAR_TYPE, PD_SELECTION_MODE,PD_PAGE_SIZE };
+				PD_NAVBAR_TYPE, PD_SELECTION_MODE, PD_PAGE_SIZE };
 	}
 
 	public static final String NAVBAR_NONE = "";
@@ -299,13 +324,12 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	public static final String SELECT_NONE = "";
 	public static final String SELECT_MULTI = "multiple";
 	public static final String SELECT_SINGLE = "single";
-//	public static final String SELECTION_MODE = "selectionModel";
+	// public static final String SELECTION_MODE = "selectionModel";
 	private static final String[] selectionModes = { SELECT_NONE, SELECT_MULTI,
 			SELECT_SINGLE };
 	private static final IPropertyDescriptor PD_SELECTION_MODE = new ComboPropertyDescriptor(
 			selectionModel, "*SelectionModel", selectionModes,
-			StylePropertyDescriptor.component
-					| StylePropertyDescriptor.dataset);
+			StylePropertyDescriptor.component | StylePropertyDescriptor.dataset);
 
 	private static final IPropertyDescriptor PD_PAGE_SIZE = new IntegerPropertyDescriptor(
 			pageSize, "*pageSize", StylePropertyDescriptor.component
