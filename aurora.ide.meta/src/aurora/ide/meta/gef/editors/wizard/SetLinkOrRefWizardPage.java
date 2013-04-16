@@ -40,7 +40,6 @@ import org.eclipse.swt.widgets.TreeColumn;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
-import aurora.ide.meta.gef.editors.models.old.ViewDiagram;
 import aurora.ide.meta.gef.editors.property.MutilInputResourceSelector;
 import aurora.ide.meta.gef.editors.template.handle.TemplateConfig;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;

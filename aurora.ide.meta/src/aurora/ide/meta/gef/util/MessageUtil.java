@@ -16,7 +16,7 @@ public class MessageUtil {
 			return "保存";
 		else if (Button.EXCEL.equals(buttonType))
 			return "导出";
-		return "button";
+		return button.getText();
 	}
 
 	public static final String[] button_action_texts() {
