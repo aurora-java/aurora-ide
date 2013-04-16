@@ -16,10 +16,11 @@ import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.figures.FigureUtil;
 import aurora.ide.meta.gef.editors.layout.RowColBackLayout;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.BOX;
-import aurora.ide.meta.gef.editors.models.QueryForm;
 import aurora.ide.meta.gef.editors.policies.NoSelectionEditPolicy;
+import aurora.ide.meta.gef.util.BoundsConvert;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.BOX;
+import aurora.plugin.source.gen.screen.model.QueryForm;
 
 public class QueryFormToolBarPart extends BoxPart {
 
@@ -85,7 +86,7 @@ public class QueryFormToolBarPart extends BoxPart {
 	public Rectangle layout() {
 		@SuppressWarnings("unchecked")
 		List<ComponentPart> list = getChildren();
-		Rectangle rect = ((AuroraComponent) getModel()).getBounds();
+		Rectangle rect =BoundsConvert.toDraw2d( ((AuroraComponent) getModel()).getBoundsCopy());
 		int buttonGap = 10;
 		rect.height = 40;
 		int buttonWidth = 80;

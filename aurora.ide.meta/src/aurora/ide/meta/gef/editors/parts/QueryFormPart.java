@@ -7,9 +7,9 @@ import org.eclipse.gef.EditPolicy;
 
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.layout.QueryFormLayout;
-import aurora.ide.meta.gef.editors.models.BOX;
 import aurora.ide.meta.gef.editors.policies.NoSelectionEditPolicy;
 import aurora.ide.meta.gef.editors.policies.QueryFormLayoutEditPolicy;
+import aurora.plugin.source.gen.screen.model.BOX;
 
 public class QueryFormPart extends BoxPart {
 	private QueryFormLayout layouter = new QueryFormLayout();

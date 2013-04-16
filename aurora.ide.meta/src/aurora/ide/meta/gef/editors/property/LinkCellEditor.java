@@ -16,8 +16,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 
-import aurora.ide.meta.gef.editors.models.link.DeadLink;
-import aurora.ide.meta.gef.editors.models.link.Link;
+//import aurora.ide.meta.gef.editors.models.link.DeadLink;
+//import aurora.ide.meta.gef.editors.models.link.Link;
 import aurora.ide.meta.gef.editors.wizard.CreateEditLinkWizard;
 import aurora.ide.meta.gef.editors.wizard.LinkWizardDialog;
 
@@ -25,7 +25,7 @@ public class LinkCellEditor extends CellEditor implements SelectionListener,
 		MouseListener {
 	private Button button;
 	private CLabel label;
-	private Link value;
+//	private Link value;
 	Shell shell;
 
 	public LinkCellEditor(Composite parent) {
@@ -48,7 +48,8 @@ public class LinkCellEditor extends CellEditor implements SelectionListener,
 
 	@Override
 	protected Object doGetValue() {
-		return value;
+//		return value;
+		return null;
 	}
 
 	@Override
@@ -58,14 +59,14 @@ public class LinkCellEditor extends CellEditor implements SelectionListener,
 
 	@Override
 	protected void doSetValue(Object value) {
-		if (value instanceof Link) {
-			this.value = (Link) value;
-			String url = this.value.getUrl();
-			label.setText(url == null || "".equals(url) ? ((Link) value)
-					.getModel() : url);
-		} else {
-			value = null;
-		}
+//		if (value instanceof Link) {
+//			this.value = (Link) value;
+//			String url = this.value.getUrl();
+//			label.setText(url == null || "".equals(url) ? ((Link) value)
+//					.getModel() : url);
+//		} else {
+//			value = null;
+//		}
 	}
 
 	public void activate(ColumnViewerEditorActivationEvent activationEvent) {
@@ -93,21 +94,21 @@ public class LinkCellEditor extends CellEditor implements SelectionListener,
 	}
 
 	private void showDialog() {
-		try {
-			CreateEditLinkWizard w = new CreateEditLinkWizard(value);
-			w.setWindowTitle("Ref");
-			LinkWizardDialog wd = new LinkWizardDialog(shell, w);
-			if (wd.open() == WizardDialog.OK) {
-				if (w.isDel()) {
-					value = new DeadLink();
-				} else {
-					value = w.getResult();
-				}
-				fireApplyEditorValue();
-			}
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			CreateEditLinkWizard w = new CreateEditLinkWizard(value);
+//			w.setWindowTitle("Ref");
+//			LinkWizardDialog wd = new LinkWizardDialog(shell, w);
+//			if (wd.open() == WizardDialog.OK) {
+//				if (w.isDel()) {
+//					value = new DeadLink();
+//				} else {
+//					value = w.getResult();
+//				}
+//				fireApplyEditorValue();
+//			}
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
 	}
 
 	public void widgetSelected(SelectionEvent e) {
