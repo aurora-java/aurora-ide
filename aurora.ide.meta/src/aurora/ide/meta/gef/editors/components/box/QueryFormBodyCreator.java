@@ -7,9 +7,9 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.QueryFormBody;
 import aurora.ide.meta.gef.editors.parts.QueryFormBodyPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.QueryFormBody;
 
 public class QueryFormBodyCreator extends ComponentCreator {
 

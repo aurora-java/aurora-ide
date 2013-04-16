@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.QueryFormPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class QueryFormLayout extends BackLayout {
 	private static final int GAP = 5;
@@ -20,7 +20,7 @@ public class QueryFormLayout extends BackLayout {
 		List<ComponentPart> list = part.getChildren();
 		for (int i = 0; i < list.size(); i++) {
 			ComponentPart cp = list.get(i);
-			Rectangle r = ((AuroraComponent) cp.getModel()).getBounds();
+			Rectangle r = toDraw2d(((AuroraComponent) cp.getModel()).getBoundsCopy());
 			applyToModel(cp, r.getCopy().setSize(rect.width, 40));
 			r = cp.layout();
 			r.x = rect.x;
