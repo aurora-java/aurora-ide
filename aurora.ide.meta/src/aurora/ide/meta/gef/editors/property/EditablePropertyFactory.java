@@ -7,7 +7,6 @@ import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.CheckBox;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.QueryForm;
-import aurora.plugin.source.gen.screen.model.VBox;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
@@ -171,8 +170,8 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	}
 
 	private IPropertyDescriptor[] grid() {
-		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_HEIGHT,
-				PD_NAVBAR_TYPE, PD_SELECTION_MODE, PD_PAGE_SIZE };
+		return new IPropertyDescriptor[] { PD_WIDTH, PD_HEIGHT, PD_NAVBAR_TYPE,
+				PD_SELECTION_MODE, PD_PAGE_SIZE };
 	}
 
 	public static final String NAVBAR_NONE = "";
@@ -198,18 +197,21 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 				PD_TYPECASE,
 				PD_REQUIRED,
 				PD_READONLY,
-				new StringPropertyDescriptor(
-						options,
-						"*options", StylePropertyDescriptor.component | StylePropertyDescriptor.datasetfield, true), //$NON-NLS-1$
-				new StringPropertyDescriptor(
-						displayField,
-						"*displayField", StylePropertyDescriptor.component | StylePropertyDescriptor.datasetfield, true), //$NON-NLS-1$
-				new StringPropertyDescriptor(
-						valueField,
-						"*valueField", StylePropertyDescriptor.component | StylePropertyDescriptor.datasetfield, true), //$NON-NLS-1$
-				new StringPropertyDescriptor(returnField, "*returnField",
+				new StringPropertyDescriptor(options, "*options",
 						StylePropertyDescriptor.component
-								| StylePropertyDescriptor.datasetfield, true) };
+								| StylePropertyDescriptor.datasetfield, true)
+		// ,
+		// new StringPropertyDescriptor(
+		// displayField,
+		//						"*displayField", StylePropertyDescriptor.component | StylePropertyDescriptor.datasetfield, true), //$NON-NLS-1$
+		// new StringPropertyDescriptor(valueField, "*valueField",
+		// StylePropertyDescriptor.component
+		// | StylePropertyDescriptor.datasetfield, true)
+		// ,
+		// new StringPropertyDescriptor(returnField, "*returnField",
+		// StylePropertyDescriptor.component
+		// | StylePropertyDescriptor.datasetfield, true)
+		};
 	}
 
 	private static final String[] CAL_ENABLES = { "pre", "next", "both", "none" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
@@ -235,9 +237,9 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 				PD_TYPECASE,
 				PD_REQUIRED,
 				PD_READONLY,
-				new StringPropertyDescriptor(
-						lovService,
-						"*lovService", StylePropertyDescriptor.component | StylePropertyDescriptor.datasetfield, true), //$NON-NLS-1$
+				new DialogPropertyDescriptor(
+						"inner_lov_service",
+						"*lovService", LovServiceEditDialog.class, StylePropertyDescriptor.component | StylePropertyDescriptor.datasetfield), //$NON-NLS-1$
 				new StringPropertyDescriptor(title, "*title",
 						StylePropertyDescriptor.component
 								| StylePropertyDescriptor.datasetfield) };
@@ -269,7 +271,9 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	private static final IPropertyDescriptor PD_EMPYTEXT = new StringPropertyDescriptor(
 			emptyText, "EmptyText"); //$NON-NLS-1$
 	private static final IPropertyDescriptor PD_TYPECASE = new ComboPropertyDescriptor(
-			typeCase, "TypeCase", new String[] { "任意", "大写", "小写" }); //$NON-NLS-1$
+			typeCase, "TypeCase"
+			// , new String[] { "任意", "大写", "小写" }
+			, Input.CASE_TYPES); //$NON-NLS-1$
 
 	private IPropertyDescriptor[] label() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_NAME, PD_WIDTH,
@@ -287,7 +291,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 
 	private IPropertyDescriptor[] vbox(AuroraComponent component) {
 
-		VBox vbox = (VBox) component;
+		// VBox vbox = (VBox) component;
 		// String sectionType = vbox.getSectionType();
 		// if (sectionType == null ||
 		// sectionType.equals(VBox.SECTION_TYPE_BUTTON))
