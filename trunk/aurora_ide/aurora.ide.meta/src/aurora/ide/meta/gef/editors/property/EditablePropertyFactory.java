@@ -197,9 +197,12 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 				PD_TYPECASE,
 				PD_REQUIRED,
 				PD_READONLY,
-				new StringPropertyDescriptor(options, "*options",
-						StylePropertyDescriptor.component
-								| StylePropertyDescriptor.datasetfield, true)
+//				new StringPropertyDescriptor(options, "*options",
+//						StylePropertyDescriptor.component
+//								| StylePropertyDescriptor.datasetfield, true),
+				new DialogPropertyDescriptor(
+						ComponentInnerProperties.INNER_LOV_SERVICE,
+						"*options", LovServiceEditDialog.class, StylePropertyDescriptor.component | StylePropertyDescriptor.datasetfield)
 		// ,
 		// new StringPropertyDescriptor(
 		// displayField,
@@ -238,7 +241,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 				PD_REQUIRED,
 				PD_READONLY,
 				new DialogPropertyDescriptor(
-						"inner_lov_service",
+						ComponentInnerProperties.INNER_LOV_SERVICE,
 						"*lovService", LovServiceEditDialog.class, StylePropertyDescriptor.component | StylePropertyDescriptor.datasetfield), //$NON-NLS-1$
 				new StringPropertyDescriptor(title, "*title",
 						StylePropertyDescriptor.component
