@@ -9,6 +9,7 @@ import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.InputPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.NumberField;
 
 public class NumberFieldCreator extends ComponentCreator {
 
