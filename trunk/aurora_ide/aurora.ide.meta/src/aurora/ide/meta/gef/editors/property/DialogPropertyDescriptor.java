@@ -13,6 +13,12 @@ public class DialogPropertyDescriptor extends StylePropertyDescriptor {
 		this.clazz = clazz;
 	}
 
+	public DialogPropertyDescriptor(Object id, String displayName,
+			Class<? extends EditWizard> clazz, int style) {
+		this(id, displayName, clazz);
+		this.setStyle(style);
+	}
+
 	public CellEditor createPropertyEditor(Composite parent) {
 		CellEditor editor = new DialogCellEditor(parent, clazz);
 		if (getValidator() != null) {

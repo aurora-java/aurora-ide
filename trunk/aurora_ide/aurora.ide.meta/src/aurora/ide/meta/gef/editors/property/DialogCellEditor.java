@@ -75,6 +75,8 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 
 	@Override
 	protected void doSetValue(Object value) {
+		if (value == null)
+			return;
 		this.value = (IDialogEditableObject) value;
 		label.setText(this.value.getDescripition());
 		label.setImage(ImageUtil.getImage((IDialogEditableObject) value));
@@ -107,13 +109,17 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 	protected void showDialog() {
 		try {
 			EditWizard wizard = clazz.newInstance();
-			IDialogEditableObject objClone = value.clone();
+			IDialogEditableObject objClone = value == null ? null : value
+					.clone();
 			wizard.setDialogEdiableObject(objClone);
 			WizardDialog wd = new WizardDialog(shell, wizard);
 			if (wd.open() == WizardDialog.OK) {
 				value = objClone;
-				label.setText(value.getDescripition());
-				label.setImage(ImageUtil.getImage((IDialogEditableObject) value));
+				if(value!=null){
+					label.setText(value.getDescripition());
+					label.setImage(ImageUtil
+							.getImage((IDialogEditableObject) value));
+				}
 				fireApplyEditorValue();
 			}
 		} catch (Exception e1) {
