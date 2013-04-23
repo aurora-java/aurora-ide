@@ -6,9 +6,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.plugin.source.gen.screen.model.Dataset;
 import aurora.plugin.source.gen.screen.model.GridSelectionCol;
-import aurora.plugin.source.gen.screen.model.ResultDataSet;
-
+  
 /**
  * 
  */
@@ -36,7 +36,7 @@ public class GridSelectionColFigure extends GridColumnFigure {
 	 * @see org.eclipse.draw2d.Label#paintFigure(org.eclipse.draw2d.Graphics)
 	 */
 	protected void paintFigure(Graphics g) {
-		if (ResultDataSet.SELECT_NONE.equals(model.getSelectionMode()))
+		if (Dataset.SELECT_NONE.equals(model.getSelectionMode()))
 			return;
 		Rectangle rect = getBounds().getCopy();
 		g.setBackgroundColor(ColorConstants.GRID_ROW);
@@ -52,7 +52,7 @@ public class GridSelectionColFigure extends GridColumnFigure {
 
 		Image img = img_radio;
 		imgRect = new Rectangle(img.getBounds());
-		if (ResultDataSet.SELECT_MULTI.equals(model.getSelectionMode())) {
+		if (Dataset.SELECT_MULTI.equals(model.getSelectionMode())) {
 			img = img_check;
 			imgRect = new Rectangle(img.getBounds());
 			g.drawImage(img, rect.x + (rect.width - imgRect.width) / 2, rect.y

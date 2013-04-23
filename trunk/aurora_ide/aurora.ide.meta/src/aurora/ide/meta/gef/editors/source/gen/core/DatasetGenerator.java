@@ -12,10 +12,10 @@ import aurora.ide.meta.gef.editors.models.Container;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.DatasetBinder;
 import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.ContainerHolder;
 import aurora.ide.meta.gef.editors.models.QueryDataSet;
 import aurora.ide.meta.gef.editors.models.ResultDataSet;
 import aurora.ide.meta.gef.editors.source.gen.ComboDataset;
+import aurora.plugin.source.gen.screen.model.ContainerHolder;
 
 class DatasetGenerator {
 	private ScreenGenerator sg;

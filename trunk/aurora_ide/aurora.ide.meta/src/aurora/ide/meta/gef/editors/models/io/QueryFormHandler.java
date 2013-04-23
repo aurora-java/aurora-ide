@@ -3,13 +3,13 @@ package aurora.ide.meta.gef.editors.models.io;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.editors.models.AuroraComponent;
 import aurora.ide.meta.gef.editors.models.Container;
-import aurora.ide.meta.gef.editors.models.ContainerHolder;
 import aurora.ide.meta.gef.editors.models.Dataset;
 import aurora.ide.meta.gef.editors.models.Form;
 import aurora.ide.meta.gef.editors.models.HBox;
-import aurora.ide.meta.gef.editors.models.QueryForm;
-import aurora.ide.meta.gef.editors.models.QueryFormBody;
-import aurora.ide.meta.gef.editors.models.QueryFormToolBar;
+import aurora.plugin.source.gen.screen.model.ContainerHolder;
+import aurora.plugin.source.gen.screen.model.QueryForm;
+import aurora.plugin.source.gen.screen.model.QueryFormBody;
+import aurora.plugin.source.gen.screen.model.QueryFormToolBar;
 
 public class QueryFormHandler extends DefaultIOHandler {
 
