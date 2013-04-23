@@ -33,7 +33,7 @@ import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.ButtonClicker;
 import aurora.plugin.source.gen.screen.model.Container;
-import aurora.plugin.source.gen.screen.model.ResultDataSet;
+import aurora.plugin.source.gen.screen.model.Dataset;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.TabItem;
 
@@ -226,7 +226,7 @@ public class TemplateHelper {
 				btn.getButtonClicker().setTargetComponent(ac);
 			} else if (obj instanceof Container) {
 				Container c = (Container) obj;
-				ResultDataSet ds = (ResultDataSet) c.getDataset();
+				Dataset ds =  c.getDataset();
 				AuroraComponent ac = config.getAuroraComponents().get(queryRelated.get(s));
 				if (ac instanceof Container) {
 					ds.setOwner(c);
@@ -324,7 +324,8 @@ public class TemplateHelper {
 		if (bm == null) {
 			return;
 		}
-		ResultDataSet ds = new ResultDataSet();
+		Dataset ds = new Dataset();
+		ds.setComponentType(Dataset.RESULTDATASET);
 		ds.setOwner(ac);
 		ac.setDataset(ds);
 		ac.setSectionType(Container.SECTION_TYPE_RESULT);

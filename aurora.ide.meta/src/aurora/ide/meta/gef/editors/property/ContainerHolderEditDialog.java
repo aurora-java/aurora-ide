@@ -65,8 +65,7 @@ public class ContainerHolderEditDialog extends EditWizard {
 			TreeViewer tv = mts.getTreeViewer();
 			tv.setFilters(new ViewerFilter[] {
 					ModelTreeSelector.CONTAINER_FILTER,
-					ModelTreeSelector.getSectionFilter(containerHolder
-							.getContainerType()) });
+					ModelTreeSelector.getSectionFilter(containerHolder.getContainerTypes()) });
 			final Tree tree = tv.getTree();
 			mts.setRoot(root);
 			mts.refreshTree();

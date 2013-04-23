@@ -7,11 +7,11 @@ import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.Dataset;
 import aurora.plugin.source.gen.screen.model.Grid;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.Label;
 import aurora.plugin.source.gen.screen.model.Renderer;
-import aurora.plugin.source.gen.screen.model.ResultDataSet;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class DisplayTemplateHandle extends TemplateHandle {
@@ -95,7 +95,7 @@ public class DisplayTemplateHandle extends TemplateHandle {
 			grid.addCol(gc);
 		}
 		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
-		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
+		grid.setSelectionMode(Dataset.SELECT_MULTI);
 		config.get(GRID).add(grid);
 	}
 

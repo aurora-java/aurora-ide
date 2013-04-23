@@ -173,4 +173,22 @@ public class ModelTreeSelector extends Composite implements
 			}
 		};
 	}
+
+	public static ViewerFilter getSectionFilter(
+			final List<String> containerTypes) {
+		return new ViewerFilter() {
+
+			@Override
+			public boolean select(Viewer viewer, Object parentElement,
+					Object element) {
+				if (element instanceof TabFolder || element instanceof TabItem)
+					return true;
+				if (element instanceof Container) {
+					return containerTypes.contains(((Container) element)
+							.getSectionType());
+				}
+				return true;
+			}
+		};
+	}
 }

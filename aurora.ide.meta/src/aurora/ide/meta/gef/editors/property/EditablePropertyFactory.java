@@ -5,6 +5,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.CheckBox;
+import aurora.plugin.source.gen.screen.model.Container;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.QueryForm;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
@@ -97,7 +98,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 				QueryForm.RESULT_TARGET_CONTAINER_HOLDER_KEY, "resultTarget",
 				ContainerHolderEditDialog.class);
 		IPropertyDescriptor[] pds = new IPropertyDescriptor[] { PD_QUERY_FIELD,
-				PD_QUERY_HINT, PD_RESULT_TARGET };
+				PD_QUERY_HINT, PD_RESULT_TARGET, PD_MODEL };
 
 		return pds;
 	}
@@ -160,18 +161,35 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 								| StylePropertyDescriptor.datasetfield),
 				new BooleanPropertyDescriptor(required, "*required",
 						StylePropertyDescriptor.component
+								| StylePropertyDescriptor.datasetfield),
+				new DialogPropertyDescriptor(
+						ComponentInnerProperties.INNER_LOV_SERVICE, "*options",
+						LovServiceEditDialog.class,
+						StylePropertyDescriptor.component
 								| StylePropertyDescriptor.datasetfield) };
 
 	}
 
+	public static final IPropertyDescriptor PD_CONTAINER_SECTION_TYPE = new ComboPropertyDescriptor(
+			ComponentInnerProperties.CONTAINER_SECTION_TYPE, "Container Type",
+			new String[] { Container.SECTION_TYPE_QUERY,
+					Container.SECTION_TYPE_RESULT });
+
 	private IPropertyDescriptor[] form() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_TITLE, PD_WIDTH,
-				PD_HEIGHT, PD_COL, PD_LABELWIDTH };
+				PD_HEIGHT, PD_COL, PD_LABELWIDTH, PD_CONTAINER_SECTION_TYPE,
+				PD_MODEL };
 	}
 
 	private IPropertyDescriptor[] grid() {
+		IPropertyDescriptor PD_QUERY_BIND = new DialogPropertyDescriptor(
+				ComponentInnerProperties.DATASET_QUERY_CONTAINER_HOLDER,
+				"*Query/BindTarget", ContainerHolderEditDialog.class,
+				StylePropertyDescriptor.component
+						| StylePropertyDescriptor.dataset);
+
 		return new IPropertyDescriptor[] { PD_WIDTH, PD_HEIGHT, PD_NAVBAR_TYPE,
-				PD_SELECTION_MODE, PD_PAGE_SIZE };
+				PD_SELECTION_MODE, PD_PAGE_SIZE, PD_MODEL, PD_QUERY_BIND };
 	}
 
 	public static final String NAVBAR_NONE = "";
@@ -189,20 +207,20 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	}
 
 	private IPropertyDescriptor[] combox() {
-		return new IPropertyDescriptor[] {
-				PD_PROMPT,
-				PD_NAME,
+		return new IPropertyDescriptor[] { PD_PROMPT, PD_NAME,
 				PD_WIDTH,
 				PD_EMPYTEXT,
 				PD_TYPECASE,
 				PD_REQUIRED,
 				PD_READONLY,
-//				new StringPropertyDescriptor(options, "*options",
-//						StylePropertyDescriptor.component
-//								| StylePropertyDescriptor.datasetfield, true),
+				// new StringPropertyDescriptor(options, "*options",
+				// StylePropertyDescriptor.component
+				// | StylePropertyDescriptor.datasetfield, true),
 				new DialogPropertyDescriptor(
-						ComponentInnerProperties.INNER_LOV_SERVICE,
-						"*options", LovServiceEditDialog.class, StylePropertyDescriptor.component | StylePropertyDescriptor.datasetfield)
+						ComponentInnerProperties.INNER_LOV_SERVICE, "*options",
+						LovServiceEditDialog.class,
+						StylePropertyDescriptor.component
+								| StylePropertyDescriptor.datasetfield)
 		// ,
 		// new StringPropertyDescriptor(
 		// displayField,
@@ -340,6 +358,10 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 
 	private static final IPropertyDescriptor PD_PAGE_SIZE = new IntegerPropertyDescriptor(
 			pageSize, "*pageSize", StylePropertyDescriptor.component
+					| StylePropertyDescriptor.dataset);
+
+	private static final IPropertyDescriptor PD_MODEL = new StringPropertyDescriptor(
+			model, "*model", StylePropertyDescriptor.component
 					| StylePropertyDescriptor.dataset);
 
 	private IPropertyDescriptor[] screenbody() {

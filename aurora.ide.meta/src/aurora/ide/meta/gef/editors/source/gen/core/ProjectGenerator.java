@@ -1,11 +1,13 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -29,22 +31,24 @@ import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
-import aurora.ide.api.composite.map.CommentCompositeLoader;
+import uncertain.composite.IterationHandle;
+import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.helpers.LogUtil;
 import aurora.ide.meta.exception.GeneratorException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.exception.TemplateNotBindedException;
 import aurora.ide.meta.gef.FileFinder;
-import aurora.ide.meta.gef.editors.models.ILink;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.models.io.ModelIOManager;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.meta.project.AuroraMetaProject;
 import aurora.ide.prototype.freemarker.FMConfigration;
-import aurora.ide.prototype.freemarker.FreeMarkerGenerator;
 import aurora.ide.search.core.Message;
 import aurora.ide.search.core.Util;
 import aurora.ide.search.ui.MessageFormater;
+import aurora.plugin.source.gen.BuilderSession;
+import aurora.plugin.source.gen.ModelMapParser;
+import aurora.plugin.source.gen.SourceGenManager;
+import aurora.plugin.source.gen.SourceTemplateProvider;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import freemarker.template.TemplateException;
 
 public class ProjectGenerator {
@@ -151,13 +155,16 @@ public class ProjectGenerator {
 						// 摸版格式异常，代码生成终止。
 						LogUtil.getInstance().logError("摸版格式异常，代码生成终止。", e);
 						errorMessage = "摸版格式异常，代码生成终止。查看log获得详细信息。";
-						throw new InvocationTargetException(new GeneratorException());
+						throw new InvocationTargetException(
+								new GeneratorException());
 					} catch (TemplateNotBindedException e) {
 						// 文件未绑定摸版，忽略此文件。
 						continue;
 					} catch (SAXException e) {
 						// 生成文件格式不正确，忽律此文件。
-						LogUtil.getInstance().logError("生成文件格式不正确，忽律此文件 : "+fCurrentFile.getName(), e);
+						LogUtil.getInstance().logError(
+								"生成文件格式不正确，忽律此文件 : " + fCurrentFile.getName(),
+								e);
 						continue;
 					}
 				}
@@ -197,36 +204,12 @@ public class ProjectGenerator {
 			return false;
 		}
 		try {
-			 FMConfigration.Instance().getTemplate("");
+			FMConfigration.Instance().getTemplate("");
 		} catch (IOException e) {
 			errorMessage = "没有找到摸版，代码生成终止。";
 			return false;
 		}
 		return true;
-	}
-
-	private ViewDiagram loadFile(IFile file) {
-		ViewDiagram diagram = null;
-		InputStream is = null;
-		try {
-			is = file.getContents(false);
-
-			CompositeLoader parser = new CommentCompositeLoader();
-			CompositeMap rootMap = parser.loadFromStream(is);
-			ModelIOManager mim = ModelIOManager.getNewInstance();
-			diagram = mim.fromCompositeMap(rootMap);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (is != null) {
-				try {
-					is.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return diagram;
 	}
 
 	private void genNewFile(IFile newFile, String content)
@@ -241,7 +224,7 @@ public class ProjectGenerator {
 			return;
 		}
 		if (newFile.exists() && isOverlap) {
-			try {	
+			try {
 				// newFile.delete(true, monitor);
 				newFile.setContents(is, true, false, null);
 				return;
@@ -285,60 +268,182 @@ public class ProjectGenerator {
 	private void processFile(IFile fCurrentFile, IProgressMonitor monitor)
 			throws InvocationTargetException, IOException, TemplateException,
 			TemplateNotBindedException, SAXException {
-		ScreenGenerator sg = new ScreenGenerator(project, fCurrentFile);
+
 		IFile newFile = getNewFile(fCurrentFile);
 		if (newFile.exists() && !isOverlap) {
 			return;
 		}
-		ViewDiagram loadFile = this.loadFile(fCurrentFile);
+		SourceGenManager sgm = new SourceGenManager() {
+			public ModelMapParser createModelMapParser(CompositeMap model) {
+				ModelMapParser mmp = new IDEModelMapParser(model,
+						getAuroraProject());
+				return mmp;
+			}
 
-		// String genFile = sg.genFile(header, loadFile);
-		CompositeMap screenMap = sg.genCompositeMap(loadFile);
-		FreeMarkerGenerator fmg = new FreeMarkerGenerator();
-		String genFile = fmg.gen(screenMap);
+			protected void loadBuilders() {
+				if (getBuilders() != null) {
+					return;
+				}
+				setBuilders(new HashMap<String, String>());
+				File component_file;
+				File f = new File(
+						"/Users/shiliyan/Desktop/work/aurora/workspace/aurora_runtime/hap/WebContent/WEB-INF/aurora.plugin.source.gen");
+				File config = new File(f, "config");
+				component_file = new File(config, "components.xml");
+				CompositeLoader loader = new CompositeLoader();
+				try {
+					CompositeMap components = loader
+							.loadByFullFilePath(component_file.getPath());
+					components.iterate(new IterationHandle() {
+						public int process(CompositeMap map) {
+							String component_type = map.getString(
+									"component_type", "");
+							String builder = map.getString("builder", "");
+							if ("".equals(component_type) == false) {
+								getBuilders().put(component_type.toLowerCase(),
+										builder);
+							}
+							return IterationHandle.IT_CONTINUE;
+						}
+					}, false);
+				} catch (Exception ex) {
+					// load builders false
+					throw new RuntimeException(ex);
+				}
+			}
+		};
+		SourceTemplateProvider stp = new SourceTemplateProvider() {
 
+			private File theme;
+
+			protected File getTemplateTheme() {
+				if (theme != null)
+					return theme;
+				File f = new File(
+						"/Users/shiliyan/Desktop/work/aurora/workspace/aurora_runtime/hap/WebContent/WEB-INF/aurora.plugin.source.gen");
+				File tFolder = new File(f, "template");
+				theme = new File(tFolder, this.getTemplate());
+				return theme;
+			}
+
+		};
+		sgm.setTemplateProvider(stp);
+		stp.setSourceGenManager(sgm);
+		stp.setTemplate("default");
+		stp.initialize();
+		CompositeMap loadFile = CompositeMapUtil.loadFile(fCurrentFile);
+		BuilderSession session = new BuilderSession(sgm);
+		session.addConfig("link_base_path", getLinkBasePath());
+		String genFile = sgm.buildScreen(loadFile, session).toXML();
 		genNewFile(newFile, genFile);
-		genRelationFile(sg, 0);
+
+		genRelation(sgm, loadFile, 0);
+		// define config
+		// head autoquery
+
+		// ScreenGenerator sg = new ScreenGenerator(project, fCurrentFile);
+		// IFile newFile = getNewFile(fCurrentFile);
+		// if (newFile.exists() && !isOverlap) {
+		// return;
+		// }
+		// ViewDiagram loadFile = this.loadFile(fCurrentFile);
+		//
+		// // String genFile = sg.genFile(header, loadFile);
+		// CompositeMap screenMap = sg.genCompositeMap(loadFile);
+		// FreeMarkerGenerator fmg = new FreeMarkerGenerator();
+		// String genFile = fmg.gen(screenMap);
+		//
+		// genNewFile(newFile, genFile);
+		// genRelationFile(sg, 0);
 
 	}
 
-	private void genRelationFile(ScreenGenerator sg, int i)
-			throws InvocationTargetException, TemplateNotBindedException,
-			IOException, TemplateException, SAXException {
+	private String getLinkBasePath() {
+		IPath fpath = this.fCurrentFile.getProjectRelativePath();
+		IPath rpath = this.screenFolder.getProjectRelativePath();
+		return fpath.makeRelativeTo(rpath).removeFileExtension().toString();
+	}
+
+	private void genRelation(SourceGenManager sgm, CompositeMap loadFile, int i) {
+		ModelMapParser mmp = new IDEModelMapParser(loadFile, getAuroraProject());
+		List<CompositeMap> renderers = mmp.getComponents("renderer");
+		for (CompositeMap renderer : renderers) {
+			String type = renderer.getString(
+					ComponentInnerProperties.RENDERER_TYPE, "");
+			if ("PAGE_REDIRECT".equals(type)) {
+				String openpath = renderer.getString(
+						ComponentInnerProperties.OPEN_PATH, "");
+				if ("".equals(openpath) || openpath.endsWith("uip") == false) {
+					continue;
+				}
+				CompositeMap inner_paramerter = renderer.getChildByAttrib(
+						"propertye_id", "renderer_parameters")
+						.getChildByAttrib("component_type", "inner_paramerter");
+				String value = inner_paramerter
+						.getString("parameter_value", "");
+				String name = inner_paramerter.getString("parameter_name", "");
+				genRelationFile(sgm, i, openpath, name, value);
+			}
+		}
+	}
+
+	private void genRelationFile(SourceGenManager sgm, int i, String openPath,
+			String para_name, String para_value) {
 		if (i > 10) {
 			// circle protected
 			// a-->b--a
 			return;
 		}
 		i++;
-		List<ILink> links = sg.getLinks();
-		for (ILink link : links) {
-			String openPath = ((ILink) link).getOpenPath();
-			if (null == openPath || "".equals(openPath))
-				continue;
-			IPath p = new Path(openPath);
-			if ("uip".equalsIgnoreCase(p.getFileExtension())) {
-				IFile fCurrentFile = this.screenFolder.getFile(p);
-				openPath = sg.getNewLinkFilePath(openPath);
-				p = new Path(openPath);
-				IFile newFile = this.getNewFile(p);
-				ScreenGenerator dsg = new DisplayScreenGenerator(project,
-						(ILink) link, newFile);
-				dsg.setIdGenerator(sg.getIdGenerator());
-				ViewDiagram loadFile = this.loadFile(fCurrentFile);
-				if (loadFile == null)
-					continue;
-				// String genFile = dsg.genFile(header, loadFile);
+		if (null == openPath || "".equals(openPath))
+			return;
+		IPath p = new Path(openPath);
+		if ("uip".equalsIgnoreCase(p.getFileExtension())) {
+			IFile fCurrentFile = this.screenFolder.getFile(p);
+			openPath = getNewLinkFilePath(openPath);
+			p = new Path(openPath);
+			IFile newFile = this.getNewFile(p);
 
-				CompositeMap screenMap = dsg.genCompositeMap(loadFile);
-				FreeMarkerGenerator fmg = new FreeMarkerGenerator();
-				String genFile = fmg.gen(screenMap);
+			CompositeMap loadFile = CompositeMapUtil.loadFile(fCurrentFile);
 
+			if (loadFile == null)
+				return;
+			String genFile;
+			try {
+				BuilderSession session = new BuilderSession(sgm);
+				session.addConfig("be_opened_from_another", true);
+				session.addConfig("para_name", para_name);
+				session.addConfig("para_value", para_value);
+				genFile = sgm.buildScreen(loadFile, session).toXML();
 				genNewFile(newFile, genFile);
-
-				genRelationFile(dsg, i);
+				genRelation(sgm, loadFile, i);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
 			}
 		}
+	}
+
+	public String getNewLinkFilePath(String path) {
+		if (path == null)
+			path = "";
+		IPath newPath = new Path(path);
+		if (!"uip".equalsIgnoreCase(newPath.getFileExtension())) {
+			return path;
+		}
+		IPath filePath = this.fCurrentFile.getProjectRelativePath();
+		String fileName = filePath.removeFileExtension().lastSegment();
+		String linkName = newPath.removeFileExtension().lastSegment();
+		newPath = newPath.removeLastSegments(1);
+		String newName = fileName + "_" + linkName;
+		if (newName.length() > 50) {
+			newName = newName.substring(0, 49);
+		}
+		newPath = newPath.append(newName).addFileExtension("screen");
+		return newPath.toString();
 	}
 
 	private IProject getAuroraProject() {

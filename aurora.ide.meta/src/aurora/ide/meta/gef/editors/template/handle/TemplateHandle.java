@@ -18,9 +18,7 @@ import aurora.plugin.source.gen.screen.model.Dataset;
 import aurora.plugin.source.gen.screen.model.Grid;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.Input;
-import aurora.plugin.source.gen.screen.model.QueryDataSet;
 import aurora.plugin.source.gen.screen.model.Renderer;
-import aurora.plugin.source.gen.screen.model.ResultDataSet;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.TabItem;
 
@@ -120,7 +118,7 @@ public abstract class TemplateHandle {
 			grid.addCol(gc);
 		}
 		grid.setNavbarType(Grid.NAVBAR_COMPLEX);
-		grid.setSelectionMode(ResultDataSet.SELECT_MULTI);
+		grid.setSelectionMode(Dataset.SELECT_MULTI);
 		config.get(GRID).add(grid);
 	}
 
@@ -159,12 +157,13 @@ public abstract class TemplateHandle {
 		if (ac.getSectionType() == null || "".equals(ac.getSectionType())) {
 			ac.setSectionType(Container.SECTION_TYPE_QUERY);
 			String s = getBmPath(bm.getModel());
-			QueryDataSet ds = new QueryDataSet();
+			Dataset ds = new Dataset();
+			ds.setComponentType(Dataset.QUERYDATASET);
 			ds.setModel(s);
 			ac.setDataset(ds);
 		} else if (Container.SECTION_TYPE_RESULT.equals(ac.getSectionType())) {
 			if (ac instanceof Grid) {
-				((Grid) ac).setSelectionMode(ResultDataSet.SELECT_SINGLE);
+				((Grid) ac).setSelectionMode(Dataset.SELECT_SINGLE);
 			}
 			return;
 		}

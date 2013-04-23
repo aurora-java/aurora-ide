@@ -12,7 +12,6 @@ import aurora.plugin.source.gen.screen.model.Container;
 import aurora.plugin.source.gen.screen.model.Dataset;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.Label;
-import aurora.plugin.source.gen.screen.model.ResultDataSet;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class BindDropModelCommand extends DropBMCommand {
@@ -82,7 +81,7 @@ public class BindDropModelCommand extends DropBMCommand {
 		String model = ds == null ? null : ds.getModel();
 		for (CompositeMap field : fields) {
 			if (isQueryNameMap(field)) {
-				if (ds instanceof ResultDataSet) {
+				if (ds.getComponentType().equalsIgnoreCase(Dataset.RESULTDATASET)) {
 					continue;
 				}
 			}
