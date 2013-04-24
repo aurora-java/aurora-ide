@@ -58,10 +58,10 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 		if ("numberfield".equalsIgnoreCase(componentType)) {
 			return this.numberfield();
 		}
-		if ("tabfolder".equalsIgnoreCase(componentType)) {
+		if ("tabPanel".equalsIgnoreCase(componentType)) {
 			return this.tabfolder();
 		}
-		if ("tabitem".equalsIgnoreCase(componentType)) {
+		if ("tab".equalsIgnoreCase(componentType)) {
 			return this.tabitem();
 		}
 		if ("textfield".equalsIgnoreCase(componentType)) {
@@ -306,8 +306,9 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	}
 
 	private IPropertyDescriptor[] tabitem() {
-		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH,
-				new TabRefPropertyDescriptor(TAB_SCREEN_REF, "ref") };
+		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH
+		// ,new TabRefPropertyDescriptor(TAB_SCREEN_REF, "ref")
+		};
 	}
 
 	private IPropertyDescriptor[] vbox(AuroraComponent component) {

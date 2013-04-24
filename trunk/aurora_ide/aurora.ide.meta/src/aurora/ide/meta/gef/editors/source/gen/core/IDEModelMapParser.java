@@ -21,6 +21,8 @@ public class IDEModelMapParser extends ModelMapParser {
 
 	public CompositeMap loadModelMap(String optionModel) {
 		IFile bmFile = ResourceUtil.getBMFile(iProject, optionModel);
+		if(bmFile==null)
+			return new CompositeMap();
 		try {
 			return CacheManager.getWholeBMCompositeMap(bmFile);
 		} catch (CoreException e) {
