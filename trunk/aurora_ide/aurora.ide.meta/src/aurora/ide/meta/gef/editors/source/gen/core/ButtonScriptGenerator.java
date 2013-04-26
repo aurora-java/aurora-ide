@@ -3,11 +3,11 @@ package aurora.ide.meta.gef.editors.source.gen.core;
 
 public class ButtonScriptGenerator {
 	
-	private ScreenGenerator sg;
-
-	public ButtonScriptGenerator(ScreenGenerator sg){
-		this.sg = sg;
-	}
+//	private ScreenGenerator sg;
+//
+//	public ButtonScriptGenerator(ScreenGenerator sg){
+//		this.sg = sg;
+//	}
 	
 
 	public String hrefScript(String functionName, String labelText,
@@ -43,8 +43,8 @@ public class ButtonScriptGenerator {
 	public String openScript(String functionName, String linkId) {
 		String s = " function #functionName#() {var linkUrl = $('#linkId#'); #parameters# new Aurora.Window({id: '#windowId#',url:linkUrl.getUrl(),title: 'Title',height: 435,width: 620});}";
 		s = s.replace("#functionName#", functionName);
-		String windowID = sg.getIdGenerator().genWindowID(linkId);
-		s = s.replaceAll("#windowId#", windowID);
+//		String windowID = sg.getIdGenerator().genWindowID(linkId);
+//		s = s.replaceAll("#windowId#", windowID);
 		s = s.replaceAll("#linkId#", linkId);
 
 		return s;

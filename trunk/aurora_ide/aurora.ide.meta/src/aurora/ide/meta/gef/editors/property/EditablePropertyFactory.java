@@ -67,6 +67,9 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 		if ("textfield".equalsIgnoreCase(componentType)) {
 			return this.textfield();
 		}
+		if ("textarea".equalsIgnoreCase(componentType)) {
+			return this.textarea();
+		}
 		if ("toolbar".equalsIgnoreCase(componentType)) {
 			return NONE_PROPS;
 		}
@@ -84,6 +87,11 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 		}
 		return NONE_PROPS;
 
+	}
+
+	private IPropertyDescriptor[] textarea() {
+		return new IPropertyDescriptor[] { PD_PROMPT, PD_NAME, PD_WIDTH,
+				PD_HEIGHT, PD_REQUIRED, PD_READONLY };
 	}
 
 	private IPropertyDescriptor[] queryForm() {
@@ -130,7 +138,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 
 	private IPropertyDescriptor[] checkbox() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_NAME, PD_TEXT,
-				PD_READONLY, PD_REQUIRED, PD_CHECKED_VALUE, PD_UNCHECKED_VALUE };
+				PD_READONLY, PD_REQUIRED, PD_CHECKED_VALUE, PD_UNCHECKED_VALUE,PD_DEFAULT_VALUE };
 	}
 
 	public static final IPropertyDescriptor PD_TEXT = new StringPropertyDescriptor(
