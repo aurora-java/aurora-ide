@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
-import java.text.DateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,6 +48,7 @@ import aurora.plugin.source.gen.ModelMapParser;
 import aurora.plugin.source.gen.SourceGenManager;
 import aurora.plugin.source.gen.SourceTemplateProvider;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
+import aurora.plugin.source.gen.screen.model.properties.IProperties;
 import freemarker.template.TemplateException;
 
 public class ProjectGenerator {
@@ -62,7 +62,9 @@ public class ProjectGenerator {
 	private IFolder screenFolder;
 	private IContainer auroraWebFolder;
 	private String errorMessage;
-	private String header;
+	private SourceGenManager sgm;
+	// private String header;
+	private SourceTemplateProvider stp;
 
 	public IProject getProject() {
 		return project;
@@ -77,6 +79,65 @@ public class ProjectGenerator {
 		this.project = project;
 		this.isOverlap = isOverlap;
 		this.shell = shell;
+		sgm = new SourceGenManager() {
+			public ModelMapParser createModelMapParser(CompositeMap model) {
+				ModelMapParser mmp = new IDEModelMapParser(model,
+						getAuroraProject());
+				return mmp;
+			}
+
+			protected void loadBuilders() {
+				if (getBuilders() != null) {
+					return;
+				}
+				setBuilders(new HashMap<String, String>());
+				File component_file;
+				File f = new File(
+						"/Users/shiliyan/Desktop/work/aurora/workspace/aurora_runtime/hap/WebContent/WEB-INF/aurora.plugin.source.gen");
+				File config = new File(f, "config");
+				component_file = new File(config, "components.xml");
+				CompositeLoader loader = new CompositeLoader();
+				try {
+					CompositeMap components = loader
+							.loadByFullFilePath(component_file.getPath());
+					components.iterate(new IterationHandle() {
+						public int process(CompositeMap map) {
+							String component_type = map
+									.getString(
+											ComponentInnerProperties.COMPONENT_TYPE,
+											"");
+							String builder = map.getString("builder", "");
+							if ("".equals(component_type) == false) {
+								getBuilders().put(component_type.toLowerCase(),
+										builder);
+							}
+							return IterationHandle.IT_CONTINUE;
+						}
+					}, false);
+				} catch (Exception ex) {
+					// load builders false
+					throw new RuntimeException(ex);
+				}
+			}
+		};
+		stp = new SourceTemplateProvider() {
+			private File theme;
+
+			protected File getTemplateTheme() {
+				if (theme != null)
+					return theme;
+				File f = new File(
+						"/Users/shiliyan/Desktop/work/aurora/workspace/aurora_runtime/hap/WebContent/WEB-INF/aurora.plugin.source.gen");
+				File tFolder = new File(f, "template");
+				theme = new File(tFolder, this.getTemplate());
+				return theme;
+			}
+
+		};
+		sgm.setTemplateProvider(stp);
+		stp.setSourceGenManager(sgm);
+		stp.setTemplate("default");
+		stp.initialize();
 	}
 
 	public boolean isOverlap() {
@@ -101,7 +162,7 @@ public class ProjectGenerator {
 			e1.printStackTrace();
 		}
 
-		header = createHeader();
+		// header = createHeader();
 
 		List<IResource> files = fileFinder.getResult();
 		fNumberOfFilesToScan = files.size();
@@ -176,16 +237,16 @@ public class ProjectGenerator {
 
 	}
 
-	private String createHeader() {
-		String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"; //$NON-NLS-1$
-		String date = DateFormat.getDateInstance().format(new java.util.Date());
-		String user = System.getProperty("user.name"); //$NON-NLS-1$
-		String comment = "<!-- \n  $Author: " + user + " \n  $Date: " + date //$NON-NLS-1$ //$NON-NLS-2$
-				+ " \n" //$NON-NLS-1$
-				+ "  $Revision: 1.0 \n  $add by aurora_ide team.\n-->\n\r "; //$NON-NLS-1$
-
-		return s + comment;
-	}
+	// private String createHeader() {
+	//		String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"; //$NON-NLS-1$
+	// String date = DateFormat.getDateInstance().format(new java.util.Date());
+	//		String user = System.getProperty("user.name"); //$NON-NLS-1$
+	//		String comment = "<!-- \n  $Author: " + user + " \n  $Date: " + date //$NON-NLS-1$ //$NON-NLS-2$
+	//				+ " \n" //$NON-NLS-1$
+	//				+ "  $Revision: 1.0 \n  $add by aurora_ide team.\n-->\n\r "; //$NON-NLS-1$
+	//
+	// return s + comment;
+	// }
 
 	public boolean validate() {
 		auroraProject = this.getAuroraProject();
@@ -269,119 +330,52 @@ public class ProjectGenerator {
 			throws InvocationTargetException, IOException, TemplateException,
 			TemplateNotBindedException, SAXException {
 
+		
 		IFile newFile = getNewFile(fCurrentFile);
 		if (newFile.exists() && !isOverlap) {
 			return;
 		}
-		SourceGenManager sgm = new SourceGenManager() {
-			public ModelMapParser createModelMapParser(CompositeMap model) {
-				ModelMapParser mmp = new IDEModelMapParser(model,
-						getAuroraProject());
-				return mmp;
-			}
-
-			protected void loadBuilders() {
-				if (getBuilders() != null) {
-					return;
-				}
-				setBuilders(new HashMap<String, String>());
-				File component_file;
-				File f = new File(
-						"/Users/shiliyan/Desktop/work/aurora/workspace/aurora_runtime/hap/WebContent/WEB-INF/aurora.plugin.source.gen");
-				File config = new File(f, "config");
-				component_file = new File(config, "components.xml");
-				CompositeLoader loader = new CompositeLoader();
-				try {
-					CompositeMap components = loader
-							.loadByFullFilePath(component_file.getPath());
-					components.iterate(new IterationHandle() {
-						public int process(CompositeMap map) {
-							String component_type = map.getString(
-									"component_type", "");
-							String builder = map.getString("builder", "");
-							if ("".equals(component_type) == false) {
-								getBuilders().put(component_type.toLowerCase(),
-										builder);
-							}
-							return IterationHandle.IT_CONTINUE;
-						}
-					}, false);
-				} catch (Exception ex) {
-					// load builders false
-					throw new RuntimeException(ex);
-				}
-			}
-		};
-		SourceTemplateProvider stp = new SourceTemplateProvider() {
-
-			private File theme;
-
-			protected File getTemplateTheme() {
-				if (theme != null)
-					return theme;
-				File f = new File(
-						"/Users/shiliyan/Desktop/work/aurora/workspace/aurora_runtime/hap/WebContent/WEB-INF/aurora.plugin.source.gen");
-				File tFolder = new File(f, "template");
-				theme = new File(tFolder, this.getTemplate());
-				return theme;
-			}
-
-		};
-		sgm.setTemplateProvider(stp);
-		stp.setSourceGenManager(sgm);
-		stp.setTemplate("default");
-		stp.initialize();
 		CompositeMap loadFile = CompositeMapUtil.loadFile(fCurrentFile);
 		BuilderSession session = new BuilderSession(sgm);
-		session.addConfig("link_base_path", getLinkBasePath());
+		String fileName = getFileName();
+		session.addConfig(IProperties.FILE_NAME, fileName);
 		String genFile = sgm.buildScreen(loadFile, session).toXML();
 		genNewFile(newFile, genFile);
-
 		genRelation(sgm, loadFile, 0);
-		// define config
-		// head autoquery
-
-		// ScreenGenerator sg = new ScreenGenerator(project, fCurrentFile);
-		// IFile newFile = getNewFile(fCurrentFile);
-		// if (newFile.exists() && !isOverlap) {
-		// return;
-		// }
-		// ViewDiagram loadFile = this.loadFile(fCurrentFile);
-		//
-		// // String genFile = sg.genFile(header, loadFile);
-		// CompositeMap screenMap = sg.genCompositeMap(loadFile);
-		// FreeMarkerGenerator fmg = new FreeMarkerGenerator();
-		// String genFile = fmg.gen(screenMap);
-		//
-		// genNewFile(newFile, genFile);
-		// genRelationFile(sg, 0);
-
 	}
 
-	private String getLinkBasePath() {
-		IPath fpath = this.fCurrentFile.getProjectRelativePath();
-		IPath rpath = this.screenFolder.getProjectRelativePath();
-		return fpath.makeRelativeTo(rpath).removeFileExtension().toString();
+	private String getFileName() {
+		return this.getFileName(this.fCurrentFile);
+	}
+
+	private String getFileName(IFile file) {
+		IPath filePath = file.getProjectRelativePath();
+		String fileName = filePath.removeFileExtension().lastSegment();
+		return fileName;
 	}
 
 	private void genRelation(SourceGenManager sgm, CompositeMap loadFile, int i) {
 		ModelMapParser mmp = new IDEModelMapParser(loadFile, getAuroraProject());
-		List<CompositeMap> renderers = mmp.getComponents("renderer");
+		List<CompositeMap> renderers = mmp.getComponents(IProperties.renderer);
 		for (CompositeMap renderer : renderers) {
 			String type = renderer.getString(
 					ComponentInnerProperties.RENDERER_TYPE, "");
-			if ("PAGE_REDIRECT".equals(type)) {
+			if (ComponentInnerProperties.PAGE_REDIRECT.equals(type)) {
 				String openpath = renderer.getString(
 						ComponentInnerProperties.OPEN_PATH, "");
 				if ("".equals(openpath) || openpath.endsWith("uip") == false) {
 					continue;
 				}
 				CompositeMap inner_paramerter = renderer.getChildByAttrib(
-						"propertye_id", "renderer_parameters")
-						.getChildByAttrib("component_type", "inner_paramerter");
-				String value = inner_paramerter
-						.getString("parameter_value", "");
-				String name = inner_paramerter.getString("parameter_name", "");
+						ComponentInnerProperties.PROPERTYE_ID,
+						ComponentInnerProperties.RENDERER_PARAMETERS)
+						.getChildByAttrib(
+								ComponentInnerProperties.COMPONENT_TYPE,
+								ComponentInnerProperties.INNER_PARAMERTER);
+				String value = inner_paramerter.getString(
+						ComponentInnerProperties.PARAMETER_VALUE, "");
+				String name = inner_paramerter.getString(
+						ComponentInnerProperties.PARAMETER_NAME, "");
 				genRelationFile(sgm, i, openpath, name, value);
 			}
 		}
@@ -400,20 +394,23 @@ public class ProjectGenerator {
 		IPath p = new Path(openPath);
 		if ("uip".equalsIgnoreCase(p.getFileExtension())) {
 			IFile fCurrentFile = this.screenFolder.getFile(p);
-			openPath = getNewLinkFilePath(openPath);
+			String fileName = getFileName();
+			openPath = aurora.plugin.source.gen.Util.getNewLinkFilePath(
+					openPath, fileName);
 			p = new Path(openPath);
 			IFile newFile = this.getNewFile(p);
-
 			CompositeMap loadFile = CompositeMapUtil.loadFile(fCurrentFile);
-
 			if (loadFile == null)
 				return;
 			String genFile;
 			try {
 				BuilderSession session = new BuilderSession(sgm);
-				session.addConfig("be_opened_from_another", true);
+				session.addConfig(
+						ComponentInnerProperties.BE_OPENED_FROM_ANOTHER, true);
 				session.addConfig("para_name", para_name);
 				session.addConfig("para_value", para_value);
+				session.addConfig(IProperties.FILE_NAME,
+						getFileName(fCurrentFile));
 				genFile = sgm.buildScreen(loadFile, session).toXML();
 				genNewFile(newFile, genFile);
 				genRelation(sgm, loadFile, i);
@@ -425,25 +422,6 @@ public class ProjectGenerator {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public String getNewLinkFilePath(String path) {
-		if (path == null)
-			path = "";
-		IPath newPath = new Path(path);
-		if (!"uip".equalsIgnoreCase(newPath.getFileExtension())) {
-			return path;
-		}
-		IPath filePath = this.fCurrentFile.getProjectRelativePath();
-		String fileName = filePath.removeFileExtension().lastSegment();
-		String linkName = newPath.removeFileExtension().lastSegment();
-		newPath = newPath.removeLastSegments(1);
-		String newName = fileName + "_" + linkName;
-		if (newName.length() > 50) {
-			newName = newName.substring(0, 49);
-		}
-		newPath = newPath.append(newName).addFileExtension("screen");
-		return newPath.toString();
 	}
 
 	private IProject getAuroraProject() {
