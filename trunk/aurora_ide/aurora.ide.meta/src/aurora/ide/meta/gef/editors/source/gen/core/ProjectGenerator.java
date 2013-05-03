@@ -229,10 +229,41 @@ public class ProjectGenerator {
 						continue;
 					}
 				}
+				genMasterDetailSVC();
 			}
 		} finally {
 			monitorUpdateJob.cancel();
 			monitor.done();
+		}
+	}
+
+	private void genMasterDetailSVC() throws InvocationTargetException {
+		IFile newFile = auroraWebFolder.getFile(new Path("master_detail_auto_save.svc"));
+		if (newFile.exists())
+			return;
+		InputStream is = ProjectGenerator.class
+				.getResourceAsStream("master_detail_auto_save.svc");
+		CreateFileOperation cfo = new CreateFileOperation(newFile, null, is,
+				"create file.") {
+			@Override
+			protected void setResourceDescriptions(
+					ResourceDescription[] descriptions) {
+				super.setResourceDescriptions(descriptions);
+			}
+
+			public IStatus computeExecutionStatus(IProgressMonitor monitor) {
+				IStatus status = super.computeExecutionStatus(monitor);
+				if (status.isOK()) {
+					status = computeCreateStatus(false);
+				}
+				return status;
+			}
+		};
+
+		try {
+			cfo.execute(null, WorkspaceUndoUtil.getUIInfoAdapter(shell));
+		} catch (ExecutionException e) {
+			throw new InvocationTargetException(e);
 		}
 
 	}
@@ -330,6 +361,10 @@ public class ProjectGenerator {
 			throws InvocationTargetException, IOException, TemplateException,
 			TemplateNotBindedException, SAXException {
 
+		if(fCurrentFile.getName().contains("grid_grid")){
+			System.out.println();
+		}
+		
 		
 		IFile newFile = getNewFile(fCurrentFile);
 		if (newFile.exists() && !isOverlap) {
