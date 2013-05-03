@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Author: wxji  
+    $Date: 2013-3-19 下午4:18:55  
+    $Revision: 1.0  
+    $Purpose: 
+-->
+<a:service xmlns:s="aurora.plugin.script" xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" trace="true">
+    <a:init-procedure>
+        <s:server-script><![CDATA[
+            var heads = $ctx.parameter.getChildren();
+            for (var i = 0;i < heads.length;i++) {
+                var head_bm = $bm($ctx.parameter.head_model);
+                var binded_name = $ctx.parameter.bind_name;
+                var head_pk_value = $ctx.parameter.para_value;
+                var head_pk = $ctx.parameter.para_name;
+                head_bm[heads[i]._status](heads[i]);
+                var bind_node = heads[i].getChild(binded_name);
+                if (bind_node) {
+                    var lines = bind_node.getChildren();
+                    for (var j = 0;j < lines.length;j++) {
+                        var line_bm = $bm($ctx.parameter.line_model);
+                        if(head_pk){
+                    		lines[j][head_pk] =head_pk_value;
+                    	}
+                        line_bm[lines[j]._status](lines[j]);
+                    }
+                }
+            }
+        ]]></s:server-script>
+        <!-- <a:batch-apply sourcepath="/parameter">
+            <p:switch test="@current_parameter/@_status">
+                <p:case value="insert">
+                    <a:model-insert model="${/parameter/@head_model}"/>
+                    <a:model-batch-update model="${/parameter/@line_model}" sourcePath="@current_parameter/dataset_line_ds_default_bind_name"/>
+                </p:case>
+                <p:case value="update">
+                    <a:model-update model="${/parameter/@head_model}"/>
+                    <a:model-batch-update model="${/parameter/@line_model}" sourcePath="@current_parameter/dataset_line_ds_default_bind_name"/>
+                </p:case>
+            </p:switch>
+        </a:batch-apply> -->
+    </a:init-procedure>
+    <a:service-output output="/parameter"/>
+</a:service>
