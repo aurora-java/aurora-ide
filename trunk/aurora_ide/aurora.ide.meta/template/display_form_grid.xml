@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<template name="显示数据" icon="dfg.png" type="display" category="显示">
+	<models>
+		<model id="model_head" name="头BM"/>
+		<model id="model_detail" name="行BM"/>
+	</models>
+	
+	<form id="form_id" name="form_name" model="model_head"/>
+	
+	<grid id="grid_id" name="grid_name" model="model_detail" query="form_id"/>
+	
+	<description><![CDATA[
+		使用Form和Grid组成一组头行相关联的结构显示数据。
+	]]></description>
+</template>

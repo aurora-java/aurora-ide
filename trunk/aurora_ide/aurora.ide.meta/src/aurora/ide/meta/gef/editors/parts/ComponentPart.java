@@ -14,7 +14,6 @@ import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.layout.BackLayout;
 import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
 import aurora.ide.meta.gef.editors.policies.ResizeComponentEditPolicy;
-import aurora.ide.meta.gef.editors.policies.tplt.TemplateNodeEditPolicy;
 import aurora.ide.meta.gef.editors.property.IPropertySource2;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
@@ -68,13 +67,13 @@ public abstract class ComponentPart extends AbstractGraphicalEditPart implements
 	protected void createEditPolicies() {
 		// installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
 		// new NodeDirectEditPolicy());
-		String mode = this.getEditorMode().getMode();
-		if (EditorMode.Template.equals(mode)) {
-			installEditPolicy(EditPolicy.COMPONENT_ROLE,
-					new TemplateNodeEditPolicy());
-		}
-		if (EditorMode.None.equals(mode))
-			installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
+		// String mode = this.getEditorMode().getMode();
+		// if (EditorMode.Template.equals(mode)) {
+		// installEditPolicy(EditPolicy.COMPONENT_ROLE,
+		// new TemplateNodeEditPolicy());
+		// }
+		// if (EditorMode.None.equals(mode))
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
 
 		ResizeComponentEditPolicy rep = new ResizeComponentEditPolicy();
 		rep.setResizeDirections(getResizeDirection());

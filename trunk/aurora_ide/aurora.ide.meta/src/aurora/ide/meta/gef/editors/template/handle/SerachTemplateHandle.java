@@ -48,17 +48,17 @@ public class SerachTemplateHandle extends TemplateHandle {
 //		grid.getCols().clear();
 		outer: for (CompositeMap map : getFieldsWithoutPK(bmc)) {
 			String filedName = map.getString("name");
-			for (String relationName : refRelat.keySet()) {
-				if (refRelat.get(relationName).contains(filedName)) {
-					for (CompositeMap ref : bmc.getRefFields()) {
-						if (relationName.equals(BMCompositeMap.getMapAttribute(ref, "relationName"))) {
-							GridColumn gc = createGridColumn(map, ref);
-							grid.addCol(gc);
-						}
-					}
-					continue outer;
-				}
-			}
+//			for (String relationName : refRelat.keySet()) {
+//				if (refRelat.get(relationName).contains(filedName)) {
+//					for (CompositeMap ref : bmc.getRefFields()) {
+//						if (relationName.equals(BMCompositeMap.getMapAttribute(ref, "relationName"))) {
+//							GridColumn gc = createGridColumn(map, ref);
+//							grid.addCol(gc);
+//						}
+//					}
+//					continue outer;
+//				}
+//			}
 			GridColumn gc = createGridColumn(map);
 			grid.addCol(gc);
 		}

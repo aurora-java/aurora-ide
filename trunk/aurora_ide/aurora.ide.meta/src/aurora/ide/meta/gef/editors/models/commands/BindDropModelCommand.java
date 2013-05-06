@@ -59,7 +59,7 @@ public class BindDropModelCommand extends DropBMCommand {
 				if (ds != null)
 					ds.setModel(f.getString("model", ""));
 			}
-			String string = Util.getPrompt(f,"");
+			String string = Util.getPrompt(f, "");
 			GridColumn gc = new GridColumn();
 			gc.setPrompt(string);
 			String name = f.getString("name");
@@ -81,7 +81,9 @@ public class BindDropModelCommand extends DropBMCommand {
 		String model = ds == null ? null : ds.getModel();
 		for (CompositeMap field : fields) {
 			if (isQueryNameMap(field)) {
-				if (ds.getComponentType().equalsIgnoreCase(Dataset.RESULTDATASET)) {
+				if (ds == null
+						|| Dataset.RESULTDATASET.equalsIgnoreCase(ds
+								.getComponentType())) {
 					continue;
 				}
 			}
@@ -92,17 +94,18 @@ public class BindDropModelCommand extends DropBMCommand {
 			String name = (String) field.get("field");
 			name = name == null ? field.getString("name") : name;
 			name = name == null ? "" : name;
-//			AuroraComponent input = this.getEditorMode().isForDisplay() ? new Label()
-//					: new Input();
+			// AuroraComponent input = this.getEditorMode().isForDisplay() ? new
+			// Label()
+			// : new Input();
 			String type = this.getEditorMode().isForDisplay() ? Label.Label
 					: Util.getType(field);
-//			if (CheckBox.CHECKBOX.equals(type)) {
-//				input = new CheckBox();
-//			}
-			AuroraComponent input =ComponentFactory.createComponent(type);
+			// if (CheckBox.CHECKBOX.equals(type)) {
+			// input = new CheckBox();
+			// }
+			AuroraComponent input = ComponentFactory.createComponent(type);
 			input.setComponentType(type);
 			input.setName(name);
-			input.setPrompt(Util.getPrompt(field,""));
+			input.setPrompt(Util.getPrompt(field, ""));
 			container.addChild(input);
 		}
 	}

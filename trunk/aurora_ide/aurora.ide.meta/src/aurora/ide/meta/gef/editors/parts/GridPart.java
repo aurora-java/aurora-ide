@@ -4,11 +4,9 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 
-import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.figures.GridFigure;
 import aurora.ide.meta.gef.editors.layout.GridBackLayout;
 import aurora.ide.meta.gef.editors.policies.GridLayoutEditPolicy;
-import aurora.ide.meta.gef.editors.policies.tplt.TemplateGridLayoutEditPolicy;
 import aurora.plugin.source.gen.screen.model.Container;
 
 public class GridPart extends ContainerPart {
@@ -23,16 +21,15 @@ public class GridPart extends ContainerPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		String mode = this.getEditorMode().getMode();
-		if (EditorMode.Template.equals(mode)) {
-			installEditPolicy(EditPolicy.LAYOUT_ROLE,
-					new TemplateGridLayoutEditPolicy());
-		}
-		if (EditorMode.None.equals(mode)) {
+//		String mode = this.getEditorMode().getMode();
+//		if (EditorMode.Template.equals(mode)) {
+//			installEditPolicy(EditPolicy.LAYOUT_ROLE,
+//					new TemplateGridLayoutEditPolicy());
+//		}
+//		if (EditorMode.None.equals(mode)) {
 			installEditPolicy(EditPolicy.LAYOUT_ROLE,
 					new GridLayoutEditPolicy());
-		}
-
+//		}
 	}
 
 	protected void refreshVisuals() {
