@@ -290,11 +290,11 @@
         point="aurora.ide.meta.uipEditor">
      <palette>
      	<category
-              filter="aurora.ide.meta.gef.editors.EditorModeFilter"
+              filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.input"
               label="Input">
         </category>
-        <category
+        <category   
               filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.button"
               label="Button">
@@ -305,12 +305,12 @@
               label="Layout">
         </category>
         <category
-              filter="aurora.ide.meta.gef.editors.EditorModeFilter"
+              filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.grid"
               label="Grid">
         </category>
         <category
-              filter="aurora.ide.meta.gef.editors.EditorModeFilter"
+              filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.tab"
               label="Tab"
               >

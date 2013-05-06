@@ -6,10 +6,8 @@ import java.util.List;
 
 import org.eclipse.gef.EditPolicy;
 
-import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
 import aurora.ide.meta.gef.editors.policies.tplt.BindDropModelEditPolicy;
-import aurora.ide.meta.gef.editors.policies.tplt.TemplateContainerLayoutEditPolicy;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Container;
 import aurora.plugin.source.gen.screen.model.Dataset;
@@ -34,15 +32,15 @@ public abstract class ContainerPart extends ComponentPart {
 
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		String mode = this.getEditorMode().getMode();
-		if (EditorMode.Template.equals(mode)) {
-			installEditPolicy(EditPolicy.LAYOUT_ROLE,
-					new TemplateContainerLayoutEditPolicy());
-		}
-		if (EditorMode.None.equals(mode)) {
+//		String mode = this.getEditorMode().getMode();
+//		if (EditorMode.Template.equals(mode)) {
+//			installEditPolicy(EditPolicy.LAYOUT_ROLE,
+//					new TemplateContainerLayoutEditPolicy());
+//		}
+//		if (EditorMode.None.equals(mode)) {
 			installEditPolicy(EditPolicy.LAYOUT_ROLE,
 					new ContainerLayoutEditPolicy());
-		}
+//		}
 		installEditPolicy("Drop BM", new BindDropModelEditPolicy());
 	}
 

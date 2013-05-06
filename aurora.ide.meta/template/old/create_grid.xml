@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <template name="创建数据" icon="f.png" type="create" category="创建">
 	<models>
-		<model id="model_detail" name="数据保存BM"/>
+		<model id="model_detail" name="行表BM"/>
 	</models>
 
 	<grid id="grid_id" name="grid_name" model="model_detail">
@@ -11,7 +11,9 @@
 			<button type="delete"/>
 		</toolBar>
 	</grid>
+	<hbox>
+	</hbox>
 	<description><![CDATA[
-		使用Grid，创建一组详细数据。
+		使用Grid，创建行表的详细数据。
 	]]></description>
 </template>

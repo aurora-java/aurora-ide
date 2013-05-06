@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<template name="显示数据" icon="f.png" type="display" category="显示">
+	<models>
+		<model id="model_head" name="数据查询BM"/>
+	</models>
+	
+	<form id="form_id" name="form_name" model="model_head"/>
+	
+	<description><![CDATA[
+		使用Form显示一条数据
+	]]></description>
+</template>
