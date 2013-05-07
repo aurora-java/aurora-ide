@@ -1,9 +1,7 @@
 package aurora.ide.create.component.wizard;
 
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -17,11 +15,11 @@ import org.eclipse.swt.widgets.Label;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.gef.control.PrototpyeComposite;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class PrototpyeViewWizardPage extends WizardPage {
 	private PrototpyeComposite vsEditor;
-	private ViewDiagram viewDiagram;
+	private ScreenBody viewDiagram;
 	private List<CompositeMap> insertAfters;
 	private CompositeMap afterMap;
 
@@ -35,7 +33,7 @@ public class PrototpyeViewWizardPage extends WizardPage {
 		control.setLayout(new GridLayout());
 
 		vsEditor = new PrototpyeComposite();
-		ViewDiagram viewDiagram = new ViewDiagram();
+		ScreenBody viewDiagram = new ScreenBody();
 		setInput(viewDiagram);
 		vsEditor.createPartControl(control);
 		vsEditor.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -68,16 +66,16 @@ public class PrototpyeViewWizardPage extends WizardPage {
 		this.setControl(control);
 	}
 
-	public void setInput(ViewDiagram viewDiagram) {
+	public void setInput(ScreenBody viewDiagram) {
 		this.setViewDiagram(viewDiagram);
 		vsEditor.setInput(viewDiagram);
 	}
 
-	public ViewDiagram getViewDiagram() {
+	public ScreenBody getViewDiagram() {
 		return viewDiagram;
 	}
 
-	public void setViewDiagram(ViewDiagram viewDiagram) {
+	public void setViewDiagram(ScreenBody viewDiagram) {
 		this.viewDiagram = viewDiagram;
 	}
 

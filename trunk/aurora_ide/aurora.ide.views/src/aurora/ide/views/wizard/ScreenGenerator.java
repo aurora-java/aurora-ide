@@ -13,12 +13,12 @@ import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.AuroraConstant;
 import aurora.ide.meta.gef.designer.BMCompositeMap;
 import aurora.ide.meta.gef.designer.DataType;
-import aurora.ide.meta.gef.editors.models.ButtonClicker;
 import aurora.ide.meta.gef.editors.template.BMBindComponent;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.ButtonComponent;
 import aurora.ide.meta.gef.editors.template.Component;
 import aurora.ide.meta.gef.editors.template.Template;
+import aurora.plugin.source.gen.screen.model.ButtonClicker;
 
 public class ScreenGenerator {
 	private CompositeMap initProcMap = newMap("init-procedure");
