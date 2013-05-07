@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors.property;
 
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -32,6 +33,7 @@ public class ContainerHolderEditDialog extends EditWizard {
 	@Override
 	public void setDialogEdiableObject(IDialogEditableObject obj) {
 		containerHolder = (ContainerHolder) obj;
+		tmpTarget = containerHolder.getTarget();
 	}
 
 	@Override
@@ -65,9 +67,19 @@ public class ContainerHolderEditDialog extends EditWizard {
 			TreeViewer tv = mts.getTreeViewer();
 			tv.setFilters(new ViewerFilter[] {
 					ModelTreeSelector.CONTAINER_FILTER,
-					ModelTreeSelector.getSectionFilter(containerHolder.getContainerTypes()) });
+					ModelTreeSelector.getSectionFilter(containerHolder
+							.getContainerTypes()), new ViewerFilter() {
+
+						@Override
+						public boolean select(Viewer viewer,
+								Object parentElement, Object element) {
+							return containerHolder.getOwner().equals(element) == false;
+						}
+
+					} });
 			final Tree tree = tv.getTree();
 			mts.setRoot(root);
+			mts.setSelection(tmpTarget);
 			mts.refreshTree();
 			tree.addSelectionListener(new SelectionListener() {
 

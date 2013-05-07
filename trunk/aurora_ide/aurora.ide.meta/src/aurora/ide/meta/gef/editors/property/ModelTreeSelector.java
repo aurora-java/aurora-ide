@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.IDatasetDelegate;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.TabBody;
 import aurora.plugin.source.gen.screen.model.TabFolder;
@@ -140,8 +141,13 @@ public class ModelTreeSelector extends Composite implements
 
 	public String getText(Object element) {
 		AuroraComponent ac = (AuroraComponent) element;
-		String prop = ac.getPrompt();
 		String aType = ac.getComponentType();
+		if (element instanceof IDatasetDelegate) {
+			String model = ((IDatasetDelegate) element).getDataset().getModel();
+			model = model == null || "".equals(model) ? "unseted model" : model;
+			return aType + " [" + model + "]";
+		}
+		String prop = ac.getPrompt();
 		if (prop == null || prop.length() == 0)
 			return aType;
 		return aType + " [" + prop + "]";
