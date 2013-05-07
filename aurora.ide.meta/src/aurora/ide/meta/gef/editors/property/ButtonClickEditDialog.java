@@ -71,6 +71,7 @@ public class ButtonClickEditDialog extends EditWizard {
 	@Override
 	public void setDialogEdiableObject(IDialogEditableObject obj) {
 		clicker = (ButtonClicker) obj;
+		tmpTargetCmp = clicker.getTargetComponent();
 	}
 
 	public void addPages() {
@@ -167,6 +168,7 @@ public class ButtonClickEditDialog extends EditWizard {
 			final ModelTreeSelector mts = new ModelTreeSelector(
 					composite_right, SWT.BORDER);
 			TreeViewer tv = mts.getTreeViewer();
+			
 			tv.setFilters(new ViewerFilter[] {
 					ModelTreeSelector.CONTAINER_FILTER,
 					ModelTreeSelector.getSectionFilter(section_type_filter) });
@@ -187,7 +189,10 @@ public class ButtonClickEditDialog extends EditWizard {
 				}
 			});
 			mts.setRoot(root);
+			if(tmpTargetCmp instanceof AuroraComponent)
+				mts.setSelection((AuroraComponent) tmpTargetCmp);
 			mts.refreshTree();
+			
 		}
 
 		private void create_reset() {

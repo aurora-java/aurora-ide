@@ -7,12 +7,12 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 import aurora.ide.meta.gef.editors.ImagesUtils;
-import aurora.ide.meta.gef.editors.models.commands.ChangePropertyCommand;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.FieldSet;
 import aurora.plugin.source.gen.screen.model.Form;
 import aurora.plugin.source.gen.screen.model.Grid;
 import aurora.plugin.source.gen.screen.model.HBox;
+import aurora.plugin.source.gen.screen.model.QueryForm;
 import aurora.plugin.source.gen.screen.model.TabFolder;
 import aurora.plugin.source.gen.screen.model.TabItem;
 import aurora.plugin.source.gen.screen.model.VBox;
@@ -46,6 +46,8 @@ public class PropertySourceUtil {
 			return ImagesUtils.getImage("palette/tabfolder.png");
 		else if (ac instanceof TabItem)
 			return ImagesUtils.getImage("palette/tabitem.png");
+		if (ac instanceof QueryForm)
+			return ImagesUtils.getImage("palette/form.png");
 		return null;
 	}
 
