@@ -15,6 +15,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import aurora.ide.helpers.FileCopyer;
+import aurora.ide.meta.gef.editors.source.gen.core.GeneratorManager;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -44,6 +45,7 @@ public class MetaPlugin extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 		uipTemplateConfirm();
+		sourceGenTemplateConfirm();
 	}
 
 	private void uipTemplateConfirm() {
@@ -53,9 +55,31 @@ public class MetaPlugin extends AbstractUIPlugin {
 			return;
 		}
 		copyTemplateFile();
-
 	}
 
+	private void sourceGenTemplateConfirm() {
+		IPath template = GeneratorManager.getDefaultSourceGenTemplatePath();
+		File tplt = template.toFile();
+		if (tplt.isDirectory() && tplt.exists()) {
+			return;
+		}
+		copySourceGenTemplateFiles();
+	}
+	public void copySourceGenTemplateFiles() {
+
+		URL ts = FileLocator.find(Platform.getBundle(PLUGIN_ID), new Path(
+				"source.gen"), null);
+		try {
+			ts = FileLocator.toFileURL(ts);
+			IPath template = GeneratorManager.getDefaultSourceGenTemplatePath();
+			File tplt = template.toFile();
+			FileCopyer.copyDirectory(new File(ts.getFile()), tplt);
+		} catch (IOException e) {
+			this.getLog().log(
+					new Status(Status.ERROR, PLUGIN_ID,
+							"template failed init. ", e));
+		}
+	}
 	public void copyTemplateFile() {
 
 		URL ts = FileLocator.find(Platform.getBundle(PLUGIN_ID), new Path(

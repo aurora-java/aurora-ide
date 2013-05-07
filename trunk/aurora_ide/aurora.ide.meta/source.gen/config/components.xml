@@ -1,0 +1,60 @@
+<package>
+	<components>
+		<component component_type="aurora_workflow"
+			builder="aurora.plugin.source.gen.builders.WorkflowBuilder" />
+		<component component_type="queryForm"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.QueryFormBuilder" />
+		<component component_type="screen"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.ScreenBuilder" />
+		<component component_type="view"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.ViewBuilder" />
+		<component component_type="script"
+			builder="aurora.plugin.source.gen.builders.ScriptBuilder" />
+		<component component_type="dataSet"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.DatasetBuilder" />
+		<component component_type="dataSetfield"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.DatasetFieldBuilder" />
+		<component component_type="link"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.LinkBuilder" />
+		<component component_type="screenBody"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.ScreenBodyBuilder" />
+		<component component_type="label"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.LabelBuilder" />
+		<component component_type="button"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.ButtonBuilder" />
+		<component component_type="checkBox"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.CheckboxBuilder" />
+		<component component_type="toolBar"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.ToolbarBuilder" />
+		<component component_type="comboBox"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.ComboBoxBuilder" />
+		<component component_type="lov"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.LovBuilder" />
+		<component component_type="textField"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.TextFieldBuilder" />
+		<component component_type="textArea"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.TextAreaBuilder" />
+		<component component_type="numberField"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.NumberFieldBuilder" />
+		<component component_type="datePicker"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.DatePickerBuilder" />
+		<component component_type="dateTimePicker"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.DateTimePickerBuilder" />
+		<component component_type="form"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.FormBuilder" />
+		<component component_type="fieldSet"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.FieldSetBuilder" />
+		<component component_type="vBox"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.VBoxBuilder" />
+		<component component_type="hBox"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.HBoxBuilder" />
+		<component component_type="grid"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.GridBuilder" />
+		<component component_type="gridcolumn"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.GridColumnBuilder" />
+		<component component_type="tabPanel"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.TabPanelBuilder" />
+		<component component_type="tab"
+			nameSpace="http://www.aurora-framework.org/application" builder="aurora.plugin.source.gen.builders.TabBuilder" />
+	</components>
+</package>
