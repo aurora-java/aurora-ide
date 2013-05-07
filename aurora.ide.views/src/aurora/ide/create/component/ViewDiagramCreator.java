@@ -5,16 +5,14 @@ import java.util.List;
 import uncertain.composite.CompositeMap;
 import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.Util;
-import aurora.ide.meta.gef.editors.models.AuroraComponent;
-import aurora.ide.meta.gef.editors.models.Button;
-import aurora.ide.meta.gef.editors.models.Dataset;
-import aurora.ide.meta.gef.editors.models.Form;
-import aurora.ide.meta.gef.editors.models.Grid;
-import aurora.ide.meta.gef.editors.models.GridColumn;
-import aurora.ide.meta.gef.editors.models.QueryDataSet;
-import aurora.ide.meta.gef.editors.models.ResultDataSet;
-import aurora.ide.meta.gef.editors.models.Toolbar;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.Dataset;
+import aurora.plugin.source.gen.screen.model.Form;
+import aurora.plugin.source.gen.screen.model.Grid;
+import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.Toolbar;
 
 public class ViewDiagramCreator {
 
@@ -24,8 +22,8 @@ public class ViewDiagramCreator {
 		this.input = input;
 	}
 
-	public ViewDiagram createPrototypeDiagram(CompositeMap typeMap) {
-		ViewDiagram diagram = new ViewDiagram();
+	public ScreenBody createPrototypeDiagram(CompositeMap typeMap) {
+		ScreenBody diagram = new ScreenBody();
 		if (typeMap == null)
 			return diagram;
 		String type = typeMap.getString(ComponentListFactory.TYPE, "");
@@ -47,7 +45,7 @@ public class ViewDiagramCreator {
 			Form fillForm = fillQueryForm(input);
 			diagram.addChild(fillForm);
 			Grid fillGrid = fillGrid(input);
-			ResultDataSet dataset = fillGrid.getDataset();
+			Dataset dataset = fillGrid.getDataset();
 			dataset.setQueryContainer(fillForm);
 			diagram.addChild(fillGrid);
 		}
@@ -64,7 +62,8 @@ public class ViewDiagramCreator {
 
 	private Grid fillGrid(List<CompositeMap> fields) {
 		Grid container = new Grid();
-		ResultDataSet ds = new ResultDataSet();
+		Dataset ds = new Dataset();
+		ds.setComponentType(Dataset.RESULTDATASET);
 		container.setDataset(ds);
 		for (CompositeMap f : fields) {
 			if (isRefFieldMap(f) || isField(f)) {
@@ -85,7 +84,7 @@ public class ViewDiagramCreator {
 		container.setNavbarType(Grid.NAVBAR_COMPLEX);
 		Toolbar tb = createToolbar();
 		container.addChild(tb);
-		container.setSelectionMode(ResultDataSet.SELECT_MULTI);
+		container.setSelectionMode(Dataset.SELECT_MULTI);
 		return container;
 	}
 
@@ -111,7 +110,8 @@ public class ViewDiagramCreator {
 
 	private Form fillQueryForm(List<CompositeMap> fields) {
 		Form container = new Form();
-		Dataset ds = new QueryDataSet();
+		Dataset ds = new Dataset();
+		ds.setComponentType(Dataset.QUERYDATASET);
 		container.setDataset(ds);
 		for (CompositeMap field : fields) {
 			if (isQueryNameMap(field) || isField(field)) {
@@ -126,7 +126,8 @@ public class ViewDiagramCreator {
 
 	private Form fillEditForm(List<CompositeMap> fields) {
 		Form container = new Form();
-		Dataset ds = new ResultDataSet();
+		Dataset ds = new Dataset();
+		ds.setComponentType(Dataset.RESULTDATASET);
 		container.setDataset(ds);
 		for (CompositeMap field : fields) {
 			if (isField(field)) {
@@ -149,7 +150,7 @@ public class ViewDiagramCreator {
 //			input = new CheckBox();
 //		}
 		AuroraComponent input = ComponentFactory.createComponent(type);
-		input.setType(type);
+		input.setComponentType(type);
 		input.setName(name);
 		input.setPrompt(Util.getPrompt(field, ""));
 		container.addChild(input);

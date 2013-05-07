@@ -1,5 +1,6 @@
 package aurora.ide.create.component.wizard;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.eclipse.jface.text.IRewriteTarget;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Composite;
+import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeMap;
 import uncertain.composite.IterationHandle;
@@ -23,9 +25,12 @@ import aurora.ide.editor.textpage.TextPage;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.helpers.DocumentUtil;
 import aurora.ide.meta.exception.TemplateNotBindedException;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
-import aurora.ide.meta.gef.editors.source.gen.core.ScreenGenerator;
+import aurora.ide.meta.gef.editors.source.gen.core.GeneratorManager;
 import aurora.ide.views.bm.view.FakePrototypeProject;
+import aurora.plugin.source.gen.BuilderSession;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
+import aurora.plugin.source.gen.screen.model.properties.IProperties;
 
 public class CreateComponentWizard extends Wizard implements
 		IPageChangedListener {
@@ -92,7 +97,7 @@ public class CreateComponentWizard extends Wizard implements
 	@Override
 	public boolean performFinish() {
 		try {
-			ViewDiagram viewDiagram = prototpyePage.getViewDiagram();
+			ScreenBody viewDiagram = prototpyePage.getViewDiagram();
 			CompositeMap generate = generate(viewDiagram);
 			String text = createInsertText(generate);
 			String insertDatasetText = "";
@@ -114,7 +119,7 @@ public class CreateComponentWizard extends Wizard implements
 						int endLine = datasetsMap.getLocation().getEndLine();
 						dsOffset = DocumentUtil.getMapLineOffset(document,
 								datasetsMap, -1, false);
-						dslength = document.getLineLength(endLine-1);
+						dslength = document.getLineLength(endLine - 1);
 					} else {
 						dsOffset = DocumentUtil.getMapLineOffset(document,
 								datasetsMap, -1, false);
@@ -250,14 +255,24 @@ public class CreateComponentWizard extends Wizard implements
 		this.getContainer().updateButtons();
 	}
 
-	private CompositeMap generate(ViewDiagram diagram) {
-		ScreenGenerator sg = new ScreenGenerator(new FakePrototypeProject(
-				project), null);
-		try {
-			CompositeMap genCompositeMap = sg.genCompositeMap(diagram);
-			return genCompositeMap;
-		} catch (TemplateNotBindedException e) {
-		}
+	private CompositeMap generate(ScreenBody diagram) {
+//		ScreenGenerator sg = new ScreenGenerator(new FakePrototypeProject(
+//				project), null);
+		Object2CompositeMap o2m = new Object2CompositeMap();
+		CompositeMap map = o2m.createCompositeMap(diagram);
+		GeneratorManager gm = GeneratorManager.createNewInstance(new FakePrototypeProject(project));
+//			CompositeMap genCompositeMap = sg.genCompositeMap(diagram);
+			BuilderSession session = gm.createBuilderSession();
+			String fileName = "None";
+			session.addConfig(IProperties.FILE_NAME, fileName);
+			try {
+				return gm.buildScreen(map, session);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			}
+//			return genCompositeMap;
 		return null;
 	}
 

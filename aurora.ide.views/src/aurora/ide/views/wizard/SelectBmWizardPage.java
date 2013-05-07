@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.AuroraConstant;
-import aurora.ide.meta.gef.editors.models.ViewDiagram;
 import aurora.ide.meta.gef.editors.template.BMReference;
 import aurora.ide.meta.gef.editors.template.Template;
 import aurora.ide.meta.gef.editors.template.handle.TemplateConfig;
@@ -34,6 +33,7 @@ import aurora.ide.meta.gef.editors.template.handle.TemplateHandle;
 import aurora.ide.meta.gef.editors.template.handle.TemplateHelper;
 import aurora.ide.views.dialog.ResourceSelector;
 import aurora.ide.views.wizard.NewScreenWizard.UserInput;
+import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class SelectBmWizardPage extends WizardPage {
 	private UserInput us = null;
@@ -41,7 +41,7 @@ public class SelectBmWizardPage extends WizardPage {
 	private Template tpl = null;
 	BmPathValidator validaor = new BmPathValidator();
 	HashMap<Object, Boolean> finishFlag = new HashMap<Object, Boolean>();
-	ViewDiagram view = null;
+	ScreenBody view = null;
 
 	private TemplateHelper helper=new TemplateHelper();
 	private TemplateConfig config;
@@ -149,7 +149,7 @@ public class SelectBmWizardPage extends WizardPage {
 		setPageComplete(res);
 	}
 
-	public ViewDiagram getViewDiagram() {
+	public ScreenBody getViewDiagram() {
 		return view;
 	}
 
