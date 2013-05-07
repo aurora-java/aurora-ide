@@ -39,6 +39,12 @@
             id="aurora.ide.meta.template.preference"
             name="UI Prototype Template">
       </page>
+      <page
+            category="aurora.ide.meta.preference"
+            class="aurora.ide.meta.preference.UIPrototypeGeneratorPreferencePage"
+            id="aurora.ide.meta.source.gen.preference"
+            name="UI Prototype Source Generator">
+      </page>
     </extension>
      
 	<extension

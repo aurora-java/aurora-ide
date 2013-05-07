@@ -1,12 +1,10 @@
 package aurora.ide.meta.gef.editors.source.gen.core;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -28,9 +26,7 @@ import org.eclipse.ui.ide.undo.ResourceDescription;
 import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import org.xml.sax.SAXException;
 
-import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
-import uncertain.composite.IterationHandle;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.helpers.LogUtil;
 import aurora.ide.meta.exception.GeneratorException;
@@ -45,8 +41,6 @@ import aurora.ide.search.core.Util;
 import aurora.ide.search.ui.MessageFormater;
 import aurora.plugin.source.gen.BuilderSession;
 import aurora.plugin.source.gen.ModelMapParser;
-import aurora.plugin.source.gen.SourceGenManager;
-import aurora.plugin.source.gen.SourceTemplateProvider;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.IProperties;
 import freemarker.template.TemplateException;
@@ -62,9 +56,8 @@ public class ProjectGenerator {
 	private IFolder screenFolder;
 	private IContainer auroraWebFolder;
 	private String errorMessage;
-	private SourceGenManager sgm;
 	// private String header;
-	private SourceTemplateProvider stp;
+	private GeneratorManager gm;
 
 	public IProject getProject() {
 		return project;
@@ -79,65 +72,8 @@ public class ProjectGenerator {
 		this.project = project;
 		this.isOverlap = isOverlap;
 		this.shell = shell;
-		sgm = new SourceGenManager() {
-			public ModelMapParser createModelMapParser(CompositeMap model) {
-				ModelMapParser mmp = new IDEModelMapParser(model,
-						getAuroraProject());
-				return mmp;
-			}
+		this.gm = GeneratorManager.createNewInstance(getAuroraProject());
 
-			protected void loadBuilders() {
-				if (getBuilders() != null) {
-					return;
-				}
-				setBuilders(new HashMap<String, String>());
-				File component_file;
-				File f = new File(
-						"/Users/shiliyan/Desktop/work/aurora/workspace/aurora_runtime/hap/WebContent/WEB-INF/aurora.plugin.source.gen");
-				File config = new File(f, "config");
-				component_file = new File(config, "components.xml");
-				CompositeLoader loader = new CompositeLoader();
-				try {
-					CompositeMap components = loader
-							.loadByFullFilePath(component_file.getPath());
-					components.iterate(new IterationHandle() {
-						public int process(CompositeMap map) {
-							String component_type = map
-									.getString(
-											ComponentInnerProperties.COMPONENT_TYPE,
-											"");
-							String builder = map.getString("builder", "");
-							if ("".equals(component_type) == false) {
-								getBuilders().put(component_type.toLowerCase(),
-										builder);
-							}
-							return IterationHandle.IT_CONTINUE;
-						}
-					}, false);
-				} catch (Exception ex) {
-					// load builders false
-					throw new RuntimeException(ex);
-				}
-			}
-		};
-		stp = new SourceTemplateProvider() {
-			private File theme;
-
-			protected File getTemplateTheme() {
-				if (theme != null)
-					return theme;
-				File f = new File(
-						"/Users/shiliyan/Desktop/work/aurora/workspace/aurora_runtime/hap/WebContent/WEB-INF/aurora.plugin.source.gen");
-				File tFolder = new File(f, "template");
-				theme = new File(tFolder, this.getTemplate());
-				return theme;
-			}
-
-		};
-		sgm.setTemplateProvider(stp);
-		stp.setSourceGenManager(sgm);
-		stp.setTemplate("default");
-		stp.initialize();
 	}
 
 	public boolean isOverlap() {
@@ -238,7 +174,8 @@ public class ProjectGenerator {
 	}
 
 	private void genMasterDetailSVC() throws InvocationTargetException {
-		IFile newFile = auroraWebFolder.getFile(new Path("master_detail_auto_save.svc"));
+		IFile newFile = auroraWebFolder.getFile(new Path(
+				"master_detail_auto_save.svc"));
 		if (newFile.exists())
 			return;
 		InputStream is = ProjectGenerator.class
@@ -295,12 +232,12 @@ public class ProjectGenerator {
 			errorMessage = Messages.ProjectGenerator__folder_erroe;
 			return false;
 		}
-		try {
-			FMConfigration.Instance().getTemplate("");
-		} catch (IOException e) {
-			errorMessage = "没有找到摸版，代码生成终止。";
-			return false;
-		}
+//		try {
+//			FMConfigration.Instance().getTemplate("");
+//		} catch (IOException e) {
+//			errorMessage = "没有找到摸版，代码生成终止。";
+//			return false;
+//		}
 		return true;
 	}
 
@@ -361,22 +298,21 @@ public class ProjectGenerator {
 			throws InvocationTargetException, IOException, TemplateException,
 			TemplateNotBindedException, SAXException {
 
-		if(fCurrentFile.getName().contains("grid_grid")){
+		if (fCurrentFile.getName().contains("grid_grid")) {
 			System.out.println();
 		}
-		
-		
+
 		IFile newFile = getNewFile(fCurrentFile);
 		if (newFile.exists() && !isOverlap) {
 			return;
 		}
 		CompositeMap loadFile = CompositeMapUtil.loadFile(fCurrentFile);
-		BuilderSession session = new BuilderSession(sgm);
+		BuilderSession session = gm.createBuilderSession();
 		String fileName = getFileName();
 		session.addConfig(IProperties.FILE_NAME, fileName);
-		String genFile = sgm.buildScreen(loadFile, session).toXML();
+		String genFile = gm.buildScreen(loadFile, session).toXML();
 		genNewFile(newFile, genFile);
-		genRelation(sgm, loadFile, 0);
+		genRelation(gm, loadFile, 0);
 	}
 
 	private String getFileName() {
@@ -389,7 +325,7 @@ public class ProjectGenerator {
 		return fileName;
 	}
 
-	private void genRelation(SourceGenManager sgm, CompositeMap loadFile, int i) {
+	private void genRelation(GeneratorManager sgm, CompositeMap loadFile, int i) {
 		ModelMapParser mmp = new IDEModelMapParser(loadFile, getAuroraProject());
 		List<CompositeMap> renderers = mmp.getComponents(IProperties.renderer);
 		for (CompositeMap renderer : renderers) {
@@ -416,7 +352,7 @@ public class ProjectGenerator {
 		}
 	}
 
-	private void genRelationFile(SourceGenManager sgm, int i, String openPath,
+	private void genRelationFile(GeneratorManager sgm, int i, String openPath,
 			String para_name, String para_value) {
 		if (i > 10) {
 			// circle protected
@@ -439,7 +375,7 @@ public class ProjectGenerator {
 				return;
 			String genFile;
 			try {
-				BuilderSession session = new BuilderSession(sgm);
+				BuilderSession session = gm.createBuilderSession();
 				session.addConfig(
 						ComponentInnerProperties.BE_OPENED_FROM_ANOTHER, true);
 				session.addConfig("para_name", para_name);

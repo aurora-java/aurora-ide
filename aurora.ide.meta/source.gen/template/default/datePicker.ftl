@@ -1,0 +1,1 @@
+<a:datePicker name="${context.name}"  ${properties("bindTarget","prompt","width","emptyText","enableBesideDays","enableMonthBtn")}/>
