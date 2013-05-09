@@ -1,8 +1,10 @@
 package aurora.ide.meta.gef.editors.figures;
 
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
@@ -11,6 +13,7 @@ import aurora.plugin.source.gen.screen.model.CheckBox;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.Renderer;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 
 public class GridColumnFigure extends Figure {
 	private static Image checkImg = ImagesUtils
@@ -18,7 +21,7 @@ public class GridColumnFigure extends Figure {
 
 	private int labelWidth;
 
-	private int columnHight = 25;
+	private int columnHight ;
 
 	private GridColumn gridColumn;
 
@@ -52,10 +55,12 @@ public class GridColumnFigure extends Figure {
 			return;
 		}
 		int k = 1;
-		for (int i = copy.y + columnHight; i < copy.y + copy.height; i += 25) {
+		for (int i = copy.y + columnHight; i < copy.y + copy.height; i += gridColumn
+				.getHeadHight()) {
 			if (k % 2 == 0) {
 				graphics.setBackgroundColor(ColorConstants.GRID_ROW);
-				graphics.fillRectangle(copy.x, i, copy.width, 25);
+				graphics.fillRectangle(copy.x, i, copy.width,
+						gridColumn.getHeadHight());
 			}
 			graphics.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
 			graphics.drawLine(copy.x, i, copy.x + copy.width, i);
@@ -65,30 +70,54 @@ public class GridColumnFigure extends Figure {
 		if (editor == null || editor.length() == 0) {
 			paintEffectForRenderer(graphics, gridColumn.getRenderer(),
 					firstCellRect);
-			return;
-		}
-		if (CheckBox.CHECKBOX.equals(editor)) {
+		} else if (CheckBox.CHECKBOX.equals(editor)) {
 			FigureUtil.paintImageAtCenter(graphics, firstCellRect, checkImg);
-			return;
+		} else {
+			graphics.setBackgroundColor(ColorConstants.WHITE);
+			if (gridColumn.getDatasetField().isRequired()) {
+				graphics.setBackgroundColor(ColorConstants.REQUIRED_BG);
+			}
+			if (gridColumn.getDatasetField().isReadOnly()) {
+				graphics.setBackgroundColor(ColorConstants.READONLY_BG);
+			}
+			Rectangle rect = firstCellRect.getShrinked(2, 2).translate(-1, 0);
+			graphics.fillRectangle(rect);
+			graphics.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
+			graphics.drawRectangle(rect);
+			Image img = getImageOfEditor(editor);
+			if (img != null) {
+				rect.x += rect.width - rect.height;
+				rect.width = rect.height;
+				FigureUtil.paintImageAtCenter(graphics, rect, img);
+			}
 		}
-		graphics.setBackgroundColor(ColorConstants.WHITE);
-		if (gridColumn.getDatasetField().isRequired()) {
-			graphics.setBackgroundColor(ColorConstants.REQUIRED_BG);
-		}
-		if (gridColumn.getDatasetField().isReadOnly()) {
-			graphics.setBackgroundColor(ColorConstants.READONLY_BG);
-		}
-		Rectangle rect = firstCellRect.getShrinked(2, 2).translate(-1, 0);
-		graphics.fillRectangle(rect);
-		graphics.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
-		graphics.drawRectangle(rect);
-		Image img = getImageOfEditor(editor);
-		if (img != null) {
-			rect.x += rect.width - rect.height;
-			rect.width = rect.height;
-			FigureUtil.paintImageAtCenter(graphics, rect, img);
-		}
+		paintSimpleDatas(graphics);
 		// super.paintFigure(graphics);
+	}
+
+	private void paintSimpleDatas(Graphics graphics) {
+		Rectangle copy = this.getBounds().getCopy();
+		int k = 1;
+		for (int i = copy.y + columnHight; i < copy.y + copy.height
+				- this.columnHight; i += gridColumn.getHeadHight()) {
+			String sd = gridColumn
+					.getStringPropertyValue(ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA
+							+ k);
+			this.paintSimpleData(graphics, sd, new Rectangle(copy.x + 2, i,
+					copy.width, gridColumn.getHeadHight()));
+			k++;
+		}
+	}
+
+	protected void paintSimpleData(Graphics g, String text, Rectangle r) {
+		if (text == null || "".equals(text))
+			return;
+		g.pushState();
+		g.setForegroundColor(ColorConstants.BLACK);
+		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
+		g.setClip(r.getResized(-16, 0));
+		g.drawString(text, r.x + 2, r.y + (r.height - dim.height) / 2);
+		g.popState();
 	}
 
 	private Image getImageOfEditor(String editor) {

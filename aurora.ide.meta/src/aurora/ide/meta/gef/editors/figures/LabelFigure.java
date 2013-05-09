@@ -6,6 +6,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.plugin.source.gen.screen.model.Label;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 
 public class LabelFigure extends InputField {
 
@@ -26,7 +27,16 @@ public class LabelFigure extends InputField {
 
 		textRectangle.setSize(textExtents);
 		graphics.drawText(text, textRectangle.getLocation());
-		graphics.drawLine(textRectangle.getLocation().x + textRectangle.width, bounds.getBottom().y - 2, getBounds().width + getBounds().x, bounds.getBottom().y - 2);
+		String sd = model
+				.getStringPropertyValue(ComponentInnerProperties.INPUT_SIMPLE_DATA);
+		if (sd != null && "".equals(sd) == false) {
+			Rectangle inputRectangle = this.getInputRectangle(textRectangle);
+			Rectangle r = inputRectangle.getTranslated(1, 1).getResized(-2, -2);
+			paintSimpleData(graphics, sd, r);
+		}
+		graphics.drawLine(textRectangle.getLocation().x + textRectangle.width,
+				bounds.getBottom().y - 2, getBounds().width + getBounds().x,
+				bounds.getBottom().y - 2);
 
 	}
 
