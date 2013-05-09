@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.editors.parts;
 import java.util.List;
 
 import org.eclipse.draw2d.AbstractBackground;
+import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
@@ -29,11 +30,32 @@ public class QueryFormToolBarPart extends BoxPart {
 		BoxFigure figure = new BoxFigure();
 		figure.setBox((BOX) getModel());
 		figure.setBorder(new AbstractBackground() {
+//			private Image bgImage = ImagesUtils
+//					.getImage("palette/queryform.gif");
 			private Image bgImage = ImagesUtils
-					.getImage("palette/queryform.gif");
+					.getImage("toolbar_bg");
+			
+			
+			
+			public void paint(IFigure figure, Graphics g, Insets insets) {
+//				tempRect.setBounds(getPaintRectangle(figure, insets));
+//
+//				FigureUtilities.paintEtchedBorder(g, tempRect);
+
+//				Rectangle rec = tempRect;
+//				rec.height = 25;
+//				g.clipRect(rec);
+//
+//				g.fillRectangle(rec);
+//
+//				FigureUtilities.paintEtchedBorder(g, tempRect);
+
+			}
 
 			public void paintBackground(IFigure figure, Graphics graphics,
 					Insets insets) {
+				
+
 				int d = 12;
 				Path path = new Path(null);
 				Rectangle rect = figure.getBounds();
@@ -62,6 +84,8 @@ public class QueryFormToolBarPart extends BoxPart {
 					FigureUtil.paintText(graphics, hBoxRect.translate(3, 1),
 							hint, -1, 0);
 				}
+				tempRect.setBounds(getPaintRectangle(figure, insets));
+				FigureUtilities.paintEtchedBorder(graphics, tempRect);
 			}
 		});
 		return figure;

@@ -15,6 +15,7 @@ import org.eclipse.swt.graphics.Image;
 import aurora.ide.meta.gef.editors.ImagesUtils;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 
 /**
  */
@@ -56,36 +57,16 @@ public class InputField extends Figure {
 	protected void paintFigure(Graphics graphics) {
 		super.paintFigure(graphics);
 		String prompt = model.getPrompt() + " : ";
-		Dimension textExtents = FigureUtilities.getTextExtents(prompt,
-				getFont());
-		Rectangle textRectangle = new Rectangle();
-		int pWidth = this.getLabelWidth() - textExtents.width;
-		// if (pWidth < 0) {
-		// prompt = prompt.substring(0, 3) + "...";
-		// textExtents = FigureUtilities.getTextExtents(prompt, getFont());
-		// pWidth = this.getLabelWidth() - textExtents.width;
-		// }
-
-		textRectangle.x = pWidth + getBounds().x;
-		int i = getBounds().height - textExtents.height;
-		textRectangle.y = i <= 0 ? getBounds().y : getBounds().y + i / 2;
-
-		textRectangle.setSize(textExtents);
-
+		Rectangle textRectangle = getTextRectangle();
 		graphics.drawText(prompt, textRectangle.getLocation());
 
-		Rectangle inputRectangle = new Rectangle();
-
-		inputRectangle.x = textRectangle.getTopRight().x + 1;
-		inputRectangle.y = getBounds().y + 1;
-		int j = getBounds().width - getLabelWidth() - 1;
-		inputRectangle.width = j <= 0 ? 0 : j;
-		inputRectangle.height = getBounds().height - 1;
-
-		// FigureUtilities.paintEtchedBorder(graphics, inputRectangle);
+		Rectangle inputRectangle = getInputRectangle(textRectangle);
+		
 		graphics.setForegroundColor(ColorConstants.EDITOR_BORDER);
 		graphics.drawRectangle(inputRectangle.getResized(-1, -1));
+		
 		Rectangle r = inputRectangle.getTranslated(1, 1).getResized(-2, -2);
+
 		Color bgColor = ColorConstants.WHITE;
 		if (model.isRequired())
 			bgColor = ColorConstants.REQUIRED_BG;
@@ -93,7 +74,15 @@ public class InputField extends Figure {
 			bgColor = ColorConstants.READONLY_BG;
 		graphics.setBackgroundColor(bgColor);
 		graphics.fillRectangle(r);
-		paintEmptyText(graphics, model.getEmptyText(), r);
+
+		String sd = model
+				.getStringPropertyValue(ComponentInnerProperties.INPUT_SIMPLE_DATA);
+		if (sd != null && "".equals(sd) == false) {
+			paintSimpleData(graphics, sd, r);
+		} else {
+			paintEmptyText(graphics, model.getEmptyText(), r);
+		}
+//		graphics.setForegroundColor(ColorConstants.EDITOR_BORDER);
 		Image image = getImage();
 
 		if (image != null) {
@@ -104,12 +93,44 @@ public class InputField extends Figure {
 		}
 	}
 
+	protected Rectangle getInputRectangle(Rectangle textRectangle) {
+		Rectangle inputRectangle = new Rectangle();
+		inputRectangle.x = textRectangle.getTopRight().x + 1;
+		inputRectangle.y = getBounds().y + 1;
+		int j = getBounds().width - getLabelWidth() - 1;
+		inputRectangle.width = j <= 0 ? 0 : j;
+		inputRectangle.height = getBounds().height - 1;
+		return inputRectangle;
+	}
+
+	private Rectangle getTextRectangle() {
+		String prompt = model.getPrompt() + " : ";
+		Dimension textExtents = FigureUtilities.getTextExtents(prompt,
+				getFont());
+		Rectangle textRectangle = new Rectangle();
+		int pWidth = this.getLabelWidth() - textExtents.width;
+		textRectangle.x = pWidth + getBounds().x;
+		int i = getBounds().height - textExtents.height;
+		textRectangle.y = i <= 0 ? getBounds().y : getBounds().y + i / 2;
+		textRectangle.setSize(textExtents);
+		return textRectangle;
+	}
+
 	private void paintEmptyText(Graphics g, String emptyText, Rectangle r) {
 		g.pushState();
 		g.setForegroundColor(ColorConstants.EDITOR_BORDER);
 		Dimension dim = FigureUtilities.getTextExtents(emptyText, getFont());
 		g.setClip(r.getResized(-16, 0));
 		g.drawString(emptyText, r.x + 2, r.y + (r.height - dim.height) / 2);
+		g.popState();
+	}
+
+	protected void paintSimpleData(Graphics g, String text, Rectangle r) {
+		g.pushState();
+		g.setForegroundColor(ColorConstants.BLACK);
+		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
+		g.setClip(r.getResized(-16, 0));
+		g.drawString(text, r.x + 2, r.y + (r.height - dim.height) / 2);
 		g.popState();
 	}
 
@@ -130,16 +151,14 @@ public class InputField extends Figure {
 
 	private Point getImageLocation() {
 		Point p = new Point(0, 0);
-		// String type = model.getType();
-		// if (Input.Combo.equals(type)) {
-		// return p.setY(0);
-		// }
-		// if (Input.CAL.equals(type)) {
-		// return p.setY(20);
-		// }
-		// if (Input.LOV.equals(type)) {
-		// return p.setY(42);
-		// }
 		return p;
+	}
+
+	public Rectangle getTextBounds() {
+		Rectangle textRectangle = getTextRectangle();
+		return textRectangle;
+	}
+
+	public void setName(String value) {
 	}
 }

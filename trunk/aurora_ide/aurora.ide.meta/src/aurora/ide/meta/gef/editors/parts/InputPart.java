@@ -2,14 +2,29 @@ package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.DirectEditRequest;
+import org.eclipse.gef.tools.DirectEditManager;
+import org.eclipse.jface.viewers.TextCellEditor;
 
 import aurora.ide.meta.gef.editors.figures.InputField;
+import aurora.ide.meta.gef.editors.figures.PromptCellEditorLocator;
+import aurora.ide.meta.gef.editors.figures.SimpleDataCellEditorLocator;
 import aurora.ide.meta.gef.editors.layout.InputFieldLayout;
+import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
+import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
 import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class InputPart extends ComponentPart {
 
+	
 	private String type;
 
 	/**
@@ -44,15 +59,64 @@ public class InputPart extends ComponentPart {
 
 	protected void createEditPolicies() {
 		super.createEditPolicies();
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
+				new ComponentDirectEditPolicy());
 	}
 
 	@Override
 	public int getResizeDirection() {
 		return EAST_WEST;
 	}
+
 	public Rectangle layout() {
 		InputFieldLayout layout = new InputFieldLayout();
 		return layout.layout(this);
 	}
 
+	@Override
+	public Command getCommand(Request request) {
+		return super.getCommand(request);
+	}
+
+	@Override
+	public EditPolicy getEditPolicy(Object key) {
+		return super.getEditPolicy(key);
+	}
+
+	protected DirectEditManager manager;
+
+	@Override
+	public void performRequest(Request req) {
+		if (req.getType().equals(RequestConstants.REQ_DIRECT_EDIT)
+				&& req instanceof DirectEditRequest) {
+			Point location = ((DirectEditRequest) req).getLocation();
+			InputField figure = (InputField) getFigure();
+			Rectangle bounds = figure.getBounds().getCopy();
+			figure.translateToAbsolute(bounds);
+			int labelWidth = figure.getLabelWidth();
+			Rectangle dataBounds = bounds.getCopy().setX(bounds.x + labelWidth);
+			if (dataBounds.contains(location) == false) {
+				performPromptDirectEditRequest(figure);
+			} else {
+				performSimpleDataDirectEditRequest(figure);
+			}
+		} else
+			super.performRequest(req);
+	}
+
+	protected void performSimpleDataDirectEditRequest(InputField figure) {
+		NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
+				this, TextCellEditor.class,
+				new SimpleDataCellEditorLocator(figure),
+				ComponentInnerProperties.INPUT_SIMPLE_DATA);
+		manager.show();
+	}
+
+	protected void performPromptDirectEditRequest(InputField figure) {
+		NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
+				this, TextCellEditor.class,
+				new PromptCellEditorLocator(figure),
+				ComponentProperties.prompt);
+		manager.show();
+	}
 }
