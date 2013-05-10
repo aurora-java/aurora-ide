@@ -2,7 +2,7 @@ package aurora.ide.create.component;
 
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 
 import uncertain.composite.CompositeMap;
 
@@ -37,16 +37,16 @@ public class ComponentListFactory {
 	public static Image getImage(CompositeMap element) {
 		String type = element.getString(TYPE, "");
 		if (FORM_QUERY.equals(type)) {
-			return ImagesUtils.getImage("palette/form.png");
+			return PrototypeImagesUtils.getImage("palette/form.png");
 		}
 		if (FORM_EDIT.equals(type)) {
-			return ImagesUtils.getImage("palette/form.png");
+			return PrototypeImagesUtils.getImage("palette/form.png");
 		}
 		if (GRID.equals(type)) {
-			return ImagesUtils.getImage("palette/grid.png");
+			return PrototypeImagesUtils.getImage("palette/grid.png");
 		}
 		if (FORM_GRID.equals(type)) {
-			return ImagesUtils.getImage("palette/grid.png");
+			return PrototypeImagesUtils.getImage("palette/grid.png");
 		}
 		return null;
 	}
