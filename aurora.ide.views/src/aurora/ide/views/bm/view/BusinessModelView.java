@@ -43,7 +43,7 @@ import org.eclipse.ui.part.ViewPart;
 import aurora.ide.editor.textpage.TextPage;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.helpers.ProjectUtil;
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.project.AuroraProject;
 import aurora.ide.screen.editor.ServiceEditor;
 import aurora.ide.views.Activator;
@@ -254,7 +254,7 @@ public class BusinessModelView extends ViewPart {
 						MenuItem mi = new MenuItem(menu, SWT.NONE);
 						mi.setText("Load : " + p.getName());
 						mi.setData(p);
-						mi.setImage(ImagesUtils.getImage("prj_obj.gif"));
+						mi.setImage(PrototypeImagesUtils.getImage("prj_obj.gif"));
 						mi.addSelectionListener(this);
 					}
 				}
@@ -286,7 +286,7 @@ public class BusinessModelView extends ViewPart {
 			}
 
 		};
-		projectSelectionAtion.setImageDescriptor(ImagesUtils
+		projectSelectionAtion.setImageDescriptor(PrototypeImagesUtils
 				.getImageDescriptor("prj_obj.gif"));
 	}
 
