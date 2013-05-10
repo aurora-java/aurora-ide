@@ -7,11 +7,11 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.plugin.source.gen.screen.model.CheckBox;
 
 public class CheckBoxFigure extends InputField {
-	private static final Image img_unchecked = ImagesUtils
+	private static final Image img_unchecked = PrototypeImagesUtils
 			.getImage("palette/checkbox_01.png");
 	private CheckBox model;
 

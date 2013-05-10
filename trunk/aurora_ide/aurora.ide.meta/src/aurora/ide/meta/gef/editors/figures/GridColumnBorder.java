@@ -10,7 +10,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 
 public class GridColumnBorder extends AbstractLabeledBorder {
 
@@ -26,7 +26,7 @@ public class GridColumnBorder extends AbstractLabeledBorder {
 	}
 
 	private Image getBGImage() {
-		return ImagesUtils.getImage(imageKey);
+		return PrototypeImagesUtils.getImage(imageKey);
 	}
 
 	@Override

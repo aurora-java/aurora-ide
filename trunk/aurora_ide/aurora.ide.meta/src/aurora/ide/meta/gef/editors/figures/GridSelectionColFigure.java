@@ -5,7 +5,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.plugin.source.gen.screen.model.Dataset;
 import aurora.plugin.source.gen.screen.model.GridSelectionCol;
   
@@ -14,11 +14,11 @@ import aurora.plugin.source.gen.screen.model.GridSelectionCol;
  */
 public class GridSelectionColFigure extends GridColumnFigure {
 
-	private static final Image img_check = ImagesUtils
+	private static final Image img_check = PrototypeImagesUtils
 			.getImage("palette/checkbox_01.png");
-	private static final Image img_radio = ImagesUtils
+	private static final Image img_radio = PrototypeImagesUtils
 			.getImage("palette/radio_01.png");
-	private static final Image img_border = ImagesUtils.getImage("grid_bg.gif");
+	private static final Image img_border = PrototypeImagesUtils.getImage("grid_bg.gif");
 	private GridSelectionCol model;
 
 	public GridSelectionColFigure() {

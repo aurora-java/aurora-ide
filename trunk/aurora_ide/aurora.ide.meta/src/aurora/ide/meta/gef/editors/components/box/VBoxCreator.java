@@ -5,7 +5,7 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.BoxPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
@@ -21,8 +21,8 @@ public class VBoxCreator extends ComponentCreator {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"VBox", "Create a  VBox", Grid.class, new SimpleFactory(
 						VBox.class),
-				ImagesUtils.getImageDescriptor("palette/vbox.png"),
-				ImagesUtils.getImageDescriptor("palette/vbox.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/vbox.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/vbox.png"));
 		return combined;
 	}
 

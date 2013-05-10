@@ -9,7 +9,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 
 public class TitleBorder extends TitleBarBorder {
 //	private Insets padding = new Insets(2, 3, 2, 2);
@@ -53,7 +53,7 @@ public class TitleBorder extends TitleBarBorder {
 	}
 
 	private Image getBGImage() {
-		return ImagesUtils.getImage(imageKey);
+		return PrototypeImagesUtils.getImage(imageKey);
 	}
 
 	@Override

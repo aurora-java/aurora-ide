@@ -5,7 +5,7 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.TabFolderPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
@@ -20,8 +20,8 @@ public class TabFolderCreator extends ComponentCreator {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Tab Folder", "Create a  TabFolder", TabFolder.class,
 				new SimpleFactory(TabFolder.class),
-				ImagesUtils.getImageDescriptor("palette/tabfolder.png"),
-				ImagesUtils.getImageDescriptor("palette/tabfolder.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/tabfolder.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/tabfolder.png"));
 		return combined;
 	}
 

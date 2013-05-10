@@ -5,7 +5,7 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.ButtonPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
@@ -17,8 +17,8 @@ public class ButtonCreator extends ComponentCreator {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Button", "Create a Button", clazz(),
 				new SimpleFactory(clazz()),
-				ImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"),
-				ImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"));
 		return combined;
 
 	}

@@ -8,7 +8,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.plugin.source.gen.screen.model.CheckBox;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.Input;
@@ -16,7 +16,7 @@ import aurora.plugin.source.gen.screen.model.Renderer;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 
 public class GridColumnFigure extends Figure {
-	private static Image checkImg = ImagesUtils
+	private static Image checkImg = PrototypeImagesUtils
 			.getImage("palette/checkbox_01.png");
 
 	private int labelWidth;
@@ -122,16 +122,16 @@ public class GridColumnFigure extends Figure {
 
 	private Image getImageOfEditor(String editor) {
 		if (Input.Combo.equals(editor))
-			return ImagesUtils.getImage("palette/itembar_01.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_01.png");
 		else if (Input.DATE_PICKER.equals(editor)
 				|| Input.DATETIMEPICKER.equals(editor))
-			return ImagesUtils.getImage("palette/itembar_02.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_02.png");
 		else if (Input.LOV.equals(editor))
-			return ImagesUtils.getImage("palette/itembar_03.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_03.png");
 		else if (Input.TEXT.equals(editor))
-			return ImagesUtils.getImage("palette/itembar_04.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_04.png");
 		else if (Input.NUMBER.equals(editor))
-			return ImagesUtils.getImage("palette/itembar_05.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_05.png");
 		return null;
 	}
 
@@ -151,7 +151,7 @@ public class GridColumnFigure extends Figure {
 				text = text.substring(idx1 + 3, idx2);
 			FigureUtil.paintTextAtCenter(g, rect, text, u);
 		} else if (Renderer.USER_FUNCTION.equals(rendererType)) {
-			Image fxImg = ImagesUtils.getImage("palette/fx.png");
+			Image fxImg = PrototypeImagesUtils.getImage("palette/fx.png");
 			FigureUtil.paintImageAtCenter(g, rect, fxImg);
 		}
 	}

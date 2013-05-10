@@ -5,7 +5,7 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.InputPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
@@ -29,8 +29,8 @@ public class ComboxCreator extends ComponentCreator {
 				// return newObject;
 				// }
 				// }
-				, ImagesUtils.getImageDescriptor("palette/itembar_01.png"),
-				ImagesUtils.getImageDescriptor("palette/itembar_01.png"));
+				, PrototypeImagesUtils.getImageDescriptor("palette/itembar_01.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/itembar_01.png"));
 		return combined;
 	}
 

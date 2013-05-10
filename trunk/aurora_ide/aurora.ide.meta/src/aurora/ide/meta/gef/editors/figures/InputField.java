@@ -12,7 +12,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
@@ -137,15 +137,15 @@ public class InputField extends Figure {
 	private Image getImage() {
 		String type = model.getComponentType();
 		if (Input.Combo.equals(type))
-			return ImagesUtils.getImage("palette/itembar_01.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_01.png");
 		if (Input.DATE_PICKER.equals(type) || Input.DATETIMEPICKER.equals(type))
-			return ImagesUtils.getImage("palette/itembar_02.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_02.png");
 		if (Input.LOV.equals(type))
-			return ImagesUtils.getImage("palette/itembar_03.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_03.png");
 		if (Input.TEXT.equals(type))
-			return ImagesUtils.getImage("palette/itembar_04.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_04.png");
 		if (Input.NUMBER.equals(type))
-			return ImagesUtils.getImage("palette/itembar_05.png");
+			return PrototypeImagesUtils.getImage("palette/itembar_05.png");
 		return null;
 	}
 

@@ -67,15 +67,15 @@ public class VScreenEditorPaletteFactory {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Tab Folder", "Create a  TabFolder", TabFolder.class,
 				new SimpleFactory(TabFolder.class),
-				ImagesUtils.getImageDescriptor("palette/tabfolder.png"),
-				ImagesUtils.getImageDescriptor("palette/tabfolder.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/tabfolder.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/tabfolder.png"));
 		entries.add(combined);
 		// tab item
 		combined = new CombinedTemplateCreationEntry("Tab Item",
 				"Create a  TabItem", TabItem.class, new SimpleFactory(
 						TabItem.class),
-				ImagesUtils.getImageDescriptor("palette/tabitem.png"),
-				ImagesUtils.getImageDescriptor("palette/tabitem.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/tabitem.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/tabitem.png"));
 		entries.add(combined);
 
 		drawer.addAll(entries);
@@ -92,15 +92,15 @@ public class VScreenEditorPaletteFactory {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Grid", "Create a  Grid", Grid.class, new SimpleFactory(
 						Grid.class),
-				ImagesUtils.getImageDescriptor("palette/grid.png"),
-				ImagesUtils.getImageDescriptor("palette/grid.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/grid.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/grid.png"));
 		entries.add(combined);
 
 		combined = new CombinedTemplateCreationEntry("Grid Column",
 				"Create a  Grid Column", GridColumn.class, new SimpleFactory(
 						GridColumn.class),
-				ImagesUtils.getImageDescriptor("palette/column.png"),
-				ImagesUtils.getImageDescriptor("palette/column.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/column.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/column.png"));
 		entries.add(combined);
 		drawer.addAll(entries);
 		return drawer;
@@ -119,8 +119,8 @@ public class VScreenEditorPaletteFactory {
 						Label newObject = (Label) super.getNewObject();
 						return newObject;
 					}
-				}, ImagesUtils.getImageDescriptor("palette/label.png"),
-				ImagesUtils.getImageDescriptor("palette/label.png"));
+				}, PrototypeImagesUtils.getImageDescriptor("palette/label.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/label.png"));
 		entries.add(combined);
 		
 		combined = new CombinedTemplateCreationEntry(
@@ -131,8 +131,8 @@ public class VScreenEditorPaletteFactory {
 						newObject.setComponentType(Input.TEXT);
 						return newObject;
 					}
-				}, ImagesUtils.getImageDescriptor("palette/input_edit.png"),
-				ImagesUtils.getImageDescriptor("palette/input_edit.png"));
+				}, PrototypeImagesUtils.getImageDescriptor("palette/input_edit.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/input_edit.png"));
 		entries.add(combined);
 		// number field
 		combined = new CombinedTemplateCreationEntry("NumberField",
@@ -143,8 +143,8 @@ public class VScreenEditorPaletteFactory {
 						newObject.setComponentType(Input.NUMBER);
 						return newObject;
 					}
-				}, ImagesUtils.getImageDescriptor("palette/input_edit.png"),
-				ImagesUtils.getImageDescriptor("palette/input_edit.png"));
+				}, PrototypeImagesUtils.getImageDescriptor("palette/input_edit.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/input_edit.png"));
 		entries.add(combined);
 
 		combined = new CombinedTemplateCreationEntry("Combox",
@@ -155,8 +155,8 @@ public class VScreenEditorPaletteFactory {
 						newObject.setComponentType(Input.Combo);
 						return newObject;
 					}
-				}, ImagesUtils.getImageDescriptor("palette/itembar_01.png"),
-				ImagesUtils.getImageDescriptor("palette/itembar_01.png"));
+				}, PrototypeImagesUtils.getImageDescriptor("palette/itembar_01.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/itembar_01.png"));
 		entries.add(combined);
 
 		combined = new CombinedTemplateCreationEntry("DatePicker",
@@ -167,8 +167,8 @@ public class VScreenEditorPaletteFactory {
 						newObject.setComponentType(Input.DATE_PICKER);
 						return newObject;
 					}
-				}, ImagesUtils.getImageDescriptor("palette/itembar_02.png"),
-				ImagesUtils.getImageDescriptor("palette/itembar_02.png"));
+				}, PrototypeImagesUtils.getImageDescriptor("palette/itembar_02.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/itembar_02.png"));
 		entries.add(combined);
 		combined = new CombinedTemplateCreationEntry("DateTimePicker",
 				"Create a new DateTimePicker", Input.class, new SimpleFactory(
@@ -178,8 +178,8 @@ public class VScreenEditorPaletteFactory {
 						newObject.setComponentType(Input.DATETIMEPICKER);
 						return newObject;
 					}
-				}, ImagesUtils.getImageDescriptor("palette/itembar_02.png"),
-				ImagesUtils.getImageDescriptor("palette/itembar_02.png"));
+				}, PrototypeImagesUtils.getImageDescriptor("palette/itembar_02.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/itembar_02.png"));
 		entries.add(combined);
 
 		combined = new CombinedTemplateCreationEntry("LOV", "Create a new Lov",
@@ -189,15 +189,15 @@ public class VScreenEditorPaletteFactory {
 						newObject.setComponentType(Input.LOV);
 						return newObject;
 					}
-				}, ImagesUtils.getImageDescriptor("palette/itembar_03.png"),
-				ImagesUtils.getImageDescriptor("palette/itembar_03.png"));
+				}, PrototypeImagesUtils.getImageDescriptor("palette/itembar_03.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/itembar_03.png"));
 		entries.add(combined);
 		// checkbox
 		combined = new CombinedTemplateCreationEntry("CheckBox",
 				"Create a CheckBox", CheckBox.class, new SimpleFactory(
 						CheckBox.class),
-				ImagesUtils.getImageDescriptor("palette/checkbox_01.png"),
-				ImagesUtils.getImageDescriptor("palette/checkbox_01.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/checkbox_01.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/checkbox_01.png"));
 		entries.add(combined);
 		// TODO Label
 
@@ -215,32 +215,32 @@ public class VScreenEditorPaletteFactory {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Form", "Create a  Form", Form.class, new SimpleFactory(
 						Form.class),
-				ImagesUtils.getImageDescriptor("palette/form.png"),
-				ImagesUtils.getImageDescriptor("palette/form.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/form.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/form.png"));
 		entries.add(combined);
 
 		combined = new CombinedTemplateCreationEntry("FieldSet",
 				"Create a  FieldSet", FieldSet.class, new SimpleFactory(
 						FieldSet.class),
-				ImagesUtils.getImageDescriptor("palette/fieldset.png"),
-				ImagesUtils.getImageDescriptor("palette/fieldset.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/fieldset.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/fieldset.png"));
 		entries.add(combined);
 		combined = new CombinedTemplateCreationEntry("HBox", "Create a  HBox",
 				Grid.class, new SimpleFactory(HBox.class),
-				ImagesUtils.getImageDescriptor("palette/hbox.png"),
-				ImagesUtils.getImageDescriptor("palette/hbox.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/hbox.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/hbox.png"));
 		entries.add(combined);
 		combined = new CombinedTemplateCreationEntry("VBox", "Create a  VBox",
 				Grid.class, new SimpleFactory(VBox.class),
-				ImagesUtils.getImageDescriptor("palette/vbox.png"),
-				ImagesUtils.getImageDescriptor("palette/vbox.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/vbox.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/vbox.png"));
 		entries.add(combined);
 
 		combined = new CombinedTemplateCreationEntry("Toolbar",
 				"Create a  Toolbar ", Toolbar.class, new SimpleFactory(
 						Toolbar.class),
-				ImagesUtils.getImageDescriptor("palette/toolbar.png"),
-				ImagesUtils.getImageDescriptor("palette/toolbar.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/toolbar.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/toolbar.png"));
 		entries.add(combined);
 
 		
@@ -258,8 +258,8 @@ public class VScreenEditorPaletteFactory {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Button", "Create a Button", Button.class, new SimpleFactory(
 						Button.class),
-				ImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"),
-				ImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/toolbar_btn_01.png"));
 		entries.add(combined);
 		drawer.addAll(entries);
 		return drawer;
