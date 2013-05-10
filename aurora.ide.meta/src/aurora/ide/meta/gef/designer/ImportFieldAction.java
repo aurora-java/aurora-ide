@@ -30,7 +30,7 @@ import aurora.ide.helpers.ApplicationException;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.model.Record;
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.project.AuroraMetaProject;
 
 public class ImportFieldAction extends Action {
@@ -42,7 +42,7 @@ public class ImportFieldAction extends Action {
 
 	public ImportFieldAction(BMModel model, BMDesigner designer) {
 		super("Import Field from table");
-		setImageDescriptor(ImagesUtils.getImageDescriptor("importColumn.png"));
+		setImageDescriptor(PrototypeImagesUtils.getImageDescriptor("importColumn.png"));
 		this.model = model;
 		this.designer = designer;
 	}

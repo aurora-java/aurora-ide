@@ -8,7 +8,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.Dataset;
 
@@ -16,12 +16,12 @@ import aurora.plugin.source.gen.screen.model.Dataset;
  */
 public class DatasetFigure extends Figure {
 
-	private static Image bgImg = ImagesUtils.getImage("btn.gif");
+	private static Image bgImg = PrototypeImagesUtils.getImage("btn.gif");
 	private static String[] buttonTypes = { Button.ADD, Button.SAVE,
 			Button.DELETE, Button.CLEAR, Button.EXCEL };
-	private static Image stdimg = ImagesUtils
+	private static Image stdimg = PrototypeImagesUtils
 			.getImage("aurora/toolbar_btn.gif");
-	private static Image defaultimg = ImagesUtils
+	private static Image defaultimg = PrototypeImagesUtils
 			.getImage("aurora/default.gif");
 
 	private Dataset model = null;
@@ -80,7 +80,7 @@ public class DatasetFigure extends Figure {
 	}
 
 	private Image getBgImage() {
-		return ImagesUtils.getImage("bm.gif");
+		return PrototypeImagesUtils.getImage("bm.gif");
 	}
 
 	public void setModel(Dataset model) {

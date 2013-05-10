@@ -6,7 +6,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.action.Action;
 
 import aurora.ide.meta.extensions.ComponentFactory;
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.models.commands.ChangeTypeCommand;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.BOX;
@@ -106,7 +106,7 @@ public class TypeChangeUtil {
 				imageKey = "palette/itembar_04.png";
 			else if (CheckBox.CHECKBOX.equals(text))
 				imageKey = "palette/checkbox_01.png";
-			setImageDescriptor(ImagesUtils.getImageDescriptor(imageKey));
+			setImageDescriptor(PrototypeImagesUtils.getImageDescriptor(imageKey));
 		}
 
 		public void setInput(Input input) {
@@ -189,7 +189,7 @@ public class TypeChangeUtil {
 				imgKey = "palette/hbox.png";
 			else if ("vBox".equalsIgnoreCase(string))
 				imgKey = "palette/vbox.png";
-			setImageDescriptor(ImagesUtils.getImageDescriptor(imgKey));
+			setImageDescriptor(PrototypeImagesUtils.getImageDescriptor(imgKey));
 		}
 
 		public void setModelType(BOX oldType, Class<? extends BOX> newType) {

@@ -5,7 +5,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 
 /**
  */
@@ -31,6 +31,6 @@ public class ToolbarFigure extends Figure {
 	}
 
 	private Image getBGImage() {
-		return ImagesUtils.getImage("toolbar_bg");
+		return PrototypeImagesUtils.getImage("toolbar_bg");
 	}
 }

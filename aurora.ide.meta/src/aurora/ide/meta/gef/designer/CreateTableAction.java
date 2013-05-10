@@ -22,14 +22,14 @@ import aurora.ide.editor.textpage.IColorConstants;
 import aurora.ide.editor.textpage.scanners.SQLCodeScanner;
 import aurora.ide.helpers.DBManager;
 import aurora.ide.helpers.DialogUtil;
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 
 public abstract class CreateTableAction extends Action {
 	private IProject aProj;
 	private String tableName;
 
 	public CreateTableAction(IProject aProj) {
-		super("Create Table", ImagesUtils.getImageDescriptor("run.gif"));
+		super("Create Table", PrototypeImagesUtils.getImageDescriptor("run.gif"));
 		this.aProj = aProj;
 	}
 

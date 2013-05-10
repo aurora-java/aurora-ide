@@ -8,11 +8,11 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.plugin.source.gen.screen.model.TabItem;
 
 public class TabItemFigure extends Figure {
-	private static Image bgImg = ImagesUtils.getImage("toolbar_bg");
+	private static Image bgImg = PrototypeImagesUtils.getImage("toolbar_bg");
 	private TabItem model;
 
 	public TabItemFigure() {

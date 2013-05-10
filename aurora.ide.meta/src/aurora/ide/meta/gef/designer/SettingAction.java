@@ -7,7 +7,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import aurora.ide.meta.gef.designer.model.BMModel;
 import aurora.ide.meta.gef.designer.wizard.ExtensionWizardPage;
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 
 public class SettingAction extends Action {
 
@@ -16,7 +16,7 @@ public class SettingAction extends Action {
 
 	public SettingAction(BMModel model, IWorkbenchPart part) {
 		super("Setting");
-		setImageDescriptor(ImagesUtils.getImageDescriptor("setting.png"));
+		setImageDescriptor(PrototypeImagesUtils.getImageDescriptor("setting.png"));
 		this.model = model;
 		this.part = part;
 	}

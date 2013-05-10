@@ -18,7 +18,7 @@ import org.eclipse.ui.ide.IDE;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.model.ModelMerger;
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 
 public class OpenBMAction extends Action {
 
@@ -28,7 +28,7 @@ public class OpenBMAction extends Action {
 
 	public OpenBMAction(IFile bmqFile, IWorkbenchPage page) {
 		super("Open BM", Action.AS_DROP_DOWN_MENU);
-		setImageDescriptor(ImagesUtils.getImageDescriptor("folder.png"));
+		setImageDescriptor(PrototypeImagesUtils.getImageDescriptor("folder.png"));
 		this.bmqFile = bmqFile;
 		this.page = page;
 

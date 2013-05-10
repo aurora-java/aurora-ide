@@ -8,7 +8,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.plugin.source.gen.screen.model.Grid;
 import aurora.plugin.source.gen.screen.model.Navbar;
 
@@ -21,10 +21,10 @@ public class NavbarFigure extends Figure {
 			Messages.NavbarFigure_3, Messages.NavbarFigure_4 };
 	private static String simpleText = Messages.NavbarFigure_5;
 	private Navbar model;
-	private static Image bgImg = ImagesUtils.getImage("toolbar_bg.gif"); //$NON-NLS-1$
-	private static Image navImg = ImagesUtils.getImage("navigation.gif"); //$NON-NLS-1$
-	private static Image sepImg = ImagesUtils.getImage("toolbar_sep.gif"); //$NON-NLS-1$
-	private static Image combImg = ImagesUtils
+	private static Image bgImg = PrototypeImagesUtils.getImage("toolbar_bg.gif"); //$NON-NLS-1$
+	private static Image navImg = PrototypeImagesUtils.getImage("navigation.gif"); //$NON-NLS-1$
+	private static Image sepImg = PrototypeImagesUtils.getImage("toolbar_sep.gif"); //$NON-NLS-1$
+	private static Image combImg = PrototypeImagesUtils
 			.getImage("palette/itembar_01.png"); //$NON-NLS-1$
 
 	public NavbarFigure() {
@@ -153,7 +153,7 @@ public class NavbarFigure extends Figure {
 	}
 
 	private Image getImage(String key) {
-		return ImagesUtils.getImage(key);
+		return PrototypeImagesUtils.getImage(key);
 	}
 
 }

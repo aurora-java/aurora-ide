@@ -5,7 +5,7 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.TabBodyPart;
 import aurora.ide.meta.gef.editors.parts.TabItemPart;
@@ -22,8 +22,8 @@ public class TabItemCreator extends ComponentCreator {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Tab Item", "Create a  TabItem", TabItem.class,
 				new SimpleFactory(TabItem.class),
-				ImagesUtils.getImageDescriptor("palette/tabitem.png"),
-				ImagesUtils.getImageDescriptor("palette/tabitem.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/tabitem.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/tabitem.png"));
 		return combined;
 	}
 

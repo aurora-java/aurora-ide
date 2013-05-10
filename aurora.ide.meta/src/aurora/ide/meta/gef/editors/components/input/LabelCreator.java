@@ -5,7 +5,7 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.LabelPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
@@ -23,8 +23,8 @@ public class LabelCreator extends ComponentCreator {
 						Label newObject = (Label) super.getNewObject();
 						return newObject;
 					}
-				}, ImagesUtils.getImageDescriptor("palette/label.png"),
-				ImagesUtils.getImageDescriptor("palette/label.png"));
+				}, PrototypeImagesUtils.getImageDescriptor("palette/label.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/label.png"));
 		return combined;
 	}
 	public EditPart createEditPart(Object model){

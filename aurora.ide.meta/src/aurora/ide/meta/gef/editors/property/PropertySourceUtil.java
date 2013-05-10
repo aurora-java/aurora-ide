@@ -6,7 +6,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertySource;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.FieldSet;
 import aurora.plugin.source.gen.screen.model.Form;
@@ -33,21 +33,21 @@ public class PropertySourceUtil {
 
 	public static Image getImageOf(AuroraComponent ac) {
 		if (ac instanceof Form)
-			return ImagesUtils.getImage("palette/form.png");
+			return PrototypeImagesUtils.getImage("palette/form.png");
 		else if (ac instanceof VBox)
-			return ImagesUtils.getImage("palette/vbox.png");
+			return PrototypeImagesUtils.getImage("palette/vbox.png");
 		else if (ac instanceof HBox)
-			return ImagesUtils.getImage("palette/hbox.png");
+			return PrototypeImagesUtils.getImage("palette/hbox.png");
 		else if (ac instanceof FieldSet)
-			return ImagesUtils.getImage("palette/fieldset.png");
+			return PrototypeImagesUtils.getImage("palette/fieldset.png");
 		else if (ac instanceof Grid)
-			return ImagesUtils.getImage("palette/grid.png");
+			return PrototypeImagesUtils.getImage("palette/grid.png");
 		else if (ac instanceof TabFolder)
-			return ImagesUtils.getImage("palette/tabfolder.png");
+			return PrototypeImagesUtils.getImage("palette/tabfolder.png");
 		else if (ac instanceof TabItem)
-			return ImagesUtils.getImage("palette/tabitem.png");
+			return PrototypeImagesUtils.getImage("palette/tabitem.png");
 		if (ac instanceof QueryForm)
-			return ImagesUtils.getImage("palette/form.png");
+			return PrototypeImagesUtils.getImage("palette/form.png");
 		return null;
 	}
 

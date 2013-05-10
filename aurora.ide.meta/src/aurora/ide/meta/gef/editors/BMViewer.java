@@ -216,23 +216,23 @@ public class BMViewer {
 		private Image getImage(ModelField model) {
 			String type = model.editor;
 			if (Input.Combo.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_01.png"); //$NON-NLS-1$
+				return PrototypeImagesUtils.getImage("palette/itembar_01.png"); //$NON-NLS-1$
 			if (Input.DATE_PICKER.equalsIgnoreCase(type)
 					|| Input.DATETIMEPICKER.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_02.png"); //$NON-NLS-1$
+				return PrototypeImagesUtils.getImage("palette/itembar_02.png"); //$NON-NLS-1$
 			if (Input.LOV.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_03.png"); //$NON-NLS-1$
+				return PrototypeImagesUtils.getImage("palette/itembar_03.png"); //$NON-NLS-1$
 			if (Input.TEXT.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
+				return PrototypeImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
 			if (Input.NUMBER.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/itembar_05.png");
+				return PrototypeImagesUtils.getImage("palette/itembar_05.png");
 			if (CheckBox.CHECKBOX.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/checkbox_01.png");
+				return PrototypeImagesUtils.getImage("palette/checkbox_01.png");
 			if (ModelField.REF_FIELD.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/ref.png");
+				return PrototypeImagesUtils.getImage("palette/ref.png");
 			if (ModelField.QUERY_FIELD.equalsIgnoreCase(type))
-				return ImagesUtils.getImage("palette/search.png");//$NON-NLS-1$
-			return ImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
+				return PrototypeImagesUtils.getImage("palette/search.png");//$NON-NLS-1$
+			return PrototypeImagesUtils.getImage("palette/itembar_04.png"); //$NON-NLS-1$
 		}
 
 		public final String getText(Object element) {
@@ -408,7 +408,7 @@ public class BMViewer {
 					}
 				};
 				addBM.setText("增加");
-				addBM.setImageDescriptor(ImagesUtils
+				addBM.setImageDescriptor(PrototypeImagesUtils
 						.getImageDescriptor("palette/toolbar_btn_01.png"));
 				manager.add(addBM);
 				Action delBM = new Action() {
@@ -424,7 +424,7 @@ public class BMViewer {
 					}
 				};
 				delBM.setText("删除");
-				delBM.setImageDescriptor(ImagesUtils
+				delBM.setImageDescriptor(PrototypeImagesUtils
 						.getImageDescriptor("delete.gif"));
 				Object selectObject = getSelectObject();
 				if (selectObject instanceof IFile)

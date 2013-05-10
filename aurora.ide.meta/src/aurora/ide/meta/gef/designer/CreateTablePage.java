@@ -28,7 +28,7 @@ import aurora.ide.editor.textpage.SQLConfiguration;
 import aurora.ide.meta.exception.ResourceNotFoundException;
 import aurora.ide.meta.gef.designer.gen.SqlGenerator;
 import aurora.ide.meta.gef.designer.model.BMModel;
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.project.AuroraMetaProject;
 
 public class CreateTablePage extends FormPage {
@@ -155,7 +155,7 @@ public class CreateTablePage extends FormPage {
 		final Action forceAction = new Action("force override",
 				Action.AS_CHECK_BOX) {
 			{
-				setImageDescriptor(ImagesUtils
+				setImageDescriptor(PrototypeImagesUtils
 						.getImageDescriptor("lightning_plus.png"));
 			}
 		};

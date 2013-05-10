@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import aurora.ide.meta.gef.designer.wizard.CreateTableWizard.ObjectDescriptor;
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 
 public class PreCreateTablePage extends WizardPage {
 	private Table table;
@@ -205,7 +205,7 @@ public class PreCreateTablePage extends WizardPage {
 			ObjectDescriptor od = (ObjectDescriptor) element;
 			Image img = null;
 			if (columnIndex == 4)
-				img = ImagesUtils.getImage(od.create ? "checked.gif" //$NON-NLS-1$
+				img = PrototypeImagesUtils.getImage(od.create ? "checked.gif" //$NON-NLS-1$
 						: "unchecked.gif"); //$NON-NLS-1$
 			return img;
 		}

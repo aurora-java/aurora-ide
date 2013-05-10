@@ -5,7 +5,7 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import aurora.ide.meta.gef.editors.ImagesUtils;
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.QueryFormPart;
 import aurora.ide.meta.gef.editors.parts.QueryFormToolBarPart;
@@ -22,8 +22,8 @@ public class QueryFormCreator extends ComponentCreator {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"QueryForm", "Create a  QueryForm", QueryForm.class,
 				new SimpleFactory(QueryForm.class),
-				ImagesUtils.getImageDescriptor("palette/form.png"),
-				ImagesUtils.getImageDescriptor("palette/form.png"));
+				PrototypeImagesUtils.getImageDescriptor("palette/form.png"),
+				PrototypeImagesUtils.getImageDescriptor("palette/form.png"));
 		return combined;
 	}
 
