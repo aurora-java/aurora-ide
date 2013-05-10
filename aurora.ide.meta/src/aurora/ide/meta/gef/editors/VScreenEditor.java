@@ -45,6 +45,7 @@ import org.xml.sax.SAXException;
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
 import aurora.ide.editor.InputFileListener;
+import aurora.ide.editor.editorInput.StringEditorInput;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
@@ -267,6 +268,15 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	 * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
 	 */
 	public void setInput(IEditorInput input) {
+		if(input instanceof StringEditorInput){
+			diagram = new ScreenBody();
+			DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
+			setEditDomain(defaultEditDomain);
+		}
+		if(input == null){
+			diagram = new ScreenBody();
+			return ;
+		}
 		super.setInput(input);
 		if (!(input instanceof IFileEditorInput)) {
 			diagram = new ScreenBody();
@@ -280,11 +290,8 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 			is = file.getContents(false);
 			CompositeLoader parser = new CompositeLoader();
 			CompositeMap rootMap = parser.loadFromStream(is);
-//			ModelIOManager mim = ModelIOManager.getNewInstance();
 			CompositeMap2Object c2o= new CompositeMap2Object();
 			diagram = c2o.createScreenBody(rootMap);
-//			diagram = mim.fromCompositeMap(rootMap);
-			
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

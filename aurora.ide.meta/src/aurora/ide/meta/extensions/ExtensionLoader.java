@@ -10,8 +10,18 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 
 public class ExtensionLoader {
-	private static final String EDITOR_POINT_ID = "aurora.ide.meta.uipEditor";
-	private static final String COMPONENT_POINT_ID = "aurora.ide.meta.auroraComponent";
+
+	private static final String META_PLUGIN_ID = "aurora.ide.meta";
+	private static final String ACONSULTANT_PRODUCT_PLUGIN_ID = "aurora.ide.prototype.consultant.product";
+
+	private static final String META_EDITOR_POINT_ID = META_PLUGIN_ID
+			+ ".uipEditor";
+	private static final String META_COMPONENT_POINT_ID = META_PLUGIN_ID
+			+ ".auroraComponent";
+	private static final String PRODUCT_EDITOR_POINT_ID = ACONSULTANT_PRODUCT_PLUGIN_ID
+			+ ".uipEditor";
+	private static final String PRODUCT_COMPONENT_POINT_ID = ACONSULTANT_PRODUCT_PLUGIN_ID
+			+ ".auroraComponent";
 
 	private static List<PaletteCategory> paletteCategories = new ArrayList<PaletteCategory>();
 	private static List<ExtensionComponent> extensionComponents = new ArrayList<ExtensionComponent>();
@@ -22,8 +32,13 @@ public class ExtensionLoader {
 	}
 
 	private static void editorPointExtensions() {
+		loadEditorExtension(META_EDITOR_POINT_ID);
+		loadEditorExtension(PRODUCT_EDITOR_POINT_ID);
+	}
+
+	private static void loadEditorExtension(String point_id) {
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
-		IExtensionPoint point = registry.getExtensionPoint(EDITOR_POINT_ID);
+		IExtensionPoint point = registry.getExtensionPoint(point_id);
 		if (point != null) {
 			IExtension[] extensions = point.getExtensions();
 			for (int i = 0; i < extensions.length; i++) {
@@ -56,8 +71,13 @@ public class ExtensionLoader {
 	// </component>
 
 	private static void componentPointExtensions() {
+		loadComponentExtension(META_COMPONENT_POINT_ID);
+		loadComponentExtension(PRODUCT_COMPONENT_POINT_ID);
+	}
+
+	private static void loadComponentExtension(String pointID) {
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
-		IExtensionPoint point = registry.getExtensionPoint(COMPONENT_POINT_ID);
+		IExtensionPoint point = registry.getExtensionPoint(pointID);
 		if (point != null) {
 			IExtension[] extensions = point.getExtensions();
 			for (int i = 0; i < extensions.length; i++) {

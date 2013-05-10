@@ -15,6 +15,8 @@ public class SourceCodeGenerator implements IWorkbenchWindowPulldownDelegate2 {
 
 	private Shell shell;
 	private IWorkbenchWindow window;
+	public SourceCodeGenerator(){
+	}
 
 	public void run(IAction action) {
 		SourceCodeGeneratorWizard wizard = new SourceCodeGeneratorWizard(window);
