@@ -2,21 +2,19 @@ package aurora.ide.prototype.consultant.product;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 
-import aurora.ide.editor.editorInput.StringEditorInput;
+import aurora.ide.editor.editorInput.PathEditorInput;
+import aurora.ide.meta.gef.editors.ConsultantVScreenEditor;
 
 public class OpenViewAction extends Action {
 
+	
 	private final IWorkbenchWindow window;
-	private int instanceNum = 0;
-	private final String viewId;
 
 	public OpenViewAction(IWorkbenchWindow window, String label, String viewId) {
 		this.window = window;
-		this.viewId = viewId;
 		setText(label);
 		// The id is used to refer to the action in a menu or toolbar
 		setId(ICommandIds.CMD_OPEN);
@@ -30,9 +28,9 @@ public class OpenViewAction extends Action {
 	public void run() {
 		if (window != null) {
 			try {
-				window.getActivePage().openEditor(
-						(IEditorInput) new StringEditorInput("", "utf-8"),
-						"aurora.ide.meta.gef.editors.VScreenEditor", true);
+				PathEditorInput ei = new PathEditorInput(ConsultantVScreenEditor.PATH);
+				window.getActivePage().openEditor(ei,
+						"aurora.ide.meta.gef.editors.ConsultantVScreenEditor", true);
 				// window.getActivePage().showView(viewId,
 				// Integer.toString(instanceNum++),
 				// IWorkbenchPage.VIEW_ACTIVATE);

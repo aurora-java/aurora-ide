@@ -7,11 +7,10 @@ Bundle-Activator: aurora.ide.prototype.consultant.product.Activator
 Bundle-Vendor: Hand MAS
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.ui.ide;bundle-version="3.7.0";resolution:=optional,
  aurora.ide.libs;bundle-version="1.3.0",
- org.eclipse.core.resources;bundle-version="3.7.100",
- org.eclipse.gef;bundle-version="3.7.1"
+ org.eclipse.gef;bundle-version="3.7.1",
+ org.eclipse.ui.views;bundle-version="3.6.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/aurora-ide.jar,
- .
+Bundle-ClassPath: library.jar,
+ lib/aurora-ide.jar

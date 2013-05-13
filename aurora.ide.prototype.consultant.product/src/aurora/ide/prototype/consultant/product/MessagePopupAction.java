@@ -1,7 +1,8 @@
 package aurora.ide.prototype.consultant.product;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 
 
@@ -20,6 +21,9 @@ public class MessagePopupAction extends Action {
     }
 
     public void run() {
-        MessageDialog.openInformation(window.getShell(), "Open", "Open Message Dialog!");
+    	FileDialog sd = new FileDialog(window.getShell(),SWT.SAVE);
+    	
+    	sd.open();
+//        MessageDialog.openInformation(window.getShell(), "Open", "Open Message Dialog!");
     }
 }
