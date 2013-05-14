@@ -1,19 +1,10 @@
 package aurora.ide.meta.gef.editors;
 
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.EventObject;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -30,22 +21,19 @@ import org.eclipse.gef.ui.actions.DirectEditAction;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.eclipse.ui.dialogs.SaveAsDialog;
-import org.eclipse.ui.part.FileEditorInput;
-import org.xml.sax.SAXException;
 
-import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
-import aurora.ide.editor.InputFileListener;
+import uncertain.composite.XMLOutputter;
+import aurora.ide.editor.editorInput.PathEditorInput;
+import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
@@ -54,8 +42,7 @@ import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 
-public class VScreenEditor extends FlayoutBMGEFEditor {
-	
+public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 	public static final String CONTEXT_MENU_KEY = "aurora.ide.meta.gef.editor.contextmenu";
 	ScreenBody diagram;
 	private PaletteRoot root;
@@ -63,12 +50,141 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	private MetaPropertyViewer propertyViewer;
 	private BMViewer bmViewer;
 	private EditorMode editorMode;
-	private IFile file;
+	private IEditorInput input;
 
-	public VScreenEditor() {
-		editorMode = new EditorMode(this);
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(
-				new InputFileListener(this));
+	public ConsultantVScreenEditor() {
+		super();
+		editorMode = new EditorMode() {
+			public String getMode() {
+				return None;
+			}
+
+			public boolean isForDisplay() {
+				return false;
+			}
+
+			public boolean isForCreate() {
+				return true;
+			}
+
+			public boolean isForUpdate() {
+				return true;
+			}
+
+			public boolean isForSearch() {
+				return false;
+			}
+		};
+	}
+
+	/**
+	 * @see org.eclipse.ui.ISaveablePart#doSave(org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	public void doSave(IProgressMonitor monitor) {
+		IEditorInput editorInput = this.getEditorInput();
+		if (editorInput instanceof PathEditorInput) {
+			PathEditorInput pei = (PathEditorInput) editorInput;
+			IPath path = pei.getPath();
+			if (this.isUntitled()) {
+				FileDialog sd = new FileDialog(this.getSite().getShell(),
+						SWT.SAVE);
+				sd.setFileName(path.toString());
+				sd.setFilterExtensions(new String[] { "uip" });
+				sd.setOverwrite(true);
+				String open = sd.open();
+				if (open == null) {
+					return;
+				}
+				path = setNewPath(pei, open);
+			}
+			File file = path.toFile();
+			try {
+				file.createNewFile();
+				if (file.exists()) {
+					if (file.canWrite()) {
+						Object2CompositeMap o2c = new Object2CompositeMap();
+						CompositeMap map = o2c.createCompositeMap(diagram);
+						XMLOutputter.saveToFile(file, map);
+						getCommandStack().markSaveLocation();
+					} else {
+						// // XXX prompt to SaveAs
+						//						throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.ui.examples.rcp.texteditor", IStatus.OK, "file is read-only", null)); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+				} else {
+					//					throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.ui.examples.rcp.texteditor", IStatus.OK, "error creating file", null)); //$NON-NLS-1$ //$NON-NLS-2$
+				}
+			} catch (IOException e) {
+				//				throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.ui.examples.rcp.texteditor", IStatus.OK, "error when saving file", e)); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+		}
+	}
+
+	public IPath setNewPath(PathEditorInput pei, String open) {
+		IPath path;
+		pei.setPath(path = new Path(open));
+		return path;
+	}
+
+	/**
+	 * @see org.eclipse.ui.ISaveablePart#doSaveAs()
+	 */
+	public void doSaveAs() {
+		IEditorInput editorInput = this.getEditorInput();
+		if (editorInput instanceof PathEditorInput) {
+			PathEditorInput pei = (PathEditorInput) editorInput;
+			IPath path = pei.getPath();
+			FileDialog sd = new FileDialog(this.getSite().getShell(), SWT.SAVE);
+			sd.setFilterExtensions(new String[] { "uip" });
+			sd.setOverwrite(true);
+			String open = sd.open();
+			if (open == null) {
+				return;
+			}
+			path = setNewPath(pei, open);
+			doSave(null);
+		}
+	}
+
+	/**
+	 * @see org.eclipse.ui.ISaveablePart#isSaveAsAllowed()
+	 */
+	public boolean isSaveAsAllowed() {
+		return true;
+	}
+
+	/**
+	 * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
+	 */
+	public void setInput(IEditorInput input) {
+		this.input = input;
+		super.setInput(input);
+		if (input instanceof PathEditorInput) {
+			if (isUntitled()) {
+				diagram = new ScreenBody();
+			} else {
+				File file = ((PathEditorInput) input).getPath().toFile();
+				CompositeMap loadFile = CompositeMapUtil.loadFile(file);
+				if (loadFile != null) {
+					CompositeMap2Object c2o = new CompositeMap2Object();
+					diagram = c2o.createScreenBody(loadFile);
+				} else {
+					diagram = new ScreenBody();
+				}
+			}
+			DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
+			setEditDomain(defaultEditDomain);
+		}
+	}
+
+	protected void createBMViewer(Composite c) {
+		// bmViewer = new BMViewer(c, this);
+	}
+
+	public boolean isUntitled() {
+		if (input instanceof PathEditorInput) {
+			return ((PathEditorInput) input).isUntitled();
+		}
+		return false;
 	}
 
 	public void setDiagram(ScreenBody diagram) {
@@ -86,14 +202,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		};
 		this.getEditDomain().getCommandStack().execute(cmd);
 		firePropertyChange(IEditorPart.PROP_DIRTY);
-	}
-
-	public Object getAdapter(Class adapter) {
-		if (IFile.class.equals(adapter)) {
-			return file;
-		}
-
-		return super.getAdapter(adapter);
 	}
 
 	/**
@@ -115,27 +223,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		action = new DirectEditAction((IWorkbenchPart) this);
 		registry.registerAction(action);
 		getSelectionActions().add(action.getId());
-	}
-
-	/**
-	 * Creates an appropriate output stream and writes the activity diagram out
-	 * to this stream.
-	 * 
-	 * @param os
-	 *            the base output stream
-	 * @throws IOException
-	 */
-	protected void createOutputStream(OutputStream os) throws IOException {
-		// ModelIOManager mim = ModelIOManager.getNewInstance();
-		// CompositeMap rootMap = mim.toCompositeMap(diagram);
-		// String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-		// + rootMap.toXML();
-		Object2CompositeMap o2c = new Object2CompositeMap();
-		String xml = o2c.createXML(diagram);
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,
-				"UTF-8"));
-		bw.write(xml);
-		bw.close();
 	}
 
 	/**
@@ -174,62 +261,8 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	}
 
 	/**
-	 * @see org.eclipse.ui.ISaveablePart#doSave(org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	public void doSave(IProgressMonitor monitor) {
-		try {
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			createOutputStream(out);
-			IFile file = ((IFileEditorInput) getEditorInput()).getFile();
-			file.setContents(new ByteArrayInputStream(out.toByteArray()), true,
-					false, monitor);
-			out.close();
-			getCommandStack().markSaveLocation();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * @see org.eclipse.ui.ISaveablePart#doSaveAs()
 	 */
-	public void doSaveAs() {
-		SaveAsDialog dialog = new SaveAsDialog(getSite().getWorkbenchWindow()
-				.getShell());
-		dialog.setOriginalFile(((IFileEditorInput) getEditorInput()).getFile());
-		dialog.open();
-		IPath path = dialog.getResult();
-
-		if (path == null)
-			return;
-
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		final IFile file = workspace.getRoot().getFile(path);
-
-		WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
-			public void execute(final IProgressMonitor monitor)
-					throws CoreException {
-				try {
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					createOutputStream(out);
-					file.create(new ByteArrayInputStream(out.toByteArray()),
-							true, monitor);
-					out.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		};
-
-		try {
-			new ProgressMonitorDialog(getSite().getWorkbenchWindow().getShell())
-					.run(false, true, op);
-			setInput(new FileEditorInput((IFile) file));
-			getCommandStack().markSaveLocation();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	protected KeyHandler getCommonKeyHandler() {
 		if (sharedKeyHandler == null) {
@@ -259,56 +292,14 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	public void gotoMarker(IMarker marker) {
 	}
 
-	/**
-	 * @see org.eclipse.ui.ISaveablePart#isSaveAsAllowed()
-	 */
-	public boolean isSaveAsAllowed() {
-		return true;
+	@Override
+	public IEditorInput getEditorInput() {
+		return super.getEditorInput();
 	}
 
-	/**
-	 * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
-	 */
-	public void setInput(IEditorInput input) {
-		if (input == null) {
-			diagram = new ScreenBody();
-			DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
-			setEditDomain(defaultEditDomain);
-			return;
-		}
-		super.setInput(input);
-		if (!(input instanceof IFileEditorInput)) {
-			return;
-		}
-
-		file = ((IFileEditorInput) input).getFile();
-		this.setPartName(file.getName());
-		InputStream is = null;
-		try {
-			is = file.getContents(false);
-			CompositeLoader parser = new CompositeLoader();
-			CompositeMap rootMap = parser.loadFromStream(is);
-			CompositeMap2Object c2o = new CompositeMap2Object();
-			diagram = c2o.createScreenBody(rootMap);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (is != null)
-					is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (diagram == null) {
-				diagram = new ScreenBody();
-			}
-			DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
-			setEditDomain(defaultEditDomain);
-		}
+	@Override
+	public IEditorSite getEditorSite() {
+		return super.getEditorSite();
 	}
 
 	protected void createPropertyViewer(Composite c) {
@@ -317,10 +308,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		if (editDomain == null)
 			return;
 		propertyViewer.setCommandStack(editDomain.getCommandStack());
-	}
-
-	protected void createBMViewer(Composite c) {
-		bmViewer = new BMViewer(c, this);
 	}
 
 	public ScreenBody getDiagram() {
