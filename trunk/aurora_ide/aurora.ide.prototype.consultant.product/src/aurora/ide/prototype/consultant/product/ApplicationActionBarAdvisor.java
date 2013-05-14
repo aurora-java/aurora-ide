@@ -16,6 +16,9 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
+import aurora.ide.prototype.consultant.product.action.NewFileAction;
+import aurora.ide.prototype.consultant.product.action.OpenFileAction;
+
 /**
  * An action bar advisor is responsible for creating, adding, and disposing of
  * the actions added to a workbench window. Each window will be populated with
@@ -30,10 +33,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction exitAction;
 	// private IWorkbenchAction aboutAction;
 	private IWorkbenchAction newWindowAction;
-	private OpenViewAction openViewAction;
+	private NewFileAction newFileAction;
+	private OpenFileAction openFileAction;
 	// private Action messagePopupAction;
 	// private IWorkbenchAction printAction;
 	private IWorkbenchAction saveAction;
+	private IWorkbenchAction saveAsAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -50,15 +55,17 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		exitAction = ActionFactory.QUIT.create(window);
 		register(exitAction);
 
-//		aboutAction = ActionFactory.ABOUT.create(window);
-//		register(aboutAction);
+		// aboutAction = ActionFactory.ABOUT.create(window);
+		// register(aboutAction);
 
 		newWindowAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
 		register(newWindowAction);
 
-		openViewAction = new OpenViewAction(window,
-				"Open a blank File.", View.ID);
-		register(openViewAction);
+		newFileAction = new NewFileAction(window, "Create a blank File.");
+		register(newFileAction);
+
+		openFileAction = new OpenFileAction(window, "Open a File.");
+		register(openFileAction);
 
 		// messagePopupAction = new MessagePopupAction("Open Message", window);
 		// register(messagePopupAction);
@@ -68,6 +75,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		this.saveAction = ActionFactory.SAVE.create(window);
 		register(this.saveAction);
+		
+		this.saveAsAction = ActionFactory.SAVE_AS.create(window);
+		register(this.saveAsAction);
 
 	}
 
@@ -85,7 +95,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		// File
 		fileMenu.add(newWindowAction);
 		fileMenu.add(new Separator());
-		fileMenu.add(openViewAction);
+		fileMenu.add(newFileAction);
+		fileMenu.add(openFileAction);
 		fileMenu.add(new Separator());
 		fileMenu.add(exitAction);
 
@@ -96,8 +107,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	protected void fillCoolBar(ICoolBarManager coolBar) {
 		IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
 		coolBar.add(new ToolBarContributionItem(toolbar, "main"));
-		toolbar.add(openViewAction);
-		// toolbar.add(printAction);
+		toolbar.add(newFileAction);
+		toolbar.add(openFileAction);
 		toolbar.add(saveAction);
+		toolbar.add(saveAsAction);
 	}
 }

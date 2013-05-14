@@ -2,17 +2,13 @@ package aurora.ide.prototype.consultant.product.action;
 
 import java.io.File;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
-
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorRegistry;
@@ -23,14 +19,32 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PartInitException;
 
 import aurora.ide.editor.editorInput.PathEditorInput;
+import aurora.ide.prototype.consultant.product.ICommandIds;
 
 public class OpenFileAction extends Action implements IWorkbenchWindowActionDelegate {
+	
 	
 	private IWorkbenchWindow fWindow;
 
 	public OpenFileAction() {
 		setEnabled(true);
 	}
+
+	public OpenFileAction(IWorkbenchWindow window, String label) {
+		
+		
+		this.fWindow = window;
+		setText(label);
+		// The id is used to refer to the action in a menu or toolbar
+		setId(ICommandIds.OPEN_ID);
+		// Associate the action with a pre-defined command, to allow key
+		// bindings.
+		setActionDefinitionId(ICommandIds.OPEN_COMMAND_ID);
+		setImageDescriptor(aurora.ide.prototype.consultant.product.Activator
+				.getImageDescriptor("/icons/open.gif"));
+		this.setToolTipText(label);
+	}
+
 
 	public void dispose() {
 		fWindow= null;
@@ -80,7 +94,7 @@ public class OpenFileAction extends Action implements IWorkbenchWindowActionDele
 		IEditorDescriptor descriptor= editorRegistry.getDefaultEditor(file.getName());
 		if (descriptor != null)
 			return descriptor.getId();
-		return "org.eclipse.ui.examples.rcp.texteditor.editors.SimpleEditor"; //$NON-NLS-1$
+		return ICommandIds.EDITOR_ID;
 	}
 
 	private IEditorInput createEditorInput(File file) {
