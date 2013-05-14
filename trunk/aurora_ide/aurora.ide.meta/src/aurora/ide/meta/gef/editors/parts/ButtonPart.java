@@ -2,9 +2,26 @@ package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.DirectEditRequest;
+import org.eclipse.gef.tools.CellEditorLocator;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.gef.editors.figures.ButtonFigure;
+import aurora.ide.meta.gef.editors.figures.InputField;
+import aurora.ide.meta.gef.editors.figures.PromptCellEditorLocator;
+import aurora.ide.meta.gef.editors.figures.SimpleDataCellEditorLocator;
+import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
+import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
 import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class ButtonPart extends ComponentPart {
 
@@ -51,15 +68,8 @@ public class ButtonPart extends ComponentPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		// // installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
-		// // new NodeDirectEditPolicy());
-		// String mode = this.getEditorMode().getMode();
-		// if (EditorMode.Template.equals(mode)) {
-		// installEditPolicy(EditPolicy.COMPONENT_ROLE,
-		// new TemplateNodeEditPolicy());
-		// }
-		// if (EditorMode.None.equals(mode))
-		// installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
+				new ComponentDirectEditPolicy());
 	}
 
 	@Override
@@ -67,4 +77,35 @@ public class ButtonPart extends ComponentPart {
 		return NSEW;
 	}
 
+	@Override
+	public void performRequest(Request req) {
+		if (req.getType().equals(RequestConstants.REQ_DIRECT_EDIT)
+				&& req instanceof DirectEditRequest) {
+			ButtonFigure figure = this.getFigure();
+			Rectangle bounds = figure.getBounds().getCopy();
+			figure.translateToAbsolute(bounds);
+			performPromptDirectEditRequest(figure);
+		} else
+			super.performRequest(req);
+	}
+
+
+	protected void performPromptDirectEditRequest(final ButtonFigure figure) {
+		NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
+				this, TextCellEditor.class,
+				new CellEditorLocator(){
+					public void relocate(CellEditor celleditor) {
+						Text text = (Text) celleditor.getControl();
+						Rectangle bounds = figure.getBounds().getCopy();
+						figure.translateToAbsolute(bounds);
+						text.setBounds(bounds.x - 1, bounds.y - 1,  bounds.width+ 1,
+								bounds.height + 1);
+					}
+					
+				},
+				ComponentProperties.text);
+		manager.show();
+	}
+	
+	
 }
