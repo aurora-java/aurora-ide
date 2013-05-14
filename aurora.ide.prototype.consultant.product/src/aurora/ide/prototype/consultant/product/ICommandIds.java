@@ -10,6 +10,7 @@ package aurora.ide.prototype.consultant.product;
 public interface ICommandIds {
 
     public static final String CMD_OPEN = "aurora.ide.prototype.consultant.product.open";
-    public static final String CMD_OPEN_MESSAGE = "aurora.ide.prototype.consultant.product.openMessage";
-    
+    public static final String OPEN_COMMAND_ID = "aurora.ide.prototype.consultant.product.action.OpenFileAction";
+	public static final String OPEN_ID = "aurora.ide.prototype.consultant.product.action.OpenFileAction";    
+	public static final String EDITOR_ID = "aurora.ide.meta.gef.editors.ConsultantVScreenEditor";
 }

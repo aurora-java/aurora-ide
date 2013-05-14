@@ -14,45 +14,22 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="RCP Perspective"
+            name="Prototype Perspective"
             class="aurora.ide.prototype.consultant.product.Perspective"
             id="aurora.ide.prototype.consultant.product.perspective">
       </perspective>
    </extension>
    <extension
-         point="org.eclipse.ui.views">
-      <view
-            name="Message"
-            allowMultiple="true"
-            icon="icons/sample2.gif"
-            class="aurora.ide.prototype.consultant.product.View"
-            id="aurora.ide.prototype.consultant.product.view">
-      </view>
-      <view
-            name="Mailboxes"
-            allowMultiple="true"
-            icon="icons/sample3.gif"
-            class="aurora.ide.prototype.consultant.product.NavigationView"
-            id="aurora.ide.prototype.consultant.product.navigationView">
-      </view>
-   </extension>
-   <extension
          point="org.eclipse.ui.commands">
       <category
-            name="Mail"
+            name="File"
             id="aurora.ide.prototype.consultant.product.category">
       </category>
       <command
-            name="Open Mailbox"
-            description="Opens a mailbox"
+            name="Open File"
+            description="Opens a new prototpye file"
             categoryId="aurora.ide.prototype.consultant.product.category"
             id="aurora.ide.prototype.consultant.product.open">
-      </command>
-      <command
-            name="Open Message Dialog"
-            description="Open a message dialog"
-            categoryId="aurora.ide.prototype.consultant.product.category"
-            id="aurora.ide.prototype.consultant.product.openMessage">
       </command>
    </extension>
    <extension
@@ -61,11 +38,6 @@
             commandId="aurora.ide.prototype.consultant.product.open"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="CTRL+2">
-      </key>
-      <key
-            commandId="aurora.ide.prototype.consultant.product.openMessage"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="CTRL+3">
       </key>
       <key
             commandId="org.eclipse.ui.file.exit"
@@ -81,18 +53,53 @@
             name="Aurora Prototype Product">
          <property
                name="aboutText"
-               value="RCP Mail template created by PDE">
+               value="Aurora Prototype Product created by HAND MAS">
          </property>
          <property
                name="windowImages"
-               value="icons/sample2.gif">
+               value="icons/aurora.gif,product_lg.gif">
          </property>
          <property
                name="aboutImage"
                value="product_lg.gif">
          </property>
+         <property
+               name="appName"
+               value="Aurora Prototype Product">
+         </property>
+         <property
+               name="startupProgressRect"
+               value="5,275,445,15">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
+         </property>
       </product>
    </extension>
+   
+   
+ <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.ui.category.file"
+            description="Open a file"
+            id="aurora.ide.prototype.consultant.product.action.OpenFileAction"
+            name="Open"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="aurora.ide.prototype.consultant.product.action.OpenFileAction"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+O"/>
+   </extension>
+   
+
+
+
 
 <extension-point id="auroraComponent" name="AuroraComponent" schema="schema/auroraComponent.exsd"/>
 <extension-point id="uipEditor" name="Prototype UI Editor" schema="schema/uipEditor.exsd"/>
@@ -102,11 +109,11 @@
          id="aurora.meta.gef.editor"
          point="org.eclipse.ui.editors">
       <editor
-            class="aurora.ide.meta.gef.editors.VScreenEditor"
+            class="aurora.ide.meta.gef.editors.ConsultantVScreenEditor"
             default="true"
             extensions="uip"
             icon="icons/meta.png"
-            id="aurora.ide.meta.gef.editors.VScreenEditor"
+            id="aurora.ide.meta.gef.editors.ConsultantVScreenEditor"
             name="Aurora UI Designer">
       </editor>
 	</extension>

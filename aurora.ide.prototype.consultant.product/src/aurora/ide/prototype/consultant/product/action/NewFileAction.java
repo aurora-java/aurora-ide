@@ -1,4 +1,4 @@
-package aurora.ide.prototype.consultant.product;
+package aurora.ide.prototype.consultant.product.action;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -6,14 +6,13 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 
 import aurora.ide.editor.editorInput.PathEditorInput;
-import aurora.ide.meta.gef.editors.ConsultantVScreenEditor;
+import aurora.ide.prototype.consultant.product.ICommandIds;
 
-public class OpenViewAction extends Action {
+public class NewFileAction extends Action {
 
-	
 	private final IWorkbenchWindow window;
 
-	public OpenViewAction(IWorkbenchWindow window, String label, String viewId) {
+	public NewFileAction(IWorkbenchWindow window, String label) {
 		this.window = window;
 		setText(label);
 		// The id is used to refer to the action in a menu or toolbar
@@ -23,20 +22,19 @@ public class OpenViewAction extends Action {
 		setActionDefinitionId(ICommandIds.CMD_OPEN);
 		setImageDescriptor(aurora.ide.prototype.consultant.product.Activator
 				.getImageDescriptor("/icons/sample2.gif"));
+		this.setToolTipText(label);
 	}
 
 	public void run() {
 		if (window != null) {
 			try {
-				PathEditorInput ei = new PathEditorInput(ConsultantVScreenEditor.PATH);
-				window.getActivePage().openEditor(ei,
-						"aurora.ide.meta.gef.editors.ConsultantVScreenEditor", true);
-				// window.getActivePage().showView(viewId,
-				// Integer.toString(instanceNum++),
-				// IWorkbenchPage.VIEW_ACTIVATE);
+				PathEditorInput ei = new PathEditorInput(
+						PathEditorInput.UNTITLED_PATH);
+				window.getActivePage().openEditor(ei, ICommandIds.EDITOR_ID,
+						true);
 			} catch (PartInitException e) {
 				MessageDialog.openError(window.getShell(), "Error",
-						"Error opening view:" + e.getMessage());
+						"Error Create File:" + e.getMessage());
 			}
 		}
 	}
