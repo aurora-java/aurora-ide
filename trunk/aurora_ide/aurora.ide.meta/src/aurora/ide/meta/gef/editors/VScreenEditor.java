@@ -16,7 +16,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
@@ -50,6 +49,7 @@ import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
+import aurora.ide.meta.gef.editors.property.PropertyManager;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
@@ -312,11 +312,11 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	}
 
 	protected void createPropertyViewer(Composite c) {
-		propertyViewer = new MetaPropertyViewer(c, this);
 		DefaultEditDomain editDomain = getEditDomain();
-		if (editDomain == null)
-			return;
-		propertyViewer.setCommandStack(editDomain.getCommandStack());
+		propertyViewer = new MetaPropertyViewer(c, this,new PropertyManager(editDomain.getCommandStack()));
+//		if (editDomain == null)
+//			return;
+//		propertyViewer.setCommandStack(editDomain.getCommandStack());
 	}
 
 	protected void createBMViewer(Composite c) {

@@ -1,38 +1,28 @@
 package aurora.ide.meta.gef.editors.property;
 
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 
-import aurora.ide.meta.gef.editors.models.commands.ChangePropertyCommand;
+import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.IDatasetDelegate;
 import aurora.plugin.source.gen.screen.model.IDatasetFieldDelegate;
 
 public class DefaultPropertySource implements IPropertySource {
-	// private Object id;
-	// private Object value_new;
-	// private Object value_old;
-	private AuroraComponent component;
-	private CommandStack cmdStack;
-	private IPropertyDescriptor[] defaultPD = EditablePropertyFactory.NONE_PROPS;
 
-	public DefaultPropertySource(AuroraComponent component,
-			CommandStack cmdStack) {
-		this.component = component;
-		this.cmdStack = cmdStack;
-		EditablePropertyFactory editablePropertyFactory = new EditablePropertyFactory();
-		defaultPD = editablePropertyFactory
-				.createPropertyDescriptors(component);
+	private IPropertyDescriptor[] defaultPD = EditablePropertyFactory.NONE_PROPS;
+	private PropertyManager manager;
+	private AuroraComponent component;
+
+	public DefaultPropertySource(ComponentPart componentPart,
+			PropertyManager manager) {
+		this.manager = manager;
+		component = componentPart.getComponent();
+		defaultPD = manager.getPropertyDescriptors(componentPart);
 	}
 
 	public void setPropertyValue(Object id, Object value) {
-		// this.id = id;
-		// this.value_new = value;
-		// cmdStack.execute(this);
-		ChangePropertyCommand command = new ChangePropertyCommand(
-				getRealComponent(id), "" + id, value);
-		cmdStack.execute(command);
+		manager.setPropertyValue(id, value, getRealComponent(id));
 	}
 
 	public void resetPropertyValue(Object id) {

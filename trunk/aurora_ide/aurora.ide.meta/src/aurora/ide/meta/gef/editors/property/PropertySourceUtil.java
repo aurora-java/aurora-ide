@@ -51,9 +51,9 @@ public class PropertySourceUtil {
 		return null;
 	}
 
-	public static IPropertySource translate(AuroraComponent component,
-			CommandStack commandStack) {
-		return new DefaultPropertySource(component, commandStack);
-	}
+//	public static IPropertySource translate(AuroraComponent component,
+//			CommandStack commandStack) {
+//		return new DefaultPropertySource(component, commandStack);
+//	}
 
 }

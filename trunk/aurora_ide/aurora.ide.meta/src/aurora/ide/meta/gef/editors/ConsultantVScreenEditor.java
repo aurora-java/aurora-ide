@@ -35,6 +35,7 @@ import uncertain.composite.XMLOutputter;
 import aurora.ide.editor.editorInput.PathEditorInput;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
+import aurora.ide.meta.gef.editors.consultant.property.ConsultantPropertyManager;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
@@ -89,10 +90,10 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				FileDialog sd = new FileDialog(this.getSite().getShell(),
 						SWT.SAVE);
 				sd.setFileName(path.toString());
-				sd.setFilterExtensions(new String[] { "uip" });
+				sd.setFilterExtensions(new String[] { "*.uip" });
 				sd.setOverwrite(true);
 				String open = sd.open();
-				if (open == null) {
+				if (open == null || open.length() < 1) {
 					return;
 				}
 				path = setNewPath(pei, open);
@@ -122,6 +123,8 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 	public IPath setNewPath(PathEditorInput pei, String open) {
 		IPath path;
 		pei.setPath(path = new Path(open));
+		String lastSegment = path.lastSegment();
+		this.setPartName(lastSegment);
 		return path;
 	}
 
@@ -134,10 +137,11 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 			PathEditorInput pei = (PathEditorInput) editorInput;
 			IPath path = pei.getPath();
 			FileDialog sd = new FileDialog(this.getSite().getShell(), SWT.SAVE);
-			sd.setFilterExtensions(new String[] { "uip" });
+			sd.setFileName(".uip");
+			sd.setFilterExtensions(new String[] { "*.uip" });
 			sd.setOverwrite(true);
 			String open = sd.open();
-			if (open == null) {
+			if (open == null || open.length() < 1) {
 				return;
 			}
 			path = setNewPath(pei, open);
@@ -171,6 +175,9 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 					diagram = new ScreenBody();
 				}
 			}
+			String lastSegment = ((PathEditorInput) input).getPath()
+					.lastSegment();
+			this.setPartName(lastSegment);
 			DefaultEditDomain defaultEditDomain = new DefaultEditDomain(this);
 			setEditDomain(defaultEditDomain);
 		}
@@ -303,11 +310,9 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 	}
 
 	protected void createPropertyViewer(Composite c) {
-		propertyViewer = new MetaPropertyViewer(c, this);
 		DefaultEditDomain editDomain = getEditDomain();
-		if (editDomain == null)
-			return;
-		propertyViewer.setCommandStack(editDomain.getCommandStack());
+		propertyViewer = new MetaPropertyViewer(c, this, new ConsultantPropertyManager(
+				editDomain.getCommandStack()));
 	}
 
 	public ScreenBody getDiagram() {
