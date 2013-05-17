@@ -1,6 +1,5 @@
 package aurora.ide.meta.gef.editors.property;
 
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -18,10 +17,11 @@ public class MetaPropertyViewer implements ISelectionChangedListener,
 
 	private PropertySheetPage psp = new PropertySheetPage();
 	private IWorkbenchPart wpart;
-	private CommandStack commandStack;
+	private PropertyManager propertyManager;
 
-	public MetaPropertyViewer(Composite c, IWorkbenchPart vse) {
+	public MetaPropertyViewer(Composite c, IWorkbenchPart vse,PropertyManager propertyManager) {
 		this.wpart = vse;
+		this.propertyManager = propertyManager;
 		psp.setPropertySourceProvider(this);
 		psp.createControl(c);
 		Control ctrl = psp.getControl();
@@ -34,14 +34,26 @@ public class MetaPropertyViewer implements ISelectionChangedListener,
 	}
 
 	public IPropertySource getPropertySource(Object object) {
+		// if (object instanceof ComponentPart)
+		// return PropertySourceUtil
+		// .translate(((ComponentPart) object).getComponent(),
+		// commandStack);
+		// return null;
 		if (object instanceof ComponentPart)
-			return PropertySourceUtil
-					.translate(((ComponentPart) object).getComponent(),
-							commandStack);
+			return propertyManager
+					.createIPropertySource((ComponentPart) object);
 		return null;
 	}
 
-	public void setCommandStack(CommandStack commandStack) {
-		this.commandStack = commandStack;
+//	public void setCommandStack(CommandStack commandStack) {
+//		this.commandStack = commandStack;
+//	}
+
+	public PropertyManager getPropertyManager() {
+		return propertyManager;
+	}
+
+	public void setPropertyManager(PropertyManager propertyManager) {
+		this.propertyManager = propertyManager;
 	}
 }

@@ -47,6 +47,7 @@ import aurora.ide.meta.gef.editors.VScreenEditorExtPaletteFactory;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
+import aurora.ide.meta.gef.editors.property.PropertyManager;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 public class PrototpyeComposite extends GraphicalEditor implements
@@ -238,12 +239,19 @@ public class PrototpyeComposite extends GraphicalEditor implements
 		super.setInput(input);
 	}
 
+//	protected void createPropertyViewer(Composite c) {
+//		propertyViewer = new MetaPropertyViewer(c, this);
+//		DefaultEditDomain editDomain = getEditDomain();
+//		if (editDomain == null)
+//			return;
+//		propertyViewer.setCommandStack(editDomain.getCommandStack());
+//	}
 	protected void createPropertyViewer(Composite c) {
-		propertyViewer = new MetaPropertyViewer(c, this);
 		DefaultEditDomain editDomain = getEditDomain();
-		if (editDomain == null)
-			return;
-		propertyViewer.setCommandStack(editDomain.getCommandStack());
+		propertyViewer = new MetaPropertyViewer(c, this,new PropertyManager(editDomain.getCommandStack()));
+//		if (editDomain == null)
+//			return;
+//		propertyViewer.setCommandStack(editDomain.getCommandStack());
 	}
 
 	protected void createBMViewer(Composite c) {
