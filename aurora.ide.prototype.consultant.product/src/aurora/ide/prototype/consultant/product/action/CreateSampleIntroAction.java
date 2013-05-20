@@ -47,6 +47,10 @@ public class CreateSampleIntroAction implements IIntroAction {
 			TabFolder tf = createTabs();
 			sb.addChild(tf);
 		}
+		if ("grid_grid".equals(object)) {
+			sb.addChild(createGrid());
+			sb.addChild(createGrid());
+		}
 		IWorkbenchWindow window = site.getWorkbenchWindow();
 		try {
 			PathEditorInput ei = new PathEditorInput(
