@@ -39,6 +39,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	// private IWorkbenchAction printAction;
 	private IWorkbenchAction saveAction;
 	private IWorkbenchAction saveAsAction;
+	 private IWorkbenchAction introAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -78,19 +79,22 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		
 		this.saveAsAction = ActionFactory.SAVE_AS.create(window);
 		register(this.saveAsAction);
+		
+		introAction = ActionFactory.INTRO.create(window);
+		register(introAction);
 
 	}
 
 	protected void fillMenuBar(IMenuManager menuBar) {
 		MenuManager fileMenu = new MenuManager("&File",
 				IWorkbenchActionConstants.M_FILE);
-		// MenuManager helpMenu = new MenuManager("&Help",
-		// IWorkbenchActionConstants.M_HELP);
+		 MenuManager helpMenu = new MenuManager("&Help",
+		 IWorkbenchActionConstants.M_HELP);
 
 		menuBar.add(fileMenu);
 		// Add a group marker indicating where action set menus will appear.
 		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-		// menuBar.add(helpMenu);
+		 menuBar.add(helpMenu);
 
 		// File
 		fileMenu.add(newWindowAction);
@@ -102,6 +106,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		// Help
 		// helpMenu.add(aboutAction);
+		helpMenu.add(introAction);
 	}
 
 	protected void fillCoolBar(ICoolBarManager coolBar) {
