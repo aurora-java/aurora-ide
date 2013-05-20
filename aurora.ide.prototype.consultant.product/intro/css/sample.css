@@ -1,12 +1,15 @@
 
-a#sample1-introLink img { background-image : url(graphics/form.png); }
-a#sample1-introLink:hover img { background-image : url(graphics/sample_hov.gif); }
+a#sample1-introLink img { background-image : url(graphics/form.gif); }
+a#sample1-introLink:hover img { background-image : url(graphics/form_hover.gif); }
 
-a#sample2-introLink img { background-image : url(graphics/grid.png); }
-a#sample2-introLink:hover img { background-image : url(graphics/sample_hov.gif); }
+a#sample2-introLink img { background-image : url(graphics/grid.gif); }
+a#sample2-introLink:hover img { background-image : url(graphics/grid_hover.gif); }
 
-a#sample3-introLink img { background-image : url(graphics/form_grid.png); }
-a#sample3-introLink:hover img { background-image : url(graphics/sample_hov.gif); }
+a#sample3-introLink img { background-image : url(graphics/form_grid.gif); }
+a#sample3-introLink:hover img { background-image : url(graphics/form_grid_hover.gif); }
 
-a#sample4-introLink img { background-image : url(graphics/tabs.png); }
-a#sample4-introLink:hover img { background-image : url(graphics/sample_hov.gif); }
+a#sample4-introLink img { background-image : url(graphics/tabs.gif); }
+a#sample4-introLink:hover img { background-image : url(graphics/tabs_hover.gif); }
+
+a#sample5-introLink img { background-image : url(graphics/grid_grid.gif); }
+a#sample5-introLink:hover img { background-image : url(graphics/grid_grid_hover.gif); }

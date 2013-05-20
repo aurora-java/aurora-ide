@@ -594,5 +594,10 @@
             configId="org.eclipse.ui.intro.universalConfig">
       </configExtension>
       
+      <configExtension
+            content="intro/sample5.xml"
+            configId="org.eclipse.ui.intro.universalConfig">
+      </configExtension>
+      
    </extension>
 </plugin>
