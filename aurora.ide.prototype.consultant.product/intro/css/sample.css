@@ -1,0 +1,12 @@
+
+a#sample1-introLink img { background-image : url(graphics/form.png); }
+a#sample1-introLink:hover img { background-image : url(graphics/sample_hov.gif); }
+
+a#sample2-introLink img { background-image : url(graphics/grid.png); }
+a#sample2-introLink:hover img { background-image : url(graphics/sample_hov.gif); }
+
+a#sample3-introLink img { background-image : url(graphics/form_grid.png); }
+a#sample3-introLink:hover img { background-image : url(graphics/sample_hov.gif); }
+
+a#sample4-introLink img { background-image : url(graphics/tabs.png); }
+a#sample4-introLink:hover img { background-image : url(graphics/sample_hov.gif); }
