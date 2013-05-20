@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Consultant Prototpye Product
+Bundle-Name: Aurora Quick UI Product
 Bundle-SymbolicName: aurora.ide.prototype.consultant.product; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: aurora.ide.prototype.consultant.product.Activator

@@ -27,7 +27,7 @@
       </category>
       <command
             name="Open File"
-            description="Opens a new prototpye file"
+            description="Opens a new file"
             categoryId="aurora.ide.prototype.consultant.product.category"
             id="aurora.ide.prototype.consultant.product.open">
       </command>
@@ -50,10 +50,10 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="aurora.ide.prototype.consultant.product.application"
-            name="Aurora Prototype Product">
+            name="Aurora Quick UI Product">
          <property
                name="aboutText"
-               value="Aurora Prototype Product created by HAND MAS">
+               value="Aurora Quick UI Product created by HAND MAS">
          </property>
          <property
                name="windowImages"
@@ -65,7 +65,7 @@
          </property>
          <property
                name="appName"
-               value="Aurora Prototype Product">
+               value="Aurora Quick UI Product">
          </property>
          <property
                name="startupProgressRect"
@@ -81,7 +81,7 @@
           		value="%productIntroTitle"/>
           <property
           		name="introBrandingImage"
-          		value="product:intro-eclipse.png"/>
+          		value="product:intro_logo.png"/>
           <property
           		name="introBrandingImageText"
           		value="%productIntroBrandingText"/>
