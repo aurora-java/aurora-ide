@@ -50,10 +50,10 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="aurora.ide.prototype.consultant.product.application"
-            name="Aurora Quick UI Product">
+            name="Aurora Prototype Product">
          <property
                name="aboutText"
-               value="Aurora Quick UI Product created by HAND MAS">
+               value="Aurora Prototype Product created by HAND MAS">
          </property>
          <property
                name="windowImages"
@@ -65,7 +65,7 @@
          </property>
          <property
                name="appName"
-               value="Aurora Quick UI Product">
+               value="Aurora Prototype Product">
          </property>
          <property
                name="startupProgressRect"
