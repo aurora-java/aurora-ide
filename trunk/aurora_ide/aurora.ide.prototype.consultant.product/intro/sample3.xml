@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<introContent>
+  	<extensionContent id="aurora.quick.ui.sample3" style="css/sample.css" name="Aurora Quick UI Sample" path="samples/@">
+		<group style-id="content-group" id="aurora.quick.ui-introLink-group">
+       		<link label="Form Grid" url="http://org.eclipse.ui.intro/runAction?pluginId=aurora.ide.prototype.consultant.product&amp;class=aurora.ide.prototype.consultant.product.action.CreateSampleIntroAction&amp;type=form_grid" id="sample3-introLink" style-id="content-link">
+          		<text>Form Grid</text>
+       		</link>
+       	</group>
+  	</extensionContent>
+</introContent>
