@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Aurora Quick UI Product" uid="aurora.ide.prototype.consultant.product.product" id="aurora.ide.prototype.consultant.product.product" application="aurora.ide.prototype.consultant.product.application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="Aurora Quick UI Product" uid="aurora.ide.prototype.consultant.win.product" id="aurora.ide.prototype.consultant.product.product" application="aurora.ide.prototype.consultant.product.application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/aurora.ide.prototype.consultant.product/intro_logo.png"/>
@@ -14,8 +14,6 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>-consoleLog</programArgs>
-      <vmArgs>-Xms512m -Xmx512m -Xdock:icon=../Resources/Eclipse.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
@@ -25,10 +23,16 @@
       location="aurora.ide.prototype.consultant.product"
       startupProgressRect="5,275,445,15" />
    <launcher name="AuroraQuickUI">
-      <macosx icon="/aurora.ide.prototype.consultant.product/logo.icns"/>
       <solaris/>
       <win useIco="false">
-         <bmp/>
+         <ico path="/aurora.ide.prototype.consultant.product/7Images.ico"/>
+         <bmp
+            winSmallHigh="/aurora.ide.prototype.consultant.product/logo/16.bmp"
+            winSmallLow="/aurora.ide.prototype.consultant.product/logo/icon8-16.bmp"
+            winMediumHigh="/aurora.ide.prototype.consultant.product/logo/32.bmp"
+            winMediumLow="/aurora.ide.prototype.consultant.product/logo/icon8-32.bmp"
+            winLargeHigh="/aurora.ide.prototype.consultant.product/logo/48.bmp"
+            winLargeLow="/aurora.ide.prototype.consultant.product/logo/icon8-48.bmp"/>
       </win>
    </launcher>
 
@@ -212,7 +216,6 @@ Library.
       <plugin id="aurora.ide.libs"/>
       <plugin id="aurora.ide.prototype.consultant.product"/>
       <plugin id="com.ibm.icu"/>
-      <plugin id="javax.servlet"/>
       <plugin id="org.eclipse.core.commands"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.databinding"/>
@@ -221,7 +224,6 @@ Library.
       <plugin id="org.eclipse.core.expressions"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.runtime"/>
-      <plugin id="org.eclipse.core.runtime.compatibility.auth"/>
       <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
       <plugin id="org.eclipse.draw2d"/>
       <plugin id="org.eclipse.equinox.app"/>
@@ -233,21 +235,14 @@ Library.
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
       <plugin id="org.eclipse.osgi"/>
-      <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.swt"/>
-      <plugin id="org.eclipse.swt.cocoa.macosx.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
       <plugin id="org.eclipse.ui"/>
-      <plugin id="org.eclipse.ui.cocoa" fragment="true"/>
       <plugin id="org.eclipse.ui.forms"/>
       <plugin id="org.eclipse.ui.intro"/>
       <plugin id="org.eclipse.ui.views"/>
       <plugin id="org.eclipse.ui.workbench"/>
    </plugins>
 
-   <configurations>
-      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
-   </configurations>
 
 </product>

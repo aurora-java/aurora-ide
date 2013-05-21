@@ -57,11 +57,11 @@
          </property>
          <property
                name="windowImages"
-               value="icons/aurora.gif,product_lg.gif">
+               value="logo/16.png,logo/32.png,logo/48.png,logo/64.PNG,logo/128.png">
          </property>
          <property
                name="aboutImage"
-               value="product_lg.gif">
+               value="intro_logo.png">
          </property>
          <property
                name="appName"
