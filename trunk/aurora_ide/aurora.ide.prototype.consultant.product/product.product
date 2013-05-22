@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Aurora Quick UI Product" uid="aurora.ide.prototype.consultant.product.product" id="aurora.ide.prototype.consultant.product.product" application="aurora.ide.prototype.consultant.product.application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="Aurora Quick UI" uid="aurora.ide.prototype.consultant.product.product" id="aurora.ide.prototype.consultant.product.product" application="aurora.ide.prototype.consultant.product.application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/aurora.ide.prototype.consultant.product/intro_logo.png"/>
       <text>
-         Aurora Quick UI Product created by HAND MAS
+         Aurora Quick UI created by HAND MAS
       </text>
    </aboutInfo>
 
