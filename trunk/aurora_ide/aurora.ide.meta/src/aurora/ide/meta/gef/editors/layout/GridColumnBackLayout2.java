@@ -1,11 +1,14 @@
 package aurora.ide.meta.gef.editors.layout;
 
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
+import aurora.ide.meta.gef.editors.parts.GridPart;
+import aurora.plugin.source.gen.screen.model.Grid;
 
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 
 public class GridColumnBackLayout2 extends RowColBackLayout {
 	final static private Insets padding = new Insets(0, 0, 0, 0);
@@ -24,7 +27,7 @@ public class GridColumnBackLayout2 extends RowColBackLayout {
 					return;
 				Rectangle rr = this.partMap.get(rp);
 				rr.setLocation(location);
-				rr.setHeight(selfRectangle.height - 25);
+				// rr.setHeight(selfRectangle.height - 25);
 				location.x += maxColWidths[j];
 
 			}
@@ -47,7 +50,25 @@ public class GridColumnBackLayout2 extends RowColBackLayout {
 			return selfRectangle;
 		}
 		selfRectangle = toDraw2d(parent.getComponent().getBoundsCopy());
+		selfRectangle.setHeight(calculateHeight(parent));
 		return selfRectangle;
+	}
+
+	private int _depth = 0;
+
+	private int calculateHeight(ComponentPart cp) {
+		EditPart parent = cp.getParent();
+		if (parent instanceof GridPart) {
+			int h = ((GridPart) parent).getFigure().getBounds().height;
+			Grid grid = ((GridPart) parent).getGrid();
+			h = h == 0 ? grid.getBoundsCopy().height : h;
+			int nh = grid.hasNavBar() ? 25 : 0;
+			int th = grid.hasToolbar() ? 25 : 0;
+			return h - nh - th - _depth;
+		} else {
+			_depth += 25;
+			return calculateHeight((ComponentPart) parent);
+		}
 	}
 
 }

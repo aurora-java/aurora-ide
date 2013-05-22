@@ -237,7 +237,7 @@ public class GridBackLayout extends BackLayout {
 					return;
 				Rectangle rr = this.partMap.get(rp);
 				rr.setLocation(location);
-				rr.setHeight(selfRectangle.height - titleHight - navbarHight);
+//				rr.setHeight(selfRectangle.height - titleHight - navbarHight);
 				location.x += maxColWidths[j];
 			}
 			location.x = 0 + selfRectangle.getTopLeft().x;

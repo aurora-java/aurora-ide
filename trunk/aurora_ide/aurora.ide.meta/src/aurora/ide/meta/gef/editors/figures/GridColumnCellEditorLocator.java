@@ -22,8 +22,12 @@ public class GridColumnCellEditorLocator implements CellEditorLocator {
 		Rectangle bounds = nodeFigure.getBounds().getCopy();
 		nodeFigure.translateToAbsolute(bounds);
 		int columnHight = nodeFigure.getColumnHight();
-		text.setBounds(bounds.x - 1, bounds.y + columnHight * idx - 1,
-				bounds.width + 1, columnHight + 1);
+		// GridColumnFigure.ROW_HEIGHT;
+		// .getColumnHight();
+		int y = idx == 0 ? 0 : columnHight + GridColumnFigure.ROW_HEIGHT
+				* (idx - 1);
+		int h = idx == 0 ? columnHight : GridColumnFigure.ROW_HEIGHT;
+		text.setBounds(bounds.x - 1, bounds.y + y - 1, bounds.width + 1, h + 1);
 	}
 
 }
