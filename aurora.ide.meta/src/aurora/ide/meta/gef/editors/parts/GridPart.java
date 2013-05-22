@@ -8,6 +8,7 @@ import aurora.ide.meta.gef.editors.figures.GridFigure;
 import aurora.ide.meta.gef.editors.layout.GridBackLayout;
 import aurora.ide.meta.gef.editors.policies.GridLayoutEditPolicy;
 import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.Grid;
 
 public class GridPart extends ContainerPart {
 
@@ -43,5 +44,9 @@ public class GridPart extends ContainerPart {
 	public Rectangle layout() {
 		GridBackLayout layout = new GridBackLayout();
 		return layout.layout(this);
+	}
+	
+	public Grid getGrid(){
+		return (Grid) this.getComponent();
 	}
 }

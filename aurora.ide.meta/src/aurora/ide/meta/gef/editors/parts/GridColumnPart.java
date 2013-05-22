@@ -21,8 +21,6 @@ import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class GridColumnPart extends ContainerPart {
 
-
-
 	@Override
 	protected IFigure createFigure() {
 		GridColumnFigure figure = new GridColumnFigure();
@@ -68,8 +66,8 @@ public class GridColumnPart extends ContainerPart {
 			Rectangle bounds = figure.getBounds().getCopy();
 			figure.translateToAbsolute(bounds);
 			int columnHight = figure.getColumnHight();
-			int _y =  location.y-bounds.y;
-			int idx = _y / columnHight;
+			int _y = location.y - bounds.y - columnHight;
+			int idx = _y <= 0 ? 0 : _y / GridColumnFigure.ROW_HEIGHT+1;
 			if (idx == 0) {
 				performPromptDirectEditRequest(figure);
 			} else {
@@ -83,7 +81,8 @@ public class GridColumnPart extends ContainerPart {
 			int idx) {
 		NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
 				this, TextCellEditor.class, new GridColumnCellEditorLocator(
-						figure, idx), ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA + idx);
+						figure, idx),
+				ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA + idx);
 		manager.show();
 	}
 

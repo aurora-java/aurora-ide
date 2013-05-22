@@ -16,12 +16,14 @@ import aurora.plugin.source.gen.screen.model.Renderer;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 
 public class GridColumnFigure extends Figure {
+	public static final int ROW_HEIGHT = 25;
+
 	private static Image checkImg = PrototypeImagesUtils
 			.getImage("palette/checkbox_01.png");
 
 	private int labelWidth;
 
-	private int columnHight ;
+	private int columnHight =25 ;
 
 	private GridColumn gridColumn;
 
@@ -55,12 +57,11 @@ public class GridColumnFigure extends Figure {
 			return;
 		}
 		int k = 1;
-		for (int i = copy.y + columnHight; i < copy.y + copy.height; i += gridColumn
-				.getHeadHight()) {
+		for (int i = copy.y + columnHight; i < copy.y + copy.height; i += ROW_HEIGHT) {
 			if (k % 2 == 0) {
 				graphics.setBackgroundColor(ColorConstants.GRID_ROW);
 				graphics.fillRectangle(copy.x, i, copy.width,
-						gridColumn.getHeadHight());
+						ROW_HEIGHT);
 			}
 			graphics.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
 			graphics.drawLine(copy.x, i, copy.x + copy.width, i);
@@ -99,12 +100,12 @@ public class GridColumnFigure extends Figure {
 		Rectangle copy = this.getBounds().getCopy();
 		int k = 1;
 		for (int i = copy.y + columnHight; i < copy.y + copy.height
-				- this.columnHight; i += gridColumn.getHeadHight()) {
+				- this.columnHight; i += ROW_HEIGHT) {
 			String sd = gridColumn
 					.getStringPropertyValue(ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA
 							+ k);
 			this.paintSimpleData(graphics, sd, new Rectangle(copy.x + 2, i,
-					copy.width, gridColumn.getHeadHight()));
+					copy.width, ROW_HEIGHT));
 			k++;
 		}
 	}
