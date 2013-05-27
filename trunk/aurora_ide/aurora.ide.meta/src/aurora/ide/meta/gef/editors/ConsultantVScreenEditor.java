@@ -19,6 +19,7 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.DirectEditAction;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
@@ -76,6 +77,7 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				return false;
 			}
 		};
+		this.getPalettePreferences().setPaletteState(FlyoutPaletteComposite.STATE_PINNED_OPEN);
 	}
 
 	/**
