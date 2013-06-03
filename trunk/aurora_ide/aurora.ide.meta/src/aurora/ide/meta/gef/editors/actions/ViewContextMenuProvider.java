@@ -60,6 +60,20 @@ public class ViewContextMenuProvider extends ContextMenuProvider {
 		GEFActionConstants.addStandardActionGroups(menu);
 
 		IAction action;
+		
+		action = getActionRegistry().getAction(ActionFactory.COPY.getId());
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
+		action = getActionRegistry().getAction(ActionFactory.PASTE.getId());
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
+		
+		action = getActionRegistry().getAction(SaveAsImageAction.ID);
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
+		
+		action = getActionRegistry().getAction(CopyAsImageAction.ID);
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
+		
+		
+		
 		action = getActionRegistry().getAction(ActionFactory.UNDO.getId());
 		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
 

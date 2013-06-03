@@ -10,7 +10,6 @@ import java.io.OutputStreamWriter;
 import java.util.EventObject;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -19,24 +18,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.KeyHandler;
-import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.actions.DirectEditAction;
-import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
@@ -55,11 +45,10 @@ import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 
 public class VScreenEditor extends FlayoutBMGEFEditor {
-	
+
 	public static final String CONTEXT_MENU_KEY = "aurora.ide.meta.gef.editor.contextmenu";
 	ScreenBody diagram;
 	private PaletteRoot root;
-	private KeyHandler sharedKeyHandler;
 	private MetaPropertyViewer propertyViewer;
 	private BMViewer bmViewer;
 	private EditorMode editorMode;
@@ -80,41 +69,12 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		markDirty();
 	}
 
-	public void markDirty() {
-		Command cmd = new Command() {
-
-		};
-		this.getEditDomain().getCommandStack().execute(cmd);
-		firePropertyChange(IEditorPart.PROP_DIRTY);
-	}
-
 	public Object getAdapter(Class adapter) {
 		if (IFile.class.equals(adapter)) {
 			return file;
 		}
 
 		return super.getAdapter(adapter);
-	}
-
-	/**
-	 * @see org.eclipse.gef.commands.CommandStackListener#commandStackChanged(java.util.EventObject)
-	 */
-	public void commandStackChanged(EventObject event) {
-		firePropertyChange(IEditorPart.PROP_DIRTY);
-		super.commandStackChanged(event);
-	}
-
-	/**
-	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#createActions()
-	 */
-	protected void createActions() {
-		super.createActions();
-		ActionRegistry registry = getActionRegistry();
-		IAction action;
-
-		action = new DirectEditAction((IWorkbenchPart) this);
-		registry.registerAction(action);
-		getSelectionActions().add(action.getId());
 	}
 
 	/**
@@ -126,10 +86,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 	 * @throws IOException
 	 */
 	protected void createOutputStream(OutputStream os) throws IOException {
-		// ModelIOManager mim = ModelIOManager.getNewInstance();
-		// CompositeMap rootMap = mim.toCompositeMap(diagram);
-		// String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-		// + rootMap.toXML();
 		Object2CompositeMap o2c = new Object2CompositeMap();
 		String xml = o2c.createXML(diagram);
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,
@@ -231,21 +187,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 		}
 	}
 
-	protected KeyHandler getCommonKeyHandler() {
-		if (sharedKeyHandler == null) {
-			sharedKeyHandler = new KeyHandler();
-			sharedKeyHandler
-					.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
-							getActionRegistry().getAction(
-									ActionFactory.DELETE.getId()));
-			sharedKeyHandler.put(
-					KeyStroke.getPressed(SWT.F2, 0),
-					getActionRegistry().getAction(
-							GEFActionConstants.DIRECT_EDIT));
-		}
-		return sharedKeyHandler;
-	}
-
 	/**
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditorWithPalette#getPaletteRoot()
 	 */
@@ -254,9 +195,6 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 			root = VScreenEditorExtPaletteFactory
 					.createPalette(this.editorMode);
 		return root;
-	}
-
-	public void gotoMarker(IMarker marker) {
 	}
 
 	/**
@@ -313,10 +251,8 @@ public class VScreenEditor extends FlayoutBMGEFEditor {
 
 	protected void createPropertyViewer(Composite c) {
 		DefaultEditDomain editDomain = getEditDomain();
-		propertyViewer = new MetaPropertyViewer(c, this,new PropertyManager(editDomain.getCommandStack()));
-//		if (editDomain == null)
-//			return;
-//		propertyViewer.setCommandStack(editDomain.getCommandStack());
+		propertyViewer = new MetaPropertyViewer(c, this, new PropertyManager(
+				editDomain.getCommandStack()));
 	}
 
 	protected void createBMViewer(Composite c) {

@@ -2,7 +2,6 @@ package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -14,13 +13,9 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.gef.editors.figures.ButtonFigure;
-import aurora.ide.meta.gef.editors.figures.InputField;
-import aurora.ide.meta.gef.editors.figures.PromptCellEditorLocator;
-import aurora.ide.meta.gef.editors.figures.SimpleDataCellEditorLocator;
 import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
 import aurora.plugin.source.gen.screen.model.Button;
-import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class ButtonPart extends ComponentPart {

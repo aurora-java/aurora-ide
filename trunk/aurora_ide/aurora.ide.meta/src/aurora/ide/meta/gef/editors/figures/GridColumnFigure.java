@@ -4,7 +4,9 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
@@ -50,6 +52,8 @@ public class GridColumnFigure extends Figure {
 	 * @see org.eclipse.draw2d.Label#paintFigure(org.eclipse.draw2d.Graphics)
 	 */
 	protected void paintFigure(Graphics graphics) {
+//		GC.
+//		graphics.drawText(s, p, style)
 		Rectangle copy = this.getBounds().getCopy();
 		Rectangle firstCellRect = copy.getTranslated(0, columnHight).setHeight(
 				gridColumn.getRowHight());
@@ -117,7 +121,11 @@ public class GridColumnFigure extends Figure {
 		g.setForegroundColor(ColorConstants.BLACK);
 		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
 		g.setClip(r.getResized(-16, 0));
-		g.drawString(text, r.x + 2, r.y + (r.height - dim.height) / 2);
+		Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
+//		g.drawString(text, r.x + 2, r.y + (r.height - dim.height) / 2);
+		g.drawText(text, p);
+		SWTGraphics swtgr = (SWTGraphics)g;
+//		swtgr
 		g.popState();
 	}
 
