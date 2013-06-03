@@ -11,7 +11,6 @@ import org.eclipse.ui.intro.config.IIntroAction;
 
 import aurora.ide.editor.editorInput.PathEditorInput;
 import aurora.ide.meta.gef.editors.ConsultantVScreenEditor;
-import aurora.ide.meta.gef.editors.template.handle.AuroraModelFactory;
 import aurora.ide.prototype.consultant.product.Activator;
 import aurora.ide.prototype.consultant.product.ICommandIds;
 import aurora.plugin.source.gen.screen.model.Button;
