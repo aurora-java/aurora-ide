@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.gef.EditPolicy;
 
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
+import aurora.ide.meta.gef.editors.policies.PasteComponentEditPolicy;
 import aurora.ide.meta.gef.editors.policies.tplt.BindDropModelEditPolicy;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Container;
@@ -42,6 +43,7 @@ public abstract class ContainerPart extends ComponentPart {
 					new ContainerLayoutEditPolicy());
 //		}
 		installEditPolicy("Drop BM", new BindDropModelEditPolicy());
+		installEditPolicy("Paste Components", new PasteComponentEditPolicy());
 	}
 
 	@Override

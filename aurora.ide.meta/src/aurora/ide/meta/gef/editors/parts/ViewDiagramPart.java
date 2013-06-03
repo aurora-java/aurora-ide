@@ -13,6 +13,7 @@ import org.eclipse.gef.commands.CommandStackListener;
 
 import aurora.ide.meta.gef.editors.figures.ViewDiagramLayout;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
+import aurora.ide.meta.gef.editors.policies.PasteComponentEditPolicy;
 import aurora.ide.meta.gef.editors.policies.tplt.BindDropModelEditPolicy;
 
 public class ViewDiagramPart extends ContainerPart {
@@ -63,6 +64,7 @@ public class ViewDiagramPart extends ContainerPart {
 //		if (EditorMode.None.equals(mode)) {
 			installEditPolicy(EditPolicy.LAYOUT_ROLE,
 					new ContainerLayoutEditPolicy());
+			installEditPolicy("Paste Components", new PasteComponentEditPolicy());
 //			installEditPolicy("Drop BM", new BindDropModelEditPolicy());
 //		}
 	}

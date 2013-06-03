@@ -58,6 +58,9 @@ public class GridColumnBackLayout2 extends RowColBackLayout {
 
 	private int calculateHeight(ComponentPart cp) {
 		EditPart parent = cp.getParent();
+		if(parent instanceof ComponentPart == false){
+			return _depth;
+		}
 		if (parent instanceof GridPart) {
 			int h = ((GridPart) parent).getFigure().getBounds().height;
 			Grid grid = ((GridPart) parent).getGrid();

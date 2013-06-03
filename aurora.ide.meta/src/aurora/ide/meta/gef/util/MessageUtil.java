@@ -7,15 +7,15 @@ public class MessageUtil {
 	static public String getButtonText(Button button) {
 		String buttonType = button.getButtonType();
 		if (Button.CLEAR.equals(buttonType))
-			return "清除";
+			return Messages.MessageUtil_Toolbar_button_clear;
 		else if (Button.ADD.equals(buttonType))
-			return "增加";
+			return Messages.MessageUtil_Toolbar_button_add;
 		else if (Button.DELETE.equals(buttonType))
-			return "删除";
+			return Messages.MessageUtil_Toolbar_button_del;
 		else if (Button.SAVE.equals(buttonType))
-			return "保存";
+			return Messages.MessageUtil_Toolbar_button_save;
 		else if (Button.EXCEL.equals(buttonType))
-			return "导出";
+			return Messages.MessageUtil_Toolbar_button_exp;
 		return button.getText();
 	}
 

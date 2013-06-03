@@ -23,6 +23,11 @@ public class Messages extends NLS {
 	public static String CridColumnDialog_Select;
 	public static String CridColumnDialog_Show;
 	public static String CridColumnDialog_Target;
+	public static String MessageUtil_Toolbar_button_add;
+	public static String MessageUtil_Toolbar_button_clear;
+	public static String MessageUtil_Toolbar_button_del;
+	public static String MessageUtil_Toolbar_button_exp;
+	public static String MessageUtil_Toolbar_button_save;
 	public static String NewWizardPage__folder_3;
 	public static String NewWizardPage_Desc;
 	public static String NewWizardPage_Exploer;
