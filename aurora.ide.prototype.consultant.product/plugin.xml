@@ -132,6 +132,7 @@
             extensions="uip"
             icon="icons/meta.png"
             id="aurora.ide.meta.gef.editors.ConsultantVScreenEditor"
+            contributorClass="aurora.ide.meta.gef.editors.ConsultantVScreenEditorContributor" 
             name="Aurora UI Designer">
       </editor>
 	</extension>
@@ -142,6 +143,12 @@
   <extension
         point="aurora.ide.prototype.consultant.product.uipEditor">
      <palette>
+     	 <category
+              filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
+              id="aurora.ide.meta.palette.category.template"
+              label="Template"
+              >
+        </category>
      	<category
               filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.input"
@@ -168,6 +175,7 @@
               label="Tab"
               >
         </category>
+       
      </palette>
   </extension>
   <extension
@@ -348,6 +356,40 @@
            id="aurora.ide.meta.component.queryformbody"
            name="formBody"
            types="formBody">
+     </component>
+     
+     
+     <component
+           categoryId="aurora.ide.meta.palette.category.template"
+           creator="aurora.ide.meta.gef.editors.components.template.GridCreator"
+           descriptor="aurora.ide.meta.component.template.GridDesc"
+           id="aurora.ide.meta.component.template.grid"
+           name="grid"
+           types="grid_template">
+     </component>
+     <component
+           categoryId="aurora.ide.meta.palette.category.template"
+           creator="aurora.ide.meta.gef.editors.components.template.GridEditorCreator"
+           descriptor="aurora.ide.meta.component.template.GridDescEditor"
+           id="aurora.ide.meta.component.template.grid.editor"
+           name="grid"
+           types="grid_template_editor">
+     </component>
+     <component
+           categoryId="aurora.ide.meta.palette.category.template"
+           creator="aurora.ide.meta.gef.editors.components.template.FormCreator"
+           descriptor="aurora.ide.meta.component.template.FormDesc"
+           id="aurora.ide.meta.component.template.form"
+           name="form"
+           types="form_template">
+     </component>
+     <component
+           categoryId="aurora.ide.meta.palette.category.template"
+           creator="aurora.ide.meta.gef.editors.components.template.FieldSetCreator"
+           descriptor="aurora.ide.meta.component.template.FieldSetDesc"
+           id="aurora.ide.meta.component.template.fieldset"
+           name="fieldset"
+           types="fieldset_template">
      </component>
   </extension>
 

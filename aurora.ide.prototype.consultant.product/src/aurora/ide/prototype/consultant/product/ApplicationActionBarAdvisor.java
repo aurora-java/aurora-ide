@@ -39,19 +39,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	// private IWorkbenchAction printAction;
 	private IWorkbenchAction saveAction;
 	private IWorkbenchAction saveAsAction;
-	 private IWorkbenchAction introAction;
+	private IWorkbenchAction introAction;
+
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
 	}
 
 	protected void makeActions(final IWorkbenchWindow window) {
-		// Creates the actions and registers them.
-		// Registering is needed to ensure that key bindings work.
-		// The corresponding commands keybindings are defined in the plugin.xml
-		// file.
-		// Registering also provides automatic disposal of the actions when
-		// the window is closed.
 
 		exitAction = ActionFactory.QUIT.create(window);
 		register(exitAction);
@@ -76,25 +71,24 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		this.saveAction = ActionFactory.SAVE.create(window);
 		register(this.saveAction);
-		
+
 		this.saveAsAction = ActionFactory.SAVE_AS.create(window);
 		register(this.saveAsAction);
-		
+
 		introAction = ActionFactory.INTRO.create(window);
 		register(introAction);
-
 	}
 
 	protected void fillMenuBar(IMenuManager menuBar) {
 		MenuManager fileMenu = new MenuManager("&File",
 				IWorkbenchActionConstants.M_FILE);
-		 MenuManager helpMenu = new MenuManager("&Help",
-		 IWorkbenchActionConstants.M_HELP);
+		MenuManager helpMenu = new MenuManager("&Help",
+				IWorkbenchActionConstants.M_HELP);
 
 		menuBar.add(fileMenu);
 		// Add a group marker indicating where action set menus will appear.
 		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-		 menuBar.add(helpMenu);
+		menuBar.add(helpMenu);
 
 		// File
 		fileMenu.add(newWindowAction);
@@ -102,8 +96,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		fileMenu.add(newFileAction);
 		fileMenu.add(openFileAction);
 		fileMenu.add(new Separator());
+		fileMenu.add(saveAction);
+		fileMenu.add(saveAsAction);
+		fileMenu.add(new Separator());
 		fileMenu.add(exitAction);
-
 		// Help
 		// helpMenu.add(aboutAction);
 		helpMenu.add(introAction);
