@@ -1,8 +1,11 @@
 package aurora.ide.meta.gef.editors.actions;
 
+import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
@@ -17,6 +20,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.PlatformUI;
 
+import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
+
 public class SaveAsImageAction extends SelectionAction {
 
 	public static final String ID = "aurora.ide.meta.gef.editors.actions.SaveAsImageAction";
@@ -26,7 +31,6 @@ public class SaveAsImageAction extends SelectionAction {
 	public SaveAsImageAction(GraphicalEditor part) {
 		super(part);
 		editor = part;
-
 		this.setId(ID);
 		this.setText("Save AS Image");
 	}
@@ -52,16 +56,12 @@ public class SaveAsImageAction extends SelectionAction {
 					"*.jpg", "*.jpeg" });
 			String file = dialog.open();
 			if (file != null) {
-				IFigure figure = rootEditPart
-						.getLayer(LayerConstants.PRINTABLE_LAYERS);
-
-				Rectangle rectangle = figure.getBounds();
+				IFigure figure =getRootFigure(rootEditPart);
+				Rectangle rectangle = calBounds(figure);
 
 				Image image = new Image(Display.getDefault(),
-						rectangle.width + 5, rectangle.height + 5);
-				// Image image = new Image(Display.getDefault(), 800, 500);
+						rectangle.width, rectangle.height);
 				GC gc = new GC(image);
-				// gc.set
 				SWTGraphics graphics = new SWTGraphics(gc);
 				figure.paint(graphics);
 				ImageLoader loader = new ImageLoader();
@@ -94,6 +94,29 @@ public class SaveAsImageAction extends SelectionAction {
 		} finally {
 			rootEditPart.getZoomManager().setZoom(zoom);
 		}
+	}
+
+	public IFigure getRootFigure(ScalableRootEditPart rootEditPart) {
+		List children = rootEditPart.getChildren();
+		if(children.size()>0){
+			Object object = children.get(0);
+			if(object instanceof ViewDiagramPart){
+			return	((ViewDiagramPart) object).getFigure();
+			}
+		}
+		return rootEditPart.getLayer(LayerConstants.PRINTABLE_LAYERS);
+	}
+
+	public Rectangle calBounds(IFigure figure) {
+		Rectangle r = new Rectangle(0,0,0,0);
+		List children = figure.getChildren();
+		for (Object object : children) {
+			if(object instanceof IFigure){
+				Rectangle b = ((IFigure) object).getBounds();
+				r.union(b);
+			}
+		}
+		return r.expand(10, 10);
 	}
 
 	protected GraphicalViewer getViewer() {
