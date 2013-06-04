@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.actions;
 
+import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -14,6 +16,8 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+
+import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
 
 public class CopyAsImageAction extends SelectionAction {
 
@@ -35,13 +39,15 @@ public class CopyAsImageAction extends SelectionAction {
 		double zoom = rootEditPart.getZoomManager().getZoom();
 
 		try {
-			IFigure figure = rootEditPart
-					.getLayer(LayerConstants.PRINTABLE_LAYERS);
+			// IFigure figure = rootEditPart
+			// .getLayer(LayerConstants.PRINTABLE_LAYERS);
+			//
+			// Rectangle rectangle = figure.getBounds();
+			IFigure figure = getRootFigure(rootEditPart);
+			Rectangle rectangle = calBounds(figure);
 
-			Rectangle rectangle = figure.getBounds();
-
-			Image image = new Image(Display.getDefault(), rectangle.width + 50,
-					rectangle.height + 50);
+			Image image = new Image(Display.getDefault(), rectangle.width,
+					rectangle.height);
 			GC gc = new GC(image);
 			SWTGraphics graphics = new SWTGraphics(gc);
 			figure.paint(graphics);
@@ -69,4 +75,26 @@ public class CopyAsImageAction extends SelectionAction {
 		return true;
 	}
 
+	public IFigure getRootFigure(ScalableRootEditPart rootEditPart) {
+		List children = rootEditPart.getChildren();
+		if (children.size() > 0) {
+			Object object = children.get(0);
+			if (object instanceof ViewDiagramPart) {
+				return ((ViewDiagramPart) object).getFigure();
+			}
+		}
+		return rootEditPart.getLayer(LayerConstants.PRINTABLE_LAYERS);
+	}
+
+	public Rectangle calBounds(IFigure figure) {
+		Rectangle r = new Rectangle(0, 0, 0, 0);
+		List children = figure.getChildren();
+		for (Object object : children) {
+			if (object instanceof IFigure) {
+				Rectangle b = ((IFigure) object).getBounds();
+				r.union(b);
+			}
+		}
+		return r.expand(10, 10);
+	}
 }

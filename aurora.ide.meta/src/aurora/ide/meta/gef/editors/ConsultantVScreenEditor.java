@@ -14,26 +14,31 @@ import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.actions.ActionFactory;
 
 import uncertain.composite.CompositeMap;
 import uncertain.composite.XMLOutputter;
 import aurora.ide.editor.editorInput.PathEditorInput;
 import aurora.ide.helpers.CompositeMapUtil;
+import aurora.ide.meta.gef.editors.actions.CopyAsImageAction;
+import aurora.ide.meta.gef.editors.actions.SaveAsImageAction;
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.consultant.property.ConsultantPropertyManager;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
+import aurora.ide.meta.gef.i18n.Messages;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 
 public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
-	public static final String CONTEXT_MENU_KEY = "aurora.ide.meta.gef.editor.contextmenu";
+	public static final String CONTEXT_MENU_KEY = "aurora.ide.meta.gef.editor.contextmenu"; //$NON-NLS-1$
 	ScreenBody diagram;
 	private PaletteRoot root;
 
@@ -79,8 +84,6 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				FlyoutPaletteComposite.STATE_PINNED_OPEN);
 	}
 
-
-
 	/**
 	 * @see org.eclipse.ui.ISaveablePart#doSave(org.eclipse.core.runtime.IProgressMonitor)
 	 */
@@ -93,7 +96,7 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				FileDialog sd = new FileDialog(this.getSite().getShell(),
 						SWT.SAVE);
 				sd.setFileName(path.toString());
-				sd.setFilterExtensions(new String[] { "*.uip" });
+				sd.setFilterExtensions(new String[] { "*.uip" }); //$NON-NLS-1$
 				sd.setOverwrite(true);
 				String open = sd.open();
 				if (open == null || open.length() < 1) {
@@ -136,8 +139,8 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 			PathEditorInput pei = (PathEditorInput) editorInput;
 			IPath path = pei.getPath();
 			FileDialog sd = new FileDialog(this.getSite().getShell(), SWT.SAVE);
-			sd.setFileName(".uip");
-			sd.setFilterExtensions(new String[] { "*.uip" });
+			sd.setFileName(".uip"); //$NON-NLS-1$
+			sd.setFilterExtensions(new String[] { "*.uip" }); //$NON-NLS-1$
 			sd.setOverwrite(true);
 			String open = sd.open();
 			if (open == null || open.length() < 1) {
@@ -205,6 +208,28 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 	@Override
 	protected void createActions() {
 		super.createActions();
+		IAction action = this.getActionRegistry().getAction(
+				ActionFactory.COPY.getId());
+		action.setText(Messages.ConsultantVScreenEditor_4);
+		action.setToolTipText(Messages.ConsultantVScreenEditor_5);
+		action = this.getActionRegistry().getAction(ActionFactory.PASTE.getId());
+		action.setText(Messages.ConsultantVScreenEditor_6);
+		action.setToolTipText(Messages.ConsultantVScreenEditor_7);
+		action = this.getActionRegistry().getAction(ActionFactory.REDO.getId());
+		action.setText(Messages.ConsultantVScreenEditor_8);
+		action.setToolTipText(Messages.ConsultantVScreenEditor_9);
+		action = this.getActionRegistry().getAction(ActionFactory.UNDO.getId());
+		action.setText(Messages.ConsultantVScreenEditor_10);
+		action.setToolTipText(Messages.ConsultantVScreenEditor_11);
+		action = this.getActionRegistry().getAction(ActionFactory.DELETE.getId());
+		action.setText(Messages.ConsultantVScreenEditor_12);
+		action.setToolTipText(Messages.ConsultantVScreenEditor_13);
+		action = this.getActionRegistry().getAction(CopyAsImageAction.ID);
+		action.setText(Messages.ConsultantVScreenEditor_14);
+		action.setToolTipText(Messages.ConsultantVScreenEditor_15);
+		action = this.getActionRegistry().getAction(SaveAsImageAction.ID);
+		action.setText(Messages.ConsultantVScreenEditor_16);
+		action.setToolTipText(Messages.ConsultantVScreenEditor_17);
 	}
 
 	/**
@@ -226,7 +251,6 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				provider, getGraphicalViewer());
 		getGraphicalViewer().addSelectionChangedListener(propertyViewer);
 	}
-
 
 	/**
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#initializeGraphicalViewer()
