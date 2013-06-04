@@ -4,6 +4,7 @@ import org.eclipse.gef.ui.actions.ActionBarContributor;
 import org.eclipse.gef.ui.actions.DeleteRetargetAction;
 import org.eclipse.gef.ui.actions.RedoRetargetAction;
 import org.eclipse.gef.ui.actions.UndoRetargetAction;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.actions.ActionFactory;
@@ -11,6 +12,7 @@ import org.eclipse.ui.actions.LabelRetargetAction;
 
 import aurora.ide.meta.gef.editors.actions.CopyAsImageAction;
 import aurora.ide.meta.gef.editors.actions.SaveAsImageAction;
+import aurora.ide.meta.gef.message.Messages;
 
 public class ConsultantVScreenEditorContributor extends ActionBarContributor {
 
@@ -22,12 +24,13 @@ public class ConsultantVScreenEditorContributor extends ActionBarContributor {
 	 */
 	protected void buildActions() {
 		addRetargetAction(new DeleteRetargetAction());
-		addRetargetAction(new UndoRetargetAction());
+		UndoRetargetAction action = new UndoRetargetAction();
+		addRetargetAction(action);
 		addRetargetAction(new RedoRetargetAction());
 		addRetargetAction(createLabelRetargetAction(CopyAsImageAction.ID,
-				"Copy As a Image", "/icons/full/obj16/image_obj.gif"));
+				Messages.ConsultantVScreenEditorContributor_0, "/icons/full/obj16/image_obj.gif")); //$NON-NLS-2$
 		addRetargetAction(createLabelRetargetAction(SaveAsImageAction.ID,
-				"Save As a Image", "/icons/save_as_image.gif"));
+				Messages.ConsultantVScreenEditorContributor_2, "/icons/save_as_image.gif")); //$NON-NLS-2$
 	}
 
 	private LabelRetargetAction createLabelRetargetAction(String id,
@@ -46,7 +49,8 @@ public class ConsultantVScreenEditorContributor extends ActionBarContributor {
 	 */
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
 		toolBarManager.add(new Separator());
-		toolBarManager.add(getAction(CopyAsImageAction.ID));
+		IAction action = getAction(CopyAsImageAction.ID);
+		toolBarManager.add(action);
 		toolBarManager.add(getAction(SaveAsImageAction.ID));
 		toolBarManager.add(new Separator());
 		toolBarManager.add(getAction(ActionFactory.UNDO.getId()));

@@ -16,6 +16,7 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
+import aurora.ide.meta.gef.message.Messages;
 import aurora.ide.prototype.consultant.product.action.NewFileAction;
 import aurora.ide.prototype.consultant.product.action.OpenFileAction;
 
@@ -49,18 +50,22 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	protected void makeActions(final IWorkbenchWindow window) {
 
 		exitAction = ActionFactory.QUIT.create(window);
+		exitAction.setText(Messages.ApplicationActionBarAdvisor_4);
+		exitAction.setToolTipText(Messages.ApplicationActionBarAdvisor_5);
 		register(exitAction);
 
 		// aboutAction = ActionFactory.ABOUT.create(window);
 		// register(aboutAction);
 
 		newWindowAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
+		newWindowAction.setText(Messages.ApplicationActionBarAdvisor_6);
+		newWindowAction.setToolTipText(Messages.ApplicationActionBarAdvisor_7);
 		register(newWindowAction);
 
-		newFileAction = new NewFileAction(window, "Create a blank File.");
+		newFileAction = new NewFileAction(window, Messages.ApplicationActionBarAdvisor_0);
 		register(newFileAction);
 
-		openFileAction = new OpenFileAction(window, "Open a File.");
+		openFileAction = new OpenFileAction(window, Messages.ApplicationActionBarAdvisor_1);
 		register(openFileAction);
 
 		// messagePopupAction = new MessagePopupAction("Open Message", window);
@@ -70,19 +75,25 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		// register(this.printAction);
 
 		this.saveAction = ActionFactory.SAVE.create(window);
+		saveAction.setText(Messages.ApplicationActionBarAdvisor_8);
+		saveAction.setToolTipText(Messages.ApplicationActionBarAdvisor_9);
 		register(this.saveAction);
 
 		this.saveAsAction = ActionFactory.SAVE_AS.create(window);
+		saveAsAction.setText(Messages.ApplicationActionBarAdvisor_10);
+		saveAsAction.setToolTipText(Messages.ApplicationActionBarAdvisor_11);
 		register(this.saveAsAction);
 
 		introAction = ActionFactory.INTRO.create(window);
+		introAction.setText(Messages.ApplicationActionBarAdvisor_12);
+		introAction.setToolTipText(Messages.ApplicationActionBarAdvisor_13);
 		register(introAction);
 	}
 
 	protected void fillMenuBar(IMenuManager menuBar) {
-		MenuManager fileMenu = new MenuManager("&File",
+		MenuManager fileMenu = new MenuManager(Messages.ApplicationActionBarAdvisor_2,
 				IWorkbenchActionConstants.M_FILE);
-		MenuManager helpMenu = new MenuManager("&Help",
+		MenuManager helpMenu = new MenuManager(Messages.ApplicationActionBarAdvisor_3,
 				IWorkbenchActionConstants.M_HELP);
 
 		menuBar.add(fileMenu);
@@ -107,10 +118,11 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 	protected void fillCoolBar(ICoolBarManager coolBar) {
 		IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
-		coolBar.add(new ToolBarContributionItem(toolbar, "main"));
+		coolBar.add(new ToolBarContributionItem(toolbar, "main")); //$NON-NLS-1$
 		toolbar.add(newFileAction);
 		toolbar.add(openFileAction);
 		toolbar.add(saveAction);
 		toolbar.add(saveAsAction);
+		toolbar.add(introAction);
 	}
 }

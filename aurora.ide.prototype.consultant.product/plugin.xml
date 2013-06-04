@@ -146,33 +146,33 @@
      	 <category
               filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.template"
-              label="Template"
+              label="%uipeditor.palette.category.Template"
               >
         </category>
      	<category
               filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.input"
-              label="Input">
+              label="%uipeditor.palette.category.Input">
         </category>
         <category   
               filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.button"
-              label="Button">
+              label="%uipeditor.palette.category.Button">
         </category>
         <category
               filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.layout"
-              label="Layout">
+              label="%uipeditor.palette.category.Layout">
         </category>
         <category
               filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.grid"
-              label="Grid">
+              label="%uipeditor.palette.category.Grid">
         </category>
         <category
               filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
               id="aurora.ide.meta.palette.category.tab"
-              label="Tab"
+              label="%uipeditor.palette.category.Tab"
               >
         </category>
        
@@ -390,6 +390,22 @@
            id="aurora.ide.meta.component.template.fieldset"
            name="fieldset"
            types="fieldset_template">
+     </component>
+      <component
+           categoryId="aurora.ide.meta.palette.category.template"
+           creator="aurora.ide.meta.gef.editors.components.template.TabsCreator"
+           descriptor="aurora.ide.meta.component.template.TabsDesc"
+           id="aurora.ide.meta.component.template.tabs"
+           name="tabs"
+           types="tabs_template">
+     </component>
+      <component
+           categoryId="aurora.ide.meta.palette.category.template"
+           creator="aurora.ide.meta.gef.editors.components.template.ButtonsCreator"
+           descriptor="aurora.ide.meta.component.template.ButtonsDesc"
+           id="aurora.ide.meta.component.template.buttons"
+           name="buttons"
+           types="buttons_template">
      </component>
   </extension>
 
