@@ -52,6 +52,16 @@ public class DefaultPropertySource implements IPropertySource {
 					return ((IDatasetFieldDelegate) component)
 							.getDatasetField();
 				}
+				if (flag
+						&& ((style & StylePropertyDescriptor.component_child) != 0)) {
+					AuroraComponent ac = component
+							.getAuroraComponentPropertyValue(((StylePropertyDescriptor) pd)
+									.getChildPropertyId());
+					if (ac != null) {
+						return ac;
+					}
+					return component;
+				}
 			}
 		}
 		return component;
