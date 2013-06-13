@@ -21,7 +21,16 @@ public class QueryFormCreator extends ComponentCreator {
 	public PaletteEntry createPaletteEntry() {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"QueryForm", "Create a  QueryForm", QueryForm.class,
-				new SimpleFactory(QueryForm.class),
+				new SimpleFactory(QueryForm.class){
+					public Object getNewObject() {
+						try {
+							return QueryForm.class.newInstance();
+						} catch (Exception exc) {
+							exc.printStackTrace();
+							return new QueryForm();
+						}
+					}
+				},
 				PrototypeImagesUtils.getImageDescriptor("palette/form.png"),
 				PrototypeImagesUtils.getImageDescriptor("palette/form.png"));
 		return combined;

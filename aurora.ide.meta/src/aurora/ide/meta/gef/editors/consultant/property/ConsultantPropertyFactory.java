@@ -82,10 +82,10 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 		if ("screenbody".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return this.screenbody();
 		}
-		if ("formBody".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
+		if ("formBody".equalsIgnoreCase(componentType)) {
 			return this.formBody();
 		}
-		if ("queryForm".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
+		if ("queryForm".equalsIgnoreCase(componentType)) {
 			return this.queryForm();
 		}
 		return NONE_PROPS;
@@ -98,7 +98,13 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	}
 
 	private IPropertyDescriptor[] queryForm() {
-		return NONE_PROPS;
+		// return NONE_PROPS;
+		// IntegerPropertyDescriptor PD_LABELWIDTH = new
+		// IntegerPropertyDescriptor(
+		// labelWidth,
+		// Messages.ConsultantPropertyFactory_LabelWidth,IntegerPropertyDescriptor.component_child);
+		// PD_LABELWIDTH.setChildPropertyId(ComponentInnerProperties.QUERY_FORM_TOOLBAR);
+		return new IPropertyDescriptor[] { PD_WIDTH, PD_LABELWIDTH };
 	}
 
 	private IPropertyDescriptor[] formBody() {
