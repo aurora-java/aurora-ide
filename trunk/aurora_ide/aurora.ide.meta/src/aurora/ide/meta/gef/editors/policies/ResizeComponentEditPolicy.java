@@ -22,8 +22,9 @@ import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.models.commands.ResizeCmpCmd;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
-public class ResizeComponentEditPolicy extends NonResizableEditPolicy {
-	private int resizeDirections = PositionConstants.NSEW;
+public class ResizeComponentEditPolicy extends ResizableEditPolicy implements
+		PositionConstants {
+	private int resizeDirections = NSEW;
 	private Label label = null;
 
 	/**
@@ -38,71 +39,31 @@ public class ResizeComponentEditPolicy extends NonResizableEditPolicy {
 	 * @see org.eclipse.gef.editpolicies.SelectionHandlesEditPolicy#createSelectionHandles()
 	 */
 	protected List createSelectionHandles() {
-		if (resizeDirections == PositionConstants.NONE) {
+		if (resizeDirections == NONE) {
 			// non resizable, so delegate to super implementation
 			return super.createSelectionHandles();
 		}
-
 		// resizable in at least one direction
 		List list = new ArrayList();
 		createMoveHandle(list);
-		if ((resizeDirections & PositionConstants.NORTH) == PositionConstants.NORTH) {
-			createResizeHandle(list, PositionConstants.NORTH);
+		if ((resizeDirections & NORTH) == NORTH) {
+			createResizeHandle(list, NORTH);
 		}
-		if ((resizeDirections & PositionConstants.EAST) == PositionConstants.EAST) {
-			createResizeHandle(list, PositionConstants.EAST);
+		if ((resizeDirections & EAST) == EAST) {
+			createResizeHandle(list, EAST);
 		}
-		if ((resizeDirections & PositionConstants.SOUTH) == PositionConstants.SOUTH) {
-			createResizeHandle(list, PositionConstants.SOUTH);
+		if ((resizeDirections & SOUTH) == SOUTH) {
+			createResizeHandle(list, SOUTH);
 		}
-		if ((resizeDirections & PositionConstants.WEST) == PositionConstants.WEST) {
-			createResizeHandle(list, PositionConstants.WEST);
+		if ((resizeDirections & WEST) == WEST) {
+			createResizeHandle(list, WEST);
 		}
 		//
-		createResizeHandle(list, PositionConstants.SOUTH_EAST);
-		createResizeHandle(list, PositionConstants.SOUTH_WEST);
-		createResizeHandle(list, PositionConstants.NORTH_WEST);
-		createResizeHandle(list, PositionConstants.NORTH_EAST);
+		createResizeHandle(list, SOUTH_EAST);
+		createResizeHandle(list, SOUTH_WEST);
+		createResizeHandle(list, NORTH_WEST);
+		createResizeHandle(list, NORTH_EAST);
 		return list;
-	}
-
-	/**
-	 * Creates a 'resize' handle, which uses a {@link ResizeTracker} in case
-	 * resizing is allowed in the respective direction, otherwise returns a drag
-	 * handle by delegating to
-	 * {@link NonResizableEditPolicy#createDragHandle(List, int)}.
-	 * 
-	 * @param handles
-	 *            The list of handles to add the resize handle to
-	 * @param direction
-	 *            A position constant indicating the direction to create the
-	 *            handle for
-	 * @since 3.7
-	 */
-	protected void createResizeHandle(List handles, int direction) {
-		if ((resizeDirections & direction) == direction) {
-			ResizableHandleKit.addHandle((GraphicalEditPart) getHost(),
-					handles, direction, getResizeTracker(direction), Cursors
-							.getDirectionalCursor(direction, getHostFigure()
-									.isMirrored()));
-		} else {
-			// display 'resize' handle to allow dragging or indicate selection
-			// only
-			createDragHandle(handles, direction);
-		}
-	}
-
-	/**
-	 * Returns a resize tracker for the given direction to be used by a resize
-	 * handle.
-	 * 
-	 * @param direction
-	 *            the resize direction for the {@link ResizeTracker}.
-	 * @return a new {@link ResizeTracker}
-	 * @since 3.7
-	 */
-	protected ResizeTracker getResizeTracker(int direction) {
-		return new ResizeTracker((GraphicalEditPart) getHost(), direction);
 	}
 
 	/**
@@ -147,16 +108,6 @@ public class ResizeComponentEditPolicy extends NonResizableEditPolicy {
 	}
 
 	/**
-	 * @see org.eclipse.gef.EditPolicy#getCommand(org.eclipse.gef.Request)
-	 */
-	public Command getCommand(Request request) {
-		if (REQ_RESIZE.equals(request.getType())) {
-			return getResizeCommand((ChangeBoundsRequest) request);
-		}
-		return super.getCommand(request);
-	}
-
-	/**
 	 * Returns the command contribution for the given resize request. By
 	 * default, the request is re-dispatched to the host's parent as a
 	 * {@link org.eclipse.gef.RequestConstants#REQ_RESIZE_CHILDREN}. The
@@ -183,61 +134,4 @@ public class ResizeComponentEditPolicy extends NonResizableEditPolicy {
 		return cmd;
 	}
 
-	/**
-	 * Sets the directions in which handles should allow resizing. Valid values
-	 * are bit-wise combinations of:
-	 * <UL>
-	 * <LI>{@link PositionConstants#NORTH}
-	 * <LI>{@link PositionConstants#SOUTH}
-	 * <LI>{@link PositionConstants#EAST}
-	 * <LI>{@link PositionConstants#WEST}
-	 * </UL>
-	 * 
-	 * @param newDirections
-	 *            the direction in which resizing is allowed
-	 */
-	public void setResizeDirections(int newDirections) {
-		resizeDirections = newDirections;
-	}
-
-	/**
-	 * @see org.eclipse.gef.EditPolicy#showSourceFeedback(org.eclipse.gef.Request)
-	 */
-	public void showSourceFeedback(Request request) {
-		if (REQ_RESIZE.equals(request.getType())) {
-			showChangeBoundsFeedback((ChangeBoundsRequest) request);
-		} else {
-			super.showSourceFeedback(request);
-		}
-	}
-
-	/**
-	 * @see org.eclipse.gef.EditPolicy#understandsRequest(org.eclipse.gef.Request)
-	 */
-	public boolean understandsRequest(Request request) {
-		if (REQ_RESIZE.equals(request.getType())) {
-			// check all resize directions of the request are supported
-			int resizeDirections = ((ChangeBoundsRequest) request)
-					.getResizeDirection();
-			return (resizeDirections & getResizeDirections()) == resizeDirections;
-		}
-		return super.understandsRequest(request);
-	}
-
-	/**
-	 * Returns the directions in which resizing should be allowed
-	 * 
-	 * Valid values are bit-wise combinations of:
-	 * <UL>
-	 * <LI>{@link PositionConstants#NORTH}
-	 * <LI>{@link PositionConstants#SOUTH}
-	 * <LI>{@link PositionConstants#EAST}
-	 * <LI>{@link PositionConstants#WEST}
-	 * </UL>
-	 * or {@link PositionConstants#NONE}.
-	 * 
-	 */
-	public int getResizeDirections() {
-		return resizeDirections;
-	}
 }
