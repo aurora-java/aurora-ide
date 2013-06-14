@@ -8,6 +8,7 @@ import org.eclipse.gef.requests.SimpleFactory;
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.BoxPart;
+import aurora.ide.meta.gef.editors.parts.HVBoxPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Grid;
 import aurora.plugin.source.gen.screen.model.HBox;
@@ -26,7 +27,7 @@ public class HBoxCreator extends ComponentCreator {
 	}
 	public EditPart createEditPart(Object model){
 		if(model instanceof HBox)
-			return new BoxPart();
+			return new HVBoxPart();
 		return null;
 	}
 	public Class<? extends AuroraComponent> clazz() {

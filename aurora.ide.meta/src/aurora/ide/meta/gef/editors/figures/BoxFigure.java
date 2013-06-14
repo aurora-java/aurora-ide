@@ -15,7 +15,7 @@ import aurora.plugin.source.gen.screen.model.VBox;
  */
 public class BoxFigure extends Figure {
 
-	private int labelWidth;
+//	private int labelWidth;
 
 	private BOX box;
 

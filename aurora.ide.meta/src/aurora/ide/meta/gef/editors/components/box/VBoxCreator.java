@@ -8,6 +8,7 @@ import org.eclipse.gef.requests.SimpleFactory;
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.ComponentCreator;
 import aurora.ide.meta.gef.editors.parts.BoxPart;
+import aurora.ide.meta.gef.editors.parts.HVBoxPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Grid;
 import aurora.plugin.source.gen.screen.model.VBox;
@@ -28,7 +29,7 @@ public class VBoxCreator extends ComponentCreator {
 
 	public EditPart createEditPart(Object model) {
 		if (model instanceof VBox) {
-			return new BoxPart();
+			return new HVBoxPart();
 		}
 		return null;
 	}
