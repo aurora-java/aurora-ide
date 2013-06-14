@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors.figures;
 
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
+import aurora.plugin.source.gen.screen.model.HBox;
 
 import org.eclipse.draw2d.AbstractLabeledBorder;
 import org.eclipse.draw2d.Graphics;
@@ -28,7 +29,7 @@ public class VirtualBoxBorder extends AbstractLabeledBorder {
 		g.setForegroundColor(ColorConstants.VIRTUAL_BORDER);
 		g.setLineStyle(Graphics.LINE_DOT);
 		g.drawRectangle(r);
-		Image img = "H".equals(type) ? hImg : vImg;
+		Image img = HBox.H_BOX.equals(type) ? hImg : vImg;
 		if (img != null) {
 			g.drawImage(img, r.x, r.y);
 		} else {
