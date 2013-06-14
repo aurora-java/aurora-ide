@@ -9,6 +9,7 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import aurora.ide.meta.gef.editors.models.commands.CreateComponentCommand;
 import aurora.ide.meta.gef.editors.models.commands.MoveRemoteChildCmpCmd;
+import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.QueryFormToolBarPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Container;
@@ -57,7 +58,10 @@ public class QueryFormLayoutEditPolicy extends FlowLayoutEditPolicy {
 
 	@Override
 	protected EditPolicy createChildEditPolicy(EditPart child) {
-		return null;
+		ResizeComponentEditPolicy p = new ResizeComponentEditPolicy();
+		ComponentPart cp = (ComponentPart) child;
+		p.setResizeDirections(cp.getResizeDirection());
+		return p;
 	}
 
 	@Override

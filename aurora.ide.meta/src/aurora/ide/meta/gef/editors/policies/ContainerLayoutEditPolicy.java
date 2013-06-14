@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.editors.policies;
 import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.FlowLayoutEditPolicy;
@@ -22,7 +23,6 @@ import aurora.plugin.source.gen.screen.model.Container;
 
 public class ContainerLayoutEditPolicy extends FlowLayoutEditPolicy {
 	private EditPart targetEditPart = null;
-
 
 	@Override
 	protected void decorateChild(EditPart child) {
@@ -121,20 +121,23 @@ public class ContainerLayoutEditPolicy extends FlowLayoutEditPolicy {
 		EditPart part = getHost();
 		if (part instanceof ContainerPart) {
 			return ((ContainerPart) part).isLayoutHorizontal();
-//			Class<? extends Object> modelClass = part.getModel().getClass();
-//			if (modelClass.equals(HBox.class)
-//					|| modelClass.equals(FieldSet.class)
-//					|| modelClass.equals(Form.class)
-//					|| modelClass.equals(Toolbar.class)
-//					|| modelClass.equals(TabFolder.class))
-//				return true;
+			// Class<? extends Object> modelClass = part.getModel().getClass();
+			// if (modelClass.equals(HBox.class)
+			// || modelClass.equals(FieldSet.class)
+			// || modelClass.equals(Form.class)
+			// || modelClass.equals(Toolbar.class)
+			// || modelClass.equals(TabFolder.class))
+			// return true;
 		}
 		return false;
 	}
 
-	// @Override
-	// protected EditPolicy createChildEditPolicy(EditPart child) {
-	// return new ResizableEditPolicy();
-	// }
+	@Override
+	protected EditPolicy createChildEditPolicy(EditPart child) {
+		ResizeComponentEditPolicy p = new ResizeComponentEditPolicy();
+		ComponentPart cp = (ComponentPart) child;
+		p.setResizeDirections(cp.getResizeDirection());
+		return p;
+	}
 
 }

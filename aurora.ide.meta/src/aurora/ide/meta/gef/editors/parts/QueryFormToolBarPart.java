@@ -68,7 +68,7 @@ public class QueryFormToolBarPart extends BoxPart {
 				path.lineTo(rect.x + rect.width, rect.y + d / 2);
 				path.addArc(rect.x + rect.width - d, rect.y, d, d, 0, 90);
 				path.close();
-				graphics.setClip(path);
+				//graphics.setClip(path);
 				graphics.drawImage(bgImage, new Rectangle(bgImage.getBounds()),
 						figure.getBounds());
 				List<IFigure> childs = figure.getChildren();

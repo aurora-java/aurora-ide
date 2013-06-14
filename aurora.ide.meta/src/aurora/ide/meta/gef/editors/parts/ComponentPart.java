@@ -9,6 +9,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.layout.BackLayout;
@@ -75,9 +76,9 @@ public abstract class ComponentPart extends AbstractGraphicalEditPart implements
 		// if (EditorMode.None.equals(mode))
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
 
-		ResizeComponentEditPolicy rep = new ResizeComponentEditPolicy();
-		rep.setResizeDirections(getResizeDirection());
-		installEditPolicy(RESIZE_KEY, rep);
+//		ResizeComponentEditPolicy rep = new ResizeComponentEditPolicy();
+//		rep.setResizeDirections(getResizeDirection());
+//		installEditPolicy(RESIZE_KEY, rep);
 	}
 
 	public EditorMode getEditorMode() {

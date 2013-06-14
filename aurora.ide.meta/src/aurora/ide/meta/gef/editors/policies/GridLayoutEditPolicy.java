@@ -82,7 +82,10 @@ public class GridLayoutEditPolicy extends FlowLayoutEditPolicy {
 
 	@Override
 	protected EditPolicy createChildEditPolicy(EditPart child) {
-		return null;
+		ResizeComponentEditPolicy p = new ResizeComponentEditPolicy();
+		ComponentPart cp = (ComponentPart) child;
+		p.setResizeDirections(cp.getResizeDirection());
+		return p;
 	}
 
 	@Override
