@@ -28,7 +28,7 @@ public class ResizeCmpCmd extends Command {
 	public void execute() {
 		Rectangle draw2d = BoundsConvert.toDraw2d(hostModel.getBoundsCopy());
 		oldBounds = draw2d;
-		hostModel.setBounds(BoundsConvert.toAurora(draw2d.resize(sizeDelta)));
+		redo();
 	}
 
 	@Override
@@ -38,7 +38,8 @@ public class ResizeCmpCmd extends Command {
 
 	@Override
 	public void redo() {
-		execute();
+		hostModel.setBounds(BoundsConvert.toAurora(oldBounds
+				.getResized(sizeDelta)));
 	}
 
 	@Override
