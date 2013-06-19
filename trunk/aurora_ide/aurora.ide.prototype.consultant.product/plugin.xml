@@ -407,8 +407,16 @@
            name="buttons"
            types="buttons_template">
      </component>
+     <component
+           categoryId="aurora.ide.meta.palette.category.input"
+           creator="aurora.ide.meta.gef.editors.components.CustomIconCreator"
+           descriptor="aurora.ide.meta.component.CustomIconDesc"
+           id="aurora.ide.meta.component.Image"
+           name="Icon"
+           types="custom_icon">
+     </component>
   </extension>
-
+	
 <extension
          point="org.eclipse.ui.intro">
       <intro
