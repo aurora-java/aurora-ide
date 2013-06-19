@@ -88,8 +88,15 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 		if ("queryForm".equalsIgnoreCase(componentType)) {
 			return this.queryForm();
 		}
+		if ("custom_icon".equalsIgnoreCase(componentType)) {
+			return this.customIcon();
+		}
 		return NONE_PROPS;
 
+	}
+
+	private IPropertyDescriptor[] customIcon() {
+		return new IPropertyDescriptor[] { PD_WIDTH, PD_HEIGHT };
 	}
 
 	private IPropertyDescriptor[] textarea() {
