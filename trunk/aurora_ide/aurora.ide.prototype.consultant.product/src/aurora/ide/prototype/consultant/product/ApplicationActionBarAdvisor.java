@@ -42,6 +42,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction saveAsAction;
 	private IWorkbenchAction introAction;
 
+	// private TestAction testAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -62,10 +63,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		newWindowAction.setToolTipText(Messages.ApplicationActionBarAdvisor_7);
 		register(newWindowAction);
 
-		newFileAction = new NewFileAction(window, Messages.ApplicationActionBarAdvisor_0);
+		newFileAction = new NewFileAction(window,
+				Messages.ApplicationActionBarAdvisor_0);
 		register(newFileAction);
 
-		openFileAction = new OpenFileAction(window, Messages.ApplicationActionBarAdvisor_1);
+		openFileAction = new OpenFileAction(window,
+				Messages.ApplicationActionBarAdvisor_1);
 		register(openFileAction);
 
 		// messagePopupAction = new MessagePopupAction("Open Message", window);
@@ -88,14 +91,19 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		introAction.setText(Messages.ApplicationActionBarAdvisor_12);
 		introAction.setToolTipText(Messages.ApplicationActionBarAdvisor_13);
 		register(introAction);
+
+		// testAction = new TestAction(window,
+		// Messages.ApplicationActionBarAdvisor_1);
+
 	}
 
 	protected void fillMenuBar(IMenuManager menuBar) {
-		MenuManager fileMenu = new MenuManager(Messages.ApplicationActionBarAdvisor_2,
+		MenuManager fileMenu = new MenuManager(
+				Messages.ApplicationActionBarAdvisor_2,
 				IWorkbenchActionConstants.M_FILE);
-		MenuManager helpMenu = new MenuManager(Messages.ApplicationActionBarAdvisor_3,
+		MenuManager helpMenu = new MenuManager(
+				Messages.ApplicationActionBarAdvisor_3,
 				IWorkbenchActionConstants.M_HELP);
-
 		menuBar.add(fileMenu);
 		// Add a group marker indicating where action set menus will appear.
 		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
@@ -106,6 +114,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		fileMenu.add(new Separator());
 		fileMenu.add(newFileAction);
 		fileMenu.add(openFileAction);
+
 		fileMenu.add(new Separator());
 		fileMenu.add(saveAction);
 		fileMenu.add(saveAsAction);
@@ -124,5 +133,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		toolbar.add(saveAction);
 		toolbar.add(saveAsAction);
 		toolbar.add(introAction);
+
+		// toolbar.add(testAction);
 	}
 }
