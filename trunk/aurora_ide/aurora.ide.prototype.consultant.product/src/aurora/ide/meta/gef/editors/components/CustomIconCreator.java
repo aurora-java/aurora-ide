@@ -5,7 +5,6 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.part.CustomIconPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.CustomICon;
@@ -19,8 +18,10 @@ public class CustomIconCreator extends ComponentCreator {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Image", "Create a new Image", CustomICon.class,
 				new SimpleFactory(CustomICon.class),
-				PrototypeImagesUtils.getImageDescriptor("palette/input_edit.png"),
-				PrototypeImagesUtils.getImageDescriptor("palette/input_edit.png"));
+				aurora.ide.prototype.consultant.product.Activator
+						.getImageDescriptor("/icons/full/obj16/image_obj.gif"),
+				aurora.ide.prototype.consultant.product.Activator
+						.getImageDescriptor("/icons/full/obj16/image_obj.gif"));
 		return combined;
 	}
 
