@@ -82,13 +82,13 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 		if ("screenbody".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return this.screenbody();
 		}
-		if ("formBody".equalsIgnoreCase(componentType)) {
+		if ("formBody".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return this.formBody();
 		}
-		if ("queryForm".equalsIgnoreCase(componentType)) {
+		if ("queryForm".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return this.queryForm();
 		}
-		if ("custom_icon".equalsIgnoreCase(componentType)) {
+		if ("custom_icon".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return this.customIcon();
 		}
 		return NONE_PROPS;
@@ -96,7 +96,8 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	}
 
 	private IPropertyDescriptor[] customIcon() {
-		return new IPropertyDescriptor[] { PD_WIDTH, PD_HEIGHT };
+		return new IPropertyDescriptor[] { PD_WIDTH, PD_HEIGHT, PD_IMAGE_WIDTH,
+				PD_IMAGE_HEIGHT };
 	}
 
 	private IPropertyDescriptor[] textarea() {
@@ -214,11 +215,11 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	private static final ComboPropertyDescriptor PD_COLUMN_EDITOR = new ComboPropertyDescriptor(
 			editor, Messages.ConsultantPropertyFactory_editor, editors);
 	public static final IPropertyDescriptor PD_READONLY = new BooleanPropertyDescriptor(
-			readOnly, "*" + Messages.ConsultantPropertyFactory_readonly,
+			readOnly, "*" + Messages.ConsultantPropertyFactory_readonly, //$NON-NLS-1$
 			BooleanPropertyDescriptor.component
 					| BooleanPropertyDescriptor.datasetfield);
 	public static final IPropertyDescriptor PD_REQUIRED = new BooleanPropertyDescriptor(
-			required, "*" + Messages.ConsultantPropertyFactory_required,
+			required, "*" + Messages.ConsultantPropertyFactory_required, //$NON-NLS-1$
 			BooleanPropertyDescriptor.component
 					| BooleanPropertyDescriptor.datasetfield);
 	private static final IPropertyDescriptor PD_EMPYTEXT = new StringPropertyDescriptor(
@@ -237,7 +238,7 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 			height, Messages.ConsultantPropertyFactory_Height);
 	private static final IPropertyDescriptor[] NONE_PROPS = new IPropertyDescriptor[0];
 	private static final IPropertyDescriptor PD_SELECTION_MODE = new ComboPropertyDescriptor(
-			selectionModel, "*"
+			selectionModel, "*" //$NON-NLS-1$
 					+ Messages.ConsultantPropertyFactory_SelectionModel,
 			selectionModes, StylePropertyDescriptor.component
 					| StylePropertyDescriptor.dataset);
@@ -246,6 +247,11 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	private static final IPropertyDescriptor PD_NAVBAR_TYPE = new ComboPropertyDescriptor(
 			navBarType, Messages.ConsultantPropertyFactory_NavBarType,
 			navBarTypes);
+
+	private static final IPropertyDescriptor PD_IMAGE_WIDTH = new IntegerPropertyDescriptor(
+			IMAGE_WIDTH, Messages.ConsultantPropertyFactory_6, true);
+	private static final IPropertyDescriptor PD_IMAGE_HEIGHT = new IntegerPropertyDescriptor(
+			IMAGE_HEIGHT, Messages.ConsultantPropertyFactory_7, true);
 
 	private IPropertyDescriptor[] screenbody() {
 		return NONE_PROPS;

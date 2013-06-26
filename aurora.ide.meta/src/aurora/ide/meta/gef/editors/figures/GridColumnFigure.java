@@ -4,18 +4,23 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.TextStyle;
+import org.eclipse.swt.widgets.Display;
 
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
+import aurora.ide.meta.gef.util.TextStyleUtil;
 import aurora.plugin.source.gen.screen.model.CheckBox;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.Renderer;
+import aurora.plugin.source.gen.screen.model.StyledStringText;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class GridColumnFigure extends Figure {
 	public static final int ROW_HEIGHT = 25;
@@ -25,7 +30,7 @@ public class GridColumnFigure extends Figure {
 
 	private int labelWidth;
 
-	private int columnHight =25 ;
+	private int columnHight = 25;
 
 	private GridColumn gridColumn;
 
@@ -52,8 +57,8 @@ public class GridColumnFigure extends Figure {
 	 * @see org.eclipse.draw2d.Label#paintFigure(org.eclipse.draw2d.Graphics)
 	 */
 	protected void paintFigure(Graphics graphics) {
-//		GC.
-//		graphics.drawText(s, p, style)
+		// GC.
+		// graphics.drawText(s, p, style)
 		Rectangle copy = this.getBounds().getCopy();
 		Rectangle firstCellRect = copy.getTranslated(0, columnHight).setHeight(
 				gridColumn.getRowHight());
@@ -64,8 +69,7 @@ public class GridColumnFigure extends Figure {
 		for (int i = copy.y + columnHight; i < copy.y + copy.height; i += ROW_HEIGHT) {
 			if (k % 2 == 0) {
 				graphics.setBackgroundColor(ColorConstants.GRID_ROW);
-				graphics.fillRectangle(copy.x, i, copy.width,
-						ROW_HEIGHT);
+				graphics.fillRectangle(copy.x, i, copy.width, ROW_HEIGHT);
 			}
 			graphics.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
 			graphics.drawLine(copy.x, i, copy.x + copy.width, i);
@@ -108,10 +112,44 @@ public class GridColumnFigure extends Figure {
 			String sd = gridColumn
 					.getStringPropertyValue(ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA
 							+ k);
-			this.paintSimpleData(graphics, sd, new Rectangle(copy.x + 2, i,
-					copy.width, ROW_HEIGHT));
+			// this.paintSimpleData(graphics, sd, new Rectangle(copy.x + 2, i,
+			// copy.width, ROW_HEIGHT));
+			paintStyledText(graphics, sd,
+					ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA + k,
+					new Rectangle(copy.x + 2, i, copy.width, ROW_HEIGHT));
 			k++;
 		}
+	}
+
+	protected void paintStyledText(Graphics g, String text, String property_id,
+			Rectangle r) {
+		Rectangle copy = r.getCopy();
+		g.pushState();
+		g.setForegroundColor(ColorConstants.BLACK);
+		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
+		// FigureUtilities.
+		if (ComponentProperties.prompt.equals(property_id) == false)
+			g.setClip(r.getResized(-16, 0));
+		TextLayout tl = new TextLayout(null);
+		tl.setText(text);
+		tl.setFont(getFont());
+		Object obj = gridColumn.getPropertyValue(property_id
+				+ ComponentInnerProperties.TEXT_STYLE);
+		TextStyle ts = null;
+		if (obj instanceof StyledStringText) {
+			ts = TextStyleUtil.createTextStyle((StyledStringText) obj,
+					Display.getDefault(), getFont());
+		} else {
+			ts = new TextStyle();
+		}
+		tl.setStyle(ts, 0, text.length() - 1);
+		Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
+		if (ComponentProperties.prompt.equals(property_id)) {
+			g.drawTextLayout(tl, copy.x, copy.y);
+		} else {
+			g.drawTextLayout(tl, p.x, p.y);
+		}
+		g.popState();
 	}
 
 	protected void paintSimpleData(Graphics g, String text, Rectangle r) {
@@ -122,10 +160,7 @@ public class GridColumnFigure extends Figure {
 		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
 		g.setClip(r.getResized(-16, 0));
 		Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
-//		g.drawString(text, r.x + 2, r.y + (r.height - dim.height) / 2);
 		g.drawText(text, p);
-		SWTGraphics swtgr = (SWTGraphics)g;
-//		swtgr
 		g.popState();
 	}
 
@@ -183,6 +218,10 @@ public class GridColumnFigure extends Figure {
 		if (gridColumn != null)
 			gridColumn.setHeadHight(columnHight);
 		// this.repaint();
+	}
+	
+	public GridColumn getModel(){
+		return gridColumn;
 	}
 
 }

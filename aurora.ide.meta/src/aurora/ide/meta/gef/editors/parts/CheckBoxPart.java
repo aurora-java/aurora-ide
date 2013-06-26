@@ -1,6 +1,11 @@
 package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.jface.viewers.TextCellEditor;
 
 import aurora.ide.meta.gef.editors.figures.CheckBoxFigure;
@@ -31,5 +36,20 @@ public class CheckBoxPart extends InputPart {
 				this, TextCellEditor.class, new SimpleDataCellEditorLocator(
 						figure), ComponentProperties.text);
 		manager.show();
+	}
+
+	public void performRequest(Request req) {
+		if (RequestConstants.REQ_OPEN.equals(req.getType())
+				&& req instanceof LocationRequest) {
+			Point location = ((LocationRequest) req).getLocation();
+			// InputField figure = (InputField) getFigure();
+			Rectangle dataBounds = getPromptBounds();
+			if (dataBounds.contains(location) == false) {
+				performEditStyledStringText(ComponentProperties.prompt);
+			} else {
+				performEditStyledStringText(ComponentProperties.text);
+			}
+		} else
+			super.performRequest(req);
 	}
 }

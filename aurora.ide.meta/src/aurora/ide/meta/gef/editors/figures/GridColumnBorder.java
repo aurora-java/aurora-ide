@@ -6,11 +6,19 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.TextStyle;
+import org.eclipse.swt.widgets.Display;
 
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
+import aurora.ide.meta.gef.util.TextStyleUtil;
+import aurora.plugin.source.gen.screen.model.StyledStringText;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class GridColumnBorder extends AbstractLabeledBorder {
 
@@ -61,7 +69,11 @@ public class GridColumnBorder extends AbstractLabeledBorder {
 				getFont(figure));
 		g.setFont(getFont(figure));
 		g.setForegroundColor(getTextColor());
-		g.drawString(getPrompt(), headRect.getCenter().x - textExtents.width
+		
+//		g.drawString(getPrompt(), headRect.getCenter().x - textExtents.width
+//				/ 2, headRect.getCenter().y - textExtents.height / 2);
+		
+		paintStyledText(g,getPrompt(),ComponentProperties.prompt,headRect.getCenter().x - textExtents.width
 				/ 2, headRect.getCenter().y - textExtents.height / 2);
 
 		g.setForegroundColor(ColorConstants.WHITE);
@@ -71,6 +83,29 @@ public class GridColumnBorder extends AbstractLabeledBorder {
 		g.popState();
 	}
 
+	
+	protected void paintStyledText(Graphics g, String text, String property_id,
+			int x ,int y) {
+		g.pushState();
+		TextLayout tl = new TextLayout(null);
+		tl.setText(text);
+		tl.setFont(figure.getFont());
+		Object obj = figure.getModel().getPropertyValue(property_id
+				+ ComponentInnerProperties.TEXT_STYLE);
+		TextStyle ts = null;
+		if (obj instanceof StyledStringText) {
+			ts = TextStyleUtil.createTextStyle((StyledStringText) obj,
+					Display.getDefault(), figure.getFont());
+		} else {
+			ts = new TextStyle();
+		}
+		tl.setStyle(ts, 0, text.length() - 1);
+			g.drawTextLayout(tl, x, y);
+		
+		g.popState();
+	}
+
+	
 	protected String getPrompt() {
 		String prompt = this.figure.getPrompt();
 		return prompt == null ? "prompt" : prompt;

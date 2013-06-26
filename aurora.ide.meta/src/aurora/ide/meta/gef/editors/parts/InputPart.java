@@ -9,22 +9,27 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.DirectEditRequest;
+import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.DirectEditManager;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.SWT;
 
 import aurora.ide.meta.gef.editors.figures.InputField;
 import aurora.ide.meta.gef.editors.figures.PromptCellEditorLocator;
 import aurora.ide.meta.gef.editors.figures.SimpleDataCellEditorLocator;
 import aurora.ide.meta.gef.editors.layout.InputFieldLayout;
+import aurora.ide.meta.gef.editors.models.commands.ChangeTextStyleCommand;
 import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
+import aurora.ide.meta.gef.editors.wizard.dialog.TextEditDialog;
 import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.StyledStringText;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class InputPart extends ComponentPart {
 
-	
 	private String type;
 
 	/**
@@ -87,14 +92,21 @@ public class InputPart extends ComponentPart {
 
 	@Override
 	public void performRequest(Request req) {
+		if (RequestConstants.REQ_OPEN.equals(req.getType())
+				&& req instanceof LocationRequest) {
+			Point location = ((LocationRequest) req).getLocation();
+			Rectangle dataBounds = getPromptBounds();
+			if (dataBounds.contains(location) == false) {
+				performEditStyledStringText(ComponentProperties.prompt);
+			} else {
+				performEditStyledStringText(ComponentInnerProperties.INPUT_SIMPLE_DATA);
+			}
+		}
 		if (req.getType().equals(RequestConstants.REQ_DIRECT_EDIT)
 				&& req instanceof DirectEditRequest) {
 			Point location = ((DirectEditRequest) req).getLocation();
 			InputField figure = (InputField) getFigure();
-			Rectangle bounds = figure.getBounds().getCopy();
-			figure.translateToAbsolute(bounds);
-			int labelWidth = figure.getLabelWidth();
-			Rectangle dataBounds = bounds.getCopy().setX(bounds.x + labelWidth);
+			Rectangle dataBounds = getPromptBounds();
 			if (dataBounds.contains(location) == false) {
 				performPromptDirectEditRequest(figure);
 			} else {
@@ -104,19 +116,45 @@ public class InputPart extends ComponentPart {
 			super.performRequest(req);
 	}
 
+	protected void performEditStyledStringText(String propertyID) {
+		TextEditDialog ted = new TextEditDialog(this.getViewer().getControl()
+				.getShell());
+		StyledStringText sst = new StyledStringText();
+		Object obj = this.getModel().getPropertyValue(
+				propertyID + ComponentInnerProperties.TEXT_STYLE);
+		if (obj instanceof StyledStringText)
+			sst = (StyledStringText) obj;
+		sst.setText(this.getModel().getStringPropertyValue(propertyID));
+		ted.setStyledStringText(sst);
+		if (Dialog.OK == ted.open()) {
+			sst = ted.getStyledStringText();
+			ChangeTextStyleCommand command = new ChangeTextStyleCommand(
+					getModel(), propertyID, sst.getText(), sst);
+			this.getViewer().getEditDomain().getCommandStack().execute(command);
+		}
+	}
+
+	protected Rectangle getPromptBounds() {
+		InputField figure = (InputField) getFigure();
+		Rectangle bounds = figure.getBounds().getCopy();
+		figure.translateToAbsolute(bounds);
+		int labelWidth = figure.getLabelWidth();
+		Rectangle dataBounds = bounds.getCopy().setX(bounds.x + labelWidth);
+		return dataBounds;
+	}
+
 	protected void performSimpleDataDirectEditRequest(InputField figure) {
+
 		NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
-				this, TextCellEditor.class,
-				new SimpleDataCellEditorLocator(figure),
-				ComponentInnerProperties.INPUT_SIMPLE_DATA);
+				this, TextCellEditor.class, new SimpleDataCellEditorLocator(
+						figure), ComponentInnerProperties.INPUT_SIMPLE_DATA);
 		manager.show();
 	}
 
 	protected void performPromptDirectEditRequest(InputField figure) {
 		NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
 				this, TextCellEditor.class,
-				new PromptCellEditorLocator(figure),
-				ComponentProperties.prompt);
+				new PromptCellEditorLocator(figure), ComponentProperties.prompt);
 		manager.show();
 	}
 }

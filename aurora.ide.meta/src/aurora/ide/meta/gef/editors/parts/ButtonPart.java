@@ -7,15 +7,21 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.requests.DirectEditRequest;
+import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.CellEditorLocator;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.gef.editors.figures.ButtonFigure;
+import aurora.ide.meta.gef.editors.models.commands.ChangeTextStyleCommand;
 import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
+import aurora.ide.meta.gef.editors.wizard.dialog.TextEditDialog;
 import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.StyledStringText;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class ButtonPart extends ComponentPart {
@@ -74,6 +80,10 @@ public class ButtonPart extends ComponentPart {
 
 	@Override
 	public void performRequest(Request req) {
+		if (RequestConstants.REQ_OPEN.equals(req.getType())
+				&& req instanceof LocationRequest) {
+			performEditStyledStringText(ComponentProperties.text);
+		}
 		if (req.getType().equals(RequestConstants.REQ_DIRECT_EDIT)
 				&& req instanceof DirectEditRequest) {
 			ButtonFigure figure = this.getFigure();
@@ -84,23 +94,37 @@ public class ButtonPart extends ComponentPart {
 			super.performRequest(req);
 	}
 
+	protected void performEditStyledStringText(String propertyID) {
+		TextEditDialog ted = new TextEditDialog(this.getViewer().getControl()
+				.getShell());
+		StyledStringText sst = new StyledStringText();
+		Object obj = this.getModel().getPropertyValue(
+				propertyID + ComponentInnerProperties.TEXT_STYLE);
+		if (obj instanceof StyledStringText)
+			sst = (StyledStringText) obj;
+		sst.setText(this.getModel().getStringPropertyValue(propertyID));
+		ted.setStyledStringText(sst);
+		if (Dialog.OK == ted.open()) {
+			sst = ted.getStyledStringText();
+			ChangeTextStyleCommand command = new ChangeTextStyleCommand(
+					getModel(), propertyID, sst.getText(), sst);
+			this.getViewer().getEditDomain().getCommandStack().execute(command);
+		}
+	}
 
 	protected void performPromptDirectEditRequest(final ButtonFigure figure) {
 		NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
-				this, TextCellEditor.class,
-				new CellEditorLocator(){
+				this, TextCellEditor.class, new CellEditorLocator() {
 					public void relocate(CellEditor celleditor) {
 						Text text = (Text) celleditor.getControl();
 						Rectangle bounds = figure.getBounds().getCopy();
 						figure.translateToAbsolute(bounds);
-						text.setBounds(bounds.x - 1, bounds.y - 1,  bounds.width+ 1,
-								bounds.height + 1);
+						text.setBounds(bounds.x - 1, bounds.y - 1,
+								bounds.width + 1, bounds.height + 1);
 					}
-					
-				},
-				ComponentProperties.text);
+
+				}, ComponentProperties.text);
 		manager.show();
 	}
-	
-	
+
 }
