@@ -20,6 +20,7 @@ import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.widgets.FileDialog;
 
 import aurora.ide.libs.AuroraImagesUtils;
+import aurora.ide.meta.gef.editors.components.command.ChangeImageCommand;
 import aurora.ide.meta.gef.editors.layout.InputFieldLayout;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.plugin.source.gen.screen.model.CustomICon;
@@ -45,7 +46,8 @@ public class CustomIconPart extends ComponentPart {
 	public void updateImage() {
 		IFigure figure = this.getFigure();
 		if (figure instanceof ImageFigure) {
-			byte[] iconByteData = this.getModel().getIconByteData();
+			byte[] iconByteData = AuroraImagesUtils.toBytes(this.getModel()
+					.getIconByteData());
 			if (iconByteData != null) {
 				ImageData idd = AuroraImagesUtils.toImageData(iconByteData);
 				ImageDescriptor id = ImageDescriptor.createFromImageData(idd);
@@ -98,14 +100,35 @@ public class CustomIconPart extends ComponentPart {
 	@Override
 	public void performRequest(Request req) {
 		if (RequestConstants.REQ_OPEN.equals(req.getType())) {
-			byte[] bytes = queryFile();
-			if (bytes != null)
-				this.getModel().setIconByteData(bytes);
+			String path = queryFile();
+			if (path != null) {
+				try {
+					Path p = new Path(path);
+					String fileExtension = p.getFileExtension();
+					int iconType = getIconType(fileExtension);
+					if (iconType == -1)
+						return;
+					ImageData loadImageData = this.loadImageData(p);
+					ChangeImageCommand cic = new ChangeImageCommand(
+							this.getModel(), loadImageData, iconType);
+					this.getViewer().getEditDomain().getCommandStack()
+							.execute(cic);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		super.performRequest(req);
 	}
 
-	private byte[] queryFile() {
+	private ImageData loadImageData(Path path) throws FileNotFoundException {
+		ImageLoader loader = new ImageLoader();
+		ImageData[] load = loader.load(new FileInputStream(path.toFile()));
+		ImageData imageData = load[0];
+		return imageData;
+	}
+
+	private String queryFile() {
 		FileDialog dialog = new FileDialog(this.getViewer().getControl()
 				.getShell().getShell(), SWT.OPEN);
 		dialog.setText("Open File"); //$NON-NLS-1$
@@ -113,20 +136,7 @@ public class CustomIconPart extends ComponentPart {
 				"*.jpeg", "*.bmp", "*.tiff", });
 		String path = dialog.open();
 		if (path != null && path.length() > 0) {
-			Path p = new Path(path);
-			String fileExtension = p.getFileExtension();
-			int iconType = getIconType(fileExtension);
-			if (iconType == -1)
-				return null;
-			ImageLoader loader = new ImageLoader();
-			try {
-				ImageData[] load = loader.load(new FileInputStream(p.toFile()));
-				ImageData imageData = load[0];
-				byte[] bytes = AuroraImagesUtils.toBytes(imageData, iconType);
-				return bytes;
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			return path;
 		}
 		return null;
 	}
