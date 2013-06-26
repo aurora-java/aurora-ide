@@ -8,11 +8,18 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.TextStyle;
+import org.eclipse.swt.widgets.Display;
 
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.util.BoundsConvert;
 import aurora.ide.meta.gef.util.MessageUtil;
+import aurora.ide.meta.gef.util.TextStyleUtil;
 import aurora.plugin.source.gen.screen.model.Button;
+import aurora.plugin.source.gen.screen.model.StyledStringText;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 /**
  */
@@ -59,13 +66,16 @@ public class ButtonFigure extends Figure {
 			g.drawImage(bgImg, 3, 4, 3, 2, rect.x + dim.width - 3, rect.y
 					+ dim.height - 2, 3, 2);// br
 		}
-		String text =MessageUtil.getButtonText(model);
+		String text = MessageUtil.getButtonText(model);
 		Dimension textExtents = FigureUtilities.getTextExtents(text, getFont());
 		Rectangle r1 = getStdImgRect();
 		g.setForegroundColor(ColorConstants.BLACK);
 		if (r1 == null) {
-			g.drawString(text, rect.x + (dim.width - textExtents.width) / 2,
-					rect.y + (dim.height - textExtents.height) / 2);
+			// g.drawString(text, rect.x + (dim.width - textExtents.width) / 2,
+			// rect.y + (dim.height - textExtents.height) / 2);
+			paintStyledText(g, text, ComponentProperties.text, rect.x
+					+ (dim.width - textExtents.width) / 2, rect.y
+					+ (dim.height - textExtents.height) / 2);
 		} else {
 			Rectangle r2 = new Rectangle(rect.x
 					+ (dim.width - textExtents.width - 16) / 2, rect.y
@@ -75,6 +85,27 @@ public class ButtonFigure extends Figure {
 					rect.x + (dim.width - textExtents.width) / 2 + 8, rect.y
 							+ (dim.height - textExtents.height) / 2);
 		}
+		g.popState();
+	}
+
+	protected void paintStyledText(Graphics g, String text, String property_id,
+			int x, int y) {
+		g.pushState();
+		TextLayout tl = new TextLayout(null);
+		tl.setText(text);
+		tl.setFont(getFont());
+		Object obj = model.getPropertyValue(property_id
+				+ ComponentInnerProperties.TEXT_STYLE);
+		TextStyle ts = null;
+		if (obj instanceof StyledStringText) {
+			ts = TextStyleUtil.createTextStyle((StyledStringText) obj,
+					Display.getDefault(), getFont());
+		} else {
+			ts = new TextStyle();
+		}
+		tl.setStyle(ts, 0, text.length() - 1);
+		g.drawTextLayout(tl, x, y);
+
 		g.popState();
 	}
 

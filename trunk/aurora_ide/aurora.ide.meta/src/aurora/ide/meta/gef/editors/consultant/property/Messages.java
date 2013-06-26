@@ -4,6 +4,8 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "aurora.ide.meta.gef.editors.consultant.property.messages"; //$NON-NLS-1$
+	public static String ConsultantPropertyFactory_6;
+	public static String ConsultantPropertyFactory_7;
 	public static String ConsultantPropertyFactory_Column;
 	public static String ConsultantPropertyFactory_editor;
 	public static String ConsultantPropertyFactory_empty_text;

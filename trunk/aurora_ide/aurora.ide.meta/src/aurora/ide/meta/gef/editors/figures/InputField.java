@@ -11,11 +11,17 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.TextStyle;
+import org.eclipse.swt.widgets.Display;
 
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
+import aurora.ide.meta.gef.util.TextStyleUtil;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
+import aurora.plugin.source.gen.screen.model.StyledStringText;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 /**
  */
@@ -58,13 +64,13 @@ public class InputField extends Figure {
 		super.paintFigure(graphics);
 		String prompt = model.getPrompt() + " : ";
 		Rectangle textRectangle = getTextRectangle();
-		graphics.drawText(prompt, textRectangle.getLocation());
-
+		paintStyledText(graphics, prompt, ComponentProperties.prompt,
+				textRectangle);
+		// graphics.drawText(prompt, textRectangle.getLocation());
 		Rectangle inputRectangle = getInputRectangle(textRectangle);
-		
 		graphics.setForegroundColor(ColorConstants.EDITOR_BORDER);
 		graphics.drawRectangle(inputRectangle.getResized(-1, -1));
-		
+
 		Rectangle r = inputRectangle.getTranslated(1, 1).getResized(-2, -2);
 
 		Color bgColor = ColorConstants.WHITE;
@@ -78,11 +84,13 @@ public class InputField extends Figure {
 		String sd = model
 				.getStringPropertyValue(ComponentInnerProperties.INPUT_SIMPLE_DATA);
 		if (sd != null && "".equals(sd) == false) {
-			paintSimpleData(graphics, sd, r);
+			// paintSimpleData(graphics, sd, r);
+			paintStyledText(graphics, sd,
+					ComponentInnerProperties.INPUT_SIMPLE_DATA, r);
 		} else {
 			paintEmptyText(graphics, model.getEmptyText(), r);
 		}
-//		graphics.setForegroundColor(ColorConstants.EDITOR_BORDER);
+		// graphics.setForegroundColor(ColorConstants.EDITOR_BORDER);
 		Image image = getImage();
 
 		if (image != null) {
@@ -91,6 +99,37 @@ public class InputField extends Figure {
 					getImageLocation().y, 16, 16, imageR.getTopRight().x - 18,
 					imageR.getTopRight().y, 16, 16);
 		}
+	}
+
+	protected void paintStyledText(Graphics g, String text, String property_id,
+			Rectangle r) {
+		Rectangle copy = r.getCopy();
+		g.pushState();
+		g.setForegroundColor(ColorConstants.BLACK);
+		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
+		// FigureUtilities.
+		if (ComponentProperties.prompt.equals(property_id) == false)
+			g.setClip(r.getResized(-16, 0));
+		TextLayout tl = new TextLayout(null);
+		tl.setText(text);
+		tl.setFont(getFont());
+		Object obj = model.getPropertyValue(property_id
+				+ ComponentInnerProperties.TEXT_STYLE);
+		TextStyle ts = null;
+		if (obj instanceof StyledStringText) {
+			ts = TextStyleUtil.createTextStyle((StyledStringText) obj,
+					Display.getDefault(), getFont());
+		} else {
+			ts = new TextStyle();
+		}
+		tl.setStyle(ts, 0, text.length() - 1);
+		Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
+		if (ComponentProperties.prompt.equals(property_id)) {
+			g.drawTextLayout(tl, copy.x, copy.y);
+		} else {
+			g.drawTextLayout(tl, p.x, p.y);
+		}
+		g.popState();
 	}
 
 	protected Rectangle getInputRectangle(Rectangle textRectangle) {
