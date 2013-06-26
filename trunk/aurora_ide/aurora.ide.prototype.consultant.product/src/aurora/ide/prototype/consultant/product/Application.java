@@ -16,6 +16,7 @@ public class Application implements IApplication {
 	 */
 	public Object start(IApplicationContext context) {
 		Display display = PlatformUI.createDisplay();
+//		DelayedEventsProcessor processor = new DelayedEventsProcessor(display);
 		try {
 			int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
 			if (returnCode == PlatformUI.RETURN_RESTART) {

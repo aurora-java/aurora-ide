@@ -1,5 +1,6 @@
 package aurora.ide.prototype.consultant.product;
 
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
@@ -10,22 +11,18 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
  */
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
+//	private DelayedEventsProcessor processor;
+//
+//	public ApplicationWorkbenchAdvisor(DelayedEventsProcessor processor) {
+//		this.processor = processor;
+//	}
+
+	public ApplicationWorkbenchAdvisor() {
+	}
+
 	@Override
 	public void preStartup() {
-//		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-//		IExtension[] extensions = extensionRegistry
-//				.getExtensions("aurora.ide.meta");
-//		for (IExtension iExtension : extensions) {
-//			String extensionPointUniqueIdentifier = iExtension
-//					.getExtensionPointUniqueIdentifier();
-//			if ("org.eclipse.ui.actionSets"
-//					.equals(extensionPointUniqueIdentifier)) {
-////				extensionRegistry
-////						.removeExtension(iExtension, "aurora.ide.meta");
-//			}
-//			System.out.println(extensionPointUniqueIdentifier);
-//
-//		}
+		super.preStartup();
 	}
 
 	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
@@ -42,6 +39,12 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 		// .getDefault().getActionSetRegistry().getActionSetsFor(
 		// part.getSite().getId());
 		return Perspective.ID;
+	}
+
+	public void eventLoopIdle(Display display) {
+//		if (processor != null)
+//			processor.catchUp(display);
+		super.eventLoopIdle(display);
 	}
 
 }
