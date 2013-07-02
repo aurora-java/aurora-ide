@@ -23,8 +23,6 @@ public class Messages extends NLS {
 	public static String ConsultantVScreenEditor_12;
 	public static String ConsultantVScreenEditor_13;
 	public static String ConsultantVScreenEditor_14;
-	public static String ConsultantVScreenEditor_15;
-	public static String ConsultantVScreenEditor_16;
 	public static String ConsultantVScreenEditor_17;
 	public static String ConsultantVScreenEditor_4;
 	public static String ConsultantVScreenEditor_5;
