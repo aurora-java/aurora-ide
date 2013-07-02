@@ -12,7 +12,6 @@ import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
@@ -80,8 +79,8 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				return false;
 			}
 		};
-		this.getPalettePreferences().setPaletteState(
-				FlyoutPaletteComposite.STATE_PINNED_OPEN);
+//		this.getPalettePreferences().setPaletteState(
+//				FlyoutPaletteComposite.STATE_PINNED_OPEN);
 	}
 
 	/**
@@ -226,9 +225,9 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 		action.setToolTipText(Messages.ConsultantVScreenEditor_13);
 		action = this.getActionRegistry().getAction(CopyAsImageAction.ID);
 		action.setText(Messages.ConsultantVScreenEditor_14);
-		action.setToolTipText(Messages.ConsultantVScreenEditor_15);
+		action.setToolTipText(Messages.ConsultantVScreenEditor_14);
 		action = this.getActionRegistry().getAction(SaveAsImageAction.ID);
-		action.setText(Messages.ConsultantVScreenEditor_16);
+		action.setText(Messages.ConsultantVScreenEditor_17);
 		action.setToolTipText(Messages.ConsultantVScreenEditor_17);
 	}
 
