@@ -126,7 +126,7 @@ public class TextEditDialog extends Dialog {
 		String fontName = styledStringText.getFontName();
 		if (fontName != null && "".equals(fontName) == false
 				&& styledStringText.getFontSize() > 0) {
-			textFont = new Font(display, fontName,
+			textFont = new Font(Display.getDefault(), fontName,
 					styledStringText.getFontSize(), SWT.NORMAL);
 			setStyle(FONT);
 		}
@@ -141,7 +141,7 @@ public class TextEditDialog extends Dialog {
 			if (styledStringText.getStrikeoutColor() != null
 					&& false == StyledStringText.UNAVAILABLE_RGB
 							.equals(styledStringText.getStrikeoutColor())) {
-				strikeoutColor = new Color(display,
+				strikeoutColor = new Color(Display.getDefault(),
 						AuroraImagesUtils.toRGB(styledStringText
 								.getStrikeoutColor()));
 			}
@@ -160,7 +160,7 @@ public class TextEditDialog extends Dialog {
 				if (styledStringText.getUnderlineColor() != null
 						&& false == StyledStringText.UNAVAILABLE_RGB
 								.equals(styledStringText.getUnderlineColor())) {
-					underlineColor = new Color(display,
+					underlineColor = new Color(Display.getDefault(),
 							AuroraImagesUtils.toRGB(styledStringText
 									.getUnderlineColor()));
 				}
@@ -187,7 +187,7 @@ public class TextEditDialog extends Dialog {
 		if (styledStringText.getTextBackground() != null
 				&& false == StyledStringText.UNAVAILABLE_RGB
 						.equals(styledStringText.getTextBackground())) {
-			textBackground = new Color(display,
+			textBackground = new Color(Display.getDefault(),
 					AuroraImagesUtils.toRGB(styledStringText
 							.getTextBackground()));
 			setStyle(BACKGROUND);
@@ -195,7 +195,7 @@ public class TextEditDialog extends Dialog {
 		if (styledStringText.getTextForeground() != null
 				&& false == StyledStringText.UNAVAILABLE_RGB
 						.equals(styledStringText.getTextForeground())) {
-			textForeground = new Color(display,
+			textForeground = new Color(Display.getDefault(),
 					AuroraImagesUtils.toRGB(styledStringText
 							.getTextForeground()));
 			setStyle(FOREGROUND);
@@ -278,7 +278,7 @@ public class TextEditDialog extends Dialog {
 				if (newRgb != null) {
 					if (!newRgb.equals(rgb)) {
 						disposeResource(underlineColor);
-						underlineColor = new Color(display, newRgb);
+						underlineColor = new Color(Display.getDefault(), newRgb);
 					}
 					if (underlineSingleItem.getSelection())
 						setStyle(UNDERLINE_SINGLE);
@@ -332,7 +332,7 @@ public class TextEditDialog extends Dialog {
 						return;
 					if (!newRgb.equals(rgb)) {
 						disposeResource(strikeoutColor);
-						strikeoutColor = new Color(display, newRgb);
+						strikeoutColor = new Color(Display.getDefault(), newRgb);
 					}
 				}
 				setStyle(STRIKEOUT);
@@ -354,7 +354,7 @@ public class TextEditDialog extends Dialog {
 						return;
 					if (!newRgb.equals(rgb)) {
 						disposeResource(textForeground);
-						textForeground = new Color(display, newRgb);
+						textForeground = new Color(Display.getDefault(), newRgb);
 					}
 				}
 				setStyle(FOREGROUND);
@@ -376,7 +376,7 @@ public class TextEditDialog extends Dialog {
 						return;
 					if (!newRgb.equals(rgb)) {
 						disposeResource(textBackground);
-						textBackground = new Color(display, newRgb);
+						textBackground = new Color(Display.getDefault(), newRgb);
 					}
 				}
 				setStyle(BACKGROUND);
@@ -465,10 +465,10 @@ public class TextEditDialog extends Dialog {
 	private String link;
 
 	// Resources
-	private Image iBold, iItalic, iUnderline, iStrikeout, iLeftAlignment,
-			iRightAlignment, iCenterAlignment, iJustifyAlignment, iCopy, iCut,
-			iLink;
-	private Image iPaste, iTextForeground, iTextBackground, iBaselineUp,
+	static private Image iBold, iItalic, iUnderline, iStrikeout,
+			iLeftAlignment, iRightAlignment, iCenterAlignment,
+			iJustifyAlignment, iCopy, iCut, iLink;
+	static private Image iPaste, iTextForeground, iTextBackground, iBaselineUp,
 			iBaselineDown, iBulletList, iNumberedList, iBlockSelection,
 			iBorderStyle;
 	private Font font, textFont;
@@ -746,27 +746,41 @@ public class TextEditDialog extends Dialog {
 	}
 
 	private void initResources() {
-		iBold = loadImage(display, "bold"); //$NON-NLS-1$
-		iItalic = loadImage(display, "italic"); //$NON-NLS-1$
-		iUnderline = loadImage(display, "underline"); //$NON-NLS-1$
-		iStrikeout = loadImage(display, "strikeout"); //$NON-NLS-1$
-		iBlockSelection = loadImage(display, "fullscrn"); //$NON-NLS-1$
-		iBorderStyle = loadImage(display, "resize"); //$NON-NLS-1$
-		iLeftAlignment = loadImage(display, "left"); //$NON-NLS-1$
-		iRightAlignment = loadImage(display, "right"); //$NON-NLS-1$
-		iCenterAlignment = loadImage(display, "center"); //$NON-NLS-1$
-		iJustifyAlignment = loadImage(display, "justify"); //$NON-NLS-1$
-		iCut = loadImage(display, "cut"); //$NON-NLS-1$
-		iCopy = loadImage(display, "copy"); //$NON-NLS-1$
-		iPaste = loadImage(display, "paste"); //$NON-NLS-1$
-		iTextForeground = loadImage(display, "textForeground"); //$NON-NLS-1$
-		iTextBackground = loadImage(display, "textBackground"); //$NON-NLS-1$
-		iBaselineUp = loadImage(display, "font_big"); //$NON-NLS-1$
-		iBaselineDown = loadImage(display, "font_sml"); //$NON-NLS-1$
-		iBulletList = loadImage(display, "para_bul"); //$NON-NLS-1$
-		iNumberedList = loadImage(display, "para_num"); //$NON-NLS-1$
-		iLink = new Image(display, getClass().getResourceAsStream(
-				"link_obj.gif")); //$NON-NLS-1$
+		iBold = iBold == null ? loadImage(Display.getDefault(), "bold") : iBold; //$NON-NLS-1$
+		iItalic = iItalic == null ? loadImage(Display.getDefault(), "italic") : iItalic; //$NON-NLS-1$
+		iUnderline = iUnderline == null ? loadImage(Display.getDefault(),
+				"underline") : iUnderline; //$NON-NLS-1$
+		iStrikeout = iStrikeout == null ? loadImage(Display.getDefault(),
+				"strikeout") : iStrikeout; //$NON-NLS-1$
+		iBlockSelection = iBlockSelection == null ? loadImage(
+				Display.getDefault(), "fullscrn") : iBlockSelection; //$NON-NLS-1$
+		iBorderStyle = iBorderStyle == null ? loadImage(Display.getDefault(),
+				"resize") : iBorderStyle; //$NON-NLS-1$
+		iLeftAlignment = iLeftAlignment == null ? loadImage(
+				Display.getDefault(), "left") : iLeftAlignment; //$NON-NLS-1$
+		iRightAlignment = iRightAlignment == null ? loadImage(
+				Display.getDefault(), "right") : iRightAlignment; //$NON-NLS-1$
+		iCenterAlignment = iCenterAlignment == null ? loadImage(
+				Display.getDefault(), "center") : iCenterAlignment; //$NON-NLS-1$
+		iJustifyAlignment = iJustifyAlignment == null ? loadImage(
+				Display.getDefault(), "justify") : iJustifyAlignment; //$NON-NLS-1$
+		iCut = iCut == null ? loadImage(Display.getDefault(), "cut") : iCut; //$NON-NLS-1$
+		iCopy = iCopy == null ? loadImage(Display.getDefault(), "copy") : iCopy; //$NON-NLS-1$
+		iPaste = iPaste == null ? loadImage(Display.getDefault(), "paste") : iPaste; //$NON-NLS-1$
+		iTextForeground = iTextForeground == null ? loadImage(
+				Display.getDefault(), "textForeground") : iTextForeground; //$NON-NLS-1$
+		iTextBackground = iTextBackground == null ? loadImage(
+				Display.getDefault(), "textBackground") : iTextBackground; //$NON-NLS-1$
+		iBaselineUp = iBaselineUp == null ? loadImage(Display.getDefault(),
+				"font_big") : iBaselineUp; //$NON-NLS-1$
+		iBaselineDown = iBaselineDown == null ? loadImage(Display.getDefault(),
+				"font_sml") : iBaselineDown; //$NON-NLS-1$
+		iBulletList = iBulletList == null ? loadImage(Display.getDefault(),
+				"para_bul") : iBulletList; //$NON-NLS-1$
+		iNumberedList = iNumberedList == null ? loadImage(Display.getDefault(),
+				"para_num") : iNumberedList; //$NON-NLS-1$
+		iLink = iLink == null ? new Image(Display.getDefault(), getClass()
+				.getResourceAsStream("link_obj.gif")) : iLink; //$NON-NLS-1$
 	}
 
 	private void installListeners() {
@@ -838,68 +852,68 @@ public class TextEditDialog extends Dialog {
 	}
 
 	private void releaseResources() {
-		iBold.dispose();
-		iBold = null;
-		iItalic.dispose();
-		iItalic = null;
-		iUnderline.dispose();
-		iUnderline = null;
-		iStrikeout.dispose();
-		iStrikeout = null;
-		iBorderStyle.dispose();
-		iBorderStyle = null;
-		iBlockSelection.dispose();
-		iBlockSelection = null;
-		iLeftAlignment.dispose();
-		iLeftAlignment = null;
-		iRightAlignment.dispose();
-		iRightAlignment = null;
-		iCenterAlignment.dispose();
-		iCenterAlignment = null;
-		iJustifyAlignment.dispose();
-		iJustifyAlignment = null;
-		iCut.dispose();
-		iCut = null;
-		iCopy.dispose();
-		iCopy = null;
-		iPaste.dispose();
-		iPaste = null;
-		iTextForeground.dispose();
-		iTextForeground = null;
-		iTextBackground.dispose();
-		iTextBackground = null;
-		iBaselineUp.dispose();
-		iBaselineUp = null;
-		iBaselineDown.dispose();
-		iBaselineDown = null;
-		iBulletList.dispose();
-		iBulletList = null;
-		iNumberedList.dispose();
-		iNumberedList = null;
-		iLink.dispose();
-		iLink = null;
+		// iBold.dispose();
+		// iBold = null;
+		// iItalic.dispose();
+		// iItalic = null;
+		// iUnderline.dispose();
+		// iUnderline = null;
+		// iStrikeout.dispose();
+		// iStrikeout = null;
+		// iBorderStyle.dispose();
+		// iBorderStyle = null;
+		// iBlockSelection.dispose();
+		// iBlockSelection = null;
+		// iLeftAlignment.dispose();
+		// iLeftAlignment = null;
+		// iRightAlignment.dispose();
+		// iRightAlignment = null;
+		// iCenterAlignment.dispose();
+		// iCenterAlignment = null;
+		// iJustifyAlignment.dispose();
+		// iJustifyAlignment = null;
+		// iCut.dispose();
+		// iCut = null;
+		// iCopy.dispose();
+		// iCopy = null;
+		// iPaste.dispose();
+		// iPaste = null;
+		// iTextForeground.dispose();
+		// iTextForeground = null;
+		// iTextBackground.dispose();
+		// iTextBackground = null;
+		// iBaselineUp.dispose();
+		// iBaselineUp = null;
+		// iBaselineDown.dispose();
+		// iBaselineDown = null;
+		// iBulletList.dispose();
+		// iBulletList = null;
+//		 iNumberedList.dispose();
+		// iNumberedList = null;
+		// iLink.dispose();
+		// iLink = null;
 
-		if (textFont != null)
-			textFont.dispose();
+//		if (textFont != null)
+//			textFont.dispose();
 		textFont = null;
-		if (textForeground != null)
-			textForeground.dispose();
+//		if (textForeground != null)
+//			textForeground.dispose();
 		textForeground = null;
-		if (textBackground != null)
-			textBackground.dispose();
+//		if (textBackground != null)
+//			textBackground.dispose();
 		textBackground = null;
-		if (strikeoutColor != null)
-			strikeoutColor.dispose();
+//		if (strikeoutColor != null)
+//			strikeoutColor.dispose();
 		strikeoutColor = null;
-		if (underlineColor != null)
-			underlineColor.dispose();
+//		if (underlineColor != null)
+//			underlineColor.dispose();
 		underlineColor = null;
-		if (borderColor != null)
-			borderColor.dispose();
+//		if (borderColor != null)
+//			borderColor.dispose();
 		borderColor = null;
 
-		if (font != null)
-			font.dispose();
+//		if (font != null)
+//			font.dispose();
 		font = null;
 	}
 
@@ -1029,7 +1043,7 @@ public class TextEditDialog extends Dialog {
 					}
 				}
 				if (change) {
-					mergedRange.font = new Font(display, fds);
+					mergedRange.font = new Font(Display.getDefault(), fds);
 				}
 			}
 			if ((style & FOREGROUND) != 0) {
