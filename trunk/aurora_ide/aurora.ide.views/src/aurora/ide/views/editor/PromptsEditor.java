@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-import aurora.ide.views.prompts.view.ViewNode;
+import aurora.ide.view.ViewNode;
 
 public class PromptsEditor {
 

@@ -46,19 +46,23 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.WorkbenchEncoding;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.ViewPart;
 import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.AuroraPlugin;
 import aurora.ide.editor.editorInput.StringEditorInput;
 import aurora.ide.freemarker.FreeMarkerGenerator;
 import aurora.ide.helpers.ApplicationException;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.helpers.DialogUtil;
+import aurora.ide.helpers.LocaleMessage;
+import aurora.ide.prompt.PromptManager;
 import aurora.ide.search.cache.CacheManager;
+import aurora.ide.view.IPromptsViewer;
+import aurora.ide.view.ViewNode;
 import aurora.ide.views.dialog.ResourceSelector;
 import aurora.ide.views.editor.PromptsEditor;
 import aurora.ide.views.prompts.preference.PromptsRegisterSqlConfigration;
@@ -69,7 +73,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 
-public class PromptsView extends ViewPart {
+public class PromptsView extends ViewPart implements IPromptsViewer {
 
 	/**
 	 * The ID of the view as specified by the extension.
@@ -126,7 +130,7 @@ public class PromptsView extends ViewPart {
 				return vn.getZhsPrompt();
 			}
 			case 3: {
-				return "";
+				return vn.getUsPrompt();
 			}
 			case 4: {
 				return vn.getPromptsCode();
@@ -234,6 +238,7 @@ public class PromptsView extends ViewPart {
 						Map prompt = new HashMap();
 						prompt.put("code", code);
 						prompt.put("zhs", n.getZhsPrompt());
+						prompt.put("us", n.getUsPrompt());
 						prompts.add(dow.wrap(prompt));
 						root.put("prompts", dow.wrap(prompts));
 
@@ -271,7 +276,8 @@ public class PromptsView extends ViewPart {
 
 				try {
 					IDE.openEditor(getSite().getPage(), new StringEditorInput(
-							result,"utf-8"), "org.eclipse.ui.DefaultTextEditor");
+							result, "utf-8"),
+							"org.eclipse.ui.DefaultTextEditor");
 				} catch (PartInitException e1) {
 					e1.printStackTrace();
 				}
@@ -294,7 +300,7 @@ public class PromptsView extends ViewPart {
 				}
 				try {
 					IDE.openEditor(getSite().getPage(), new StringEditorInput(
-							compositeMap.toXML(),"utf-8"),
+							compositeMap.toXML(), "utf-8"),
 							"org.eclipse.ui.DefaultTextEditor");
 				} catch (PartInitException e1) {
 					e1.printStackTrace();
@@ -358,12 +364,11 @@ public class PromptsView extends ViewPart {
 		return (IFile) obj;
 	}
 
-	protected void linkFile() {
-		String[] as = { "screen", "bm" };
-		file = openResourceSelector(this.getSite().getShell(), as);
+	public void linkFile(IFile file) {
 		if (file == null)
 			return;
 		try {
+			this.file = file;
 			compositeMap = (CompositeMap) CacheManager.getCompositeMap(file)
 					.clone();
 		} catch (CoreException e) {
@@ -387,23 +392,109 @@ public class PromptsView extends ViewPart {
 
 		compositeMap.iterate(pf, true);
 		result = pf.getResult();
+
+		synWithDB(result, file);
+
 		this.viewer.setInput(result);
 
 		updateCellEditor();
 
 		if (selectALL != null)
 			selectALL.run();
+	}
 
+	private void synWithDB(ViewNode[] result, IFile file) {
+		CompositeMap existPrompts = getExistPrompts(result,file);
+		CompositeMap columnComments = getColumnComments(file);
+		for (ViewNode n : result) {
+			String c = n.getPromptAttribute();
+			boolean promptsCode = PromptManager.isPromptsCode(c);
+			if(promptsCode){
+				n.setPromptsCode(c);
+				CompositeMap code = existPrompts.getChildByAttrib("prompt_code", c);
+				String zhs="";
+				String us="";
+				if(code!=null){
+					 zhs = code.getString("ZHS", "");
+					 us = code.getString("US", "");
+				}
+				if("".equals(zhs)){
+					String name = n.getCompositeMap().getString("name", "");
+					if("".equals(name) ==false&&columnComments!=null){
+						CompositeMap cn = columnComments.getChildByAttrib("column_name", name.toUpperCase());	
+						if(cn!=null){
+							zhs = cn.getString("comments", "");
+						}
+					}
+				}
+				if("".equals(zhs)==false){n.setZhsPrompt(zhs);}
+				if("".equals(us) == false){ n.setUsPrompt(us);}
+			}
+		}
+		
+		// result[0].getPromptAttribute()
+	}
+	
+	private CompositeMap getExistPrompts(ViewNode[] result ,IFile file){
+		List<String> codes = new ArrayList<String>();
+		for (ViewNode n : result) {
+			String c = n.getPromptAttribute();
+			boolean promptsCode = PromptManager.isPromptsCode(c);
+			if(promptsCode){
+				codes.add(c);
+			}
+		}
+		CompositeMap prompts = PromptManager.getPrompts(codes, file);
+		return prompts;
+	}
+
+	private CompositeMap getColumnComments(IFile file){
+		CompositeMap columnComments = null;
+		try {
+			CompositeMap cmap = CacheManager.getWholeBMCompositeMap(file);
+			String baseTable = CompositeMapUtil.getValueIgnoreCase(cmap,
+					"baseTable");
+			if (baseTable != null && "".equals(baseTable)==false) {
+				columnComments = PromptManager.getColumnComments(
+						baseTable, file);
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		return columnComments;
+	}
+	
+	protected void linkFile() {
+		String[] as = { "screen", "bm" };
+		file = openResourceSelector(this.getSite().getShell(), as);
+		if (file == null)
+			return;
+		this.linkFile(file);
 	}
 
 	private void updateCellEditor() {
 		TableItem[] items = table.getItems();
 		for (TableItem item : items) {
 			createCHEditor(item);
+			createUSEditor(item);
 			createCodesEditor(item);
 		}
 	}
-
+	private void createUSEditor(TableItem item) {
+		final PromptsEditor pe = new PromptsEditor(table, item);
+		pe.createEditor(3);
+		final ViewNode viewNode = (ViewNode) item.getData();
+		pe.setText(viewNode.getUsPrompt());
+		pe.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				viewNode.setUsPrompt(pe.getText());
+			}
+		});
+	}
+	
 	private void createCHEditor(TableItem item) {
 		final PromptsEditor pe = new PromptsEditor(table, item);
 		pe.createEditor(2);
@@ -480,9 +571,12 @@ public class PromptsView extends ViewPart {
 		};
 		selectALL.setText("全选");
 		selectALL.setToolTipText("全选");
-		selectALL.setImageDescriptor(PlatformUI.getWorkbench()
-				.getSharedImages()
-				.getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		selectALL.setImageDescriptor(AuroraPlugin
+				.getImageDescriptor(LocaleMessage.getString("checked.icon"))
+		// PlatformUI.getWorkbench()
+		// .getSharedImages()
+		// .getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK)
+				);
 
 		deselectAll = new Action() {
 			public void run() {
@@ -496,9 +590,12 @@ public class PromptsView extends ViewPart {
 		};
 		deselectAll.setText("取消全选");
 		deselectAll.setToolTipText("取消全选");
-		deselectAll.setImageDescriptor(PlatformUI.getWorkbench()
-				.getSharedImages()
-				.getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		deselectAll.setImageDescriptor(AuroraPlugin
+				.getImageDescriptor(LocaleMessage.getString("unchecked.icon"))
+		// PlatformUI.getWorkbench()
+		// .getSharedImages()
+		// .getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK)
+				);
 		// doubleClickAction = new Action() {
 		// public void run() {
 		// ISelection selection = viewer.getSelection();
