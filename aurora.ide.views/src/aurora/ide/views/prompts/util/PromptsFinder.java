@@ -10,7 +10,7 @@ import uncertain.composite.QualifiedName;
 import uncertain.schema.Attribute;
 import uncertain.schema.Element;
 import aurora.ide.helpers.CompositeMapUtil;
-import aurora.ide.views.prompts.view.ViewNode;
+import aurora.ide.view.ViewNode;
 
 public class PromptsFinder implements IterationHandle {
 
