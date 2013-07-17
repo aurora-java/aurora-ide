@@ -36,6 +36,7 @@ public class PropertyViewer extends Canvas implements PaintListener,
 	private int splitLineX = 80;
 	private boolean canResize = true;
 	private boolean resizing = false;
+	private Color ds_prop_color = new Color(null, 4, 168, 118);
 
 	public PropertyViewer(Composite parent, int style) {
 		super(parent, style);
@@ -48,6 +49,12 @@ public class PropertyViewer extends Canvas implements PaintListener,
 		addMouseMoveListener(this);
 		addMouseTrackListener(this);
 		setDragDetect(false);
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		ds_prop_color.dispose();
 	}
 
 	public PropertyItem[] getItems() {
@@ -128,7 +135,7 @@ public class PropertyViewer extends Canvas implements PaintListener,
 		Color fgc = ColorConstants.BLACK;
 		if (text.charAt(0) == '*') {
 			text = text.substring(1);
-			fgc = new Color(null, 4, 168, 118);
+			fgc = ds_prop_color;
 		}
 		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
 		StringBuilder sb = new StringBuilder(text.length() + 3);

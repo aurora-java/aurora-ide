@@ -7,12 +7,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 
 import aurora.ide.AuroraPlugin;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.meta.exception.ResourceNotFoundException;
+import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.property.DialogCellEditor;
 import aurora.ide.meta.gef.editors.property.ResourceSelector;
 import aurora.ide.meta.project.AuroraMetaProject;
@@ -22,8 +22,6 @@ public class OptionsCellEditor extends DialogCellEditor {
 	public static final int BM = 0;
 	public static final int CODE = 1;
 	private int mode = BM;
-	private Color black = new Color(null, 0, 0, 0);
-	private Color gray = new Color(null, 0, 128, 128);
 
 	public OptionsCellEditor(Composite parent) {
 		super(parent, SWT.NONE);
@@ -35,7 +33,7 @@ public class OptionsCellEditor extends DialogCellEditor {
 
 	public void setSelectionMode(int mode) {
 		this.mode = mode;
-		getLabel().setForeground(mode == BM ? black : gray);
+		getLabel().setForeground(mode == BM ? ColorConstants.black : ColorConstants.gray);
 	}
 
 	@Override
