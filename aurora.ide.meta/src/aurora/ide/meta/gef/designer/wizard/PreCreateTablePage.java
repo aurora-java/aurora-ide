@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 import aurora.ide.meta.gef.designer.wizard.CreateTableWizard.ObjectDescriptor;
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
+import aurora.ide.meta.gef.editors.figures.ColorConstants;
 
 public class PreCreateTablePage extends WizardPage {
 	private Table table;
@@ -182,16 +183,13 @@ public class PreCreateTablePage extends WizardPage {
 
 	class ODLabelProvider extends BaseLabelProvider implements
 			ITableLabelProvider, ITableColorProvider {
-		Color red = new Color(null, 255, 0, 0);
-		Color green = new Color(null, 0, 255, 0);
-		Color orange = new Color(null, 255, 128, 0);
 
 		public Color getForeground(Object element, int columnIndex) {
 			ObjectDescriptor od = (ObjectDescriptor) element;
 			if (columnIndex == 3 && od.exists)
-				return orange;
+				return ColorConstants.orange;
 			else if (columnIndex == 4 && od.create) {
-				return od.exists ? red : green;
+				return od.exists ? ColorConstants.red : ColorConstants.green;
 			}
 			return null;
 		}

@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import uncertain.composite.CompositeMap;
+import aurora.ide.meta.gef.editors.figures.ColorConstants;
 
 public class LookupCodeViewer extends TreeViewer {
 	private Tree tree;
@@ -93,9 +94,9 @@ public class LookupCodeViewer extends TreeViewer {
 		public Color getForeground(Object element) {
 			String t = getText(element);
 			if (t.contains("<"))// <..>means error
-				return new Color(null, 255, 0, 0);
+				return ColorConstants.red;
 			if (LookupCodeUtil.isValue(element)) {
-				return new Color(null, 128, 128, 128);
+				return ColorConstants.gray;
 			}
 			return null;
 		}

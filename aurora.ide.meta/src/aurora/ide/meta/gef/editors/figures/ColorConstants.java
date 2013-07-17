@@ -2,7 +2,7 @@ package aurora.ide.meta.gef.editors.figures;
 
 import org.eclipse.swt.graphics.Color;
 
-public class ColorConstants {
+public class ColorConstants implements org.eclipse.draw2d.ColorConstants {
 
 	public static final Color WHITE = new Color(null, 255, 255, 255);
 	public static final Color BLACK = new Color(null, 0, 0, 0);

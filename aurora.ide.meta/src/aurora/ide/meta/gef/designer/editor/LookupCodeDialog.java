@@ -14,7 +14,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -30,6 +29,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import uncertain.composite.CompositeMap;
 import aurora.ide.AuroraPlugin;
 import aurora.ide.meta.gef.designer.DesignerMessages;
+import aurora.ide.meta.gef.editors.figures.ColorConstants;
 
 public class LookupCodeDialog extends Dialog implements SelectionListener,
 		ISelectionChangedListener, MouseListener {
@@ -92,7 +92,7 @@ public class LookupCodeDialog extends Dialog implements SelectionListener,
 		if (errorMessage != null) {
 			Text errText = new Text(container, SWT.MULTI | SWT.READ_ONLY);
 			errText.setText(errorMessage);
-			errText.setForeground(new Color(null, 255, 0, 0));
+			errText.setForeground(ColorConstants.red);
 			errText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
 					1, 1));
 		} else {
