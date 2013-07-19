@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.editors.figures;
 
+import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
@@ -13,7 +14,7 @@ import aurora.plugin.source.gen.screen.model.VBox;
 /**
 
  */
-public class BoxFigure extends Figure {
+public class BoxFigure extends Figure  implements IResourceDispose{
 
 //	private int labelWidth;
 
@@ -62,4 +63,10 @@ public class BoxFigure extends Figure {
 		return box;
 	}
 
+	public void disposeResource() {
+		Border border = this.getBorder();
+		if (border instanceof IResourceDispose) {
+			((IResourceDispose) border).disposeResource();
+		}
+	}
 }

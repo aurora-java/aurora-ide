@@ -54,21 +54,29 @@ public class CheckBoxFigure extends InputField {
 		String text = model.getText();
 		if (text != null) {
 			textExtents = FigureUtilities.getTextExtents(text, getFont());
-			//g.setForegroundColor(ColorConstants.BLACK);
-			// g.drawText(text, textRectangle.getTopRight().getTranslated(16,
-			// 0));
-			paintStyledText(g, text, ComponentProperties.text,
-					textRectangle.getTopRight().getTranslated(16, 0));
+
+			if (TextStyleUtil.isTextLayoutUseless(this.model,
+					ComponentProperties.text) == false) {
+				paintStyledText(g, text, ComponentProperties.text,
+						textRectangle.getTopRight().getTranslated(16, 0));
+			} else {
+				g.setForegroundColor(ColorConstants.BLACK);
+				g.drawText(text,
+						textRectangle.getTopRight().getTranslated(16, 0));
+			}
+
 		}
 	}
+
 	protected void paintStyledText(Graphics g, String text, String property_id,
 			Point p) {
 		g.pushState();
+		this.disposeResource(property_id);
 		g.setForegroundColor(ColorConstants.BLACK);
-		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
+//		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
 		// FigureUtilities.
-//		if (ComponentProperties.prompt.equals(property_id) == false)
-//			g.setClip(r.getResized(-16, 0));
+		// if (ComponentProperties.prompt.equals(property_id) == false)
+		// g.setClip(r.getResized(-16, 0));
 		TextLayout tl = new TextLayout(null);
 		tl.setText(text);
 		tl.setFont(getFont());
@@ -82,13 +90,14 @@ public class CheckBoxFigure extends InputField {
 			ts = new TextStyle();
 		}
 		tl.setStyle(ts, 0, text.length() - 1);
-//		Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
-//		if (ComponentProperties.prompt.equals(property_id)) {
-//			g.drawTextLayout(tl, copy.x, copy.y);
-//		} else {
-//			g.drawTextLayout(tl, p.x, p.y);
-//		}
+		// Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
+		// if (ComponentProperties.prompt.equals(property_id)) {
+		// g.drawTextLayout(tl, copy.x, copy.y);
+		// } else {
+		// g.drawTextLayout(tl, p.x, p.y);
+		// }
 		g.drawTextLayout(tl, p.x, p.y);
+		this.handleResource(property_id, tl);
 		g.popState();
 	}
 

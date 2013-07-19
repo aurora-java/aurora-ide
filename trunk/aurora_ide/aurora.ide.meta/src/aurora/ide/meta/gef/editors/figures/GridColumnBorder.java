@@ -6,7 +6,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
@@ -20,7 +19,8 @@ import aurora.plugin.source.gen.screen.model.StyledStringText;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
-public class GridColumnBorder extends AbstractLabeledBorder {
+public class GridColumnBorder extends AbstractLabeledBorder implements
+		IResourceDispose {
 
 	// private Insets padding = new Insets(1, 3, 2, 2);
 	private String imageKey;
@@ -69,12 +69,19 @@ public class GridColumnBorder extends AbstractLabeledBorder {
 				getFont(figure));
 		g.setFont(getFont(figure));
 		g.setForegroundColor(getTextColor());
-		
-//		g.drawString(getPrompt(), headRect.getCenter().x - textExtents.width
-//				/ 2, headRect.getCenter().y - textExtents.height / 2);
-		
-		paintStyledText(g,getPrompt(),ComponentProperties.prompt,headRect.getCenter().x - textExtents.width
-				/ 2, headRect.getCenter().y - textExtents.height / 2);
+
+		if (TextStyleUtil.isTextLayoutUseless(this.figure.getModel(),
+				ComponentProperties.prompt) == false) {
+			paintStyledText(g, getPrompt(), ComponentProperties.prompt,
+					headRect.getCenter().x - textExtents.width / 2,
+					headRect.getCenter().y - textExtents.height / 2);
+		}
+
+		else {
+			g.drawString(getPrompt(), headRect.getCenter().x
+					- textExtents.width / 2, headRect.getCenter().y
+					- textExtents.height / 2);
+		}
 
 		g.setForegroundColor(ColorConstants.WHITE);
 		g.drawRectangle(headRect);
@@ -83,15 +90,15 @@ public class GridColumnBorder extends AbstractLabeledBorder {
 		g.popState();
 	}
 
-	
 	protected void paintStyledText(Graphics g, String text, String property_id,
-			int x ,int y) {
+			int x, int y) {
 		g.pushState();
+		this.disposer.disposeResource(property_id);
 		TextLayout tl = new TextLayout(null);
 		tl.setText(text);
 		tl.setFont(figure.getFont());
-		Object obj = figure.getModel().getPropertyValue(property_id
-				+ ComponentInnerProperties.TEXT_STYLE);
+		Object obj = figure.getModel().getPropertyValue(
+				property_id + ComponentInnerProperties.TEXT_STYLE);
 		TextStyle ts = null;
 		if (obj instanceof StyledStringText) {
 			ts = TextStyleUtil.createTextStyle((StyledStringText) obj,
@@ -100,12 +107,11 @@ public class GridColumnBorder extends AbstractLabeledBorder {
 			ts = new TextStyle();
 		}
 		tl.setStyle(ts, 0, text.length() - 1);
-			g.drawTextLayout(tl, x, y);
-		
+		g.drawTextLayout(tl, x, y);
+		this.disposer.handleResource(property_id, tl);
 		g.popState();
 	}
 
-	
 	protected String getPrompt() {
 		String prompt = this.figure.getPrompt();
 		return prompt == null ? "prompt" : prompt;
@@ -118,5 +124,12 @@ public class GridColumnBorder extends AbstractLabeledBorder {
 	@Override
 	protected Insets calculateInsets(IFigure figure) {
 		return new Insets(0, 0, 0, 0);
+	}
+
+	private ResourceDisposer disposer = new ResourceDisposer();
+
+	public void disposeResource() {
+		disposer.disposeResource();
+		disposer = null;
 	}
 }

@@ -7,7 +7,9 @@ import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Display;
 
 import aurora.ide.libs.AuroraImagesUtils;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.StyledStringText;
+import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 
 public class TextStyleUtil {
 	// TextStyle
@@ -17,7 +19,7 @@ public class TextStyleUtil {
 
 	public static TextStyle createTextStyle(StyledStringText styledStringText,
 			Display display, Font font) {
-		// TextLayout result = new TextLayout();
+
 		TextStyle ts = new TextStyle();
 
 		if (styledStringText == null)
@@ -31,16 +33,6 @@ public class TextStyleUtil {
 		}
 		ts.font = new Font(display, font.getFontData()[0].getName(),
 				font.getFontData()[0].getHeight(), fontStyle);
-		// String fontName = styledStringText.getFontName();
-		// if (fontName != null && "".equals(fontName) == false
-		// && styledStringText.getFontSize() > 0) {
-		// textFont = new Font(display, fontName,
-		// styledStringText.getFontSize(), SWT.NORMAL);
-		// setStyle(FONT);
-		// }
-
-		// ts.metrics.
-		// ts.
 		if (styledStringText.isStrikeout()) {
 			if (styledStringText.getStrikeoutColor() != null
 					&& false == StyledStringText.UNAVAILABLE_RGB
@@ -79,5 +71,43 @@ public class TextStyleUtil {
 							.getTextForeground()));
 		}
 		return ts;
+	}
+
+	public static boolean isTextLayoutUseless(AuroraComponent ac, String pro_id) {
+		Object obj = ac.getPropertyValue(pro_id
+				+ ComponentInnerProperties.TEXT_STYLE);
+		if (obj instanceof StyledStringText
+				&& ((StyledStringText) obj).isUseless() == false) {
+			return false;
+		}
+		return true;
+	}
+
+	public static void dispose(TextStyle ts) {
+		if (ts.font != null) {
+			if (ts.font.isDisposed() == false)
+				ts.font.dispose();
+			ts.font = null;
+		}
+		if (ts.strikeoutColor != null) {
+			if (ts.strikeoutColor.isDisposed() == false)
+				ts.strikeoutColor.dispose();
+			ts.strikeoutColor = null;
+		}
+		if (ts.underlineColor != null) {
+			if (ts.underlineColor.isDisposed() == false)
+				ts.underlineColor.dispose();
+			ts.underlineColor = null;
+		}
+		if (ts.background != null) {
+			if (ts.background.isDisposed() == false)
+				ts.background.dispose();
+			ts.background = null;
+		}
+		if (ts.foreground != null) {
+			if (ts.foreground.isDisposed() == false)
+				ts.foreground.dispose();
+			ts.foreground = null;
+		}
 	}
 }

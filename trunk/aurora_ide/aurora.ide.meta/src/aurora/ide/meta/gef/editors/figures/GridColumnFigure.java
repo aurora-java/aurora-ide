@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.editors.figures;
 
+import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.FocusEvent;
@@ -8,6 +9,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Resource;
 import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Display;
@@ -22,7 +24,7 @@ import aurora.plugin.source.gen.screen.model.StyledStringText;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
-public class GridColumnFigure extends Figure {
+public class GridColumnFigure extends Figure implements IResourceDispose {
 	public static final int ROW_HEIGHT = 25;
 
 	private static Image checkImg = PrototypeImagesUtils
@@ -109,22 +111,29 @@ public class GridColumnFigure extends Figure {
 		int k = 1;
 		for (int i = copy.y + columnHight; i < copy.y + copy.height
 				- this.columnHight; i += ROW_HEIGHT) {
-			String sd = gridColumn
-					.getStringPropertyValue(ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA
-							+ k);
-			// this.paintSimpleData(graphics, sd, new Rectangle(copy.x + 2, i,
-			// copy.width, ROW_HEIGHT));
-			paintStyledText(graphics, sd,
-					ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA + k,
-					new Rectangle(copy.x + 2, i, copy.width, ROW_HEIGHT));
+			String propId = ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA
+					+ k;
+			String sd = gridColumn.getStringPropertyValue(propId);
+
+			Object obj = gridColumn.getPropertyValue(propId
+					+ ComponentInnerProperties.TEXT_STYLE);
+			if (obj instanceof StyledStringText
+					&& ((StyledStringText) obj).isUseless() == false) {
+				paintStyledText(graphics, sd, propId, new Rectangle(copy.x + 2,
+						i, copy.width, ROW_HEIGHT));
+			} else {
+				this.paintSimpleData(graphics, sd, new Rectangle(copy.x + 2, i,
+						copy.width, ROW_HEIGHT));
+			}
 			k++;
 		}
 	}
 
 	protected void paintStyledText(Graphics g, String text, String property_id,
 			Rectangle r) {
-		Rectangle copy = r.getCopy();
 		g.pushState();
+		this.disposeResource(property_id);
+		Rectangle copy = r.getCopy();
 		g.setForegroundColor(ColorConstants.BLACK);
 		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
 		// FigureUtilities.
@@ -149,6 +158,7 @@ public class GridColumnFigure extends Figure {
 		} else {
 			g.drawTextLayout(tl, p.x, p.y);
 		}
+		handleResource(property_id, tl);
 		g.popState();
 	}
 
@@ -219,9 +229,28 @@ public class GridColumnFigure extends Figure {
 			gridColumn.setHeadHight(columnHight);
 		// this.repaint();
 	}
-	
-	public GridColumn getModel(){
+
+	public GridColumn getModel() {
 		return gridColumn;
+	}
+
+	private ResourceDisposer disposer = new ResourceDisposer();
+
+	private void handleResource(String id, Resource r) {
+		disposer.handleResource(id, r);
+	}
+
+	private void disposeResource(String prop_id) {
+		disposer.disposeResource(prop_id);
+	}
+
+	public void disposeResource() {
+		Border border = this.getBorder();
+		if (border instanceof IResourceDispose) {
+			((IResourceDispose) border).disposeResource();
+		}
+		disposer.disposeResource();
+		disposer = null;
 	}
 
 }

@@ -23,7 +23,7 @@ import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 /**
  */
-public class ButtonFigure extends Figure {
+public class ButtonFigure extends Figure implements IResourceDispose {
 
 	private static Image bgImg = PrototypeImagesUtils.getImage("btn.gif");
 	private static String[] buttonTypes = { Button.ADD, Button.SAVE,
@@ -71,11 +71,18 @@ public class ButtonFigure extends Figure {
 		Rectangle r1 = getStdImgRect();
 		g.setForegroundColor(ColorConstants.BLACK);
 		if (r1 == null) {
-			// g.drawString(text, rect.x + (dim.width - textExtents.width) / 2,
-			// rect.y + (dim.height - textExtents.height) / 2);
-			paintStyledText(g, text, ComponentProperties.text, rect.x
-					+ (dim.width - textExtents.width) / 2, rect.y
-					+ (dim.height - textExtents.height) / 2);
+
+			if (TextStyleUtil.isTextLayoutUseless(this.model,
+					ComponentProperties.text) == false) {
+				paintStyledText(g, text, ComponentProperties.text, rect.x
+						+ (dim.width - textExtents.width) / 2, rect.y
+						+ (dim.height - textExtents.height) / 2);
+			} else {
+				g.drawString(text,
+						rect.x + (dim.width - textExtents.width) / 2, rect.y
+								+ (dim.height - textExtents.height) / 2);
+			}
+
 		} else {
 			Rectangle r2 = new Rectangle(rect.x
 					+ (dim.width - textExtents.width - 16) / 2, rect.y
@@ -91,6 +98,7 @@ public class ButtonFigure extends Figure {
 	protected void paintStyledText(Graphics g, String text, String property_id,
 			int x, int y) {
 		g.pushState();
+		this.disposer.disposeResource(property_id);
 		TextLayout tl = new TextLayout(null);
 		tl.setText(text);
 		tl.setFont(getFont());
@@ -105,7 +113,7 @@ public class ButtonFigure extends Figure {
 		}
 		tl.setStyle(ts, 0, text.length() - 1);
 		g.drawTextLayout(tl, x, y);
-
+		this.disposer.handleResource(property_id, tl);
 		g.popState();
 	}
 
@@ -129,4 +137,10 @@ public class ButtonFigure extends Figure {
 		this.model = model;
 	}
 
+	private ResourceDisposer disposer = new ResourceDisposer();
+
+	public void disposeResource() {
+		disposer.disposeResource();
+		disposer = null;
+	}
 }
