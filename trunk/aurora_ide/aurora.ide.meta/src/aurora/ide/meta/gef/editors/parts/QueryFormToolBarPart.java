@@ -33,45 +33,43 @@ public class QueryFormToolBarPart extends BoxPart {
 		BoxFigure figure = new BoxFigure();
 		figure.setBox((BOX) getModel());
 		figure.setBorder(new AbstractBackground() {
-//			private Image bgImage = ImagesUtils
-//					.getImage("palette/queryform.gif");
-			private Image bgImage = ImagesUtils
-					.getImage("toolbar_bg");
-			
-			
-			
-			public void paint(IFigure figure, Graphics g, Insets insets) {
-//				tempRect.setBounds(getPaintRectangle(figure, insets));
-//
-//				FigureUtilities.paintEtchedBorder(g, tempRect);
+			// private Image bgImage = ImagesUtils
+			// .getImage("palette/queryform.gif");
+			private Image bgImage = ImagesUtils.getImage("toolbar_bg");
 
-//				Rectangle rec = tempRect;
-//				rec.height = 25;
-//				g.clipRect(rec);
-//
-//				g.fillRectangle(rec);
-//
-//				FigureUtilities.paintEtchedBorder(g, tempRect);
+			public void paint(IFigure figure, Graphics g, Insets insets) {
+				// tempRect.setBounds(getPaintRectangle(figure, insets));
+				//
+				// FigureUtilities.paintEtchedBorder(g, tempRect);
+
+				// Rectangle rec = tempRect;
+				// rec.height = 25;
+				// g.clipRect(rec);
+				//
+				// g.fillRectangle(rec);
+				//
+				// FigureUtilities.paintEtchedBorder(g, tempRect);
 
 			}
 
 			public void paintBackground(IFigure figure, Graphics graphics,
 					Insets insets) {
-				
 
-				int d = 12;
-				Path path = new Path(null);
-				Rectangle rect = figure.getBounds();
-				path.addArc(rect.x, rect.y, d, d, 90, 90);
-				path.lineTo(rect.x, rect.y + rect.height - d / 2);
-				path.addArc(rect.x, rect.y + rect.height - d, d, d, 180, 90);
-				path.lineTo(rect.x + rect.width - d / 2, rect.y + rect.height);
-				path.addArc(rect.x + rect.width - d, rect.y + rect.height - d,
-						d, d, -90, 90);
-				path.lineTo(rect.x + rect.width, rect.y + d / 2);
-				path.addArc(rect.x + rect.width - d, rect.y, d, d, 0, 90);
-				path.close();
-				//graphics.setClip(path);
+				// int d = 12;
+				// Path path = new Path(null);
+				// Rectangle rect = figure.getBounds();
+				// path.addArc(rect.x, rect.y, d, d, 90, 90);
+				// path.lineTo(rect.x, rect.y + rect.height - d / 2);
+				// path.addArc(rect.x, rect.y + rect.height - d, d, d, 180, 90);
+				// path.lineTo(rect.x + rect.width - d / 2, rect.y +
+				// rect.height);
+				// path.addArc(rect.x + rect.width - d, rect.y + rect.height -
+				// d,
+				// d, d, -90, 90);
+				// path.lineTo(rect.x + rect.width, rect.y + d / 2);
+				// path.addArc(rect.x + rect.width - d, rect.y, d, d, 0, 90);
+				// path.close();
+				// graphics.setClip(path);
 				graphics.drawImage(bgImage, new Rectangle(bgImage.getBounds()),
 						figure.getBounds());
 				List<IFigure> childs = figure.getChildren();
@@ -93,16 +91,17 @@ public class QueryFormToolBarPart extends BoxPart {
 		});
 		return figure;
 	}
-	
-	private void paintEtchedBorder(Graphics g, Rectangle r){
+
+	private void paintEtchedBorder(Graphics g, Rectangle r) {
 		disposeResource("shadow");
 		disposeResource("highlight");
-		Color rgb = g.getBackgroundColor(), shadow = FigureUtilities.darker(rgb), highlight = FigureUtilities.lighter(rgb);
-		handleResource("shadow",shadow);
-		handleResource("highlight",highlight);
+		Color rgb = g.getBackgroundColor(), shadow = FigureUtilities
+				.darker(rgb), highlight = FigureUtilities.lighter(rgb);
+		handleResource("shadow", shadow);
+		handleResource("highlight", highlight);
 		FigureUtilities.paintEtchedBorder(g, r, shadow, highlight);
 	}
-	
+
 	@Override
 	public void deactivate() {
 		disposeResource();
@@ -115,9 +114,11 @@ public class QueryFormToolBarPart extends BoxPart {
 		disposer.disposeResource();
 		disposer = null;
 	}
+
 	private void handleResource(String id, Resource r) {
 		disposer.handleResource(id, r);
 	}
+
 	private void disposeResource(String prop_id) {
 		disposer.disposeResource(prop_id);
 	}
@@ -141,7 +142,8 @@ public class QueryFormToolBarPart extends BoxPart {
 	public Rectangle layout() {
 		@SuppressWarnings("unchecked")
 		List<ComponentPart> list = getChildren();
-		Rectangle rect =BoundsConvert.toDraw2d( ((AuroraComponent) getModel()).getBoundsCopy());
+		Rectangle rect = BoundsConvert.toDraw2d(((AuroraComponent) getModel())
+				.getBoundsCopy());
 		int buttonGap = 10;
 		rect.height = 40;
 		int buttonWidth = 80;
