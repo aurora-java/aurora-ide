@@ -52,6 +52,11 @@ public class MoveChildCmpCmd extends Command {
 			container.addChild(acToMove);
 		} else {
 			int idx = children.indexOf(acRel);
+			if (idx == -1) {
+				// bug fix for tabfolder,when move the first tabitem to last,
+				// the reference (first tabbody) will be delete,so idx=-1
+				idx = children.size() / 2;
+			}
 			container.addChild(acToMove, idx);
 		}
 	}
