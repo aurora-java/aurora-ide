@@ -11,6 +11,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Resource;
 import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Display;
@@ -25,7 +26,7 @@ import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 /**
  */
-public class InputField extends Figure {
+public class InputField extends Figure implements IResourceDispose {
 
 	private Input model = null;
 
@@ -84,9 +85,15 @@ public class InputField extends Figure {
 		String sd = model
 				.getStringPropertyValue(ComponentInnerProperties.INPUT_SIMPLE_DATA);
 		if (sd != null && "".equals(sd) == false) {
-			// paintSimpleData(graphics, sd, r);
-			paintStyledText(graphics, sd,
-					ComponentInnerProperties.INPUT_SIMPLE_DATA, r);
+
+			if (TextStyleUtil.isTextLayoutUseless(this.model,
+					ComponentInnerProperties.INPUT_SIMPLE_DATA) == false) {
+				paintStyledText(graphics, sd,
+						ComponentInnerProperties.INPUT_SIMPLE_DATA, r);
+			} else {
+				paintSimpleData(graphics, sd, r);
+			}
+
 		} else {
 			paintEmptyText(graphics, model.getEmptyText(), r);
 		}
@@ -103,8 +110,9 @@ public class InputField extends Figure {
 
 	protected void paintStyledText(Graphics g, String text, String property_id,
 			Rectangle r) {
-		Rectangle copy = r.getCopy();
 		g.pushState();
+		this.disposer.disposeResource(property_id);
+		Rectangle copy = r.getCopy();
 		g.setForegroundColor(ColorConstants.BLACK);
 		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
 		// FigureUtilities.
@@ -129,6 +137,7 @@ public class InputField extends Figure {
 		} else {
 			g.drawTextLayout(tl, p.x, p.y);
 		}
+		this.disposer.handleResource(property_id, tl);
 		g.popState();
 	}
 
@@ -198,6 +207,17 @@ public class InputField extends Figure {
 		return textRectangle;
 	}
 
-	public void setName(String value) {
+	private ResourceDisposer disposer = new ResourceDisposer();
+
+	public void disposeResource() {
+		disposer.disposeResource();
+		disposer = null;
 	}
+	protected void handleResource(String id, Resource r) {
+		disposer.handleResource(id, r);
+	}
+	protected void disposeResource(String prop_id) {
+		disposer.disposeResource(prop_id);
+	}
+
 }

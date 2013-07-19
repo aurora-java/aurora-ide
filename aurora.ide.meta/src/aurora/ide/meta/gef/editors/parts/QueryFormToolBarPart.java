@@ -9,13 +9,16 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Path;
+import org.eclipse.swt.graphics.Resource;
 
 import aurora.ide.helpers.ImagesUtils;
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.figures.FigureUtil;
+import aurora.ide.meta.gef.editors.figures.ResourceDisposer;
 import aurora.ide.meta.gef.editors.layout.RowColBackLayout;
 import aurora.ide.meta.gef.editors.policies.NoSelectionEditPolicy;
 import aurora.ide.meta.gef.util.BoundsConvert;
@@ -85,10 +88,38 @@ public class QueryFormToolBarPart extends BoxPart {
 							hint, -1, 0);
 				}
 				tempRect.setBounds(getPaintRectangle(figure, insets));
-				FigureUtilities.paintEtchedBorder(graphics, tempRect);
+				paintEtchedBorder(graphics, tempRect);
 			}
 		});
 		return figure;
+	}
+	
+	private void paintEtchedBorder(Graphics g, Rectangle r){
+		disposeResource("shadow");
+		disposeResource("highlight");
+		Color rgb = g.getBackgroundColor(), shadow = FigureUtilities.darker(rgb), highlight = FigureUtilities.lighter(rgb);
+		handleResource("shadow",shadow);
+		handleResource("highlight",highlight);
+		FigureUtilities.paintEtchedBorder(g, r, shadow, highlight);
+	}
+	
+	@Override
+	public void deactivate() {
+		disposeResource();
+		super.deactivate();
+	}
+
+	private ResourceDisposer disposer = new ResourceDisposer();
+
+	private void disposeResource() {
+		disposer.disposeResource();
+		disposer = null;
+	}
+	private void handleResource(String id, Resource r) {
+		disposer.handleResource(id, r);
+	}
+	private void disposeResource(String prop_id) {
+		disposer.disposeResource(prop_id);
 	}
 
 	@Override

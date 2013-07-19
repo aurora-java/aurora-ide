@@ -9,12 +9,11 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 
 import aurora.ide.meta.gef.editors.EditorMode;
+import aurora.ide.meta.gef.editors.figures.IResourceDispose;
 import aurora.ide.meta.gef.editors.layout.BackLayout;
 import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
-import aurora.ide.meta.gef.editors.policies.ResizeComponentEditPolicy;
 import aurora.ide.meta.gef.editors.property.IPropertySource2;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
@@ -58,6 +57,10 @@ public abstract class ComponentPart extends AbstractGraphicalEditPart implements
 	@Override
 	public void deactivate() {
 		getComponent().removePropertyChangeListener(this);
+		IFigure figure = this.getFigure();
+		if(figure instanceof IResourceDispose){
+			((IResourceDispose) figure).disposeResource();
+		}
 		super.deactivate();
 	}
 

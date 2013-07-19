@@ -5,6 +5,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import aurora.ide.meta.gef.util.TextStyleUtil;
 import aurora.plugin.source.gen.screen.model.Label;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
@@ -27,7 +28,7 @@ public class LabelFigure extends InputField {
 		textRectangle.y = i <= 0 ? getBounds().y : getBounds().y + i / 2;
 
 		textRectangle.setSize(textExtents);
-//		graphics.drawText(text, textRectangle.getLocation());
+		// graphics.drawText(text, textRectangle.getLocation());
 		paintStyledText(graphics, text, ComponentProperties.prompt,
 				textRectangle);
 		String sd = model
@@ -35,9 +36,14 @@ public class LabelFigure extends InputField {
 		if (sd != null && "".equals(sd) == false) {
 			Rectangle inputRectangle = this.getInputRectangle(textRectangle);
 			Rectangle r = inputRectangle.getTranslated(1, 1).getResized(-2, -2);
-//			paintSimpleData(graphics, sd, r);
-			paintStyledText(graphics, sd,
-					ComponentInnerProperties.INPUT_SIMPLE_DATA, r);
+
+			if (TextStyleUtil.isTextLayoutUseless(this.model,
+					ComponentInnerProperties.INPUT_SIMPLE_DATA) == false) {
+				paintStyledText(graphics, sd,
+						ComponentInnerProperties.INPUT_SIMPLE_DATA, r);
+			} else {
+				paintSimpleData(graphics, sd, r);
+			}
 		}
 		graphics.drawLine(textRectangle.getLocation().x + textRectangle.width,
 				bounds.getBottom().y - 2, getBounds().width + getBounds().x,
