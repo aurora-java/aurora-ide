@@ -14,6 +14,7 @@ import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.DirectEditAction;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -26,6 +27,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
 
+import aurora.ide.libs.AuroraImagesUtils;
 import aurora.ide.meta.gef.editors.actions.CopyAsImageAction;
 import aurora.ide.meta.gef.editors.actions.CopyComponentsAction;
 import aurora.ide.meta.gef.editors.actions.PasteComponentsAction;
@@ -33,20 +35,22 @@ import aurora.ide.meta.gef.editors.actions.SaveAsImageAction;
 
 public abstract class FlayoutBMGEFEditor extends
 		GraphicalEditorWithFlyoutPalette {
+	public static final String FLAYOUT_BMGEF_EDITOR_MAX_EDITOR_COMPOSITE_ACTION = "flayoutbmgefeditor.max.editor.composite.action";
 	private DatasetView datasetView;
 	private KeyHandler sharedKeyHandler;
+	private SashForm sashForm;
+	private Composite editorComposite;
 
 	public void createPartControl(Composite parent) {
+		sashForm = new SashForm(parent, SWT.HORIZONTAL);
 
-		SashForm sashForm = new SashForm(parent, SWT.HORIZONTAL);
+		SashForm viewForm = new SashForm(sashForm, SWT.VERTICAL | SWT.BORDER);
+		createBMViewer(viewForm);
+		createPropertyViewer(viewForm);
 
-		SashForm c = new SashForm(sashForm, SWT.VERTICAL | SWT.BORDER);
-		createBMViewer(c);
-		createPropertyViewer(c);
-
-		Composite cpt = new Composite(sashForm, SWT.NONE);
-		cpt.setLayout(new GridLayout());
-		Composite bottom = new Composite(cpt, SWT.NONE);
+		editorComposite = new Composite(sashForm, SWT.NONE);
+		editorComposite.setLayout(new GridLayout());
+		Composite bottom = new Composite(editorComposite, SWT.NONE);
 		bottom.setLayoutData(new GridData(GridData.FILL_BOTH));
 		bottom.setLayout(new FillLayout());
 
@@ -56,6 +60,14 @@ public abstract class FlayoutBMGEFEditor extends
 
 	protected void initDatasetView() {
 
+	}
+
+	public void maxEditorComposite() {
+		if (sashForm.getMaximizedControl() == null) {
+			sashForm.setMaximizedControl(editorComposite);
+		} else {
+			sashForm.setMaximizedControl(null);
+		}
 	}
 
 	@Override
@@ -87,21 +99,35 @@ public abstract class FlayoutBMGEFEditor extends
 		CopyComponentsAction copy = new CopyComponentsAction(this);
 		registry.registerAction(copy);
 		getSelectionActions().add(copy.getId());
-		
+
 		PasteComponentsAction paste = new PasteComponentsAction(this);
 		registry.registerAction(paste);
 		getSelectionActions().add(paste.getId());
-		
+
 		registry.registerAction(action);
 		getSelectionActions().add(action.getId());
-		
+
 		CopyAsImageAction copyIMG = new CopyAsImageAction(this);
 		registry.registerAction(copyIMG);
 		getSelectionActions().add(copyIMG.getId());
-		
+
 		SaveAsImageAction saveIMG = new SaveAsImageAction(this);
 		registry.registerAction(saveIMG);
 		getSelectionActions().add(saveIMG.getId());
+
+		registry.registerAction(new Action() {
+			{
+				this.setId(FLAYOUT_BMGEF_EDITOR_MAX_EDITOR_COMPOSITE_ACTION);
+				this.setImageDescriptor(AuroraImagesUtils.getImageDescriptor("max_editor.png"));
+			}
+
+			@Override
+			public void run() {
+				maxEditorComposite();
+			}
+
+		});
+
 	}
 
 	/**
