@@ -31,6 +31,8 @@ public class ConsultantVScreenEditorContributor extends ActionBarContributor {
 				Messages.ConsultantVScreenEditorContributor_0, "/icons/full/obj16/image_obj.gif")); //$NON-NLS-2$
 		addRetargetAction(createLabelRetargetAction(SaveAsImageAction.ID,
 				Messages.ConsultantVScreenEditorContributor_2, "/icons/save_as_image.gif")); //$NON-NLS-2$
+		addRetargetAction(createLabelRetargetAction(FlayoutBMGEFEditor.FLAYOUT_BMGEF_EDITOR_MAX_EDITOR_COMPOSITE_ACTION,
+				"", "/icons/max_editor.png")); //$NON-NLS-2$
 	}
 
 	private LabelRetargetAction createLabelRetargetAction(String id,
@@ -55,6 +57,8 @@ public class ConsultantVScreenEditorContributor extends ActionBarContributor {
 		toolBarManager.add(new Separator());
 		toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
 		toolBarManager.add(getAction(ActionFactory.REDO.getId()));
+		toolBarManager.add(new Separator());
+		toolBarManager.add(getAction(FlayoutBMGEFEditor.FLAYOUT_BMGEF_EDITOR_MAX_EDITOR_COMPOSITE_ACTION));
 	}
 
 	/*
