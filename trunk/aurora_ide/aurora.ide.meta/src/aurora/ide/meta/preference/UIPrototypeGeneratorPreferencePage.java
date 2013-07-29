@@ -48,7 +48,7 @@ public class UIPrototypeGeneratorPreferencePage extends PreferencePage
 
 	@Override
 	protected Control createContents(Composite parent) {
-	final	Composite root = new Composite(parent, SWT.NONE);
+		final Composite root = new Composite(parent, SWT.NONE);
 		GridLayout gl = new GridLayout();
 		gl.numColumns = 4;
 		root.setLayout(gl);
@@ -65,30 +65,31 @@ public class UIPrototypeGeneratorPreferencePage extends PreferencePage
 		Button b1 = new Button(root, SWT.NONE);
 		b1.setText("更改");
 		b1.addSelectionListener(new SelectionListener() {
-			
+
 			public void widgetSelected(SelectionEvent e) {
 
 				DirectoryDialog directoryDialog = new DirectoryDialog(
 						new Shell());
 				String value = directoryDialog.open();
-				t1.setText(value);
+				if (value != null)
+					t1.setText(value);
 			}
-			
+
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
 		Button b2 = new Button(root, SWT.NONE);
 		b2.setText("打开");
-		b2.addSelectionListener(new SelectionListener(){
+		b2.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
 				FileExplorer.open(value);
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
-				
+
 			}
-			
+
 		});
 		return root;
 	}
@@ -108,7 +109,7 @@ public class UIPrototypeGeneratorPreferencePage extends PreferencePage
 	public static String getPath() {
 		String string = MetaPlugin.getDefault().getPreferenceStore()
 				.getString(KEY);
-		if (string == null||"".equals(string)) {
+		if (string == null || "".equals(string)) {
 			return getDefaultPath();
 		} else {
 			return string;

@@ -15,6 +15,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import aurora.ide.helpers.FileCopyer;
+import aurora.ide.helpers.FileDeleter;
 import aurora.ide.meta.gef.editors.source.gen.core.GeneratorManager;
 
 /**
@@ -61,10 +62,15 @@ public class MetaPlugin extends AbstractUIPlugin {
 		IPath template = GeneratorManager.getDefaultSourceGenTemplatePath();
 		File tplt = template.toFile();
 		if (tplt.isDirectory() && tplt.exists()) {
-			return;
+			File ver = template.append("config").append("1.0.xml").toFile();
+			if (ver.exists()) {
+				return;
+			}
 		}
+		FileDeleter.deleteDirectory(tplt);
 		copySourceGenTemplateFiles();
 	}
+
 	public void copySourceGenTemplateFiles() {
 
 		URL ts = FileLocator.find(Platform.getBundle(PLUGIN_ID), new Path(
@@ -80,6 +86,7 @@ public class MetaPlugin extends AbstractUIPlugin {
 							"template failed init. ", e));
 		}
 	}
+
 	public void copyTemplateFile() {
 
 		URL ts = FileLocator.find(Platform.getBundle(PLUGIN_ID), new Path(
