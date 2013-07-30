@@ -159,6 +159,18 @@ public class CreateTablePage extends FormPage {
 						.getImageDescriptor("lightning_plus.png"));
 			}
 		};
+		final Action whoAction = new Action("Standered Who",
+				Action.AS_CHECK_BOX) {
+
+			@Override
+			public void run() {
+				model.setWhoEnabled(isChecked());
+				refresh();
+			}
+
+		};
+		whoAction.setImageDescriptor(PrototypeImagesUtils
+				.getImageDescriptor("person.png"));
 		tbm.add(new CreateTableAction(aProj) {
 
 			@Override
@@ -172,6 +184,7 @@ public class CreateTablePage extends FormPage {
 			}
 
 		});
+		tbm.add(whoAction);
 		tbm.add(forceAction);
 		tbm.update(true);
 	}

@@ -14,6 +14,10 @@ public class SqlGenerator implements IDesignerConst {
 	private static final String tail = ")";
 	private static final String column_model = prefix + "%%-%ds %%s";
 	private static final String comment_model = "comment on column %%-%ss is '%%s'";
+	private static final String[] who_fields = { "created_by", "creation_date",
+			"last_updated_by", "last_update_date" };
+	private static final String[] who_fields_type = { "number", "date",
+			"number", "date" };
 
 	private BMModel model;
 	private String name;
@@ -26,7 +30,7 @@ public class SqlGenerator implements IDesignerConst {
 
 	public String[] gen() {
 		ArrayList<String> sqls = new ArrayList<String>();
-		Record[] rs = model.getRecords();
+		String[][] rs = getFieldsInfo();
 		StringBuilder sb = new StringBuilder(10000);
 		sb.append(String.format(header, name));
 		maxNameLength = getMaxNameLength();
@@ -37,9 +41,7 @@ public class SqlGenerator implements IDesignerConst {
 				+ " not null" + t + line_sep);
 		for (int i = 0; i < rs.length; i++) {
 			t = (i == rs.length - 1) ? "" : ",";
-			sb.append(String.format(cm, rs[i].getName(),
-					getSqlType(rs[i].getType()))
-					+ t + line_sep);
+			sb.append(String.format(cm, rs[i][0], rs[i][1]) + t + line_sep);
 		}
 		sb.append(tail);
 		sqls.add(sb.toString());
@@ -47,6 +49,19 @@ public class SqlGenerator implements IDesignerConst {
 		String[] sqlArr = new String[sqls.size()];
 		sqls.toArray(sqlArr);
 		return sqlArr;
+	}
+
+	private String[][] getFieldsInfo() {
+		ArrayList<String[]> list = new ArrayList<String[]>();
+		for (Record r : model.getRecordList()) {
+			list.add(new String[] { r.getName(), getSqlType(r.getType()) });
+		}
+		if (model.isWhoEnabled()) {
+			for (int i = 0; i < who_fields.length; i++) {
+				list.add(new String[] { who_fields[i], who_fields_type[i] });
+			}
+		}
+		return list.toArray(new String[list.size()][]);
 	}
 
 	private void addComment(ArrayList<String> sqls) {
@@ -69,6 +84,12 @@ public class SqlGenerator implements IDesignerConst {
 		int l = model.getPkRecord().getName().length();
 		if (l > length)
 			length = l;
+		if (model.isWhoEnabled()) {
+			for (String n : who_fields) {
+				if (n.length() > length)
+					length = n.length();
+			}
+		}
 		return length;
 	}
 

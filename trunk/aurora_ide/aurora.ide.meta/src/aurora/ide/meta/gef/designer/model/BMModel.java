@@ -25,6 +25,7 @@ public class BMModel implements IDesignerConst {
 	private String autoExtend = "";
 	private String defaultDiaplay = "";
 	private Record pkRecord = new PkRecord();
+	private boolean whoEnabled=false;
 	private PropertyChangeListener recordListener = new PropertyChangeListener() {
 
 		public void propertyChange(PropertyChangeEvent evt) {
@@ -355,5 +356,13 @@ public class BMModel implements IDesignerConst {
 				return r;
 		}
 		return null;
+	}
+
+	public boolean isWhoEnabled() {
+		return whoEnabled;
+	}
+
+	public void setWhoEnabled(boolean whoEnabled) {
+		this.whoEnabled = whoEnabled;
 	}
 }

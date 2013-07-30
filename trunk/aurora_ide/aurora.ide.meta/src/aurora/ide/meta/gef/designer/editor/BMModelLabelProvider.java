@@ -1,5 +1,6 @@
 package aurora.ide.meta.gef.designer.editor;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.viewers.BaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITableColorProvider;
@@ -13,8 +14,8 @@ import aurora.ide.meta.gef.designer.model.Record;
 
 public class BMModelLabelProvider extends BaseLabelProvider implements
 		ITableLabelProvider, ITableColorProvider, ILabelProvider {
-	private Color COLOR_ODD = new Color(null, 245, 255, 255);
-	private Color COLOR_EVEN = new Color(null, 255, 255, 255);
+	private static Color COLOR_ODD = new Color(null, 245, 255, 255);
+	private static Color COLOR_EVEN = new Color(null, 255, 255, 255);
 	private int type = BMModel.RECORD;
 	private String[] column_properties;
 
@@ -36,7 +37,7 @@ public class BMModelLabelProvider extends BaseLabelProvider implements
 
 	public Color getForeground(Object element, int columnIndex) {
 		if (IDesignerConst.COLUMN_NUM.equals(getProperty(columnIndex)))
-			return new Color(null, 128, 128, 128);
+			return ColorConstants.gray;
 		return null;
 	}
 
