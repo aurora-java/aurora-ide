@@ -128,7 +128,7 @@ public class ExtensionWizardPage extends WizardPage implements
 		if (pre.length() > 3)
 			pre = pre.substring(0, 3);
 		model.setNamePrefix(pre + "_c");
-		model.getPkRecord().setName(shortName + "_pk");
+		model.getPkRecord().setName(shortName + "_id");
 		String[] preInput = prePage.getPreInput();
 
 		// remove old
