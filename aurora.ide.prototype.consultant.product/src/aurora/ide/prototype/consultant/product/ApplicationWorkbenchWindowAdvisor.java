@@ -1,10 +1,6 @@
 package aurora.ide.prototype.consultant.product;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -27,16 +23,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setInitialSize(new Point(800, 600));
 		configurer.setShowCoolBar(true);
 		configurer.setShowStatusLine(false);
-		Display display = configurer.getWorkbenchConfigurer().getWorkbench()
-				.getDisplay();
+//		Display display = configurer.getWorkbenchConfigurer().getWorkbench()
+//				.getDisplay();
 		// SWT.OpenDoc
-		display.addListener(SWT.OpenDocument, new Listener() {
-
-			@Override
-			public void handleEvent(Event event) {
-				System.out.println(event.text);
-			}
-		});
+//		display.addListener(SWT.OpenDocument, new Listener() {
+//
+//			@Override
+//			public void handleEvent(Event event) {
+//				System.out.println(event.text);
+//			}
+//		});
 	}
 
 	public void postWindowCreate() {

@@ -17,6 +17,7 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
 import aurora.ide.meta.gef.message.Messages;
+import aurora.ide.prototype.consultant.product.action.ExportFSDAction;
 import aurora.ide.prototype.consultant.product.action.NewFileAction;
 import aurora.ide.prototype.consultant.product.action.OpenFileAction;
 
@@ -41,6 +42,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction saveAction;
 	private IWorkbenchAction saveAsAction;
 	private IWorkbenchAction introAction;
+	private ExportFSDAction exportFSDAction;
 
 	// private TestAction testAction;
 
@@ -70,6 +72,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		openFileAction = new OpenFileAction(window,
 				Messages.ApplicationActionBarAdvisor_1);
 		register(openFileAction);
+		
+		exportFSDAction = new ExportFSDAction(window,
+				"Export FSD");
+		register(exportFSDAction);
 
 		// messagePopupAction = new MessagePopupAction("Open Message", window);
 		// register(messagePopupAction);
@@ -133,6 +139,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		toolbar.add(saveAction);
 		toolbar.add(saveAsAction);
 		toolbar.add(introAction);
+		toolbar.add(exportFSDAction);
 
 		// toolbar.add(testAction);
 	}
