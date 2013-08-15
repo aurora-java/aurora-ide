@@ -36,6 +36,12 @@ public class ResourceDisposer {
 	public void disposeResource(String prop_id) {
 		Resource textLayout = resourceMap.get(prop_id);
 		if (textLayout != null) {
+			if (textLayout instanceof TextLayout) {
+				TextStyle[] styles = ((TextLayout) textLayout).getStyles();
+				for (TextStyle textStyle : styles) {
+					TextStyleUtil.dispose(textStyle);
+				}
+			}
 			if (textLayout.isDisposed() == false) {
 				textLayout.dispose();
 			}

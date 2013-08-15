@@ -75,7 +75,7 @@ public class NodeDirectEditManager extends DirectEditManager {
 		Dimension fontSize = new Dimension(0, data.getHeight());
 		nodeFigure.translateToAbsolute(fontSize);
 		data.setHeight(fontSize.height);
-		scaledFont = new Font(null, data);
+//		scaledFont = new Font(null, data);
 		text.setFont(scaledFont);
 		text.selectAll();
 	}

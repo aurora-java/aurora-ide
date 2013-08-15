@@ -55,7 +55,6 @@ public class CopyAsImageAction extends SelectionAction {
 			Clipboard clipboard = new Clipboard(Display.getDefault());
 			clipboard.setContents(new Object[] { image.getImageData() },
 					new Transfer[] { ImageTransfer.getInstance() });
-
 			image.dispose();
 			gc.dispose();
 
