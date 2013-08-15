@@ -893,27 +893,27 @@ public class TextEditDialog extends Dialog {
 		// iLink.dispose();
 		// iLink = null;
 
-//		if (textFont != null)
-//			textFont.dispose();
+		if (textFont != null)
+			textFont.dispose();
 		textFont = null;
-//		if (textForeground != null)
-//			textForeground.dispose();
+		if (textForeground != null)
+			textForeground.dispose();
 		textForeground = null;
-//		if (textBackground != null)
-//			textBackground.dispose();
+		if (textBackground != null)
+			textBackground.dispose();
 		textBackground = null;
-//		if (strikeoutColor != null)
-//			strikeoutColor.dispose();
+		if (strikeoutColor != null)
+			strikeoutColor.dispose();
 		strikeoutColor = null;
-//		if (underlineColor != null)
-//			underlineColor.dispose();
+		if (underlineColor != null)
+			underlineColor.dispose();
 		underlineColor = null;
-//		if (borderColor != null)
-//			borderColor.dispose();
+		if (borderColor != null)
+			borderColor.dispose();
 		borderColor = null;
 
-//		if (font != null)
-//			font.dispose();
+		if (font != null)
+			font.dispose();
 		font = null;
 	}
 
@@ -1306,7 +1306,7 @@ public class TextEditDialog extends Dialog {
 		// index++;
 		// }
 
-		// disposeResource(textFont);
+		 disposeResource(textFont);
 		textFont = font;
 	}
 
