@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+	<w:tbl  xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas"
+	xmlns:mo="http://schemas.microsoft.com/office/mac/office/2008/main"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:mv="urn:schemas-microsoft-com:mac:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+	xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+	xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"
+	xmlns:v="urn:schemas-microsoft-com:vml"
+	xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing"
+	xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
+	xmlns:w10="urn:schemas-microsoft-com:office:word"
+	xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+	xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml"
+	xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup"
+	xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk"
+	xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml"
+	xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" >
+			<w:tblPr>
+				<w:tblW w:w="9324" w:type="dxa" />
+				<w:tblInd w:w="108" w:type="dxa" />
+				<w:tblBorders>
+					<w:top w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:left w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:right w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto" />
+				</w:tblBorders>
+				<w:tblLayout w:type="fixed" />
+				<w:tblLook w:val="0000" w:firstRow="0" w:lastRow="0"
+					w:firstColumn="0" w:lastColumn="0" w:noHBand="0" w:noVBand="0" />
+			</w:tblPr>
+			<w:tblGrid>
+				<w:gridCol w:w="636" />
+				<w:gridCol w:w="1834" />
+				<w:gridCol w:w="950" />
+				<w:gridCol w:w="900" />
+				<w:gridCol w:w="1459" />
+				<w:gridCol w:w="900" />
+				<w:gridCol w:w="1061" />
+				<w:gridCol w:w="1584" />
+			</w:tblGrid>
+			<w:tr w:rsidR="00686DD5" w14:paraId="6F937A95" w14:textId="77777777"
+				w:rsidTr="000115E9">
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="636" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="64B9824F" w14:textId="77777777" w:rsidR="00686DD5"
+						w:rsidRDefault="00686DD5" w:rsidP="000115E9">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:snapToGrid w:val="0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+						</w:pPr>
+						<w:proofErr w:type="spellStart" />
+						<w:r>
+							<w:rPr>
+								<w:rFonts w:hint="eastAsia" />
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+							<w:t>Seq</w:t>
+						</w:r>
+						<w:proofErr w:type="spellEnd" />
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1834" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="3BC90DC1" w14:textId="77777777" w:rsidR="00686DD5"
+						w:rsidRDefault="00686DD5" w:rsidP="000115E9">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:snapToGrid w:val="0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:rFonts w:hint="eastAsia" />
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+							<w:t>Field Description</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="950" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="2B218506" w14:textId="77777777" w:rsidR="00686DD5"
+						w:rsidRDefault="00686DD5" w:rsidP="000115E9">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:snapToGrid w:val="0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:rFonts w:hint="eastAsia" />
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+							<w:t>Type</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="900" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="3FF8FDD6" w14:textId="77777777" w:rsidR="00686DD5"
+						w:rsidRDefault="00686DD5" w:rsidP="000115E9">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:snapToGrid w:val="0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:rFonts w:hint="eastAsia" />
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+							<w:t>Length</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1459" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="4E2EDF98" w14:textId="77777777" w:rsidR="00686DD5"
+						w:rsidRDefault="00686DD5" w:rsidP="000115E9">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:snapToGrid w:val="0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:rFonts w:hint="eastAsia" />
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+							<w:t>Format</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="900" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="7744B6C9" w14:textId="77777777" w:rsidR="00686DD5"
+						w:rsidRDefault="00686DD5" w:rsidP="000115E9">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:snapToGrid w:val="0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:rFonts w:hint="eastAsia" />
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+							<w:t>Must Input</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1061" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="222544CB" w14:textId="77777777" w:rsidR="00686DD5"
+						w:rsidRDefault="00686DD5" w:rsidP="000115E9">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:snapToGrid w:val="0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+							<w:t>Default Value</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1584" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="0ACCD852" w14:textId="77777777" w:rsidR="00686DD5"
+						w:rsidRDefault="00686DD5" w:rsidP="000115E9">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:snapToGrid w:val="0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+								<w:sz w:val="18" />
+							</w:rPr>
+							<w:t>Validation Rule</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+			</w:tr>
+		</w:tbl>
+	
+			
+		
