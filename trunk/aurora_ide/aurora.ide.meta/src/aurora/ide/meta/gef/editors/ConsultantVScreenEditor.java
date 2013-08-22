@@ -25,8 +25,9 @@ import uncertain.composite.XMLOutputter;
 import aurora.ide.editor.editorInput.PathEditorInput;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.meta.gef.editors.actions.CopyAsImageAction;
+import aurora.ide.meta.gef.editors.actions.FSDPropertyEditAction;
 import aurora.ide.meta.gef.editors.actions.SaveAsImageAction;
-import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
+import aurora.ide.meta.gef.editors.consultant.ConsultantContextMenuProvider;
 import aurora.ide.meta.gef.editors.consultant.property.ConsultantPropertyManager;
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
@@ -79,8 +80,8 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				return false;
 			}
 		};
-//		this.getPalettePreferences().setPaletteState(
-//				FlyoutPaletteComposite.STATE_PINNED_OPEN);
+		// this.getPalettePreferences().setPaletteState(
+		// FlyoutPaletteComposite.STATE_PINNED_OPEN);
 	}
 
 	/**
@@ -211,7 +212,8 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				ActionFactory.COPY.getId());
 		action.setText(Messages.ConsultantVScreenEditor_4);
 		action.setToolTipText(Messages.ConsultantVScreenEditor_5);
-		action = this.getActionRegistry().getAction(ActionFactory.PASTE.getId());
+		action = this.getActionRegistry()
+				.getAction(ActionFactory.PASTE.getId());
 		action.setText(Messages.ConsultantVScreenEditor_6);
 		action.setToolTipText(Messages.ConsultantVScreenEditor_7);
 		action = this.getActionRegistry().getAction(ActionFactory.REDO.getId());
@@ -220,7 +222,8 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 		action = this.getActionRegistry().getAction(ActionFactory.UNDO.getId());
 		action.setText(Messages.ConsultantVScreenEditor_10);
 		action.setToolTipText(Messages.ConsultantVScreenEditor_11);
-		action = this.getActionRegistry().getAction(ActionFactory.DELETE.getId());
+		action = this.getActionRegistry().getAction(
+				ActionFactory.DELETE.getId());
 		action.setText(Messages.ConsultantVScreenEditor_12);
 		action.setToolTipText(Messages.ConsultantVScreenEditor_13);
 		action = this.getActionRegistry().getAction(CopyAsImageAction.ID);
@@ -229,6 +232,12 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 		action = this.getActionRegistry().getAction(SaveAsImageAction.ID);
 		action.setText(Messages.ConsultantVScreenEditor_17);
 		action.setToolTipText(Messages.ConsultantVScreenEditor_17);
+		
+		
+		FSDPropertyEditAction copyIMG = new FSDPropertyEditAction(this);
+		getActionRegistry().registerAction(copyIMG);
+		getSelectionActions().add(copyIMG.getId());
+
 	}
 
 	/**
@@ -243,7 +252,7 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				new GraphicalViewerKeyHandler(getGraphicalViewer())
 						.setParent(getCommonKeyHandler()));
 
-		ContextMenuProvider provider = new ViewContextMenuProvider(
+		ContextMenuProvider provider = new ConsultantContextMenuProvider(
 				getGraphicalViewer(), getActionRegistry());
 		getGraphicalViewer().setContextMenu(provider);
 		getSite().registerContextMenu(CONTEXT_MENU_KEY, //$NON-NLS-1$
@@ -271,9 +280,12 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 	}
 
 	protected void createPropertyViewer(Composite c) {
-		DefaultEditDomain editDomain = getEditDomain();
 		propertyViewer = new MetaPropertyViewer(c, this,
-				new ConsultantPropertyManager(editDomain.getCommandStack()));
+				getPropertyManager());
+	}
+
+	public ConsultantPropertyManager getPropertyManager() {
+		return new ConsultantPropertyManager(getEditDomain().getCommandStack());
 	}
 
 	public ScreenBody getDiagram() {

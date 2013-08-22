@@ -102,7 +102,7 @@ public class ViewContextMenuProvider extends ContextMenuProvider {
 
 	}
 
-	private ActionRegistry getActionRegistry() {
+	public ActionRegistry getActionRegistry() {
 		return actionRegistry;
 	}
 

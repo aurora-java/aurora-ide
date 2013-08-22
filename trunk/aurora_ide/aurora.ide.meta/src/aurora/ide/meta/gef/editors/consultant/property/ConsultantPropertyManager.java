@@ -18,4 +18,11 @@ public class ConsultantPropertyManager extends PropertyManager {
 				.createPropertyDescriptors(object.getComponent());
 		return pd;
 	}
+
+	public IPropertyDescriptor[] getFSDPropertyDescriptors(ComponentPart object) {
+		FSDPropertyFactory editablePropertyFactory = new FSDPropertyFactory();
+		IPropertyDescriptor[] pd = editablePropertyFactory
+				.createPropertyDescriptors(object.getComponent());
+		return pd;
+	}
 }
