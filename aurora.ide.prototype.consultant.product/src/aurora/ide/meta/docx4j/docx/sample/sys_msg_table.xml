@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+	<w:tbl  xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas"
+	xmlns:mo="http://schemas.microsoft.com/office/mac/office/2008/main"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:mv="urn:schemas-microsoft-com:mac:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+	xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+	xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"
+	xmlns:v="urn:schemas-microsoft-com:vml"
+	xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing"
+	xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
+	xmlns:w10="urn:schemas-microsoft-com:office:word"
+	xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+	xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml"
+	xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup"
+	xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk"
+	xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml"
+	xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" >
+			<w:tblPr>
+				<w:tblW w:w="0" w:type="auto" />
+				<w:tblInd w:w="108" w:type="dxa" />
+				<w:tblBorders>
+					<w:top w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:left w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:right w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto" />
+					<w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto" />
+				</w:tblBorders>
+				<w:tblLook w:val="0000" w:firstRow="0" w:lastRow="0"
+					w:firstColumn="0" w:lastColumn="0" w:noHBand="0" w:noVBand="0" />
+			</w:tblPr>
+			<w:tblGrid>
+				<w:gridCol w:w="1428" />
+				<w:gridCol w:w="1656" />
+				<w:gridCol w:w="5736" />
+			</w:tblGrid>
+			<w:tr w:rsidR="00A1686F" w14:paraId="37A33C28" w14:textId="77777777"
+				w:rsidTr="006E36BF">
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1428" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="586AAAC1" w14:textId="77777777" w:rsidR="00A1686F"
+						w:rsidRDefault="00A1686F" w:rsidP="006E36BF">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:rFonts w:hint="eastAsia" />
+								<w:b />
+								<w:bCs />
+							</w:rPr>
+							<w:t>Message ID</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1656" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="0F25A5A1" w14:textId="77777777" w:rsidR="00A1686F"
+						w:rsidRDefault="00A1686F" w:rsidP="006E36BF">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:rFonts w:hint="eastAsia" />
+								<w:b />
+								<w:bCs />
+							</w:rPr>
+							<w:t>Message Type</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="5736" w:type="dxa" />
+						<w:shd w:val="clear" w:color="auto" w:fill="E6E6E6" />
+					</w:tcPr>
+					<w:p w14:paraId="324FBA1A" w14:textId="77777777" w:rsidR="00A1686F"
+						w:rsidRDefault="00A1686F" w:rsidP="006E36BF">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:ind w:left="0" />
+							<w:jc w:val="center" />
+							<w:rPr>
+								<w:b />
+								<w:bCs />
+							</w:rPr>
+						</w:pPr>
+						<w:r>
+							<w:rPr>
+								<w:rFonts w:hint="eastAsia" />
+								<w:b />
+								<w:bCs />
+							</w:rPr>
+							<w:t>Message</w:t>
+						</w:r>
+					</w:p>
+				</w:tc>
+			</w:tr>
+			<w:tr w:rsidR="00A1686F" w14:paraId="1AD0CC3E" w14:textId="77777777"
+				w:rsidTr="006E36BF">
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1428" w:type="dxa" />
+					</w:tcPr>
+					<w:p w14:paraId="0C4793AA" w14:textId="77777777" w:rsidR="00A1686F"
+						w:rsidRDefault="00A1686F" w:rsidP="006E36BF">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:ind w:left="0" />
+						</w:pPr>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1656" w:type="dxa" />
+					</w:tcPr>
+					<w:p w14:paraId="30F89F06" w14:textId="77777777" w:rsidR="00A1686F"
+						w:rsidRDefault="00A1686F" w:rsidP="006E36BF">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:ind w:left="0" />
+						</w:pPr>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="5736" w:type="dxa" />
+					</w:tcPr>
+					<w:p w14:paraId="4CF980D8" w14:textId="77777777" w:rsidR="00A1686F"
+						w:rsidRDefault="00A1686F" w:rsidP="006E36BF">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:ind w:left="0" />
+						</w:pPr>
+					</w:p>
+				</w:tc>
+			</w:tr>
+			<w:tr w:rsidR="00A1686F" w14:paraId="7B625858" w14:textId="77777777"
+				w:rsidTr="006E36BF">
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1428" w:type="dxa" />
+					</w:tcPr>
+					<w:p w14:paraId="57381DF8" w14:textId="77777777" w:rsidR="00A1686F"
+						w:rsidRDefault="00A1686F" w:rsidP="006E36BF">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:ind w:left="0" />
+						</w:pPr>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="1656" w:type="dxa" />
+					</w:tcPr>
+					<w:p w14:paraId="1EE29CD2" w14:textId="77777777" w:rsidR="00A1686F"
+						w:rsidRDefault="00A1686F" w:rsidP="006E36BF">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:ind w:left="0" />
+						</w:pPr>
+					</w:p>
+				</w:tc>
+				<w:tc>
+					<w:tcPr>
+						<w:tcW w:w="5736" w:type="dxa" />
+					</w:tcPr>
+					<w:p w14:paraId="76A6E313" w14:textId="77777777" w:rsidR="00A1686F"
+						w:rsidRDefault="00A1686F" w:rsidP="006E36BF">
+						<w:pPr>
+							<w:pStyle w:val="a0" />
+							<w:ind w:left="0" />
+						</w:pPr>
+					</w:p>
+				</w:tc>
+			</w:tr>
+		</w:tbl>
+	
+		
+	

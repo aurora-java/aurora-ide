@@ -49,7 +49,6 @@ public class FirstPage {
 		mdp.addStyledParagraphOfText("Docinfo", "");
 		mdp.addStyledParagraphOfText("Docinfo", "");
 		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("Docinfo", "");
 		mdp.addStyledParagraphOfText("DocInfotabletitle", "审批:");
 		
 		createTbl();
