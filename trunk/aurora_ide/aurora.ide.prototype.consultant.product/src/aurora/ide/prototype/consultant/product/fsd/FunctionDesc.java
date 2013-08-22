@@ -24,47 +24,52 @@ public class FunctionDesc {
 	}
 
 	public String getDocTitle() {
-		return "" + getPropertyValue(FunctionDesc.doc_title);
+		return getStringPropertyValue(FunctionDesc.doc_title);
+	}
+
+	public String getStringPropertyValue(String propId) {
+		Object x = this.getPropertyValue(propId);
+		return x instanceof String ? x.toString() : "";
 	}
 
 	public String getFunCode() {
-		return "" + getPropertyValue(FunctionDesc.fun_code);
+		return getStringPropertyValue(FunctionDesc.fun_code);
 	}
 
 	public String getFunName() {
-		return "" + getPropertyValue(FunctionDesc.fun_name);
+		return getStringPropertyValue(FunctionDesc.fun_name);
 	}
 
 	public String getWriter() {
-		return "" + getPropertyValue(FunctionDesc.writer);
+		return getStringPropertyValue(FunctionDesc.writer);
 	}
 
 	public String getCreateDate() {
-		return "" + getPropertyValue(FunctionDesc.c_date);
+		return getStringPropertyValue(FunctionDesc.c_date);
 	}
 
 	public String getUpdateDate() {
-		return "" + getPropertyValue(FunctionDesc.u_date);
+		return getStringPropertyValue(FunctionDesc.u_date);
 	}
 
 	public String getControlNo() {
-		return "" + getPropertyValue(FunctionDesc.no);
+		return getStringPropertyValue(FunctionDesc.no);
 	}
 
 	public String getVer() {
-		return "" + getPropertyValue(FunctionDesc.ver);
+		return getStringPropertyValue(FunctionDesc.ver);
 	}
 
 	public String getCustomerManager() {
-		return "" + getPropertyValue(FunctionDesc.c_manager);
+		return getStringPropertyValue(FunctionDesc.c_manager);
 	}
 
 	public String getDept() {
-		return "" + getPropertyValue(FunctionDesc.dept);
+		return getStringPropertyValue(FunctionDesc.dept);
 	}
 
 	public String getHandManager() {
-		return "" + getPropertyValue(FunctionDesc.h_manager);
+		return getStringPropertyValue(FunctionDesc.h_manager);
 	}
 
 	public ModifyListener createModifyListener(final String key) {

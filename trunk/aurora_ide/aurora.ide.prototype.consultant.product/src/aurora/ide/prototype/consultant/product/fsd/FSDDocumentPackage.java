@@ -7,6 +7,7 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import org.docx4j.Docx4jProperties;
+import org.docx4j.XmlUtils;
 import org.docx4j.dml.wordprocessingDrawing.Inline;
 import org.docx4j.jaxb.Context;
 import org.docx4j.model.structure.PageDimensions;
@@ -34,6 +35,7 @@ import org.docx4j.wml.HeaderReference;
 import org.docx4j.wml.Jc;
 import org.docx4j.wml.JcEnumeration;
 import org.docx4j.wml.ObjectFactory;
+import org.docx4j.wml.P;
 import org.docx4j.wml.PPr;
 import org.docx4j.wml.SectPr;
 import org.slf4j.Logger;
@@ -45,9 +47,9 @@ public class FSDDocumentPackage {
 	protected static Logger log = LoggerFactory
 			.getLogger(WordprocessingMLPackage.class);
 
-	public FSDDocumentPackage(){
+	public FSDDocumentPackage() {
 	}
-	
+
 	public void create() throws Exception {
 		wordMLPackage = createPackage();
 		Relationship relationship = createHeaderPart(getWordMLPackage());
@@ -55,8 +57,6 @@ public class FSDDocumentPackage {
 		relationship = createFooterPart(getWordMLPackage());
 		createFooterReference(getWordMLPackage(), relationship);
 	}
-
-
 
 	protected WordprocessingMLPackage createPackage()
 			throws InvalidFormatException {
@@ -265,10 +265,24 @@ public class FSDDocumentPackage {
 		p.setPPr(pPr);
 
 		ftr.getContent().add(p);
-
+		ftr.getContent().add(createPageNo());
 		return ftr;
 	}
 
+	
+	protected P createPageNo() {
+		java.io.InputStream is = null;
+		try {
+			is = org.docx4j.utils.ResourceUtils.getResource("aurora/ide/meta/docx4j/docx/sample/footer_no.xml");
+			P tbl = (P) XmlUtils.unmarshal(is);
+			return tbl;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	protected void createFooterReference(
 			WordprocessingMLPackage wordprocessingMLPackage,
 			Relationship relationship) throws InvalidFormatException {
@@ -333,8 +347,8 @@ public class FSDDocumentPackage {
 
 		Hdr hdr = objectFactory.createHdr();
 
-		File file = new File(System.getProperty("user.dir")
-				+ "/src/test/resources/images/hand-china.png");
+		File file = new File(
+				"/Users/shiliyan/Desktop/work/aurora/workspace/aurora/aurora.ide.prototype.consultant.product/src/test/resources/images/hand-china.png");
 		java.io.InputStream is = new java.io.FileInputStream(file);
 
 		hdr.getContent().add(
@@ -411,8 +425,7 @@ public class FSDDocumentPackage {
 		return wordMLPackage;
 	}
 
-
-	public MainDocumentPart getMainDocumentPart(){
+	public MainDocumentPart getMainDocumentPart() {
 		return wordMLPackage.getMainDocumentPart();
 	}
 }

@@ -21,6 +21,8 @@ import org.docx4j.wml.Tbl;
 import org.docx4j.wml.Tc;
 import org.docx4j.wml.Tr;
 
+import aurora.ide.meta.gef.editors.test.TestAction;
+
 public class ContentPage {
 
 	private FSDDocumentPackage doc;
@@ -37,7 +39,7 @@ public class ContentPage {
 		mdp.addStyledParagraphOfText("3", "界面设计");
 		mdp.addParagraphOfText("");
 
-		mdp.addStyledParagraphOfText("contentPageTitle","页面1:");
+		mdp.addStyledParagraphOfText("contentPageTitle", "页面1:");
 		mdp.addParagraphOfText("");
 
 		try {
@@ -47,6 +49,7 @@ public class ContentPage {
 					newImage(wordMLPackage, mdp,
 							BufferUtil.getBytesFromInputStream(is),
 							"hand-china", "hand-china", 1, 2));
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
