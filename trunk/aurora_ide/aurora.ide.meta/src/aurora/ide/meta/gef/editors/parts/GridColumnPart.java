@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors.parts;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
@@ -21,6 +22,7 @@ import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
 import aurora.ide.meta.gef.editors.wizard.dialog.TextEditDialog;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.StyledStringText;
+import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
@@ -51,6 +53,8 @@ public class GridColumnPart extends ContainerPart {
 
 	protected void refreshVisuals() {
 		super.refreshVisuals();
+		getFigure().setToolTip(new Label(this.getComponent().getStringPropertyValue(ComponentFSDProperties.FSD_MEANING)));
+
 	}
 
 	@Override

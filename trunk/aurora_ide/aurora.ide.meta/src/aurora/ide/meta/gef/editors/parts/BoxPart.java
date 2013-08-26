@@ -5,12 +5,14 @@ import java.beans.PropertyChangeEvent;
 import org.eclipse.draw2d.AbstractLabeledBorder;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.layout.RowColBackLayout;
 import aurora.plugin.source.gen.screen.model.BOX;
+import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class BoxPart extends ContainerPart {
@@ -36,6 +38,7 @@ public class BoxPart extends ContainerPart {
 			((AbstractLabeledBorder) border).setLabel(model.getTitle());
 		}
 		super.refreshVisuals();
+		getFigure().setToolTip(new Label(this.getComponent().getStringPropertyValue(ComponentFSDProperties.FSD_DESC)));
 	}
 
 	public void applyToModel() {
