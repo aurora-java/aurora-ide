@@ -14,7 +14,6 @@ import org.eclipse.gef.commands.CommandStackListener;
 import aurora.ide.meta.gef.editors.figures.ViewDiagramLayout;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
 import aurora.ide.meta.gef.editors.policies.PasteComponentEditPolicy;
-import aurora.ide.meta.gef.editors.policies.tplt.BindDropModelEditPolicy;
 
 public class ViewDiagramPart extends ContainerPart {
 
@@ -114,6 +113,13 @@ public class ViewDiagramPart extends ContainerPart {
 	public EditPart getTargetEditPart(Request request) {
 
 		return super.getTargetEditPart(request);
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+//		getFigure().setToolTip(new Label(this.getComponent().getStringPropertyValue(ComponentFSDProperties.FSD_PAGE_DESC)));
+
 	}
 
 }

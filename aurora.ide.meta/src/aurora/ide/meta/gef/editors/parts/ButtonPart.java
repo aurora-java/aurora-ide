@@ -21,6 +21,7 @@ import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
 import aurora.ide.meta.gef.editors.wizard.dialog.TextEditDialog;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.StyledStringText;
+import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
@@ -48,6 +49,8 @@ public class ButtonPart extends ComponentPart {
 						(title != null && title.length() > 0) ? new Label(title)
 								: null);
 		super.refreshVisuals();
+		getFigure().setToolTip(new Label(this.getComponent().getStringPropertyValue(ComponentFSDProperties.FSD_DESC)));
+
 	}
 
 	public Button getModel() {

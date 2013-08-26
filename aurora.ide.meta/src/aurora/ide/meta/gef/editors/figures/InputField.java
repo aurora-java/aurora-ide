@@ -21,6 +21,7 @@ import aurora.ide.meta.gef.util.TextStyleUtil;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.StyledStringText;
+import aurora.plugin.source.gen.screen.model.TextArea;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
@@ -97,7 +98,8 @@ public class InputField extends Figure implements IResourceDispose {
 		} else {
 			paintEmptyText(graphics, model.getEmptyText(), r);
 		}
-		// graphics.setForegroundColor(ColorConstants.EDITOR_BORDER);
+		
+		
 		Image image = getImage();
 
 		if (image != null) {
@@ -167,18 +169,24 @@ public class InputField extends Figure implements IResourceDispose {
 	private void paintEmptyText(Graphics g, String emptyText, Rectangle r) {
 		g.pushState();
 		g.setForegroundColor(ColorConstants.EDITOR_BORDER);
-		Dimension dim = FigureUtilities.getTextExtents(emptyText, getFont());
 		g.setClip(r.getResized(-16, 0));
-		g.drawString(emptyText, r.x + 2, r.y + (r.height - dim.height) / 2);
+		g.drawString(emptyText, calTextLocation(emptyText,r));
 		g.popState();
 	}
 
+	protected Point calTextLocation(String emptyText, Rectangle r){
+		Dimension dim = FigureUtilities.getTextExtents(emptyText, getFont());
+		if(TextArea.TEXT_AREA.equals(model.getComponentType())){
+			return new Point(r.x + 2, r.y + 2);
+		}
+		return new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
+	}
+	
 	protected void paintSimpleData(Graphics g, String text, Rectangle r) {
 		g.pushState();
 		g.setForegroundColor(ColorConstants.BLACK);
-		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
 		g.setClip(r.getResized(-16, 0));
-		g.drawString(text, r.x + 2, r.y + (r.height - dim.height) / 2);
+		g.drawText(text, calTextLocation(text,r));
 		g.popState();
 	}
 

@@ -17,46 +17,58 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 			AuroraComponent component) {
 		String componentType = component.getComponentType();
 		if ("button".equalsIgnoreCase(componentType)) {
-			return this.button(component);
+			return mergePropertyDescriptor(row_col_span(),
+					this.button(component));
 		}
 		if ("checkbox".equalsIgnoreCase(componentType)) {
-			return this.checkbox();
+			return mergePropertyDescriptor(row_col_span(), this.checkbox());
+			// return this.checkbox();
 		}
 		if ("combobox".equalsIgnoreCase(componentType)) {
-			return this.combox();
+			return mergePropertyDescriptor(row_col_span(), this.combox());
+			// return this.combox();
 		}
 
 		if ("datepicker".equalsIgnoreCase(componentType)) {
-			return this.datepicker();
+			return mergePropertyDescriptor(row_col_span(), this.datepicker());
+			// return this.datepicker();
 		}
 		if ("datetimepicker".equalsIgnoreCase(componentType)) {
-			return this.datepicker();
+			return mergePropertyDescriptor(row_col_span(), this.datepicker());
+			// return this.datepicker();
 		}
 		if ("fieldset".equalsIgnoreCase(componentType)) {
-			return this.form();
+			return mergePropertyDescriptor(row_col_span(), this.form());
+			// return this.form();
 		}
 
 		if ("form".equalsIgnoreCase(componentType)) {
-			return this.form();
+			return mergePropertyDescriptor(row_col_span(), this.form());
+			// return this.form();
 		}
 		if ("grid".equalsIgnoreCase(componentType)) {
-			return this.grid();
+			return mergePropertyDescriptor(row_col_span(), this.grid());
+			// return this.grid();
 		}
 		if ("gridcolumn".equalsIgnoreCase(componentType)) {
 			return this.gridcolumn();
 		}
 		if ("hbox".equalsIgnoreCase(componentType)) {
-			return this.hbox();
+			return mergePropertyDescriptor(row_col_span(), this.hbox());
+			// return this.hbox();
 		}
 		if ("label".equalsIgnoreCase(componentType)) {
-			return this.label();
+			return mergePropertyDescriptor(row_col_span(), this.label());
+			// return this.label();
 		}
 		if ("lov".equalsIgnoreCase(componentType)) {
-			return this.lov();
+			return mergePropertyDescriptor(row_col_span(), this.lov());
+			// return this.lov();
 		}
 
 		if ("numberfield".equalsIgnoreCase(componentType)) {
-			return this.numberfield();
+			return mergePropertyDescriptor(row_col_span(), this.numberfield());
+			// return this.numberfield();
 		}
 		if ("tabPanel".equalsIgnoreCase(componentType)) {
 			return this.tabfolder();
@@ -65,16 +77,19 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 			return this.tabitem();
 		}
 		if ("textfield".equalsIgnoreCase(componentType)) {
-			return this.textfield();
+			return mergePropertyDescriptor(row_col_span(), this.textfield());
+			// return this.textfield();
 		}
 		if ("textarea".equalsIgnoreCase(componentType)) {
-			return this.textarea();
+			return mergePropertyDescriptor(row_col_span(), this.textarea());
+			// return this.textarea();
 		}
 		if ("toolbar".equalsIgnoreCase(componentType)) {
 			return NONE_PROPS;
 		}
 		if ("vbox".equalsIgnoreCase(componentType)) {
-			return this.vbox(component);
+			return mergePropertyDescriptor(row_col_span(), this.vbox(component));
+			// return this.vbox(component);
 		}
 		if ("screenbody".equalsIgnoreCase(componentType)) {
 			return this.screenbody();
@@ -83,10 +98,15 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 			return this.formBody();
 		}
 		if ("queryForm".equalsIgnoreCase(componentType)) {
-			return this.queryForm();
+			return mergePropertyDescriptor(row_col_span(), this.queryForm());
+			// return this.queryForm();
 		}
 		return NONE_PROPS;
 
+	}
+
+	private IPropertyDescriptor[] row_col_span() {
+		return new IPropertyDescriptor[] { PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] textarea() {
@@ -138,7 +158,8 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 
 	private IPropertyDescriptor[] checkbox() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_NAME, PD_TEXT,
-				PD_READONLY, PD_REQUIRED, PD_CHECKED_VALUE, PD_UNCHECKED_VALUE,PD_DEFAULT_VALUE };
+				PD_READONLY, PD_REQUIRED, PD_CHECKED_VALUE, PD_UNCHECKED_VALUE,
+				PD_DEFAULT_VALUE };
 	}
 
 	public static final IPropertyDescriptor PD_TEXT = new StringPropertyDescriptor(
@@ -351,6 +372,10 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 			width, "Width");
 	protected static final IPropertyDescriptor PD_HEIGHT = new IntegerPropertyDescriptor(
 			height, "Height");
+	protected static final IPropertyDescriptor PD_ROWSPAN = new IntegerPropertyDescriptor(
+			rowspan, "Rowspan");
+	protected static final IPropertyDescriptor PD_COLSPAN = new IntegerPropertyDescriptor(
+			colspan, "Colspan");
 	protected static final IPropertyDescriptor PD_NAME = new StringPropertyDescriptor(
 			name, "Name");
 	public static final IPropertyDescriptor[] NONE_PROPS = new IPropertyDescriptor[0];

@@ -103,6 +103,9 @@ public class FSDPropertyFactory implements ComponentFSDProperties {
 		if ("custom_icon".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return input_pds;
 		}
+		if ("radio_item".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
+			return input_pds;
+		}
 		return NONE_PROPS;
 
 	}
