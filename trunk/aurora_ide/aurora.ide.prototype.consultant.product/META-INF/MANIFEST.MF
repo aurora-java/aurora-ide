@@ -65,4 +65,5 @@ Bundle-ClassPath: library.jar,
  lib/batik-xml.jar,
  lib/commons-lang-gump-20062009.jar,
  lib/xml-apis-ext.jar,
- lib/xml-apis.jar
+ lib/xml-apis.jar,
+ lib/aurora-ide-prototype.jar
