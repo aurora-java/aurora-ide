@@ -11,6 +11,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.layout.RowColBackLayout;
+import aurora.ide.meta.gef.editors.layout.RowColSpanBackLayout;
 import aurora.plugin.source.gen.screen.model.BOX;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
@@ -72,7 +73,8 @@ public class BoxPart extends ContainerPart {
 	private static final Insets BOX_PADDING = new Insets(8, 16, 8, 6);
 
 	public Rectangle layout() {
-		RowColBackLayout rowColBackLayout = new RowColBackLayout();
+//		RowColBackLayout rowColBackLayout = new RowColBackLayout();
+		RowColSpanBackLayout rowColBackLayout = new RowColSpanBackLayout();
 		rowColBackLayout.setPadding(BOX_PADDING);
 		return rowColBackLayout.layout(this);
 	}

@@ -33,7 +33,11 @@ public abstract class ComponentPart extends AbstractGraphicalEditPart implements
 				|| ComponentProperties.width.equals(prop)
 				|| ComponentInnerProperties.BOUNDS.equals(prop)
 				|| ComponentInnerProperties.SIZE.equals(prop)
-				|| ComponentInnerProperties.LOCATION.equals(prop)) {
+				|| ComponentInnerProperties.LOCATION.equals(prop)
+				|| ComponentProperties.colspan.equals(prop)
+				|| ComponentProperties.rowspan.equals(prop)
+				|| ComponentProperties.minColWidth.equals(prop)
+				|| ComponentProperties.minRowHeight.equals(prop)) {
 			this.getFigure().revalidate();
 		}
 	}
@@ -58,7 +62,7 @@ public abstract class ComponentPart extends AbstractGraphicalEditPart implements
 	public void deactivate() {
 		getComponent().removePropertyChangeListener(this);
 		IFigure figure = this.getFigure();
-		if(figure instanceof IResourceDispose){
+		if (figure instanceof IResourceDispose) {
 			((IResourceDispose) figure).disposeResource();
 		}
 		super.deactivate();
@@ -79,9 +83,9 @@ public abstract class ComponentPart extends AbstractGraphicalEditPart implements
 		// if (EditorMode.None.equals(mode))
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
 
-//		ResizeComponentEditPolicy rep = new ResizeComponentEditPolicy();
-//		rep.setResizeDirections(getResizeDirection());
-//		installEditPolicy(RESIZE_KEY, rep);
+		// ResizeComponentEditPolicy rep = new ResizeComponentEditPolicy();
+		// rep.setResizeDirections(getResizeDirection());
+		// installEditPolicy(RESIZE_KEY, rep);
 	}
 
 	public EditorMode getEditorMode() {
