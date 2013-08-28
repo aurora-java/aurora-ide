@@ -132,7 +132,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	}
 
 	private IPropertyDescriptor[] formBody() {
-		return new IPropertyDescriptor[] { PD_COL, PD_LABELWIDTH };
+		return new IPropertyDescriptor[] { PD_COL, PD_LABELWIDTH,PD_MIN_ROW_HEIGHT,PD_MIN_COL_WIDTH };
 	}
 
 	private IPropertyDescriptor[] button(AuroraComponent component) {
@@ -206,8 +206,8 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 
 	private IPropertyDescriptor[] form() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_TITLE, PD_WIDTH,
-				PD_HEIGHT, PD_COL, PD_LABELWIDTH, PD_CONTAINER_SECTION_TYPE,
-				PD_MODEL };
+				PD_HEIGHT, PD_COL, PD_MIN_ROW_HEIGHT, PD_MIN_COL_WIDTH,
+				PD_LABELWIDTH, PD_CONTAINER_SECTION_TYPE, PD_MODEL };
 	}
 
 	private IPropertyDescriptor[] grid() {
@@ -232,7 +232,8 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 			navBarType, "NavBarType", navBarTypes);
 
 	private IPropertyDescriptor[] hbox() {
-		return new IPropertyDescriptor[] { PD_PROMPT, PD_LABELWIDTH };
+		return new IPropertyDescriptor[] { PD_PROMPT, PD_LABELWIDTH,
+				PD_MIN_COL_WIDTH };
 	}
 
 	private IPropertyDescriptor[] combox() {
@@ -346,7 +347,8 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 		// String sectionType = vbox.getSectionType();
 		// if (sectionType == null ||
 		// sectionType.equals(VBox.SECTION_TYPE_BUTTON))
-		return new IPropertyDescriptor[] { PD_PROMPT, PD_LABELWIDTH };
+		return new IPropertyDescriptor[] { PD_PROMPT, PD_LABELWIDTH,
+				PD_MIN_ROW_HEIGHT };
 		// return mergePropertyDescriptor(pds, getDataset()
 		// .getPropertyDescriptors());
 		//
@@ -376,6 +378,12 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 			rowspan, "Rowspan");
 	protected static final IPropertyDescriptor PD_COLSPAN = new IntegerPropertyDescriptor(
 			colspan, "Colspan");
+
+	protected static final IPropertyDescriptor PD_MIN_ROW_HEIGHT = new IntegerPropertyDescriptor(
+			minRowHeight, "MinRowHeight");
+	protected static final IPropertyDescriptor PD_MIN_COL_WIDTH = new IntegerPropertyDescriptor(
+			minColWidth, "MinColWidth");
+
 	protected static final IPropertyDescriptor PD_NAME = new StringPropertyDescriptor(
 			name, "Name");
 	public static final IPropertyDescriptor[] NONE_PROPS = new IPropertyDescriptor[0];

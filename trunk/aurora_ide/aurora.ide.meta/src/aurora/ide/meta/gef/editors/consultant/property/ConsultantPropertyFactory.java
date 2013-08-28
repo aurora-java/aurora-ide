@@ -97,6 +97,7 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 		return NONE_PROPS;
 
 	}
+
 	protected static final IPropertyDescriptor PD_ROWSPAN = new IntegerPropertyDescriptor(
 			rowspan, "行合并");
 	protected static final IPropertyDescriptor PD_COLSPAN = new IntegerPropertyDescriptor(
@@ -104,12 +105,12 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 
 	private IPropertyDescriptor[] customIcon() {
 		return new IPropertyDescriptor[] { PD_WIDTH, PD_HEIGHT, PD_IMAGE_WIDTH,
-				PD_IMAGE_HEIGHT,PD_ROWSPAN, PD_COLSPAN};
+				PD_IMAGE_HEIGHT, PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] textarea() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_HEIGHT,
-				PD_REQUIRED, PD_READONLY ,PD_ROWSPAN, PD_COLSPAN};
+				PD_REQUIRED, PD_READONLY, PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] queryForm() {
@@ -119,17 +120,20 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 		// labelWidth,
 		// Messages.ConsultantPropertyFactory_LabelWidth,IntegerPropertyDescriptor.component_child);
 		// PD_LABELWIDTH.setChildPropertyId(ComponentInnerProperties.QUERY_FORM_TOOLBAR);
-		return new IPropertyDescriptor[] { PD_WIDTH, PD_LABELWIDTH ,PD_ROWSPAN, PD_COLSPAN};
+		return new IPropertyDescriptor[] { PD_WIDTH, PD_LABELWIDTH, PD_ROWSPAN,
+				PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] formBody() {
-		return new IPropertyDescriptor[] { PD_COL, PD_LABELWIDTH };
+		return new IPropertyDescriptor[] { PD_COL, PD_LABELWIDTH,
+				PD_MIN_ROW_HEIGHT, PD_MIN_COL_WIDTH };
 	}
 
 	private IPropertyDescriptor[] button(AuroraComponent component) {
-		IPropertyDescriptor[] std_pds = new IPropertyDescriptor[] { PD_TOOLBAR_BUTTON_TYPES,PD_ROWSPAN, PD_COLSPAN };
+		IPropertyDescriptor[] std_pds = new IPropertyDescriptor[] {
+				PD_TOOLBAR_BUTTON_TYPES, PD_ROWSPAN, PD_COLSPAN };
 		IPropertyDescriptor[] inner_pds = new IPropertyDescriptor[] { PD_TEXT,
-				PD_WIDTH, PD_HEIGHT ,PD_ROWSPAN, PD_COLSPAN};
+				PD_WIDTH, PD_HEIGHT, PD_ROWSPAN, PD_COLSPAN };
 		if (((Button) component).isOnToolBar()) {
 			return std_pds;
 		}
@@ -137,11 +141,13 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	}
 
 	private IPropertyDescriptor[] radioItem() {
-		return new IPropertyDescriptor[] { PD_TEXT, PD_WIDTH ,PD_ROWSPAN, PD_COLSPAN};
+		return new IPropertyDescriptor[] { PD_TEXT, PD_WIDTH, PD_ROWSPAN,
+				PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] checkbox() {
-		return new IPropertyDescriptor[] { PD_PROMPT, PD_TEXT, PD_WIDTH ,PD_ROWSPAN, PD_COLSPAN};
+		return new IPropertyDescriptor[] { PD_PROMPT, PD_TEXT, PD_WIDTH,
+				PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] gridcolumn() {
@@ -152,45 +158,48 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 
 	private IPropertyDescriptor[] form() {
 		return new IPropertyDescriptor[] { PD_TITLE, PD_WIDTH, PD_HEIGHT,
-				PD_COL, PD_LABELWIDTH,PD_ROWSPAN, PD_COLSPAN };
+				PD_COL, PD_LABELWIDTH, PD_ROWSPAN, PD_COLSPAN,
+				PD_MIN_ROW_HEIGHT, PD_MIN_COL_WIDTH };
 	}
 
 	private IPropertyDescriptor[] grid() {
 		return new IPropertyDescriptor[] { PD_WIDTH, PD_HEIGHT, PD_NAVBAR_TYPE,
-				PD_SELECTION_MODE,PD_ROWSPAN, PD_COLSPAN };
+				PD_SELECTION_MODE, PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] hbox() {
-		return new IPropertyDescriptor[] { PD_LABELWIDTH ,PD_ROWSPAN, PD_COLSPAN};
+		return new IPropertyDescriptor[] { PD_LABELWIDTH, PD_ROWSPAN,
+				PD_COLSPAN, PD_MIN_COL_WIDTH };
 	}
 
 	private IPropertyDescriptor[] combox() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_EMPYTEXT,
-				PD_REQUIRED, PD_READONLY ,PD_ROWSPAN, PD_COLSPAN};
+				PD_REQUIRED, PD_READONLY, PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] datepicker() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_REQUIRED,
-				PD_READONLY,PD_ROWSPAN, PD_COLSPAN };
+				PD_READONLY, PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] lov() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_EMPYTEXT,
-				PD_REQUIRED, PD_READONLY,PD_ROWSPAN, PD_COLSPAN };
+				PD_REQUIRED, PD_READONLY, PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] numberfield() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_EMPYTEXT,
-				PD_REQUIRED, PD_READONLY,PD_ROWSPAN, PD_COLSPAN };
+				PD_REQUIRED, PD_READONLY, PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] textfield() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_EMPYTEXT,
-				PD_REQUIRED, PD_READONLY,PD_ROWSPAN, PD_COLSPAN };
+				PD_REQUIRED, PD_READONLY, PD_ROWSPAN, PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] label() {
-		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH ,PD_ROWSPAN, PD_COLSPAN};
+		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH, PD_ROWSPAN,
+				PD_COLSPAN };
 	}
 
 	private IPropertyDescriptor[] tabfolder() {
@@ -202,7 +211,8 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	}
 
 	private IPropertyDescriptor[] vbox(AuroraComponent component) {
-		return new IPropertyDescriptor[] { PD_LABELWIDTH ,PD_ROWSPAN, PD_COLSPAN};
+		return new IPropertyDescriptor[] { PD_LABELWIDTH, PD_ROWSPAN,
+				PD_COLSPAN, PD_MIN_ROW_HEIGHT };
 
 	}
 
@@ -263,6 +273,11 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 			IMAGE_WIDTH, Messages.ConsultantPropertyFactory_6, true);
 	private static final IPropertyDescriptor PD_IMAGE_HEIGHT = new IntegerPropertyDescriptor(
 			IMAGE_HEIGHT, Messages.ConsultantPropertyFactory_7, true);
+
+	protected static final IPropertyDescriptor PD_MIN_ROW_HEIGHT = new IntegerPropertyDescriptor(
+			minRowHeight, "最小行高");
+	protected static final IPropertyDescriptor PD_MIN_COL_WIDTH = new IntegerPropertyDescriptor(
+			minColWidth, "最小列宽");
 
 	private IPropertyDescriptor[] screenbody() {
 		return NONE_PROPS;

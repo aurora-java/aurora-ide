@@ -5,8 +5,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 
-import aurora.ide.meta.gef.editors.figures.ColorConstants;
-import aurora.ide.meta.gef.editors.figures.FigureUtil;
 import aurora.ide.meta.gef.editors.figures.ViewDiagramLayout;
 import aurora.plugin.source.gen.screen.model.TabBody;
 import aurora.plugin.source.gen.screen.model.TabItem;
