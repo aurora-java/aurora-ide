@@ -417,6 +417,14 @@
            name="Icon"
            types="custom_icon">
      </component>
+     <component
+           categoryId="aurora.ide.meta.palette.category.input"
+           creator="aurora.ide.meta.gef.editors.components.RadioItemCreator"
+           descriptor="aurora.ide.meta.component.RadioItemDesc"
+           id="aurora.ide.meta.component.RadioItem"
+           name="Radio"
+           types="radio_item">
+     </component>
   </extension>
 	
 <extension
