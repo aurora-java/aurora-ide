@@ -40,6 +40,7 @@ public class ContentDescPage extends WizardPage {
 	protected ContentDescPage(String pageName, String title,
 			ImageDescriptor titleImage) {
 		super(pageName, title, titleImage);
+		this.setMessage(Messages.ContentDescPage_2);
 	}
 
 	@Override
