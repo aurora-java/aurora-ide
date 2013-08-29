@@ -23,21 +23,21 @@ public class SecondPage {
 
 	public void create() {
 		MainDocumentPart mdp = doc.getMainDocumentPart();
-		mdp.addStyledParagraphOfText("2", "文档控制");
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("3", "记录更改");
-		mdp.addStyledParagraphOfText("Docinfo", "");
+		mdp.addStyledParagraphOfText("2", Messages.SecondPage_1); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("3", Messages.SecondPage_5); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.getContent()
-				.add(createTbl("aurora/ide/meta/docx4j/docx/sample/record_table.xml"));
-		mdp.addStyledParagraphOfText("3", "审阅人");
-		mdp.addStyledParagraphOfText("Docinfo", "");
+				.add(createTbl("aurora/ide/meta/docx4j/docx/sample/record_table.xml")); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.SecondPage_10); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.getContent()
-				.add(createTbl("aurora/ide/meta/docx4j/docx/sample/reviewer_table.xml"));
-		mdp.addStyledParagraphOfText("3", "分发");
-		mdp.addStyledParagraphOfText("Docinfo", "");
+				.add(createTbl("aurora/ide/meta/docx4j/docx/sample/reviewer_table.xml")); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.SecondPage_15); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.getContent()
-				.add(createTbl("aurora/ide/meta/docx4j/docx/sample/dispatch_table.xml"));
-		mdp.addStyledParagraphOfText("Docinfo", "");
+				.add(createTbl("aurora/ide/meta/docx4j/docx/sample/dispatch_table.xml")); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	protected Tbl createTbl(String path) {
@@ -60,6 +60,6 @@ public class SecondPage {
 		tc.getContent().clear();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("DocInfoTable", content));
+						.createStyledParagraphOfText("DocInfoTable", content)); //$NON-NLS-1$
 	}
 }

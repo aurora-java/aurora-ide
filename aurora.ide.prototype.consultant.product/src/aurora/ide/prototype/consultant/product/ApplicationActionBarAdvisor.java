@@ -45,7 +45,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction introAction;
 	private ExportFSDAction exportFSDAction;
 
-	 private TestAction testAction;
+//	 private TestAction testAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -99,8 +99,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		introAction.setToolTipText(Messages.ApplicationActionBarAdvisor_13);
 		register(introAction);
 
-		 testAction = new TestAction(window,
-		 Messages.ApplicationActionBarAdvisor_1);
+//		 testAction = new TestAction(window,
+//		 Messages.ApplicationActionBarAdvisor_1);
 
 	}
 
@@ -142,6 +142,6 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		toolbar.add(introAction);
 		toolbar.add(exportFSDAction);
 
-		 toolbar.add(testAction);
+//		 toolbar.add(testAction);
 	}
 }

@@ -1,6 +1,5 @@
 package aurora.ide.prototype.consultant.product.fsd;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -259,7 +258,6 @@ public class FSDDocumentPackage {
 		if (jc == null) {
 			jc = new org.docx4j.wml.Jc();
 		}
-		// 页脚条形码所处位置
 		jc.setVal(JcEnumeration.CENTER);
 		pPr.setJc(jc);
 		p.setPPr(pPr);
@@ -269,11 +267,11 @@ public class FSDDocumentPackage {
 		return ftr;
 	}
 
-	
 	protected P createPageNo() {
 		java.io.InputStream is = null;
 		try {
-			is = org.docx4j.utils.ResourceUtils.getResource("aurora/ide/meta/docx4j/docx/sample/footer_no.xml");
+			is = org.docx4j.utils.ResourceUtils
+					.getResource("aurora/ide/meta/docx4j/docx/sample/footer_no.xml");
 			P tbl = (P) XmlUtils.unmarshal(is);
 			return tbl;
 		} catch (IOException e) {
@@ -283,6 +281,7 @@ public class FSDDocumentPackage {
 		}
 		return null;
 	}
+
 	protected void createFooterReference(
 			WordprocessingMLPackage wordprocessingMLPackage,
 			Relationship relationship) throws InvalidFormatException {
@@ -347,9 +346,10 @@ public class FSDDocumentPackage {
 
 		Hdr hdr = objectFactory.createHdr();
 
-		File file = new File(
-				"/Users/shiliyan/Desktop/work/aurora/workspace/aurora/aurora.ide.prototype.consultant.product/src/test/resources/images/hand-china.png");
-		java.io.InputStream is = new java.io.FileInputStream(file);
+		// File file = new File(
+		// "/Users/shiliyan/Desktop/work/aurora/workspace/aurora/aurora.ide.prototype.consultant.product/src/test/resources/images/hand-china.png");
+		java.io.InputStream is = org.docx4j.utils.ResourceUtils
+				.getResource("aurora/ide/meta/docx4j/docx/sample/hand-china.png");
 
 		hdr.getContent().add(
 				newImage(wordprocessingMLPackage, sourcePart,
@@ -381,8 +381,10 @@ public class FSDDocumentPackage {
 
 		// inline.getCNvGraphicFramePr().getGraphicFrameLocks().setNoChangeAspect(false);
 		// Pic pic = inline.getGraphic().getGraphicData().getPic();
-		org.docx4j.dml.ObjectFactory dmlFactory = new org.docx4j.dml.ObjectFactory();
-		org.pptx4j.pml.ObjectFactory pmlFactory = new org.pptx4j.pml.ObjectFactory();
+		// org.docx4j.dml.ObjectFactory dmlFactory = new
+		// org.docx4j.dml.ObjectFactory();
+		// org.pptx4j.pml.ObjectFactory pmlFactory = new
+		// org.pptx4j.pml.ObjectFactory();
 		//
 		// pic.getBlipFill();
 		//

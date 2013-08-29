@@ -3,7 +3,6 @@ package aurora.ide.prototype.consultant.product.fsd;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import org.docx4j.XmlUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
@@ -25,11 +24,11 @@ public class ExportFSDProgress implements IRunnableWithProgress {
 	@Override
 	public void run(IProgressMonitor monitor) throws InvocationTargetException,
 			InterruptedException {
-		monitor.beginTask("Export FSD", 150);
+		monitor.beginTask("Export FSD", 150); //$NON-NLS-1$
 
 		boolean save = true;
 		try {
-			monitor.setTaskName("初始化");
+			monitor.setTaskName(Messages.ExportFSDProgress_1);
 			FSDDocumentPackage pkg = new FSDDocumentPackage();
 			monitor.worked(10);
 			pkg.create();
@@ -56,7 +55,7 @@ public class ExportFSDProgress implements IRunnableWithProgress {
 			FifthPage page5 = new FifthPage(pkg,function);
 			page5.create();
 			monitor.worked(10);
-			monitor.setTaskName("生成图片");
+			monitor.setTaskName(Messages.ExportFSDProgress_2);
 			Docx4jUtil.createNewPage(pkg.getMainDocumentPart());
 			ContentPage page6 = new ContentPage(pkg,files);
 			page6.create();
@@ -69,9 +68,9 @@ public class ExportFSDProgress implements IRunnableWithProgress {
 //				String filename = "/Users/shiliyan/Desktop"
 //						+ "/OUT_CopyStyles.docx";
 				String filename = savePath;
-				monitor.setTaskName("保存:"+filename);
+				monitor.setTaskName(Messages.ExportFSDProgress_3+filename);
 				pkg.getWordMLPackage().save(new java.io.File(filename));
-				System.out.println("Saved " + filename);
+				System.out.println("Saved " + filename); //$NON-NLS-1$
 				monitor.done();
 			}
 		} catch (Exception e) {
