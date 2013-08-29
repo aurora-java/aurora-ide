@@ -30,32 +30,32 @@ public class FirstPage {
 
 	public void create() {
 		MainDocumentPart mdp = doc.getMainDocumentPart();
-		mdp.addStyledParagraphOfText("TitleBar", "");
-		mdp.addStyledParagraphOfText("Title", "");
-		mdp.addStyledParagraphOfText("Title", "HAND ENTERPRISE SOLUTIONS");
-		mdp.addStyledParagraphOfText("DocTitle2", function.getFunCode());
-		mdp.addStyledParagraphOfText("DocTitle3", function.getDocTitle());
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("Docinfo", "");
+		mdp.addStyledParagraphOfText("TitleBar", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Title", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Title", "HAND ENTERPRISE SOLUTIONS"); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("DocTitle2", function.getFunCode()); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("DocTitle3", function.getDocTitle()); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 
-		createFirstInfo(mdp,"作者:",function.getWriter());
-		createFirstInfo(mdp,"建档日期:",function.getCreateDate());
-		createFirstInfo(mdp,"上次更新:",function.getUpdateDate());
-		createFirstInfo(mdp,"控制号:",function.getControlNo());
-		createFirstInfo(mdp,"版本:",function.getVer());
+		createFirstInfo(mdp,Messages.FirstPage_16,function.getWriter());
+		createFirstInfo(mdp,Messages.FirstPage_17,function.getCreateDate());
+		createFirstInfo(mdp,Messages.FirstPage_18,function.getUpdateDate());
+		createFirstInfo(mdp,Messages.FirstPage_19,function.getControlNo());
+		createFirstInfo(mdp,Messages.FirstPage_20,function.getVer());
 		
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("DocInfotabletitle", "审批:");
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("DocInfotabletitle", Messages.FirstPage_28); //$NON-NLS-1$
 		
 		createTbl();
 	}
 	
 	private void createFirstInfo(MainDocumentPart mdp,String name,String value){
-		P p =mdp.addStyledParagraphOfText("Docinfo", name);
+		P p =mdp.addStyledParagraphOfText("Docinfo", name); //$NON-NLS-1$
 		p.getContent().add(createTab());
 		p.getContent().add(createText(value));
 	}
@@ -88,14 +88,14 @@ public class FirstPage {
 		Tbl tbl = TblFactory.createTable(3, cols, cellWidthTwips);
 
 		// w:tblPr
-		String strTblPr = "<w:tblPr "
+		String strTblPr = "<w:tblPr " //$NON-NLS-1$
 				+ Namespaces.W_NAMESPACE_DECLARATION
-				+ ">"
-				+ "<w:tblStyle w:val=\"TableGrid\"/>"
-				+ "<w:tblW w:w=\"0\" w:type=\"auto\"/>"
-				+ "<w:tblInd w:w=\"250\" w:type=\"dxa\" />"
-				+ "<w:tblLook w:val=\"04A0\" w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\" />"
-				+ "</w:tblPr>";
+				+ ">" //$NON-NLS-1$
+				+ "<w:tblStyle w:val=\"TableGrid\"/>" //$NON-NLS-1$
+				+ "<w:tblW w:w=\"0\" w:type=\"auto\"/>" //$NON-NLS-1$
+				+ "<w:tblInd w:w=\"250\" w:type=\"dxa\" />" //$NON-NLS-1$
+				+ "<w:tblLook w:val=\"04A0\" w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\" />" //$NON-NLS-1$
+				+ "</w:tblPr>"; //$NON-NLS-1$
 		TblPr tblPr = null;
 		try {
 			tblPr = (TblPr) XmlUtils.unmarshalString(strTblPr);
@@ -105,15 +105,15 @@ public class FirstPage {
 		}
 		tbl.setTblPr(tblPr);
 
-		createTc(tbl, 0, 0, "客户项目经理");
+		createTc(tbl, 0, 0, Messages.FirstPage_37);
 		createTc(tbl, 0, 1, function.getCustomerManager());
-		createTc(tbl, 1, 0, "相关业务部门");
+		createTc(tbl, 1, 0, Messages.FirstPage_38);
 		createTc(tbl, 1, 1, function.getDept());
-		createTc(tbl, 2, 0, "汉得项目经理");
+		createTc(tbl, 2, 0, Messages.FirstPage_39);
 		createTc(tbl, 2, 1, function.getHandManager());
 		mdp.addObject(tbl);
 
-		mdp.addStyledParagraphOfText("Docinfo", "");
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	protected void createTc(Tbl tbl, int row, int cols, String content) {
@@ -122,6 +122,6 @@ public class FirstPage {
 		tc.getContent().clear();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("DocInfoTable", content));
+						.createStyledParagraphOfText("DocInfoTable", content)); //$NON-NLS-1$
 	}
 }

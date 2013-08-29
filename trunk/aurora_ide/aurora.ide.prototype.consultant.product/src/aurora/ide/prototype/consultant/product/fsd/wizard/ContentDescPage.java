@@ -50,9 +50,8 @@ public class ContentDescPage extends WizardPage {
 		Composite pathComposite = WidgetFactory.composite(parent);
 		pathComposite.setLayout(GridLayoutUtil.COLUMN_LAYOUT_3);
 		pathComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		// 保存路径 必输，
 		final TextField tf = WidgetFactory.createTextButtonField(pathComposite,
-				"保存路径:", "浏览");
+				Messages.ContentDescPage_0, Messages.ContentDescPage_1);
 		tf.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent e) {
@@ -87,7 +86,6 @@ public class ContentDescPage extends WizardPage {
 
 		Composite tableComposite = WidgetFactory.composite(parent);
 
-		// Quick UI文件列表
 		createTable(tableComposite);
 		//
 		this.setControl(parent);
@@ -96,13 +94,13 @@ public class ContentDescPage extends WizardPage {
 
 	protected String getDefaultFileName() {
 		IWizard wizard = this.getWizard();
-		IWizardPage page = wizard.getPage("FunctionDescPage");
+		IWizardPage page = wizard.getPage("FunctionDescPage"); //$NON-NLS-1$
 		if (page instanceof FunctionDescPage) {
 			FunctionDesc model = ((FunctionDescPage) page).getModel();
-			return model.getPropertyValue(FunctionDesc.fun_code) + "_"
+			return model.getPropertyValue(FunctionDesc.fun_code) + "_" //$NON-NLS-1$
 					+ model.getPropertyValue(FunctionDesc.fun_name);
 		}
-		return "NO_NAME";
+		return "NO_NAME"; //$NON-NLS-1$
 	}
 
 	private void createTable(Composite tableComposite) {
@@ -119,11 +117,11 @@ public class ContentDescPage extends WizardPage {
 		table.setLinesVisible(true);
 		TableColumn column1 = new TableColumn(table, SWT.LEFT);
 		column1.setWidth(128);
-		column1.setText("文件名");
+		column1.setText(Messages.ContentDescPage_5);
 
 		TableColumn column2 = new TableColumn(table, SWT.NONE);
 		column2.setWidth(193);
-		column2.setText("路径");
+		column2.setText(Messages.ContentDescPage_6);
 
 		tv.setContentProvider(new TableContentProvider());
 		tv.setLabelProvider(new TableLabelProvider() {
@@ -138,21 +136,21 @@ public class ContentDescPage extends WizardPage {
 						return element.toString();
 					}
 				}
-				return "";
+				return ""; //$NON-NLS-1$
 			}
 		});
 
 		Composite buttonComposite = WidgetFactory.composite(tableComposite);
 		buttonComposite.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
 		buttonComposite.setLayoutData(new GridData(GridData.FILL_VERTICAL));
-		Button add = WidgetFactory.button(buttonComposite, "增加");
+		Button add = WidgetFactory.button(buttonComposite, Messages.ContentDescPage_8);
 		add.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
 				dialog.setText("Open File"); //$NON-NLS-1$
-				dialog.setFilterExtensions(new String[] { "*.uip" });
+				dialog.setFilterExtensions(new String[] { "*.uip" }); //$NON-NLS-1$
 				String path = dialog.open();
 				if (path != null && path.length() > 0) {
 					getUipFiles().add(path);
@@ -164,7 +162,7 @@ public class ContentDescPage extends WizardPage {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
-		Button del = WidgetFactory.button(buttonComposite, "删除");
+		Button del = WidgetFactory.button(buttonComposite, Messages.ContentDescPage_10);
 		del.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -183,7 +181,7 @@ public class ContentDescPage extends WizardPage {
 
 			}
 		});
-		Button up = WidgetFactory.button(buttonComposite, "上移");
+		Button up = WidgetFactory.button(buttonComposite, Messages.ContentDescPage_11);
 		up.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -195,7 +193,7 @@ public class ContentDescPage extends WizardPage {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
-		Button down = WidgetFactory.button(buttonComposite, "下移");
+		Button down = WidgetFactory.button(buttonComposite, Messages.ContentDescPage_12);
 		down.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -211,8 +209,8 @@ public class ContentDescPage extends WizardPage {
 	}
 
 	protected boolean verifyPage() {
-		if (getSavePath() == null || "".equals(getSavePath())) {
-			this.setErrorMessage("保存路径不能为空");
+		if (getSavePath() == null || "".equals(getSavePath())) { //$NON-NLS-1$
+			this.setErrorMessage(Messages.ContentDescPage_14);
 			this.setPageComplete(false);
 			return false;
 		}

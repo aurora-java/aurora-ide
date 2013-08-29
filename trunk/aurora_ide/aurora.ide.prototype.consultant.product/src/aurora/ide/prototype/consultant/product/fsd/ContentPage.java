@@ -73,24 +73,24 @@ public class ContentPage {
 
 	public void create() {
 		MainDocumentPart mdp = doc.getMainDocumentPart();
-		mdp.addStyledParagraphOfText("3", "界面设计");
-		mdp.addParagraphOfText("");
+		mdp.addStyledParagraphOfText("3", Messages.ContentPage_1); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
 
 		for (String file : files) {
 			createContent(file);
 		}
-		mdp.addStyledParagraphOfText("3", "特殊逻辑");
-		mdp.addParagraphOfText("");
-		mdp.addParagraphOfText("");
-		mdp.addStyledParagraphOfText("3", "系统Message");
-		mdp.addParagraphOfText("");
-		mdp.addParagraphOfText("");
+		mdp.addStyledParagraphOfText("3", Messages.ContentPage_4); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.ContentPage_8); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
 		mdp.getContent()
-				.add(createTbl("aurora/ide/meta/docx4j/docx/sample/sys_msg_table.xml"));
+				.add(createTbl("aurora/ide/meta/docx4j/docx/sample/sys_msg_table.xml")); //$NON-NLS-1$
 
-		mdp.addStyledParagraphOfText("3", "附件");
-		mdp.addParagraphOfText("");
-		mdp.addParagraphOfText("");
+		mdp.addStyledParagraphOfText("3", Messages.ContentPage_13); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
 	}
 
 	private void createContent(String file) {
@@ -102,9 +102,9 @@ public class ContentPage {
 
 		MainDocumentPart mdp = doc.getMainDocumentPart();
 
-		mdp.addStyledParagraphOfText("contentPageTitle", screenBody
+		mdp.addStyledParagraphOfText("contentPageTitle", screenBody //$NON-NLS-1$
 				.getStringPropertyValue(ComponentFSDProperties.FSD_PAGE_NAME));
-		mdp.addParagraphOfText("");
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
 
 		try {
 			mdp.getContent()
@@ -113,7 +113,7 @@ public class ContentPage {
 							mdp,
 							BufferUtil
 									.getBytesFromInputStream(createImageInputStream(screenBody)),
-							"hand-china", "hand-china", 1, 2));
+							"hand-china", "hand-china", 1, 2)); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -135,17 +135,17 @@ public class ContentPage {
 			List<AuroraComponent> cs = getAllChildren(container);
 			if (cs.size() == 0)
 				continue;
-			mdp.addStyledParagraphOfText("3", container
+			mdp.addStyledParagraphOfText("3", container //$NON-NLS-1$
 					.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
 			createContentTblInfo(cs);
 		}
 		List<Button> buttons = getButtons(screenBody);
 		if (buttons.size() > 0)
-			mdp.addStyledParagraphOfText("3", "操作说明:");
+			mdp.addStyledParagraphOfText("3", Messages.ContentPage_22); //$NON-NLS-1$
 		for (int i = 0; i < buttons.size(); i++) {
 			Button b = buttons.get(i);
-			mdp.addParagraphOfText("" + (i + 1) + ".  "
-					+ MessageUtil.getButtonText(b) + " :  "
+			mdp.addParagraphOfText("" + (i + 1) + ".  " //$NON-NLS-1$ //$NON-NLS-2$
+					+ MessageUtil.getButtonText(b) + " :  " //$NON-NLS-1$
 					+ b.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
 		}
 	}
@@ -212,7 +212,7 @@ public class ContentPage {
 		if (childs.size() == 0)
 			return;
 		MainDocumentPart mdp = doc.getMainDocumentPart();
-		Tbl createTbl = createTbl("aurora/ide/meta/docx4j/docx/sample/content_table.xml");
+		Tbl createTbl = createTbl("aurora/ide/meta/docx4j/docx/sample/content_table.xml"); //$NON-NLS-1$
 		for (int i = 0; i < childs.size(); i++) {
 			createTbl.getContent().add(createTr(childs.get(i), i + 1));
 		}
@@ -220,21 +220,21 @@ public class ContentPage {
 
 		for (int i = 0; i < childs.size(); i++) {
 			AuroraComponent auroraComponent = childs.get(i);
-			mdp.addStyledParagraphOfText("contentInfoHead", "Note" + (i + 1)
-					+ ":" + auroraComponent.getPrompt());
+			mdp.addStyledParagraphOfText("contentInfoHead", "Note" + (i + 1) //$NON-NLS-1$ //$NON-NLS-2$
+					+ ":" + auroraComponent.getPrompt()); //$NON-NLS-1$
 			mdp.addStyledParagraphOfText(
-					"contentInfo",
-					"含义: "
+					"contentInfo", //$NON-NLS-1$
+					Messages.ContentPage_31
 							+ auroraComponent
 									.getStringPropertyValue(ComponentFSDProperties.FSD_MEANING));
 			mdp.addStyledParagraphOfText(
-					"contentInfo",
-					"数据来源: "
+					"contentInfo", //$NON-NLS-1$
+					Messages.ContentPage_33
 							+ auroraComponent
 									.getStringPropertyValue(ComponentFSDProperties.FSD_DATA_FROM));
 			mdp.addStyledParagraphOfText(
-					"contentInfo",
-					"逻辑: "
+					"contentInfo", //$NON-NLS-1$
+					Messages.ContentPage_35
 							+ auroraComponent
 									.getStringPropertyValue(ComponentFSDProperties.FSD_LOGIC));
 		}
@@ -270,37 +270,37 @@ public class ContentPage {
 		Tc tc = objectFactory.createTc();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("contentTable", "" + i));
+						.createStyledParagraphOfText("contentTable", "" + i)); //$NON-NLS-1$ //$NON-NLS-2$
 		tr.getContent().add(tc);
 		tc = objectFactory.createTc();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("contentTable",
+						.createStyledParagraphOfText("contentTable", //$NON-NLS-1$
 								ac.getPrompt()));
 		tr.getContent().add(tc);
 		tc = objectFactory.createTc();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("contentTable",
+						.createStyledParagraphOfText("contentTable", //$NON-NLS-1$
 								getType(ac)));
 		tr.getContent().add(tc);
 		tc = objectFactory.createTc();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("contentTable", "30"));
+						.createStyledParagraphOfText("contentTable", "30")); //$NON-NLS-1$ //$NON-NLS-2$
 
 		tr.getContent().add(tc);
 		tc = objectFactory.createTc();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("contentTable",
+						.createStyledParagraphOfText("contentTable", //$NON-NLS-1$
 								this.getFormat(ac)));
 
 		tr.getContent().add(tc);
 		tc = objectFactory.createTc();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("contentTable",
+						.createStyledParagraphOfText("contentTable", //$NON-NLS-1$
 								this.getMustInput(ac)));
 
 		tr.getContent().add(tc);
@@ -308,14 +308,14 @@ public class ContentPage {
 		tc = objectFactory.createTc();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("contentTable",
+						.createStyledParagraphOfText("contentTable", //$NON-NLS-1$
 								this.getDefaultValue(ac)));
 		tr.getContent().add(tc);
 		tc = objectFactory.createTc();
 		tc.getContent()
 				.add(wordMLPackage
 						.getMainDocumentPart()
-						.createStyledParagraphOfText("contentTable", "Note" + i));
+						.createStyledParagraphOfText("contentTable", "Note" + i)); //$NON-NLS-1$ //$NON-NLS-2$
 
 		tr.getContent().add(tc);
 		return tr;
@@ -325,22 +325,22 @@ public class ContentPage {
 		if (ac instanceof IDatasetFieldDelegate) {
 			String v = ((IDatasetFieldDelegate) ac).getDatasetField()
 					.getDefaultValue();
-			if (v == null || "".equals(v))
-				return "N/A";
-			return ""
+			if (v == null || "".equals(v)) //$NON-NLS-1$
+				return "N/A"; //$NON-NLS-1$
+			return "" //$NON-NLS-1$
 					+ ((IDatasetFieldDelegate) ac).getDatasetField()
 							.isRequired();
 		}
-		return "N/A";
+		return "N/A"; //$NON-NLS-1$
 	}
 
 	// N/A
 	private String getMustInput(AuroraComponent ac) {
 		if (ac instanceof IDatasetFieldDelegate) {
-			return ("" + ((IDatasetFieldDelegate) ac).getDatasetField()
+			return ("" + ((IDatasetFieldDelegate) ac).getDatasetField() //$NON-NLS-1$
 					.isRequired()).toUpperCase();
 		}
-		return "false".toUpperCase();
+		return "false".toUpperCase(); //$NON-NLS-1$
 	}
 
 	private String getFormat(AuroraComponent ac) {
@@ -351,29 +351,29 @@ public class ContentPage {
 			GridColumn gc = (GridColumn) ac;
 			return gc.getEditor().toUpperCase();
 		}
-		return "TEXT";
+		return "TEXT"; //$NON-NLS-1$
 	}
 
 	private String getType(AuroraComponent ac) {
 		String type = ac.getComponentType();
 		if (Input.DATE_PICKER.equals(type) || Input.DATETIMEPICKER.equals(type)) {
-			return "DATE";
+			return "DATE"; //$NON-NLS-1$
 		}
 		if (Input.NUMBER.equals(type)) {
-			return "NUM";
+			return "NUM"; //$NON-NLS-1$
 		}
 		if (GridColumn.GRIDCOLUMN.equals(type)) {
 			GridColumn gc = (GridColumn) ac;
 			type = gc.getEditor();
 			if (Input.DATE_PICKER.equals(type)
 					|| Input.DATETIMEPICKER.equals(type)) {
-				return "DATE";
+				return "DATE"; //$NON-NLS-1$
 			}
 			if (Input.NUMBER.equals(type)) {
-				return "NUM";
+				return "NUM"; //$NON-NLS-1$
 			}
 		}
-		return "VC";
+		return "VC"; //$NON-NLS-1$
 	}
 
 	protected void createTc(Tbl tbl, int row, int cols, String content) {
@@ -382,7 +382,7 @@ public class ContentPage {
 		tc.getContent().clear();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("DocInfoTable", content));
+						.createStyledParagraphOfText("DocInfoTable", content)); //$NON-NLS-1$
 	}
 
 	protected Tbl createTbl(String path) {

@@ -28,7 +28,7 @@ public class ContextPage {
 	public void create() {
 		MainDocumentPart mdp = doc.getMainDocumentPart();
 		
-		mdp.addStyledParagraphOfText("tocheading", "文档目录");
+		mdp.addStyledParagraphOfText("tocheading", Messages.ContextPage_1); //$NON-NLS-1$
 //		tocheading
 		
 		
@@ -44,8 +44,8 @@ public class ContextPage {
 
 		R r1 = factory.createR();
 		Text txt = new Text();
-		txt.setSpace("preserve");
-		txt.setValue(" TOC \\o \"1-3\" \\h \\z \\u ");
+		txt.setSpace("preserve"); //$NON-NLS-1$
+		txt.setValue(" TOC \\o \"1-3\" \\h \\z \\u "); //$NON-NLS-1$
 		r.getContent().add(factory.createRInstrText(txt));
 		paragraphForTOC.getContent().add(r1);
 		
@@ -74,7 +74,7 @@ public class ContextPage {
 
 	public static JAXBElement getWrappedFldChar(FldChar fldchar) {
 
-		return new JAXBElement(new QName(Namespaces.NS_WORD12, "fldChar"),
+		return new JAXBElement(new QName(Namespaces.NS_WORD12, "fldChar"), //$NON-NLS-1$
 				FldChar.class, fldchar);
 
 	}

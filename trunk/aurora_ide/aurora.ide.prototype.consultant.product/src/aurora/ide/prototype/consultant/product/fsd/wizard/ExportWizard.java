@@ -23,8 +23,8 @@ public class ExportWizard extends UWizard {
 
 	public void addPages() {
 
-		page1 = new FunctionDescPage("FunctionDescPage", "功能定义", null);
-		page2 = new ContentDescPage("FunctionDescPage", "文档内容定义", null);
+		page1 = new FunctionDescPage("FunctionDescPage", Messages.ExportWizard_1, null); //$NON-NLS-1$
+		page2 = new ContentDescPage("FunctionDescPage", Messages.ExportWizard_3, null); //$NON-NLS-1$
 		addPage(page1);
 		addPage(page2);
 	}

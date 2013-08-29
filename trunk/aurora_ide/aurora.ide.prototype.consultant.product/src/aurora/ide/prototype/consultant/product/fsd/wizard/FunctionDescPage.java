@@ -46,12 +46,9 @@ public class FunctionDescPage extends WizardPage implements ModifyListener {
 		Composite functonComposite = new Composite(parent, SWT.NONE);
 		functonComposite.setLayout(ly);
 		functonComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		// 文档标题
-		createInputField(functonComposite, "文档标题", FunctionDesc.doc_title);
-		// 功能号
-		createInputField(functonComposite, "功能号", FunctionDesc.fun_code);
-		// 功能描述
-		createInputField(functonComposite, "功能名", FunctionDesc.fun_name);
+		createInputField(functonComposite, Messages.FunctionDescPage_0, FunctionDesc.doc_title);
+		createInputField(functonComposite, Messages.FunctionDescPage_1, FunctionDesc.fun_code);
+		createInputField(functonComposite, Messages.FunctionDescPage_2, FunctionDesc.fun_name);
 
 		new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL)
 				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -59,30 +56,22 @@ public class FunctionDescPage extends WizardPage implements ModifyListener {
 		Composite infoComposite = new Composite(parent, SWT.NONE);
 		infoComposite.setLayout(new GridLayout(2, false));
 		infoComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		// 作者
-		createInputField(infoComposite, "作者", FunctionDesc.writer);
-		// 建档日期
-		createInputField(infoComposite, "建档日期", FunctionDesc.c_date);
-		// 上次更新
-		createInputField(infoComposite, "上次更新", FunctionDesc.u_date);
-		// 控制号
-		createInputField(infoComposite, "控制号", FunctionDesc.no);
-		// 版本
-		createInputField(infoComposite, "版本", FunctionDesc.ver);
+		createInputField(infoComposite, Messages.FunctionDescPage_3, FunctionDesc.writer);
+		createInputField(infoComposite, Messages.FunctionDescPage_4, FunctionDesc.c_date);
+		createInputField(infoComposite, Messages.FunctionDescPage_5, FunctionDesc.u_date);
+		createInputField(infoComposite, Messages.FunctionDescPage_6, FunctionDesc.no);
+		createInputField(infoComposite, Messages.FunctionDescPage_7, FunctionDesc.ver);
 
 		new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL)
 				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		Group applyComposite = new Group(parent, SWT.NONE);
-		applyComposite.setText("审批");
+		applyComposite.setText(Messages.FunctionDescPage_8);
 		// Composite applyComposite = new Composite(parent, SWT.NONE);
 		applyComposite.setLayout(ly);
 		applyComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		// 客户项目经理
-		createInputField(applyComposite, "客户经理", FunctionDesc.c_manager);
-		// 相关业务部门
-		createInputField(applyComposite, "相关部门", FunctionDesc.dept);
-		// 汉得项目经理
-		createInputField(applyComposite, "汉得经理", FunctionDesc.h_manager);
+		createInputField(applyComposite, Messages.FunctionDescPage_9, FunctionDesc.c_manager);
+		createInputField(applyComposite, Messages.FunctionDescPage_10, FunctionDesc.dept);
+		createInputField(applyComposite, Messages.FunctionDescPage_11, FunctionDesc.h_manager);
 
 		this.setControl(parent);
 		modifyText(null);
@@ -90,7 +79,7 @@ public class FunctionDescPage extends WizardPage implements ModifyListener {
 
 	protected boolean verifyPage(String key, String message) {
 		Object propertyValue = getModel().getPropertyValue(key);
-		if (propertyValue == null || "".equals(propertyValue)) {
+		if (propertyValue == null || "".equals(propertyValue)) { //$NON-NLS-1$
 			this.setErrorMessage(message);
 			this.setPageComplete(false);
 			return false;
@@ -102,9 +91,9 @@ public class FunctionDescPage extends WizardPage implements ModifyListener {
 
 	@Override
 	public void modifyText(ModifyEvent e) {
-		if (verifyPage(FunctionDesc.doc_title, "文档标题不能为空")
-				&& verifyPage(FunctionDesc.fun_code, "功能号不能为空")
-				&& verifyPage(FunctionDesc.fun_name, "功能名不能为空"))
+		if (verifyPage(FunctionDesc.doc_title, Messages.FunctionDescPage_13)
+				&& verifyPage(FunctionDesc.fun_code, Messages.FunctionDescPage_14)
+				&& verifyPage(FunctionDesc.fun_name, Messages.FunctionDescPage_15))
 			;
 	}
 

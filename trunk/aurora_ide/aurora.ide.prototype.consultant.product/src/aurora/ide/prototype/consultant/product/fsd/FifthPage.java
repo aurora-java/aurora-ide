@@ -17,15 +17,15 @@ public class FifthPage {
 
 	public void create() {
 		MainDocumentPart mdp = doc.getMainDocumentPart();
-		mdp.addStyledParagraphOfText("2", function.getFunName());
-		mdp.addStyledParagraphOfText("3", "前提（Prerequisite）");
-		mdp.addParagraphOfText("");
-		mdp.addStyledParagraphOfText("3", "术语定义（Terminology Definition）");
-		mdp.addParagraphOfText("");
-		mdp.addStyledParagraphOfText("3", "用户权限");
-		mdp.addParagraphOfText("");
-		mdp.addStyledParagraphOfText("3", "操作流程（Procedure）");
-		mdp.addParagraphOfText("");
+		mdp.addStyledParagraphOfText("2", function.getFunName()); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.FifthPage_2); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.FifthPage_5); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.FifthPage_8); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.FifthPage_11); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
 		
 	}
 
