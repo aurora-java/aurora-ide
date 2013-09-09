@@ -132,7 +132,8 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	}
 
 	private IPropertyDescriptor[] formBody() {
-		return new IPropertyDescriptor[] { PD_COL, PD_LABELWIDTH,PD_MIN_ROW_HEIGHT,PD_MIN_COL_WIDTH };
+		return new IPropertyDescriptor[] { PD_COL, PD_LABELWIDTH,
+				PD_MIN_ROW_HEIGHT, PD_MIN_COL_WIDTH };
 	}
 
 	private IPropertyDescriptor[] button(AuroraComponent component) {
@@ -191,6 +192,7 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 				new BooleanPropertyDescriptor(required, "*required",
 						StylePropertyDescriptor.component
 								| StylePropertyDescriptor.datasetfield),
+				new BooleanPropertyDescriptor(GRID_COLUMN_SORTABLE, "sort"),
 				new DialogPropertyDescriptor(
 						ComponentInnerProperties.INNER_LOV_SERVICE, "*options",
 						LovServiceEditDialog.class,
@@ -375,9 +377,9 @@ public class EditablePropertyFactory implements ComponentInnerProperties,
 	protected static final IPropertyDescriptor PD_HEIGHT = new IntegerPropertyDescriptor(
 			height, "Height");
 	protected static final IPropertyDescriptor PD_ROWSPAN = new IntegerPropertyDescriptor(
-			rowspan, "Rowspan");
+			rowspan, "Rowspan", 1, 1000, 1, 1);
 	protected static final IPropertyDescriptor PD_COLSPAN = new IntegerPropertyDescriptor(
-			colspan, "Colspan");
+			colspan, "Colspan", 1, 1000, 1, 1);
 
 	protected static final IPropertyDescriptor PD_MIN_ROW_HEIGHT = new IntegerPropertyDescriptor(
 			minRowHeight, "MinRowHeight");
