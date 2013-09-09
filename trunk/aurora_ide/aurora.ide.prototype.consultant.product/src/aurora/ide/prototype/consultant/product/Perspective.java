@@ -3,6 +3,9 @@ package aurora.ide.prototype.consultant.product;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
+import aurora.ide.prototype.consultant.view.NavigationView;
+
+
 public class Perspective implements IPerspectiveFactory {
 
 	/**
@@ -26,5 +29,18 @@ public class Perspective implements IPerspectiveFactory {
 //		org.eclipse.ui.navigator.ProjectExplorer
 		
 //		layout.getViewLayout(NavigationView.ID).setCloseable(false);
+		
+		
+
+		String editorArea = layout.getEditorArea();
+//		layout.setEditorAreaVisible(false);
+		
+		layout.addStandaloneView(NavigationView.ID,  true, IPageLayout.LEFT, 0.25f, editorArea);
+//		layout.addStandaloneView(ProjectExplorer.VIEW_ID,  true, IPageLayout.LEFT, 0.25f, editorArea);
+//		ProjectExplorer
+		
+//		layout.getViewLayout(NavigationView.ID).setCloseable(true);
+	
+		
 	}
 }
