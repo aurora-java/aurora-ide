@@ -38,19 +38,24 @@ public class NodeLinkHelper {
 		if (anInput instanceof IPathEditorInput) {
 			IPath path = ((IPathEditorInput) anInput).getPath();
 			Node rootNode = this.getRootNode(path);
-			Node r = rootNode;
-			if (rootNode != null) {
-				IPath makeRelativeTo = path.makeRelativeTo(rootNode.getPath());
-				String[] segments = makeRelativeTo.segments();
-				for (String string : segments) {
-					if (r != null) {
-						r = r.getChild(string);
-					}
+			return findNode(path, rootNode);
+		}
+		return null;
+	}
+
+	public Node findNode(IPath path, Node rootNode) {
+		Node r = rootNode;
+		if (rootNode != null) {
+			IPath makeRelativeTo = path.makeRelativeTo(rootNode.getPath());
+			String[] segments = makeRelativeTo.segments();
+			for (String string : segments) {
+				if (r != null) {
+					r = r.getChild(string);
 				}
 			}
-			if (r != null && path.equals(r.getPath()))
-				return r;
 		}
+		if (r != null && path.equals(r.getPath()))
+			return r;
 		return null;
 	}
 

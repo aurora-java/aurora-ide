@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SafeRunner;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -38,6 +41,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.CollapseAllHandler;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.progress.UIJob;
 
 import aurora.ide.editor.editorInput.PathEditorInput;
 import aurora.ide.helpers.FileExplorer;
@@ -76,8 +80,12 @@ public class NavigationView extends ViewPart {
 							if (node.getPath().isPrefixOf(
 									new Path((String) newValue))) {
 								viewer.refresh(node);
-								selectReveal(new StructuredSelection(new Node(
-										new Path((String) newValue))));
+								Node findNode = new NodeLinkHelper(
+										NavigationView.this).findNode(new Path(
+										(String) newValue), node);
+								if (findNode != null)
+									selectReveal(new StructuredSelection(
+											findNode));
 								return;
 							}
 						}
@@ -95,16 +103,41 @@ public class NavigationView extends ViewPart {
 		viewer = createViewer(parent);
 		viewer.setInput(getInitialInput());
 		getSite().setSelectionProvider(viewer);
-		setPartName(getConfigurationElement().getAttribute("name")); //$NON-NLS-1$
+		setPartName(aurora.ide.meta.gef.message.Messages.ApplicationActionBarAdvisor_17); //$NON-NLS-1$
 		makeActions();
 		fillActionBars(getViewSite().getActionBars());
 		initContextMenu();
 		initListeners(viewer);
+		configration();
 
 	}
 
+	private UIJob viewerExpandJob = new UIJob("Expand") {
+		public IStatus runInUIThread(IProgressMonitor monitor) {
+			if (viewer.getControl().isDisposed() == false) {
+				SafeRunner.run(new SafeRunnable() {
+					public void run() throws Exception {
+						viewer.expandAll();
+						viewer.collapseAll();
+						if (selection != null)
+							viewer.setSelection(selection, true);
+						selection = null;
+					}
+				});
+			}
+			return Status.OK_STATUS;
+		}
+	};
+	private ISelection selection;
+
+	private void configration() {
+		viewerExpandJob.schedule(100);
+	}
+
 	public void refreshViewer() {
+		selection = viewer.getSelection();
 		viewer.setInput(getInitialInput());
+		configration();
 	}
 
 	private void fillActionBars(IActionBars actionBars) {
@@ -340,26 +373,27 @@ public class NavigationView extends ViewPart {
 		return node;
 	}
 
-	
-	public TreeViewer getViewer(){
+	public TreeViewer getViewer() {
 		return viewer;
 	}
+
 	public void selectReveal(ISelection selection) {
 		if (viewer != null) {
 
-//			if (selection instanceof IStructuredSelection) {
-//				IStructuredSelection sSelection = (IStructuredSelection) selection;
-//
-//				PipelinedViewerUpdate update = new PipelinedViewerUpdate();
-//				update.getRefreshTargets().addAll(sSelection.toList());
-//				update.setUpdateLabels(false);
-//				/* if the update is modified */
-//				/* intercept and apply the update */
-//				viewer.setSelection(new StructuredSelection(update
-//						.getRefreshTargets().toArray()), true);
-//			}
+			// if (selection instanceof IStructuredSelection) {
+			// IStructuredSelection sSelection = (IStructuredSelection)
+			// selection;
+			//
+			// PipelinedViewerUpdate update = new PipelinedViewerUpdate();
+			// update.getRefreshTargets().addAll(sSelection.toList());
+			// update.setUpdateLabels(false);
+			// /* if the update is modified */
+			// /* intercept and apply the update */
+			// viewer..(new StructuredSelection(update
+			// .getRefreshTargets().toArray()), true);
+			// }
 
-			 viewer.setSelection(selection, true);
+			viewer.setSelection(selection, true);
 		}
 	}
 
