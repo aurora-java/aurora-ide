@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.views,
  org.eclipse.ui.intro,
  org.eclipse.help,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.eclipse.ui.navigator;bundle-version="3.5.100"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: library.jar,
