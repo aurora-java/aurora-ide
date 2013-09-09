@@ -33,8 +33,8 @@ public class GridColumnBorder extends AbstractLabeledBorder implements
 		this.figure = figure;
 	}
 
-	private Image getBGImage() {
-		return PrototypeImagesUtils.getImage(imageKey);
+	private Image getImage(String key) {
+		return PrototypeImagesUtils.getImage(key);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class GridColumnBorder extends AbstractLabeledBorder implements
 		g.setForegroundColor(ColorConstants.GRID_COLUMN_GRAY);
 		g.drawRectangle(r);
 
-		Image bgimg = getBGImage();
+		Image bgimg = getImage(imageKey);
 		Rectangle headRect = rect.getCopy().setHeight(getColumnHight());
 		IFigure gf = figure;
 		while (gf.getParent() instanceof GridColumnFigure)
@@ -64,6 +64,16 @@ public class GridColumnBorder extends AbstractLabeledBorder implements
 		// keep the location of src ,but compute the intersect with imgbounds
 		src = imgBounds.intersect(src).setLocation(src.getLocation());
 		g.drawImage(bgimg, src, headRect.getCopy().setHeight(src.height));
+
+		if(this.figure.getModel().getBooleanPropertyValue(ComponentInnerProperties.GRID_COLUMN_SORTABLE)){
+			Image sortimg = getImage("palette/sort_desc.gif");
+			
+			Rectangle sortImgBounds = new Rectangle(sortimg.getBounds());
+			
+			g.drawImage(sortimg, sortImgBounds, new Rectangle(
+					headRect.getTopRight().x - 15, headRect.getCenter().y,
+					sortImgBounds.width, sortImgBounds.height));
+		}
 
 		Dimension textExtents = FigureUtilities.getTextExtents(getPrompt(),
 				getFont(figure));

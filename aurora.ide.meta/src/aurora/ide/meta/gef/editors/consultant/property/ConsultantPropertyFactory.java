@@ -99,9 +99,9 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	}
 
 	protected static final IPropertyDescriptor PD_ROWSPAN = new IntegerPropertyDescriptor(
-			rowspan, "行合并");
+			rowspan, Messages.ConsultantPropertyFactory_0, 1, 1000, 1, 1);
 	protected static final IPropertyDescriptor PD_COLSPAN = new IntegerPropertyDescriptor(
-			colspan, "列合并");
+			colspan, Messages.ConsultantPropertyFactory_1, 1, 1000, 1, 1);
 
 	private IPropertyDescriptor[] customIcon() {
 		return new IPropertyDescriptor[] { PD_WIDTH, PD_HEIGHT, PD_IMAGE_WIDTH,
@@ -152,7 +152,8 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 
 	private IPropertyDescriptor[] gridcolumn() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH,
-				PD_COLUMN_EDITOR, PD_READONLY, PD_REQUIRED };
+				PD_COLUMN_EDITOR, PD_READONLY, PD_REQUIRED,
+				PD_GRID_COLUMN_SORTABLE };
 
 	}
 
@@ -239,6 +240,7 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 			readOnly, "*" + Messages.ConsultantPropertyFactory_readonly, //$NON-NLS-1$
 			BooleanPropertyDescriptor.component
 					| BooleanPropertyDescriptor.datasetfield);
+
 	public static final IPropertyDescriptor PD_REQUIRED = new BooleanPropertyDescriptor(
 			required, "*" + Messages.ConsultantPropertyFactory_required, //$NON-NLS-1$
 			BooleanPropertyDescriptor.component
@@ -275,9 +277,11 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 			IMAGE_HEIGHT, Messages.ConsultantPropertyFactory_7, true);
 
 	protected static final IPropertyDescriptor PD_MIN_ROW_HEIGHT = new IntegerPropertyDescriptor(
-			minRowHeight, "最小行高");
+			minRowHeight, Messages.ConsultantPropertyFactory_2);
 	protected static final IPropertyDescriptor PD_MIN_COL_WIDTH = new IntegerPropertyDescriptor(
-			minColWidth, "最小列宽");
+			minColWidth, Messages.ConsultantPropertyFactory_3);
+	protected static final IPropertyDescriptor PD_GRID_COLUMN_SORTABLE = new BooleanPropertyDescriptor(
+			GRID_COLUMN_SORTABLE, Messages.ConsultantPropertyFactory_4);
 
 	private IPropertyDescriptor[] screenbody() {
 		return NONE_PROPS;
