@@ -23,8 +23,10 @@ public class ExportWizard extends UWizard {
 
 	public void addPages() {
 
-		page1 = new FunctionDescPage("FunctionDescPage", Messages.ExportWizard_1, null); //$NON-NLS-1$
-		page2 = new ContentDescPage("FunctionDescPage", Messages.ExportWizard_3, null); //$NON-NLS-1$
+		page1 = new FunctionDescPage(
+				"FunctionDescPage", Messages.ExportWizard_1, null); //$NON-NLS-1$
+		page2 = new ContentDescPage(
+				"FunctionDescPage", Messages.ExportWizard_3, null); //$NON-NLS-1$
 		addPage(page1);
 		addPage(page2);
 	}
@@ -35,8 +37,11 @@ public class ExportWizard extends UWizard {
 			this.getContainer().run(
 					false,
 					false,
+					// new ExportFSDProgress(page2.getSavePath(),
+					// page1.getModel(), page2.getUipFiles())
 					new ExportFSDProgress(page2.getSavePath(),
-							page1.getModel(), page2.getUipFiles()));
+							page1.getModel(), page2.getUipFiles(), page2
+									.isOnlySaveLogic()));
 			return true;
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
