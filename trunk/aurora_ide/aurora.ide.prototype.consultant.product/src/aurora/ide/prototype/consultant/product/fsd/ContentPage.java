@@ -64,6 +64,7 @@ public class ContentPage {
 	private WordprocessingMLPackage wordMLPackage;
 	private ObjectFactory objectFactory = new ObjectFactory();
 	private List<String> files;
+	private boolean isOnlyLogic = false;
 
 	public ContentPage(FSDDocumentPackage doc, List<String> files) {
 		this.doc = doc;
@@ -87,6 +88,7 @@ public class ContentPage {
 		mdp.addParagraphOfText(""); //$NON-NLS-1$
 		mdp.getContent()
 				.add(createTbl("aurora/ide/meta/docx4j/docx/sample/sys_msg_table.xml")); //$NON-NLS-1$
+		mdp.addParagraphOfText("");
 
 		mdp.addStyledParagraphOfText("3", Messages.ContentPage_13); //$NON-NLS-1$
 		mdp.addParagraphOfText(""); //$NON-NLS-1$
@@ -102,7 +104,7 @@ public class ContentPage {
 
 		MainDocumentPart mdp = doc.getMainDocumentPart();
 
-		mdp.addStyledParagraphOfText("contentPageTitle", screenBody //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.ContentPage_0 + screenBody //$NON-NLS-1$
 				.getStringPropertyValue(ComponentFSDProperties.FSD_PAGE_NAME));
 		mdp.addParagraphOfText(""); //$NON-NLS-1$
 
@@ -126,8 +128,14 @@ public class ContentPage {
 		List<AuroraComponent> children = screenBody.getChildren();
 
 		List<AuroraComponent> childs = getNoContainerChildren(children);
-
-		createContentTblInfo(childs);
+		if (childs.size() != 0) {
+			mdp.addStyledParagraphOfText("3", Messages.ContentPage_3); //$NON-NLS-1$
+			createContentTbl(childs);
+			mdp.addParagraphOfText(""); //$NON-NLS-1$
+			mdp.addStyledParagraphOfText("3", Messages.ContentPage_7); //$NON-NLS-1$
+			createNoteInfo(childs);
+			mdp.addParagraphOfText("");
+		}
 
 		List<Container> containers = getContainerChildren(children);
 
@@ -135,9 +143,14 @@ public class ContentPage {
 			List<AuroraComponent> cs = getAllChildren(container);
 			if (cs.size() == 0)
 				continue;
-			mdp.addStyledParagraphOfText("3", container //$NON-NLS-1$
+			mdp.addStyledParagraphOfText("3", Messages.ContentPage_9 + container //$NON-NLS-1$
 					.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
-			createContentTblInfo(cs);
+			createContentTbl(cs);
+			mdp.addParagraphOfText(""); //$NON-NLS-1$
+			mdp.addStyledParagraphOfText("3", Messages.ContentPage_11 + container //$NON-NLS-1$
+					.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
+			createNoteInfo(cs);
+			mdp.addParagraphOfText("");
 		}
 		List<Button> buttons = getButtons(screenBody);
 		if (buttons.size() > 0)
@@ -208,7 +221,7 @@ public class ContentPage {
 		return r;
 	}
 
-	private void createContentTblInfo(List<AuroraComponent> childs) {
+	private void createContentTbl(List<AuroraComponent> childs) {
 		if (childs.size() == 0)
 			return;
 		MainDocumentPart mdp = doc.getMainDocumentPart();
@@ -218,6 +231,17 @@ public class ContentPage {
 		}
 		mdp.getContent().add(createTbl);
 
+		// createNoteInfo(childs, mdp);
+	}
+
+	public void createNoteInfo(List<AuroraComponent> childs) {
+		if (childs.size() == 0)
+			return;
+		if(isOnlyLogic){
+			createSampleNoteInfo(childs);
+			return;
+		}
+		MainDocumentPart mdp = doc.getMainDocumentPart();
 		for (int i = 0; i < childs.size(); i++) {
 			AuroraComponent auroraComponent = childs.get(i);
 			mdp.addStyledParagraphOfText("contentInfoHead", "Note" + (i + 1) //$NON-NLS-1$ //$NON-NLS-2$
@@ -232,6 +256,32 @@ public class ContentPage {
 					Messages.ContentPage_33
 							+ auroraComponent
 									.getStringPropertyValue(ComponentFSDProperties.FSD_DATA_FROM));
+			mdp.addStyledParagraphOfText(
+					"contentInfo", //$NON-NLS-1$
+					Messages.ContentPage_35
+							+ auroraComponent
+									.getStringPropertyValue(ComponentFSDProperties.FSD_LOGIC));
+		}
+	}
+
+	public void createSampleNoteInfo(List<AuroraComponent> childs) {
+		if (childs.size() == 0)
+			return;
+		MainDocumentPart mdp = doc.getMainDocumentPart();
+		for (int i = 0; i < childs.size(); i++) {
+			AuroraComponent auroraComponent = childs.get(i);
+			mdp.addStyledParagraphOfText("contentInfoHead", "Note" + (i + 1) //$NON-NLS-1$ //$NON-NLS-2$
+					+ ":" + auroraComponent.getPrompt()); //$NON-NLS-1$
+			// mdp.addStyledParagraphOfText(
+			//					"contentInfo", //$NON-NLS-1$
+			// Messages.ContentPage_31
+			// + auroraComponent
+			// .getStringPropertyValue(ComponentFSDProperties.FSD_MEANING));
+			// mdp.addStyledParagraphOfText(
+			//					"contentInfo", //$NON-NLS-1$
+			// Messages.ContentPage_33
+			// + auroraComponent
+			// .getStringPropertyValue(ComponentFSDProperties.FSD_DATA_FROM));
 			mdp.addStyledParagraphOfText(
 					"contentInfo", //$NON-NLS-1$
 					Messages.ContentPage_35
@@ -543,5 +593,13 @@ public class ContentPage {
 		// p.getPPr().getPStyle().setVal("a5");
 
 		return p;
+	}
+
+	public boolean isOnlyLogic() {
+		return isOnlyLogic;
+	}
+
+	public void setOnlyLogic(boolean isOnlyLogic) {
+		this.isOnlyLogic = isOnlyLogic;
 	}
 }

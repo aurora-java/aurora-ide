@@ -4,14 +4,19 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "aurora.ide.prototype.consultant.product.fsd.messages"; //$NON-NLS-1$
+	public static String ContentPage_0;
 	public static String ContentPage_1;
+	public static String ContentPage_11;
 	public static String ContentPage_13;
 	public static String ContentPage_22;
+	public static String ContentPage_3;
 	public static String ContentPage_31;
 	public static String ContentPage_33;
 	public static String ContentPage_35;
 	public static String ContentPage_4;
+	public static String ContentPage_7;
 	public static String ContentPage_8;
+	public static String ContentPage_9;
 	public static String ContextPage_1;
 	public static String ExportFSDProgress_1;
 	public static String ExportFSDProgress_2;

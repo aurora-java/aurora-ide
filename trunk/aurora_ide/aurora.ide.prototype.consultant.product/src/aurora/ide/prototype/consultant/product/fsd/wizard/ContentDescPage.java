@@ -36,6 +36,8 @@ public class ContentDescPage extends WizardPage {
 	private String savePath;
 
 	private List<String> uipFiles = new ArrayList<String>();
+	
+	private boolean onlySaveLogic = false;
 
 	protected ContentDescPage(String pageName, String title,
 			ImageDescriptor titleImage) {
@@ -84,7 +86,22 @@ public class ContentDescPage extends WizardPage {
 			}
 		});
 		//
-
+		final Button checked = new Button(parent, SWT.CHECK);
+		checked.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		checked.setText("业务规则只生成逻辑");
+		checked.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setOnlySaveLogic(checked.getSelection());
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				
+			}
+		});
+		
 		Composite tableComposite = WidgetFactory.composite(parent);
 
 		createTable(tableComposite);
@@ -108,9 +125,8 @@ public class ContentDescPage extends WizardPage {
 		tableComposite.setLayout(GridLayoutUtil.COLUMN_LAYOUT_2);
 		tableComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		final TableViewer tv = new TableViewer(tableComposite, 
-				 SWT.BORDER | SWT.FULL_SELECTION | SWT.H_SCROLL
-				| SWT.V_SCROLL);
+		final TableViewer tv = new TableViewer(tableComposite, SWT.BORDER
+				| SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL);
 		Table table = tv.getTable();
 		table.setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -144,7 +160,8 @@ public class ContentDescPage extends WizardPage {
 		Composite buttonComposite = WidgetFactory.composite(tableComposite);
 		buttonComposite.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
 		buttonComposite.setLayoutData(new GridData(GridData.FILL_VERTICAL));
-		Button add = WidgetFactory.button(buttonComposite, Messages.ContentDescPage_8);
+		Button add = WidgetFactory.button(buttonComposite,
+				Messages.ContentDescPage_8);
 		add.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -163,7 +180,8 @@ public class ContentDescPage extends WizardPage {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
-		Button del = WidgetFactory.button(buttonComposite, Messages.ContentDescPage_10);
+		Button del = WidgetFactory.button(buttonComposite,
+				Messages.ContentDescPage_10);
 		del.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -182,7 +200,8 @@ public class ContentDescPage extends WizardPage {
 
 			}
 		});
-		Button up = WidgetFactory.button(buttonComposite, Messages.ContentDescPage_11);
+		Button up = WidgetFactory.button(buttonComposite,
+				Messages.ContentDescPage_11);
 		up.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -194,7 +213,8 @@ public class ContentDescPage extends WizardPage {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
-		Button down = WidgetFactory.button(buttonComposite, Messages.ContentDescPage_12);
+		Button down = WidgetFactory.button(buttonComposite,
+				Messages.ContentDescPage_12);
 		down.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -259,5 +279,13 @@ public class ContentDescPage extends WizardPage {
 
 	public void setUipFiles(List<String> uipFiles) {
 		this.uipFiles = uipFiles;
+	}
+
+	public boolean isOnlySaveLogic() {
+		return onlySaveLogic;
+	}
+
+	public void setOnlySaveLogic(boolean onlySaveLogic) {
+		this.onlySaveLogic = onlySaveLogic;
 	}
 }
