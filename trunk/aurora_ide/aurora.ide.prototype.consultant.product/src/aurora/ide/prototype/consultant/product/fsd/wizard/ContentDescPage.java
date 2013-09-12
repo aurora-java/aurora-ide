@@ -88,7 +88,7 @@ public class ContentDescPage extends WizardPage {
 		//
 		final Button checked = new Button(parent, SWT.CHECK);
 		checked.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		checked.setText("业务规则只生成逻辑");
+		checked.setText(Messages.ContentDescPage_3);
 		checked.addSelectionListener(new SelectionListener() {
 			
 			@Override
