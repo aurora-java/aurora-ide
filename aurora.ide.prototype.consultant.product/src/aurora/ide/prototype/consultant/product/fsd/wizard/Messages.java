@@ -11,6 +11,7 @@ public class Messages extends NLS {
 	public static String ContentDescPage_12;
 	public static String ContentDescPage_14;
 	public static String ContentDescPage_2;
+	public static String ContentDescPage_3;
 	public static String ContentDescPage_5;
 	public static String ContentDescPage_6;
 	public static String ContentDescPage_8;

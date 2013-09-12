@@ -40,6 +40,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.CollapseAllHandler;
 import org.eclipse.ui.handlers.IHandlerService;
+import org.eclipse.ui.navigator.PipelinedViewerUpdate;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.UIJob;
 
@@ -117,11 +118,11 @@ public class NavigationView extends ViewPart {
 			if (viewer.getControl().isDisposed() == false) {
 				SafeRunner.run(new SafeRunnable() {
 					public void run() throws Exception {
-						viewer.expandAll();
-						viewer.collapseAll();
-						if (selection != null)
-							viewer.setSelection(selection, true);
-						selection = null;
+						// viewer.expandAll();
+						// viewer.collapseAll();
+						// if (selection != null)
+						// viewer.setSelection(selection, true);
+						// selection = null;
 					}
 				});
 			}
@@ -131,7 +132,7 @@ public class NavigationView extends ViewPart {
 	private ISelection selection;
 
 	private void configration() {
-		viewerExpandJob.schedule(100);
+		//viewerExpandJob.schedule(100);
 	}
 
 	public void refreshViewer() {
@@ -217,20 +218,21 @@ public class NavigationView extends ViewPart {
 
 	private void fillContextMenu(IMenuManager menu) {
 		// menu.add(new Separator("AAA"));
-		menu.add(new Action(Messages.NavigationView_4) {
+		if (getSelectionNode() != null)
+			menu.add(new Action(Messages.NavigationView_4) {
 
-			@Override
-			public void run() {
-				Node node = getSelectionNode();
-				if (node.getFile().exists() == false)
-					return;
-				if (node.getFile().isFile()) {
-					node = node.getParent();
+				@Override
+				public void run() {
+					Node node = getSelectionNode();
+					if (node.getFile().exists() == false)
+						return;
+					if (node.getFile().isFile()) {
+						node = node.getParent();
+					}
+					FileExplorer.open(node.getPath().toOSString());
 				}
-				FileExplorer.open(node.getPath().toOSString());
-			}
 
-		});
+			});
 		// menu.add(new Separator(GROUP_COPY));
 		// menu.add(new Separator(GROUP_PRINT));
 		// menu.add(new Separator(GROUP_EDIT));
@@ -379,19 +381,18 @@ public class NavigationView extends ViewPart {
 
 	public void selectReveal(ISelection selection) {
 		if (viewer != null) {
-
-			// if (selection instanceof IStructuredSelection) {
-			// IStructuredSelection sSelection = (IStructuredSelection)
-			// selection;
-			//
-			// PipelinedViewerUpdate update = new PipelinedViewerUpdate();
-			// update.getRefreshTargets().addAll(sSelection.toList());
-			// update.setUpdateLabels(false);
-			// /* if the update is modified */
-			// /* intercept and apply the update */
-			// viewer..(new StructuredSelection(update
-			// .getRefreshTargets().toArray()), true);
-			// }
+//
+//			 if (selection instanceof IStructuredSelection) {
+//			 IStructuredSelection sSelection = (IStructuredSelection)
+//			 selection;
+//			
+//			 PipelinedViewerUpdate update = new PipelinedViewerUpdate();
+//			 update.getRefreshTargets().addAll(sSelection.toList());
+//			 update.setUpdateLabels(false);
+//			 /* if the update is modified */
+//			 /* intercept and apply the update */
+//			 viewer.setSelection(new StructuredSelection(update.getRefreshTargets().toArray()), true);
+//			 }
 
 			viewer.setSelection(selection, true);
 		}

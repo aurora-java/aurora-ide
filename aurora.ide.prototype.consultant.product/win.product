@@ -245,6 +245,7 @@ Library.
       <plugin id="org.eclipse.ui"/>
       <plugin id="org.eclipse.ui.forms"/>
       <plugin id="org.eclipse.ui.intro"/>
+      <plugin id="org.eclipse.ui.navigator"/>
       <plugin id="org.eclipse.ui.views"/>
       <plugin id="org.eclipse.ui.workbench"/>
    </plugins>
