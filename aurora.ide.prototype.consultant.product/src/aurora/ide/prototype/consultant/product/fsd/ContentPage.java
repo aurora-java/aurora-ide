@@ -55,7 +55,9 @@ import aurora.plugin.source.gen.screen.model.IDatasetFieldDelegate;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.TabFolder;
+import aurora.plugin.source.gen.screen.model.TabItem;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
+import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
 
 public class ContentPage {
@@ -99,7 +101,7 @@ public class ContentPage {
 
 		ScreenBody screenBody = loadFile(file);
 
-		if (hasTab(screenBody))
+		if (hasTabInTab(screenBody))
 			return;
 
 		MainDocumentPart mdp = doc.getMainDocumentPart();
@@ -137,22 +139,94 @@ public class ContentPage {
 			mdp.addParagraphOfText("");
 		}
 
-		List<Container> containers = getContainerChildren(children);
+		List<Container> containers = getNoTabContainer(children);
 
 		for (Container container : containers) {
-			List<AuroraComponent> cs = getAllChildren(container);
-			if (cs.size() == 0)
-				continue;
-			mdp.addStyledParagraphOfText("3", Messages.ContentPage_9 + container //$NON-NLS-1$
-					.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
-			createContentTbl(cs);
-			mdp.addParagraphOfText(""); //$NON-NLS-1$
-			mdp.addStyledParagraphOfText("3", Messages.ContentPage_11 + container //$NON-NLS-1$
-					.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
-			createNoteInfo(cs);
-			mdp.addParagraphOfText("");
+			createContentInfo(mdp, container);
 		}
 		List<Button> buttons = getButtons(screenBody);
+		createButtonsContent(mdp, buttons);
+
+		createTabContent(screenBody);
+	}
+
+	public void createContentInfo(MainDocumentPart mdp, Container container) {
+		List<AuroraComponent> cs = getNoTabAllChildren(container);
+		if (cs.size() == 0)
+			return;
+		mdp.addStyledParagraphOfText("3", Messages.ContentPage_9 + container //$NON-NLS-1$
+				.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
+		createContentTbl(cs);
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.ContentPage_11 + container //$NON-NLS-1$
+				.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
+		createNoteInfo(cs);
+		mdp.addParagraphOfText("");
+	}
+
+	private void createTabContent(ScreenBody screenBody) {
+		List<TabFolder> tabs = getTabs(screenBody);
+		MainDocumentPart mdp = doc.getMainDocumentPart();
+		for (TabFolder tabFolder : tabs) {
+			// genaimage
+			ArrayList<TabItem> tabItems = tabFolder.getTabItems();
+			for (TabItem c : tabItems) {
+				ScreenBody sb = createNewTab(c);
+
+				mdp.addStyledParagraphOfText("3", "Tab : " + c.getPrompt());
+				mdp.addParagraphOfText(""); //$NON-NLS-1$
+
+				try {
+					mdp.getContent()
+							.add(newImage(
+									wordMLPackage,
+									mdp,
+									BufferUtil
+											.getBytesFromInputStream(createImageInputStream(sb)),
+									"hand-china", "hand-china", 1, 2)); //$NON-NLS-1$ //$NON-NLS-2$
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				createContentInfo(mdp, (Container) c);
+				List<Button> buttons = getButtons((Container) c);
+				createButtonsContent(mdp, buttons);
+			}
+		}
+	}
+
+	private ScreenBody createNewTab(TabItem tab) {
+		ScreenBody sb = new ScreenBody();
+		TabFolder tf = new TabFolder();
+		AuroraComponent cloneObject = cloneObject(tab);
+		tf.addChild(cloneObject);
+		sb.addChild(tf);
+		return sb;
+	}
+
+	private AuroraComponent cloneObject(AuroraComponent ac) {
+		Object2CompositeMap o2c = new Object2CompositeMap();
+		CompositeMap map = o2c.createCompositeMap(ac);
+		CompositeMap2Object c2o = new CompositeMap2Object();
+		AuroraComponent createObject = c2o.createObject(map);
+		return createObject;
+	}
+
+	private List<TabFolder> getTabs(Container screenBody) {
+		List<TabFolder> tfs = new ArrayList<TabFolder>();
+		List<AuroraComponent> children = screenBody.getChildren();
+		for (AuroraComponent ac : children) {
+			if (TabFolder.TAB_PANEL.equals(ac.getComponentType())) {
+				tfs.add((TabFolder) ac);
+			} else if (ac instanceof Container && hasTab((Container) ac)) {
+				tfs.addAll(getTabs((Container) ac));
+			}
+		}
+		return tfs;
+	}
+
+	public void createButtonsContent(MainDocumentPart mdp, List<Button> buttons) {
 		if (buttons.size() > 0)
 			mdp.addStyledParagraphOfText("3", Messages.ContentPage_22); //$NON-NLS-1$
 		for (int i = 0; i < buttons.size(); i++) {
@@ -192,6 +266,30 @@ public class ContentPage {
 		return false;
 	}
 
+	private boolean hasTabInTab(Container container) {
+		List<AuroraComponent> children = container.getChildren();
+		for (AuroraComponent ac : children) {
+			if (TabFolder.TAB_PANEL.equals(ac.getComponentType())
+					&& hasTabInTab((TabFolder) ac)) {
+				return true;
+			}
+			if (ac instanceof Container && hasTabInTab((Container) ac)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean hasTabInTab(TabFolder container) {
+		ArrayList<TabItem> tabItems = container.getTabItems();
+		for (TabItem c : tabItems) {
+			if (hasTab((TabItem) c)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private List<AuroraComponent> getAllChildren(Container container) {
 		List<AuroraComponent> r = new ArrayList<AuroraComponent>();
 		List<AuroraComponent> children = container.getChildren();
@@ -208,6 +306,37 @@ public class ContentPage {
 			}
 		}
 
+		return r;
+	}
+
+	private List<AuroraComponent> getNoTabAllChildren(Container container) {
+		List<AuroraComponent> r = new ArrayList<AuroraComponent>();
+		List<AuroraComponent> children = container.getChildren();
+		for (AuroraComponent ac : children) {
+			if (ac instanceof Container
+					&& TabFolder.TAB_PANEL.equals(ac.getComponentType()) == false) {
+				if (GridColumn.GRIDCOLUMN.equals(ac.getComponentType())
+						&& ((Container) ac).getChildren().size() == 0) {
+					r.add(ac);
+				} else {
+					r.addAll(getNoTabAllChildren((Container) ac));
+				}
+			} else if (ac instanceof Input) {
+				r.add(ac);
+			}
+		}
+
+		return r;
+	}
+
+	private List<Container> getNoTabContainer(List<AuroraComponent> children) {
+		List<Container> r = new ArrayList<Container>();
+		for (AuroraComponent ac : children) {
+			if (ac instanceof Container == true
+					&& TabFolder.TAB_PANEL.equals(ac.getComponentType()) == false) {
+				r.add((Container) ac);
+			}
+		}
 		return r;
 	}
 
@@ -231,13 +360,12 @@ public class ContentPage {
 		}
 		mdp.getContent().add(createTbl);
 
-		// createNoteInfo(childs, mdp);
 	}
 
 	public void createNoteInfo(List<AuroraComponent> childs) {
 		if (childs.size() == 0)
 			return;
-		if(isOnlyLogic){
+		if (isOnlyLogic) {
 			createSampleNoteInfo(childs);
 			return;
 		}
@@ -272,16 +400,6 @@ public class ContentPage {
 			AuroraComponent auroraComponent = childs.get(i);
 			mdp.addStyledParagraphOfText("contentInfoHead", "Note" + (i + 1) //$NON-NLS-1$ //$NON-NLS-2$
 					+ ":" + auroraComponent.getPrompt()); //$NON-NLS-1$
-			// mdp.addStyledParagraphOfText(
-			//					"contentInfo", //$NON-NLS-1$
-			// Messages.ContentPage_31
-			// + auroraComponent
-			// .getStringPropertyValue(ComponentFSDProperties.FSD_MEANING));
-			// mdp.addStyledParagraphOfText(
-			//					"contentInfo", //$NON-NLS-1$
-			// Messages.ContentPage_33
-			// + auroraComponent
-			// .getStringPropertyValue(ComponentFSDProperties.FSD_DATA_FROM));
 			mdp.addStyledParagraphOfText(
 					"contentInfo", //$NON-NLS-1$
 					Messages.ContentPage_35
