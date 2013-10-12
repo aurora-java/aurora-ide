@@ -32,6 +32,7 @@ import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
 import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.prototype.consultant.product.action.DemonstrateAction;
+import aurora.ide.prototype.consultant.product.action.DemonstrateSettingAction;
 import aurora.ide.prototype.consultant.product.action.FSDPropertyEditAction;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
@@ -245,6 +246,10 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 		FSDPropertyEditAction copyIMG = new FSDPropertyEditAction(this);
 		getActionRegistry().registerAction(copyIMG);
 		getSelectionActions().add(copyIMG.getId());
+		
+		DemonstrateSettingAction dsa = new DemonstrateSettingAction(this);
+		getActionRegistry().registerAction(dsa);
+		getSelectionActions().add(dsa.getId());
 
 	}
 
