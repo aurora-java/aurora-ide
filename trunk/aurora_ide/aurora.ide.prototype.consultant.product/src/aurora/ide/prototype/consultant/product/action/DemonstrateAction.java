@@ -6,6 +6,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.prototype.consultant.product.Activator;
 
 public class DemonstrateAction extends Action implements
@@ -45,7 +46,9 @@ public class DemonstrateAction extends Action implements
 	}
 
 	private void setChecked() {
-		this.setChecked(getIsDemon());
+		boolean isDemon = getIsDemon();
+		this.setChecked(isDemon);
+		MetaPlugin.isDemonstrate = isDemon;
 	}
 
 	static public boolean getIsDemon() {

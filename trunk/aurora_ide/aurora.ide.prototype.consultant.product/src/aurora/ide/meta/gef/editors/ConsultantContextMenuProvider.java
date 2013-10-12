@@ -7,6 +7,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 
 import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
+import aurora.ide.prototype.consultant.product.action.DemonstrateSettingAction;
 import aurora.ide.prototype.consultant.product.action.FSDPropertyEditAction;
 
 public class ConsultantContextMenuProvider extends ViewContextMenuProvider {
@@ -19,6 +20,9 @@ public class ConsultantContextMenuProvider extends ViewContextMenuProvider {
 	public void buildContextMenu(IMenuManager menu) {
 		super.buildContextMenu(menu);
 		IAction action = getActionRegistry().getAction(FSDPropertyEditAction.ID);
+		if (action.isEnabled())
+			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+		action = getActionRegistry().getAction(DemonstrateSettingAction.ID);
 		if (action.isEnabled())
 			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 	}
