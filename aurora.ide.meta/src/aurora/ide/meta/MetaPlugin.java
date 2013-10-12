@@ -28,6 +28,9 @@ public class MetaPlugin extends AbstractUIPlugin {
 
 	// The shared instance
 	private static MetaPlugin plugin;
+	
+	
+	public static boolean isDemonstrate;
 
 	/**
 	 * The constructor

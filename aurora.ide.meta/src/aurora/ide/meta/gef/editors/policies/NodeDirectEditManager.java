@@ -5,9 +5,14 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gef.tools.DirectEditManager;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
@@ -23,6 +28,8 @@ public class NodeDirectEditManager extends DirectEditManager {
 	protected IFigure nodeFigure;
 
 	private String feature;
+
+	private Class<?> editorType;
 
 	/**
 	 * @see org.eclipse.gef.tools.DirectEditManager#bringDown()
@@ -41,13 +48,14 @@ public class NodeDirectEditManager extends DirectEditManager {
 		super(source, editorType, locator, feature);
 		this.nodeFigure = source.getFigure();
 		this.feature = feature;
+		this.editorType = editorType;
 	}
 
 	/**
 	 * @see org.eclipse.gef.tools.DirectEditManager#initCellEditor()
 	 */
 	protected void initCellEditor() {
-		Text text = (Text) getCellEditor().getControl();
+		Control control = getCellEditor().getControl();
 		// verifyListener = new VerifyListener() {
 		// public void verifyText(VerifyEvent event) {
 		// Text text = (Text) getCellEditor().getControl();
@@ -68,16 +76,44 @@ public class NodeDirectEditManager extends DirectEditManager {
 		// String initialLabelText = nodeFigure.getText();
 		String propertyValue = ((AuroraComponent) getEditPart().getModel())
 				.getStringPropertyValue(feature);
-		getCellEditor().setValue(propertyValue);
+		if (control instanceof Text) {
+			getCellEditor().setValue(propertyValue);
+		}
 		IFigure figure = ((GraphicalEditPart) getEditPart()).getFigure();
 		scaledFont = figure.getFont();
 		FontData data = scaledFont.getFontData()[0];
 		Dimension fontSize = new Dimension(0, data.getHeight());
 		nodeFigure.translateToAbsolute(fontSize);
 		data.setHeight(fontSize.height);
-//		scaledFont = new Font(null, data);
-		text.setFont(scaledFont);
-		text.selectAll();
+		// scaledFont = new Font(null, data);
+		if (control instanceof Text) {
+			Text text = (Text) control;
+			text.setFont(scaledFont);
+			text.selectAll();
+		}
+		if (control instanceof CCombo) {
+			CCombo text = (CCombo) control;
+			text.setFont(scaledFont);
+//			text.setMenu(menu)
+		}
+	}
+	
+	public void show() {
+		super.show();
+		Control control = this.getCellEditor().getControl();
+		if (control instanceof CCombo) {
+			CCombo text = (CCombo) control;
+			text.setListVisible(true);
+		}
+	}
+
+	protected CellEditor createCellEditorOn(Composite composite) {
+		if (editorType.equals(ComboBoxCellEditor.class)) {
+			return new ComboBoxCellEditor(composite, new String[] { "aa", "bb",
+					"cc" });
+		}
+
+		return super.createCellEditorOn(composite);
 	}
 
 	/**

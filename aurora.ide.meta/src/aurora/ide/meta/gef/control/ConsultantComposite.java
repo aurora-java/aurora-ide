@@ -3,25 +3,18 @@ package aurora.ide.meta.gef.control;
 import java.util.EventObject;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
-import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.actions.GEFActionConstants;
-import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
-import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -37,46 +30,28 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.WorkbenchEncoding;
-import org.eclipse.ui.actions.ActionFactory;
 
-import aurora.ide.editor.editorInput.StringEditorInput;
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.EditorMode;
-import aurora.ide.meta.gef.editors.VScreenEditorExtPaletteFactory;
-import aurora.ide.meta.gef.editors.actions.ViewContextMenuProvider;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
-import aurora.ide.meta.gef.editors.property.PropertyManager;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 
-public class PrototpyeComposite extends GraphicalEditor implements
+public class ConsultantComposite extends GraphicalEditor implements
 		ISelectionChangedListener {
-	private SashForm sashForm;
 	private Composite cpt;
 
 	public void createPartControl(Composite parent) {
-
-		 sashForm = new SashForm(parent, SWT.HORIZONTAL);
-
-		SashForm c = new SashForm(sashForm, SWT.VERTICAL | SWT.BORDER);
-		createBMViewer(c);
-		createPropertyViewer(c);
-
-		cpt = new Composite(sashForm, SWT.NONE);
+		cpt = new Composite(parent, SWT.NONE);
 		cpt.setLayout(new GridLayout());
 		Composite bottom = new Composite(cpt, SWT.NONE|SWT.BORDER);
 		bottom.setLayoutData(new GridData(GridData.FILL_BOTH));
 		bottom.setLayout(new FillLayout());
 
 		super.createPartControl(bottom);
-		sashForm.setWeights(new int[] { 1, 4 });
-		this.setControl(sashForm);
+		this.setControl(cpt);
 	}
 
-	public void maxEditor(){
-		sashForm.setMaximizedControl(cpt);
-	}
 
 	private Control control;
 
@@ -129,17 +104,6 @@ public class PrototpyeComposite extends GraphicalEditor implements
 		getGraphicalViewer().setRootEditPart(new ScalableRootEditPart());
 		getGraphicalViewer().setEditPartFactory(
 				new ExtAuroraPartFactory(editorMode));
-		getGraphicalViewer().setKeyHandler(
-				new GraphicalViewerKeyHandler(getGraphicalViewer())
-						.setParent(getCommonKeyHandler()));
-
-		ContextMenuProvider provider = new ViewContextMenuProvider(
-				getGraphicalViewer(), getActionRegistry());
-		getGraphicalViewer().setContextMenu(provider);
-		getSite().registerContextMenu(CONTEXT_MENU_KEY, //$NON-NLS-1$
-				provider, getGraphicalViewer());
-		getGraphicalViewer().addSelectionChangedListener(propertyViewer);
-
 	}
 
 	/**
@@ -167,29 +131,10 @@ public class PrototpyeComposite extends GraphicalEditor implements
 	public void doSaveAs() {
 	}
 
-	protected KeyHandler getCommonKeyHandler() {
-		if (sharedKeyHandler == null) {
-			sharedKeyHandler = new KeyHandler();
-			sharedKeyHandler
-					.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
-							getActionRegistry().getAction(
-									ActionFactory.DELETE.getId()));
-			sharedKeyHandler.put(
-					KeyStroke.getPressed(SWT.F2, 0),
-					getActionRegistry().getAction(
-							GEFActionConstants.DIRECT_EDIT));
-		}
-		return sharedKeyHandler;
-	}
 
 	/**
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditorWithPalette#getPaletteRoot()
 	 */
-	protected PaletteRoot getPaletteRoot() {
-		if (root == null)
-			root = VScreenEditorExtPaletteFactory.createPalette(this.editorMode);
-		return root;
-	}
 
 	// public void gotoMarker(IMarker marker) {
 	// }
@@ -208,30 +153,16 @@ public class PrototpyeComposite extends GraphicalEditor implements
 		super.setInput(input);
 	}
 
-	protected void createPropertyViewer(Composite c) {
-		DefaultEditDomain editDomain = getEditDomain();
-		propertyViewer = new MetaPropertyViewer(c, this,new PropertyManager(editDomain.getCommandStack()));
-	}
-
-	protected void createBMViewer(Composite c) {
-	}
 
 	public ScreenBody getDiagram() {
 		return diagram;
 	}
 
 	protected void hookGraphicalViewer() {
-		getSelectionSynchronizer().addViewer(getGraphicalViewer());
-		getSite().setSelectionProvider(getGraphicalViewer());
 		this.getGraphicalViewer().addSelectionChangedListener(this);
-		ActionRegistry registry = getActionRegistry();
-
-		SelectionAction sa = (SelectionAction) registry
-				.getAction(ActionFactory.DELETE.getId());
-		sa.setSelectionProvider(this.getGraphicalViewer());
 	}
 
-	public PrototpyeComposite() {
+	public ConsultantComposite() {
 		super();
 		this.setEditDomain(new DefaultEditDomain(this));
 		editorMode = new EditorMode(null) {
@@ -255,7 +186,6 @@ public class PrototpyeComposite extends GraphicalEditor implements
 				return false;
 			}
 		};
-		this.setInput(new StringEditorInput("",WorkbenchEncoding.getWorkbenchDefaultEncoding()));
 		getCommandStack().addCommandStackListener(this);
 
 		initializeActionRegistry();
@@ -287,7 +217,6 @@ public class PrototpyeComposite extends GraphicalEditor implements
 	}
 
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		updateActions(this.getSelectionActions());
 	}
 
 	private IWorkbenchPartSite fakeSite = new IWorkbenchPartSite() {
@@ -340,7 +269,7 @@ public class PrototpyeComposite extends GraphicalEditor implements
 		}
 
 		public IWorkbenchPart getPart() {
-			return PrototpyeComposite.this;
+			return ConsultantComposite.this;
 		}
 
 		public void registerContextMenu(String menuId, MenuManager menuManager,
@@ -360,7 +289,6 @@ public class PrototpyeComposite extends GraphicalEditor implements
 	};
 
 	public void selectionChanged(SelectionChangedEvent event) {
-		updateActions(this.getSelectionActions());
 
 	}
 

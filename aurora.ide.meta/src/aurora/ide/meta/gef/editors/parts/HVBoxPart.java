@@ -4,6 +4,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.figures.HVBoxFigure;
 import aurora.ide.meta.gef.editors.figures.VirtualBoxBorder;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
@@ -24,15 +25,17 @@ public class HVBoxPart extends BoxPart {
 				new ContainerLayoutEditPolicy() {
 					@Override
 					protected void eraseLayoutTargetFeedback(Request request) {
-						this.getHostFigure().setBorder(null);
+						if (MetaPlugin.isDemonstrate == false)
+							this.getHostFigure().setBorder(null);
 						super.eraseLayoutTargetFeedback(request);
 					}
 
 					@Override
 					protected void showLayoutTargetFeedback(Request request) {
-						this.getHostFigure().setBorder(
-								new VirtualBoxBorder(getComponent()
-										.getComponentType()));
+						if (MetaPlugin.isDemonstrate == false)
+							this.getHostFigure().setBorder(
+									new VirtualBoxBorder(getComponent()
+											.getComponentType()));
 						super.showLayoutTargetFeedback(request);
 					}
 				});

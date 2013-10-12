@@ -3,7 +3,7 @@ package aurora.ide.meta.gef.editors.figures;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * 
@@ -24,7 +24,7 @@ public class SimpleDataCellEditorLocator implements CellEditorLocator {
 	 * @see CellEditorLocator#relocate(org.eclipse.jface.viewers.CellEditor)
 	 */
 	public void relocate(CellEditor celleditor) {
-		Text text = (Text) celleditor.getControl();
+		Control text =  celleditor.getControl();
 		int labelWidth = nodeFigure.getLabelWidth();
 		Rectangle bounds = nodeFigure.getBounds().getCopy();
 		nodeFigure.translateToAbsolute(bounds);
