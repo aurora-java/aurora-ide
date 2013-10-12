@@ -53,8 +53,14 @@ public class GridColumnPart extends ContainerPart {
 
 	protected void refreshVisuals() {
 		super.refreshVisuals();
-		getFigure().setToolTip(new Label(this.getComponent().getStringPropertyValue(ComponentFSDProperties.FSD_MEANING)));
 
+		String stringPropertyValue = getModel().getStringPropertyValue(
+				ComponentFSDProperties.FSD_MEANING);
+		if ("".equals(stringPropertyValue) || null == stringPropertyValue) {
+			getFigure().setToolTip(null);
+		} else {
+			getFigure().setToolTip(new Label(stringPropertyValue));
+		}
 	}
 
 	@Override

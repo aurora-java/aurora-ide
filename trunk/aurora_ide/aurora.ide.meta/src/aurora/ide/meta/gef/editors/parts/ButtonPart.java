@@ -14,6 +14,8 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.widgets.Text;
 
+import aurora.ide.helpers.DialogUtil;
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.figures.ButtonFigure;
 import aurora.ide.meta.gef.editors.models.commands.ChangeTextStyleCommand;
 import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
@@ -49,7 +51,15 @@ public class ButtonPart extends ComponentPart {
 						(title != null && title.length() > 0) ? new Label(title)
 								: null);
 		super.refreshVisuals();
-		getFigure().setToolTip(new Label(this.getComponent().getStringPropertyValue(ComponentFSDProperties.FSD_DESC)));
+		
+		String stringPropertyValue = getModel().getStringPropertyValue(
+				ComponentFSDProperties.FSD_DESC);
+		if("".equals(stringPropertyValue)|| null == stringPropertyValue ){
+			getFigure().setToolTip(null);
+		}else{
+			getFigure().setToolTip(
+					new Label(stringPropertyValue));
+		}
 
 	}
 
@@ -85,7 +95,11 @@ public class ButtonPart extends ComponentPart {
 	public void performRequest(Request req) {
 		if (RequestConstants.REQ_OPEN.equals(req.getType())
 				&& req instanceof LocationRequest) {
-			performEditStyledStringText(ComponentProperties.text);
+			if (MetaPlugin.isDemonstrate) {
+				DialogUtil.showWarningMessageBox("审批通过");
+			} else {
+				performEditStyledStringText(ComponentProperties.text);
+			}
 		}
 		if (req.getType().equals(RequestConstants.REQ_DIRECT_EDIT)
 				&& req instanceof DirectEditRequest) {

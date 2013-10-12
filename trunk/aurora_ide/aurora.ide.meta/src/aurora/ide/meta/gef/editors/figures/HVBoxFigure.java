@@ -5,6 +5,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseMotionListener;
 
+import aurora.ide.meta.MetaPlugin;
 import aurora.plugin.source.gen.screen.model.BOX;
 
 public class HVBoxFigure extends BoxFigure {
@@ -26,6 +27,7 @@ public class HVBoxFigure extends BoxFigure {
 			}
 
 			public void mouseEntered(MouseEvent me) {
+				if(MetaPlugin.isDemonstrate ) return;
 				setBorder(new VirtualBoxBorder(box.getComponentType()));
 			}
 
@@ -40,7 +42,6 @@ public class HVBoxFigure extends BoxFigure {
 
 	@Override
 	public void handleFocusGained(FocusEvent event) {
-		System.out.println(event);
 		super.handleFocusGained(event);
 	}
 
