@@ -7,7 +7,7 @@ import org.eclipse.ui.intro.IIntroPart;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import aurora.ide.prototype.consultant.product.demonstrate.DemonstrateDSManager;
+import aurora.ide.prototype.consultant.demonstrate.DemonstrateDSManager;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -39,7 +39,7 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		dsManager = new DemonstrateDSManager();
+		dsManager = DemonstrateDSManager.makeInstance();
 		dsManager.loadDemonstrateDS();
 	}
 

@@ -6,7 +6,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 
+import aurora.ide.prototype.consultant.product.Activator;
 import aurora.ide.swt.util.UWizard;
+import aurora.plugin.source.gen.screen.model.DemonstrateDS;
 
 public class DemonstrateDSWizard extends UWizard {
 
@@ -26,7 +28,7 @@ public class DemonstrateDSWizard extends UWizard {
 	public void addPages() {
 
 		page1 = new DemonstrateDSPage(
-				"FunctionDescPage", "演示", null, sm.getDemonstrateData()); //$NON-NLS-1$
+				"FunctionDescPage", "演示配置", null, sm.getDemonstrateData()); //$NON-NLS-1$
 		addPage(page1);
 	}
 
@@ -38,10 +40,26 @@ public class DemonstrateDSWizard extends UWizard {
 				@Override
 				public void run(IProgressMonitor monitor)
 						throws InvocationTargetException, InterruptedException {
-					// page1.getData();
-					// ds is modify??
-					// alert save ds,是否新增数据源，是否修改数据源
-					// if ==cancel throw InterruptedException
+					String dsName = page1.getData().getDemonstrateDSName();
+					if (dsName != null && "".equals(dsName) == false) {
+						DemonstrateDS demonstrateDS = Activator.getDefault()
+								.getDemonstrateDSManager()
+								.getDemonstrateDS(dsName);
+						if (demonstrateDS != null) {
+							demonstrateDS.setData(page1.getData()
+									.getDemonstrateData());
+						} else {
+							Activator
+									.getDefault()
+									.getDemonstrateDSManager()
+									.addDemonstrateDS(
+											new DemonstrateDS(
+													page1.getData()
+															.getDemonstrateDSName(),
+													page1.getData()
+															.getDemonstrateData()));
+						}
+					}
 					sm.applyDemonData(page1.getData());
 				}
 			});

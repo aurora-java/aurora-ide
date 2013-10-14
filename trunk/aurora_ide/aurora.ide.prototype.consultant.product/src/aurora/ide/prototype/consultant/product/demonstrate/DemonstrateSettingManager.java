@@ -10,6 +10,7 @@ import aurora.ide.swt.util.UWizard;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.Combox;
+import aurora.plugin.source.gen.screen.model.DemonstrateData;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.LOV;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
@@ -50,7 +51,7 @@ public class DemonstrateSettingManager {
 		Object propertyValue = ac
 				.getPropertyValue(DemonstrateData.DEMONSTRATE_DATA);
 		return propertyValue instanceof DemonstrateData ? (DemonstrateData) cloneObject((AuroraComponent) propertyValue)
-				: null;
+				: new DemonstrateData();
 	}
 
 	private AuroraComponent cloneObject(AuroraComponent ac) {
