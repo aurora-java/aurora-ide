@@ -12,7 +12,6 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 
 import aurora.ide.meta.MetaPlugin;
@@ -23,11 +22,10 @@ import aurora.ide.meta.gef.editors.layout.InputFieldLayout;
 import aurora.ide.meta.gef.editors.models.commands.ChangeTextStyleCommand;
 import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
-import aurora.ide.meta.gef.editors.wizard.dialog.SysLovDialog;
 import aurora.ide.meta.gef.editors.wizard.dialog.TextEditDialog;
+import aurora.ide.prototype.consultant.demonstrate.Demonstrating;
 import aurora.plugin.source.gen.screen.model.Combox;
 import aurora.plugin.source.gen.screen.model.Input;
-import aurora.plugin.source.gen.screen.model.LOV;
 import aurora.plugin.source.gen.screen.model.StyledStringText;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
@@ -54,11 +52,10 @@ public class InputPart extends ComponentPart {
 		super.refreshVisuals();
 		String stringPropertyValue = getModel().getStringPropertyValue(
 				ComponentFSDProperties.FSD_MEANING);
-		if("".equals(stringPropertyValue)|| null == stringPropertyValue ){
+		if ("".equals(stringPropertyValue) || null == stringPropertyValue) {
 			getFigure().setToolTip(null);
-		}else{
-			getFigure().setToolTip(
-					new Label(stringPropertyValue));
+		} else {
+			getFigure().setToolTip(new Label(stringPropertyValue));
 		}
 	}
 
@@ -106,18 +103,17 @@ public class InputPart extends ComponentPart {
 	public void performRequest(Request req) {
 		if (RequestConstants.REQ_OPEN.equals(req.getType())
 				&& req instanceof LocationRequest) {
+			if (MetaPlugin.isDemonstrate) {
+				new Demonstrating(this).demonstrating(getViewer().getControl()
+						.getShell());
+				return;
+			}
 			Point location = ((LocationRequest) req).getLocation();
 			Rectangle dataBounds = getPromptBounds();
 			if (dataBounds.contains(location) == false) {
 				performEditStyledStringText(ComponentProperties.prompt);
 			} else {
-				 if (MetaPlugin.isDemonstrate
-						&& LOV.LOV.equals(getModel().getComponentType())) {
-					 SysLovDialog lov = new SysLovDialog(getViewer().getControl().getShell());
-					 lov.open();
-				}else{
-					performEditStyledStringText(ComponentInnerProperties.INPUT_SIMPLE_DATA);
-				}
+				performEditStyledStringText(ComponentInnerProperties.INPUT_SIMPLE_DATA);
 			}
 		}
 		if (req.getType().equals(RequestConstants.REQ_DIRECT_EDIT)
@@ -165,19 +161,16 @@ public class InputPart extends ComponentPart {
 
 		if (MetaPlugin.isDemonstrate
 				&& Combox.Combo.equals(getModel().getComponentType())) {
-			NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
-					this, ComboBoxCellEditor.class,
-					new SimpleDataCellEditorLocator(figure),
-					ComponentInnerProperties.INPUT_SIMPLE_DATA);
-			manager.show();
-		}  else {
+			new Demonstrating(this).demonstrating(getViewer().getControl()
+					.getShell());
+
+		} else {
 			NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
 					this, TextCellEditor.class,
 					new SimpleDataCellEditorLocator(figure),
 					ComponentInnerProperties.INPUT_SIMPLE_DATA);
 			manager.show();
 		}
-		// ComboBoxCellEditor
 	}
 
 	protected void performPromptDirectEditRequest(InputField figure) {

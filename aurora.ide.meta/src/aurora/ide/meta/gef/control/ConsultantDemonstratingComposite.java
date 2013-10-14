@@ -5,14 +5,10 @@ import java.util.EventObject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
-import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -20,24 +16,19 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.IKeyBindingService;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchPartSite;
-import org.eclipse.ui.IWorkbenchWindow;
 
-import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
-import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
+import aurora.ide.meta.gef.editors.parts.ExtSysLovAuroraPartFactory;
+import aurora.ide.meta.gef.editors.wizard.dialog.SysLovDialog;
+import aurora.ide.prototype.consultant.demonstrate.DemonstrateEditorMode;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 
-public class ConsultantComposite extends GraphicalEditor implements
+public class ConsultantDemonstratingComposite extends GraphicalEditor implements
 		ISelectionChangedListener {
 	private Composite cpt;
 
@@ -62,10 +53,8 @@ public class ConsultantComposite extends GraphicalEditor implements
 
 	public static final String CONTEXT_MENU_KEY = "aurora.ide.gef.prototpye.composite.contextmenu";
 	private ScreenBody diagram;
-	private PaletteRoot root;
-	private KeyHandler sharedKeyHandler;
-	private MetaPropertyViewer propertyViewer;
 	private EditorMode editorMode;
+	private SysLovDialog parent;
 
 
 	public void setDiagram(ScreenBody diagram) {
@@ -103,7 +92,7 @@ public class ConsultantComposite extends GraphicalEditor implements
 		super.configureGraphicalViewer();
 		getGraphicalViewer().setRootEditPart(new ScalableRootEditPart());
 		getGraphicalViewer().setEditPartFactory(
-				new ExtAuroraPartFactory(editorMode));
+				new ExtSysLovAuroraPartFactory(editorMode));
 	}
 
 	/**
@@ -132,12 +121,6 @@ public class ConsultantComposite extends GraphicalEditor implements
 	}
 
 
-	/**
-	 * @see org.eclipse.gef.ui.parts.GraphicalEditorWithPalette#getPaletteRoot()
-	 */
-
-	// public void gotoMarker(IMarker marker) {
-	// }
 
 	/**
 	 * @see org.eclipse.ui.ISaveablePart#isSaveAsAllowed()
@@ -162,30 +145,11 @@ public class ConsultantComposite extends GraphicalEditor implements
 		this.getGraphicalViewer().addSelectionChangedListener(this);
 	}
 
-	public ConsultantComposite() {
+	public ConsultantDemonstratingComposite(SysLovDialog sysLovDialog) {
 		super();
+		this.parent = sysLovDialog;
 		this.setEditDomain(new DefaultEditDomain(this));
-		editorMode = new EditorMode(null) {
-			public String getMode() {
-				return None;
-			}
-
-			public boolean isForDisplay() {
-				return false;
-			}
-
-			public boolean isForCreate() {
-				return false;
-			}
-
-			public boolean isForUpdate() {
-				return false;
-			}
-
-			public boolean isForSearch() {
-				return false;
-			}
-		};
+		editorMode = new DemonstrateEditorMode(parent);
 		getCommandStack().addCommandStackListener(this);
 
 		initializeActionRegistry();
@@ -211,82 +175,82 @@ public class ConsultantComposite extends GraphicalEditor implements
 		return super.getEditorSite();
 	}
 
-	@Override
-	public IWorkbenchPartSite getSite() {
-		return fakeSite;
-	}
+//	@Override
+//	public IWorkbenchPartSite getSite() {
+//		return fakeSite;
+//	}
 
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 	}
 
-	private IWorkbenchPartSite fakeSite = new IWorkbenchPartSite() {
-
-		public IWorkbenchPage getPage() {
-
-			IWorkbenchPage activePage = getWorkbenchWindow().getActivePage();
-			return activePage;
-		}
-
-		public ISelectionProvider getSelectionProvider() {
-			return getGraphicalViewer();
-		}
-
-		public Shell getShell() {
-			return getControl().getShell();
-		}
-
-		public IWorkbenchWindow getWorkbenchWindow() {
-			IWorkbench workbench = MetaPlugin.getDefault().getWorkbench();
-			IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-			return window;
-		}
-
-		public void setSelectionProvider(ISelectionProvider provider) {
-		}
-
-		public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
-			return null;
-		}
-
-		public Object getService(@SuppressWarnings("rawtypes") Class api) {
-			return null;
-		}
-
-		public boolean hasService(@SuppressWarnings("rawtypes") Class api) {
-			return false;
-		}
-
-		public String getId() {
-			return "PrototpyeComposite.fake.site";
-		}
-
-		public String getPluginId() {
-			return MetaPlugin.PLUGIN_ID;
-		}
-
-		public String getRegisteredName() {
-			return "PrototpyeComposite.fake.site.name";
-		}
-
-		public IWorkbenchPart getPart() {
-			return ConsultantComposite.this;
-		}
-
-		public void registerContextMenu(String menuId, MenuManager menuManager,
-				ISelectionProvider selectionProvider) {
-
-		}
-
-		public void registerContextMenu(MenuManager menuManager,
-				ISelectionProvider selectionProvider) {
-
-		}
-
-		@SuppressWarnings("deprecation")
-		public IKeyBindingService getKeyBindingService() {
-			return null;
-		}
-	};
+//	private IWorkbenchPartSite fakeSite = new IWorkbenchPartSite() {
+//
+//		public IWorkbenchPage getPage() {
+//
+//			IWorkbenchPage activePage = getWorkbenchWindow().getActivePage();
+//			return activePage;
+//		}
+//
+//		public ISelectionProvider getSelectionProvider() {
+//			return getGraphicalViewer();
+//		}
+//
+//		public Shell getShell() {
+//			return getControl().getShell();
+//		}
+//
+//		public IWorkbenchWindow getWorkbenchWindow() {
+//			IWorkbench workbench = MetaPlugin.getDefault().getWorkbench();
+//			IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+//			return window;
+//		}
+//
+//		public void setSelectionProvider(ISelectionProvider provider) {
+//		}
+//
+//		public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
+//			return null;
+//		}
+//
+//		public Object getService(@SuppressWarnings("rawtypes") Class api) {
+//			return null;
+//		}
+//
+//		public boolean hasService(@SuppressWarnings("rawtypes") Class api) {
+//			return false;
+//		}
+//
+//		public String getId() {
+//			return "PrototpyeComposite.fake.site";
+//		}
+//
+//		public String getPluginId() {
+//			return MetaPlugin.PLUGIN_ID;
+//		}
+//
+//		public String getRegisteredName() {
+//			return "PrototpyeComposite.fake.site.name";
+//		}
+//
+//		public IWorkbenchPart getPart() {
+//			return ConsultantComposite.this;
+//		}
+//
+//		public void registerContextMenu(String menuId, MenuManager menuManager,
+//				ISelectionProvider selectionProvider) {
+//
+//		}
+//
+//		public void registerContextMenu(MenuManager menuManager,
+//				ISelectionProvider selectionProvider) {
+//
+//		}
+//
+//		@SuppressWarnings("deprecation")
+//		public IKeyBindingService getKeyBindingService() {
+//			return null;
+//		}
+//	};
 
 	public void selectionChanged(SelectionChangedEvent event) {
 
