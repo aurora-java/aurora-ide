@@ -37,7 +37,14 @@ public class GridPart extends ContainerPart {
 
 	protected void refreshVisuals() {
 		super.refreshVisuals();
-		getFigure().setToolTip(new Label(this.getComponent().getStringPropertyValue(ComponentFSDProperties.FSD_DESC)));
+		String stringPropertyValue = getComponent().getStringPropertyValue(
+				ComponentFSDProperties.FSD_DESC);
+		if ("".equals(stringPropertyValue) || null == stringPropertyValue) {
+			getFigure().setToolTip(null);
+		} else {
+			getFigure().setToolTip(new Label(stringPropertyValue));
+		}
+//		getFigure().setToolTip(new Label(this.getComponent().getStringPropertyValue(ComponentFSDProperties.FSD_DESC)));
 	}
 
 	@Override

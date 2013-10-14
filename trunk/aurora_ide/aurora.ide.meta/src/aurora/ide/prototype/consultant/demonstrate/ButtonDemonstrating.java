@@ -34,7 +34,7 @@ public class ButtonDemonstrating {
 			if (editorMode instanceof DemonstrateEditorMode)
 				;
 			else
-				showMessage("请配置演示数据");
+				showMessage(Messages.ButtonDemonstrating_0);
 		} else if (DemonstrateData.OPEN_MESSAGE.equals(dd.getOpenType())) {
 			this.showMessage(dd.getOpenMessage());
 		} else if (DemonstrateData.OPEN_TYPE_UIP.equals(dd.getOpenType())) {
@@ -50,7 +50,7 @@ public class ButtonDemonstrating {
 
 		File file = new File(path);
 		if (file.exists() == false) {
-			showMessage("文件不存在");
+			showMessage(Messages.ButtonDemonstrating_1);
 			return;
 		}
 		IEditorInput input = createEditorInput(file);
@@ -72,7 +72,7 @@ public class ButtonDemonstrating {
 				.getName());
 		if (descriptor != null)
 			return descriptor.getId();
-		return "aurora.ide.meta.gef.editors.ConsultantVScreenEditor";
+		return "aurora.ide.meta.gef.editors.ConsultantVScreenEditor"; //$NON-NLS-1$
 	}
 
 	private IEditorInput createEditorInput(File file) {
