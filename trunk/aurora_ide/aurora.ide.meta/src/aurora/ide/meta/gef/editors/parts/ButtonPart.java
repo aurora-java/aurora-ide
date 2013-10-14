@@ -21,6 +21,7 @@ import aurora.ide.meta.gef.editors.models.commands.ChangeTextStyleCommand;
 import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
 import aurora.ide.meta.gef.editors.wizard.dialog.TextEditDialog;
+import aurora.ide.prototype.consultant.demonstrate.Demonstrating;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.StyledStringText;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
@@ -51,14 +52,13 @@ public class ButtonPart extends ComponentPart {
 						(title != null && title.length() > 0) ? new Label(title)
 								: null);
 		super.refreshVisuals();
-		
+
 		String stringPropertyValue = getModel().getStringPropertyValue(
 				ComponentFSDProperties.FSD_DESC);
-		if("".equals(stringPropertyValue)|| null == stringPropertyValue ){
+		if ("".equals(stringPropertyValue) || null == stringPropertyValue) {
 			getFigure().setToolTip(null);
-		}else{
-			getFigure().setToolTip(
-					new Label(stringPropertyValue));
+		} else {
+			getFigure().setToolTip(new Label(stringPropertyValue));
 		}
 
 	}
@@ -96,7 +96,10 @@ public class ButtonPart extends ComponentPart {
 		if (RequestConstants.REQ_OPEN.equals(req.getType())
 				&& req instanceof LocationRequest) {
 			if (MetaPlugin.isDemonstrate) {
-				DialogUtil.showWarningMessageBox("审批通过");
+				new Demonstrating(this).demonstrating(getViewer().getControl()
+						.getShell());
+				return;
+
 			} else {
 				performEditStyledStringText(ComponentProperties.text);
 			}

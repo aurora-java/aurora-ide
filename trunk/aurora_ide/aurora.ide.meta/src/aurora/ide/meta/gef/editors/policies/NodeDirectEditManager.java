@@ -6,8 +6,6 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
@@ -21,7 +19,7 @@ import aurora.plugin.source.gen.screen.model.AuroraComponent;
  */
 public class NodeDirectEditManager extends DirectEditManager {
 
-	Font scaledFont;
+	private Font scaledFont;
 
 	protected VerifyListener verifyListener;
 
@@ -29,7 +27,6 @@ public class NodeDirectEditManager extends DirectEditManager {
 
 	private String feature;
 
-	private Class<?> editorType;
 
 	/**
 	 * @see org.eclipse.gef.tools.DirectEditManager#bringDown()
@@ -48,7 +45,6 @@ public class NodeDirectEditManager extends DirectEditManager {
 		super(source, editorType, locator, feature);
 		this.nodeFigure = source.getFigure();
 		this.feature = feature;
-		this.editorType = editorType;
 	}
 
 	/**
@@ -91,27 +87,27 @@ public class NodeDirectEditManager extends DirectEditManager {
 			text.setFont(scaledFont);
 			text.selectAll();
 		}
-		if (control instanceof CCombo) {
-			CCombo text = (CCombo) control;
-			text.setFont(scaledFont);
-//			text.setMenu(menu)
-		}
+//		if (control instanceof CCombo) {
+//			CCombo text = (CCombo) control;
+//			text.setFont(scaledFont);
+////			text.setMenu(menu)
+//		}
 	}
 	
 	public void show() {
 		super.show();
-		Control control = this.getCellEditor().getControl();
-		if (control instanceof CCombo) {
-			CCombo text = (CCombo) control;
-			text.setListVisible(true);
-		}
+//		Control control = this.getCellEditor().getControl();
+//		if (control instanceof CCombo) {
+//			CCombo text = (CCombo) control;
+//			text.setListVisible(true);
+//		}
 	}
 
 	protected CellEditor createCellEditorOn(Composite composite) {
-		if (editorType.equals(ComboBoxCellEditor.class)) {
-			return new ComboBoxCellEditor(composite, new String[] { "aa", "bb",
-					"cc" });
-		}
+//		if (editorType.equals(ComboBoxCellEditor.class)) {
+//			return new ComboBoxCellEditor(composite, new String[] { "aa", "bb",
+//					"cc" });
+//		}
 
 		return super.createCellEditorOn(composite);
 	}

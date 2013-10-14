@@ -6,15 +6,16 @@ import org.eclipse.gef.EditPartFactory;
 import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 
 /**
  */
-public class ExtAuroraPartFactory implements EditPartFactory {
+public class ExtSysLovAuroraPartFactory implements EditPartFactory {
 
 	private EditorMode editorMode;
 
-	public ExtAuroraPartFactory(EditorMode editorMode) {
+	public ExtSysLovAuroraPartFactory(EditorMode editorMode) {
 		this.editorMode = editorMode;
 	}
 
@@ -27,6 +28,18 @@ public class ExtAuroraPartFactory implements EditPartFactory {
 				((ComponentPart) part).setEditorMode(editorMode);
 			}
 			return part;
+		}
+		if (model instanceof GridColumn) {
+			if (GridColumn.GRIDCOLUMN.equals(((GridColumn) model)
+					.getComponentType())) {
+				EditPart part = new SysLovGridColumnPart();
+				part.setParent(context);
+				part.setModel(model);
+				if (part instanceof ComponentPart) {
+					((ComponentPart) part).setEditorMode(editorMode);
+				}
+				return part;
+			}
 		}
 		EditPart createEditPart = ComponentFactory
 				.createEditPart((AuroraComponent) model);
