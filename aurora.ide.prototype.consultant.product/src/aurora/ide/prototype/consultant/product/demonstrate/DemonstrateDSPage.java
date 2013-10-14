@@ -1,5 +1,9 @@
 package aurora.ide.prototype.consultant.product.demonstrate;
 
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -17,14 +21,17 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Text;
 
-import aurora.ide.prototype.consultant.view.Node;
+import aurora.ide.prototype.consultant.product.Activator;
 import aurora.ide.swt.util.GridLayoutUtil;
 import aurora.ide.swt.util.TextField;
 import aurora.ide.swt.util.WidgetFactory;
+import aurora.plugin.source.gen.screen.model.DemonstrateDS;
+import aurora.plugin.source.gen.screen.model.DemonstrateData;
 
-public class DemonstrateDSPage extends WizardPage  {
+public class DemonstrateDSPage extends WizardPage {
 	private DemonstrateData data;
 	private TreeViewer dsViewer;
 	private TextField dsNameField;
@@ -34,7 +41,7 @@ public class DemonstrateDSPage extends WizardPage  {
 			ImageDescriptor titleImage, DemonstrateData data) {
 		super(pageName, title, titleImage);
 		this.setData(data);
-		this.setMessage("演示数据配置");
+		this.setMessage("修改数据源内容会影响所有的UIP文件");
 	}
 
 	private TextField createInputField(Composite parent, String label) {
@@ -49,7 +56,7 @@ public class DemonstrateDSPage extends WizardPage  {
 		SashForm sashForm = new SashForm(root, SWT.HORIZONTAL);
 
 		dsViewer = new TreeViewer(sashForm, SWT.BORDER | SWT.V_SCROLL
-				| SWT.H_SCROLL);
+				| SWT.H_SCROLL | SWT.SINGLE);
 		dsViewer.getTree().setLayoutData(new GridData(GridData.FILL_VERTICAL));
 
 		Composite c = WidgetFactory.composite(sashForm);
@@ -64,8 +71,36 @@ public class DemonstrateDSPage extends WizardPage  {
 		sashForm.setWeights(new int[] { 1, 4 });
 		this.setControl(sashForm);
 
+		makeMenu();
 		makeListener();
 		init();
+	}
+
+	private void makeMenu() {
+
+		MenuManager menuMgr = new MenuManager("DemonstrateDSTreeViewer"); //$NON-NLS-1$
+		menuMgr.setRemoveAllWhenShown(true);
+		menuMgr.addMenuListener(new IMenuListener() {
+
+			public void menuAboutToShow(IMenuManager manager) {
+				IStructuredSelection selection = (IStructuredSelection) dsViewer
+						.getSelection();
+				final Object firstElement = selection.getFirstElement();
+				if (firstElement != null)
+					manager.add(new Action("删除") {
+						public void run() {
+							Activator
+									.getDefault()
+									.getDemonstrateDSManager()
+									.removeDemonstrateDS(
+											(DemonstrateDS) firstElement);
+						}
+					});
+			}
+		});
+		Menu menu = menuMgr.createContextMenu(dsViewer.getTree());
+		dsViewer.getTree().setMenu(menu);
+
 	}
 
 	private void init() {
@@ -121,22 +156,24 @@ public class DemonstrateDSPage extends WizardPage  {
 			if (demonstrateData != null)
 				dsData.setText(demonstrateData);
 		} else {
-			
-			dsViewer.setSelection(new StructuredSelection(ss));
+			dsViewer.setSelection(new StructuredSelection(Activator
+					.getDefault().getDemonstrateDSManager()
+					.getDemonstrateDS(demonstrateDSName)));
 		}
-
 	}
 
 	private void makeListener() {
 		dsViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			
+
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				ISelection selection = event.getSelection();	
-				if(selection instanceof IStructuredSelection){
-					Object firstElement = ((IStructuredSelection) selection).getFirstElement();
-					if(firstElement instanceof DemonstrateDS){
-						dsNameField.setText(((DemonstrateDS) firstElement).getName());
+				ISelection selection = event.getSelection();
+				if (selection instanceof IStructuredSelection) {
+					Object firstElement = ((IStructuredSelection) selection)
+							.getFirstElement();
+					if (firstElement instanceof DemonstrateDS) {
+						dsNameField.setText(((DemonstrateDS) firstElement)
+								.getName());
 						dsData.setText(((DemonstrateDS) firstElement).getData());
 					}
 				}
@@ -168,7 +205,6 @@ public class DemonstrateDSPage extends WizardPage  {
 		return true;
 	}
 
-
 	public DemonstrateData getData() {
 		return data;
 	}
@@ -177,16 +213,10 @@ public class DemonstrateDSPage extends WizardPage  {
 		this.data = data;
 	}
 
-	private DemonstrateDS ss = new DemonstrateDS("aac", "a,ab,abc");
-	private DemonstrateDS[] ds = new DemonstrateDS[] {
-			new DemonstrateDS("ab", "a,ab,abc"),
-			new DemonstrateDS("abc", "a,ab,abc"),
-			new DemonstrateDS("aaa", "a,ab,abc"),
-			new DemonstrateDS("abb", "a,ab,abc"),
-			new DemonstrateDS("acc", "a,ab,abc"), ss };
 
 	private DemonstrateDS[] getDemonstrateDSs() {
-		return ds;
+		return Activator.getDefault().getDemonstrateDSManager()
+				.getDemonstrateDS();
 	}
 
 }

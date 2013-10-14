@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Text;
 import aurora.ide.swt.util.GridLayoutUtil;
 import aurora.ide.swt.util.TextField;
 import aurora.ide.swt.util.WidgetFactory;
+import aurora.plugin.source.gen.screen.model.DemonstrateData;
 
 public class DemonstrateOpeningPage extends WizardPage {
 
@@ -31,7 +32,6 @@ public class DemonstrateOpeningPage extends WizardPage {
 		this.setData(data);
 		this.setMessage("演示数据配置");
 	}
-
 
 	@Override
 	public void createControl(Composite root) {
@@ -139,11 +139,9 @@ public class DemonstrateOpeningPage extends WizardPage {
 			msgText.setText(msg);
 	}
 
-
 	public DemonstrateData getData() {
 		return data;
 	}
-
 
 	public void setData(DemonstrateData data) {
 		this.data = data;
