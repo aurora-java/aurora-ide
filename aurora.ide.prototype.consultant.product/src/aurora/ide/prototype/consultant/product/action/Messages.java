@@ -7,6 +7,7 @@ public class Messages extends NLS {
 	public static String DemonstrateAction_0;
 	public static String DemonstrateAction_1;
 	public static String DemonstrateAction_4;
+	public static String DemonstrateSettingAction_0;
 	public static String FSDPropertyEditAction_1;
 	static {
 		// initialize resource bundle
