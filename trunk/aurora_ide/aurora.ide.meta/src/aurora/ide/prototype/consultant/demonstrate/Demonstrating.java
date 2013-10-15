@@ -11,6 +11,7 @@ import aurora.plugin.source.gen.screen.model.LOV;
 
 public class Demonstrating {
 	private ComponentPart part;
+	private String feature;
 
 	public Demonstrating(ComponentPart part) {
 		this.part = part;
@@ -27,7 +28,10 @@ public class Demonstrating {
 			new ButtonDemonstrating(part).demonstrating(shell);
 		}
 		if (GridColumn.GRIDCOLUMN.equals(getComponentType())) {
-			new ButtonDemonstrating(part).demonstrating(shell);
+			GridColumnDemonstrating gridColumnDemonstrating = new GridColumnDemonstrating(
+					part);
+			gridColumnDemonstrating.setFeature(feature);
+			gridColumnDemonstrating.demonstrating(shell);
 		}
 	}
 
@@ -37,5 +41,13 @@ public class Demonstrating {
 
 	private AuroraComponent getModel() {
 		return part.getComponent();
+	}
+
+	public String getFeature() {
+		return feature;
+	}
+
+	public void setFeature(String feature) {
+		this.feature = feature;
 	}
 }

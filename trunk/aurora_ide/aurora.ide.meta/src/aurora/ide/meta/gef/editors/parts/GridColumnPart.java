@@ -23,6 +23,7 @@ import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
 import aurora.ide.meta.gef.editors.wizard.dialog.TextEditDialog;
 import aurora.ide.prototype.consultant.demonstrate.Demonstrating;
 import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.StyledStringText;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
@@ -78,12 +79,20 @@ public class GridColumnPart extends ContainerPart {
 	public void performRequest(Request req) {
 		if (RequestConstants.REQ_OPEN.equals(req.getType())
 				&& req instanceof LocationRequest) {
+			int idx = getEditIndex((LocationRequest) req);
 			if (MetaPlugin.isDemonstrate) {
-				new Demonstrating(this).demonstrating(getViewer().getControl()
+				Demonstrating demonstrating = new Demonstrating(this);
+				if(idx == 0){
+					demonstrating.setFeature(ComponentProperties.prompt);
+				}else{
+					demonstrating.setFeature(ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA
+							+ idx);
+				}
+				demonstrating.demonstrating(getViewer().getControl()
 						.getShell());
 				return;
 			}
-			int idx = getEditIndex((LocationRequest) req);
+			
 			if (idx == 0) {
 				performEditStyledStringText(ComponentProperties.prompt);
 			} else {
@@ -117,6 +126,18 @@ public class GridColumnPart extends ContainerPart {
 
 	protected void performSimpleDataDirectEditRequest(GridColumnFigure figure,
 			int idx) {
+		if (MetaPlugin.isDemonstrate) {
+			if (Input.LOV.equals(this.getModel().getEditor())
+					|| Input.Combo.equals(this.getModel().getEditor())) {
+				Demonstrating demonstrating = new Demonstrating(this);
+				demonstrating
+						.setFeature(ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA
+								+ idx);
+				demonstrating
+						.demonstrating(getViewer().getControl().getShell());
+				return;
+			}
+		}
 		NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
 				this, TextCellEditor.class, new GridColumnCellEditorLocator(
 						figure, idx),

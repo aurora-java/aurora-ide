@@ -3,6 +3,8 @@ package aurora.ide.prototype.consultant.demonstrate;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
 
@@ -16,13 +18,13 @@ import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties
 
 public class LOVDemonstrating {
 	private ComponentPart part;
-
+	private String feature = ComponentInnerProperties.INPUT_SIMPLE_DATA;
 	public LOVDemonstrating(ComponentPart part) {
 		this.part = part;
 	}
 
 	public void demonstrating(Shell shell) {
-		SysLovDialog lov = new SysLovDialog(shell,this);
+		SysLovDialog lov = new SysLovDialog(shell, this);
 		lov.setInput(parseItems());
 		lov.open();
 	}
@@ -30,7 +32,7 @@ public class LOVDemonstrating {
 	public void applyValue(String value) {
 		ChangePropertyCommand command = new ChangePropertyCommand(
 				part.getComponent(),
-				ComponentInnerProperties.INPUT_SIMPLE_DATA, value);
+				feature, value);
 		part.getViewer().getEditDomain().getCommandStack().execute(command);
 
 	}
@@ -38,8 +40,8 @@ public class LOVDemonstrating {
 	private LovDialogInput parseItems() {
 		DemonstrateData dd = (DemonstrateData) part.getComponent()
 				.getPropertyValue(DemonstrateData.DEMONSTRATE_DATA);
-		if(dd == null)
-			return new LovDialogInput();
+		if (dd == null)
+			return new LovDialogInput(0, 0);
 		String dsName = dd.getDemonstrateDSName();
 		if (null != dsName && "".equals(dsName) == false) {
 			DemonstrateDS demonstrateDS = DemonstrateDSManager.getInstance()
@@ -58,24 +60,50 @@ public class LOVDemonstrating {
 		StringReader sr = new StringReader(demonstrateDS);
 		BufferedReader br = new BufferedReader(sr);
 		String str = "";
+		List<String> rows = new ArrayList<String>();
 		int col = 0;
-		int row = 0;
-		LovDialogInput input = new LovDialogInput();
 		try {
 			while ((str = br.readLine()) != null) {
-				col = 0;
+				rows.add(str);
 				String[] split = str.split(",");
-				for (String s : split) {
-					if (row == 1)
-						input.addQueryHead(s);
-					input.addColumn(col, s);
-					col++;
-				}
-				row++;
+				col = col > split.length ? col : split.length;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		LovDialogInput input = new LovDialogInput(col, rows.size());
+
+		for (int i = 0; i < rows.size(); i++) {
+			String s = rows.get(i);
+			String[] split = s.split(",");
+			for (int j = 0; j < col; j++) {
+				input.add(j, i, j >= split.length ? "" : split[j]);
+			}
+		}
+
+		// try {
+		// while ((str = br.readLine()) != null) {
+		// col = 0;
+		// String[] split = str.split(",");
+		// for (String s : split) {
+		// if (row == 1)
+		// input.addQueryHead(s);
+		// input.addColumn(col, s);
+		// col++;
+		// }
+		// row++;
+		// }
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 		return input;
+	}
+
+	public String getFeature() {
+		return feature;
+	}
+
+	public void setFeature(String feature) {
+		this.feature = feature;
 	}
 }
