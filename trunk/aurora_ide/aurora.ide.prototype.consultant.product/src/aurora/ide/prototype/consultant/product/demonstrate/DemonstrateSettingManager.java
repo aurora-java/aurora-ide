@@ -10,8 +10,10 @@ import aurora.ide.swt.util.UWizard;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.Combox;
+import aurora.plugin.source.gen.screen.model.DemonstrateDS;
 import aurora.plugin.source.gen.screen.model.DemonstrateData;
 import aurora.plugin.source.gen.screen.model.GridColumn;
+import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.LOV;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
@@ -32,6 +34,13 @@ public class DemonstrateSettingManager {
 	}
 
 	private UWizard createWizard(Shell shell) {
+		if (GridColumn.GRIDCOLUMN.equals(ac.getComponentType())) {
+			GridColumn gc = (GridColumn) ac;
+			if (Input.Combo.equals(gc.getEditor())
+					|| Input.LOV.equals(gc.getEditor())) {
+				return new DemonstrateDSWizard(shell, this);
+			}
+		}
 		if (Button.BUTTON.equals(ac.getComponentType())
 				|| GridColumn.GRIDCOLUMN.equals(ac.getComponentType())) {
 			return new DemonstrateOpeningWizard(shell, this);
@@ -51,7 +60,23 @@ public class DemonstrateSettingManager {
 		Object propertyValue = ac
 				.getPropertyValue(DemonstrateData.DEMONSTRATE_DATA);
 		return propertyValue instanceof DemonstrateData ? (DemonstrateData) cloneObject((AuroraComponent) propertyValue)
-				: new DemonstrateData();
+				: getDefaultData();
+	}
+
+	private DemonstrateData getDefaultData() {
+		DemonstrateData demonstrateData = new DemonstrateData();
+		String ct = ac.getComponentType();
+		if (LOV.LOV.equals(ct)) {
+			DemonstrateDS ds = lovDemonstrateDS();
+			demonstrateData.setDemonstrateData(ds.getData());
+			demonstrateData.setDemonstrateDSName(ds.getName());
+		}
+		if (Combox.Combo.equals(ct)) {
+			DemonstrateDS ds = comboxDemonstrateDS();
+			demonstrateData.setDemonstrateData(ds.getData());
+			demonstrateData.setDemonstrateDSName(ds.getName());
+		}
+		return demonstrateData;
 	}
 
 	private AuroraComponent cloneObject(AuroraComponent ac) {
@@ -62,8 +87,27 @@ public class DemonstrateSettingManager {
 		return createObject;
 	}
 
+	static public DemonstrateDS comboxDemonstrateDS() {
+		DemonstrateDS dds = new DemonstrateDS(
+				Messages.DemonstrateSettingManager_0,
+				Messages.DemonstrateSettingManager_1);
+		return dds;
+	}
+
+	static final String s = Messages.DemonstrateSettingManager_2
+			+ "\n" + Messages.DemonstrateSettingManager_4 + "\n" //$NON-NLS-2$ //$NON-NLS-4$
+			+ Messages.DemonstrateSettingManager_6
+			+ "\n" + Messages.DemonstrateSettingManager_8 + "\n" + Messages.DemonstrateSettingManager_10; //$NON-NLS-2$ //$NON-NLS-4$
+
+	static public DemonstrateDS lovDemonstrateDS() {
+		DemonstrateDS dds = new DemonstrateDS(
+				Messages.DemonstrateSettingManager_11, s);
+		return dds;
+
+	}
+
 	public void applyDemonData(DemonstrateData data) {
-		ChangePropertyCommand command = new ChangePropertyCommand(ac, ""
+		ChangePropertyCommand command = new ChangePropertyCommand(ac, "" //$NON-NLS-1$
 				+ DemonstrateData.DEMONSTRATE_DATA, data);
 		if (commandStack != null)
 			getCommandStack().execute(command);

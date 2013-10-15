@@ -30,7 +30,7 @@ public class DemonstrateOpeningPage extends WizardPage {
 			ImageDescriptor titleImage, DemonstrateData data) {
 		super(pageName, title, titleImage);
 		this.setData(data);
-		this.setMessage("演示数据配置");
+		this.setMessage(Messages.DemonstrateOpeningPage_0);
 	}
 
 	@Override
@@ -38,18 +38,18 @@ public class DemonstrateOpeningPage extends WizardPage {
 		Composite parent = WidgetFactory.composite(root);
 		parent.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
 		uipButton = new org.eclipse.swt.widgets.Button(parent, SWT.RADIO);
-		uipButton.setText("打开UIP");
+		uipButton.setText(Messages.DemonstrateOpeningPage_1);
 
 		Composite p = WidgetFactory.composite(parent);
 		p.setLayout(GridLayoutUtil.COLUMN_LAYOUT_3);
 		p.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		uipField = WidgetFactory.createTextButtonField(p, "UIP", "浏览");
+		uipField = WidgetFactory.createTextButtonField(p, "UIP", Messages.DemonstrateOpeningPage_3); //$NON-NLS-1$
 
 		WidgetFactory.hSeparator(parent).setLayoutData(
 				new GridData(GridData.FILL_HORIZONTAL));
 
 		msgButton = new org.eclipse.swt.widgets.Button(parent, SWT.RADIO);
-		msgButton.setText("弹出消息框");
+		msgButton.setText(Messages.DemonstrateOpeningPage_4);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		msgText = new Text(parent, SWT.BORDER | SWT.MULTI);
 		msgText.setLayoutData(gd);
@@ -116,7 +116,7 @@ public class DemonstrateOpeningPage extends WizardPage {
 	private String queryFile() {
 		FileDialog dialog = new FileDialog(this.getShell(), SWT.OPEN);
 		dialog.setText("Open File"); //$NON-NLS-1$
-		dialog.setFilterExtensions(new String[] { "*.uip" });
+		dialog.setFilterExtensions(new String[] { "*.uip" }); //$NON-NLS-1$
 		String path = dialog.open();
 		if (path != null && path.length() > 0)
 			return path;

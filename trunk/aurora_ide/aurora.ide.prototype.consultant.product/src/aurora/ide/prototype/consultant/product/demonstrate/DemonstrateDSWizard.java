@@ -28,7 +28,7 @@ public class DemonstrateDSWizard extends UWizard {
 	public void addPages() {
 
 		page1 = new DemonstrateDSPage(
-				"FunctionDescPage", "演示配置", null, sm.getDemonstrateData()); //$NON-NLS-1$
+				"FunctionDescPage", Messages.DemonstrateDSWizard_0, null, sm.getDemonstrateData()); //$NON-NLS-1$
 		addPage(page1);
 	}
 
@@ -41,7 +41,7 @@ public class DemonstrateDSWizard extends UWizard {
 				public void run(IProgressMonitor monitor)
 						throws InvocationTargetException, InterruptedException {
 					String dsName = page1.getData().getDemonstrateDSName();
-					if (dsName != null && "".equals(dsName) == false) {
+					if (dsName != null && "".equals(dsName) == false) { //$NON-NLS-1$
 						DemonstrateDS demonstrateDS = Activator.getDefault()
 								.getDemonstrateDSManager()
 								.getDemonstrateDS(dsName);

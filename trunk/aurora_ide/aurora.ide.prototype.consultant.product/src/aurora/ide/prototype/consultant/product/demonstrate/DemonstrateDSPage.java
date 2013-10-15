@@ -21,6 +21,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Text;
 
@@ -41,7 +43,7 @@ public class DemonstrateDSPage extends WizardPage {
 			ImageDescriptor titleImage, DemonstrateData data) {
 		super(pageName, title, titleImage);
 		this.setData(data);
-		this.setMessage("修改数据源内容会影响所有的UIP文件");
+		this.setMessage(Messages.DemonstrateDSPage_3 + Messages.DemonstrateDSPage_0);
 	}
 
 	private TextField createInputField(Composite parent, String label) {
@@ -54,16 +56,27 @@ public class DemonstrateDSPage extends WizardPage {
 	public void createControl(Composite root) {
 
 		SashForm sashForm = new SashForm(root, SWT.HORIZONTAL);
+		Group c1 = new Group(sashForm, SWT.NONE);
+		c1.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
+		c1.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+		c1.setText(Messages.DemonstrateDSPage_4);
 
-		dsViewer = new TreeViewer(sashForm, SWT.BORDER | SWT.V_SCROLL
-				| SWT.H_SCROLL | SWT.SINGLE);
-		dsViewer.getTree().setLayoutData(new GridData(GridData.FILL_VERTICAL));
+		dsViewer = new TreeViewer(c1, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL
+				| SWT.SINGLE);
+		dsViewer.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		Composite c = WidgetFactory.composite(sashForm);
 		c.setLayout(GridLayoutUtil.COLUMN_LAYOUT_2);
 		c.setLayoutData(new GridData(GridData.FILL_BOTH));
-		dsNameField = createInputField(c, "数据源");
-
+		dsNameField = createInputField(c, Messages.DemonstrateDSPage_1);
+		GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
+		layoutData.horizontalSpan = 2;
+		WidgetFactory.hSeparator(c).setLayoutData(layoutData);
+		layoutData = new GridData(GridData.FILL_HORIZONTAL);
+		layoutData.horizontalSpan = 2;
+		Label l = new Label(c, SWT.NONE);
+		l.setText(Messages.DemonstrateDSPage_5);
+		l.setLayoutData(layoutData);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		dsData = new Text(c, SWT.BORDER | SWT.MULTI);
 		gd.horizontalSpan = 2;
@@ -87,13 +100,14 @@ public class DemonstrateDSPage extends WizardPage {
 						.getSelection();
 				final Object firstElement = selection.getFirstElement();
 				if (firstElement != null)
-					manager.add(new Action("删除") {
+					manager.add(new Action(Messages.DemonstrateDSPage_2) {
 						public void run() {
 							Activator
 									.getDefault()
 									.getDemonstrateDSManager()
 									.removeDemonstrateDS(
 											(DemonstrateDS) firstElement);
+							dsViewer.setInput(getDemonstrateDSs());
 						}
 					});
 			}
@@ -151,14 +165,23 @@ public class DemonstrateDSPage extends WizardPage {
 		});
 		dsViewer.setInput(getDemonstrateDSs());
 		String demonstrateDSName = data.getDemonstrateDSName();
-		if (demonstrateDSName == null || "".equals(demonstrateDSName)) {
+		if (demonstrateDSName == null || "".equals(demonstrateDSName)) { //$NON-NLS-1$
 			String demonstrateData = data.getDemonstrateData();
-			if (demonstrateData != null)
+			if (demonstrateData == null || "".equals(demonstrateDSName)) { //$NON-NLS-1$
+
+			} else {
 				dsData.setText(demonstrateData);
+			}
 		} else {
-			dsViewer.setSelection(new StructuredSelection(Activator
-					.getDefault().getDemonstrateDSManager()
-					.getDemonstrateDS(demonstrateDSName)));
+			DemonstrateDS demonstrateDS = Activator.getDefault()
+					.getDemonstrateDSManager()
+					.getDemonstrateDS(demonstrateDSName);
+			if (demonstrateDS != null)
+				dsViewer.setSelection(new StructuredSelection(demonstrateDS));
+			else {
+				dsNameField.setText(data.getDemonstrateDSName());
+				dsData.setText(data.getDemonstrateData());
+			}
 		}
 	}
 
@@ -212,7 +235,6 @@ public class DemonstrateDSPage extends WizardPage {
 	public void setData(DemonstrateData data) {
 		this.data = data;
 	}
-
 
 	private DemonstrateDS[] getDemonstrateDSs() {
 		return Activator.getDefault().getDemonstrateDSManager()

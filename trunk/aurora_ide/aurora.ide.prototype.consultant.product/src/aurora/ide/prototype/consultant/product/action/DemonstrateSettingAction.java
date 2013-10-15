@@ -21,7 +21,7 @@ public class DemonstrateSettingAction extends SelectionAction {
 		super(part);
 		editor = part;
 		this.setId(ID);
-		this.setText("演示配置");
+		this.setText(Messages.DemonstrateSettingAction_0);
 	}
 
 	public void run() {

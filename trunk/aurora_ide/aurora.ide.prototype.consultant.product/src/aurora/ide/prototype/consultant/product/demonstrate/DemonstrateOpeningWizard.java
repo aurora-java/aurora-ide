@@ -26,7 +26,7 @@ public class DemonstrateOpeningWizard extends UWizard {
 	public void addPages() {
 
 		page1 = new DemonstrateOpeningPage(
-				"DemonstrateOpeningPage", "演示", null, sm.getDemonstrateData()); //$NON-NLS-1$
+				"DemonstrateOpeningPage", Messages.DemonstrateOpeningWizard_0, null, sm.getDemonstrateData()); //$NON-NLS-1$
 		addPage(page1);
 	}
 
