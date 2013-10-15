@@ -1,5 +1,6 @@
 package aurora.ide.prototype.consultant.demonstrate;
 
+import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.swt.widgets.Shell;
 
@@ -13,23 +14,27 @@ import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties
 public class ComboDemonstrating {
 	private ComponentPart part;
 
+	private String feature = ComponentInnerProperties.INPUT_SIMPLE_DATA;
+
 	public ComboDemonstrating(ComponentPart part) {
 		this.part = part;
 	}
 
 	public void demonstrating(Shell shell) {
 		ComboDirectEditManager manager = new ComboDirectEditManager(part,
-				ComboBoxCellEditor.class, new SimpleDataCellEditorLocator(
-						(InputField) part.getFigure()),
-				ComponentInnerProperties.INPUT_SIMPLE_DATA);
+				ComboBoxCellEditor.class, getCellEditorLocator(), feature);
 		manager.setItem(parseItems());
 		manager.show();
+	}
+
+	protected CellEditorLocator getCellEditorLocator() {
+		return new SimpleDataCellEditorLocator((InputField) part.getFigure());
 	}
 
 	private String[] parseItems() {
 		DemonstrateData dd = (DemonstrateData) part.getComponent()
 				.getPropertyValue(DemonstrateData.DEMONSTRATE_DATA);
-		if(dd == null)
+		if (dd == null)
 			return new String[0];
 		String dsName = dd.getDemonstrateDSName();
 		if (null != dsName && "".equals(dsName) == false) {
@@ -48,5 +53,13 @@ public class ComboDemonstrating {
 		String result = demonstrateDS.replaceAll("\r", "");
 		result = result.replaceAll("\n", "");
 		return result.split(",");
+	}
+
+	public String getFeature() {
+		return feature;
+	}
+
+	public void setFeature(String feature) {
+		this.feature = feature;
 	}
 }

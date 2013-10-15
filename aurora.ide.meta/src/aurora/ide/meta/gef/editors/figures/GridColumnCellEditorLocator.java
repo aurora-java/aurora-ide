@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.editors.figures;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 
 public class GridColumnCellEditorLocator implements CellEditorLocator {
@@ -18,7 +19,7 @@ public class GridColumnCellEditorLocator implements CellEditorLocator {
 	 * @see CellEditorLocator#relocate(org.eclipse.jface.viewers.CellEditor)
 	 */
 	public void relocate(CellEditor celleditor) {
-		Text text = (Text) celleditor.getControl();
+		Control control = celleditor.getControl();
 		Rectangle bounds = nodeFigure.getBounds().getCopy();
 		nodeFigure.translateToAbsolute(bounds);
 		int columnHight = nodeFigure.getColumnHight();
@@ -27,7 +28,7 @@ public class GridColumnCellEditorLocator implements CellEditorLocator {
 		int y = idx == 0 ? 0 : columnHight + GridColumnFigure.ROW_HEIGHT
 				* (idx - 1);
 		int h = idx == 0 ? columnHight : GridColumnFigure.ROW_HEIGHT;
-		text.setBounds(bounds.x - 1, bounds.y + y - 1, bounds.width + 1, h + 1);
+		control.setBounds(bounds.x - 1, bounds.y + y - 1, bounds.width + 1, h + 1);
 	}
 
 }

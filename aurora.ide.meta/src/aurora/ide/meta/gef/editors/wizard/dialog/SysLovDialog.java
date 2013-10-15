@@ -1,7 +1,5 @@
 package aurora.ide.meta.gef.editors.wizard.dialog;
 
-import java.util.List;
-
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -13,6 +11,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import aurora.ide.meta.gef.control.ConsultantDemonstratingComposite;
 import aurora.ide.prototype.consultant.demonstrate.LOVDemonstrating;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Combox;
 import aurora.plugin.source.gen.screen.model.Form;
 import aurora.plugin.source.gen.screen.model.Grid;
@@ -61,7 +60,8 @@ public class SysLovDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(new GridLayout());
-		ConsultantDemonstratingComposite vsEditor = new ConsultantDemonstratingComposite(this);
+		ConsultantDemonstratingComposite vsEditor = new ConsultantDemonstratingComposite(
+				this);
 		ScreenBody viewDiagram = new ScreenBody();
 		viewDiagram.addChild(createForm());
 		viewDiagram.addChild(createButtons());
@@ -87,58 +87,63 @@ public class SysLovDialog extends Dialog {
 		Form form = new Form();
 		form.setSize(450, 85);
 		form.setCol(2);
-		TextField tf0 = createTextField(0);
+		AuroraComponent tf0 = createTextField(0);
 		if (tf0 != null)
 			form.addChild(tf0);
-		Combox cb1 = createCombox(1);
+		AuroraComponent cb1 = createCombox(1);
 		if (cb1 != null)
 			form.addChild(cb1);
-		TextField tf2 = createTextField(2);
+		AuroraComponent tf2 = createTextField(2);
 		if (tf2 != null)
 			form.addChild(tf2);
-		Combox cb3 = createCombox(3);
+		AuroraComponent cb3 = createCombox(3);
 		if (cb3 != null)
 			form.addChild(cb3);
 		return form;
 	}
 
-	private TextField createTextField(int i) {
+	private AuroraComponent createTextField(int i) {
 		TextField textField = new TextField();
-		if (input != null) {
-			String head = input.getHead(i);
-			if (head != null) {
-				textField.setPropertyValue(
-						ComponentInnerProperties.INPUT_SIMPLE_DATA, head);
-			} else {
-				return null;
-			}
-		}
-		return textField;
+		return  cf(textField, i);
 	}
 
-	private Combox createCombox(int i) {
-		Combox combox = new Combox();
+	private AuroraComponent cf(AuroraComponent ac, int i) {
 		if (input != null) {
-			String head = input.getHead(i);
-			if (head != null) {
-				combox.setPropertyValue(
-						ComponentInnerProperties.INPUT_SIMPLE_DATA, head);
-			} else {
+			if (i >= input.getCol()) {
 				return null;
 			}
+			String name = input.get(i, 0);
+			String value = input.get(i, 1);
+			ac.setPropertyValue(ComponentProperties.prompt, name);
+			ac.setPropertyValue(ComponentInnerProperties.INPUT_SIMPLE_DATA,
+					value);
 		}
-		return combox;
+		return ac;
+	}
+
+	private AuroraComponent createCombox(int i) {
+		Combox combox = new Combox();
+		// if (input != null) {
+		// String head = input.getHead(i);
+		// if (head != null) {
+		// combox.setPropertyValue(
+		// ComponentInnerProperties.INPUT_SIMPLE_DATA, head);
+		// } else {
+		// return null;
+		// }
+		// }
+		return  cf(combox, i);
 	}
 
 	public Grid createGrid() {
 		Grid grid = new Grid();
 		grid.setSize(450, 300);
-		if (input == null || input.columns() == 0) {
+		if (input == null || input.getCol() == 0) {
 			grid.addCol(new GridColumn());
 			grid.addCol(new GridColumn());
 			grid.addCol(new GridColumn());
 		} else {
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 6; i++) {
 				GridColumn cc = createGridColumn(i);
 				if (cc != null) {
 					grid.addChild(cc);
@@ -152,14 +157,14 @@ public class SysLovDialog extends Dialog {
 
 	public GridColumn createGridColumn(int i) {
 		GridColumn gridColumn = new GridColumn();
-		if (input != null && input.columns() > 0) {
-			List<String> rows = input.getColumn(i);
-			if (rows == null)
+		if (input != null && input.getCol() > 0) {
+			int row = input.getRow();
+			if (i >= input.getCol()) {
 				return null;
-			else {
-				int max = rows.size() < 9 ? rows.size() : 9;
+			} else {
+				int max = row < 9 ? row : 9;
 				for (int j = 0; j < (max); j++) {
-					String s = rows.get(j);
+					String s = input.get(i, j);
 					if (s == null)
 						break;
 					if (j == 0) {
