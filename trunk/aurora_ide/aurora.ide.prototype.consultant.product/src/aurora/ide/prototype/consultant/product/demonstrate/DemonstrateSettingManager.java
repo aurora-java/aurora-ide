@@ -69,12 +69,12 @@ public class DemonstrateSettingManager {
 		if (LOV.LOV.equals(ct)) {
 			DemonstrateDS ds = lovDemonstrateDS();
 			demonstrateData.setDemonstrateData(ds.getData());
-			demonstrateData.setDemonstrateDSName(ds.getName());
+			demonstrateData.setDemonstrateDSName("");
 		}
 		if (Combox.Combo.equals(ct)) {
 			DemonstrateDS ds = comboxDemonstrateDS();
 			demonstrateData.setDemonstrateData(ds.getData());
-			demonstrateData.setDemonstrateDSName(ds.getName());
+			demonstrateData.setDemonstrateDSName("");
 		}
 		return demonstrateData;
 	}

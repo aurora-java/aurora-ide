@@ -168,7 +168,7 @@ public class DemonstrateDSPage extends WizardPage {
 		if (demonstrateDSName == null || "".equals(demonstrateDSName)) { //$NON-NLS-1$
 			String demonstrateData = data.getDemonstrateData();
 			if (demonstrateData == null || "".equals(demonstrateDSName)) { //$NON-NLS-1$
-
+				dsData.setText(demonstrateData);
 			} else {
 				dsData.setText(demonstrateData);
 			}
