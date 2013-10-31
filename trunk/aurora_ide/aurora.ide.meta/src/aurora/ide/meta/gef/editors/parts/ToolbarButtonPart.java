@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.figures.ButtonFigure;
+import aurora.ide.meta.gef.editors.figures.ToolbarButtonFigure;
 import aurora.ide.meta.gef.editors.models.commands.ChangeTextStyleCommand;
 import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
@@ -23,21 +24,19 @@ import aurora.ide.meta.gef.editors.wizard.dialog.TextEditDialog;
 import aurora.ide.prototype.consultant.demonstrate.Demonstrating;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.StyledStringText;
+import aurora.plugin.source.gen.screen.model.ToolbarButton;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
-public class ButtonPart extends ComponentPart {
-
-	private String type;
+public class ToolbarButtonPart extends ComponentPart {
 
 	/**
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
 	protected IFigure createFigure() {
-		ButtonFigure buttonFigure = new ButtonFigure();
-		Button model = getModel();
-		buttonFigure.setModel(model);
+		ToolbarButtonFigure buttonFigure = new ToolbarButtonFigure();
+		buttonFigure.setModel(getModel());
 		return buttonFigure;
 	}
 
@@ -62,21 +61,14 @@ public class ButtonPart extends ComponentPart {
 
 	}
 
-	public Button getModel() {
-		return (Button) super.getModel();
+	public ToolbarButton getModel() {
+		return (ToolbarButton) super.getModel();
 	}
 
-	public ButtonFigure getFigure() {
-		return (ButtonFigure) super.getFigure();
+	public ToolbarButtonFigure getFigure() {
+		return (ToolbarButtonFigure) super.getFigure();
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	@Override
 	protected void createEditPolicies() {
@@ -98,14 +90,13 @@ public class ButtonPart extends ComponentPart {
 				new Demonstrating(this).demonstrating(getViewer().getControl()
 						.getShell());
 				return;
-
 			} else {
 				performEditStyledStringText(ComponentProperties.text);
 			}
 		}
 		if (req.getType().equals(RequestConstants.REQ_DIRECT_EDIT)
 				&& req instanceof DirectEditRequest) {
-			ButtonFigure figure = this.getFigure();
+			ToolbarButtonFigure figure = this.getFigure();
 			Rectangle bounds = figure.getBounds().getCopy();
 			figure.translateToAbsolute(bounds);
 			performPromptDirectEditRequest(figure);
@@ -131,7 +122,7 @@ public class ButtonPart extends ComponentPart {
 		}
 	}
 
-	protected void performPromptDirectEditRequest(final ButtonFigure figure) {
+	protected void performPromptDirectEditRequest(final ToolbarButtonFigure figure) {
 		NodeDirectEditManager manager = new aurora.ide.meta.gef.editors.policies.NodeDirectEditManager(
 				this, TextCellEditor.class, new CellEditorLocator() {
 					public void relocate(CellEditor celleditor) {

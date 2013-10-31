@@ -10,7 +10,6 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
-import aurora.ide.meta.gef.editors.layout.RowColBackLayout;
 import aurora.ide.meta.gef.editors.layout.RowColSpanBackLayout;
 import aurora.plugin.source.gen.screen.model.BOX;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;

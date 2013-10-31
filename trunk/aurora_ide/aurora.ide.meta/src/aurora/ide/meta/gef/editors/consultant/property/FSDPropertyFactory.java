@@ -34,6 +34,9 @@ public class FSDPropertyFactory implements ComponentFSDProperties {
 		if ("button".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return button_pds;
 		}
+		if ("toolbar_button".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
+			return button_pds;
+		}
 		if ("checkbox".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return input_pds;
 		}

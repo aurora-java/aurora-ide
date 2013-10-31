@@ -115,7 +115,7 @@ public class DialogCellEditor extends CellEditor implements SelectionListener,
 			WizardDialog wd = new WizardDialog(shell, wizard);
 			if (wd.open() == WizardDialog.OK) {
 				value = objClone;
-				if(value!=null){
+				if (value != null && label.isDisposed() == false) {
 					label.setText(value.getDescripition());
 					label.setImage(ImageUtil
 							.getImage((IDialogEditableObject) value));
