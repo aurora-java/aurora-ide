@@ -59,16 +59,13 @@ public class FSDDocumentPackage {
 
 	protected WordprocessingMLPackage createPackage()
 			throws InvalidFormatException {
-
 		String papersize = Docx4jProperties.getProperties().getProperty(
 				"docx4j.PageSize", "A4");
 		log.info("Using paper size: " + papersize);
-
 		String landscapeString = Docx4jProperties.getProperties().getProperty(
 				"docx4j.PageOrientationLandscape", "false");
 		boolean landscape = Boolean.parseBoolean(landscapeString);
 		log.info("Landscape orientation: " + landscape);
-
 		return createPackage(PageSizePaper.valueOf(papersize), landscape);
 	}
 

@@ -425,6 +425,14 @@
            name="Radio"
            types="radio_item">
      </component>
+     <component
+           categoryId="aurora.ide.meta.palette.category.button"
+           creator="aurora.ide.meta.gef.editors.components.ToolbarButtonCreator"
+           descriptor="aurora.ide.meta.component.ToolbarButtonDesc"
+           id="aurora.ide.meta.component.toolbar.button"
+           name="toolbar_button"
+           types="toolbar_button">
+     </component>
   </extension>
 	
 <extension

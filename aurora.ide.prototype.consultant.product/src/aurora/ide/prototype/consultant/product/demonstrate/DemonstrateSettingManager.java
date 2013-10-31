@@ -15,6 +15,7 @@ import aurora.plugin.source.gen.screen.model.DemonstrateData;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.LOV;
+import aurora.plugin.source.gen.screen.model.ToolbarButton;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 
@@ -41,7 +42,8 @@ public class DemonstrateSettingManager {
 				return new DemonstrateDSWizard(shell, this);
 			}
 		}
-		if (Button.BUTTON.equals(ac.getComponentType())
+		if (ToolbarButton.TOOLBAR_BUTTON.equals(ac.getComponentType())
+				|| Button.BUTTON.equals(ac.getComponentType())
 				|| GridColumn.GRIDCOLUMN.equals(ac.getComponentType())) {
 			return new DemonstrateOpeningWizard(shell, this);
 		} else {
@@ -52,7 +54,8 @@ public class DemonstrateSettingManager {
 
 	public boolean isWillDemonstrate() {
 		String ct = ac.getComponentType();
-		return Button.BUTTON.equals(ct) || GridColumn.GRIDCOLUMN.equals(ct)
+		return ToolbarButton.TOOLBAR_BUTTON.equals(ct)
+				|| Button.BUTTON.equals(ct) || GridColumn.GRIDCOLUMN.equals(ct)
 				|| LOV.LOV.equals(ct) || Combox.Combo.equals(ct);
 	}
 
