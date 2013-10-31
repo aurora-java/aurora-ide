@@ -1,6 +1,5 @@
 package aurora.ide.meta.gef.editors.components.part;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import org.eclipse.core.runtime.Path;
@@ -13,11 +12,8 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.ImageLoader;
-import org.eclipse.swt.widgets.FileDialog;
 
 import aurora.ide.libs.AuroraImagesUtils;
 import aurora.ide.meta.gef.editors.components.command.ChangeImageCommand;
@@ -100,15 +96,17 @@ public class CustomIconPart extends ComponentPart {
 	@Override
 	public void performRequest(Request req) {
 		if (RequestConstants.REQ_OPEN.equals(req.getType())) {
-			String path = queryFile();
+			String path = AuroraImagesUtils.queryFile(this.getViewer()
+					.getControl().getShell());
 			if (path != null) {
 				try {
 					Path p = new Path(path);
 					String fileExtension = p.getFileExtension();
-					int iconType = getIconType(fileExtension);
+					int iconType = AuroraImagesUtils.getIconType(fileExtension);
 					if (iconType == -1)
 						return;
-					ImageData loadImageData = this.loadImageData(p);
+					ImageData loadImageData = AuroraImagesUtils
+							.loadImageData(p);
 					ChangeImageCommand cic = new ChangeImageCommand(
 							this.getModel(), loadImageData, iconType);
 					this.getViewer().getEditDomain().getCommandStack()
@@ -119,48 +117,6 @@ public class CustomIconPart extends ComponentPart {
 			}
 		}
 		super.performRequest(req);
-	}
-
-	private ImageData loadImageData(Path path) throws FileNotFoundException {
-		ImageLoader loader = new ImageLoader();
-		ImageData[] load = loader.load(new FileInputStream(path.toFile()));
-		ImageData imageData = load[0];
-		return imageData;
-	}
-
-	private String queryFile() {
-		FileDialog dialog = new FileDialog(this.getViewer().getControl()
-				.getShell().getShell(), SWT.OPEN);
-		dialog.setText("Open File"); //$NON-NLS-1$
-		dialog.setFilterExtensions(new String[] { "*.png", "*.gif", "*.jpg",
-				"*.jpeg", "*.bmp", "*.tiff", });
-		String path = dialog.open();
-		if (path != null && path.length() > 0) {
-			return path;
-		}
-		return null;
-	}
-
-	private int getIconType(String ext) {
-		if ("png".equalsIgnoreCase(ext)) {
-			return SWT.IMAGE_PNG;
-		}
-		if ("gif".equalsIgnoreCase(ext)) {
-			return SWT.IMAGE_GIF;
-		}
-		if ("jpg".equalsIgnoreCase(ext)) {
-			return SWT.IMAGE_JPEG;
-		}
-		if ("jpeg".equalsIgnoreCase(ext)) {
-			return SWT.IMAGE_JPEG;
-		}
-		if ("bmp".equalsIgnoreCase(ext)) {
-			return SWT.IMAGE_BMP;
-		}
-		if ("tiff".equalsIgnoreCase(ext)) {
-			return SWT.IMAGE_TIFF;
-		}
-		return -1;
 	}
 
 }

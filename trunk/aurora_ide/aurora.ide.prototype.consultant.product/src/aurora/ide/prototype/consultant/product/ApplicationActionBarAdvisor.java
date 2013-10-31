@@ -20,9 +20,11 @@ import aurora.ide.libs.AuroraImagesUtils;
 import aurora.ide.meta.gef.message.Messages;
 import aurora.ide.prototype.consultant.product.action.DemonstrateAction;
 import aurora.ide.prototype.consultant.product.action.ExportFSDAction;
+import aurora.ide.prototype.consultant.product.action.GetHelpAction;
 import aurora.ide.prototype.consultant.product.action.NewFileAction;
 import aurora.ide.prototype.consultant.product.action.OpenFileAction;
 import aurora.ide.prototype.consultant.product.action.ShowViewerAction;
+import aurora.ide.prototype.consultant.product.action.UpdateQuickUIAction;
 import aurora.ide.prototype.consultant.view.NavigationView;
 
 /**
@@ -49,8 +51,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private ExportFSDAction exportFSDAction;
 	private IAction showUIPNavViewer;
 	private IAction demonstrateAction;
+	private UpdateQuickUIAction updateQuickUIAction;
+	private GetHelpAction getHelpAction;
 
-//	 private TestAction testAction;
+	// private TestAction testAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -78,12 +82,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		openFileAction = new OpenFileAction(window,
 				Messages.ApplicationActionBarAdvisor_1);
 		register(openFileAction);
-		
+
 		exportFSDAction = new ExportFSDAction(window,
 				Messages.ApplicationActionBarAdvisor_14);
 		register(exportFSDAction);
-		
-		
 
 		// messagePopupAction = new MessagePopupAction("Open Message", window);
 		// register(messagePopupAction);
@@ -106,17 +108,35 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		introAction.setToolTipText(Messages.ApplicationActionBarAdvisor_13);
 		register(introAction);
 
-//		 testAction = new TestAction(window,
-//		 Messages.ApplicationActionBarAdvisor_1);
+		// testAction = new TestAction(window,
+		// Messages.ApplicationActionBarAdvisor_1);
 
-		this.showUIPNavViewer = new ShowViewerAction(window,Messages.ApplicationActionBarAdvisor_15,AuroraImagesUtils.getImageDescriptor("/meta.png"),NavigationView.ID); //$NON-NLS-2$
+		this.showUIPNavViewer = new ShowViewerAction(
+				window,
+				Messages.ApplicationActionBarAdvisor_15,
+				AuroraImagesUtils.getImageDescriptor("/meta.png"), NavigationView.ID); //$NON-NLS-2$
 		showUIPNavViewer.setText(Messages.ApplicationActionBarAdvisor_17);
-		showUIPNavViewer.setToolTipText(Messages.ApplicationActionBarAdvisor_18);
+		showUIPNavViewer
+				.setToolTipText(Messages.ApplicationActionBarAdvisor_18);
 		register(this.showUIPNavViewer);
 
 		demonstrateAction = new DemonstrateAction();
 		register(demonstrateAction);
-		
+
+		this.updateQuickUIAction = new UpdateQuickUIAction(window,
+				Messages.ApplicationActionBarAdvisor_15,
+				AuroraImagesUtils.getImageDescriptor("/meta.png")); //$NON-NLS-2$
+		updateQuickUIAction.setText("获取最新Aurora Quick UI");
+		updateQuickUIAction.setToolTipText("获取最新Aurora Quick UI");
+		register(this.updateQuickUIAction);
+
+		this.getHelpAction = new GetHelpAction(window,
+				Messages.ApplicationActionBarAdvisor_15,
+				AuroraImagesUtils.getImageDescriptor("/meta.png")); //$NON-NLS-2$
+		getHelpAction.setText("使用文档");
+		getHelpAction.setToolTipText("使用文档");
+		register(this.getHelpAction);
+
 	}
 
 	protected void fillMenuBar(IMenuManager menuBar) {
@@ -128,20 +148,19 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 				IWorkbenchActionConstants.M_HELP);
 		menuBar.add(fileMenu);
 		// Add a group marker indicating where action set menus will appear.
-		//menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-		
+		// menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+
 		MenuManager viewerMenu = new MenuManager(
 				Messages.ApplicationActionBarAdvisor_19,
 				IWorkbenchActionConstants.M_VIEW);
 		menuBar.add(viewerMenu);
 		viewerMenu.add(showUIPNavViewer);
-		
-		
+
 		menuBar.add(helpMenu);
 
 		// File
-//		fileMenu.add(newWindowAction);
-//		fileMenu.add(new Separator());
+		// fileMenu.add(newWindowAction);
+		// fileMenu.add(new Separator());
 		fileMenu.add(newFileAction);
 		fileMenu.add(openFileAction);
 
@@ -153,6 +172,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		// Help
 		// helpMenu.add(aboutAction);
 		helpMenu.add(introAction);
+		helpMenu.add(this.updateQuickUIAction);
+		helpMenu.add(this.getHelpAction);
 	}
 
 	protected void fillCoolBar(ICoolBarManager coolBar) {
@@ -166,6 +187,6 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		toolbar.add(exportFSDAction);
 		toolbar.add(demonstrateAction);
 
-//		 toolbar.add(testAction);
+		// toolbar.add(testAction);
 	}
 }
