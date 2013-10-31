@@ -8,6 +8,7 @@ import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.Combox;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.LOV;
+import aurora.plugin.source.gen.screen.model.ToolbarButton;
 
 public class Demonstrating {
 	private ComponentPart part;
@@ -25,6 +26,9 @@ public class Demonstrating {
 			new ComboDemonstrating(part).demonstrating(shell);
 		}
 		if (Button.BUTTON.equals(getComponentType())) {
+			new ButtonDemonstrating(part).demonstrating(shell);
+		}
+		if (ToolbarButton.TOOLBAR_BUTTON.equals(getComponentType())) {
 			new ButtonDemonstrating(part).demonstrating(shell);
 		}
 		if (GridColumn.GRIDCOLUMN.equals(getComponentType())) {

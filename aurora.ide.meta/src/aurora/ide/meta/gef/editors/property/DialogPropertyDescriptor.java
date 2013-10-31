@@ -2,7 +2,6 @@ package aurora.ide.meta.gef.editors.property;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.views.properties.PropertyDescriptor;
 
 public class DialogPropertyDescriptor extends StylePropertyDescriptor {
 	private Class<? extends EditWizard> clazz;

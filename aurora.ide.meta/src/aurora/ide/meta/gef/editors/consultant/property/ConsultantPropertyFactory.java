@@ -4,6 +4,9 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
+import aurora.ide.meta.gef.editors.property.ContainerHolderEditDialog;
+import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
+import aurora.ide.meta.gef.editors.property.IconSelectionDialog;
 import aurora.ide.meta.gef.editors.property.IntegerPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StringPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.StylePropertyDescriptor;
@@ -11,6 +14,7 @@ import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.CheckBox;
 import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.QueryForm;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
@@ -21,6 +25,9 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 		String componentType = component.getComponentType();
 		if ("button".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return this.button(component);
+		}
+		if ("toolbar_button".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
+			return this.toolbar_button(component);
 		}
 		if ("checkbox".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return this.checkbox();
@@ -136,6 +143,19 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 				PD_WIDTH, PD_HEIGHT, PD_ROWSPAN, PD_COLSPAN };
 		if (((Button) component).isOnToolBar()) {
 			return std_pds;
+		}
+		return inner_pds;
+	}
+
+	private static final IPropertyDescriptor PD_ICON_SELECTION = new DialogPropertyDescriptor(
+			ComponentInnerProperties.ICON_BYTES_DATA_DEO, "ICON",
+			IconSelectionDialog.class);
+
+	private IPropertyDescriptor[] toolbar_button(AuroraComponent component) {
+		IPropertyDescriptor[] inner_pds = new IPropertyDescriptor[] {
+				PD_TOOLBAR_BUTTON_TYPES, PD_TEXT, PD_WIDTH, PD_ICON_SELECTION };
+		if (((Button) component).isOnToolBar()) {
+			return inner_pds;
 		}
 		return inner_pds;
 	}
