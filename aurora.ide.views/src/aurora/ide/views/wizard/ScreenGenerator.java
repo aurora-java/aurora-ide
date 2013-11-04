@@ -6,8 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 
 import uncertain.composite.CompositeMap;
+import uncertain.composite.CompositeUtil;
 import aurora.ide.api.composite.map.CommentCompositeMap;
 import aurora.ide.builder.ResourceUtil;
 import aurora.ide.helpers.AuroraConstant;
@@ -21,9 +23,11 @@ import aurora.ide.meta.gef.editors.template.Template;
 import aurora.plugin.source.gen.screen.model.ButtonClicker;
 
 public class ScreenGenerator {
+
 	private CompositeMap initProcMap = newMap("init-procedure");
 	private CompositeMap scriptMap = newMap("script", null);
 	private CompositeMap dataSetsMap = newMap("dataSets");
+	private IProject project;
 
 	StringBuilder scriptTemp = new StringBuilder();
 	private Template template;
@@ -50,6 +54,10 @@ public class ScreenGenerator {
 		str = str.replace("\n", "\n\t\t\t") + "\n\t\t";
 		scriptMap.setText(str);
 		return scrMap;
+	}
+
+	public void setProject(IProject proj) {
+		this.project = proj;
 	}
 
 	private void extractBMReference() {
@@ -314,7 +322,30 @@ public class ScreenGenerator {
 			BMReference bm) {
 		CompositeMap cols = newMap("columns");
 		CompositeMap pkField = bmc.getFieldOfPk();
-		List<CompositeMap> fields = bmc.getFields(false, true);
+		List<CompositeMap> fields = bmc.getFields(false, false);
+		List<CompositeMap> ref_fields = bmc.getRefFields();
+		CompositeMap rel_map = bmc.getRelationsMap();
+		if (ref_fields != null && rel_map != null) {
+			// add prompt for ref-field 2013-11-4 10:51:42 jessen
+			for (CompositeMap m : ref_fields) {
+				try {
+					String relName = BMCompositeMap.getMapAttribute(m,
+							"relationName");
+					CompositeMap rel = CompositeUtil.findChild(rel_map,
+							"relation", "name", relName);
+					String refModel = BMCompositeMap.getMapAttribute(rel,
+							"refModel");
+					BMCompositeMap refBMC = new BMCompositeMap(
+							ResourceUtil.getBMFile(project, refModel));
+					CompositeMap cm = refBMC.getFieldByName(BMCompositeMap
+							.getMapAttribute(m, "sourceField"));
+					m.put("prompt", cm.getString("prompt"));
+				} catch (Exception e) {
+					// escape any exception
+				}
+				fields.add(m);
+			}
+		}
 
 		if (pkField != null
 				&& "java.lang.String".equals(BMCompositeMap.getMapAttribute(

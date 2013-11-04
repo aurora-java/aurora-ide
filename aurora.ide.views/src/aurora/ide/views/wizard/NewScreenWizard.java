@@ -124,6 +124,7 @@ public class NewScreenWizard extends Wizard implements INewWizard {
 
 	void createViaMetaTemplate(IFile f) {
 		ScreenGenerator generator = new ScreenGenerator();
+		generator.setProject(f.getProject());
 		try {
 			CompositeMap screenMap = generator.gen(us.template);
 			String content = AuroraResourceUtil.xml_decl
