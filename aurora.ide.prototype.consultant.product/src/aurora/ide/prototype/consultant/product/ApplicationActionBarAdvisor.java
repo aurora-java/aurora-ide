@@ -114,7 +114,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		this.showUIPNavViewer = new ShowViewerAction(
 				window,
 				Messages.ApplicationActionBarAdvisor_15,
-				AuroraImagesUtils.getImageDescriptor("/meta.png"), NavigationView.ID); //$NON-NLS-2$
+				AuroraImagesUtils.getImageDescriptor("/meta.png"), NavigationView.ID); //$NON-NLS-2$ //$NON-NLS-1$
 		showUIPNavViewer.setText(Messages.ApplicationActionBarAdvisor_17);
 		showUIPNavViewer
 				.setToolTipText(Messages.ApplicationActionBarAdvisor_18);
@@ -125,16 +125,16 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		this.updateQuickUIAction = new UpdateQuickUIAction(window,
 				Messages.ApplicationActionBarAdvisor_15,
-				AuroraImagesUtils.getImageDescriptor("/meta.png")); //$NON-NLS-2$
-		updateQuickUIAction.setText("获取最新Aurora Quick UI");
-		updateQuickUIAction.setToolTipText("获取最新Aurora Quick UI");
+				AuroraImagesUtils.getImageDescriptor("/meta.png")); //$NON-NLS-2$ //$NON-NLS-1$
+		updateQuickUIAction.setText(Messages.ApplicationActionBarAdvisor_21);
+		updateQuickUIAction.setToolTipText(Messages.ApplicationActionBarAdvisor_22);
 		register(this.updateQuickUIAction);
 
 		this.getHelpAction = new GetHelpAction(window,
 				Messages.ApplicationActionBarAdvisor_15,
-				AuroraImagesUtils.getImageDescriptor("/meta.png")); //$NON-NLS-2$
-		getHelpAction.setText("使用文档");
-		getHelpAction.setToolTipText("使用文档");
+				AuroraImagesUtils.getImageDescriptor("/meta.png")); //$NON-NLS-2$ //$NON-NLS-1$
+		getHelpAction.setText(Messages.ApplicationActionBarAdvisor_24);
+		getHelpAction.setToolTipText(Messages.ApplicationActionBarAdvisor_25);
 		register(this.getHelpAction);
 
 	}
