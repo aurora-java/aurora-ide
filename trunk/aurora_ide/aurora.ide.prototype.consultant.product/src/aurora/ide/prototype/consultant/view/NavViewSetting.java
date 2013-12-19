@@ -1,5 +1,6 @@
 package aurora.ide.prototype.consultant.view;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,5 +48,9 @@ public class NavViewSetting {
 					.addNewSection("CONSULTANT_NAV_VIEWER");
 		}
 		return section;
+	}
+
+	public void addFolder(File f) {
+		this.addFolder(f.getPath());
 	}
 }

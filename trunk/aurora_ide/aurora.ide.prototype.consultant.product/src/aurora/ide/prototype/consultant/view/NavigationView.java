@@ -40,7 +40,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.CollapseAllHandler;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.ui.navigator.PipelinedViewerUpdate;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.UIJob;
 
@@ -51,6 +50,7 @@ import aurora.ide.prototype.consultant.product.Activator;
 import aurora.ide.prototype.consultant.product.ICommandIds;
 import aurora.ide.prototype.consultant.view.action.CollapseAllAction;
 import aurora.ide.prototype.consultant.view.action.LinkEditorAction;
+import aurora.ide.prototype.consultant.view.action.NewMenuAction;
 import aurora.ide.prototype.consultant.view.action.OpenLocalFolderAction;
 import aurora.ide.prototype.consultant.view.action.RefreshLocalFileSystemAction;
 import aurora.ide.prototype.consultant.view.action.RemoveLocalFolderAction;
@@ -130,9 +130,10 @@ public class NavigationView extends ViewPart {
 		}
 	};
 	private ISelection selection;
+	private NewMenuAction newMenuAction;
 
 	private void configration() {
-		//viewerExpandJob.schedule(100);
+		// viewerExpandJob.schedule(100);
 	}
 
 	public void refreshViewer() {
@@ -164,13 +165,13 @@ public class NavigationView extends ViewPart {
 		toggleLinkingAction.setImageDescriptor(syncIcon);
 		toggleLinkingAction.setHoverImageDescriptor(syncIcon);
 
-		openLocalFolderActionAction = new OpenLocalFolderAction(this);
-		ImageDescriptor icon = Activator.getImageDescriptor("/icons/open.gif"); //$NON-NLS-1$
-		openLocalFolderActionAction.setImageDescriptor(icon);
-		openLocalFolderActionAction.setHoverImageDescriptor(icon);
+//		openLocalFolderActionAction = new OpenLocalFolderAction(this);
+//		ImageDescriptor icon = Activator.getImageDescriptor("/icons/open.gif"); //$NON-NLS-1$
+//		openLocalFolderActionAction.setImageDescriptor(icon);
+//		openLocalFolderActionAction.setHoverImageDescriptor(icon);
 
 		removeLocalFolderAction = new RemoveLocalFolderAction(this);
-		icon = Activator.getDefault().getWorkbench().getSharedImages()
+		ImageDescriptor icon = Activator.getDefault().getWorkbench().getSharedImages()
 				.getImageDescriptor(ISharedImages.IMG_ELCL_REMOVE); //$NON-NLS-1$
 		removeLocalFolderAction.setImageDescriptor(icon);
 		removeLocalFolderAction.setHoverImageDescriptor(icon);
@@ -179,6 +180,13 @@ public class NavigationView extends ViewPart {
 		icon = Activator.getImageDescriptor("/icons/nav_refresh.gif"); //$NON-NLS-1$
 		refreshLocalFileSystemAction.setImageDescriptor(icon);
 		refreshLocalFileSystemAction.setHoverImageDescriptor(icon);
+
+		newMenuAction = new NewMenuAction(this);
+		icon = aurora.ide.prototype.consultant.product.Activator
+				.getImageDescriptor("/icons/sample2.gif"); //$NON-NLS-1$
+		newMenuAction.setImageDescriptor(icon);
+		newMenuAction.setHoverImageDescriptor(icon);
+
 	}
 
 	protected void initContextMenu() {
@@ -198,9 +206,9 @@ public class NavigationView extends ViewPart {
 
 	protected void fillToolBar(IToolBarManager toolBar) {
 
-		if (openLocalFolderActionAction != null) {
-			toolBar.add(openLocalFolderActionAction);
-		}
+//		if (openLocalFolderActionAction != null) {
+//			toolBar.add(openLocalFolderActionAction);
+//		}
 		if (removeLocalFolderAction != null) {
 			toolBar.add(removeLocalFolderAction);
 		}
@@ -213,6 +221,10 @@ public class NavigationView extends ViewPart {
 
 		if (toggleLinkingAction != null) {
 			toolBar.add(toggleLinkingAction);
+		}
+
+		if (newMenuAction != null) {
+			toolBar.add(newMenuAction);
 		}
 	}
 
@@ -381,18 +393,19 @@ public class NavigationView extends ViewPart {
 
 	public void selectReveal(ISelection selection) {
 		if (viewer != null) {
-//
-//			 if (selection instanceof IStructuredSelection) {
-//			 IStructuredSelection sSelection = (IStructuredSelection)
-//			 selection;
-//			
-//			 PipelinedViewerUpdate update = new PipelinedViewerUpdate();
-//			 update.getRefreshTargets().addAll(sSelection.toList());
-//			 update.setUpdateLabels(false);
-//			 /* if the update is modified */
-//			 /* intercept and apply the update */
-//			 viewer.setSelection(new StructuredSelection(update.getRefreshTargets().toArray()), true);
-//			 }
+			//
+			// if (selection instanceof IStructuredSelection) {
+			// IStructuredSelection sSelection = (IStructuredSelection)
+			// selection;
+			//
+			// PipelinedViewerUpdate update = new PipelinedViewerUpdate();
+			// update.getRefreshTargets().addAll(sSelection.toList());
+			// update.setUpdateLabels(false);
+			// /* if the update is modified */
+			// /* intercept and apply the update */
+			// viewer.setSelection(new
+			// StructuredSelection(update.getRefreshTargets().toArray()), true);
+			// }
 
 			viewer.setSelection(selection, true);
 		}
