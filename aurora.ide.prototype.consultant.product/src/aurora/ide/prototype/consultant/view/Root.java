@@ -1,6 +1,5 @@
 package aurora.ide.prototype.consultant.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Root extends Node {
