@@ -10,6 +10,7 @@ import org.eclipse.gef.editpolicies.FlowLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.DropRequest;
 
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.models.commands.CreateComponentCommand;
 import aurora.ide.meta.gef.editors.models.commands.MoveChildCmpCmd;
 import aurora.ide.meta.gef.editors.models.commands.MoveRemoteChildCmpCmd;
@@ -35,6 +36,13 @@ public class ContainerLayoutEditPolicy extends FlowLayoutEditPolicy {
 	}
 
 	@Override
+	public Command getCommand(Request request) {
+		if (MetaPlugin.isDemonstrate)
+			return null;
+		return super.getCommand(request);
+	}
+
+	@Override
 	public EditPart getTargetEditPart(Request request) {
 		targetEditPart = super.getTargetEditPart(request);
 		return targetEditPart;
@@ -42,6 +50,8 @@ public class ContainerLayoutEditPolicy extends FlowLayoutEditPolicy {
 
 	@Override
 	public void showTargetFeedback(Request request) {
+		if (MetaPlugin.isDemonstrate)
+			return ;
 		if (targetEditPart != null
 				&& targetEditPart.getClass().equals(TabFolderPart.class)) {
 			if (request instanceof DropRequest

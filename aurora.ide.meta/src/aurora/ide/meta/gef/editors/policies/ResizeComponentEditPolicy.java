@@ -18,6 +18,7 @@ import org.eclipse.gef.handles.ResizableHandleKit;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.tools.ResizeTracker;
 
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.figures.ColorConstants;
 import aurora.ide.meta.gef.editors.models.commands.ResizeCmpCmd;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
@@ -134,4 +135,8 @@ public class ResizeComponentEditPolicy extends ResizableEditPolicy implements
 		return cmd;
 	}
 
+	protected void showSelection() {
+		if (MetaPlugin.isDemonstrate == false)
+			addSelectionHandles();
+	}
 }

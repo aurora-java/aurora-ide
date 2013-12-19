@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.figures;
 
+import java.util.Arrays;
+
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.FocusEvent;
@@ -141,7 +143,10 @@ public class ToolbarButtonFigure extends Figure implements IResourceDispose {
 
 	private boolean hasIcon() {
 		String iconByteData = model.getIconByteData();
-		return "".equals(iconByteData) == false || model.isStdButton();
+		return "".equals(iconByteData) == false || isStdButton(model);
+	}
+	private boolean isStdButton(Button model) {
+		return Arrays.asList(Button.std_types).indexOf(model.getButtonType()) > 0;
 	}
 
 	protected void paintStyledText(Graphics g, String text, String property_id,
@@ -190,7 +195,7 @@ public class ToolbarButtonFigure extends Figure implements IResourceDispose {
 				return image;
 			}
 		}
-		return model.isStdButton() ? stdimg : defaultimg;
+		return isStdButton(model) ? stdimg : defaultimg;
 	}
 
 	public void setModel(ToolbarButton model) {

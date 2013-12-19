@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.figures;
 
+import java.util.Arrays;
+
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.FocusEvent;
@@ -130,7 +132,11 @@ public class ButtonFigure extends Figure implements IResourceDispose {
 	}
 
 	private Image getBgImage() {
-		return model.isStdButton() ? stdimg : defaultimg;
+		return isStdButton(model) ? stdimg : defaultimg;
+	}
+
+	private boolean isStdButton(Button model) {
+		return Arrays.asList(Button.std_types).indexOf(model.getButtonType()) > 0;
 	}
 
 	public void setModel(Button model) {
