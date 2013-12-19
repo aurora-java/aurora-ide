@@ -13,6 +13,7 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.DropRequest;
 
+import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.figures.GridColumnFigure;
 import aurora.ide.meta.gef.editors.models.commands.CreateComponentCommand;
 import aurora.ide.meta.gef.editors.models.commands.MoveChildCmpCmd;
@@ -119,7 +120,16 @@ public class GridLayoutEditPolicy extends FlowLayoutEditPolicy {
 		return getHost().getModel() instanceof GridColumn;
 	}
 
+	@Override
+	public Command getCommand(Request request) {
+		if (MetaPlugin.isDemonstrate)
+			return null;
+		return super.getCommand(request);
+	}
+
 	public void showTargetFeedback(Request request) {
+		if (MetaPlugin.isDemonstrate)
+			return ;
 		if (getHost() instanceof GridPart) {
 			if ((request instanceof CreateRequest || request instanceof ChangeBoundsRequest)
 					&& !(REQ_RESIZE.equals(request.getType()))) {
