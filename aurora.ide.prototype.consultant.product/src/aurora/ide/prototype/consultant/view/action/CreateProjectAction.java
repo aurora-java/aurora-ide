@@ -1,5 +1,6 @@
 package aurora.ide.prototype.consultant.view.action;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -8,6 +9,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 
 import aurora.ide.prototype.consultant.view.NavViewSetting;
 import aurora.ide.prototype.consultant.view.NavigationView;
+import aurora.ide.prototype.consultant.view.Node;
 import aurora.ide.prototype.consultant.view.wizard.CreateProjectWizard;
 
 public class CreateProjectAction extends Action implements
@@ -30,7 +32,13 @@ public class CreateProjectAction extends Action implements
 		if (WizardDialog.OK == w.open()) {
 			NavViewSetting vs = new NavViewSetting();
 			vs.addFolder(w.getProject());
-			new RefreshLocalFileSystemAction(viewer).run();
+			Node newNode = new Node(new Path(w.getProject().getPath()));
+			viewer.addNewNode(viewer.getViewer().getInput(),
+					newNode);
+//			viewer.getViewer().add(viewer.getViewer().getInput(),
+//					newNode); 
+//			viewer.selectReveal(newNode);
+			// new RefreshLocalFileSystemAction(viewer).run();
 		}
 	}
 

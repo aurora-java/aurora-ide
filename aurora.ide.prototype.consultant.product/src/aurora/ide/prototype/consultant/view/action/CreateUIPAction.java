@@ -1,5 +1,6 @@
 package aurora.ide.prototype.consultant.view.action;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -32,7 +33,9 @@ public class CreateUIPAction extends Action implements
 		CreateUIPWizard w = new CreateUIPWizard(commonViewer
 				.getControl().getShell(), selectionNode.getFile());
 		if (WizardDialog.OK == w.open()) {
-			new RefreshLocalFileSystemAction(viewer).run();
+			Node newNode = new Node(new Path(w.getUIPFile().getPath()));
+			viewer.addNewNode(selectionNode, newNode);
+//			new RefreshLocalFileSystemAction(viewer).run();
 		}
 	}
 

@@ -57,17 +57,17 @@ public class CreateFunctionWizard extends UWizard {
 
 	private void createProperties(File m) throws IOException {
 		CompositeMap map = new CompositeMap("function");
-		map.put(CreateProjectPage.properties[1], page.getModel()
+		map.put(CreateFunctionPage.properties[1], page.getModel()
 				.getStringPropertyValue(CreateFunctionPage.properties[1]));
-		map.put(CreateProjectPage.properties[2], page.getModel()
+		map.put(CreateFunctionPage.properties[2], page.getModel()
 				.getStringPropertyValue(CreateFunctionPage.properties[2]));
-		map.put(CreateProjectPage.properties[3], page.getModel()
+		map.put(CreateFunctionPage.properties[3], page.getModel()
 				.getStringPropertyValue(CreateFunctionPage.properties[3]));
-		map.put(CreateProjectPage.properties[4], page.getModel()
+		map.put(CreateFunctionPage.properties[4], page.getModel()
 				.getStringPropertyValue(CreateFunctionPage.properties[4]));
-		map.put(CreateProjectPage.properties[5], page.getModel()
+		map.put(CreateFunctionPage.properties[5], page.getModel()
 				.getStringPropertyValue(CreateFunctionPage.properties[5]));
-		map.put(CreateProjectPage.properties[6], page.getModel()
+		map.put(CreateFunctionPage.properties[6], page.getModel()
 				.getStringPropertyValue(CreateFunctionPage.properties[6]));
 		
 		ResourceUtil.createFile(m, "quick_ui.function", map);
