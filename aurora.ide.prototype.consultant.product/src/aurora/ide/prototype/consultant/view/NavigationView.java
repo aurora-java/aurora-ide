@@ -1,6 +1,8 @@
 package aurora.ide.prototype.consultant.view;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -433,21 +435,41 @@ public class NavigationView extends ViewPart {
 	}
 
 	public void selectReveal(Node findNode) {
-	
+
 		selectReveal(new StructuredSelection(findNode));
 	}
-	
-	public void addNewNode(final Object parent,Node child){
-		((Node)parent).addChild(child);
-		getViewer().add(parent,child);
-//		SafeRunner.run(new SafeRunnable() {
-//			public void run() throws Exception {
-//				viewer.expandToLevel(parent, 1);
-//			}
-//		});
-		
-//		viewer.setSelection(new StructuredSelection(child));
+
+	public void addNewNode(final Object parent, Node child) {
+		IPath path = child.getPath().removeLastSegments(1);
+		 Node[] nodes = findSamePathNodes(path);
+		for (Node node : nodes) {
+			if(node.equals(parent) == false){
+				Node cc = new Node(child.getPath());
+				node.addChild(cc);
+				getViewer().add(node, cc);
+			}
+		}
+		((Node) parent).addChild(child);
+		getViewer().add(parent, child);
 		selectReveal(child);
 	}
-	
+
+	public Node[] findSamePathNodes(Node n) {
+		return findSamePathNodes(n.getPath());
+	}
+	public Node[] findSamePathNodes(IPath path) {
+		List<Node> nodes = new ArrayList<Node>();
+		Root input = (Root) this.getViewer().getInput();
+		List<Node> children = input.getChildren();
+		for (Node node : children) {
+			if (node.getPath().isPrefixOf(path)) {
+				NodeLinkHelper nlh = new NodeLinkHelper(this);
+				Node findNode = nlh.findNode(path, node);
+				if (findNode != null)
+					nodes.add(findNode);
+			}
+		}
+		return nodes.toArray(new Node[nodes.size()]);
+	}
+
 }
