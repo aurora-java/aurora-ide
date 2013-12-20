@@ -15,15 +15,17 @@ public class Node extends PlatformObject {
 	public static Node node;
 	private IPath path;
 
+	private boolean makeChildFinish = false;
+
 	protected Node() {
 		super();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Node && path != null) {
-			return path.equals(((Node) obj).getPath());
-		}
+		// if (obj instanceof Node && path != null) {
+		// return path.equals(((Node) obj).getPath());
+		// }
 		return super.equals(obj);
 	}
 
@@ -55,24 +57,50 @@ public class Node extends PlatformObject {
 	}
 
 	public List<Node> makeChildren() {
-		children = new ArrayList<Node>();
+		// children = new ArrayList<Node>();
+		if (makeChildFinish)
+			return children;
 
 		File[] listFiles = this.getFile().listFiles();
 
 		if (listFiles != null) {
 			for (File file : listFiles) {
 				if (file.getName().endsWith(".uip") || file.isDirectory()) {
-
-					this.addChild(new Node(new Path(file.getPath())));
+					Node child = new Node(new Path(file.getPath()));
+					if (contains(child) == false) {
+						this.addChild(child);
+					}
 				}
 			}
 		}
+		makeChildFinish = true;
 		return children;
+	}
+
+	private boolean contains(Node node) {
+		for (Node n : children) {
+			if (n.getPath().equals(node.getPath())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void addChild(Node child) {
 		child.setParent(this);
 		children.add(child);
+	}
+
+	public void removeChild(Node child) {
+		Node del = null;
+		for (Node n : children) {
+			if (n.getPath().equals(child.getPath())) {
+				del = n;
+				break;
+			}
+		}
+		if (del != null)
+			children.remove(del);
 	}
 
 	public IPath getPath() {

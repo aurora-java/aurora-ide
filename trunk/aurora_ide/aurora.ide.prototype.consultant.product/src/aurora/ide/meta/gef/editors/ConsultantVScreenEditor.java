@@ -14,6 +14,7 @@ import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
@@ -122,6 +123,9 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				} else {
 				}
 			} catch (IOException e) {
+				if(file.exists() == false){
+					MessageDialog.openInformation(this.getSite().getShell(), "Info", "文件不存在");
+				}
 			}
 			if(isSaveNew){
 				isSaveNew = false;

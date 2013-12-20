@@ -15,6 +15,7 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -85,8 +86,7 @@ public class NavigationView extends ViewPart {
 										NavigationView.this).findNode(new Path(
 										(String) newValue), node);
 								if (findNode != null)
-									selectReveal(new StructuredSelection(
-											findNode));
+									selectReveal(findNode);
 								return;
 							}
 						}
@@ -165,13 +165,14 @@ public class NavigationView extends ViewPart {
 		toggleLinkingAction.setImageDescriptor(syncIcon);
 		toggleLinkingAction.setHoverImageDescriptor(syncIcon);
 
-//		openLocalFolderActionAction = new OpenLocalFolderAction(this);
-//		ImageDescriptor icon = Activator.getImageDescriptor("/icons/open.gif"); //$NON-NLS-1$
-//		openLocalFolderActionAction.setImageDescriptor(icon);
-//		openLocalFolderActionAction.setHoverImageDescriptor(icon);
+		// openLocalFolderActionAction = new OpenLocalFolderAction(this);
+		//		ImageDescriptor icon = Activator.getImageDescriptor("/icons/open.gif"); //$NON-NLS-1$
+		// openLocalFolderActionAction.setImageDescriptor(icon);
+		// openLocalFolderActionAction.setHoverImageDescriptor(icon);
 
 		removeLocalFolderAction = new RemoveLocalFolderAction(this);
-		ImageDescriptor icon = Activator.getDefault().getWorkbench().getSharedImages()
+		ImageDescriptor icon = Activator.getDefault().getWorkbench()
+				.getSharedImages()
 				.getImageDescriptor(ISharedImages.IMG_ELCL_REMOVE); //$NON-NLS-1$
 		removeLocalFolderAction.setImageDescriptor(icon);
 		removeLocalFolderAction.setHoverImageDescriptor(icon);
@@ -206,9 +207,9 @@ public class NavigationView extends ViewPart {
 
 	protected void fillToolBar(IToolBarManager toolBar) {
 
-//		if (openLocalFolderActionAction != null) {
-//			toolBar.add(openLocalFolderActionAction);
-//		}
+		// if (openLocalFolderActionAction != null) {
+		// toolBar.add(openLocalFolderActionAction);
+		// }
 		if (removeLocalFolderAction != null) {
 			toolBar.add(removeLocalFolderAction);
 		}
@@ -236,8 +237,11 @@ public class NavigationView extends ViewPart {
 				@Override
 				public void run() {
 					Node node = getSelectionNode();
-					if (node.getFile().exists() == false)
+					if (node.getFile().exists() == false) {
+						MessageDialog.openInformation(getViewer().getControl()
+								.getShell(), "Info", "文件不存在");
 						return;
+					}
 					if (node.getFile().isFile()) {
 						node = node.getParent();
 					}
@@ -323,6 +327,11 @@ public class NavigationView extends ViewPart {
 		if (selection.size() == 1) {
 			Node node = getSelectionNode();
 			File file = node.getFile();
+			if (file.exists() == false) {
+				MessageDialog.openInformation(getViewer().getControl()
+						.getShell(), "Info", "文件不存在");
+				return;
+			}
 			if (file.isDirectory()) {
 				this.viewer.expandToLevel(node, 1);
 			}
@@ -377,7 +386,6 @@ public class NavigationView extends ViewPart {
 			root.addChild(new Node(new Path(string)));
 		}
 		return root;
-
 	}
 
 	public Node getSelectionNode() {
@@ -423,4 +431,23 @@ public class NavigationView extends ViewPart {
 	public final boolean isLinkingEnabled() {
 		return isLinkingEnabled;
 	}
+
+	public void selectReveal(Node findNode) {
+	
+		selectReveal(new StructuredSelection(findNode));
+	}
+	
+	public void addNewNode(final Object parent,Node child){
+		((Node)parent).addChild(child);
+		getViewer().add(parent,child);
+//		SafeRunner.run(new SafeRunnable() {
+//			public void run() throws Exception {
+//				viewer.expandToLevel(parent, 1);
+//			}
+//		});
+		
+//		viewer.setSelection(new StructuredSelection(child));
+		selectReveal(child);
+	}
+	
 }

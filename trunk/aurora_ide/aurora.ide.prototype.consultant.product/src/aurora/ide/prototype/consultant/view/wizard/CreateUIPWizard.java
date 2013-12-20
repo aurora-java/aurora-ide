@@ -62,7 +62,7 @@ public class CreateUIPWizard extends UWizard {
 				CreateUIPPage.properties[0]);
 		Object2CompositeMap o2c = new Object2CompositeMap();
 		CompositeMap map = o2c.createCompositeMap(new ScreenBody());
-		ResourceUtil.createFile(parent, mName, map);
+		ResourceUtil.createFile(parent, mName+".uip", map);
 	}
 
 	public void openFile() throws PartInitException {

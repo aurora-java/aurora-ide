@@ -1,5 +1,6 @@
 package aurora.ide.prototype.consultant.view.action;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -33,7 +34,9 @@ public class CreateModuleAction extends Action implements
 		CreateModuleWizard w = new CreateModuleWizard(commonViewer.getControl()
 				.getShell(), selectionNode.getFile());
 		if (WizardDialog.OK == w.open()) {
-			new RefreshLocalFileSystemAction(viewer).run();
+			Node newNode = new Node(new Path(w.getModule().getPath()));
+			viewer.addNewNode(selectionNode, newNode);
+			// new RefreshLocalFileSystemAction(viewer).run();
 		}
 	}
 

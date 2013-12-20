@@ -50,6 +50,7 @@ public class NodeLinkHelper {
 			String[] segments = makeRelativeTo.segments();
 			for (String string : segments) {
 				if (r != null) {
+					r.makeChildren();
 					r = r.getChild(string);
 				}
 			}

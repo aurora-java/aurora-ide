@@ -30,13 +30,15 @@ public class RemoveLocalFolderAction extends Action implements
 		Node node = viewer.getSelectionNode();
 		if (node == null)
 			return;
-		if (node.getParent().isRoot()) {
+		if (node.getParent() != null && node.getParent().isRoot()) {
 			String queryFile = queryFile();
 			NavViewSetting vs = new NavViewSetting();
 			vs.removeFolder(queryFile);
-		}	
+		}
+		node.getParent().removeChild(node);
+		viewer.getViewer().remove(node);
 		FileDeleter.deleteDirectory(node.getFile());
-		new RefreshLocalFileSystemAction(viewer).run();
+		// new RefreshLocalFileSystemAction(viewer).run();
 	}
 
 	private String queryFile() {
