@@ -2,7 +2,6 @@ package aurora.ide.prototype.consultant.view;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -54,7 +53,7 @@ import aurora.ide.prototype.consultant.product.ICommandIds;
 import aurora.ide.prototype.consultant.view.action.CollapseAllAction;
 import aurora.ide.prototype.consultant.view.action.LinkEditorAction;
 import aurora.ide.prototype.consultant.view.action.NewMenuAction;
-import aurora.ide.prototype.consultant.view.action.OpenLocalFolderAction;
+import aurora.ide.prototype.consultant.view.action.OpenLocalProjectAction;
 import aurora.ide.prototype.consultant.view.action.RefreshLocalFileSystemAction;
 import aurora.ide.prototype.consultant.view.action.RemoveLocalFolderAction;
 
@@ -133,6 +132,7 @@ public class NavigationView extends ViewPart {
 	};
 	private ISelection selection;
 	private NewMenuAction newMenuAction;
+	private OpenLocalProjectAction openLocalProjectAction;
 
 	private void configration() {
 		// viewerExpandJob.schedule(100);
@@ -190,6 +190,12 @@ public class NavigationView extends ViewPart {
 		newMenuAction.setImageDescriptor(icon);
 		newMenuAction.setHoverImageDescriptor(icon);
 
+		openLocalProjectAction = new OpenLocalProjectAction(this);
+		icon = aurora.ide.prototype.consultant.product.Activator
+				.getImageDescriptor("/icons/open.gif"); //$NON-NLS-1$
+		openLocalProjectAction.setImageDescriptor(icon);
+		openLocalProjectAction.setHoverImageDescriptor(icon);
+
 	}
 
 	protected void initContextMenu() {
@@ -212,6 +218,12 @@ public class NavigationView extends ViewPart {
 		// if (openLocalFolderActionAction != null) {
 		// toolBar.add(openLocalFolderActionAction);
 		// }
+		if (newMenuAction != null) {
+			toolBar.add(newMenuAction);
+		}
+		if (openLocalProjectAction != null) {
+			toolBar.add(openLocalProjectAction);
+		}
 		if (removeLocalFolderAction != null) {
 			toolBar.add(removeLocalFolderAction);
 		}
@@ -224,10 +236,6 @@ public class NavigationView extends ViewPart {
 
 		if (toggleLinkingAction != null) {
 			toolBar.add(toggleLinkingAction);
-		}
-
-		if (newMenuAction != null) {
-			toolBar.add(newMenuAction);
 		}
 	}
 
@@ -441,9 +449,9 @@ public class NavigationView extends ViewPart {
 
 	public void addNewNode(final Object parent, Node child) {
 		IPath path = child.getPath().removeLastSegments(1);
-		 Node[] nodes = findSamePathNodes(path);
+		Node[] nodes = findSamePathNodes(path);
 		for (Node node : nodes) {
-			if(node.equals(parent) == false){
+			if (node.equals(parent) == false) {
 				Node cc = new Node(child.getPath());
 				node.addChild(cc);
 				getViewer().add(node, cc);
@@ -457,6 +465,7 @@ public class NavigationView extends ViewPart {
 	public Node[] findSamePathNodes(Node n) {
 		return findSamePathNodes(n.getPath());
 	}
+
 	public Node[] findSamePathNodes(IPath path) {
 		List<Node> nodes = new ArrayList<Node>();
 		Root input = (Root) this.getViewer().getInput();

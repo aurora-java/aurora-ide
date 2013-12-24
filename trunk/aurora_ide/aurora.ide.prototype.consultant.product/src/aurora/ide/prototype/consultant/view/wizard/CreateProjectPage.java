@@ -19,16 +19,16 @@ import aurora.ide.swt.util.GridLayoutUtil;
 import aurora.ide.swt.util.TextField;
 import aurora.ide.swt.util.UWizardPage;
 import aurora.ide.swt.util.WidgetFactory;
-import aurora.ide.swt.util.WizardPageModel;
+import aurora.ide.swt.util.PageModel;
 
 public class CreateProjectPage extends UWizardPage {
 
 	public static final String[] properties = new String[] { "pj_name",
 			"pj_path", FunctionDesc.c_manager, FunctionDesc.dept,
 			FunctionDesc.h_manager };
-	private WizardPageModel initModel;
+	private PageModel initModel;
 
-	protected CreateProjectPage(String pageName, WizardPageModel initModel) {
+	protected CreateProjectPage(String pageName, PageModel initModel) {
 		super(pageName);
 		this.initModel = initModel;
 		this.setTitle("Aurora Quick UI");

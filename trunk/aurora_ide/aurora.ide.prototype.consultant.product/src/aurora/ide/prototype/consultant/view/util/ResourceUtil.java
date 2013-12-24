@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.Path;
 import uncertain.composite.CompositeMap;
 import uncertain.composite.XMLOutputter;
 
+import aurora.ide.prototype.consultant.view.wizard.CreateFunctionWizard;
 import aurora.ide.prototype.consultant.view.wizard.CreateModuleWizard;
 import aurora.ide.prototype.consultant.view.wizard.CreateProjectWizard;
 
@@ -21,6 +22,11 @@ public class ResourceUtil {
 
 	public static boolean isModule(File file) {
 		File p = new File(file, CreateModuleWizard.QUICK_UI_MODULE);
+		return p.exists();
+	}
+
+	public static boolean isFunction(File file) {
+		File p = new File(file, CreateFunctionWizard.QUICK_UI_FUNCTION);
 		return p.exists();
 	}
 
@@ -59,6 +65,11 @@ public class ResourceUtil {
 				XMLOutputter.saveToFile(p_file, map);
 			}
 		}
+	}
+
+	public static boolean isUIP(File file) {
+		IPath p = new Path(file.getPath());
+		return "uip".equalsIgnoreCase(p.getFileExtension());
 	}
 
 }

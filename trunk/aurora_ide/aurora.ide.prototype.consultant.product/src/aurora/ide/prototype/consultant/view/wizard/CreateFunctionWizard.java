@@ -12,6 +12,7 @@ import aurora.ide.swt.util.UWizard;
 
 public class CreateFunctionWizard extends UWizard {
 	
+	public static final String QUICK_UI_FUNCTION = "quick_ui.function";
 	private CreateFunctionPage page;
 	private File parent;
 
@@ -70,6 +71,6 @@ public class CreateFunctionWizard extends UWizard {
 		map.put(CreateFunctionPage.properties[6], page.getModel()
 				.getStringPropertyValue(CreateFunctionPage.properties[6]));
 		
-		ResourceUtil.createFile(m, "quick_ui.function", map);
+		ResourceUtil.createFile(m, QUICK_UI_FUNCTION, map);
 	}
 }

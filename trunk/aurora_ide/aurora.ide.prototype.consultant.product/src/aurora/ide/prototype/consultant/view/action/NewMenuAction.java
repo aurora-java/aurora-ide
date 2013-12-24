@@ -22,11 +22,12 @@ public class NewMenuAction extends Action implements IMenuCreator {
 	private Action activeAction;
 
 	public NewMenuAction(NavigationView viewer) {
-		super("NewMenuAction", Action.AS_DROP_DOWN_MENU);
+		super("新建", Action.AS_DROP_DOWN_MENU);
 		this.viewer = viewer;
 		this.setMenuCreator(this);
 		makeActions();
 	}
+
 
 	private void makeActions() {
 		createProjectAction = new CreateProjectAction(this.viewer);
