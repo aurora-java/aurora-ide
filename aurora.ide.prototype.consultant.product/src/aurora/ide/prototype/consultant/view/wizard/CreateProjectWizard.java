@@ -8,13 +8,13 @@ import org.eclipse.swt.widgets.Shell;
 import uncertain.composite.CompositeMap;
 import aurora.ide.prototype.consultant.view.util.ResourceUtil;
 import aurora.ide.swt.util.UWizard;
-import aurora.ide.swt.util.WizardPageModel;
+import aurora.ide.swt.util.PageModel;
 
 public class CreateProjectWizard extends UWizard {
 
 	public static final String QUICK_UI_PROJECT = "quick_ui.project";
 	private CreateProjectPage page = new CreateProjectPage("CreateProjectPage",
-			new WizardPageModel());
+			new PageModel());
 
 	public CreateProjectWizard(Shell shell) {
 		super(shell);

@@ -35,10 +35,6 @@ public class CreateProjectAction extends Action implements
 			Node newNode = new Node(new Path(w.getProject().getPath()));
 			viewer.addNewNode(viewer.getViewer().getInput(),
 					newNode);
-//			viewer.getViewer().add(viewer.getViewer().getInput(),
-//					newNode); 
-//			viewer.selectReveal(newNode);
-			// new RefreshLocalFileSystemAction(viewer).run();
 		}
 	}
 

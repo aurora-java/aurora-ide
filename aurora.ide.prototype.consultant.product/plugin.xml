@@ -694,38 +694,73 @@
             id="aurora.ide.prototype.consultant.view.navigationView">
       </view>
    </extension>
-   <extension point="org.eclipse.ui.navigator.viewer">
-    <viewer viewerId="aurora.ide.prototype.consultant.view.navigationView"/>
-    <viewerContentBinding viewerId="aurora.ide.prototype.consultant.view.navigationView">
-        <includes>
-            <contentExtension isRoot="false" pattern="aurora.ide.prototype.consultant.cnf.content.navigationContent"/>
-        </includes>
-    </viewerContentBinding>
-   </extension>
+   
+   <extension point="org.eclipse.ui.propertyPages">
+	  <page
+         class="aurora.ide.prototype.consultant.view.property.page.ProjectDemonstratePropertyPage"
+         icon="icons/aurora.gif"
+         id="aurora.ide.prototype.consultant.view.property.page.ProjectDemonstratePropertyPage"
+         name="项目(演示)设置"
+         >
+         <enabledWhen>
+             <test
+                   forcePluginActivation="true"
+                   property="aurora.ide.prototype.consultant.view.property.page.isProject"
+                   value="true">
+             </test>
+       </enabledWhen>
+	  </page>
+	  <page
+         class="aurora.ide.prototype.consultant.view.property.page.ProjectFSDPropertyPage"
+         icon="icons/aurora.gif"
+         id="aurora.ide.prototype.consultant.view.property.page.ProjectFSDPropertyPage"
+         name="项目(FSD)设置"
+         >
+         <enabledWhen>
+             <test
+                   forcePluginActivation="true"
+                   property="aurora.ide.prototype.consultant.view.property.page.isProject"
+                   value="true">
+             </test>
+       </enabledWhen>
+	  </page>
+	  <page
+         class="aurora.ide.prototype.consultant.view.property.page.ModuleFSDPropertyPage"
+         icon="icons/aurora.gif"
+         id="aurora.ide.prototype.consultant.view.property.page.ModuleFSDPropertyPage"
+         name="模块(FSD)设置"
+         >
+         <enabledWhen>
+             <test
+                   forcePluginActivation="true"
+                   property="aurora.ide.prototype.consultant.view.property.page.isModule"
+                   value="true">
+             </test>
+       </enabledWhen>
+	  </page>
+	  <page
+         class="aurora.ide.prototype.consultant.view.property.page.FunctionFSDPropertyPage"
+         icon="icons/aurora.gif"
+         id="aurora.ide.prototype.consultant.view.property.page.FunctionFSDPropertyPage"
+         name="功能(FSD)设置"
+         >
+         <enabledWhen>
+             <test
+                   forcePluginActivation="true"
+                   property="aurora.ide.prototype.consultant.view.property.page.isFunction"
+                   value="true">
+             </test>
+       </enabledWhen>
+	  </page>
+	</extension>
 
-   <extension      
-   		point="org.eclipse.ui.navigator.navigatorContent"> 
-      <navigatorContent         
-      	activeByDefault="true"         
-      	contentProvider="aurora.ide.prototype.consultant.view.CNFContentProvider"         
-      	id="aurora.ide.prototype.consultant.cnf.content.navigationContent"         
-      	labelProvider="aurora.ide.prototype.consultant.view.CNFLabelProvider"         
-      	name="UIP Navigator "         priority="normal">    
-               <triggerPoints>   
-               		<or>       <instanceof value="aurora.ide.prototype.consultant.view.Root" />       <instanceof value="aurora.ide.prototype.consultant.view.Parent" />    </or>
-			   </triggerPoints> 
-               <possibleChildren>
-                        <or>       <instanceof value="aurora.ide.prototype.consultant.view.Parent" />       <instanceof value="aurora.ide.prototype.consultant.view.Child" />    </or> 
-               </possibleChildren>
-     	<commonSorter
-              class="aurora.ide.prototype.consultant.view.CNFViewerSorter"
-              id="aurora.ide.prototype.consultant.view.CNFViewerSorter">
-               <parentExpression>
-           		  <or>           
-		            <instanceof value="aurora.ide.prototype.consultant.view.Node" /> 
-		         </or>
-		   </parentExpression>
-        </commonSorter>
-     	</navigatorContent>
-    </extension> 
+   <extension  point ="org.eclipse.core.expressions.propertyTesters" > 
+    <propertyTester
+  	  namespace ="aurora.ide.prototype.consultant.view.property.page" 
+ 	  properties ="isProject,isModule,isFunction,isUIP" 
+      type ="java.lang.Object" 
+      class ="aurora.ide.prototype.consultant.view.property.page.ResourceTester" 
+      id ="aurora.ide.prototype.consultant.view.property.page.ResourceTester" >   
+    </propertyTester >
+    </extension >
 </plugin>
