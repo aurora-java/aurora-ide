@@ -56,13 +56,16 @@ public class CreateProjectWizard extends UWizard {
 	}
 
 	private void createPJProperties(File pj) throws IOException {
-		CompositeMap map = new CompositeMap("project");
-		map.put(CreateProjectPage.properties[2], page.getModel()
-				.getStringPropertyValue(CreateProjectPage.properties[2]));
-		map.put(CreateProjectPage.properties[3], page.getModel()
-				.getStringPropertyValue(CreateProjectPage.properties[3]));
-		map.put(CreateProjectPage.properties[4], page.getModel()
-				.getStringPropertyValue(CreateProjectPage.properties[4]));
+		CompositeMap map = new CompositeMap("properties");
+		map.createChild(CreateProjectPage.properties[2]).setText(
+				page.getModel().getStringPropertyValue(
+						CreateProjectPage.properties[2]));
+		map.createChild(CreateProjectPage.properties[3]).setText(
+				page.getModel().getStringPropertyValue(
+						CreateProjectPage.properties[3]));
+		map.createChild(CreateProjectPage.properties[4]).setText(
+				page.getModel().getStringPropertyValue(
+						CreateProjectPage.properties[4]));
 		ResourceUtil.createFile(pj, QUICK_UI_PROJECT, map);
 	}
 

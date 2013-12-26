@@ -57,7 +57,7 @@ public class CreateModuleWizard extends UWizard {
 	}
 
 	private void createProperties(File m) throws IOException {
-		ResourceUtil.createFile(m, QUICK_UI_MODULE, new CompositeMap("module"));
+		ResourceUtil.createFile(m, QUICK_UI_MODULE, new CompositeMap("properties"));
 	}
 
 }

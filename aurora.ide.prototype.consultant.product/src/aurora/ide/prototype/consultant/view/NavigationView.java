@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.NotEnabledException;
+import org.eclipse.core.commands.NotHandledException;
+import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -40,12 +44,16 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.PropertyDialogAction;
 import org.eclipse.ui.handlers.CollapseAllHandler;
 import org.eclipse.ui.handlers.IHandlerService;
+import org.eclipse.ui.internal.dialogs.PropertyDialog;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.UIJob;
 
 import aurora.ide.editor.editorInput.PathEditorInput;
+import aurora.ide.helpers.DialogUtil;
 import aurora.ide.helpers.FileExplorer;
 import aurora.ide.meta.gef.editors.ConsultantVScreenEditor;
 import aurora.ide.prototype.consultant.product.Activator;
@@ -258,6 +266,26 @@ public class NavigationView extends ViewPart {
 					FileExplorer.open(node.getPath().toOSString());
 				}
 
+			});
+			menu.add(new Action("属性"){
+				public void run() {
+//					PropertyDialog.createDialogOn(shell, propertyPageId, element)
+//					org.eclipse.ui.file.properties
+//					PropertyDialogAction pda = new PropertyDialogAction(getViewSite(),getViewer());
+//					pda.createDialog();
+					IHandlerService hs = (IHandlerService) PlatformUI.getWorkbench().getAdapter(IHandlerService.class);
+					try {
+						hs.executeCommand("org.eclipse.ui.file.properties", null);
+					} catch (ExecutionException e) {
+						DialogUtil.showExceptionMessageBox(e);
+					} catch (NotDefinedException e) {
+						DialogUtil.showExceptionMessageBox(e);
+					} catch (NotEnabledException e) {
+						DialogUtil.showExceptionMessageBox(e);
+					} catch (NotHandledException e) {
+						DialogUtil.showExceptionMessageBox(e);
+					}
+				}
 			});
 		// menu.add(new Separator(GROUP_COPY));
 		// menu.add(new Separator(GROUP_PRINT));
