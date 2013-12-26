@@ -1,5 +1,6 @@
 package aurora.ide.prototype.consultant.product.fsd.wizard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Path;
@@ -17,6 +18,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import uncertain.composite.CompositeMap;
 import aurora.ide.prototype.consultant.product.fsd.FunctionDesc;
 import aurora.ide.swt.util.GridLayoutUtil;
 import aurora.ide.swt.util.PageModel;
@@ -26,6 +28,10 @@ import aurora.ide.swt.util.TextField;
 import aurora.ide.swt.util.WidgetFactory;
 
 public class FSDContentControl extends FSDComposite {
+
+	public static final String FSD_TABLE_INPUT = "fsd_table_input";
+	public static final String ONLY_SAVE_LOGIC = "only_save_logic";
+	public static final String FSD_DOCX_PATH = "fsd_docx_path";
 
 	public FSDContentControl(PageModel model) {
 		super(model);
@@ -41,9 +47,8 @@ public class FSDContentControl extends FSDComposite {
 		pathComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		final TextField tf = WidgetFactory.createTextButtonField(pathComposite,
 				Messages.ContentDescPage_0, Messages.ContentDescPage_1);
-		tf.addModifyListener(new TextModifyListener("fsd_docx_path", tf
-				.getText()));
-		tf.setText(this.getModel().getStringPropertyValue("fsd_docx_path"));
+		tf.addModifyListener(new TextModifyListener(FSD_DOCX_PATH, tf.getText()));
+		tf.setText(this.getModel().getStringPropertyValue(FSD_DOCX_PATH));
 		tf.addButtonClickListener(new SelectionAdapter() {
 
 			@Override
@@ -58,13 +63,13 @@ public class FSDContentControl extends FSDComposite {
 		checked.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				getModel().setPropertyValue("only_save_logic",
+				getModel().setPropertyValue(ONLY_SAVE_LOGIC,
 						checked.getSelection());
 			}
 		});
 
 		checked.setSelection(this.getModel().getBooleanPropertyValue(
-				"only_save_logic"));
+				ONLY_SAVE_LOGIC));
 		createContentTable(WidgetFactory.composite(parent));
 	}
 
@@ -80,30 +85,10 @@ public class FSDContentControl extends FSDComposite {
 
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-		TableColumn column1 = new TableColumn(table, SWT.LEFT);
-		column1.setWidth(128);
-		column1.setText(Messages.ContentDescPage_5);
+		createTableColumn(table);
 
-		TableColumn column2 = new TableColumn(table, SWT.NONE);
-		column2.setWidth(193);
-		column2.setText(Messages.ContentDescPage_6);
-
-		tv.setContentProvider(new TableContentProvider());
-		tv.setLabelProvider(new TableLabelProvider() {
-			public String getColumnText(Object element, int i) {
-
-				if (element instanceof String) {
-					if (i == 0) {
-						Path p = new Path(element.toString());
-						return p.lastSegment();
-					}
-					if (i == 1) {
-						return element.toString();
-					}
-				}
-				return ""; //$NON-NLS-1$
-			}
-		});
+		tv.setContentProvider(getContentProvider());
+		tv.setLabelProvider(getLabelProvider());
 
 		Composite buttonComposite = WidgetFactory.composite(tableComposite);
 		buttonComposite.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
@@ -148,6 +133,38 @@ public class FSDContentControl extends FSDComposite {
 		tv.setInput(getTableInput());
 	}
 
+	protected TableContentProvider getContentProvider() {
+		return new TableContentProvider();
+	}
+
+	protected TableLabelProvider getLabelProvider() {
+		return new TableLabelProvider() {
+			public String getColumnText(Object element, int i) {
+
+				if (element instanceof String) {
+					if (i == 0) {
+						Path p = new Path(element.toString());
+						return p.lastSegment();
+					}
+					if (i == 1) {
+						return element.toString();
+					}
+				}
+				return ""; //$NON-NLS-1$
+			}
+		};
+	}
+
+	protected void createTableColumn(Table table) {
+		TableColumn column1 = new TableColumn(table, SWT.LEFT);
+		column1.setWidth(128);
+		column1.setText(Messages.ContentDescPage_5);
+
+		TableColumn column2 = new TableColumn(table, SWT.NONE);
+		column2.setWidth(193);
+		column2.setText(Messages.ContentDescPage_6);
+	}
+
 	public void moveElement(final TableViewer tv, int i) {
 		ISelection s = tv.getSelection();
 		if (s instanceof IStructuredSelection) {
@@ -168,8 +185,9 @@ public class FSDContentControl extends FSDComposite {
 
 	@SuppressWarnings("unchecked")
 	protected List<String> getTableInput() {
-		return (List<String>) this.getModel().getPropertyValue(
-				"fsd_table_input");
+		List<String> propertyValue = (List<String>) this.getModel()
+				.getPropertyValue(FSD_TABLE_INPUT);
+		return propertyValue;
 	}
 
 	protected String getDefaultFileName() {
@@ -209,6 +227,37 @@ public class FSDContentControl extends FSDComposite {
 			getTableInput().removeAll(list);
 			tv.setInput(getTableInput());
 		}
+	}
+
+	public void saveToMap(CompositeMap map) {
+		map.put(ONLY_SAVE_LOGIC,
+				this.getModel().getBooleanPropertyValue(ONLY_SAVE_LOGIC));
+		map.createChild(FSD_DOCX_PATH).setText(
+				this.getModel().getStringPropertyValue(FSD_DOCX_PATH));
+		@SuppressWarnings("unchecked")
+		List<String> propertyValue = (List<String>) (this.getModel()
+				.getPropertyValue(FSD_TABLE_INPUT));
+		String s = "";
+		for (String string : propertyValue) {
+			s = s + "," + string;
+		}
+		s = s.replaceFirst(",", "");
+		map.createChild(FSD_TABLE_INPUT).setText(s);
+	}
+
+	public void loadFromMap(CompositeMap map) {
+		this.updateModel(ONLY_SAVE_LOGIC,
+				Boolean.TRUE.equals(map.getBoolean(ONLY_SAVE_LOGIC, false)));
+		this.updateModel(FSD_DOCX_PATH, this.getMapCData(FSD_DOCX_PATH, map));
+		String t = this.getMapCData(FSD_TABLE_INPUT, map);
+		String[] split = t.split(",");
+		List<String> ss = new ArrayList<String>();
+		for (String s : split) {
+			if (s != null && "".equals(s) == false) {
+				ss.add(s);
+			}
+		}
+		this.updateModel(FSD_TABLE_INPUT, ss);
 	}
 
 }
