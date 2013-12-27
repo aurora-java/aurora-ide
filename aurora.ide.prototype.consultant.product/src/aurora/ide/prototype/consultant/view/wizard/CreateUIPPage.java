@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
 import aurora.ide.prototype.consultant.view.util.ResourceUtil;
@@ -56,7 +58,10 @@ public class CreateUIPPage extends UWizardPage {
 	}
 
 	@Override
-	protected void createPageControl(Composite parent) {
+	protected Composite createPageControl(Composite control) {
+		Composite parent = new Composite(control, SWT.NONE);
+		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
+		
 		parent.setLayout(GridLayoutUtil.COLUMN_LAYOUT_2);
 
 		TextField pjField = createInputField(parent, "项目名");
@@ -71,6 +76,7 @@ public class CreateUIPPage extends UWizardPage {
 
 		TextField ff = createInputField(parent, "文件名");
 		ff.addModifyListener(new TextModifyListener(properties[0], ff.getText()));
+		return parent;
 	}
 
 }

@@ -74,7 +74,10 @@ public class CreateProjectPage extends UWizardPage {
 	}
 
 	@Override
-	protected void createPageControl(Composite parent) {
+	protected Composite createPageControl(Composite control) {
+		Composite parent = new Composite(control, SWT.NONE);
+		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
+		
 		parent.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
 		GridLayout ly = new GridLayout(3, false);
 
@@ -124,6 +127,8 @@ public class CreateProjectPage extends UWizardPage {
 				properties[3]);
 		createInputField(applyComposite, Messages.FunctionDescPage_11,
 				properties[4]);
+		
+		return parent;
 	}
 
 }

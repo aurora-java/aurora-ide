@@ -23,13 +23,13 @@ public class CreateFunctionPage extends UWizardPage {
 	public static String[] properties = new String[] { FunctionDesc.fun_code,
 			FunctionDesc.fun_name, FunctionDesc.writer, FunctionDesc.c_date,
 			FunctionDesc.u_date, FunctionDesc.no, FunctionDesc.ver };
-	private File parent;
+	private File f_parent;
 
 	protected CreateFunctionPage(String pageName, File parent) {
 		super(pageName);
 		this.setTitle("Aurora Quick UI");
 		this.setMessage("新建功能");
-		this.parent = parent;
+		this.f_parent = parent;
 	}
 
 	private TextField createInputField(Composite parent, String label,
@@ -57,7 +57,7 @@ public class CreateFunctionPage extends UWizardPage {
 			if (p.segmentCount() != 1 || p.hasTrailingSeparator()) {
 				return "功能号无效";
 			}
-			File m = new File(parent, n);
+			File m = new File(f_parent, n);
 			if (m.exists()) {
 				return "功能号存在";
 			}
@@ -72,8 +72,9 @@ public class CreateFunctionPage extends UWizardPage {
 	}
 
 	@Override
-	protected void createPageControl(Composite parent) {
-
+	protected Composite createPageControl(Composite control) {
+		Composite parent = new Composite(control, SWT.NONE);
+		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
 		parent.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
 
 		GridLayout ly = new GridLayout(2, false);
@@ -81,17 +82,17 @@ public class CreateFunctionPage extends UWizardPage {
 		Composite functonComposite = new Composite(parent, SWT.NONE);
 		functonComposite.setLayout(ly);
 		functonComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		
-		TextField pjField = createInputField(functonComposite, "项目名","pj_name");
+
+		TextField pjField = createInputField(functonComposite, "项目名", "pj_name");
 		pjField.getText().setEnabled(false);
-		File project = ResourceUtil.getProject(this.parent);
+		File project = ResourceUtil.getProject(this.f_parent);
 		if (project != null) {
 			pjField.setText(ResourceUtil.getFullProjectRelativePath(project,
-					this.parent).toString());
+					this.f_parent).toString());
 		} else {
-			pjField.setText(this.parent.getName());
+			pjField.setText(this.f_parent.getName());
 		}
-		
+
 		createInputField(functonComposite, Messages.FunctionDescPage_1,
 				FunctionDesc.fun_code);
 		createInputField(functonComposite, Messages.FunctionDescPage_2,
@@ -113,6 +114,7 @@ public class CreateFunctionPage extends UWizardPage {
 				FunctionDesc.no);
 		createInputField(infoComposite, Messages.FunctionDescPage_7,
 				FunctionDesc.ver);
+		return parent;
 
 	}
 

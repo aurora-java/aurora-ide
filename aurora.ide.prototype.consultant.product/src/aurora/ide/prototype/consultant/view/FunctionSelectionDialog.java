@@ -56,6 +56,49 @@ public class FunctionSelectionDialog {
 		}
 		return null;
 	}
+	
+	
+	public String openUIPSelectionDialog(String msg,
+			org.eclipse.swt.widgets.Shell shell, Object input) {
+		ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(
+				shell, new CNFLabelProvider(), new CNFContentProvider());
+
+		dialog.setMessage(msg);
+		dialog.setInput(input);
+		dialog.addFilter(new ViewerFilter() {
+			public boolean select(Viewer viewer, Object parentElement,
+					Object element) {
+				if (element instanceof Node) {
+					return true;
+				}
+				return false;
+			}
+		});
+		dialog.setValidator(new ISelectionStatusValidator() {
+
+			@Override
+			public IStatus validate(Object[] selection) {
+
+				if (selection.length > 0 && selection[0] != null
+						&& selection[0] instanceof Node) {
+					boolean function = ResourceUtil.isUIP(((Node) selection[0]).getFile());
+					if (function)
+						return Status.OK_STATUS;
+				}
+				Status s = new Status(Status.ERROR, "unknown", 1,
+						"请选择UIP", null);
+				return s;
+			}
+		});
+		int open = dialog.open();
+		if (ElementTreeSelectionDialog.OK == open) {
+			Object firstResult = dialog.getFirstResult();
+			if (firstResult instanceof Node) {
+				return (((Node) firstResult).getFile()).getPath();
+			}
+		}
+		return null;
+	}
 
 	// protected IAdaptable getInitialInput() {
 	// Root root = new Root();
