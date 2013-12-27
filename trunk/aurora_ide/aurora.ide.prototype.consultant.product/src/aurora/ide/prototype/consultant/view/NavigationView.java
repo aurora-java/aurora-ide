@@ -45,10 +45,8 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.PropertyDialogAction;
 import org.eclipse.ui.handlers.CollapseAllHandler;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.ui.internal.dialogs.PropertyDialog;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.UIJob;
 
@@ -59,11 +57,14 @@ import aurora.ide.meta.gef.editors.ConsultantVScreenEditor;
 import aurora.ide.prototype.consultant.product.Activator;
 import aurora.ide.prototype.consultant.product.ICommandIds;
 import aurora.ide.prototype.consultant.view.action.CollapseAllAction;
+import aurora.ide.prototype.consultant.view.action.FunctionExportFSDAction;
 import aurora.ide.prototype.consultant.view.action.LinkEditorAction;
 import aurora.ide.prototype.consultant.view.action.NewMenuAction;
 import aurora.ide.prototype.consultant.view.action.OpenLocalProjectAction;
+import aurora.ide.prototype.consultant.view.action.ProjectExportFSDAction;
 import aurora.ide.prototype.consultant.view.action.RefreshLocalFileSystemAction;
 import aurora.ide.prototype.consultant.view.action.RemoveLocalFolderAction;
+import aurora.ide.prototype.consultant.view.util.ResourceUtil;
 
 public class NavigationView extends ViewPart {
 	public static final String ID = "aurora.ide.prototype.consultant.view.navigationView"; //$NON-NLS-1$
@@ -267,26 +268,40 @@ public class NavigationView extends ViewPart {
 				}
 
 			});
-			menu.add(new Action("属性"){
-				public void run() {
-//					PropertyDialog.createDialogOn(shell, propertyPageId, element)
-//					org.eclipse.ui.file.properties
-//					PropertyDialogAction pda = new PropertyDialogAction(getViewSite(),getViewer());
-//					pda.createDialog();
-					IHandlerService hs = (IHandlerService) PlatformUI.getWorkbench().getAdapter(IHandlerService.class);
-					try {
-						hs.executeCommand("org.eclipse.ui.file.properties", null);
-					} catch (ExecutionException e) {
-						DialogUtil.showExceptionMessageBox(e);
-					} catch (NotDefinedException e) {
-						DialogUtil.showExceptionMessageBox(e);
-					} catch (NotEnabledException e) {
-						DialogUtil.showExceptionMessageBox(e);
-					} catch (NotHandledException e) {
-						DialogUtil.showExceptionMessageBox(e);
-					}
+
+		Node selectionNode = this.getSelectionNode();
+		if (ResourceUtil.isProject(selectionNode.getFile())) {
+			menu.add(new ProjectExportFSDAction(this, "导出FSD"));
+		}
+		if (ResourceUtil.isModule(selectionNode.getFile())) {
+			menu.add(new ProjectExportFSDAction(this, "导出FSD"));
+		}
+		if (ResourceUtil.isFunction(selectionNode.getFile())) {
+			menu.add(new FunctionExportFSDAction(this, "导出FSD"));
+		}
+		menu.add(new Action("属性") {
+			public void run() {
+				// PropertyDialog.createDialogOn(shell, propertyPageId, element)
+				// org.eclipse.ui.file.properties
+				// PropertyDialogAction pda = new
+				// PropertyDialogAction(getViewSite(),getViewer());
+				// pda.createDialog();
+				IHandlerService hs = (IHandlerService) PlatformUI
+						.getWorkbench().getAdapter(IHandlerService.class);
+				try {
+					hs.executeCommand("org.eclipse.ui.file.properties", null);
+				} catch (ExecutionException e) {
+					DialogUtil.showExceptionMessageBox(e);
+				} catch (NotDefinedException e) {
+					DialogUtil.showExceptionMessageBox(e);
+				} catch (NotEnabledException e) {
+					DialogUtil.showExceptionMessageBox(e);
+				} catch (NotHandledException e) {
+					DialogUtil.showExceptionMessageBox(e);
 				}
-			});
+			}
+		});
+
 		// menu.add(new Separator(GROUP_COPY));
 		// menu.add(new Separator(GROUP_PRINT));
 		// menu.add(new Separator(GROUP_EDIT));

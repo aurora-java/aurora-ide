@@ -41,7 +41,7 @@ public class FSDContentControl extends FSDComposite {
 
 		Composite parent = WidgetFactory.composite(root);
 		parent.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
-
+		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
 		Composite pathComposite = WidgetFactory.composite(parent);
 		pathComposite.setLayout(GridLayoutUtil.COLUMN_LAYOUT_3);
 		pathComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));

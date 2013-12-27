@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.dialogs.PropertyPage;
@@ -19,21 +21,21 @@ import aurora.ide.prototype.consultant.product.fsd.wizard.ApplyControl;
 import aurora.ide.prototype.consultant.product.fsd.wizard.AuthorControl;
 import aurora.ide.prototype.consultant.product.fsd.wizard.FSDContentControl;
 import aurora.ide.prototype.consultant.product.fsd.wizard.TitleControl;
+import aurora.ide.prototype.consultant.view.FunctionSelectionDialog;
 import aurora.ide.prototype.consultant.view.Node;
+import aurora.ide.prototype.consultant.view.util.ResourceUtil;
 import aurora.ide.swt.util.GridLayoutUtil;
 import aurora.ide.swt.util.PageModel;
 import aurora.ide.swt.util.WidgetFactory;
 
 public class AbstractFSDPropertyPage extends PropertyPage {
 
-	
-	
 	private PageModel model;
 
 	public AbstractFSDPropertyPage() {
 		this.noDefaultAndApplyButton();
 	}
-	
+
 	@Override
 	public void setElement(IAdaptable element) {
 		super.setElement(element);
@@ -66,7 +68,25 @@ public class AbstractFSDPropertyPage extends PropertyPage {
 	}
 
 	protected void createContentControl(Composite c2) {
-		new FSDContentControl(this.getModel()).createFSDContentControl(c2);
+		new FSDContentControl(this.getModel()) {
+			protected void clickAddButton(Shell shell, final TableViewer tv) {
+				FunctionSelectionDialog fsd = new FunctionSelectionDialog();
+				String path = fsd.openUIPSelectionDialog("选择UIP", shell,
+						getProjectNode());
+				if (path != null && path.length() > 0) {
+					getTableInput().add(path);
+				}
+				tv.setInput(getTableInput());
+			}
+		}.createFSDContentControl(c2);
+	}
+
+	protected Object getProjectNode() {
+		IAdaptable element = this.getElement();
+		if (element instanceof Node) {
+			return ResourceUtil.getProjectNode((Node) element);
+		}
+		return null;
 	}
 
 	protected void createFSDDescControl(Composite root) {

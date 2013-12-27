@@ -11,6 +11,7 @@ import uncertain.composite.CompositeMap;
 import uncertain.composite.XMLOutputter;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.prototype.consultant.product.fsd.wizard.FSDContentControl;
+import aurora.ide.prototype.consultant.view.Node;
 import aurora.ide.prototype.consultant.view.wizard.CreateFunctionWizard;
 import aurora.ide.prototype.consultant.view.wizard.CreateModuleWizard;
 import aurora.ide.prototype.consultant.view.wizard.CreateProjectWizard;
@@ -125,6 +126,18 @@ public class ResourceUtil {
 				}
 			}
 		}
+	}
+
+	public static Node getProjectNode(Node selectionNode) {
+		File file = selectionNode.getFile();
+		if (isProject(file)) {
+			return selectionNode;
+		} else if (selectionNode.getParent().getFile().exists()) {
+			return getProjectNode(selectionNode.getParent());
+		} else {
+			return selectionNode;
+		}
+	
 	}
 
 }
