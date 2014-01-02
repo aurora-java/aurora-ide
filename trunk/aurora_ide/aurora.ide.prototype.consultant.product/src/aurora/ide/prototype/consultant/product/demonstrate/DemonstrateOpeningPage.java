@@ -1,5 +1,7 @@
 package aurora.ide.prototype.consultant.product.demonstrate;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -12,7 +14,10 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorInput;
 
+import aurora.ide.prototype.consultant.product.Activator;
+import aurora.ide.prototype.consultant.product.editor.EditorManager;
 import aurora.ide.swt.util.GridLayoutUtil;
 import aurora.ide.swt.util.TextField;
 import aurora.ide.swt.util.WidgetFactory;
@@ -96,7 +101,10 @@ public class DemonstrateOpeningPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				String queryFile = queryFile();
 				if (queryFile != null) {
-					uipField.setText(queryFile);
+					IPath afp = EditorManager.getActiveEditorFile();	
+					IPath p = new Path(queryFile);
+					IPath makeRelativeTo = p.makeRelativeTo(afp);
+					uipField.setText(makeRelativeTo.toString());
 				}
 			}
 
