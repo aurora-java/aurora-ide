@@ -60,6 +60,7 @@ import aurora.plugin.source.gen.screen.model.Toolbar;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
+import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
 public class BlockedContentPage {
 
@@ -78,8 +79,8 @@ public class BlockedContentPage {
 	public void create() {
 
 		MainDocumentPart mdp = doc.getMainDocumentPart();
-		mdp.addStyledParagraphOfText("3", Messages.ContentPage_1); //$NON-NLS-1$
-		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		//		mdp.addStyledParagraphOfText("3", Messages.ContentPage_1); //$NON-NLS-1$
+		//		mdp.addParagraphOfText(""); //$NON-NLS-1$
 
 		for (String file : files) {
 			createContent(file);
@@ -102,13 +103,11 @@ public class BlockedContentPage {
 	private void createContent(String file) {
 		ScreenBody screenBody = loadFile(file);
 
-		// if (hasTabInTab(screenBody))
-		// return;
-
 		MainDocumentPart mdp = doc.getMainDocumentPart();
 
-		mdp.addStyledParagraphOfText("3", Messages.ContentPage_0 + screenBody //$NON-NLS-1$
-				.getStringPropertyValue(ComponentFSDProperties.FSD_PAGE_NAME));
+		mdp.addStyledParagraphOfText("3", screenBody //$NON-NLS-1$
+				.getStringPropertyValue(ComponentFSDProperties.FSD_PAGE_NAME)
+				+ Messages.ContentPage_1 + " : ");
 		mdp.addParagraphOfText(""); //$NON-NLS-1$
 
 		try {
@@ -127,24 +126,6 @@ public class BlockedContentPage {
 
 		mdp.addParagraphOfText(screenBody
 				.getStringPropertyValue(ComponentFSDProperties.FSD_PAGE_DESC));
-
-		// List<AuroraComponent> children = screenBody.getChildren();
-		//
-		// List<AuroraComponent> childs = getNoContainerChildren(children);
-		// if (childs.size() != 0) {
-		//			mdp.addStyledParagraphOfText("3", Messages.ContentPage_3); //$NON-NLS-1$
-		// createContentTbl(childs);
-		//			mdp.addParagraphOfText(""); //$NON-NLS-1$
-		//			mdp.addStyledParagraphOfText("3", Messages.ContentPage_7); //$NON-NLS-1$
-		// createNoteInfo(childs);
-		// mdp.addParagraphOfText("");
-		// }
-		//
-		// List<Container> containers = getNoTabContainer(children);
-		//
-		// for (Container container : containers) {
-		// createContentInfo(mdp, container);
-		// }
 
 		createContentInfo(mdp, screenBody);
 		// 生成操作类
@@ -186,12 +167,20 @@ public class BlockedContentPage {
 		List<AuroraComponent> cs = inputs;
 		if (cs.size() == 0)
 			return;
-		mdp.addStyledParagraphOfText("3", Messages.ContentPage_9 + container //$NON-NLS-1$
-				.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
+		String container_desc = container //$NON-NLS-1$
+				.getStringPropertyValue(ComponentFSDProperties.FSD_DESC);
+		container_desc = container_desc == null || "".equals(container_desc) ? container
+				.getPrompt() : container_desc;
+		container_desc = container_desc == null || "".equals(container_desc) ? container
+				.getStringPropertyValue(ComponentProperties.title)
+				: container_desc;
+
+		mdp.addStyledParagraphOfText("3", container_desc
+				+ Messages.ContentPage_9);
 		createContentTbl(cs);
 		mdp.addParagraphOfText(""); //$NON-NLS-1$
-		mdp.addStyledParagraphOfText("3", Messages.ContentPage_11 + container //$NON-NLS-1$
-				.getStringPropertyValue(ComponentFSDProperties.FSD_DESC));
+		mdp.addStyledParagraphOfText("3", container_desc
+				+ Messages.ContentPage_11);
 		createNoteInfo(cs);
 		mdp.addParagraphOfText("");
 	}
@@ -233,7 +222,7 @@ public class BlockedContentPage {
 			for (TabItem c : tabItems) {
 				ScreenBody sb = createNewTab(c);
 
-				mdp.addStyledParagraphOfText("3", "Tab : " + c.getPrompt());
+				mdp.addStyledParagraphOfText("3", c.getPrompt() + "Tab : ");
 				mdp.addParagraphOfText(""); //$NON-NLS-1$
 
 				try {

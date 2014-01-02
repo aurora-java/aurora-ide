@@ -33,29 +33,32 @@ public class FirstPage {
 		mdp.addStyledParagraphOfText("TitleBar", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.addStyledParagraphOfText("Title", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.addStyledParagraphOfText("Title", "HAND ENTERPRISE SOLUTIONS"); //$NON-NLS-1$ //$NON-NLS-2$
-		mdp.addStyledParagraphOfText("DocTitle2", function.getFunCode()); //$NON-NLS-1$
+		String funCode = function.getFunCode();
+		if (funCode != null && "".equals(funCode) == false)
+			mdp.addStyledParagraphOfText("DocTitle2", funCode); //$NON-NLS-1$
+
 		mdp.addStyledParagraphOfText("DocTitle3", function.getDocTitle()); //$NON-NLS-1$
 		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 
-		createFirstInfo(mdp,Messages.FirstPage_16,function.getWriter());
-		createFirstInfo(mdp,Messages.FirstPage_17,function.getCreateDate());
-		createFirstInfo(mdp,Messages.FirstPage_18,function.getUpdateDate());
-		createFirstInfo(mdp,Messages.FirstPage_19,function.getControlNo());
-		createFirstInfo(mdp,Messages.FirstPage_20,function.getVer());
-		
+		createFirstInfo(mdp, Messages.FirstPage_16, function.getWriter());
+		createFirstInfo(mdp, Messages.FirstPage_17, function.getCreateDate());
+		createFirstInfo(mdp, Messages.FirstPage_18, function.getUpdateDate());
+		createFirstInfo(mdp, Messages.FirstPage_19, function.getControlNo());
+		createFirstInfo(mdp, Messages.FirstPage_20, function.getVer());
+
 		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		mdp.addStyledParagraphOfText("DocInfotabletitle", Messages.FirstPage_28); //$NON-NLS-1$
-		
+
 		createTbl();
 	}
-	
-	private void createFirstInfo(MainDocumentPart mdp,String name,String value){
-		P p =mdp.addStyledParagraphOfText("Docinfo", name); //$NON-NLS-1$
+
+	private void createFirstInfo(MainDocumentPart mdp, String name, String value) {
+		P p = mdp.addStyledParagraphOfText("Docinfo", name); //$NON-NLS-1$
 		p.getContent().add(createTab());
 		p.getContent().add(createText(value));
 	}
