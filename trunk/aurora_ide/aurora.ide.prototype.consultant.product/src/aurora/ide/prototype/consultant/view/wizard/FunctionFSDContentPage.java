@@ -69,4 +69,7 @@ public class FunctionFSDContentPage extends UWizardPage {
 	protected Node getProjectNode() {
 		return projectNode;
 	}
+	protected void saveTOMap(CompositeMap map) {
+		new FSDContentControl(this.getModel()).saveToMap(map);
+	}
 }

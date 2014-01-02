@@ -7,6 +7,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
 
+import aurora.ide.swt.util.PageModel;
+
 public class FunctionDesc {
 	private Map<Object, Object> simpleProperties = new HashMap<Object, Object>();
 
@@ -82,5 +84,21 @@ public class FunctionDesc {
 				}
 			}
 		};
+	}
+
+	static public FunctionDesc create(PageModel pm) {
+		FunctionDesc fd = new FunctionDesc();
+		fd.setPropertyValue(doc_title, pm.getStringPropertyValue(doc_title));
+		fd.setPropertyValue(fun_code, pm.getStringPropertyValue(fun_code));
+		fd.setPropertyValue(fun_name, pm.getStringPropertyValue(fun_name));
+		fd.setPropertyValue(writer, pm.getStringPropertyValue(writer));
+		fd.setPropertyValue(c_date, pm.getStringPropertyValue(c_date));
+		fd.setPropertyValue(u_date, pm.getStringPropertyValue(u_date));
+		fd.setPropertyValue(no, pm.getStringPropertyValue(no));
+		fd.setPropertyValue(ver, pm.getStringPropertyValue(ver));
+		fd.setPropertyValue(c_manager, pm.getStringPropertyValue(c_manager));
+		fd.setPropertyValue(dept, pm.getStringPropertyValue(dept));
+		fd.setPropertyValue(h_manager, pm.getStringPropertyValue(h_manager));
+		return fd;
 	}
 }

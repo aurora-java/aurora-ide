@@ -77,5 +77,9 @@ public class FunctionFSDDescPage extends UWizardPage {
 
 		new TitleControl(this.getModel()).createTitleControl(parent);
 	}
-
+	protected void saveTOMap(CompositeMap map) {
+		new TitleControl(this.getModel()).saveToMap(map);
+		new AuthorControl(this.getModel()).saveToMap(map);
+		new ApplyControl(this.getModel()).saveToMap(map);
+	}
 }
