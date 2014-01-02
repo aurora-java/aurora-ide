@@ -48,7 +48,10 @@ public class ButtonDemonstrating {
 
 	private void openUIP(String path) {
 
-		File file = new File(path);
+		IPath afp = getActiveEditorFile();
+		IPath p = new Path(path);
+		File file = afp.append(p).toFile();
+		// File file = new File(path);
 		if (file.exists() == false) {
 			showMessage(Messages.ButtonDemonstrating_1);
 			return;
@@ -63,6 +66,17 @@ public class ButtonDemonstrating {
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private IPath getActiveEditorFile() {
+		IWorkbench workbench = PlatformUI.getWorkbench();
+		IEditorInput editorInput = workbench.getActiveWorkbenchWindow()
+				.getActivePage().getActiveEditor().getEditorInput();
+		if (editorInput instanceof PathEditorInput) {
+			return ((PathEditorInput) editorInput).getPath();
+		}
+
+		return null;
 	}
 
 	private String getEditorId(File file) {
