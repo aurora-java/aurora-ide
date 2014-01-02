@@ -13,7 +13,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 import uncertain.composite.CompositeMap;
-
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.prototype.consultant.product.fsd.FunctionDesc;
 import aurora.ide.prototype.consultant.product.fsd.wizard.FSDContentControl;
@@ -113,5 +112,8 @@ public class ProjectFSDContentPage extends UWizardPage {
 
 	protected Node getProjectNode() {
 		return projectNode;
+	}
+	protected void saveTOMap(CompositeMap map) {
+		new FSDContentControl(this.getModel()).saveToMap(map);
 	}
 }

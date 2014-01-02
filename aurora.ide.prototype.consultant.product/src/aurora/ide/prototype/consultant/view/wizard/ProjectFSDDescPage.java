@@ -89,4 +89,9 @@ public class ProjectFSDDescPage extends UWizardPage {
 		}.createTitleControl(parent);
 	}
 
+	protected void saveTOMap(CompositeMap map) {
+		new TitleControl(this.getModel()).saveToMap(map);
+		new AuthorControl(this.getModel()).saveToMap(map);
+		new ApplyControl(this.getModel()).saveToMap(map);
+	}
 }

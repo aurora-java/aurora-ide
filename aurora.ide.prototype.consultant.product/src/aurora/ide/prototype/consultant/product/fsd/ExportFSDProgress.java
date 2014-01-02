@@ -54,21 +54,27 @@ public class ExportFSDProgress implements IRunnableWithProgress {
 
 			monitor.worked(10);
 
-			Docx4jUtil.createNewPage(pkg.getMainDocumentPart());
-			FourthPage page4 = new FourthPage(pkg);
-			page4.create();
-			monitor.worked(10);
-			Docx4jUtil.createNewPage(pkg.getMainDocumentPart());
-			FifthPage page5 = new FifthPage(pkg, function);
-			page5.create();
-			monitor.worked(10);
-			monitor.setTaskName(Messages.ExportFSDProgress_2);
-			Docx4jUtil.createNewPage(pkg.getMainDocumentPart());
-			ContentPage page6 = new ContentPage(pkg, files);
-			if (onlySaveLogic)
-				page6.setOnlyLogic(onlySaveLogic);
-			page6.create();
-			monitor.worked(10);
+			FunctionFSDPackage fff = new FunctionFSDPackage(pkg,function,files,onlySaveLogic);
+			fff.run(monitor);
+			
+			
+//			Docx4jUtil.createNewPage(pkg.getMainDocumentPart());
+//			FourthPage page4 = new FourthPage(function,pkg);
+//			page4.create();
+//			monitor.worked(10);
+//			Docx4jUtil.createNewPage(pkg.getMainDocumentPart());
+//			FifthPage page5 = new FifthPage(pkg, function);
+//			page5.create();
+//			monitor.worked(10);
+//			monitor.setTaskName(Messages.ExportFSDProgress_2);
+//			Docx4jUtil.createNewPage(pkg.getMainDocumentPart());
+//			BlockedContentPage page6 = new BlockedContentPage(pkg, files);
+//			if (onlySaveLogic)
+//				page6.setOnlyLogic(onlySaveLogic);
+//			page6.create();
+//			monitor.worked(10);
+			
+			
 			// System.out.println(XmlUtils.marshaltoString(pkg.getMainDocumentPart()
 			// .getJaxbElement(), true, true));
 

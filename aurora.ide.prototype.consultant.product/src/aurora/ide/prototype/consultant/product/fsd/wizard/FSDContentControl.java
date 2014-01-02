@@ -247,7 +247,7 @@ public class FSDContentControl extends FSDComposite {
 
 	public void loadFromMap(CompositeMap map) {
 		this.updateModel(ONLY_SAVE_LOGIC,
-				Boolean.TRUE.equals(map.getBoolean(ONLY_SAVE_LOGIC, false)));
+				Boolean.TRUE.equals(map.getBoolean(ONLY_SAVE_LOGIC,true)));
 		this.updateModel(FSD_DOCX_PATH, this.getMapCData(FSD_DOCX_PATH, map));
 		String t = this.getMapCData(FSD_TABLE_INPUT, map);
 		String[] split = t.split(",");
