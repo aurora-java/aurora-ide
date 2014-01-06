@@ -51,6 +51,7 @@ public class TextEditDialog extends Dialog {
 	private Display display;
 	private Shell shell;
 	private StyledStringText styledStringText;
+	private int alignmentStyle;
 
 	public TextEditDialog(Shell shell) {
 		super(shell);
@@ -200,7 +201,10 @@ public class TextEditDialog extends Dialog {
 							.getTextForeground()));
 			setStyle(FOREGROUND);
 		}
-
+		// this.updateAlignmentStyle(styledStringText.getAlignment());
+		// 16384
+		int alignment = styledStringText.getAlignment();
+		this.updateAlignmentStyle(alignment == -1 ? SWT.LEFT : alignment);
 	}
 
 	private void createToolbar(Composite parent) {
@@ -383,9 +387,6 @@ public class TextEditDialog extends Dialog {
 			}
 		});
 
-		CoolItem coolItem = new CoolItem(coolBar, SWT.NONE);
-		coolItem.setControl(styleToolBar);
-
 		ToolItem linkItem = new ToolItem(styleToolBar, SWT.PUSH);
 		linkItem.setImage(iLink);
 		linkItem.setToolTipText(getResourceString("Link")); //$NON-NLS-1$
@@ -394,6 +395,8 @@ public class TextEditDialog extends Dialog {
 				setLink();
 			}
 		});
+		CoolItem coolItem = new CoolItem(coolBar, SWT.NONE);
+		coolItem.setControl(styleToolBar);
 
 		// Composite composite = new Composite(coolBar, SWT.NONE);
 		// GridLayout layout = new GridLayout(2, false);
@@ -421,6 +424,38 @@ public class TextEditDialog extends Dialog {
 		// coolItem = new CoolItem(coolBar, SWT.NONE);
 		// coolItem.setControl(composite);
 
+		ToolBar alignmentToolBar = new ToolBar(coolBar, SWT.FLAT);
+		leftAlignmentItem = new ToolItem(alignmentToolBar, SWT.RADIO);
+		leftAlignmentItem.setImage(iLeftAlignment);
+		leftAlignmentItem.setToolTipText(getResourceString("AlignLeft")); //$NON-NLS-1$
+		leftAlignmentItem.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
+				updateAlignmentStyle(SWT.LEFT);
+			}
+		});
+
+		centerAlignmentItem = new ToolItem(alignmentToolBar, SWT.RADIO);
+		centerAlignmentItem.setImage(iCenterAlignment);
+		centerAlignmentItem
+				.setToolTipText(getResourceString("Center_menuitem")); //$NON-NLS-1$
+		centerAlignmentItem.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
+				updateAlignmentStyle(SWT.CENTER);
+			}
+		});
+
+		rightAlignmentItem = new ToolItem(alignmentToolBar, SWT.RADIO);
+		rightAlignmentItem.setImage(iRightAlignment);
+		rightAlignmentItem.setToolTipText(getResourceString("AlignRight")); //$NON-NLS-1$
+		rightAlignmentItem.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
+				updateAlignmentStyle(SWT.RIGHT);
+			}
+		});
+
+		coolItem = new CoolItem(coolBar, SWT.NONE);
+		coolItem.setControl(alignmentToolBar);
+
 		CoolItem[] coolItems = coolBar.getItems();
 		for (int i = 0; i < coolItems.length; i++) {
 			CoolItem item = coolItems[i];
@@ -436,6 +471,20 @@ public class TextEditDialog extends Dialog {
 		// handleResize(event);
 		// }
 		// });
+
+	}
+
+	protected void updateAlignmentStyle(int style) {
+		// Point selection = styledText.getSelection();
+		// int lineStart = styledText.getLineAtOffset(selection.x);
+		// int lineEnd = styledText.getLineAtOffset(selection.y);
+		// styledText.setLineAlignment(lineStart, lineEnd - lineStart + 1,
+		// style);
+		// styledText.setAlignment(style);
+		alignmentStyle = style;
+		this.leftAlignmentItem.setSelection((SWT.LEFT & style) != 0);
+		this.centerAlignmentItem.setSelection((SWT.CENTER & style) != 0);
+		this.rightAlignmentItem.setSelection((SWT.RIGHT & style) != 0);
 	}
 
 	@Override
@@ -452,7 +501,8 @@ public class TextEditDialog extends Dialog {
 
 	private CoolBar coolBar;
 	private StyledText styledText;
-	private ToolItem boldControl, italicControl;
+	private ToolItem boldControl, italicControl, leftAlignmentItem,
+			centerAlignmentItem, rightAlignmentItem;
 	// private Combo fontNameControl, fontSizeControl;
 	private MenuItem underlineSingleItem, underlineDoubleItem,
 			underlineErrorItem, underlineSquiggleItem, borderSolidItem,
@@ -888,7 +938,7 @@ public class TextEditDialog extends Dialog {
 		// iBaselineDown = null;
 		// iBulletList.dispose();
 		// iBulletList = null;
-//		 iNumberedList.dispose();
+		// iNumberedList.dispose();
 		// iNumberedList = null;
 		// iLink.dispose();
 		// iLink = null;
@@ -1306,7 +1356,7 @@ public class TextEditDialog extends Dialog {
 		// index++;
 		// }
 
-		 disposeResource(textFont);
+		disposeResource(textFont);
 		textFont = font;
 	}
 
@@ -1345,6 +1395,7 @@ public class TextEditDialog extends Dialog {
 						.toString(styleRange.underlineColor.getRGB()));
 			sst.setUnderlineStyle(styleRange.underlineStyle);
 		}
+		sst.setAlignment(alignmentStyle);
 		return sst;
 	}
 

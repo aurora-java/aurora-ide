@@ -1,5 +1,9 @@
 package aurora.ide.meta.gef.util;
 
+import org.eclipse.draw2d.FigureUtilities;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -109,5 +113,23 @@ public class TextStyleUtil {
 				ts.foreground.dispose();
 			ts.foreground = null;
 		}
+	}
+
+	public static Point getTextAlignment(Rectangle rect, String text,
+			Font font, int alignmentStyle) {
+		Rectangle cr = rect.getCopy();
+		Dimension textExtents = FigureUtilities.getTextExtents(text, font);
+		int right = cr.x + cr.width - textExtents.width;
+		int left = cr.x + 2;
+		int center = cr.getCenter().x - textExtents.width / 2;
+		center = cr.width - textExtents.width <= 0 ? left : center;
+		int y = cr.height - textExtents.height;
+		y = y <= 0 ? cr.y : cr.y + y / 2;
+		int x = left;
+		if ((SWT.RIGHT & alignmentStyle) != 0)
+			x = right;
+		if ((SWT.CENTER & alignmentStyle) != 0)
+			x = center;
+		return new Point(x, y);
 	}
 }

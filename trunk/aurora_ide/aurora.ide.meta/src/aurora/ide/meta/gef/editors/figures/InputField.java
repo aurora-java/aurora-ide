@@ -9,6 +9,7 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Resource;
@@ -65,11 +66,11 @@ public class InputField extends Figure implements IResourceDispose {
 	protected void paintFigure(Graphics graphics) {
 		super.paintFigure(graphics);
 		String prompt = model.getPrompt() + " : ";
-		Rectangle textRectangle = getTextRectangle();
+		Rectangle textRectangle = getTextRectangle(ComponentProperties.prompt,
+				getLabelRectangle());
 		paintStyledText(graphics, prompt, ComponentProperties.prompt,
 				textRectangle);
-		// graphics.drawText(prompt, textRectangle.getLocation());
-		Rectangle inputRectangle = getInputRectangle(textRectangle);
+		Rectangle inputRectangle = getInputRectangle();
 		graphics.setForegroundColor(ColorConstants.EDITOR_BORDER);
 		graphics.drawRectangle(inputRectangle.getResized(-1, -1));
 
@@ -83,6 +84,7 @@ public class InputField extends Figure implements IResourceDispose {
 		graphics.setBackgroundColor(bgColor);
 		graphics.fillRectangle(r);
 
+		
 		String sd = model
 				.getStringPropertyValue(ComponentInnerProperties.INPUT_SIMPLE_DATA);
 		if (sd != null && "".equals(sd) == false) {
@@ -92,14 +94,14 @@ public class InputField extends Figure implements IResourceDispose {
 				paintStyledText(graphics, sd,
 						ComponentInnerProperties.INPUT_SIMPLE_DATA, r);
 			} else {
-				paintSimpleData(graphics, sd, r);
+				paintSimpleData(graphics,
+						ComponentInnerProperties.INPUT_SIMPLE_DATA, r);
 			}
 
 		} else {
 			paintEmptyText(graphics, model.getEmptyText(), r);
 		}
-		
-		
+
 		Image image = getImage();
 
 		if (image != null) {
@@ -137,15 +139,16 @@ public class InputField extends Figure implements IResourceDispose {
 		if (ComponentProperties.prompt.equals(property_id)) {
 			g.drawTextLayout(tl, copy.x, copy.y);
 		} else {
-			g.drawTextLayout(tl, p.x, p.y);
+			Rectangle textRectangle = this.getTextRectangle(property_id, r);
+			g.drawTextLayout(tl, textRectangle.x, textRectangle.y);
 		}
 		this.disposer.handleResource(property_id, tl);
 		g.popState();
 	}
 
-	protected Rectangle getInputRectangle(Rectangle textRectangle) {
+	protected Rectangle getInputRectangle() {
 		Rectangle inputRectangle = new Rectangle();
-		inputRectangle.x = textRectangle.getTopRight().x + 1;
+		inputRectangle.x = this.getBounds().x + this.getLabelWidth() + 1;
 		inputRectangle.y = getBounds().y + 1;
 		int j = getBounds().width - getLabelWidth() - 1;
 		inputRectangle.width = j <= 0 ? 0 : j;
@@ -153,40 +156,70 @@ public class InputField extends Figure implements IResourceDispose {
 		return inputRectangle;
 	}
 
-	private Rectangle getTextRectangle() {
-		String prompt = model.getPrompt() + " : ";
-		Dimension textExtents = FigureUtilities.getTextExtents(prompt,
-				getFont());
-		Rectangle textRectangle = new Rectangle();
-		int pWidth = this.getLabelWidth() - textExtents.width;
-		textRectangle.x = pWidth + getBounds().x;
-		int i = getBounds().height - textExtents.height;
-		textRectangle.y = i <= 0 ? getBounds().y : getBounds().y + i / 2;
-		textRectangle.setSize(textExtents);
-		return textRectangle;
+	protected Rectangle getTextRectangle(String property_id, Rectangle rect) {
+
+		// String prompt = model.getPrompt() + " : ";
+		// Dimension textExtents = FigureUtilities.getTextExtents(prompt,
+		// getFont());
+		// Rectangle textRectangle = new Rectangle();
+		// int pWidth = this.getLabelWidth() - textExtents.width;
+		// textRectangle.x = pWidth + getBounds().x;
+		// int i = getBounds().height - textExtents.height;
+		// textRectangle.y = i <= 0 ? getBounds().y : getBounds().y + i / 2;
+		// textRectangle.setSize(textExtents);
+		// return textRectangle;
+
+		String text = model.getStringPropertyValue(property_id);
+		if (ComponentProperties.prompt.equals(property_id)) {
+			text += " : ";
+		}
+		if (ComponentInnerProperties.INPUT_SIMPLE_DATA.equals(property_id)) {
+			rect = rect.getCopy().setWidth(rect.width-18);
+		}
+		Dimension textExtents = FigureUtilities.getTextExtents(text, getFont());
+		Point point = TextStyleUtil.getTextAlignment(rect, text, getFont(),
+				getAlignmentStyle(property_id));
+		return new Rectangle(point, textExtents);
+	}
+
+	protected Rectangle getLabelRectangle() {
+		Rectangle rect = getBounds().getCopy();
+		rect.setWidth(getLabelWidth());
+		return rect;
+	}
+
+	private int getAlignmentStyle(String property_id) {
+		Object obj = model.getPropertyValue(property_id
+				+ ComponentInnerProperties.TEXT_STYLE);
+		if (obj instanceof StyledStringText) {
+			return ((StyledStringText) obj).getAlignment();
+		}
+		return ComponentProperties.prompt.equals(property_id) ? SWT.RIGHT
+				: SWT.LEFT;
 	}
 
 	private void paintEmptyText(Graphics g, String emptyText, Rectangle r) {
 		g.pushState();
 		g.setForegroundColor(ColorConstants.EDITOR_BORDER);
 		g.setClip(r.getResized(-16, 0));
-		g.drawString(emptyText, calTextLocation(emptyText,r));
+		g.drawString(emptyText, calTextLocation(emptyText, r));
 		g.popState();
 	}
 
-	protected Point calTextLocation(String emptyText, Rectangle r){
+	protected Point calTextLocation(String emptyText, Rectangle r) {
 		Dimension dim = FigureUtilities.getTextExtents(emptyText, getFont());
-		if(TextArea.TEXT_AREA.equals(model.getComponentType())){
+		if (TextArea.TEXT_AREA.equals(model.getComponentType())) {
 			return new Point(r.x + 2, r.y + 2);
 		}
 		return new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
 	}
-	
-	protected void paintSimpleData(Graphics g, String text, Rectangle r) {
+
+	protected void paintSimpleData(Graphics g, String propertie_id, Rectangle r) {
 		g.pushState();
 		g.setForegroundColor(ColorConstants.BLACK);
 		g.setClip(r.getResized(-16, 0));
-		g.drawText(text, calTextLocation(text,r));
+		String text = model.getStringPropertyValue(propertie_id);
+		g.drawText(text, getTextRectangle(propertie_id, r).getTopLeft());
 		g.popState();
 	}
 
@@ -210,10 +243,10 @@ public class InputField extends Figure implements IResourceDispose {
 		return p;
 	}
 
-	public Rectangle getTextBounds() {
-		Rectangle textRectangle = getTextRectangle();
-		return textRectangle;
-	}
+	// public Rectangle getTextBounds() {
+	// Rectangle textRectangle = getTextRectangle(ComponentProperties.prompt);
+	// return textRectangle;
+	// }
 
 	private ResourceDisposer disposer = new ResourceDisposer();
 
@@ -221,9 +254,11 @@ public class InputField extends Figure implements IResourceDispose {
 		disposer.disposeResource();
 		disposer = null;
 	}
+
 	protected void handleResource(String id, Resource r) {
 		disposer.handleResource(id, r);
 	}
+
 	protected void disposeResource(String prop_id) {
 		disposer.disposeResource(prop_id);
 	}

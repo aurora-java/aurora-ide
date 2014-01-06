@@ -1,8 +1,6 @@
 package aurora.ide.meta.gef.editors.figures;
 
-import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
@@ -30,39 +28,44 @@ public class CheckBoxFigure extends InputField {
 	@Override
 	protected void paintFigure(Graphics g) {
 		String prompt = model.getPrompt() + " : ";
-		Dimension textExtents = FigureUtilities.getTextExtents(prompt,
-				getFont());
-		Rectangle textRectangle = new Rectangle();
-		int pWidth = this.getLabelWidth() - textExtents.width;
-		Rectangle bounds = getBounds();
-		textRectangle.x = pWidth + bounds.x;
-		int i = bounds.height - textExtents.height;
-		textRectangle.y = i <= 0 ? bounds.y : bounds.y + i / 2;
-
-		textRectangle.setSize(textExtents);
+//		Dimension textExtents = FigureUtilities.getTextExtents(prompt,
+//				getFont());
+//		Rectangle textRectangle = new Rectangle();
+//		int pWidth = this.getLabelWidth() - textExtents.width;
+//		Rectangle bounds = getBounds();
+//		textRectangle.x = pWidth + bounds.x;
+//		int i = bounds.height - textExtents.height;
+//		textRectangle.y = i <= 0 ? bounds.y : bounds.y + i / 2;
+//
+//		textRectangle.setSize(textExtents);
+		
+		Rectangle labelRectangle = getLabelRectangle();
 
 		// g.drawText(prompt, textRectangle.getLocation());
-		paintStyledText(g, prompt, ComponentProperties.prompt, textRectangle);
+		paintStyledText(g, prompt, ComponentProperties.prompt, getTextRectangle(ComponentProperties.prompt, labelRectangle));
 		// Image img = model.isSelected() ? img_checked : img_unchecked;
 		Image img = img_unchecked;
 		if (img != null) {
 			Point imgPos = new Point();
-			imgPos.x = textRectangle.getTopRight().x + 1;
+			imgPos.x = labelRectangle.getTopRight().x + 1;
 			imgPos.y = bounds.y + (bounds.height - img.getBounds().height) / 2;
 			g.drawImage(img, imgPos);
 		}
 		String text = model.getText();
 		if (text != null) {
-			textExtents = FigureUtilities.getTextExtents(text, getFont());
+			Rectangle inputRectangle = this.getInputRectangle();
+			Rectangle translated = inputRectangle.getTranslated(16, 0).setWidth(
+					inputRectangle.width - 18);;
+			Rectangle textRectangle = this.getTextRectangle(ComponentProperties.text, translated);
 
 			if (TextStyleUtil.isTextLayoutUseless(this.model,
 					ComponentProperties.text) == false) {
 				paintStyledText(g, text, ComponentProperties.text,
-						textRectangle.getTopRight().getTranslated(16, 0));
+						textRectangle.getTopLeft());
 			} else {
 				g.setForegroundColor(ColorConstants.BLACK);
 				g.drawText(text,
-						textRectangle.getTopRight().getTranslated(16, 0));
+						textRectangle.getTopLeft());
 			}
 
 		}
