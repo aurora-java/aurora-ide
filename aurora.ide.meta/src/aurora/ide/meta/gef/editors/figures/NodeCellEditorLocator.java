@@ -20,7 +20,6 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * CellEditorLocator for Activities.
- * @author Daniel Lee
  */
 public class NodeCellEditorLocator implements CellEditorLocator {
     private InputField nodeFigure;
@@ -37,10 +36,10 @@ public class NodeCellEditorLocator implements CellEditorLocator {
      * @see CellEditorLocator#relocate(org.eclipse.jface.viewers.CellEditor)
      */
     public void relocate(CellEditor celleditor) {
-        Text text = (Text) celleditor.getControl();
-        Point pref = text.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-        Rectangle rect = this.nodeFigure.getTextBounds();
-        text.setBounds(rect.x - 1, rect.y - 1, pref.x + 1, pref.y + 1);
+//        Text text = (Text) celleditor.getControl();
+//        Point pref = text.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+//        Rectangle rect = this.nodeFigure.getTextBounds();
+//        text.setBounds(rect.x - 1, rect.y - 1, pref.x + 1, pref.y + 1);
     }
 
 }

@@ -37,22 +37,7 @@ public class RadioItemFigure extends InputField {
 
 	@Override
 	protected void paintFigure(Graphics g) {
-		// String prompt = model.getPrompt() + " : ";
-		// Dimension textExtents = FigureUtilities.getTextExtents(prompt,
-		// getFont());
-		// Rectangle textRectangle = new Rectangle();
-		// int pWidth = this.getLabelWidth() - textExtents.width;
 		Rectangle bounds = getBounds();
-		// textRectangle.x = pWidth + bounds.x;
-		// int i = bounds.height - textExtents.height;
-		// textRectangle.y = i <= 0 ? bounds.y : bounds.y + i / 2;
-		//
-		// textRectangle.setSize(textExtents);
-
-		// g.drawText(prompt, textRectangle.getLocation());
-		// paintStyledText(g, prompt, ComponentProperties.prompt,
-		// textRectangle);
-		// Image img = model.isSelected() ? img_checked : img_unchecked;
 		Image img = img_unchecked;
 		if (img != null) {
 			Point imgPos = new Point();
@@ -60,18 +45,27 @@ public class RadioItemFigure extends InputField {
 			imgPos.y = bounds.y + (bounds.height - img.getBounds().height) / 2;
 			g.drawImage(img, imgPos);
 		}
+
+		Rectangle inputRectangle = this.getInputRectangle();
+		Rectangle translated = inputRectangle.getTranslated(18, 0).setWidth(
+				inputRectangle.width - 20);
+		Rectangle textRectangle = this.getTextRectangle(
+				ComponentProperties.text, translated);
+
 		String text = model.getText();
 		if (text != null) {
-			// Dimension textExtents = FigureUtilities.getTextExtents(text,
-			// getFont());
-
 			if (TextStyleUtil.isTextLayoutUseless(this.model,
 					ComponentProperties.text) == false) {
-				paintStyledText(g, text, ComponentProperties.text, bounds
-						.getTopLeft().getTranslated(18, 2));
+				paintStyledText(g, text, ComponentProperties.text,
+						textRectangle.getTopLeft()
+				// bounds
+				// .getTopLeft().getTranslated(18, 2)
+				);
 			} else {
 				g.setForegroundColor(ColorConstants.BLACK);
-				g.drawText(text, bounds.getTopLeft().getTranslated(18, 2));
+				g.drawText(text, textRectangle.getTopLeft()
+				// bounds.getTopLeft().getTranslated(18, 2)
+				);
 			}
 
 		}
@@ -82,10 +76,6 @@ public class RadioItemFigure extends InputField {
 		g.pushState();
 		this.disposeResource(property_id);
 		g.setForegroundColor(ColorConstants.BLACK);
-		// Dimension dim = FigureUtilities.getTextExtents(text, getFont());
-		// FigureUtilities.
-		// if (ComponentProperties.prompt.equals(property_id) == false)
-		// g.setClip(r.getResized(-16, 0));
 		TextLayout tl = new TextLayout(null);
 		tl.setText(text);
 		tl.setFont(getFont());
@@ -99,12 +89,6 @@ public class RadioItemFigure extends InputField {
 			ts = new TextStyle();
 		}
 		tl.setStyle(ts, 0, text.length() - 1);
-		// Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
-		// if (ComponentProperties.prompt.equals(property_id)) {
-		// g.drawTextLayout(tl, copy.x, copy.y);
-		// } else {
-		// g.drawTextLayout(tl, p.x, p.y);
-		// }
 		g.drawTextLayout(tl, p.x, p.y);
 		this.handleResource(property_id, tl);
 		g.popState();
