@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screenBody component_type="screenBody" class_name="aurora.plugin.source.gen.screen.model.ScreenBody" markid="5a4fdf11">
+    <containmentList propertye_id="component_children">
+        <vBox minColWidth="200" labelWidth="80" colspan="1" minRowHeight="20" width="1188" component_type="vBox" rowspan="1" class_name="aurora.plugin.source.gen.screen.model.VBox" markid="71cd427a" height="598">
+            <containmentList propertye_id="component_children">
+                <hBox minColWidth="50" labelWidth="80" colspan="1" minRowHeight="20" width="1150" component_type="hBox" rowspan="1" class_name="aurora.plugin.source.gen.screen.model.HBox" markid="566399ae" height="186"/>
+                <hBox minColWidth="50" labelWidth="80" colspan="1" minRowHeight="20" width="1150" component_type="hBox" rowspan="1" class_name="aurora.plugin.source.gen.screen.model.HBox" markid="4e94a28e" height="133">
+                    <containmentList propertye_id="component_children">
+                        <hBox minColWidth="50" labelWidth="80" colspan="1" minRowHeight="20" width="299" component_type="hBox" rowspan="1" class_name="aurora.plugin.source.gen.screen.model.HBox" markid="452e7234" height="40"/>
+                        <fieldSet minColWidth="200" labelWidth="80" colspan="1" minRowHeight="20" width="348" component_type="fieldSet" rowspan="1" class_name="aurora.plugin.source.gen.screen.model.FieldSet" container_section_type="SECTION_TYPE_QUERY" row="3" markid="4b90725e" title="登陆" height="110" column="2">
+                            <querydataset propertye_id="i_dataset_delegate" component_type="querydataset" class_name="aurora.plugin.source.gen.screen.model.Dataset" markid="7844a013"/>
+                            <containmentList propertye_id="component_children">
+                                <textField colspan="1" width="120" component_type="textField" rowspan="1" class_name="aurora.plugin.source.gen.screen.model.TextField" markid="61697d14" height="20" prompt="用户名">
+                                    <cdataNode propertye_id="input_simple_data"><![CDATA[ADMIN]]></cdataNode>
+                                    <datasetfield propertye_id="i_dataset_field_delegate" component_type="datasetfield" class_name="aurora.plugin.source.gen.screen.model.DatasetField" markid="5492de02" lovGridHeight="350" name="null" lovWidth="500" lovHeight="500">
+                                        <innerLovService propertye_id="inner_lov_service" component_type="innerLovService" class_name="aurora.plugin.source.gen.screen.model.LovService" markid="6b8efd7c"/>
+                                    </datasetfield>
+                                </textField>
+                                <button text="登陆" colspan="1" width="97" component_type="button" rowspan="3" class_name="aurora.plugin.source.gen.screen.model.Button" markid="199de181" height="76">
+                                    <inner_buttonclicker propertye_id="button_clicker" component_type="inner_buttonclicker" class_name="aurora.plugin.source.gen.screen.model.ButtonClicker" markid="70e8fdc9"/>
+                                </button>
+                                <textField colspan="1" width="120" component_type="textField" rowspan="1" class_name="aurora.plugin.source.gen.screen.model.TextField" markid="7371b246" height="20" prompt="密码">
+                                    <cdataNode propertye_id="input_simple_data"><![CDATA[…....]]></cdataNode>
+                                    <datasetfield propertye_id="i_dataset_field_delegate" component_type="datasetfield" class_name="aurora.plugin.source.gen.screen.model.DatasetField" markid="2d6f4ce0" lovGridHeight="350" name="null" lovWidth="500" lovHeight="500">
+                                        <innerLovService propertye_id="inner_lov_service" component_type="innerLovService" class_name="aurora.plugin.source.gen.screen.model.LovService" markid="78a40f0e"/>
+                                    </datasetfield>
+                                </textField>
+                                <comboBox colspan="1" width="120" component_type="comboBox" rowspan="1" class_name="aurora.plugin.source.gen.screen.model.Combox" markid="22b90a6e" height="20" prompt="语言">
+                                    <cdataNode propertye_id="input_simple_data"><![CDATA[简体中文]]></cdataNode>
+                                    <datasetfield propertye_id="i_dataset_field_delegate" component_type="datasetfield" class_name="aurora.plugin.source.gen.screen.model.DatasetField" markid="225bcd91" lovGridHeight="350" name="null" lovWidth="500" lovHeight="500">
+                                        <innerLovService propertye_id="inner_lov_service" component_type="innerLovService" class_name="aurora.plugin.source.gen.screen.model.LovService" markid="5ad89e02"/>
+                                    </datasetfield>
+                                    <demonstrate_data propertye_id="demonstrate_data" component_type="demonstrate_data" class_name="aurora.plugin.source.gen.screen.model.DemonstrateData" markid="642ddc4c">
+                                        <cdataNode propertye_id="demonstrate_data"><![CDATA[简体中文,English]]></cdataNode>
+                                    </demonstrate_data>
+                                </comboBox>
+                            </containmentList>
+                        </fieldSet>
+                    </containmentList>
+                </hBox>
+            </containmentList>
+        </vBox>
+    </containmentList>
+</screenBody>

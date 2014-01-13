@@ -120,7 +120,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 				.setToolTipText(Messages.ApplicationActionBarAdvisor_18);
 		register(this.showUIPNavViewer);
 
-		demonstrateAction = new DemonstrateAction();
+		demonstrateAction = new DemonstrateAction(window);
+		
 		register(demonstrateAction);
 
 		this.updateQuickUIAction = new UpdateQuickUIAction(window,
