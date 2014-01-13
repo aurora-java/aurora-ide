@@ -1,12 +1,12 @@
 package aurora.ide.prototype.consultant.demonstrate;
 
 import aurora.ide.meta.gef.editors.EditorMode;
-import aurora.ide.meta.gef.editors.wizard.dialog.SysLovDialog;
+import aurora.ide.meta.gef.editors.wizard.dialog.DemonstratingDialog;
 
 public class DemonstrateEditorMode extends EditorMode {
-	private SysLovDialog sysLovDialog;
+	private DemonstratingDialog sysLovDialog;
 
-	public DemonstrateEditorMode(SysLovDialog sysLovDialog) {
+	public DemonstrateEditorMode(DemonstratingDialog sysLovDialog) {
 		this.setSysLovDialog(sysLovDialog);
 	}
 
@@ -30,11 +30,11 @@ public class DemonstrateEditorMode extends EditorMode {
 		return false;
 	}
 
-	public SysLovDialog getSysLovDialog() {
+	public DemonstratingDialog getDemonstratingDialog() {
 		return sysLovDialog;
 	}
 
-	public void setSysLovDialog(SysLovDialog sysLovDialog) {
+	public void setSysLovDialog(DemonstratingDialog sysLovDialog) {
 		this.sysLovDialog = sysLovDialog;
 	}
 

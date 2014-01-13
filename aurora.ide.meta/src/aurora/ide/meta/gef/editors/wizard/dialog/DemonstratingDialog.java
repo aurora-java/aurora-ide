@@ -1,5 +1,8 @@
 package aurora.ide.meta.gef.editors.wizard.dialog;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.gef.EditPartFactory;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -10,6 +13,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 import aurora.ide.meta.gef.control.ConsultantDemonstratingComposite;
+import aurora.ide.meta.gef.editors.EditorMode;
+import aurora.ide.meta.gef.editors.parts.ExtSysLovAuroraPartFactory;
 import aurora.ide.prototype.consultant.demonstrate.LOVDemonstrating;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Combox;
@@ -22,12 +27,12 @@ import aurora.plugin.source.gen.screen.model.TextField;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
-public class SysLovDialog extends Dialog {
+public class DemonstratingDialog extends Dialog {
 
 	private LovDialogInput input;
 	private LOVDemonstrating demon;
 
-	public SysLovDialog(Shell parentShell, LOVDemonstrating demon) {
+	public DemonstratingDialog(Shell parentShell, LOVDemonstrating demon) {
 		super(parentShell);
 		this.demon = demon;
 	}
@@ -182,13 +187,21 @@ public class SysLovDialog extends Dialog {
 		return gridColumn;
 	}
 
-	public void setInput(LovDialogInput input) {
-		this.input = input;
+	public void setInput(Object input) {
+		this.input = (LovDialogInput) input;
 	}
 
 	public void applyValue(String value) {
 		demon.applyValue(value);
 		this.close();
+	}
+
+	public EditPartFactory getPartFactory(EditorMode editorMode) {
+		return new ExtSysLovAuroraPartFactory(editorMode);
+	}
+
+	public IPath getActiveFilePath() {
+		return new Path("");
 	}
 
 }

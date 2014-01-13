@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Shell;
 import aurora.ide.meta.gef.editors.models.commands.ChangePropertyCommand;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.wizard.dialog.LovDialogInput;
-import aurora.ide.meta.gef.editors.wizard.dialog.SysLovDialog;
+import aurora.ide.meta.gef.editors.wizard.dialog.DemonstratingDialog;
 import aurora.plugin.source.gen.screen.model.DemonstrateDS;
 import aurora.plugin.source.gen.screen.model.DemonstrateData;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
@@ -24,7 +24,7 @@ public class LOVDemonstrating {
 	}
 
 	public void demonstrating(Shell shell) {
-		SysLovDialog lov = new SysLovDialog(shell, this);
+		DemonstratingDialog lov = new DemonstratingDialog(shell, this);
 		lov.setInput(parseItems());
 		lov.open();
 	}

@@ -8,6 +8,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Resource;
 import org.eclipse.swt.graphics.TextLayout;
@@ -15,6 +16,7 @@ import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Display;
 
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
+import aurora.ide.meta.gef.editors.consultant.property.ConsultantPropertyFactory;
 import aurora.ide.meta.gef.util.TextStyleUtil;
 import aurora.plugin.source.gen.screen.model.CheckBox;
 import aurora.plugin.source.gen.screen.model.GridColumn;
@@ -120,10 +122,10 @@ public class GridColumnFigure extends Figure implements IResourceDispose {
 			if (obj instanceof StyledStringText
 					&& ((StyledStringText) obj).isUseless() == false) {
 				paintStyledText(graphics, sd, propId, new Rectangle(copy.x + 2,
-						i, copy.width, ROW_HEIGHT));
+						i, copy.width-6, ROW_HEIGHT));
 			} else {
 				this.paintSimpleData(graphics, sd, new Rectangle(copy.x + 2, i,
-						copy.width, ROW_HEIGHT));
+						copy.width-6, ROW_HEIGHT));
 			}
 			k++;
 		}
@@ -137,8 +139,8 @@ public class GridColumnFigure extends Figure implements IResourceDispose {
 		g.setForegroundColor(ColorConstants.BLACK);
 		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
 		// FigureUtilities.
-		if (ComponentProperties.prompt.equals(property_id) == false)
-			g.setClip(r.getResized(-16, 0));
+//		if (ComponentProperties.prompt.equals(property_id) == false)
+//			g.setClip(r.getResized(-16, 0));
 		TextLayout tl = new TextLayout(null);
 		tl.setText(text);
 		tl.setFont(getFont());
@@ -152,14 +154,33 @@ public class GridColumnFigure extends Figure implements IResourceDispose {
 			ts = new TextStyle();
 		}
 		tl.setStyle(ts, 0, text.length() - 1);
-		Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
+
+		Point point = TextStyleUtil.getTextAlignment(r, text, getFont(),
+				getAlignmentStyle(property_id));
+
+//		Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
 		if (ComponentProperties.prompt.equals(property_id)) {
 			g.drawTextLayout(tl, copy.x, copy.y);
 		} else {
-			g.drawTextLayout(tl, p.x, p.y);
+			g.drawTextLayout(tl, point.x, point.y);
 		}
 		handleResource(property_id, tl);
 		g.popState();
+	}
+
+	private int getAlignmentStyle(String property_id) {
+		String align = gridColumn
+				.getStringPropertyValue(ComponentInnerProperties.GRID_COLUMN_ALIGNMENT);
+		if (ConsultantPropertyFactory.aligns[0].equals(align)) {
+			return SWT.LEFT;
+		}
+		if (ConsultantPropertyFactory.aligns[1].equals(align)) {
+			return SWT.CENTER;
+		}
+		if (ConsultantPropertyFactory.aligns[2].equals(align)) {
+			return SWT.RIGHT;
+		}
+		return SWT.LEFT;
 	}
 
 	protected void paintSimpleData(Graphics g, String text, Rectangle r) {
@@ -168,9 +189,11 @@ public class GridColumnFigure extends Figure implements IResourceDispose {
 		g.pushState();
 		g.setForegroundColor(ColorConstants.BLACK);
 		Dimension dim = FigureUtilities.getTextExtents(text, getFont());
-		g.setClip(r.getResized(-16, 0));
-		Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
-		g.drawText(text, p);
+//		g.setClip(r.getResized(-16, 0));
+		Point point = TextStyleUtil.getTextAlignment(r, text, getFont(),
+				getAlignmentStyle(""));
+		// Point p = new Point(r.x + 2, r.y + (r.height - dim.height) / 2);
+		g.drawText(text, point);
 		g.popState();
 	}
 

@@ -17,6 +17,7 @@ import aurora.ide.editor.editorInput.PathEditorInput;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
+import aurora.ide.meta.gef.editors.wizard.dialog.DemonstratingDialog;
 import aurora.plugin.source.gen.screen.model.DemonstrateData;
 
 public class ButtonDemonstrating {
@@ -69,13 +70,21 @@ public class ButtonDemonstrating {
 	}
 
 	private IPath getActiveEditorFile() {
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		IEditorInput editorInput = workbench.getActiveWorkbenchWindow()
-				.getActivePage().getActiveEditor().getEditorInput();
-		if (editorInput instanceof PathEditorInput) {
-			return ((PathEditorInput) editorInput).getPath();
-		}
 
+
+		EditorMode editorMode = this.part.getEditorMode();
+		if(editorMode instanceof DemonstrateEditorMode){
+			DemonstratingDialog demonstratingDialog = ((DemonstrateEditorMode) editorMode).getDemonstratingDialog();
+			return demonstratingDialog.getActiveFilePath();
+		}
+		else{
+			IWorkbench workbench = PlatformUI.getWorkbench();
+			IEditorInput editorInput = workbench.getActiveWorkbenchWindow()
+					.getActivePage().getActiveEditor().getEditorInput();
+			if (editorInput instanceof PathEditorInput) {
+				return ((PathEditorInput) editorInput).getPath();
+			}
+		}
 		return null;
 	}
 

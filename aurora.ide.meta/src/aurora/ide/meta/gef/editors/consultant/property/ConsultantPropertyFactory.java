@@ -4,7 +4,6 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import aurora.ide.meta.gef.editors.property.BooleanPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.ComboPropertyDescriptor;
-import aurora.ide.meta.gef.editors.property.ContainerHolderEditDialog;
 import aurora.ide.meta.gef.editors.property.DialogPropertyDescriptor;
 import aurora.ide.meta.gef.editors.property.IconSelectionDialog;
 import aurora.ide.meta.gef.editors.property.IntegerPropertyDescriptor;
@@ -14,7 +13,6 @@ import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.CheckBox;
 import aurora.plugin.source.gen.screen.model.Input;
-import aurora.plugin.source.gen.screen.model.QueryForm;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
 
@@ -148,7 +146,7 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	}
 
 	private static final IPropertyDescriptor PD_ICON_SELECTION = new DialogPropertyDescriptor(
-			ComponentInnerProperties.ICON_BYTES_DATA_DEO, "ICON",
+			ComponentInnerProperties.ICON_BYTES_DATA_DEO, Messages.ConsultantPropertyFactory_5,
 			IconSelectionDialog.class);
 
 	private IPropertyDescriptor[] toolbar_button(AuroraComponent component) {
@@ -173,7 +171,7 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	private IPropertyDescriptor[] gridcolumn() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH,
 				PD_COLUMN_EDITOR, PD_READONLY, PD_REQUIRED,
-				PD_GRID_COLUMN_SORTABLE };
+				PD_GRID_COLUMN_SORTABLE ,PD_COLUMN_ALIGNMENT};
 
 	}
 
@@ -302,7 +300,13 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 			minColWidth, Messages.ConsultantPropertyFactory_3);
 	protected static final IPropertyDescriptor PD_GRID_COLUMN_SORTABLE = new BooleanPropertyDescriptor(
 			GRID_COLUMN_SORTABLE, Messages.ConsultantPropertyFactory_4);
-
+	
+	public static final String[] aligns = { "left","center","right"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	private static final ComboPropertyDescriptor PD_COLUMN_ALIGNMENT = new ComboPropertyDescriptor(
+			GRID_COLUMN_ALIGNMENT, Messages.ConsultantPropertyFactory_12, aligns); //$NON-NLS-1$
+	
+	
+	
 	private IPropertyDescriptor[] screenbody() {
 		return NONE_PROPS;
 	}
