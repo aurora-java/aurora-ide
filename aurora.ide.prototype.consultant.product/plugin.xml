@@ -137,6 +137,15 @@
             contributorClass="aurora.ide.meta.gef.editors.ConsultantVScreenEditorContributor" 
             name="Aurora UI Designer">
       </editor>
+       <editor
+            class="aurora.ide.prototype.consultant.editor.FSDEditor"
+            default="false"
+            extensions="uip"
+            icon="icons/meta.png"
+            id="aurora.ide.prototype.consultant.editor.FSDEditor"
+            contributorClass="aurora.ide.prototype.consultant.editor.FSDEditorContributor" 
+            name="FSD Editor">
+      </editor>
 	</extension>
     
    

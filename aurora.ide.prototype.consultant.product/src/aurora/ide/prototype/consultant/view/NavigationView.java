@@ -54,6 +54,7 @@ import aurora.ide.editor.editorInput.PathEditorInput;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.helpers.FileExplorer;
 import aurora.ide.meta.gef.editors.ConsultantVScreenEditor;
+import aurora.ide.prototype.consultant.editor.FSDEditor;
 import aurora.ide.prototype.consultant.product.Activator;
 import aurora.ide.prototype.consultant.product.ICommandIds;
 import aurora.ide.prototype.consultant.view.action.CollapseAllAction;
@@ -250,6 +251,36 @@ public class NavigationView extends ViewPart {
 
 	private void fillContextMenu(IMenuManager menu) {
 		// menu.add(new Separator("AAA"));
+
+		Node node = getSelectionNode();
+		if (node.getFile().isFile()) {
+			menu.add(new Action("FSD编辑器") {
+				public void run() {
+					Node node = getSelectionNode();
+					File file = node.getFile();
+					IEditorInput input = createEditorInput(file);
+					IWorkbenchPage page = getViewSite().getWorkbenchWindow()
+							.getActivePage();
+					try {
+						page.openEditor(input, FSDEditor.EDITOR_ID);
+					} catch (PartInitException e) {
+					}
+
+				}
+			});
+		}
+
+		Node selectionNode = this.getSelectionNode();
+		if (ResourceUtil.isProject(selectionNode.getFile())) {
+			menu.add(new ProjectExportFSDAction(this, "导出FSD"));
+		}
+		if (ResourceUtil.isModule(selectionNode.getFile())) {
+			menu.add(new ProjectExportFSDAction(this, "导出FSD"));
+		}
+		if (ResourceUtil.isFunction(selectionNode.getFile())) {
+			menu.add(new FunctionExportFSDAction(this, "导出FSD"));
+		}
+
 		if (getSelectionNode() != null)
 			menu.add(new Action(Messages.NavigationView_4) {
 
@@ -269,23 +300,8 @@ public class NavigationView extends ViewPart {
 
 			});
 
-		Node selectionNode = this.getSelectionNode();
-		if (ResourceUtil.isProject(selectionNode.getFile())) {
-			menu.add(new ProjectExportFSDAction(this, "导出FSD"));
-		}
-		if (ResourceUtil.isModule(selectionNode.getFile())) {
-			menu.add(new ProjectExportFSDAction(this, "导出FSD"));
-		}
-		if (ResourceUtil.isFunction(selectionNode.getFile())) {
-			menu.add(new FunctionExportFSDAction(this, "导出FSD"));
-		}
 		menu.add(new Action("属性") {
 			public void run() {
-				// PropertyDialog.createDialogOn(shell, propertyPageId, element)
-				// org.eclipse.ui.file.properties
-				// PropertyDialogAction pda = new
-				// PropertyDialogAction(getViewSite(),getViewer());
-				// pda.createDialog();
 				IHandlerService hs = (IHandlerService) PlatformUI
 						.getWorkbench().getAdapter(IHandlerService.class);
 				try {
