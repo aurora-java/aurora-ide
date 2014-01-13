@@ -6,9 +6,11 @@ public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "aurora.ide.meta.gef.editors.consultant.property.messages"; //$NON-NLS-1$
 	public static String ConsultantPropertyFactory_0;
 	public static String ConsultantPropertyFactory_1;
+	public static String ConsultantPropertyFactory_12;
 	public static String ConsultantPropertyFactory_2;
 	public static String ConsultantPropertyFactory_3;
 	public static String ConsultantPropertyFactory_4;
+	public static String ConsultantPropertyFactory_5;
 	public static String ConsultantPropertyFactory_6;
 	public static String ConsultantPropertyFactory_7;
 	public static String ConsultantPropertyFactory_Column;

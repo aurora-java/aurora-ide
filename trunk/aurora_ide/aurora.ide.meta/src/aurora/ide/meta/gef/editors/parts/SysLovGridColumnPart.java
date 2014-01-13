@@ -81,7 +81,7 @@ public class SysLovGridColumnPart extends ContainerPart {
 			String value = this.getModel().getStringPropertyValue(
 					ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA + idx);
 			if (this.getEditorMode() instanceof DemonstrateEditorMode) {
-				((DemonstrateEditorMode) getEditorMode()).getSysLovDialog()
+				((DemonstrateEditorMode) getEditorMode()).getDemonstratingDialog()
 						.applyValue(value);
 			}
 			// if (idx == 0) {
