@@ -1,5 +1,6 @@
 package aurora.ide.prototype.consultant.product.demonstrate;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -27,16 +28,16 @@ import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 
 public class DemonstratingLoginPageDialog extends DemonstratingDialog {
 
-private DemonstrateAction demonstrateAction;
-	
-	
-	public DemonstratingLoginPageDialog(Shell parentShell) {
-		super(parentShell,null);
+	private DemonstrateAction demonstrateAction;
+
+	public DemonstratingLoginPageDialog(Shell parentShell, File project) {
+		super(parentShell, null);
+		this.setProject(project);
 	}
 
 	protected Point getInitialSize() {
 		Rectangle bounds = Display.getCurrent().getBounds();
-		return new Point(bounds.width,bounds.height);
+		return new Point(bounds.width, bounds.height);
 	}
 
 	@Override
@@ -49,14 +50,15 @@ private DemonstrateAction demonstrateAction;
 	protected Control createButtonBar(Composite parent) {
 		return super.createButtonBar(parent);
 	}
+
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		// super.createButtonsForButtonBar(parent);
 	}
-	
+
 	public boolean close() {
 		boolean close = super.close();
-		if(demonstrateAction!=null){
+		if (demonstrateAction != null) {
 			demonstrateAction.updateStatus();
 		}
 		return close;
@@ -65,6 +67,7 @@ private DemonstrateAction demonstrateAction;
 	protected boolean isResizable() {
 		return true;
 	}
+
 	@Override
 	protected Control createContents(Composite parent) {
 		return super.createContents(parent);
@@ -94,6 +97,7 @@ private DemonstrateAction demonstrateAction;
 		applyDialogFont(composite);
 		return composite;
 	}
+
 	public void setInput(Object input) {
 	}
 
@@ -101,15 +105,15 @@ private DemonstrateAction demonstrateAction;
 
 		InputStream is = null;
 		try {
-			is = DemonstratingLoginPageDialog.class.getResourceAsStream("login.uip");
+			is = DemonstratingLoginPageDialog.class
+					.getResourceAsStream("login.uip");
 			CompositeLoader parser = new CompositeLoader();
 			CompositeMap loadFile = parser.loadFromStream(is);
-			
 
 			if (loadFile != null) {
 				CompositeMap2Object c2o = new CompositeMap2Object();
-				return  c2o.createScreenBody(loadFile);
-			} 
+				return c2o.createScreenBody(loadFile);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -124,11 +128,12 @@ private DemonstrateAction demonstrateAction;
 		return new ScreenBody();
 
 	}
+
 	public void applyValue(String value) {
-//		demon.applyValue(value);
+		// demon.applyValue(value);
 		this.close();
 	}
-	
+
 	public EditPartFactory getPartFactory(EditorMode editorMode) {
 		return new LoginPagePartFactory(editorMode);
 	}

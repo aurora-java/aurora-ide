@@ -6,7 +6,6 @@ import org.eclipse.gef.EditPartFactory;
 import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
-import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
@@ -21,7 +20,7 @@ public class LoginPagePartFactory implements EditPartFactory {
 
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof ScreenBody) {
-			EditPart part = new ViewDiagramPart();
+			EditPart part = new LoginDiagramPart();
 			part.setParent(context);
 			part.setModel(model);
 			if (part instanceof ComponentPart) {

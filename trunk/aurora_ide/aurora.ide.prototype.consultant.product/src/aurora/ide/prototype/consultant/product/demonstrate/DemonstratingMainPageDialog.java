@@ -1,7 +1,9 @@
 package aurora.ide.prototype.consultant.product.demonstrate;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -26,10 +28,15 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
+import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.meta.gef.control.ConsultantDemonstratingComposite;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.wizard.dialog.DemonstratingDialog;
+import aurora.ide.prototype.consultant.view.Node;
+import aurora.ide.prototype.consultant.view.property.page.ProjectDemonstratePropertyPage;
+import aurora.ide.prototype.consultant.view.property.page.ProjectDemonstratePropertyPage.F;
+import aurora.ide.swt.util.PageModel;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 
@@ -38,6 +45,7 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 	private DemonstratingDialog demonstratingDialog;
 	private Shell parentShell;
 	private ConsultantDemonstratingComposite vsEditor;
+	private PageModel model;
 
 	public DemonstratingMainPageDialog(Shell parentShell) {
 		super(parentShell, null);
@@ -75,6 +83,7 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 	}
 
 	protected Control createDialogArea(Composite parent) {
+		loadModel();
 		Composite container = (Composite) innerCreateDialogArea(parent);
 		container.setLayout(new GridLayout());
 		ToolBar textToolBar = new ToolBar (container, SWT.HORIZONTAL|SWT.FLAT|SWT.WRAP|SWT.BORDER);
@@ -83,14 +92,35 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 		
 		vsEditor = new ConsultantDemonstratingComposite(
 				this);
-		vsEditor.setInput(loadXML("login.uip"));
+		vsEditor.setInput(loadXML( getWelcomUip()));
 		vsEditor.createPartControl(container);
 		vsEditor.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
 		vsEditor.setFocus();
 		return container;
 	}
 
+	private void loadModel() {
+		ProjectDemonstratePropertyPage ppd = new ProjectDemonstratePropertyPage();
+		ppd.setElement(new Node(this.getProject()));
+		this.model = ppd.getModel();
+	}
+	private File getWelcomUip(){
+		String pp = model.getStringPropertyValue(ProjectDemonstratePropertyPage.WELCOME_UIP);
+		IPath afp = new Path(this.getProject().getPath());
+		IPath p = new Path(pp);
+		File file = afp.append(p).toFile();
+		return file;
+	}
+
 	protected void createFunctionMenu(ToolBar textToolBar) {
+		
+		List<ProjectDemonstratePropertyPage.F> functions = (List<ProjectDemonstratePropertyPage.F> )model.getPropertyValue(ProjectDemonstratePropertyPage.FUNCTIONS);
+		if(functions == null)
+			return;
+		for (F f : functions) {
+//			f.functionPath
+//			f.functions
+		}
 		ToolItem item = new ToolItem (textToolBar, SWT.DROP_DOWN);
 		item.setText ("Drop_Down");
 		item.setToolTipText("SWT.DROP_DOWN");
@@ -130,15 +160,11 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 	public void setInput(Object input) {
 	}
 
-	private static ScreenBody loadXML(String name) {
+	private static ScreenBody loadXML(File file) {
 
 		InputStream is = null;
 		try {
-			is = DemonstratingMainPageDialog.class
-					.getResourceAsStream(name);
-			CompositeLoader parser = new CompositeLoader();
-			CompositeMap loadFile = parser.loadFromStream(is);
-
+			CompositeMap loadFile = CompositeMapUtil.loadFile(file);
 			if (loadFile != null) {
 				CompositeMap2Object c2o = new CompositeMap2Object();
 				return c2o.createScreenBody(loadFile);
@@ -198,7 +224,7 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 						menuItem.setText(text);
 						menuItem.addSelectionListener(new SelectionAdapter(){
 							public void widgetSelected(SelectionEvent event) {
-								vsEditor.setInput(loadXML("CARGO.uip"));
+//								vsEditor.setInput(loadXML("CARGO.uip"));
 							}
 						});
 						
@@ -228,4 +254,5 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 			} 
 		}
 	}
+	
 }
