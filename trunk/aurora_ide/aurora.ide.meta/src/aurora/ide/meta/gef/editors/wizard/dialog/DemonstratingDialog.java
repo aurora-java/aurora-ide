@@ -1,5 +1,7 @@
 package aurora.ide.meta.gef.editors.wizard.dialog;
 
+import java.io.File;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.EditPartFactory;
@@ -31,6 +33,7 @@ public class DemonstratingDialog extends Dialog {
 
 	private LovDialogInput input;
 	private LOVDemonstrating demon;
+	private File project;
 
 	public DemonstratingDialog(Shell parentShell, LOVDemonstrating demon) {
 		super(parentShell);
@@ -202,6 +205,13 @@ public class DemonstratingDialog extends Dialog {
 
 	public IPath getActiveFilePath() {
 		return new Path("");
+	}
+	public File getProject() {
+		return project;
+	}
+
+	public void setProject(File project) {
+		this.project = project;
 	}
 
 }
