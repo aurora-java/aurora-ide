@@ -12,6 +12,7 @@ import uncertain.composite.XMLOutputter;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.prototype.consultant.product.fsd.wizard.FSDContentControl;
 import aurora.ide.prototype.consultant.view.Node;
+import aurora.ide.prototype.consultant.view.property.page.ProjectDemonstratePropertyPage;
 import aurora.ide.prototype.consultant.view.wizard.CreateFunctionWizard;
 import aurora.ide.prototype.consultant.view.wizard.CreateModuleWizard;
 import aurora.ide.prototype.consultant.view.wizard.CreateProjectWizard;
@@ -41,6 +42,15 @@ public class ResourceUtil {
 		return loadFile;
 	}
 
+	public static CompositeMap loadDemonProperties(File file) {
+		File p = new File(file,
+				ProjectDemonstratePropertyPage.DEMONSTRATE_SETTING);
+		if (p.exists() == false)
+			return null;
+		CompositeMap loadFile = CompositeMapUtil.loadFile(p);
+		return loadFile;
+	}
+
 	public static CompositeMap loadFunctionProperties(File file) {
 		File p = new File(file, CreateFunctionWizard.QUICK_UI_FUNCTION);
 		if (p.exists() == false)
@@ -48,6 +58,7 @@ public class ResourceUtil {
 		CompositeMap loadFile = CompositeMapUtil.loadFile(p);
 		return loadFile;
 	}
+
 	public static File getProject(File file) {
 		if (isProject(file)) {
 			return file;
@@ -96,10 +107,10 @@ public class ResourceUtil {
 			return null;
 		CompositeMap loadFile = CompositeMapUtil.loadFile(p);
 		return loadFile;
-	
+
 	}
-	
-	public static  void copyProjectProperties(File file, CompositeMap pp) {
+
+	public static void copyProjectProperties(File file, CompositeMap pp) {
 		File project = ResourceUtil.getProject(file);
 		CompositeMap projectProperties = ResourceUtil
 				.loadProjectProperties(project);
@@ -132,12 +143,14 @@ public class ResourceUtil {
 		File file = selectionNode.getFile();
 		if (isProject(file)) {
 			return selectionNode;
-		} else if (selectionNode.getParent().getFile().exists()) {
-			return getProjectNode(selectionNode.getParent());
 		} else {
-			return selectionNode;
+			File file2 = selectionNode.getParent().getFile();
+			if (file2 != null && file2.exists()) {
+				return getProjectNode(selectionNode.getParent());
+			} else {
+				return selectionNode;
+			}
 		}
-	
 	}
 
 }

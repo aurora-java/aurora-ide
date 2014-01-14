@@ -34,7 +34,13 @@ public class Node extends PlatformObject {
 		this.setPath(path);
 	}
 
+	public Node(File file) {
+		this(new Path(file.getPath()));
+	}
+
 	public File getFile() {
+		if(path == null)
+			return null;
 		return path.toFile();
 	}
 

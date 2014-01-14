@@ -25,9 +25,8 @@ public class LoginButtonPart extends ButtonPart {
 		if (this.getEditorMode() instanceof DemonstrateEditorMode) {
 			DemonstratingDialog demonstratingDialog = ((DemonstrateEditorMode) getEditorMode()).getDemonstratingDialog();
 			dd.setLoginPage(demonstratingDialog); 
+			dd.setProject(demonstratingDialog.getProject());
 		}
-		
-		
 		dd.open();
 	}
 }

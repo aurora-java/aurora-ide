@@ -121,6 +121,7 @@ public class NavigationView extends ViewPart {
 		initContextMenu();
 		initListeners(viewer);
 		configration();
+		this.getSite().setSelectionProvider(viewer);
 
 	}
 
