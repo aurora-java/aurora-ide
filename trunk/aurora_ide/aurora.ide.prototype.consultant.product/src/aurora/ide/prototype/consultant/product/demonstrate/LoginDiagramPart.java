@@ -37,6 +37,7 @@ public class LoginDiagramPart extends ViewDiagramPart {
 				if (image != null) {
 					ImageFigure imageFigure = new ImageFigure();
 					imageFigure.setImage(image);
+					imageFigure.setSize(this.getSize());
 					imageFigure.setOpaque(true);
 					imageFigure.paint(graphics);
 				}
@@ -55,19 +56,24 @@ public class LoginDiagramPart extends ViewDiagramPart {
 			DemonstratingDialog demonstratingDialog = ((DemonstrateEditorMode) editorMode)
 					.getDemonstratingDialog();
 			File project = demonstratingDialog.getProject();
-			CompositeMap loadDemonProperties = ResourceUtil.loadDemonProperties(project);
+			CompositeMap loadDemonProperties = ResourceUtil
+					.loadDemonProperties(project);
 
-			CompositeMap child = loadDemonProperties.getChild(ProjectDemonstratePropertyPage.LOGIN_IMG);
-			if(child !=null){
-				byte[] iconByteData = AuroraImagesUtils.toBytes(child.getText());
+			CompositeMap child = loadDemonProperties
+					.getChild(ProjectDemonstratePropertyPage.LOGIN_IMG);
+			if (child != null && child.getText() != null
+					&& "".equals(child.getText()) == false) {
+				byte[] iconByteData = AuroraImagesUtils
+						.toBytes(child.getText());
 				if (iconByteData != null) {
 					ImageData idd = AuroraImagesUtils.toImageData(iconByteData);
-					ImageDescriptor id = ImageDescriptor.createFromImageData(idd);
+					ImageDescriptor id = ImageDescriptor
+							.createFromImageData(idd);
 					Image image = id.createImage();
 					return image;
 				}
 			}
-		
+
 		}
 		return null;
 	}

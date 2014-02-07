@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
@@ -57,7 +58,7 @@ public class ProjectFSDPropertyPage extends AbstractFSDPropertyPage {
 	}
 
 	protected void createContentControl(Composite c2) {
-		new FSDContentControl(this.getModel()) {
+		new FSDContentControl(this.getModel(),getBasePath()) {
 			protected void createTableColumn(Table table) {
 				TableColumn column1 = new TableColumn(table, SWT.LEFT);
 				column1.setWidth(128);
@@ -93,22 +94,23 @@ public class ProjectFSDPropertyPage extends AbstractFSDPropertyPage {
 					}
 				};
 			}
+			
 
 			protected void clickAddButton(Shell shell, final TableViewer tv) {
 
 				FunctionSelectionDialog fsd = new FunctionSelectionDialog();
 				String path = fsd.openFolderSelectionDialog("选择FSD Function",
 						shell, getElement());
-
-				// FileDialog dialog = new FileDialog(shell, SWT.OPEN);
-				//				dialog.setText("Open File"); //$NON-NLS-1$
-				//				dialog.setFilterExtensions(new String[] { "*.uip" }); //$NON-NLS-1$
-				// String path = dialog.open();
 				if (path != null && path.length() > 0) {
 					getTableInput().add(path);
 				}
 				tv.setInput(getTableInput());
 			}
 		}.createFSDContentControl(c2);
+	}
+	
+	protected IPath getBasePath(){
+		Node element = (Node) getElement();
+		return element.getPath();
 	}
 }

@@ -21,16 +21,19 @@ public class FunctionFSDContentPage extends UWizardPage {
 			FSDContentControl.FSD_DOCX_PATH, FSDContentControl.FSD_TABLE_INPUT,
 			FSDContentControl.ONLY_SAVE_LOGIC };
 	private Node projectNode;
+	private Node selectionNode;
 
 	protected FunctionFSDContentPage(String pageName, String title,
-			ImageDescriptor titleImage, Node projectNode, CompositeMap input) {
+			ImageDescriptor titleImage,Node selectionNode, Node projectNode, CompositeMap input) {
 		super(pageName);
 		this.setTitle(title);
 		this.setImageDescriptor(titleImage);
 		this.setMessage(Messages.ContentDescPage_2);
 		this.projectNode = projectNode;
-		new FSDContentControl(this.getModel()).loadFromMap(input);
+		this.selectionNode = selectionNode;
+		new FSDContentControl(this.getModel(),selectionNode.getPath()).loadFromMap(input);
 	}
+
 
 	@Override
 	protected String[] getModelPropertyKeys() {
@@ -52,7 +55,7 @@ public class FunctionFSDContentPage extends UWizardPage {
 		Composite c2 = new Composite(control, SWT.NONE);
 		c2.setLayoutData(new GridData(GridData.FILL_BOTH));
 		c2.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
-		new FSDContentControl(this.getModel()) {
+		new FSDContentControl(this.getModel(),this.selectionNode.getPath()) {
 			protected void clickAddButton(Shell shell, final TableViewer tv) {
 				FunctionSelectionDialog fsd = new FunctionSelectionDialog();
 				String path = fsd.openUIPSelectionDialog("选择UIP", shell,
@@ -70,6 +73,6 @@ public class FunctionFSDContentPage extends UWizardPage {
 		return projectNode;
 	}
 	protected void saveTOMap(CompositeMap map) {
-		new FSDContentControl(this.getModel()).saveToMap(map);
+		new FSDContentControl(this.getModel(),selectionNode.getPath()).saveToMap(map);
 	}
 }

@@ -42,7 +42,7 @@ public class FunctionExportFSDWizard extends UWizard {
 		page1 = new FunctionFSDDescPage(
 				"ProjectFSDDescPage", Messages.ExportWizard_1, null, loadProperties); //$NON-NLS-1$
 		page2 = new FunctionFSDContentPage(
-				"ProjectFSDContentPage", Messages.ExportWizard_3, null, projectNode, loadProperties); //$NON-NLS-1$
+				"ProjectFSDContentPage", Messages.ExportWizard_3, null,selectionNode, projectNode, loadProperties); //$NON-NLS-1$
 		addPage(page1);
 		addPage(page2);
 	}

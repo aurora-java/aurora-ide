@@ -29,15 +29,17 @@ public class ProjectFSDContentPage extends UWizardPage {
 			FSDContentControl.FSD_DOCX_PATH, FSDContentControl.FSD_TABLE_INPUT,
 			FSDContentControl.ONLY_SAVE_LOGIC };
 	private Node projectNode;
+	private Node selectionNode;
 
 	protected ProjectFSDContentPage(String pageName, String title,
-			ImageDescriptor titleImage, Node projectNode, CompositeMap input) {
+			ImageDescriptor titleImage, Node selectionNode,Node projectNode, CompositeMap input) {
 		super(pageName);
 		this.setTitle(title);
 		this.setImageDescriptor(titleImage);
 		this.setMessage(Messages.ContentDescPage_2);
 		this.projectNode = projectNode;
-		new FSDContentControl(this.getModel()).loadFromMap(input);
+		this.selectionNode = selectionNode;
+		new FSDContentControl(this.getModel(),selectionNode.getPath()).loadFromMap(input);
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public class ProjectFSDContentPage extends UWizardPage {
 		Composite c2 = new Composite(control, SWT.NONE);
 		c2.setLayoutData(new GridData(GridData.FILL_BOTH));
 		c2.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
-		new FSDContentControl(this.getModel()) {
+		new FSDContentControl(this.getModel(),selectionNode.getPath()) {
 			protected void createTableColumn(Table table) {
 				TableColumn column1 = new TableColumn(table, SWT.LEFT);
 				column1.setWidth(128);
@@ -114,6 +116,6 @@ public class ProjectFSDContentPage extends UWizardPage {
 		return projectNode;
 	}
 	protected void saveTOMap(CompositeMap map) {
-		new FSDContentControl(this.getModel()).saveToMap(map);
+		new FSDContentControl(this.getModel(),selectionNode.getPath()).saveToMap(map);
 	}
 }

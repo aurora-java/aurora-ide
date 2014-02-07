@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.prototype.consultant.view.Node;
@@ -25,5 +26,11 @@ public class FunctionFSDPropertyPage extends AbstractFSDPropertyPage {
 			ResourceUtil.createFile(file,
 					CreateFunctionWizard.QUICK_UI_FUNCTION, map);
 		}
+	}
+
+	@Override
+	protected IPath getBasePath() {
+		Node element = (Node) getElement();
+		return element.getPath();
 	}
 }

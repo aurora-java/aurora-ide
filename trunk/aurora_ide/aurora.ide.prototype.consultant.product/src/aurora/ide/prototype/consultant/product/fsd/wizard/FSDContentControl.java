@@ -3,6 +3,7 @@ package aurora.ide.prototype.consultant.product.fsd.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -20,6 +21,7 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import uncertain.composite.CompositeMap;
 import aurora.ide.prototype.consultant.product.fsd.FunctionDesc;
+import aurora.ide.prototype.consultant.view.Node;
 import aurora.ide.swt.util.GridLayoutUtil;
 import aurora.ide.swt.util.PageModel;
 import aurora.ide.swt.util.TableContentProvider;
@@ -32,9 +34,11 @@ public class FSDContentControl extends FSDComposite {
 	public static final String FSD_TABLE_INPUT = "fsd_table_input";
 	public static final String ONLY_SAVE_LOGIC = "only_save_logic";
 	public static final String FSD_DOCX_PATH = "fsd_docx_path";
+	private IPath base;
 
-	public FSDContentControl(PageModel model) {
+	public FSDContentControl(PageModel model, IPath base) {
 		super(model);
+		this.base = base;
 	}
 
 	public void createFSDContentControl(final Composite root) {
@@ -232,29 +236,45 @@ public class FSDContentControl extends FSDComposite {
 	public void saveToMap(CompositeMap map) {
 		map.put(ONLY_SAVE_LOGIC,
 				this.getModel().getBooleanPropertyValue(ONLY_SAVE_LOGIC));
-		map.createChild(FSD_DOCX_PATH).setText(
-				this.getModel().getStringPropertyValue(FSD_DOCX_PATH));
+		String docPath = this.getModel().getStringPropertyValue(FSD_DOCX_PATH);
+		map.createChild(FSD_DOCX_PATH).setText(makeRelative(docPath));
 		@SuppressWarnings("unchecked")
 		List<String> propertyValue = (List<String>) (this.getModel()
 				.getPropertyValue(FSD_TABLE_INPUT));
 		String s = "";
 		for (String string : propertyValue) {
-			s = s + "," + string;
+			s = s + "," + makeRelative(string);
 		}
 		s = s.replaceFirst(",", "");
 		map.createChild(FSD_TABLE_INPUT).setText(s);
 	}
 
+	public String makeRelative(String path) {
+		if (path == null || "".equals(path))
+			return "";
+		IPath p = new Path(path);
+		IPath makeRelativeTo = p.makeRelativeTo(base);
+		return makeRelativeTo.toString();
+	}
+
+	public String makeAbsolute(String path) {
+		if (path == null || "".equals(path))
+			return "";
+		IPath p = new Path(path);
+		return base.append(p).toString();
+	}
+
 	public void loadFromMap(CompositeMap map) {
 		this.updateModel(ONLY_SAVE_LOGIC,
-				Boolean.TRUE.equals(map.getBoolean(ONLY_SAVE_LOGIC,true)));
-		this.updateModel(FSD_DOCX_PATH, this.getMapCData(FSD_DOCX_PATH, map));
+				Boolean.TRUE.equals(map.getBoolean(ONLY_SAVE_LOGIC, true)));
+		String docPath = this.getMapCData(FSD_DOCX_PATH, map);
+		this.updateModel(FSD_DOCX_PATH, makeAbsolute(docPath));
 		String t = this.getMapCData(FSD_TABLE_INPUT, map);
 		String[] split = t.split(",");
 		List<String> ss = new ArrayList<String>();
 		for (String s : split) {
 			if (s != null && "".equals(s) == false) {
-				ss.add(s);
+				ss.add(makeAbsolute(s));
 			}
 		}
 		this.updateModel(FSD_TABLE_INPUT, ss);
