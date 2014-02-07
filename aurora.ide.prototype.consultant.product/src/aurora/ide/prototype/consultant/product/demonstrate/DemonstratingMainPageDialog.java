@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -26,13 +27,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.meta.gef.control.ConsultantDemonstratingComposite;
 import aurora.ide.meta.gef.editors.EditorMode;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.wizard.dialog.DemonstratingDialog;
+import aurora.ide.prototype.consultant.product.fsd.FunctionDesc;
+import aurora.ide.prototype.consultant.product.fsd.wizard.TitleControl;
 import aurora.ide.prototype.consultant.view.Node;
 import aurora.ide.prototype.consultant.view.property.page.ProjectDemonstratePropertyPage;
 import aurora.ide.prototype.consultant.view.property.page.ProjectDemonstratePropertyPage.F;
@@ -46,6 +48,9 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 	private Shell parentShell;
 	private ConsultantDemonstratingComposite vsEditor;
 	private PageModel model;
+	private File activeFile;
+	private DrillDownAdapter drillDown;
+	private UIPInput curentInput;
 
 	public DemonstratingMainPageDialog(Shell parentShell) {
 		super(parentShell, null);
@@ -84,19 +89,37 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 
 	protected Control createDialogArea(Composite parent) {
 		loadModel();
+		drillDown = new DrillDownAdapter(this, getWelcomUip());
 		Composite container = (Composite) innerCreateDialogArea(parent);
 		container.setLayout(new GridLayout());
-		ToolBar textToolBar = new ToolBar (container, SWT.HORIZONTAL|SWT.FLAT|SWT.WRAP|SWT.BORDER);
+		ToolBar textToolBar = new ToolBar(container, SWT.HORIZONTAL | SWT.FLAT
+				| SWT.WRAP | SWT.BORDER);
 		textToolBar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		drillDown.addNavigationActions(textToolBar);
 		createFunctionMenu(textToolBar);
-		
-		vsEditor = new ConsultantDemonstratingComposite(
-				this);
-		vsEditor.setInput(loadXML( getWelcomUip()));
+
+		vsEditor = new ConsultantDemonstratingComposite(this);
 		vsEditor.createPartControl(container);
 		vsEditor.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
 		vsEditor.setFocus();
+		goWelcome();
 		return container;
+	}
+
+	public void goWelcome() {
+
+		openFile(getWelcomUip());
+	}
+
+	protected void openFile(File f) {
+		this.openFile(new UIPInput(this.curentInput, new Path(f.getPath())));
+	}
+
+	protected void openFile(UIPInput input) {
+		this.curentInput = input;
+		this.activeFile = input.getPath().toFile();
+		drillDown.inputChanged(input);
+		vsEditor.setInput(loadXML(activeFile));
 	}
 
 	private void loadModel() {
@@ -104,43 +127,67 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 		ppd.setElement(new Node(this.getProject()));
 		this.model = ppd.getModel();
 	}
-	private File getWelcomUip(){
-		String pp = model.getStringPropertyValue(ProjectDemonstratePropertyPage.WELCOME_UIP);
-		IPath afp = new Path(this.getProject().getPath());
+
+	private File getWelcomUip() {
+		String pp = model
+				.getStringPropertyValue(ProjectDemonstratePropertyPage.WELCOME_UIP);
 		IPath p = new Path(pp);
-		File file = afp.append(p).toFile();
+		File file = p.toFile();
 		return file;
 	}
 
+	private String loadFuncitonName(F f) {
+		File file = new File(f.functionPath);
+		if (file.isFile()) {
+			CompositeMap loadFile = CompositeMapUtil.loadFile(file);
+			PageModel mm = new PageModel();
+			TitleControl tc = new TitleControl(mm);
+			tc.loadFromMap(loadFile);
+			return mm.getStringPropertyValue(FunctionDesc.fun_name);
+		}
+		return "NONE_NAME";
+	}
+
+	private Menu createMenu(F f) {
+		final Menu menu = new Menu(parentShell, SWT.POP_UP);
+		List<Object> uipFiles = f.uipFiles;
+		for (Object o : uipFiles) {
+			if (o instanceof String) {
+				final MenuItem item = new MenuItem(menu, SWT.NONE);
+				final IPath p = new Path((String) o);
+				String fileName = p.removeFileExtension().lastSegment();
+				item.setText(fileName);
+				item.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent event) {
+						File file = p.toFile();
+						if (file.isFile())
+							openFile(file);
+						else {
+							MessageDialog.openError(parentShell, "ERROR",
+									"文件[ " + p.toString() + " ]不存在");
+						}
+					}
+				});
+			}
+		}
+		return menu;
+	}
+
 	protected void createFunctionMenu(ToolBar textToolBar) {
-		
-		List<ProjectDemonstratePropertyPage.F> functions = (List<ProjectDemonstratePropertyPage.F> )model.getPropertyValue(ProjectDemonstratePropertyPage.FUNCTIONS);
-		if(functions == null)
+
+		List<ProjectDemonstratePropertyPage.F> functions = (List<ProjectDemonstratePropertyPage.F>) model
+				.getPropertyValue(ProjectDemonstratePropertyPage.FUNCTIONS);
+		if (functions == null)
 			return;
 		for (F f : functions) {
-//			f.functionPath
-//			f.functions
+			ToolItem item = new ToolItem(textToolBar, SWT.DROP_DOWN);
+			String loadFuncitonName = loadFuncitonName(f);
+			item.setText(loadFuncitonName);
+			item.setToolTipText(loadFuncitonName);
+			item.setData(f);
+			Menu menu = createMenu(f);
+			item.addSelectionListener(new DropDownSelectionListener(menu));
 		}
-		ToolItem item = new ToolItem (textToolBar, SWT.DROP_DOWN);
-		item.setText ("Drop_Down");
-		item.setToolTipText("SWT.DROP_DOWN");
-		item.addSelectionListener(new DropDownSelectionListener());
-		item = new ToolItem (textToolBar, SWT.DROP_DOWN);
-		item.setText ("Drop_Down");
-		item.setToolTipText("SWT.DROP_DOWN");
-		item.addSelectionListener(new DropDownSelectionListener());
-		item = new ToolItem (textToolBar, SWT.DROP_DOWN);
-		item.setText ("Drop_Down");
-		item.setToolTipText("SWT.DROP_DOWN");
-		item.addSelectionListener(new DropDownSelectionListener());
-		item = new ToolItem (textToolBar, SWT.DROP_DOWN);
-		item.setText ("Drop_Down");
-		item.setToolTipText("SWT.DROP_DOWN");
-		item.addSelectionListener(new DropDownSelectionListener());
-		item = new ToolItem (textToolBar, SWT.DROP_DOWN);
-		item.setText ("Drop_Down");
-		item.setToolTipText("SWT.DROP_DOWN");
-		item.addSelectionListener(new DropDownSelectionListener());
 	}
 
 	protected Control innerCreateDialogArea(Composite parent) {
@@ -158,6 +205,12 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 	}
 
 	public void setInput(Object input) {
+		if (input instanceof File) {
+			openFile((File) input);
+		}
+		if (input instanceof UIPInput) {
+			this.openFile((UIPInput) input);
+		}
 	}
 
 	private static ScreenBody loadXML(File file) {
@@ -188,9 +241,13 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 		// demon.applyValue(value);
 		this.close();
 	}
+
 	public IPath getActiveFilePath() {
+		if (activeFile != null && activeFile.isFile())
+			return new Path(activeFile.getPath());
 		return new Path("");
 	}
+
 	public boolean close() {
 		boolean close = super.close();
 		if (demonstratingDialog != null) {
@@ -208,51 +265,21 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 	}
 
 	class DropDownSelectionListener extends SelectionAdapter {
-		private Menu    menu = null;
-		
+		private Menu menu = null;
+
+		public DropDownSelectionListener(Menu menu) {
+			this.menu = menu;
+		}
+
 		public void widgetSelected(SelectionEvent event) {
-			// Create the menu if it has not already been created
-			if (menu == null) {
-				// Lazy create the menu.
-				ToolBar toolbar = ((ToolItem) event.widget).getParent();
-				int style = toolbar.getStyle() & (SWT.RIGHT_TO_LEFT | SWT.LEFT_TO_RIGHT);
-				menu = new Menu(parentShell, style | SWT.POP_UP);
-				for (int i = 0; i < 9; ++i) {
-					final String text = "Function A" + i;
-					if (text.length() != 0) {
-						MenuItem menuItem = new MenuItem(menu, SWT.NONE);
-						menuItem.setText(text);
-						menuItem.addSelectionListener(new SelectionAdapter(){
-							public void widgetSelected(SelectionEvent event) {
-//								vsEditor.setInput(loadXML("CARGO.uip"));
-							}
-						});
-						
-					} else {
-						new MenuItem(menu, SWT.SEPARATOR);
-					}
-				}
-			}
-			
-			/**
-			 * A selection event will be fired when a drop down tool
-			 * item is selected in the main area and in the drop
-			 * down arrow.  Examine the event detail to determine
-			 * where the widget was selected.
-			 */		
-			if (event.detail == SWT.ARROW) {
-				/*
-				 * The drop down arrow was selected.
-				 */
-				// Position the menu below and vertically aligned with the the drop down tool button.
-				final ToolItem toolItem = (ToolItem) event.widget;
-				final ToolBar  toolBar = toolItem.getParent();
-				
-				Point point = toolBar.toDisplay(new Point(event.x, event.y));
-				menu.setLocation(point.x, point.y);
-				menu.setVisible(true);
-			} 
+			final ToolItem toolItem = (ToolItem) event.widget;
+			final ToolBar toolBar = toolItem.getParent();
+			Rectangle rect = toolItem.getBounds();
+			Point pt = new Point(rect.x, rect.y + rect.height +3);
+			Point point = toolBar.toDisplay(pt);
+			menu.setLocation(point.x, point.y);
+			menu.setVisible(true);
 		}
 	}
-	
+
 }

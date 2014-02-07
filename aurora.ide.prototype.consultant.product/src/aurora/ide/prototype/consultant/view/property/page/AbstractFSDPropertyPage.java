@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -28,7 +29,7 @@ import aurora.ide.swt.util.GridLayoutUtil;
 import aurora.ide.swt.util.PageModel;
 import aurora.ide.swt.util.WidgetFactory;
 
-public class AbstractFSDPropertyPage extends PropertyPage {
+abstract public class AbstractFSDPropertyPage extends PropertyPage {
 
 	private PageModel model;
 
@@ -68,7 +69,7 @@ public class AbstractFSDPropertyPage extends PropertyPage {
 	}
 
 	protected void createContentControl(Composite c2) {
-		new FSDContentControl(this.getModel()) {
+		new FSDContentControl(this.getModel(),getBasePath()) {
 			protected void clickAddButton(Shell shell, final TableViewer tv) {
 				FunctionSelectionDialog fsd = new FunctionSelectionDialog();
 				String path = fsd.openUIPSelectionDialog("选择UIP", shell,
@@ -130,7 +131,7 @@ public class AbstractFSDPropertyPage extends PropertyPage {
 				new TitleControl(this.getModel()).loadFromMap(pp);
 				new AuthorControl(this.getModel()).loadFromMap(pp);
 				new ApplyControl(this.getModel()).loadFromMap(pp);
-				new FSDContentControl(this.getModel()).loadFromMap(pp);
+				new FSDContentControl(this.getModel(),getBasePath()).loadFromMap(pp);
 			}
 		}
 	}
@@ -146,8 +147,10 @@ public class AbstractFSDPropertyPage extends PropertyPage {
 		new TitleControl(this.getModel()).saveToMap(map);
 		new AuthorControl(this.getModel()).saveToMap(map);
 		new ApplyControl(this.getModel()).saveToMap(map);
-		new FSDContentControl(this.getModel()).saveToMap(map);
+		new FSDContentControl(this.getModel(),getBasePath()).saveToMap(map);
 	}
+
+	abstract protected IPath getBasePath();
 
 	@Override
 	public boolean performOk() {
@@ -161,5 +164,4 @@ public class AbstractFSDPropertyPage extends PropertyPage {
 		}
 		return super.performOk();
 	}
-
 }

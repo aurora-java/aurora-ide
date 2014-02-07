@@ -12,6 +12,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import uncertain.composite.CompositeMap;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.meta.docx4j.docx.util.Docx4jUtil;
+import aurora.ide.meta.gef.util.PathUtil;
 import aurora.ide.prototype.consultant.product.fsd.wizard.FSDContentControl;
 import aurora.ide.swt.util.PageModel;
 
@@ -106,7 +107,7 @@ public class ExportProjectFSDProgress implements IRunnableWithProgress {
 
 	}
 
-	private List<String> getFunctionFiles(CompositeMap map) {
+	private List<String> getFunctionFiles(CompositeMap map,String base) {
 
 		CompositeMap fileschild = map
 				.getChild(FSDContentControl.FSD_TABLE_INPUT);
@@ -116,7 +117,7 @@ public class ExportProjectFSDProgress implements IRunnableWithProgress {
 		List<String> ss = new ArrayList<String>();
 		for (String s : split) {
 			if (s != null && "".equals(s) == false) {
-				ss.add(s);
+				ss.add(PathUtil.makeAbsolute(s, base).toString());
 			}
 		}
 		return ss;
@@ -141,7 +142,7 @@ public class ExportProjectFSDProgress implements IRunnableWithProgress {
 			create.setPropertyValue(FunctionDesc.fun_name, name);
 			create.setPropertyValue(FunctionDesc.fun_code, code);
 			create.setPropertyValue(FSDContentControl.FSD_TABLE_INPUT,
-					getFunctionFiles(loadFile));
+					getFunctionFiles(loadFile,p.removeLastSegments(1).toString()));
 			r.add(create);
 		}
 		return r;

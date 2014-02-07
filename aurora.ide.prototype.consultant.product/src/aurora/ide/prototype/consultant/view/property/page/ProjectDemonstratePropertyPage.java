@@ -10,6 +10,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -20,6 +21,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
@@ -42,6 +44,7 @@ import aurora.ide.swt.util.viewer.CTableViewer;
 
 public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 
+	private static final String FILES = "files";
 	public static final String DEMONSTRATE_SETTING = "demonstrate.setting";
 	public static final String FUNCTION = "function";
 	public static final String FUNCTIONS = "functions";
@@ -84,6 +87,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 
 		final TextField welcomeUip = WidgetFactory.createTextButtonField(root,
 				"欢迎页面", "浏览");
+		welcomeUip.getText().setEditable(false);
 		welcomeUip.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				model.setPropertyValue(WELCOME_UIP, welcomeUip.getText()
@@ -99,11 +103,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 				dialog.setFilterExtensions(new String[] { "*.uip" }); //$NON-NLS-1$
 				String path = dialog.open();
 				if (path != null && path.length() > 0) {
-					Node element = (Node) getElement();
-					IPath afp = element.getPath();
-					IPath p = new Path(path);
-					IPath makeRelativeTo = p.makeRelativeTo(afp);
-					welcomeUip.setText(makeRelativeTo.toString());
+					welcomeUip.setText(path);
 				}
 			}
 
@@ -131,6 +131,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 
 		ctv.addColumn("功能号", 128);
 		ctv.addColumn("功能名", 193);
+		ctv.addColumn("菜单列表", 293);
 		ctv.setTableContentProvider(new TableContentProvider());
 		ctv.setTableLabelProvider(new TableLabelProvider() {
 			public String getColumnText(Object element, int i) {
@@ -149,6 +150,16 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 								.getChild(FunctionDesc.fun_name);
 						String text = child == null ? "" : child.getText();
 						return text == null ? "" : text;
+					}
+					if (i == 2) {
+						List<Object> uipFiles = ((F) element).uipFiles;
+						String s = "";
+						for (Object object : uipFiles) {
+							Path path = new Path("" +object);
+							String name = path.removeFileExtension().lastSegment();
+							s = s + "[ " + name + " ]  ";
+						}
+						return s;
 					}
 				}
 				return ""; //$NON-NLS-1$
@@ -184,6 +195,12 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			return super.close();
 		}
 
+		protected Control createContents(Composite parent) {
+			Control createContents = super.createContents(parent);
+			updateStatus();
+			return createContents;
+		}
+
 		protected Control createDialogArea(final Composite parent) {
 			Composite container = (Composite) super.createDialogArea(parent);
 
@@ -202,7 +219,13 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 					String path = fsd.openFolderSelectionDialog(
 							"选择FSD Function", parent.getShell(), getElement());
 					if (path != null && path.length() > 0) {
-						fn.setText(path);
+						
+						CompositeMap loadFile = CompositeMapUtil.loadFile(new File(path));
+						CompositeMap child = loadFile
+								.getChild(FunctionDesc.fun_name);
+						String text = child == null ? "" : child.getText();
+						f.functionPath = path;
+						fn.setText(text);
 					}
 				}
 			});
@@ -211,10 +234,29 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 
 				@Override
 				public void modifyText(ModifyEvent e) {
-					f.functionPath = fn.getText().getText();
+					updateStatus();
 				}
-			});
-			ctv = new CTableViewer();
+			}); 
+			ctv = new CTableViewer(){
+				protected void clickAddButton(Shell shell, final TableViewer tv) {
+//					FileDialog dialog = new FileDialog(shell, SWT.OPEN);
+//					dialog.setText("Open File"); //$NON-NLS-1$
+//					dialog.setFilterExtensions(new String[] { "*.uip" }); //$NON-NLS-1$
+//					String path = dialog.open();
+//					if (path != null && path.length() > 0) {
+//						getTableInput().add(path);
+//					}
+//					setInput(tv);
+					FunctionSelectionDialog fsd = new FunctionSelectionDialog();
+					String path = fsd.openUIPSelectionDialog("选择UIP", shell,
+							getProjectNode());
+					if (path != null && path.length() > 0) {
+						getTableInput().add(path);
+					}
+					tv.setInput(getTableInput());
+					
+				}
+			};
 			ctv.addColumn("文件名", 128);
 			ctv.addColumn("路径", 193);
 			ctv.setTableLabelProvider(new TableLabelProvider() {
@@ -240,6 +282,11 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			ctv.createContentTable(composite);
 			return container;
 		}
+
+		private void updateStatus() {
+			Button ob = this.getButton(IDialogConstants.OK_ID);
+			ob.setEnabled(f.functionPath != null);
+		}
 	}
 
 	public class F {
@@ -254,7 +301,8 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			CompositeMap pp = loadProperties(file);
 			CompositeMap child = pp.getChild(WELCOME_UIP);
 			if (child != null) {
-				model.setPropertyValue(WELCOME_UIP, child.getText());
+				model.setPropertyValue(WELCOME_UIP,
+						makeAbsolute(child.getText()));
 			}
 			child = pp.getChild(LOGIN_IMG);
 			if (child != null) {
@@ -269,20 +317,27 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 					CompositeMap m = (CompositeMap) object;
 					F f = new F();
 					String ss = m.getString(FUNCTION, "");
-					String t = m.getText();
+					CompositeMap child2 = m.getChild(FILES);
+					String t = child2 == null ? "" : child2.getText();
+					if (t == null)
+						t = "";
 					String[] split = t.split(",");
 					f.uipFiles = new ArrayList<Object>();
 					for (String s : split) {
 						if (s != null && "".equals(s) == false) {
-							f.uipFiles.add(s);
+							f.uipFiles.add(makeAbsolute(s));
 						}
 					}
-					f.functionPath = ss;
+					f.functionPath = makeAbsolute(ss);
 					fff.add(f);
 				}
 			}
 			model.setPropertyValue(FUNCTIONS, fff);
 		}
+	}
+
+	public PageModel getModel() {
+		return model;
 	}
 
 	protected CompositeMap loadProperties(File file) {
@@ -305,7 +360,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 
 	protected void saveTOMap(CompositeMap map) {
 		String s = model.getStringPropertyValue(WELCOME_UIP);
-		map.createChild(WELCOME_UIP).setText(s);
+		map.createChild(WELCOME_UIP).setText(makeRelative(s));
 		s = model.getStringPropertyValue(LOGIN_IMG);
 		map.createChild(LOGIN_IMG).setText(s);
 
@@ -316,16 +371,36 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			CompositeMap fff = map.createChild(FUNCTIONS);
 			for (F f : propertyValue) {
 				CompositeMap ff = fff.createChild(FUNCTION);
-				ff.put(FUNCTION, f.functionPath);
+				ff.put(FUNCTION, makeRelative(f.functionPath));
 				List<Object> uipFiles = f.uipFiles;
 				String ss = "";
 				for (Object string : uipFiles) {
-					ss = ss + "," + string;
+					ss = ss + "," + makeRelative(string.toString());
 				}
 				ss = ss.replaceFirst(",", "");
-				ff.createChild("files").setText(ss);
+				ff.createChild(FILES).setText(ss);
 			}
 		}
+	}
+
+	public String makeRelative(String path) {
+		if (path == null || "".equals(path))
+			return "";
+		IPath p = new Path(path);
+		IPath makeRelativeTo = p.makeRelativeTo(getBasePath());
+		return makeRelativeTo.toString();
+	}
+
+	public String makeAbsolute(String path) {
+		if (path == null || "".equals(path))
+			return "";
+		IPath p = new Path(path);
+		return getBasePath().append(p).toString();
+	}
+
+	protected IPath getBasePath() {
+		Node element = (Node) getElement();
+		return element.getPath();
 	}
 
 }
