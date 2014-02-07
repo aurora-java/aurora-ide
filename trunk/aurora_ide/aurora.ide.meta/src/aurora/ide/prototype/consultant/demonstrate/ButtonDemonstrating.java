@@ -51,12 +51,23 @@ public class ButtonDemonstrating {
 
 		IPath afp = getActiveEditorFile();
 		IPath p = new Path(path);
-		File file = afp.append(p).toFile();
-		// File file = new File(path);
-		if (file.exists() == false) {
+		File file = p.toFile();
+		if(file.isFile()){
+		}else{
+			file = afp.append(p).toFile();
+		}
+		if (file.isFile() == false) {
 			showMessage(Messages.ButtonDemonstrating_1);
 			return;
 		}
+		
+		EditorMode editorMode = this.part.getEditorMode();
+		if(editorMode instanceof DemonstrateEditorMode){
+			DemonstratingDialog demonstratingDialog = ((DemonstrateEditorMode) editorMode).getDemonstratingDialog();
+			demonstratingDialog.setInput(file);
+			return;
+		}
+		
 		IEditorInput input = createEditorInput(file);
 
 		String editorId = getEditorId(file);
