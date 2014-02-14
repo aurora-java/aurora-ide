@@ -12,6 +12,8 @@ import aurora.ide.meta.gef.editors.models.commands.ChangePropertyCommand;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.wizard.dialog.LovDialogInput;
 import aurora.ide.meta.gef.editors.wizard.dialog.DemonstratingDialog;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.DemonstrateBind;
 import aurora.plugin.source.gen.screen.model.DemonstrateDS;
 import aurora.plugin.source.gen.screen.model.DemonstrateData;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
@@ -19,6 +21,7 @@ import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties
 public class LOVDemonstrating {
 	private ComponentPart part;
 	private String feature = ComponentInnerProperties.INPUT_SIMPLE_DATA;
+
 	public LOVDemonstrating(ComponentPart part) {
 		this.part = part;
 	}
@@ -30,11 +33,13 @@ public class LOVDemonstrating {
 	}
 
 	public void applyValue(String value) {
-		ChangePropertyCommand command = new ChangePropertyCommand(
-				part.getComponent(),
-				feature, value);
-		part.getViewer().getEditDomain().getCommandStack().execute(command);
+		applyValue(part.getComponent(), value);
+	}
 
+	public void applyValue(AuroraComponent ac, String value) {
+		ChangePropertyCommand command = new ChangePropertyCommand(ac, feature,
+				value);
+		part.getViewer().getEditDomain().getCommandStack().execute(command);
 	}
 
 	private LovDialogInput parseItems() {
@@ -50,7 +55,12 @@ public class LOVDemonstrating {
 				return parseItems(demonstrateDS.getData());
 		}
 		String data = dd.getDemonstrateData();
-		return parseItems(data);
+		LovDialogInput parseItems = parseItems(data);
+		@SuppressWarnings("unchecked")
+		List<DemonstrateBind> inputs = (List<DemonstrateBind>) dd
+				.getPropertyValue(DemonstrateBind.BIND_COMPONENT);
+		parseItems.setBindModels(inputs);
+		return parseItems;
 	}
 
 	private LovDialogInput parseItems(String demonstrateDS) {

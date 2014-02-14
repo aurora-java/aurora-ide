@@ -1,6 +1,7 @@
 package aurora.ide.meta.gef.editors.wizard.dialog;
 
 import java.io.File;
+import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -20,10 +21,15 @@ import aurora.ide.meta.gef.editors.parts.ExtSysLovAuroraPartFactory;
 import aurora.ide.prototype.consultant.demonstrate.LOVDemonstrating;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Combox;
+import aurora.plugin.source.gen.screen.model.DatePicker;
+import aurora.plugin.source.gen.screen.model.DemonstrateBind;
 import aurora.plugin.source.gen.screen.model.Form;
 import aurora.plugin.source.gen.screen.model.Grid;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.HBox;
+import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.LOV;
+import aurora.plugin.source.gen.screen.model.NumberField;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.TextField;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
@@ -95,24 +101,57 @@ public class DemonstratingDialog extends Dialog {
 		Form form = new Form();
 		form.setSize(450, 85);
 		form.setCol(2);
-		AuroraComponent tf0 = createTextField(0);
-		if (tf0 != null)
-			form.addChild(tf0);
-		AuroraComponent cb1 = createCombox(1);
-		if (cb1 != null)
-			form.addChild(cb1);
-		AuroraComponent tf2 = createTextField(2);
-		if (tf2 != null)
-			form.addChild(tf2);
-		AuroraComponent cb3 = createCombox(3);
-		if (cb3 != null)
-			form.addChild(cb3);
+		List<DemonstrateBind> bindModels = input.getBindModels();
+		if (bindModels != null)
+			for (DemonstrateBind db : bindModels) {
+				String editor = db.getForQueryEditor();
+				if ("".equals(editor) == false) {
+					AuroraComponent createInput = createInput(db);
+					if (createInput != null)
+						form.addChild(createInput);
+				}
+			}
+		// AuroraComponent tf0 = createTextField(0);
+		// if (tf0 != null)
+		// form.addChild(tf0);
+		// AuroraComponent cb1 = createCombox(1);
+		// if (cb1 != null)
+		// form.addChild(cb1);
+		// AuroraComponent tf2 = createTextField(2);
+		// if (tf2 != null)
+		// form.addChild(tf2);
+		// AuroraComponent cb3 = createCombox(3);
+		// if (cb3 != null)
+		// form.addChild(cb3);
 		return form;
+	}
+
+	private AuroraComponent createInput(DemonstrateBind db) {
+		AuroraComponent ac = null;
+		if (Input.TEXT.equals(db.getForQueryEditor())) {
+			ac = new TextField();
+		}
+		if (Input.NUMBER.equals(db.getForQueryEditor())) {
+			ac = new NumberField();
+		}
+		if (Input.Combo.equals(db.getForQueryEditor())) {
+			ac = new Combox();
+		}
+		if (Input.LOV.equals(db.getForQueryEditor())) {
+			ac = new LOV();
+		}
+		if (Input.DATE_PICKER.equals(db.getForQueryEditor())) {
+			ac = new DatePicker();
+		}
+		if (ac != null) {
+			ac.setPrompt(db.getColumnPrompt());
+		}
+		return ac;
 	}
 
 	private AuroraComponent createTextField(int i) {
 		TextField textField = new TextField();
-		return  cf(textField, i);
+		return cf(textField, i);
 	}
 
 	private AuroraComponent cf(AuroraComponent ac, int i) {
@@ -140,7 +179,7 @@ public class DemonstratingDialog extends Dialog {
 		// return null;
 		// }
 		// }
-		return  cf(combox, i);
+		return cf(combox, i);
 	}
 
 	public Grid createGrid() {
@@ -151,12 +190,26 @@ public class DemonstratingDialog extends Dialog {
 			grid.addCol(new GridColumn());
 			grid.addCol(new GridColumn());
 		} else {
-			for (int i = 0; i < 6; i++) {
-				GridColumn cc = createGridColumn(i);
-				if (cc != null) {
-					grid.addChild(cc);
+			List<DemonstrateBind> bindModels = input.getBindModels();
+			if (bindModels != null)
+				for (int i = 0; i < bindModels.size(); i++) {
+					DemonstrateBind db = bindModels.get(i);
+					if (db.isForDisplay() == false) {
+						continue;
+					}
+					GridColumn cc = createGridColumn(i);
+					if (cc != null) {
+						cc.setPrompt(db.getColumnPrompt());
+						grid.addChild(cc);
+					}
 				}
-			}
+
+			// for (int i = 0; i < 6; i++) {
+			// GridColumn cc = createGridColumn(i);
+			// if (cc != null) {
+			// grid.addChild(cc);
+			// }
+			// }
 		}
 		grid.setPropertyValue(ComponentProperties.navBarType,
 				Grid.NAVBAR_COMPLEX);
@@ -175,15 +228,14 @@ public class DemonstratingDialog extends Dialog {
 					String s = input.get(i, j);
 					if (s == null)
 						break;
-					if (j == 0) {
-						gridColumn.setPropertyValue(ComponentProperties.prompt,
-								s);
-					} else {
-						gridColumn
-								.setPropertyValue(
-										ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA
-												+ (j), s);
-					}
+					// if (j == 0) {
+					// gridColumn.setPropertyValue(ComponentProperties.prompt,
+					// s);
+					// } else {
+					gridColumn.setPropertyValue(
+							ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA
+									+ (j + 1), s);
+					// }
 				}
 			}
 		}
@@ -206,12 +258,27 @@ public class DemonstratingDialog extends Dialog {
 	public IPath getActiveFilePath() {
 		return new Path("");
 	}
+
 	public File getProject() {
 		return project;
 	}
 
 	public void setProject(File project) {
 		this.project = project;
+	}
+
+	public void applyValue(String value, int idx) {
+		List<DemonstrateBind> bindModels = input.getBindModels();
+		if (bindModels != null) {
+			for (int i = 0; i < bindModels.size(); i++) {
+				DemonstrateBind db = bindModels.get(i);
+				AuroraComponent ac = db.getBindModel();
+				if (ac == null)
+					continue;
+				demon.applyValue(ac, input.get(i, idx - 1));
+			}
+		}
+		applyValue(value);
 	}
 
 }

@@ -82,7 +82,7 @@ public class SysLovGridColumnPart extends ContainerPart {
 					ComponentInnerProperties.GRID_COLUMN_SIMPLE_DATA + idx);
 			if (this.getEditorMode() instanceof DemonstrateEditorMode) {
 				((DemonstrateEditorMode) getEditorMode()).getDemonstratingDialog()
-						.applyValue(value);
+						.applyValue(value,idx);
 			}
 			// if (idx == 0) {
 			// performEditStyledStringText(ComponentProperties.prompt);
