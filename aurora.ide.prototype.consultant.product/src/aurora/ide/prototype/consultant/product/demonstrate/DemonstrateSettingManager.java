@@ -1,5 +1,7 @@
 package aurora.ide.prototype.consultant.product.demonstrate;
 
+import java.util.List;
+
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.widgets.Shell;
 
@@ -10,6 +12,7 @@ import aurora.ide.swt.util.UWizard;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.Combox;
+import aurora.plugin.source.gen.screen.model.DemonstrateBind;
 import aurora.plugin.source.gen.screen.model.DemonstrateDS;
 import aurora.plugin.source.gen.screen.model.DemonstrateData;
 import aurora.plugin.source.gen.screen.model.GridColumn;
@@ -35,21 +38,28 @@ public class DemonstrateSettingManager {
 	}
 
 	private UWizard createWizard(Shell shell) {
-		if (GridColumn.GRIDCOLUMN.equals(ac.getComponentType())) {
+		String componentType = ac.getComponentType();
+		if (GridColumn.GRIDCOLUMN.equals(componentType)) {
 			GridColumn gc = (GridColumn) ac;
-			if (Input.Combo.equals(gc.getEditor())
-					|| Input.LOV.equals(gc.getEditor())) {
+			if (Input.Combo.equals(gc.getEditor())) {
 				return new DemonstrateDSWizard(shell, this);
 			}
+			if (Input.LOV.equals(gc.getEditor())) {
+				return new DemonstrateLOVWizard(shell, this);
+			}
 		}
-		if (ToolbarButton.TOOLBAR_BUTTON.equals(ac.getComponentType())
-				|| Button.BUTTON.equals(ac.getComponentType())
-				|| GridColumn.GRIDCOLUMN.equals(ac.getComponentType())) {
+		if (ToolbarButton.TOOLBAR_BUTTON.equals(componentType)
+				|| Button.BUTTON.equals(componentType)
+				|| GridColumn.GRIDCOLUMN.equals(componentType)) {
 			return new DemonstrateOpeningWizard(shell, this);
-		} else {
+		}
+		if (Input.LOV.equals(componentType)) {
+			return new DemonstrateLOVWizard(shell, this);
+		}
+		if (Input.Combo.equals(componentType)) {
 			return new DemonstrateDSWizard(shell, this);
 		}
-
+		return new DemonstrateDSWizard(shell, this);
 	}
 
 	public boolean isWillDemonstrate() {
@@ -59,11 +69,30 @@ public class DemonstrateSettingManager {
 				|| LOV.LOV.equals(ct) || Combox.Combo.equals(ct);
 	}
 
+	@SuppressWarnings("unchecked")
 	public DemonstrateData getDemonstrateData() {
 		Object propertyValue = ac
 				.getPropertyValue(DemonstrateData.DEMONSTRATE_DATA);
-		return propertyValue instanceof DemonstrateData ? (DemonstrateData) cloneObject((AuroraComponent) propertyValue)
-				: getDefaultData();
+		if (propertyValue instanceof DemonstrateData) {
+			AuroraComponent cloneObject = cloneObject((AuroraComponent) propertyValue);
+
+			List<DemonstrateBind> inputs = (List<DemonstrateBind>) ((AuroraComponent) propertyValue)
+					.getPropertyValue(DemonstrateBind.BIND_COMPONENT);
+			List<DemonstrateBind> cloneInputs = (List<DemonstrateBind>) ((AuroraComponent) cloneObject)
+					.getPropertyValue(DemonstrateBind.BIND_COMPONENT);
+			if (inputs != null)
+				for (int i = 0; i < inputs.size(); i++) {
+					DemonstrateBind demonstrateBind = inputs.get(i);
+					AuroraComponent bindModel = demonstrateBind.getBindModel();
+					if (bindModel != null) {
+						cloneInputs.get(i).setBindModel(bindModel);
+					}
+				}
+			return (DemonstrateData) cloneObject;
+
+		} else {
+			return getDefaultData();
+		}
 	}
 
 	private DemonstrateData getDefaultData() {
@@ -97,8 +126,10 @@ public class DemonstrateSettingManager {
 		return dds;
 	}
 
-	static final String s = Messages.DemonstrateSettingManager_2
-			+ "\n" + Messages.DemonstrateSettingManager_4 + "\n" //$NON-NLS-2$ //$NON-NLS-4$
+	static final String s = /*
+							 * Messages.DemonstrateSettingManager_2 + "\n" +
+							 */Messages.DemonstrateSettingManager_4
+			+ "\n" //$NON-NLS-2$ //$NON-NLS-4$
 			+ Messages.DemonstrateSettingManager_6
 			+ "\n" + Messages.DemonstrateSettingManager_8 + "\n" + Messages.DemonstrateSettingManager_10; //$NON-NLS-2$ //$NON-NLS-4$
 
@@ -123,4 +154,9 @@ public class DemonstrateSettingManager {
 	public void setCommandStack(CommandStack commandStack) {
 		this.commandStack = commandStack;
 	}
+
+	public AuroraComponent getAuroraComponent() {
+		return ac;
+	}
+
 }
