@@ -54,6 +54,7 @@ import aurora.ide.editor.editorInput.PathEditorInput;
 import aurora.ide.helpers.DialogUtil;
 import aurora.ide.helpers.FileExplorer;
 import aurora.ide.meta.gef.editors.ConsultantVScreenEditor;
+import aurora.ide.meta.gef.message.Messages;
 import aurora.ide.prototype.consultant.editor.FSDEditor;
 import aurora.ide.prototype.consultant.product.Activator;
 import aurora.ide.prototype.consultant.product.ICommandIds;
@@ -125,7 +126,7 @@ public class NavigationView extends ViewPart {
 
 	}
 
-	private UIJob viewerExpandJob = new UIJob("Expand") {
+	private UIJob viewerExpandJob = new UIJob("Expand") { //$NON-NLS-1$
 		public IStatus runInUIThread(IProgressMonitor monitor) {
 			if (viewer.getControl().isDisposed() == false) {
 				SafeRunner.run(new SafeRunnable() {
@@ -255,7 +256,7 @@ public class NavigationView extends ViewPart {
 
 		Node node = getSelectionNode();
 		if (node.getFile().isFile()) {
-			menu.add(new Action("FSD编辑器") {
+			menu.add(new Action(Messages.NavigationView_1) {
 				public void run() {
 					Node node = getSelectionNode();
 					File file = node.getFile();
@@ -273,24 +274,24 @@ public class NavigationView extends ViewPart {
 
 		Node selectionNode = this.getSelectionNode();
 		if (ResourceUtil.isProject(selectionNode.getFile())) {
-			menu.add(new ProjectExportFSDAction(this, "导出FSD"));
+			menu.add(new ProjectExportFSDAction(this, Messages.NavigationView_2));
 		}
 		if (ResourceUtil.isModule(selectionNode.getFile())) {
-			menu.add(new ProjectExportFSDAction(this, "导出FSD"));
+			menu.add(new ProjectExportFSDAction(this, Messages.NavigationView_3));
 		}
 		if (ResourceUtil.isFunction(selectionNode.getFile())) {
-			menu.add(new FunctionExportFSDAction(this, "导出FSD"));
+			menu.add(new FunctionExportFSDAction(this, Messages.NavigationView_5));
 		}
 
 		if (getSelectionNode() != null)
-			menu.add(new Action(Messages.NavigationView_4) {
+			menu.add(new Action("") { //$NON-NLS-1$
 
 				@Override
 				public void run() {
 					Node node = getSelectionNode();
 					if (node.getFile().exists() == false) {
 						MessageDialog.openInformation(getViewer().getControl()
-								.getShell(), "Info", "文件不存在");
+								.getShell(), "Info", Messages.NavigationView_7); //$NON-NLS-1$
 						return;
 					}
 					if (node.getFile().isFile()) {
@@ -301,12 +302,12 @@ public class NavigationView extends ViewPart {
 
 			});
 
-		menu.add(new Action("属性") {
+		menu.add(new Action(Messages.NavigationView_8) {
 			public void run() {
 				IHandlerService hs = (IHandlerService) PlatformUI
 						.getWorkbench().getAdapter(IHandlerService.class);
 				try {
-					hs.executeCommand("org.eclipse.ui.file.properties", null);
+					hs.executeCommand("org.eclipse.ui.file.properties", null); //$NON-NLS-1$
 				} catch (ExecutionException e) {
 					DialogUtil.showExceptionMessageBox(e);
 				} catch (NotDefinedException e) {
@@ -399,7 +400,7 @@ public class NavigationView extends ViewPart {
 			File file = node.getFile();
 			if (file.exists() == false) {
 				MessageDialog.openInformation(getViewer().getControl()
-						.getShell(), "Info", "文件不存在");
+						.getShell(), "Info", Messages.NavigationView_11); //$NON-NLS-1$
 				return;
 			}
 			if (file.isDirectory()) {

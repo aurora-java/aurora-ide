@@ -19,8 +19,8 @@ public class CreateProjectAction extends Action implements
 	private NavigationView viewer;
 
 	public CreateProjectAction(NavigationView viewer) {
-		super("新建项目");
-		setToolTipText("新建项目");
+		super(Messages.CreateProjectAction_0);
+		setToolTipText(Messages.CreateProjectAction_1);
 		this.viewer = viewer;
 		commonViewer = viewer.getViewer();
 		commonViewer.addSelectionChangedListener(this);

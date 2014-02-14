@@ -22,7 +22,7 @@ public class NewMenuAction extends Action implements IMenuCreator {
 	private Action activeAction;
 
 	public NewMenuAction(NavigationView viewer) {
-		super("新建", Action.AS_DROP_DOWN_MENU);
+		super(Messages.NewMenuAction_0, Action.AS_DROP_DOWN_MENU);
 		this.viewer = viewer;
 		this.setMenuCreator(this);
 		makeActions();
@@ -81,10 +81,10 @@ public class NewMenuAction extends Action implements IMenuCreator {
 	}
 	
 	public void fillMenu(Menu menu) {
-		createMenuItem(menu,createProjectAction,"新建项目");
-		createMenuItem(menu,createModuleAction,"新建模块");
-		createMenuItem(menu,createFunctionAction,"新建功能");
-		createMenuItem(menu,createUIPAction,"新建UIP文件");
+		createMenuItem(menu,createProjectAction,Messages.NewMenuAction_1);
+		createMenuItem(menu,createModuleAction,Messages.NewMenuAction_2);
+		createMenuItem(menu,createFunctionAction,Messages.NewMenuAction_3);
+		createMenuItem(menu,createUIPAction,Messages.NewMenuAction_4);
 	}
 
 	public Menu getMenu(Menu parent) {

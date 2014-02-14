@@ -11,14 +11,14 @@ import aurora.ide.swt.util.UWizard;
 
 public class CreateModuleWizard extends UWizard {
 
-	public static final String QUICK_UI_MODULE = "quick_ui.module";
+	public static final String QUICK_UI_MODULE = "quick_ui.module"; //$NON-NLS-1$
 	private File parent;
 	private CreateModulePage page;
 
 	public CreateModuleWizard(Shell shell, File parent) {
 		super(shell);
 		this.parent = parent;
-		page = new CreateModulePage("CreateModulePage", parent);
+		page = new CreateModulePage("CreateModulePage", parent); //$NON-NLS-1$
 	}
 
 	@Override
@@ -31,13 +31,13 @@ public class CreateModuleWizard extends UWizard {
 
 		File m = createModule();
 		if (m == null) {
-			page.verifyPage("新建模块失败");
+			page.verifyPage(Messages.CreateModuleWizard_2);
 			return false;
 		}
 		try {
 			createProperties(m);
 		} catch (IOException e) {
-			page.verifyPage("新建属性文件失败");
+			page.verifyPage(Messages.CreateModuleWizard_3);
 			return false;
 		}
 		return true;
@@ -57,7 +57,7 @@ public class CreateModuleWizard extends UWizard {
 	}
 
 	private void createProperties(File m) throws IOException {
-		ResourceUtil.createFile(m, QUICK_UI_MODULE, new CompositeMap("properties"));
+		ResourceUtil.createFile(m, QUICK_UI_MODULE, new CompositeMap("properties")); //$NON-NLS-1$
 	}
 
 }

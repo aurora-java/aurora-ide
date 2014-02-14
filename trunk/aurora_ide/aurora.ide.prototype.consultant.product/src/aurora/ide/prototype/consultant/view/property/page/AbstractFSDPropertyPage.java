@@ -51,16 +51,16 @@ abstract public class AbstractFSDPropertyPage extends PropertyPage {
 		TabFolder tf = new TabFolder(content, SWT.TOP);
 		tf.setLayoutData(new GridData(GridData.FILL_BOTH));
 		TabItem item1 = new TabItem(tf, SWT.NONE);
-		item1.setText("描述");
-		item1.setToolTipText("FSD描述");
+		item1.setText(Messages.AbstractFSDPropertyPage_0);
+		item1.setToolTipText(Messages.AbstractFSDPropertyPage_1);
 		Composite c = new Composite(tf, SWT.NONE);
 		c.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
 		createFSDDescControl(c);
 		item1.setControl(c);
 
 		TabItem item2 = new TabItem(tf, SWT.NONE);
-		item2.setText("内容");
-		item2.setToolTipText("FSD内容");
+		item2.setText(Messages.AbstractFSDPropertyPage_2);
+		item2.setToolTipText(Messages.AbstractFSDPropertyPage_3);
 		Composite c2 = new Composite(tf, SWT.NONE);
 		c2.setLayout(GridLayoutUtil.COLUMN_LAYOUT_1);
 		createContentControl(c2);
@@ -72,7 +72,7 @@ abstract public class AbstractFSDPropertyPage extends PropertyPage {
 		new FSDContentControl(this.getModel(),getBasePath()) {
 			protected void clickAddButton(Shell shell, final TableViewer tv) {
 				FunctionSelectionDialog fsd = new FunctionSelectionDialog();
-				String path = fsd.openUIPSelectionDialog("选择UIP", shell,
+				String path = fsd.openUIPSelectionDialog(Messages.AbstractFSDPropertyPage_4, shell,
 						getProjectNode());
 				if (path != null && path.length() > 0) {
 					getTableInput().add(path);
@@ -154,12 +154,12 @@ abstract public class AbstractFSDPropertyPage extends PropertyPage {
 
 	@Override
 	public boolean performOk() {
-		CompositeMap map = new CompositeMap("properties");
+		CompositeMap map = new CompositeMap("properties"); //$NON-NLS-1$
 		saveTOMap(map);
 		try {
 			saveProperties(map);
 		} catch (IOException e) {
-			this.setErrorMessage("保存属性文件失败");
+			this.setErrorMessage(Messages.AbstractFSDPropertyPage_6);
 			return false;
 		}
 		return super.performOk();

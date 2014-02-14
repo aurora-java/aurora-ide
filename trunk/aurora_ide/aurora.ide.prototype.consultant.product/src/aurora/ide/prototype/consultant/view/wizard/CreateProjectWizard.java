@@ -12,8 +12,8 @@ import aurora.ide.swt.util.PageModel;
 
 public class CreateProjectWizard extends UWizard {
 
-	public static final String QUICK_UI_PROJECT = "quick_ui.project";
-	private CreateProjectPage page = new CreateProjectPage("CreateProjectPage",
+	public static final String QUICK_UI_PROJECT = "quick_ui.project"; //$NON-NLS-1$
+	private CreateProjectPage page = new CreateProjectPage("CreateProjectPage", //$NON-NLS-1$
 			new PageModel());
 
 	public CreateProjectWizard(Shell shell) {
@@ -29,13 +29,13 @@ public class CreateProjectWizard extends UWizard {
 	public boolean performFinish() {
 		File pj = createProject();
 		if (pj == null) {
-			page.verifyPage("新建项目失败");
+			page.verifyPage(Messages.CreateProjectWizard_2);
 			return false;
 		}
 		try {
 			createPJProperties(pj);
 		} catch (IOException e) {
-			page.verifyPage("新建属性文件失败");
+			page.verifyPage(Messages.CreateProjectWizard_3);
 			return false;
 		}
 		return true;
@@ -56,7 +56,7 @@ public class CreateProjectWizard extends UWizard {
 	}
 
 	private void createPJProperties(File pj) throws IOException {
-		CompositeMap map = new CompositeMap("properties");
+		CompositeMap map = new CompositeMap("properties"); //$NON-NLS-1$
 		map.createChild(CreateProjectPage.properties[2]).setText(
 				page.getModel().getStringPropertyValue(
 						CreateProjectPage.properties[2]));

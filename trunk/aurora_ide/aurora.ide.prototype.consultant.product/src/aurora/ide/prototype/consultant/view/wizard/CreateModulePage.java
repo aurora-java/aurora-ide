@@ -16,14 +16,14 @@ import aurora.ide.swt.util.WidgetFactory;
 
 public class CreateModulePage extends UWizardPage {
 
-	public static final String[] properties = new String[] { "pj_name",
-			"module_name" };
+	public static final String[] properties = new String[] { "pj_name", //$NON-NLS-1$
+			"module_name" }; //$NON-NLS-1$
 	private File parent;
 
 	protected CreateModulePage(String pageName, File parent) {
 		super(pageName);
-		this.setTitle("Aurora Quick UI");
-		this.setMessage("新建模块");
+		this.setTitle("Aurora Quick UI"); //$NON-NLS-1$
+		this.setMessage(Messages.CreateModulePage_3);
 		this.parent = parent;
 	}
 
@@ -41,18 +41,18 @@ public class CreateModulePage extends UWizardPage {
 	@Override
 	protected String verifyModelProperty(String key, Object val) {
 		if (properties[1].equals(key)) {
-			if (val == null || "".equals(val)) {
-				return "模块名无效";
+			if (val == null || "".equals(val)) { //$NON-NLS-1$
+				return Messages.CreateModulePage_5;
 			}
 
-			String n = "" + val;
+			String n = "" + val; //$NON-NLS-1$
 			IPath p = new Path(n);
 			if (p.segmentCount() != 1 || p.hasTrailingSeparator()) {
-				return "模块名无效";
+				return Messages.CreateModulePage_7;
 			}
 			File m = new File(parent, n);
 			if (m.exists()) {
-				return "模块已存在";
+				return Messages.CreateModulePage_8;
 			}
 		}
 		return null;
@@ -64,7 +64,7 @@ public class CreateModulePage extends UWizardPage {
 		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
 		
 		parent.setLayout(GridLayoutUtil.COLUMN_LAYOUT_2);
-		TextField pjField = createInputField(parent, "项目名");
+		TextField pjField = createInputField(parent, Messages.CreateModulePage_9);
 		pjField.getText().setEnabled(false);
 		File project = ResourceUtil.getProject(this.parent);
 		if (project != null) {
@@ -73,7 +73,7 @@ public class CreateModulePage extends UWizardPage {
 		} else {
 			pjField.setText(this.parent.getName());
 		}
-		TextField mf = createInputField(parent, "模块名");
+		TextField mf = createInputField(parent, Messages.CreateModulePage_10);
 		mf.addModifyListener(new TextModifyListener(properties[1], mf.getText()));
 		return parent;
 	}

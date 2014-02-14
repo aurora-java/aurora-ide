@@ -42,7 +42,7 @@ public class DemonstrateLOVPage extends WizardPage {
 
 	private String[] items;
 
-	private static final String[] editors = {"",Input.TEXT,Input.NUMBER,Input.Combo,Input.LOV,Input.DATE_PICKER};
+	private static final String[] editors = {"",Input.TEXT,Input.NUMBER,Input.Combo,Input.LOV,Input.DATE_PICKER}; //$NON-NLS-1$
 	
 	private List<AuroraComponent> bindComponents = new ArrayList<AuroraComponent>();
 
@@ -51,8 +51,8 @@ public class DemonstrateLOVPage extends WizardPage {
 	@SuppressWarnings("unchecked")
 	public DemonstrateLOVPage(String pageName, DemonstrateSettingManager sm) {
 		super(pageName);
-		this.setTitle("演示配置");
-		this.setMessage("演示LOV页面设置");
+		this.setTitle(Messages.DemonstrateLOVPage_1);
+		this.setMessage(Messages.DemonstrateLOVPage_2);
 		this.sm = sm;
 		List<DemonstrateBind> inputs = (List<DemonstrateBind>) sm
 				.getDemonstrateData().getPropertyValue(
@@ -98,27 +98,27 @@ public class DemonstrateLOVPage extends WizardPage {
 		// tclayout.setColumnData(tc0, new ColumnWeightData(0, 0, false));
 
 		TableColumn tc1 = new TableColumn(table, SWT.LEFT);
-		tc1.setText("列名");
+		tc1.setText(Messages.DemonstrateLOVPage_3);
 		tc1.setWidth(250);
 		// tclayout.setColumnData(tc1, new ColumnWeightData(100, 100, true));
 
 		// ColumnWeightData cData = new ColumnWeightData(20, 20, true);
 		TableColumn tc22 = new TableColumn(table, SWT.CENTER);
-		tc22.setText("用做显示");
+		tc22.setText(Messages.DemonstrateLOVPage_4);
 		tc22.setWidth(80);
 
 		TableColumn tc2 = new TableColumn(table, SWT.CENTER);
-		tc2.setText("用做查询");
+		tc2.setText(Messages.DemonstrateLOVPage_5);
 		tc2.setWidth(80);
 		// tclayout.setColumnData(tc2, cData);
 
 		TableColumn tc3 = new TableColumn(table, SWT.CENTER);
-		tc3.setText("关联控件");
+		tc3.setText(Messages.DemonstrateLOVPage_6);
 		tc3.setWidth(80);
 		// tclayout.setColumnData(tc3, cData);
 
 		tableViewer
-				.setColumnProperties(new String[] { "11", "222", "22", "33" });
+				.setColumnProperties(new String[] { "11", "222", "22", "33" }); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		tableViewer.setContentProvider(new ContentProvider());
 		tableViewer.setLabelProvider(new TableLabelProvider());
 		tableViewer.setInput(input);
@@ -139,23 +139,23 @@ public class DemonstrateLOVPage extends WizardPage {
 		btnBar.setLayout(new GridLayout(2, false));
 
 		Button btnAdd = new Button(btnBar, SWT.NONE);
-		btnAdd.setText("+");
-		GridData gd = new GridData();
-		gd.widthHint = 30;
-		btnAdd.setLayoutData(gd);
+		btnAdd.setText(" + "); //$NON-NLS-1$
+//		GridData gd = new GridData();
+//		gd.widthHint = 30;
+		btnAdd.setLayoutData(new GridData());
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Data d = new Data(new DemonstrateBind());
-				d.setAttr1("");
+				d.setAttr1(""); //$NON-NLS-1$
 				input.add(d);
 				tableViewer.refresh();
 			}
 		});
 
 		Button btnSub = new Button(btnBar, SWT.NONE);
-		btnSub.setText("-");
-		btnSub.setLayoutData(gd);
+		btnSub.setText(" - "); //$NON-NLS-1$
+		btnSub.setLayoutData(new GridData());
 		btnSub.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -196,7 +196,7 @@ public class DemonstrateLOVPage extends WizardPage {
 			}
 			if (columnIndex == 3) {
 				AuroraComponent attr3 = d.getAttr3();
-				return attr3 == null ? "" : attr3.getPrompt();
+				return attr3 == null ? "" : attr3.getPrompt(); //$NON-NLS-1$
 			}
 			return null;
 		}
@@ -248,13 +248,13 @@ public class DemonstrateLOVPage extends WizardPage {
 		@Override
 		public Object getValue(Object element, String property) {
 			Data d = (Data) element;
-			if (property.equals("11")) {
+			if (property.equals("11")) { //$NON-NLS-1$
 				return d.getAttr1();
-			} else if (property.equals("222")) {
+			} else if (property.equals("222")) { //$NON-NLS-1$
 				return Boolean.valueOf(d.isAttr22());
-			} else if (property.equals("22")) {
+			} else if (property.equals("22")) { //$NON-NLS-1$
 				return d.getEditorIndex();
-			} else if (property.equals("33")) {
+			} else if (property.equals("33")) { //$NON-NLS-1$
 				return d.getBindIndex();
 			}
 			return -1;
@@ -266,13 +266,13 @@ public class DemonstrateLOVPage extends WizardPage {
 				element = ((Item) element).getData();
 			}
 			Data d = (Data) element;
-			if (property.equals("11")) {
+			if (property.equals("11")) { //$NON-NLS-1$
 				d.setAttr1(value.toString());
-			} else if (property.equals("222")) {
+			} else if (property.equals("222")) { //$NON-NLS-1$
 				d.setAttr22(Boolean.parseBoolean(value.toString()));
-			} else if (property.equals("22")) {
+			} else if (property.equals("22")) { //$NON-NLS-1$
 				d.setEditorIndex((Integer) value);
-			} else if (property.equals("33")) {
+			} else if (property.equals("33")) { //$NON-NLS-1$
 				d.setBindIndex((Integer) value);
 			}
 			tableViewer.refresh();
@@ -376,7 +376,7 @@ public class DemonstrateLOVPage extends WizardPage {
 				}
 			}
 			items = new String[bindComponents.size() + 1];
-			items[0] = "";
+			items[0] = ""; //$NON-NLS-1$
 			for (int i = 1; i < items.length; i++) {
 				items[i] = bindComponents.get(i - 1).getPrompt();
 			}

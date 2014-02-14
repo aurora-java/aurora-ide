@@ -43,8 +43,8 @@ public class FunctionFSDContentPage extends UWizardPage {
 	@Override
 	protected String verifyModelProperty(String key, Object val) {
 		if (properties[0].equals(key)) {
-			if (val == null || "".equals(val)) {
-				return "保存路径无效";
+			if (val == null || "".equals(val)) { //$NON-NLS-1$
+				return Messages.FunctionFSDContentPage_1;
 			}
 		}
 		return null;
@@ -58,7 +58,7 @@ public class FunctionFSDContentPage extends UWizardPage {
 		new FSDContentControl(this.getModel(),this.selectionNode.getPath()) {
 			protected void clickAddButton(Shell shell, final TableViewer tv) {
 				FunctionSelectionDialog fsd = new FunctionSelectionDialog();
-				String path = fsd.openUIPSelectionDialog("选择UIP", shell,
+				String path = fsd.openUIPSelectionDialog(Messages.FunctionFSDContentPage_2, shell,
 						getProjectNode());
 				if (path != null && path.length() > 0) {
 					getTableInput().add(path);
