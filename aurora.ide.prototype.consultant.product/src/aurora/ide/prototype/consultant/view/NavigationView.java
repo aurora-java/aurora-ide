@@ -284,7 +284,7 @@ public class NavigationView extends ViewPart {
 		}
 
 		if (getSelectionNode() != null)
-			menu.add(new Action("") { //$NON-NLS-1$
+			menu.add(new Action(aurora.ide.prototype.consultant.view.Messages.NavigationView_4) { //$NON-NLS-1$
 
 				@Override
 				public void run() {
