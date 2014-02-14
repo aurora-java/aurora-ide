@@ -27,8 +27,8 @@ public class OpenLocalProjectAction extends Action {
 			return;
 		boolean project = ResourceUtil.isProject(new File(queryFile));
 		if (project == false) {
-			MessageDialog.openInformation(viewer.getSite().getShell(), "Info",
-					"选择的目录不是一个Aurora Quick UI 项目，无法导入");
+			MessageDialog.openInformation(viewer.getSite().getShell(), "Info", //$NON-NLS-1$
+					Messages.OpenLocalProjectAction_1);
 
 		} else {
 			NavViewSetting vs = new NavViewSetting();
@@ -36,7 +36,7 @@ public class OpenLocalProjectAction extends Action {
 			for (String string : folders) {
 				if (new Path(string).equals(new Path(queryFile))) {
 					MessageDialog.openInformation(viewer.getSite().getShell(),
-							"Info", "项目已经存在");
+							"Info", Messages.OpenLocalProjectAction_3); //$NON-NLS-1$
 					return;
 
 				}

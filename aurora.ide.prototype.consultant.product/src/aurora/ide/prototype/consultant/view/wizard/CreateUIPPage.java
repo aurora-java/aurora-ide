@@ -17,13 +17,13 @@ import aurora.ide.swt.util.WidgetFactory;
 public class CreateUIPPage extends UWizardPage {
 
 	private File parent;
-	public static String[] properties = new String[] { "uip_name" };
+	public static String[] properties = new String[] { "uip_name" }; //$NON-NLS-1$
 
 	protected CreateUIPPage(String pageName, File parent) {
 		super(pageName);
 		this.parent = parent;
-		this.setTitle("Aurora Quick UI");
-		this.setMessage("新建UIP");
+		this.setTitle("Aurora Quick UI"); //$NON-NLS-1$
+		this.setMessage(Messages.CreateUIPPage_2);
 	}
 
 	private TextField createInputField(Composite parent, String label) {
@@ -40,17 +40,17 @@ public class CreateUIPPage extends UWizardPage {
 	@Override
 	protected String verifyModelProperty(String key, Object val) {
 		if (properties[0].equals(key)) {
-			if (val == null || "".equals(val)) {
-				return "文件名无效";
+			if (val == null || "".equals(val)) { //$NON-NLS-1$
+				return Messages.CreateUIPPage_4;
 			}
-			String n = "" + val;
+			String n = "" + val; //$NON-NLS-1$
 			IPath p = new Path(n);
 			if (p.segmentCount() != 1 || p.hasTrailingSeparator()) {
-				return "文件名无效";
+				return Messages.CreateUIPPage_6;
 			}
-			File m = new File(parent, n + ".uip");
+			File m = new File(parent, n + ".uip"); //$NON-NLS-1$
 			if (m.exists()) {
-				return "文件名已存在";
+				return Messages.CreateUIPPage_8;
 			}
 
 		}
@@ -64,7 +64,7 @@ public class CreateUIPPage extends UWizardPage {
 		
 		parent.setLayout(GridLayoutUtil.COLUMN_LAYOUT_2);
 
-		TextField pjField = createInputField(parent, "项目名");
+		TextField pjField = createInputField(parent, Messages.CreateUIPPage_9);
 		pjField.getText().setEnabled(false);
 		File project = ResourceUtil.getProject(this.parent);
 		if (project != null) {
@@ -74,7 +74,7 @@ public class CreateUIPPage extends UWizardPage {
 			pjField.setText(this.parent.getName());
 		}
 
-		TextField ff = createInputField(parent, "文件名");
+		TextField ff = createInputField(parent, Messages.CreateUIPPage_10);
 		ff.addModifyListener(new TextModifyListener(properties[0], ff.getText()));
 		return parent;
 	}

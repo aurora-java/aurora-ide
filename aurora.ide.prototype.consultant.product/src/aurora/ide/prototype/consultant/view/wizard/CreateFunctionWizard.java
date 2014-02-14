@@ -12,14 +12,14 @@ import aurora.ide.swt.util.UWizard;
 
 public class CreateFunctionWizard extends UWizard {
 
-	public static final String QUICK_UI_FUNCTION = "quick_ui.function";
+	public static final String QUICK_UI_FUNCTION = "quick_ui.function"; //$NON-NLS-1$
 	private CreateFunctionPage page;
 	private File parent;
 
 	public CreateFunctionWizard(Shell shell, File parent) {
 		super(shell);
 		this.parent = parent;
-		page = new CreateFunctionPage("CreateFunctionPage", parent);
+		page = new CreateFunctionPage("CreateFunctionPage", parent); //$NON-NLS-1$
 	}
 
 	@Override
@@ -32,13 +32,13 @@ public class CreateFunctionWizard extends UWizard {
 
 		File m = createFunction();
 		if (m == null) {
-			page.verifyPage("新建功能失败");
+			page.verifyPage(Messages.CreateFunctionWizard_2);
 			return false;
 		}
 		try {
 			createProperties(m);
 		} catch (IOException e) {
-			page.verifyPage("新建属性文件失败");
+			page.verifyPage(Messages.CreateFunctionWizard_3);
 			return false;
 		}
 		return true;
@@ -57,7 +57,7 @@ public class CreateFunctionWizard extends UWizard {
 	}
 
 	private void createProperties(File m) throws IOException {
-		CompositeMap map = new CompositeMap("properties");
+		CompositeMap map = new CompositeMap("properties"); //$NON-NLS-1$
 		map.createChild(CreateFunctionPage.properties[0]).setText(
 				page.getModel().getStringPropertyValue(
 						CreateFunctionPage.properties[0]));

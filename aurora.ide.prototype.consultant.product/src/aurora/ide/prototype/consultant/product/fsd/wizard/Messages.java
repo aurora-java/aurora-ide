@@ -15,6 +15,18 @@ public class Messages extends NLS {
 	public static String ContentDescPage_5;
 	public static String ContentDescPage_6;
 	public static String ContentDescPage_8;
+	public static String CreateFunctionPage_1;
+	public static String CreateFunctionPage_3;
+	public static String CreateFunctionPage_5;
+	public static String CreateFunctionPage_6;
+	public static String CreateFunctionPage_8;
+	public static String CreateFunctionPage_9;
+	public static String CreateProjectPage_10;
+	public static String CreateProjectPage_3;
+	public static String CreateProjectPage_5;
+	public static String CreateProjectPage_7;
+	public static String CreateProjectPage_8;
+	public static String CreateProjectPage_9;
 	public static String ExportWizard_1;
 	public static String ExportWizard_3;
 	public static String FunctionDescPage_0;
@@ -32,6 +44,16 @@ public class Messages extends NLS {
 	public static String FunctionDescPage_7;
 	public static String FunctionDescPage_8;
 	public static String FunctionDescPage_9;
+	public static String FunctionFSDContentPage_1;
+	public static String FunctionFSDContentPage_2;
+	public static String ProjectFSDContentPage_1;
+	public static String ProjectFSDContentPage_2;
+	public static String ProjectFSDContentPage_3;
+	public static String ProjectFSDContentPage_7;
+	public static String ProjectFSDDescPage_1;
+	public static String ProjectFSDPropertyPage_0;
+	public static String ProjectFSDPropertyPage_1;
+	public static String ProjectFSDPropertyPage_5;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

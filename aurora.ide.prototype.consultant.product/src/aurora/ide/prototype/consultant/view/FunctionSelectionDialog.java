@@ -41,8 +41,8 @@ public class FunctionSelectionDialog {
 					if (function)
 						return Status.OK_STATUS;
 				}
-				Status s = new Status(Status.ERROR, "unknown", 1,
-						"请选择Function", null);
+				Status s = new Status(Status.ERROR, "unknown", 1, //$NON-NLS-1$
+						Messages.FunctionSelectionDialog_1, null);
 				return s;
 			}
 		});
@@ -85,8 +85,8 @@ public class FunctionSelectionDialog {
 					if (function)
 						return Status.OK_STATUS;
 				}
-				Status s = new Status(Status.ERROR, "unknown", 1,
-						"请选择UIP", null);
+				Status s = new Status(Status.ERROR, "unknown", 1, //$NON-NLS-1$
+						Messages.FunctionSelectionDialog_3, null);
 				return s;
 			}
 		});

@@ -24,7 +24,7 @@ public class RemoveLocalFolderAction extends Action implements
 
 	public void run() {
 		boolean oc = MessageDialog.openConfirm(viewer.getViewer().getControl()
-				.getShell(), "Confirm", "文件将被删除，不可恢复");
+				.getShell(), "Confirm", Messages.RemoveLocalFolderAction_1); //$NON-NLS-1$
 		if (oc == false)
 			return;
 		Node node = viewer.getSelectionNode();

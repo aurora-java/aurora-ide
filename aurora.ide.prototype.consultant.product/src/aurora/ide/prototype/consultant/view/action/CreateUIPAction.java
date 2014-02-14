@@ -18,8 +18,8 @@ public class CreateUIPAction extends Action implements
 	private NavigationView viewer;
 
 	public CreateUIPAction(NavigationView viewer) {
-		super("新建UIP");
-		setToolTipText("新建UIP");
+		super(Messages.CreateUIPAction_0);
+		setToolTipText(Messages.CreateUIPAction_1);
 		this.viewer = viewer;
 		commonViewer = viewer.getViewer();
 		commonViewer.addSelectionChangedListener(this);

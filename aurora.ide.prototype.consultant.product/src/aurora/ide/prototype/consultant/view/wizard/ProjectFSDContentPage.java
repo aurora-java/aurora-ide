@@ -50,8 +50,8 @@ public class ProjectFSDContentPage extends UWizardPage {
 	@Override
 	protected String verifyModelProperty(String key, Object val) {
 		if (properties[0].equals(key)) {
-			if (val == null || "".equals(val)) {
-				return "保存路径无效";
+			if (val == null || "".equals(val)) { //$NON-NLS-1$
+				return Messages.ProjectFSDContentPage_1;
 			}
 		}
 		return null;
@@ -66,10 +66,10 @@ public class ProjectFSDContentPage extends UWizardPage {
 			protected void createTableColumn(Table table) {
 				TableColumn column1 = new TableColumn(table, SWT.LEFT);
 				column1.setWidth(128);
-				column1.setText("功能号");
+				column1.setText(Messages.ProjectFSDContentPage_2);
 				TableColumn column2 = new TableColumn(table, SWT.NONE);
 				column2.setWidth(193);
-				column2.setText("功能名");
+				column2.setText(Messages.ProjectFSDContentPage_3);
 			}
 
 			protected TableLabelProvider getLabelProvider() {
@@ -80,7 +80,7 @@ public class ProjectFSDContentPage extends UWizardPage {
 							Path p = new Path(element.toString());
 							File file = p.toFile();
 							if (file.exists() == false)
-								return "";
+								return ""; //$NON-NLS-1$
 							if (i == 0) {
 								return file.getParentFile().getName();
 							}
@@ -89,9 +89,9 @@ public class ProjectFSDContentPage extends UWizardPage {
 										.loadFile(file);
 								CompositeMap child = loadFile
 										.getChild(FunctionDesc.fun_name);
-								String text = child == null ? "" : child
+								String text = child == null ? "" : child //$NON-NLS-1$
 										.getText();
-								return text == null ? "" : text;
+								return text == null ? "" : text; //$NON-NLS-1$
 							}
 						}
 						return ""; //$NON-NLS-1$
@@ -101,7 +101,7 @@ public class ProjectFSDContentPage extends UWizardPage {
 
 			protected void clickAddButton(Shell shell, final TableViewer tv) {
 				FunctionSelectionDialog fsd = new FunctionSelectionDialog();
-				String path = fsd.openFolderSelectionDialog("选择FSD Function",
+				String path = fsd.openFolderSelectionDialog(Messages.ProjectFSDContentPage_7,
 						shell, getProjectNode());
 				if (path != null && path.length() > 0) {
 					getTableInput().add(path);

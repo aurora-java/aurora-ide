@@ -19,8 +19,8 @@ public class CreateModuleAction extends Action implements
 	private NavigationView viewer;
 
 	public CreateModuleAction(NavigationView viewer) {
-		super("新建模块");
-		setToolTipText("新建模块");
+		super(Messages.CreateModuleAction_0);
+		setToolTipText(Messages.CreateModuleAction_1);
 		this.viewer = viewer;
 		commonViewer = viewer.getViewer();
 		commonViewer.addSelectionChangedListener(this);

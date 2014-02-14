@@ -44,12 +44,12 @@ import aurora.ide.swt.util.viewer.CTableViewer;
 
 public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 
-	private static final String FILES = "files";
-	public static final String DEMONSTRATE_SETTING = "demonstrate.setting";
-	public static final String FUNCTION = "function";
-	public static final String FUNCTIONS = "functions";
-	public static final String WELCOME_UIP = "welcome_uip";
-	public static final String LOGIN_IMG = "login_img";
+	private static final String FILES = "files"; //$NON-NLS-1$
+	public static final String DEMONSTRATE_SETTING = "demonstrate.setting"; //$NON-NLS-1$
+	public static final String FUNCTION = "function"; //$NON-NLS-1$
+	public static final String FUNCTIONS = "functions"; //$NON-NLS-1$
+	public static final String WELCOME_UIP = "welcome_uip"; //$NON-NLS-1$
+	public static final String LOGIN_IMG = "login_img"; //$NON-NLS-1$
 	private PageModel model = new PageModel();
 
 	protected Control createContents(final Composite parent) {
@@ -58,7 +58,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 		layout.numColumns = 3;
 		root.setLayout(layout);
 		final TextField loginBkr = WidgetFactory.createTextButtonField(root,
-				"登陆页面背景图片", "浏览");
+				Messages.ProjectDemonstratePropertyPage_6, Messages.ProjectDemonstratePropertyPage_7);
 		loginBkr.getText().setEditable(false);
 		loginBkr.addButtonClickListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -77,7 +77,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 								iconType);
 						model.setPropertyValue(LOGIN_IMG,
 								AuroraImagesUtils.toString(bytes));
-						loginBkr.setText("已设置");
+						loginBkr.setText(Messages.ProjectDemonstratePropertyPage_8);
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					}
@@ -86,7 +86,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 		});
 
 		final TextField welcomeUip = WidgetFactory.createTextButtonField(root,
-				"欢迎页面", "浏览");
+				Messages.ProjectDemonstratePropertyPage_9, Messages.ProjectDemonstratePropertyPage_10);
 		welcomeUip.getText().setEditable(false);
 		welcomeUip.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
@@ -112,7 +112,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			}
 		});
 		Group g = new Group(root, SWT.NONE);
-		g.setText("功能列表");
+		g.setText(Messages.ProjectDemonstratePropertyPage_11);
 		GridData layoutData = new GridData(GridData.FILL_BOTH);
 		layoutData.horizontalSpan = 3;
 		g.setLayoutData(layoutData);
@@ -129,9 +129,9 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			}
 		};
 
-		ctv.addColumn("功能号", 128);
-		ctv.addColumn("功能名", 193);
-		ctv.addColumn("菜单列表", 293);
+		ctv.addColumn(Messages.ProjectDemonstratePropertyPage_12, 128);
+		ctv.addColumn(Messages.ProjectDemonstratePropertyPage_13, 193);
+		ctv.addColumn(Messages.ProjectDemonstratePropertyPage_14, 293);
 		ctv.setTableContentProvider(new TableContentProvider());
 		ctv.setTableLabelProvider(new TableLabelProvider() {
 			public String getColumnText(Object element, int i) {
@@ -140,7 +140,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 					Path p = new Path(((F) element).functionPath);
 					File file = p.toFile();
 					if (file.exists() == false)
-						return "";
+						return ""; //$NON-NLS-1$
 					if (i == 0) {
 						return file.getParentFile().getName();
 					}
@@ -148,16 +148,16 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 						CompositeMap loadFile = CompositeMapUtil.loadFile(file);
 						CompositeMap child = loadFile
 								.getChild(FunctionDesc.fun_name);
-						String text = child == null ? "" : child.getText();
-						return text == null ? "" : text;
+						String text = child == null ? "" : child.getText(); //$NON-NLS-1$
+						return text == null ? "" : text; //$NON-NLS-1$
 					}
 					if (i == 2) {
 						List<Object> uipFiles = ((F) element).uipFiles;
-						String s = "";
+						String s = ""; //$NON-NLS-1$
 						for (Object object : uipFiles) {
-							Path path = new Path("" +object);
+							Path path = new Path("" +object); //$NON-NLS-1$
 							String name = path.removeFileExtension().lastSegment();
-							s = s + "[ " + name + " ]  ";
+							s = s + "[ " + name + " ]  "; //$NON-NLS-1$ //$NON-NLS-2$
 						}
 						return s;
 					}
@@ -175,7 +175,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 		welcomeUip.setText(model.getStringPropertyValue(WELCOME_UIP));
 		String stringPropertyValue = model.getStringPropertyValue(LOGIN_IMG);
 		loginBkr.setText(stringPropertyValue == null
-				|| "".equals(stringPropertyValue) ? "未设置" : "已设置");
+				|| "".equals(stringPropertyValue) ? Messages.ProjectDemonstratePropertyPage_23 : Messages.ProjectDemonstratePropertyPage_24); //$NON-NLS-1$
 		List<Object> propertyValue = (List<Object>) model
 				.getPropertyValue(FUNCTIONS);
 		ctv.setInput(propertyValue);
@@ -210,20 +210,20 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			p.setLayout(layout);
 			p.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-			final TextField fn = WidgetFactory.createTextButtonField(p, "功能名",
-					"浏览");
+			final TextField fn = WidgetFactory.createTextButtonField(p, Messages.ProjectDemonstratePropertyPage_25,
+					Messages.ProjectDemonstratePropertyPage_26);
 			fn.getText().setEditable(false);
 			fn.addButtonClickListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
 					FunctionSelectionDialog fsd = new FunctionSelectionDialog();
 					String path = fsd.openFolderSelectionDialog(
-							"选择FSD Function", parent.getShell(), getElement());
+							Messages.ProjectDemonstratePropertyPage_27, parent.getShell(), getElement());
 					if (path != null && path.length() > 0) {
 						
 						CompositeMap loadFile = CompositeMapUtil.loadFile(new File(path));
 						CompositeMap child = loadFile
 								.getChild(FunctionDesc.fun_name);
-						String text = child == null ? "" : child.getText();
+						String text = child == null ? "" : child.getText(); //$NON-NLS-1$
 						f.functionPath = path;
 						fn.setText(text);
 					}
@@ -248,7 +248,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 //					}
 //					setInput(tv);
 					FunctionSelectionDialog fsd = new FunctionSelectionDialog();
-					String path = fsd.openUIPSelectionDialog("选择UIP", shell,
+					String path = fsd.openUIPSelectionDialog(Messages.ProjectDemonstratePropertyPage_29, shell,
 							getProjectNode());
 					if (path != null && path.length() > 0) {
 						getTableInput().add(path);
@@ -257,8 +257,8 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 					
 				}
 			};
-			ctv.addColumn("文件名", 128);
-			ctv.addColumn("路径", 193);
+			ctv.addColumn(Messages.ProjectDemonstratePropertyPage_30, 128);
+			ctv.addColumn(Messages.ProjectDemonstratePropertyPage_31, 193);
 			ctv.setTableLabelProvider(new TableLabelProvider() {
 				public String getColumnText(Object element, int i) {
 
@@ -316,15 +316,15 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 				for (Object object : childsNotNull) {
 					CompositeMap m = (CompositeMap) object;
 					F f = new F();
-					String ss = m.getString(FUNCTION, "");
+					String ss = m.getString(FUNCTION, ""); //$NON-NLS-1$
 					CompositeMap child2 = m.getChild(FILES);
-					String t = child2 == null ? "" : child2.getText();
+					String t = child2 == null ? "" : child2.getText(); //$NON-NLS-1$
 					if (t == null)
-						t = "";
-					String[] split = t.split(",");
+						t = ""; //$NON-NLS-1$
+					String[] split = t.split(","); //$NON-NLS-1$
 					f.uipFiles = new ArrayList<Object>();
 					for (String s : split) {
-						if (s != null && "".equals(s) == false) {
+						if (s != null && "".equals(s) == false) { //$NON-NLS-1$
 							f.uipFiles.add(makeAbsolute(s));
 						}
 					}
@@ -373,27 +373,27 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 				CompositeMap ff = fff.createChild(FUNCTION);
 				ff.put(FUNCTION, makeRelative(f.functionPath));
 				List<Object> uipFiles = f.uipFiles;
-				String ss = "";
+				String ss = ""; //$NON-NLS-1$
 				for (Object string : uipFiles) {
-					ss = ss + "," + makeRelative(string.toString());
+					ss = ss + "," + makeRelative(string.toString()); //$NON-NLS-1$
 				}
-				ss = ss.replaceFirst(",", "");
+				ss = ss.replaceFirst(",", ""); //$NON-NLS-1$ //$NON-NLS-2$
 				ff.createChild(FILES).setText(ss);
 			}
 		}
 	}
 
 	public String makeRelative(String path) {
-		if (path == null || "".equals(path))
-			return "";
+		if (path == null || "".equals(path)) //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		IPath p = new Path(path);
 		IPath makeRelativeTo = p.makeRelativeTo(getBasePath());
 		return makeRelativeTo.toString();
 	}
 
 	public String makeAbsolute(String path) {
-		if (path == null || "".equals(path))
-			return "";
+		if (path == null || "".equals(path)) //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		IPath p = new Path(path);
 		return getBasePath().append(p).toString();
 	}

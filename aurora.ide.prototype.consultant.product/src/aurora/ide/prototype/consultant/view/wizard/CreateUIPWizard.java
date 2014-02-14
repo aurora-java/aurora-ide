@@ -25,7 +25,7 @@ public class CreateUIPWizard extends UWizard {
 	public CreateUIPWizard(Shell shell, File parent) {
 		super(shell);
 		this.parent = parent;
-		page = new CreateUIPPage("CreateUIPPage", parent);
+		page = new CreateUIPPage("CreateUIPPage", parent); //$NON-NLS-1$
 	}
 
 	@Override
@@ -39,10 +39,10 @@ public class CreateUIPWizard extends UWizard {
 			createFile();
 			openFile();
 		} catch (IOException e) {
-			page.verifyPage("新建UIP文件失败");
+			page.verifyPage(Messages.CreateUIPWizard_1);
 			return false;
 		} catch (PartInitException e) {
-			page.verifyPage("打开文件失败");
+			page.verifyPage(Messages.CreateUIPWizard_2);
 			return false;
 		}
 
@@ -53,7 +53,7 @@ public class CreateUIPWizard extends UWizard {
 	public File getUIPFile() {
 		String mName = page.getModel().getStringPropertyValue(
 				CreateUIPPage.properties[0]);
-		File m = new File(parent, mName+".uip");
+		File m = new File(parent, mName+".uip"); //$NON-NLS-1$
 		return m;
 	}
 
@@ -62,7 +62,7 @@ public class CreateUIPWizard extends UWizard {
 				CreateUIPPage.properties[0]);
 		Object2CompositeMap o2c = new Object2CompositeMap();
 		CompositeMap map = o2c.createCompositeMap(new ScreenBody());
-		ResourceUtil.createFile(parent, mName+".uip", map);
+		ResourceUtil.createFile(parent, mName+".uip", map); //$NON-NLS-1$
 	}
 
 	public void openFile() throws PartInitException {

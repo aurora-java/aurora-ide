@@ -31,6 +31,13 @@ public class Messages extends NLS {
 	public static String ButtonsCreator_5;
 	public static String ConsultantVScreenEditorContributor_0;
 	public static String ConsultantVScreenEditorContributor_2;
+	public static String NavigationView_1;
+	public static String NavigationView_11;
+	public static String NavigationView_2;
+	public static String NavigationView_3;
+	public static String NavigationView_5;
+	public static String NavigationView_7;
+	public static String NavigationView_8;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

@@ -39,8 +39,8 @@ public class FunctionFSDDescPage extends UWizardPage {
 	@Override
 	protected String verifyModelProperty(String key, Object val) {
 		if(properties[0].equals(key)){
-			if(val == null || "".equals(val)){
-				return "请输入FSD文档标题";
+			if(val == null || "".equals(val)){ //$NON-NLS-1$
+				return Messages.FunctionFSDDescPage_1;
 			}
 		}
 		return null;

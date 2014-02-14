@@ -20,8 +20,8 @@ public class CreateFunctionAction extends Action implements ISelectionChangedLis
 
 	
 	public CreateFunctionAction(NavigationView viewer) {
-		super("新建功能");
-		setToolTipText("新建功能");
+		super(Messages.CreateFunctionAction_0);
+		setToolTipText(Messages.CreateFunctionAction_1);
 		this.viewer = viewer;
 		commonViewer = viewer.getViewer();
 		commonViewer.addSelectionChangedListener(this);

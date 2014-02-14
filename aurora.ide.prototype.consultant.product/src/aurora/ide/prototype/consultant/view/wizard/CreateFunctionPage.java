@@ -27,8 +27,8 @@ public class CreateFunctionPage extends UWizardPage {
 
 	protected CreateFunctionPage(String pageName, File parent) {
 		super(pageName);
-		this.setTitle("Aurora Quick UI");
-		this.setMessage("新建功能");
+		this.setTitle("Aurora Quick UI"); //$NON-NLS-1$
+		this.setMessage(Messages.CreateFunctionPage_1);
 		this.f_parent = parent;
 	}
 
@@ -49,23 +49,23 @@ public class CreateFunctionPage extends UWizardPage {
 	@Override
 	protected String verifyModelProperty(String key, Object val) {
 		if (properties[0].equals(key)) {
-			if (val == null || "".equals(val)) {
-				return "功能号无效";
+			if (val == null || "".equals(val)) { //$NON-NLS-1$
+				return Messages.CreateFunctionPage_3;
 			}
-			String n = "" + val;
+			String n = "" + val; //$NON-NLS-1$
 			IPath p = new Path(n);
 			if (p.segmentCount() != 1 || p.hasTrailingSeparator()) {
-				return "功能号无效";
+				return Messages.CreateFunctionPage_5;
 			}
 			File m = new File(f_parent, n);
 			if (m.exists()) {
-				return "功能号存在";
+				return Messages.CreateFunctionPage_6;
 			}
 
 		}
 		if (properties[1].equals(key)) {
-			if (val == null || "".equals(val)) {
-				return "功能名无效";
+			if (val == null || "".equals(val)) { //$NON-NLS-1$
+				return Messages.CreateFunctionPage_8;
 			}
 		}
 		return null;
@@ -83,7 +83,7 @@ public class CreateFunctionPage extends UWizardPage {
 		functonComposite.setLayout(ly);
 		functonComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		TextField pjField = createInputField(functonComposite, "项目名", "pj_name");
+		TextField pjField = createInputField(functonComposite, Messages.CreateFunctionPage_9, "pj_name"); //$NON-NLS-2$
 		pjField.getText().setEnabled(false);
 		File project = ResourceUtil.getProject(this.f_parent);
 		if (project != null) {

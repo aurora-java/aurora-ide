@@ -145,7 +145,7 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 			tc.loadFromMap(loadFile);
 			return mm.getStringPropertyValue(FunctionDesc.fun_name);
 		}
-		return "NONE_NAME";
+		return "NONE_NAME"; //$NON-NLS-1$
 	}
 
 	private Menu createMenu(F f) {
@@ -163,8 +163,8 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 						if (file.isFile())
 							openFile(file);
 						else {
-							MessageDialog.openError(parentShell, "ERROR",
-									"文件[ " + p.toString() + " ]不存在");
+							MessageDialog.openError(parentShell, "ERROR", //$NON-NLS-1$
+									Messages.DemonstratingMainPageDialog_2 + p.toString() + Messages.DemonstratingMainPageDialog_3);
 						}
 					}
 				});
@@ -245,7 +245,7 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 	public IPath getActiveFilePath() {
 		if (activeFile != null && activeFile.isFile())
 			return new Path(activeFile.getPath());
-		return new Path("");
+		return new Path(""); //$NON-NLS-1$
 	}
 
 	public boolean close() {

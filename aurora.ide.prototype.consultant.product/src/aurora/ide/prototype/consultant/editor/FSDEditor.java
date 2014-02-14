@@ -50,7 +50,7 @@ import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 
 public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 
-	public static final String EDITOR_ID = "aurora.ide.prototype.consultant.editor.FSDEditor";
+	public static final String EDITOR_ID = "aurora.ide.prototype.consultant.editor.FSDEditor"; //$NON-NLS-1$
 	private IEditorInput input;
 	private ScreenBody diagram;
 	private FSDPropertyFactory editablePropertyFactory = new FSDPropertyFactory();
@@ -78,7 +78,7 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 				}
 			} catch (IOException e) {
 				MessageDialog.openInformation(this.getSite().getShell(),
-						"Info", "保存文件失败");
+						"Info", Messages.FSDEditor_2); //$NON-NLS-1$
 			}
 		}
 	}
@@ -211,7 +211,7 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 			ce.create(propertyComposite);
 			Control control = ce.getControl();
 			if (control instanceof Text) {
-				((Text) control).setText(ac.getStringPropertyValue(""
+				((Text) control).setText(ac.getStringPropertyValue("" //$NON-NLS-1$
 						+ pd.getId()));
 			}
 			TypedListener typedListener = new TypedListener(
@@ -241,7 +241,7 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 
 	public void updateFSDProperty(IPropertyDescriptor pd, String text,
 			AuroraComponent ac) {
-		ac.setPropertyValue("" + pd.getId(), text);
+		ac.setPropertyValue("" + pd.getId(), text); //$NON-NLS-1$
 		viewer.refresh(ac);
 		updateEditorStatus(true);
 	}
@@ -283,15 +283,15 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 				boolean setting = false;
 				for (IPropertyDescriptor pd : pds) {
 					Object propertyValue = ((AuroraComponent) element)
-							.getPropertyValue("" + pd.getId());
+							.getPropertyValue("" + pd.getId()); //$NON-NLS-1$
 					if (propertyValue != null
-							&& "".equals(propertyValue) == false) {
+							&& "".equals(propertyValue) == false) { //$NON-NLS-1$
 						setting = true;
 						break;
 					}
 				}
 				if (setting == false) {
-					s.append("  ").append("[ " + "未设置" + " ]",
+					s.append("  ").append("[ " + Messages.FSDEditor_9 + " ]", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-4$
 							StyledString.DECORATIONS_STYLER);
 				}
 			}

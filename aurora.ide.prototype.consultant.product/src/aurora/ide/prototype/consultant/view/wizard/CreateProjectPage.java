@@ -23,16 +23,16 @@ import aurora.ide.swt.util.PageModel;
 
 public class CreateProjectPage extends UWizardPage {
 
-	public static final String[] properties = new String[] { "pj_name",
-			"pj_path", FunctionDesc.c_manager, FunctionDesc.dept,
+	public static final String[] properties = new String[] { "pj_name", //$NON-NLS-1$
+			"pj_path", FunctionDesc.c_manager, FunctionDesc.dept, //$NON-NLS-1$
 			FunctionDesc.h_manager };
 	private PageModel initModel;
 
 	protected CreateProjectPage(String pageName, PageModel initModel) {
 		super(pageName);
 		this.initModel = initModel;
-		this.setTitle("Aurora Quick UI");
-		this.setMessage("新建Aurora Quick UI项目");
+		this.setTitle("Aurora Quick UI"); //$NON-NLS-1$
+		this.setMessage(Messages.CreateProjectPage_3);
 	}
 
 	private TextField createInputField(Composite parent, String label,
@@ -53,21 +53,21 @@ public class CreateProjectPage extends UWizardPage {
 	@Override
 	protected String verifyModelProperty(String key, Object val) {
 		if (properties[0].equals(key)) {
-			if (val == null || "".equals(val)) {
-				return "项目名不可以为空";
+			if (val == null || "".equals(val)) { //$NON-NLS-1$
+				return Messages.CreateProjectPage_5;
 			}
 		}
 		if (properties[1].equals(key)) {
-			String p = "" + val;
+			String p = "" + val; //$NON-NLS-1$
 			File path = new File(p);
 			if (path.exists() == false || path.isDirectory() == false
 					|| path.canWrite() == false) {
-				return "路径无效";
+				return Messages.CreateProjectPage_7;
 			}
 			File pj = new File(path, this.getModel().getStringPropertyValue(
 					properties[0]));
 			if (pj.exists()) {
-				return "项目已经存在";
+				return Messages.CreateProjectPage_8;
 			}
 		}
 		return null;
@@ -87,12 +87,12 @@ public class CreateProjectPage extends UWizardPage {
 		GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
 		layoutData.horizontalSpan = 2;
 		final TextField pjField = WidgetFactory.createTextField(
-				functonComposite, "项目名", layoutData);
+				functonComposite, Messages.CreateProjectPage_9, layoutData);
 		pjField.addModifyListener(new TextModifyListener(properties[0], pjField
 				.getText()));
 		pjField.setText(initModel.getStringPropertyValue(properties[0]));
 		final TextField pathField = WidgetFactory.createTextButtonField(
-				functonComposite, "路径", Messages.ContentDescPage_1);
+				functonComposite, Messages.CreateProjectPage_10, Messages.ContentDescPage_1);
 		pathField.addModifyListener(new TextModifyListener(properties[1],
 				pathField.getText()));
 		pathField.setText(initModel.getStringPropertyValue(properties[1]));
