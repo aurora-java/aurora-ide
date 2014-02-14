@@ -1,5 +1,9 @@
 package aurora.ide.meta.gef.editors.wizard.dialog;
 
+import java.util.List;
+
+import aurora.plugin.source.gen.screen.model.DemonstrateBind;
+
 public class LovDialogInput {
 
 	private int col;
@@ -12,13 +16,18 @@ public class LovDialogInput {
 	}
 
 	private String[][] input = null;
+	private List<DemonstrateBind> bindModels;
 
 	public void add(int col, int row, String value) {
 		input[col][row] = value;
 	}
 
 	public String get(int col, int row) {
-		return input[col][row];
+		try {
+			return input[col][row];
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	public int getCol() {
@@ -35,6 +44,14 @@ public class LovDialogInput {
 
 	private void setRow(int row) {
 		this.row = row;
+	}
+
+	public void setBindModels(List<DemonstrateBind> inputs) {
+		this.bindModels = inputs;
+	}
+
+	public List<DemonstrateBind> getBindModels() {
+		return this.bindModels;
 	}
 
 	// private Map<String, String> queryHead = new HashMap<String, String>();
