@@ -58,6 +58,8 @@ public class LoginDiagramPart extends ViewDiagramPart {
 			File project = demonstratingDialog.getProject();
 			CompositeMap loadDemonProperties = ResourceUtil
 					.loadDemonProperties(project);
+			if (loadDemonProperties == null)
+				return null;
 
 			CompositeMap child = loadDemonProperties
 					.getChild(ProjectDemonstratePropertyPage.LOGIN_IMG);
