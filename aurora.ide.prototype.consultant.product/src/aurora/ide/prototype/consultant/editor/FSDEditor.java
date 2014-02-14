@@ -7,9 +7,15 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.DecoratingStyledCellLabelProvider;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.IDecorationContext;
+import org.eclipse.jface.viewers.ILabelDecorator;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -24,6 +30,9 @@ import org.eclipse.swt.widgets.TypedListener;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.FilteredTree;
+import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
@@ -47,6 +56,7 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 	private FSDPropertyFactory editablePropertyFactory = new FSDPropertyFactory();
 	private Composite propertyComposite;
 	private boolean isDirty;
+	private TreeViewer viewer;
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
@@ -113,14 +123,6 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 
 	@Override
 	public void createPartControl(Composite parent) {
-//		Composite root = new Composite(parent, SWT.NONE);
-//		root.setLayout(new GridLayout());
-
-//		Composite filterComposite = new Composite(root, SWT.NONE);
-//		filterComposite.setLayout(new GridLayout());
-//		filterComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//
-//		createFilterComposite(filterComposite);
 
 		SashForm sashForm = new SashForm(parent, SWT.HORIZONTAL);
 		sashForm.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -132,29 +134,35 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 		sashForm.setWeights(new int[] { 1, 4 });
 	}
 
-	private void createFilterComposite(Composite filterComposite) {
-
-	}
-
 	private void createPropertyView(Composite sashForm) {
 		propertyComposite = new Composite(sashForm, SWT.NONE);
 		propertyComposite.setLayout(new GridLayout());
-		
+
 		IPropertyDescriptor[] pds = editablePropertyFactory
 				.createPropertyDescriptors((AuroraComponent) diagram);
 		createPropertyControl((AuroraComponent) diagram, pds);
-		
+
 	}
 
 	private void createTreeViewer(Composite sashForm) {
 		Composite treeViewerComposite = new Composite(sashForm, SWT.NONE);
 		treeViewerComposite.setLayout(new GridLayout());
 
-		TreeViewer viewer = new TreeViewer(treeViewerComposite, SWT.MULTI
-				| SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		FilteredTree ff = new FilteredTree(treeViewerComposite, SWT.MULTI
+				| SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER,
+				new PatternFilter(), true);
+		viewer = ff.getViewer();
+
 		viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+
+		// TreeViewer viewer = new TreeViewer(treeViewerComposite, SWT.MULTI
+		// | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		// viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
 		viewer.setContentProvider(new ScreenBodyContentProvider());
-		viewer.setLabelProvider(new ScreenBodyLabelProvider());
+
+		viewer.setLabelProvider(new LabelProvider(new StyledLabelProvider(),
+				PlatformUI.getWorkbench().getDecoratorManager()
+						.getLabelDecorator(), null));
 		viewer.addFilter(new ComponentFilter(new String[] {
 				GridSelectionCol.GRIDSELECTIONCOL, Navbar.NAVBAR }));
 		viewer.addFilter(new TabBodyFilter());
@@ -234,12 +242,62 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 	public void updateFSDProperty(IPropertyDescriptor pd, String text,
 			AuroraComponent ac) {
 		ac.setPropertyValue("" + pd.getId(), text);
+		viewer.refresh(ac);
 		updateEditorStatus(true);
 	}
 
 	protected void updateEditorStatus(boolean isDirty) {
 		this.isDirty = isDirty;
 		firePropertyChange(PROP_DIRTY);
+	}
+
+	private class LabelProvider extends DecoratingStyledCellLabelProvider
+			implements ILabelProvider {
+
+		public LabelProvider(IStyledLabelProvider labelProvider,
+				ILabelDecorator decorator, IDecorationContext decorationContext) {
+			super(labelProvider, decorator, decorationContext);
+		}
+
+		@Override
+		public String getText(Object element) {
+			return this.getStyledText(element).getString();
+		}
+
+	}
+
+	private class StyledLabelProvider extends ScreenBodyLabelProvider implements
+			IStyledLabelProvider {
+
+		public String getText(Object element) {
+			return getStyledText(element).getString();
+		}
+
+		public StyledString getStyledText(Object element) {
+			String text = super.getText(element);
+			StyledString s = new StyledString();
+			s.append(text);
+			if (element instanceof AuroraComponent) {
+				IPropertyDescriptor[] pds = editablePropertyFactory
+						.createPropertyDescriptors((AuroraComponent) element);
+				boolean setting = false;
+				for (IPropertyDescriptor pd : pds) {
+					Object propertyValue = ((AuroraComponent) element)
+							.getPropertyValue("" + pd.getId());
+					if (propertyValue != null
+							&& "".equals(propertyValue) == false) {
+						setting = true;
+						break;
+					}
+				}
+				if (setting == false) {
+					s.append("  ").append("[ " + "未设置" + " ]",
+							StyledString.DECORATIONS_STYLER);
+				}
+			}
+			return s;
+		}
+
 	}
 
 }

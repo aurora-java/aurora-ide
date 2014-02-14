@@ -39,7 +39,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	// in the fill methods. This ensures that the actions aren't recreated
 	// when fillActionBars is called with FILL_PROXY.
 	private IWorkbenchAction exitAction;
-	// private IWorkbenchAction aboutAction;
+	private IWorkbenchAction aboutAction;
 	private IWorkbenchAction newWindowAction;
 	private NewFileAction newFileAction;
 	private OpenFileAction openFileAction;
@@ -67,8 +67,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		exitAction.setToolTipText(Messages.ApplicationActionBarAdvisor_5);
 		register(exitAction);
 
-		// aboutAction = ActionFactory.ABOUT.create(window);
-		// register(aboutAction);
+		aboutAction = ActionFactory.ABOUT.create(window);
+		register(aboutAction);
 
 		newWindowAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
 		newWindowAction.setText(Messages.ApplicationActionBarAdvisor_6);
@@ -121,14 +121,15 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		register(this.showUIPNavViewer);
 
 		demonstrateAction = new DemonstrateAction(window);
-		
+
 		register(demonstrateAction);
 
 		this.updateQuickUIAction = new UpdateQuickUIAction(window,
 				Messages.ApplicationActionBarAdvisor_15,
 				AuroraImagesUtils.getImageDescriptor("/meta.png")); //$NON-NLS-2$ //$NON-NLS-1$
 		updateQuickUIAction.setText(Messages.ApplicationActionBarAdvisor_21);
-		updateQuickUIAction.setToolTipText(Messages.ApplicationActionBarAdvisor_22);
+		updateQuickUIAction
+				.setToolTipText(Messages.ApplicationActionBarAdvisor_22);
 		register(this.updateQuickUIAction);
 
 		this.getHelpAction = new GetHelpAction(window,
@@ -171,10 +172,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		fileMenu.add(new Separator());
 		fileMenu.add(exitAction);
 		// Help
-		// helpMenu.add(aboutAction);
 		helpMenu.add(introAction);
 		helpMenu.add(this.updateQuickUIAction);
 		helpMenu.add(this.getHelpAction);
+		helpMenu.add(aboutAction);
 	}
 
 	protected void fillCoolBar(ICoolBarManager coolBar) {
