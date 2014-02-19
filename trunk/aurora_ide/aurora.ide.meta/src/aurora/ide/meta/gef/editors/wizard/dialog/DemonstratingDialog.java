@@ -101,16 +101,19 @@ public class DemonstratingDialog extends Dialog {
 		Form form = new Form();
 		form.setSize(450, 85);
 		form.setCol(2);
-		List<DemonstrateBind> bindModels = input.getBindModels();
-		if (bindModels != null)
-			for (DemonstrateBind db : bindModels) {
-				String editor = db.getForQueryEditor();
-				if ("".equals(editor) == false) {
-					AuroraComponent createInput = createInput(db);
-					if (createInput != null)
-						form.addChild(createInput);
+		if (input !=null){
+			List<DemonstrateBind> bindModels = input.getBindModels();
+			if (bindModels != null)
+				for (DemonstrateBind db : bindModels) {
+					String editor = db.getForQueryEditor();
+					if ("".equals(editor) == false) {
+						AuroraComponent createInput = createInput(db);
+						if (createInput != null)
+							form.addChild(createInput);
+					}
 				}
-			}
+		}
+		
 		// AuroraComponent tf0 = createTextField(0);
 		// if (tf0 != null)
 		// form.addChild(tf0);
@@ -268,6 +271,8 @@ public class DemonstratingDialog extends Dialog {
 	}
 
 	public void applyValue(String value, int idx) {
+		if(input == null)
+			return;
 		List<DemonstrateBind> bindModels = input.getBindModels();
 		if (bindModels != null) {
 			for (int i = 0; i < bindModels.size(); i++) {
