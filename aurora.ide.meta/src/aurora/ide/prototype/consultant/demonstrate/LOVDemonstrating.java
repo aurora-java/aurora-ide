@@ -56,6 +56,8 @@ public class LOVDemonstrating {
 		}
 		String data = dd.getDemonstrateData();
 		LovDialogInput parseItems = parseItems(data);
+		if(parseItems == null)
+			return new LovDialogInput(0, 0);
 		@SuppressWarnings("unchecked")
 		List<DemonstrateBind> inputs = (List<DemonstrateBind>) dd
 				.getPropertyValue(DemonstrateBind.BIND_COMPONENT);
@@ -65,7 +67,7 @@ public class LOVDemonstrating {
 
 	private LovDialogInput parseItems(String demonstrateDS) {
 		if (demonstrateDS == null || "".equals(demonstrateDS))
-			return null;
+			return new LovDialogInput(0,0);
 
 		StringReader sr = new StringReader(demonstrateDS);
 		BufferedReader br = new BufferedReader(sr);
