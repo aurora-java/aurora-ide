@@ -31,24 +31,24 @@ public class ContextPage {
 
 	public void create() {
 		MainDocumentPart mdp = doc.getMainDocumentPart();
-		mdp.addStyledParagraphOfText("3", "界面设计");
-		mdp.addParagraphOfText("");
+		mdp.addStyledParagraphOfText("3", Messages.ContextPage_1); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
 
-		mdp.addParagraphOfText("页面1");
+		mdp.addParagraphOfText(Messages.ContextPage_3);
 
 		try {
-			File file = new File("/Users/shiliyan/Desktop/Uip_pages/Page1.png");
+			File file = new File("/Users/shiliyan/Desktop/Uip_pages/Page1.png"); //$NON-NLS-1$
 			java.io.InputStream is = new java.io.FileInputStream(file);
 			mdp.getContent().add(
 					newImage(wordMLPackage, mdp,
 							BufferUtil.getBytesFromInputStream(is),
-							"hand-china", "hand-china", 1, 2));
+							"hand-china", "hand-china", 1, 2)); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Tbl createTbl = createTbl("aurora/ide/meta/docx4j/docx/sample/record_table.xml");
+		Tbl createTbl = createTbl("aurora/ide/meta/docx4j/docx/sample/record_table.xml"); //$NON-NLS-1$
 		createTbl.getContent().add(createTr());
 		mdp.getContent().add(createTbl);
 	}

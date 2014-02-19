@@ -76,20 +76,20 @@ public class CopyStyles {
 		
 		
 
-		mdp.addStyledParagraphOfText("TitleBar", "");
-		mdp.addStyledParagraphOfText("Title", "");
-		mdp.addStyledParagraphOfText("Title", "HAND ENTERPRISE SOLUTIONS");
-		mdp.addStyledParagraphOfText("DocTitle2", "<ISP> < ISP_WACP5050>");
-		mdp.addStyledParagraphOfText("DocTitle3", "网上发票_寄销网上发票内部查询_功能设计文档");
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("Docinfo", "作者:");
-		mdp.addStyledParagraphOfText("Docinfo", "建档日期:");
-		mdp.addStyledParagraphOfText("Docinfo", "上次更新:");
-		mdp.addStyledParagraphOfText("Docinfo", "控制号:");
-		mdp.addStyledParagraphOfText("Docinfo", "版本:");
-		mdp.addStyledParagraphOfText("Docinfo", "");
-		mdp.addStyledParagraphOfText("DocInfotabletitle", "审批:");
+		mdp.addStyledParagraphOfText("TitleBar", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Title", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Title", "HAND ENTERPRISE SOLUTIONS"); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("DocTitle2", "<ISP> < ISP_WACP5050>"); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("DocTitle3", Messages.CopyStyles_9); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("Docinfo", Messages.CopyStyles_15); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", Messages.CopyStyles_17); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", Messages.CopyStyles_19); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", Messages.CopyStyles_21); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", Messages.CopyStyles_23); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		mdp.addStyledParagraphOfText("DocInfotabletitle", Messages.CopyStyles_27); //$NON-NLS-1$
 
 //		 Tbl table = createTableWithContent();
 //		//
@@ -106,12 +106,12 @@ public class CopyStyles {
 		Tbl tbl = TblFactory.createTable(3, cols, cellWidthTwips);
 
 		// w:tblPr
-		String strTblPr = "<w:tblPr " + Namespaces.W_NAMESPACE_DECLARATION
-				+ ">" + "<w:tblStyle w:val=\"TableGrid\"/>"
-				+ "<w:tblW w:w=\"0\" w:type=\"auto\"/>"
-				+ "<w:tblInd w:w=\"250\" w:type=\"dxa\" />" 
-				+ "<w:tblLook w:val=\"04A0\" w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\" />"+
-				"</w:tblPr>";
+		String strTblPr = "<w:tblPr " + Namespaces.W_NAMESPACE_DECLARATION //$NON-NLS-1$
+				+ ">" + "<w:tblStyle w:val=\"TableGrid\"/>" //$NON-NLS-1$ //$NON-NLS-2$
+				+ "<w:tblW w:w=\"0\" w:type=\"auto\"/>" //$NON-NLS-1$
+				+ "<w:tblInd w:w=\"250\" w:type=\"dxa\" />"  //$NON-NLS-1$
+				+ "<w:tblLook w:val=\"04A0\" w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\" />"+ //$NON-NLS-1$
+				"</w:tblPr>"; //$NON-NLS-1$
 		TblPr tblPr = null;
 		try {
 			tblPr = (TblPr) XmlUtils.unmarshalString(strTblPr);
@@ -121,15 +121,15 @@ public class CopyStyles {
 		}
 		tbl.setTblPr(tblPr);
 
-		createTc(tbl, 0, 0, "客户项目经理");
-		createTc(tbl, 0, 1, "");
-		createTc(tbl, 1, 0, "相关业务部门");
-		createTc(tbl, 1, 1, "");
-		createTc(tbl, 2, 0, "汉得项目经理");
-		createTc(tbl, 2, 1, "");
+		createTc(tbl, 0, 0, Messages.CopyStyles_35);
+		createTc(tbl, 0, 1, ""); //$NON-NLS-1$
+		createTc(tbl, 1, 0, Messages.CopyStyles_37);
+		createTc(tbl, 1, 1, ""); //$NON-NLS-1$
+		createTc(tbl, 2, 0, Messages.CopyStyles_39);
+		createTc(tbl, 2, 1, ""); //$NON-NLS-1$
 		mdp.addObject(tbl);
 
-		mdp.addStyledParagraphOfText("Docinfo", "");
+		mdp.addStyledParagraphOfText("Docinfo", ""); //$NON-NLS-1$ //$NON-NLS-2$
 
 		createNewPage(mdp);
 
@@ -138,10 +138,10 @@ public class CopyStyles {
 
 		// Optionally save it'
 		if (save) {
-			String filename = "/Users/shiliyan/Desktop"
-					+ "/OUT_CopyStyles.docx";
+			String filename = "/Users/shiliyan/Desktop" //$NON-NLS-1$
+					+ "/OUT_CopyStyles.docx"; //$NON-NLS-1$
 			wordMLPackage.save(new java.io.File(filename));
-			System.out.println("Saved " + filename);
+			System.out.println("Saved " + filename); //$NON-NLS-1$
 		}
 	}
 
@@ -151,15 +151,15 @@ public class CopyStyles {
 		tc.getContent().clear();
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("DocInfoTable", content));
+						.createStyledParagraphOfText("DocInfoTable", content)); //$NON-NLS-1$
 	}
 
 	private static void addBorders(Tbl table) {
 		table.setTblPr(new TblPr());
 		CTBorder border = new CTBorder();
-		border.setColor("auto");
-		border.setSz(new BigInteger("4"));
-		border.setSpace(new BigInteger("0"));
+		border.setColor("auto"); //$NON-NLS-1$
+		border.setSz(new BigInteger("4")); //$NON-NLS-1$
+		border.setSpace(new BigInteger("0")); //$NON-NLS-1$
 		border.setVal(STBorder.SINGLE);
 
 		TblBorders borders = new TblBorders();
@@ -175,18 +175,18 @@ public class CopyStyles {
 	private static Tbl createTableWithContent() {
 		Tbl table = factory.createTbl();
 		Tr tableRow = factory.createTr();
-		addTableCell(tableRow, "客户项目经理");
-		addTableCell(tableRow, "");
+		addTableCell(tableRow, Messages.CopyStyles_50);
+		addTableCell(tableRow, ""); //$NON-NLS-1$
 		table.getContent().add(tableRow);
 
 		tableRow = factory.createTr();
-		addTableCell(tableRow, "相关业务部门");
-		addTableCell(tableRow, "");
+		addTableCell(tableRow, Messages.CopyStyles_52);
+		addTableCell(tableRow, ""); //$NON-NLS-1$
 		table.getContent().add(tableRow);
 
 		tableRow = factory.createTr();
-		addTableCell(tableRow, "汉得项目经理");
-		addTableCell(tableRow, "");
+		addTableCell(tableRow, Messages.CopyStyles_54);
+		addTableCell(tableRow, ""); //$NON-NLS-1$
 		table.getContent().add(tableRow);
 
 		return table;
@@ -196,7 +196,7 @@ public class CopyStyles {
 		Tc tableCell = factory.createTc();
 		tableCell.getContent().add(
 				wordMLPackage.getMainDocumentPart()
-						.createStyledParagraphOfText("DocInfoTable", content));
+						.createStyledParagraphOfText("DocInfoTable", content)); //$NON-NLS-1$
 		tableRow.getContent().add(tableCell);
 	}
 
@@ -243,7 +243,7 @@ public class CopyStyles {
 		org.docx4j.wml.P p = factory.createP();
 
 		org.docx4j.wml.Text t = factory.createText();
-		t.setValue("Company Confidential - For internal use only");
+		t.setValue("Company Confidential - For internal use only"); //$NON-NLS-1$
 
 		org.docx4j.wml.R run = factory.createR();
 		run.getContent().add(t);
@@ -332,14 +332,14 @@ public class CopyStyles {
 
 		Hdr hdr = objectFactory.createHdr();
 
-		File file = new File(System.getProperty("user.dir")
-				+ "/src/test/resources/images/hand-china.png");
+		File file = new File(System.getProperty("user.dir") //$NON-NLS-1$
+				+ "/src/test/resources/images/hand-china.png"); //$NON-NLS-1$
 		java.io.InputStream is = new java.io.FileInputStream(file);
 
 		hdr.getContent().add(
 				newImage(wordprocessingMLPackage, sourcePart,
-						BufferUtil.getBytesFromInputStream(is), "hand-china",
-						"hand-china", 1, 2));
+						BufferUtil.getBytesFromInputStream(is), "hand-china", //$NON-NLS-1$
+						"hand-china", 1, 2)); //$NON-NLS-1$
 		return hdr;
 
 	}
@@ -415,13 +415,13 @@ public class CopyStyles {
 			throws InvalidFormatException {
 
 		String papersize = Docx4jProperties.getProperties().getProperty(
-				"docx4j.PageSize", "A4");
-		log.info("Using paper size: " + papersize);
+				"docx4j.PageSize", "A4"); //$NON-NLS-1$ //$NON-NLS-2$
+		log.info("Using paper size: " + papersize); //$NON-NLS-1$
 
 		String landscapeString = Docx4jProperties.getProperties().getProperty(
-				"docx4j.PageOrientationLandscape", "false");
+				"docx4j.PageOrientationLandscape", "false"); //$NON-NLS-1$ //$NON-NLS-2$
 		boolean landscape = Boolean.parseBoolean(landscapeString);
-		log.info("Landscape orientation: " + landscape);
+		log.info("Landscape orientation: " + landscape); //$NON-NLS-1$
 
 		return createPackage(PageSizePaper.valueOf(papersize), landscape);
 	}
@@ -466,7 +466,7 @@ public class CopyStyles {
 			// stylesPart)
 			// .unmarshalDefaultStyles();
 			unmarshalDefaultStyles((StyleDefinitionsPart) stylesPart,
-					"aurora/ide/meta/docx4j/docx/sample/styles.xml");
+					"aurora/ide/meta/docx4j/docx/sample/styles.xml"); //$NON-NLS-1$
 			// Add the styles part to the main document part relationships
 			// (creating it if necessary)
 			wordDocumentPart.addTargetPart(stylesPart); // NB - add it to main
@@ -479,21 +479,21 @@ public class CopyStyles {
 
 		try {
 			Part styleEffectsPart = new JaxbXmlPartXPathAware(new PartName(
-					"/word/stylesWithEffects.xml")) {
+					"/word/stylesWithEffects.xml")) { //$NON-NLS-1$
 
 			};
 			styleEffectsPart
 					.setContentType(new org.docx4j.openpackaging.contenttype.ContentType(
-							"application/vnd.ms-word.stylesWithEffects+xml"));
+							"application/vnd.ms-word.stylesWithEffects+xml")); //$NON-NLS-1$
 
 			// Used when this Part is added to a rels
 			styleEffectsPart
-					.setRelationshipType("http://schemas.microsoft.com/office/2007/relationships/stylesWithEffects");
+					.setRelationshipType("http://schemas.microsoft.com/office/2007/relationships/stylesWithEffects"); //$NON-NLS-1$
 			// ((org.docx4j.openpackaging.parts.WordprocessingML.StyleDefinitionsPart)
 			// stylesPart)
 			// .unmarshalDefaultStyles();
 			unmarshalDefaultStyles((JaxbXmlPartXPathAware) styleEffectsPart,
-					"aurora/ide/meta/docx4j/docx/sample/stylesWithEffects.xml");
+					"aurora/ide/meta/docx4j/docx/sample/stylesWithEffects.xml"); //$NON-NLS-1$
 
 			// Add the styles part to the main document part relationships
 			// (creating it if necessary)

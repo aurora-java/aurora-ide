@@ -10,6 +10,7 @@ public class Messages extends NLS {
 	public static String AbstractFSDPropertyPage_3;
 	public static String AbstractFSDPropertyPage_4;
 	public static String AbstractFSDPropertyPage_6;
+	public static String ProjectDemonstratePropertyPage_0;
 	public static String ProjectDemonstratePropertyPage_10;
 	public static String ProjectDemonstratePropertyPage_11;
 	public static String ProjectDemonstratePropertyPage_12;

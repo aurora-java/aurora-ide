@@ -140,7 +140,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 					Path p = new Path(((F) element).functionPath);
 					File file = p.toFile();
 					if (file.exists() == false)
-						return ""; //$NON-NLS-1$
+						return Messages.ProjectDemonstratePropertyPage_0; 
 					if (i == 0) {
 						return file.getParentFile().getName();
 					}
