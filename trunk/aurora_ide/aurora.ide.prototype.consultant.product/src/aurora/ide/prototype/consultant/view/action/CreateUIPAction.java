@@ -1,5 +1,7 @@
 package aurora.ide.prototype.consultant.view.action;
 
+import java.io.File;
+
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -30,12 +32,16 @@ public class CreateUIPAction extends Action implements
 		Node selectionNode = viewer.getSelectionNode();
 		if (selectionNode == null)
 			return;
-		CreateUIPWizard w = new CreateUIPWizard(commonViewer
-				.getControl().getShell(), selectionNode.getFile());
+
+		File file = selectionNode.getFile();
+		File parent = file.isDirectory() ? file : file.getParentFile();
+		CreateUIPWizard w = new CreateUIPWizard(commonViewer.getControl()
+				.getShell(), parent);
 		if (WizardDialog.OK == w.open()) {
 			Node newNode = new Node(new Path(w.getUIPFile().getPath()));
-			viewer.addNewNode(selectionNode, newNode);
-//			new RefreshLocalFileSystemAction(viewer).run();
+			viewer.addNewNode(file.isDirectory() ? selectionNode
+					: selectionNode.getParent(), newNode);
+			// new RefreshLocalFileSystemAction(viewer).run();
 		}
 	}
 
@@ -46,7 +52,9 @@ public class CreateUIPAction extends Action implements
 
 	protected void selectionChanged() {
 		Node node = viewer.getSelectionNode();
-		if (node != null && node.getFile().isDirectory()) {
+		if (node != null && node.getFile().exists()
+		// .isDirectory()
+		) {
 			this.setEnabled(true);
 		} else {
 			this.setEnabled(false);

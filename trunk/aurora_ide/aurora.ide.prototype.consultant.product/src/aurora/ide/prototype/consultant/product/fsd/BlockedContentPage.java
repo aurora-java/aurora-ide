@@ -128,34 +128,28 @@ public class BlockedContentPage {
 				.getStringPropertyValue(ComponentFSDProperties.FSD_PAGE_DESC));
 
 		createContentInfo(mdp, screenBody);
-		// 生成操作类
 		List<AuroraComponent> buttons = getFSDOperation(screenBody);
 		createButtonsContent(mdp, buttons);
-		// 生成Tab类
 		createTabContent(screenBody);
 	}
 
 	public void createContentInfo(MainDocumentPart mdp, Container container) {
-		// 获得输入类
 		List<AuroraComponent> inputs = getFSDTypeComponent(container,
 				FSD.FSD_INPUT);
 		if (FSD.FSD_GRID.equals(container
 				.getPropertyValue(FSD.FSD_COMPONENT_TYPE))) {
 			inputs = ifGridColumnComponent(inputs);
 		}
-		// 获得容器类，Grid类
 		List<AuroraComponent> containers = getFSDTypeComponent(container,
 				FSD.FSD_CONTAINER);
 		List<AuroraComponent> grids = getFSDTypeComponent(container,
 				FSD.FSD_GRID);
-		// 生成输入类
 		createInputFSD(mdp, container, inputs);
 		if (FSD.FSD_GRID.equals(container
 				.getPropertyValue(FSD.FSD_COMPONENT_TYPE))) {
 			List<AuroraComponent> buttons = this.getButtons(container);
 			createButtonsContent(mdp, buttons);
 		}
-		// 递归生成容器类，Grid类
 		containers.addAll(grids);
 		for (AuroraComponent ac : containers) {
 			createContentInfo(mdp, (Container) ac);

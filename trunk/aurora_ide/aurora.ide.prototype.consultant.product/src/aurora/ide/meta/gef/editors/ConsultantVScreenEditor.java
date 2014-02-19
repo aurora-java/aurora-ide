@@ -31,7 +31,6 @@ import aurora.ide.meta.gef.editors.consultant.property.ConsultantPropertyManager
 import aurora.ide.meta.gef.editors.dnd.BMTransferDropTargetListener;
 import aurora.ide.meta.gef.editors.parts.ExtAuroraPartFactory;
 import aurora.ide.meta.gef.editors.property.MetaPropertyViewer;
-import aurora.ide.meta.gef.i18n.Messages;
 import aurora.ide.prototype.consultant.product.action.DemonstrateAction;
 import aurora.ide.prototype.consultant.product.action.DemonstrateSettingAction;
 import aurora.ide.prototype.consultant.product.action.FSDPropertyEditAction;
@@ -40,7 +39,7 @@ import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
 import aurora.plugin.source.gen.screen.model.io.Object2CompositeMap;
 
 public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
-	public static final String CONSULTANTVSCREENEDITOR_SAVE_NEW_FILE = "CONSULTANTVSCREENEDITOR_SAVE_NEW_FILE";
+	public static final String CONSULTANTVSCREENEDITOR_SAVE_NEW_FILE = "CONSULTANTVSCREENEDITOR_SAVE_NEW_FILE"; //$NON-NLS-1$
 	public static final String CONTEXT_MENU_KEY = "aurora.ide.meta.gef.editor.contextmenu"; //$NON-NLS-1$
 	ScreenBody diagram;
 	private PaletteRoot root;
@@ -123,13 +122,17 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				} else {
 				}
 			} catch (IOException e) {
-				if(file.exists() == false){
-					MessageDialog.openInformation(this.getSite().getShell(), "Info", "文件不存在");
+				if (file.exists() == false) {
+					MessageDialog
+							.openInformation(
+									this.getSite().getShell(),
+									"Info", aurora.ide.meta.gef.editors.Messages.ConsultantVScreenEditor_2); //$NON-NLS-1$
 				}
 			}
-			if(isSaveNew){
+			if (isSaveNew) {
 				isSaveNew = false;
-				firePartPropertyChanged(CONSULTANTVSCREENEDITOR_SAVE_NEW_FILE, "", path.toOSString());
+				firePartPropertyChanged(CONSULTANTVSCREENEDITOR_SAVE_NEW_FILE,
+						"", path.toOSString()); //$NON-NLS-1$
 			}
 		}
 	}
@@ -160,7 +163,8 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 			}
 			path = setNewPath(pei, open);
 			doSave(null);
-			firePartPropertyChanged(CONSULTANTVSCREENEDITOR_SAVE_NEW_FILE, "", path.toOSString());
+			firePartPropertyChanged(CONSULTANTVSCREENEDITOR_SAVE_NEW_FILE,
+					"", path.toOSString()); //$NON-NLS-1$
 		}
 	}
 
@@ -221,36 +225,36 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 	@Override
 	protected void createActions() {
 		super.createActions();
+
 		IAction action = this.getActionRegistry().getAction(
 				ActionFactory.COPY.getId());
-		action.setText(Messages.ConsultantVScreenEditor_4);
-		action.setToolTipText(Messages.ConsultantVScreenEditor_5);
+		action.setText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_4);
+		action.setToolTipText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_5);
 		action = this.getActionRegistry()
 				.getAction(ActionFactory.PASTE.getId());
-		action.setText(Messages.ConsultantVScreenEditor_6);
-		action.setToolTipText(Messages.ConsultantVScreenEditor_7);
+		action.setText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_6);
+		action.setToolTipText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_7);
 		action = this.getActionRegistry().getAction(ActionFactory.REDO.getId());
-		action.setText(Messages.ConsultantVScreenEditor_8);
-		action.setToolTipText(Messages.ConsultantVScreenEditor_9);
+		action.setText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_8);
+		action.setToolTipText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_9);
 		action = this.getActionRegistry().getAction(ActionFactory.UNDO.getId());
-		action.setText(Messages.ConsultantVScreenEditor_10);
-		action.setToolTipText(Messages.ConsultantVScreenEditor_11);
+		action.setText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_10);
+		action.setToolTipText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_11);
 		action = this.getActionRegistry().getAction(
 				ActionFactory.DELETE.getId());
-		action.setText(Messages.ConsultantVScreenEditor_12);
-		action.setToolTipText(Messages.ConsultantVScreenEditor_13);
+		action.setText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_12);
+		action.setToolTipText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_13);
 		action = this.getActionRegistry().getAction(CopyAsImageAction.ID);
-		action.setText(Messages.ConsultantVScreenEditor_14);
-		action.setToolTipText(Messages.ConsultantVScreenEditor_14);
+		action.setText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_14);
+		action.setToolTipText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_14);
 		action = this.getActionRegistry().getAction(SaveAsImageAction.ID);
-		action.setText(Messages.ConsultantVScreenEditor_17);
-		action.setToolTipText(Messages.ConsultantVScreenEditor_17);
-		
-		
+		action.setText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_17);
+		action.setToolTipText(aurora.ide.meta.gef.i18n.Messages.ConsultantVScreenEditor_17);
+
 		FSDPropertyEditAction copyIMG = new FSDPropertyEditAction(this);
 		getActionRegistry().registerAction(copyIMG);
 		getSelectionActions().add(copyIMG.getId());
-		
+
 		DemonstrateSettingAction dsa = new DemonstrateSettingAction(this);
 		getActionRegistry().registerAction(dsa);
 		getSelectionActions().add(dsa.getId());
@@ -275,8 +279,8 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 		getSite().registerContextMenu(CONTEXT_MENU_KEY, //$NON-NLS-1$
 				provider, getGraphicalViewer());
 		getGraphicalViewer().addSelectionChangedListener(propertyViewer);
-		
-		if(DemonstrateAction.getIsDemon()){
+
+		if (DemonstrateAction.getIsDemon()) {
 			this.maxEditorComposite();
 		}
 	}
@@ -301,8 +305,7 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 	}
 
 	protected void createPropertyViewer(Composite c) {
-		propertyViewer = new MetaPropertyViewer(c, this,
-				getPropertyManager());
+		propertyViewer = new MetaPropertyViewer(c, this, getPropertyManager());
 	}
 
 	public ConsultantPropertyManager getPropertyManager() {

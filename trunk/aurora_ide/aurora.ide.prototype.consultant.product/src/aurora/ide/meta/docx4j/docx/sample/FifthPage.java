@@ -15,15 +15,15 @@ public class FifthPage {
 
 	public void create() {
 		MainDocumentPart mdp = doc.getMainDocumentPart();
-		mdp.addStyledParagraphOfText("2", "寄销网上发票内部查询");
-		mdp.addStyledParagraphOfText("3", "前提（Prerequisite）");
-		mdp.addParagraphOfText("");
-		mdp.addStyledParagraphOfText("3", "术语定义（Terminology Definition）");
-		mdp.addParagraphOfText("");
-		mdp.addStyledParagraphOfText("3", "用户权限");
-		mdp.addParagraphOfText("");
-		mdp.addStyledParagraphOfText("3", "操作流程（Procedure）");
-		mdp.addParagraphOfText("");
+		mdp.addStyledParagraphOfText("2", Messages.FifthPage_1); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.FifthPage_3); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.FifthPage_6); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.FifthPage_9); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
+		mdp.addStyledParagraphOfText("3", Messages.FifthPage_12); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
 		
 	}
 

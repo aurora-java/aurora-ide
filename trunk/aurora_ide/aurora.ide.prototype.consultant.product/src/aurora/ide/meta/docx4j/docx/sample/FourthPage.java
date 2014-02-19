@@ -15,8 +15,8 @@ public class FourthPage {
 
 	public void create() {
 		MainDocumentPart mdp = doc.getMainDocumentPart();
-		mdp.addStyledParagraphOfText("2", "功能概述");
-		mdp.addParagraphOfText("");
+		mdp.addStyledParagraphOfText("2", Messages.FourthPage_1); //$NON-NLS-1$
+		mdp.addParagraphOfText(""); //$NON-NLS-1$
 	}
 
 }
