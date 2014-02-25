@@ -1,0 +1,1003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+    <extension point="org.eclipse.ui.newWizards">
+        <category id="aurora.ide.wizard" name="%category.name">
+        </category>
+        <wizard category="aurora.ide.wizard"
+            class="aurora.ide.project.wizard.NewAuroraProjectWizard" 
+            finalPerspective="aurora.ide.perspectives.AuroraPerspective" 
+            icon="icons/aurora.gif" id="aurora.ide.wizard.ProjectWizard" 
+            name="%aurora.project" project="true"/>
+        
+        <wizard category="aurora.ide.wizard" 
+            class="aurora.ide.screen.wizard.ServiceNewWizard" 
+            icon="icons/service.gif" id="aurora.ide.wizard.ServiceNewWizard" 
+            name="%wizard.screen.file">
+        </wizard>
+        <wizard category="aurora.ide.wizard" 
+            class="aurora.ide.sxsd.editor.SxsdNewWizard" icon="icons/sxsd.gif" 
+            id="aurora.ide.wizard.SxsdNewWizard" name="%wizard.sxsd.file">
+        </wizard>
+        <wizard category="aurora.ide.wizard" 
+            class="aurora.ide.bm.wizard.table.BMFromDBWizard" 
+            icon="icons/bm.gif" id="aurora.ide.wizard.BMFromDBWizard" 
+            name="%wizard.create.bm.from.database">
+        </wizard>
+        <wizard category="aurora.ide.wizard" 
+            class="aurora.ide.bm.wizard.sql.BMFromSQLWizard" 
+            icon="icons/sql.gif" id="aurora.ide.wizard.BMFromSQLWizard" 
+            name="%wizard.create.bm.from.sql">
+        </wizard>
+        <wizard category="aurora.ide.wizard" 
+            class="aurora.ide.bm.wizard.procedure.BMFromProcedure" 
+            icon="icons/sql.gif" id="aurora.ide.wizard.BMFromProcedure" 
+            name="从数据库过程创建BM文件">
+        </wizard>
+    </extension>
+      <extension
+          point="org.eclipse.ui.contexts">
+       <context
+             name="Aurora EditorScope"
+             description="Aurora EditorScope"
+             parentId="org.eclipse.ui.textEditorScope"
+             id="aurora.ide.EditorScope">
+       </context> 
+   </extension>
+   <extension
+         id="BusinessModelEditor"
+         point="org.eclipse.ui.editors">
+      <editor
+            class="aurora.ide.screen.editor.ServiceEditor"
+            contributorClass="aurora.ide.editor.BaseCompositeMapEditorContributor"
+            default="true"
+            filenames="*.service,*.screen,*.svc"
+            icon="icons/service.gif"
+            id="aurora.ide.ServiceEditor"
+            name="%editor.screen"/>
+      <editor
+            class="aurora.ide.sxsd.editor.SxsdEditor"
+            contributorClass="aurora.ide.editor.BaseCompositeMapEditorContributor"
+            default="true"
+            filenames="*.sxsd"
+            icon="icons/sxsd.gif"
+            id="aurora.ide.SxsdEditor"
+            name="%editor.sxsd">
+      </editor>
+      <editor
+            class="aurora.ide.bm.editor.BusinessModelEditor"
+            contributorClass="aurora.ide.editor.BmEditorContributor"
+            default="true"
+            filenames="*.bm"
+            icon="icons/bm.gif"
+            id="aurora.ide.BusinessModelEditor"
+            name="%editor.bm">
+      </editor>
+      
+      <!--
+      <editor
+            class="aurora.ide.editor.CollaborateEditor"
+            filenames="*.service,*.screen,*.svc,*.bm"
+            icon="icons/service.gif"
+            id="aurora.ide.editor.CollaborateEditor"
+            default="false"
+            name="远程协作编辑器"/>
+       -->   
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="aurora.ide.preferencepages.AuroraPreferencePage"
+            id="aurora.ide.preferencePage"
+            name="%page.root">
+      </page>
+      
+      <!--editor-->
+      <page
+            category="aurora.ide.preferencePage"
+            class="aurora.ide.preferencepages.CustomSettingPreferencePage"
+            id="aurora.ide.editor.preferencePage"
+            name="Editor">
+      </page>
+      <page
+            category="aurora.ide.editor.preferencePage"
+            class="aurora.ide.preferencepages.AuroraTemplatePreferencePage"
+            id="aurora.ide.preferencePage.TemplatesPage"
+            name="%page.templates">
+      </page>
+      <page
+            category="aurora.ide.editor.preferencePage"
+            class="aurora.ide.preferencepages.BrowserPreferencePage"
+            id="aurora.ide.preferencePage.BrowserPreferencePage"
+            name="%page.screen.preview">
+      </page>
+      <page 
+            category="aurora.ide.editor.preferencePage"
+            class="aurora.ide.preferencepages.FunctionRegisterPreferencePage"
+            id="aurora.ide.export.function.regiester.sql"
+            name="%function.register.sql">
+      </page>
+      
+      <!--building-->
+      <page
+      		category="aurora.ide.preferencePage"
+            class="aurora.ide.preferencepages.AuroraPreferencePage"
+            id="aurora.ide.building.preferencePage"
+            name="Building">
+      </page>
+      <page
+            category="aurora.ide.building.preferencePage"
+            class="aurora.ide.preferencepages.BuildLevelPage"
+            id="aurora.ide.preferencepages.BuildLevel"
+            name="Errors/Warnings">
+      </page>
+      
+      <!--viewer-->
+       <page
+       	    category="aurora.ide.preferencePage"
+            class="aurora.ide.preferencepages.AuroraPreferencePage"
+            id="aurora.ide.viewer.preferencePage"
+            name="Viewer">
+      </page>
+      <page
+         category="aurora.ide.viewer.preferencePage"
+         class="aurora.ide.preferencepages.StatisticianPropertyPage"
+         id="aurora.ide.preferencepages.StatisticianPropertyPage"
+         name="%page.statistician">
+	  </page>
+ 	  <!--root-->     
+      <page
+            category="aurora.ide.preferencePage"
+            class="aurora.ide.preferencepages.SxsdDirPreferencePage"
+            id="aurora.ide.preferencePage.SxsdDirectoryPreferencePage"
+            name="%page.builtin.package">
+      </page>
+       <!--refactor-->     
+      <page
+            category="aurora.ide.preferencePage"
+            class="aurora.ide.preferencepages.RefactorSettingPreferencePage"
+            id="aurora.ide.preferencepages.RefactorSettingPreferencePage"
+            name="Refactor">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="aurora.ide.sxsd.valid"
+            objectClass="org.eclipse.core.resources.IResource">
+         <action
+               class="aurora.ide.navigator.action.SxsdPackageValidAction"
+               icon="icons/sxsd.gif"
+               id="aurora.ide.action.SxsdPackageValidAction"
+               label="%action.validate.builtin.package"
+               enablesFor="1"
+               menubarPath="additions">
+         </action>
+         <enablement>
+            <and>
+            	 <instanceof value="org.eclipse.core.resources.IContainer"/>
+            	 <test
+                  forcePluginActivation="true"
+                  property="aurora.ide.sxsd.valid.visable"
+                  value="true"/>
+            </and>
+         </enablement>
+      </objectContribution>
+	   <viewerContribution 
+	      id="aurora.ide.editor.textpage.format"
+	   targetID="aurora.ide.editor.textpage.context">
+       <menu
+             id="aurora.ide.sourcemenu"
+             label="Source"
+             path="additions">
+          <groupMarker
+                name="context">
+          </groupMarker>
+       </menu> 
+	      <action
+             class="aurora.ide.editor.textpage.action.CFormatAction"
+             definitionId="aurora.ide.format"
+             id="aurora.ide.editor.textpage.FormatAction"
+             label="%source.format"
+             menubarPath="aurora.ide.sourcemenu/context"> 
+	      </action>
+       <action
+             class="aurora.ide.editor.textpage.action.ToggleBlockCommentAction"
+             definitionId="aurora.ide.toggleblockcomment"
+             id="aurora.ide.editor.textpage.toggleblockcomment"
+             label="%source.toggleblockcomment"
+             menubarPath="aurora.ide.sourcemenu/context">
+       </action>
+       <action
+             class="aurora.ide.editor.textpage.action.ToggleCommentAction"
+             definitionId="aurora.ide.togglecomment"
+             id="aurora.ide.editor.textpage.togglecomment"
+             label="%source.togglecomment"
+             menubarPath="aurora.ide.sourcemenu/context">
+       </action> 
+       <action
+             class="aurora.ide.editor.textpage.action.GetFileNameAction"
+             definitionId="aurora.ide.text.editor.copy.fileName"
+             id="aurora.ide.editor.textpage.GetFileNameAction"
+             label="%source.copyfilename"
+             menubarPath="additions">
+       </action>
+       <action
+             class="aurora.ide.editor.textpage.action.ExportFunctionSQLAction"
+             definitionId="aurora.ide.text.editor.export.function.register.sql"
+             id="aurora.ide.text.editor.export.function.register.sql.action"
+             label="%export.function.sql"
+             menubarPath="aurora.ide.sourcemenu/context">
+       </action>
+	   </viewerContribution>
+    <objectContribution
+          adaptable="true"
+          id="aurora.ide.extendbm"
+          nameFilter="*.bm"
+          objectClass="org.eclipse.core.resources.IFile">
+       <action
+             class="aurora.ide.navigator.action.CreateBMByExtendAction"
+             enablesFor="1"
+             icon="icons/bm.gif"
+             id="aurora.ide.navigator.createbmbyextendaction"
+             label="继承此BM"
+             menubarPath="additions"> 
+       </action>
+    </objectContribution>
+    <objectContribution
+          adaptable="true"
+          id="aurora.ide.add.auroranature"
+          objectClass="org.eclipse.core.resources.IProject">
+       <action
+             class="aurora.ide.navigator.action.AddAuroraNature"
+             enablesFor="1"
+             icon="icons/aurora.gif"
+             id="aurora.ide.navigator.action.addauroranature"
+             label="设置为Aurora工程"
+             menubarPath="additions">
+       </action>
+       <enablement>
+          <and>
+             <instanceof
+                   value="org.eclipse.core.resources.IProject">
+             </instanceof>
+             <test
+                   args="false"
+                   forcePluginActivation="true"
+                   property="aurora.ide.project.nature"
+                   value="true">
+             </test>
+          </and>
+       </enablement>
+    </objectContribution>
+    <objectContribution
+          adaptable="true"
+          id="aurora.ide.add.auroranature"
+          objectClass="org.eclipse.core.resources.IProject">
+       	<action
+             class="aurora.ide.navigator.action.RemoveAuroraNature"
+             enablesFor="1"
+             icon="icons/aurora.gif"
+             id="aurora.ide.navigator.action.removauroranature"
+             label="取消Aurora工程设置"
+             menubarPath="additions">
+       </action>
+       <enablement>
+          <and>
+             <instanceof
+                   value="org.eclipse.core.resources.IProject">
+             </instanceof>
+             <test
+                   args="true"
+                   forcePluginActivation="true"
+                   property="aurora.ide.project.nature"
+                   value="true">
+             </test>
+          </and>
+       </enablement>
+    </objectContribution> 
+    <objectContribution
+          adaptable="true"
+          id="aurora.ide.screen_custom.reference"
+          objectClass="org.eclipse.core.resources.IResource"
+          >
+       <action
+             class="aurora.ide.refactoring.ui.action.ScreenCustomAciton"
+             enablesFor="*"
+             icon="icons/service.gif"
+             id="aurora.ide.refactoring.ui.action.ScreenCustomAciton"
+             label="%plugin.screen.custom"
+             menubarPath="additions"> 
+       </action>
+       <visibility>
+       	<and>
+ 		  <not>
+      		 <objectClass name="org.eclipse.core.resources.IProject"/>
+		  </not>
+		  <or>
+			  <and>
+			    <objectClass name="org.eclipse.core.resources.IFile"/>
+			  	<objectState name="extension" value="screen"/>
+			  </and>
+			  <objectClass name="org.eclipse.core.resources.IFolder"/>
+		 </or>
+	   </and>
+	   </visibility>
+    </objectContribution>
+    
+    <objectContribution
+          adaptable="true"
+          id="aurora.ide.bm.reference"
+          nameFilter="*.bm"
+          objectClass="org.eclipse.core.resources.IFile">
+       <action
+             class="aurora.ide.search.action.FileReferenceAciton"
+             icon="icons/bm.gif"
+             id="aurora.search.action.BMReferenceAciton"
+             label="%plugin.bm.references"
+             menubarPath="additions"
+             enablesFor="1"> 
+       </action>
+    </objectContribution>
+    <objectContribution
+          adaptable="true"
+          id="aurora.ide.screen.reference"
+          nameFilter="*.screen"
+          objectClass="org.eclipse.core.resources.IFile">
+       <action
+             class="aurora.ide.search.action.FileReferenceAciton"
+             icon="icons/service.gif"
+             id="aurora.search.action.ScreenReferenceAciton"
+             label="%plugin.screen.references"
+             menubarPath="additions"
+             enablesFor="1"> 
+       </action>
+    </objectContribution>
+    <objectContribution
+          adaptable="true"
+          id="aurora.ide.svc.reference"
+          nameFilter="*.svc"
+          objectClass="org.eclipse.core.resources.IFile">
+       <action
+             class="aurora.ide.search.action.FileReferenceAciton"
+             icon="icons/service.gif"
+             id="aurora.search.action.SVCReferenceAciton"
+             label="%plugin.screen.references"
+             menubarPath="additions"
+             enablesFor="1"> 
+       </action>
+    </objectContribution>
+    
+    <viewerContribution 
+	      id="aurora.ide.editor.textpage.reference"
+	   	  targetID="aurora.ide.editor.textpage.context"> 
+	      <action
+	         id="aurora.search.action.FieldReferenceAction" 
+	         label="%plugin.field.references"
+	         menubarPath="additions" 
+	         definitionId="aurora.ide.search.command.FiledReferenceCommand"
+	         class="aurora.ide.search.action.FieldReferenceAction"> 
+	      </action>
+    </viewerContribution>
+    <objectContribution
+          adaptable="true"
+          id="aurora.ide.pkg.new"
+          objectClass="org.eclipse.core.resources.IResource">
+       <action
+             class="aurora.ide.navigator.action.CreateAuroraPkgAction"
+             enablesFor="1"
+             icon="icons/aurora.gif"
+             id="aurora.ide.action.CreateAuroraPkgAction"
+             label="New Aurora Package"
+             menubarPath="additions">
+       </action>
+       <enablement>
+          <and>
+             <instanceof
+                   value="org.eclipse.core.resources.IContainer">
+             </instanceof>
+             <test
+                   forcePluginActivation="true"
+                   property="aurora.ide.sxsd.valid.visable"
+                   value="true">
+             </test>
+          </and>
+       </enablement>
+    </objectContribution>
+   </extension>
+       <extension  point ="org.eclipse.core.expressions.propertyTesters" > 
+    <propertyTester
+  	  namespace ="aurora.ide.sxsd.valid" 
+ 	  properties ="visable" 
+      type ="java.lang.Object" 
+      class ="aurora.ide.navigator.action.SxsdValidVisablePropertyTester" 
+      id ="aurora.ide.action.SxsdValidVisablePropertyTeste" >   
+    </propertyTester >
+    <propertyTester
+          class="aurora.ide.navigator.BMHierarchyViewerTester"
+          id="aurora.ide.navigator.BMHierarchyTester"
+          namespace="aurora.ide.navigator.bm.container"
+          properties="triggerponits"
+          type="java.lang.Object">
+    </propertyTester>
+    <propertyTester
+          class="aurora.ide.navigator.action.ProjectNatureTester"
+          id="aurora.ide.navigator.action.projectnaturetester"
+          namespace="aurora.ide.project"
+          properties="nature"
+          type="java.lang.Object">
+    </propertyTester>
+    </extension >
+       <extension
+             point="org.eclipse.ui.editors.templates">
+          <contextType
+                class="aurora.ide.preferencepages.AuroraTemplateContextType"
+                id="aurora.ide.new_screen"
+                name="%contextType.new.screen">
+          </contextType>
+          <contextType
+                class="aurora.ide.preferencepages.AuroraTemplateContextType"
+                id="aurora.ide.sign"
+                name="签名">
+          </contextType>
+          <include
+                file="templates/default-templates.xml"
+                translations="templates/default-templates.properties">
+          </include>
+          
+       </extension>
+       <extension
+             point="org.eclipse.ui.actionSets">
+          <actionSet
+                description="quick open file actionSets"
+                id="aurora.ide.actionset.quickopenfile"
+                label="quick open file actionSets"
+                visible="true">
+             <action
+                   class="aurora.ide.toolbar.action.OpenFileAction"
+                   icon="icons/openfile.gif"
+                   id="aurora.ide.action.quickopenfile"
+                   label="quick open file"
+                   style="push"
+                   toolbarPath="additions"
+                   tooltip="open a file with filename">
+             </action>
+          </actionSet>
+       </extension>
+       <extension
+             point="org.eclipse.ui.navigator.viewer">
+          <viewer
+                viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+          </viewer>
+          <viewerContentBinding
+                viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+             <includes>
+                <contentExtension
+                      pattern="aurora.ide.navigator.filter">
+                </contentExtension>
+                <contentExtension
+                      pattern="aurora.ide.navigator.bmhierarchy">
+                </contentExtension>
+             </includes>
+          </viewerContentBinding>
+       </extension>
+		<extension
+             point="org.eclipse.ui.navigator.navigatorContent">
+          <commonFilter
+                activeByDefault="false"
+                class="aurora.ide.navigator.BMFileFilter"
+                description="Filter leaf BM"
+                id="aurora.ide.navigator.filter"
+                name="Filter leaf BM">
+          </commonFilter>
+          <navigatorContent
+                activeByDefault="true"
+                contentProvider="aurora.ide.navigator.BMFileContentProvider"
+                icon="icons/bm.gif"
+                id="aurora.ide.navigator.bmhierarchy"
+                labelProvider="aurora.ide.navigator.BMFileLabelProvider"
+                name="BM  Hierarchy"
+                priority="lowest">
+             	<triggerPoints>
+                    <test
+                          forcePluginActivation="true"
+                          property="aurora.ide.navigator.bm.container.triggerponits"
+                          value="true">
+                    </test>
+             </triggerPoints>
+             <possibleChildren>
+                <or>
+                   <instanceof
+                         value="org.eclipse.core.resources.IFile">
+                   </instanceof>
+                   <instanceof
+                         value="aurora.ide.navigator.BMFile">
+                   </instanceof>
+                </or>
+             </possibleChildren>
+          </navigatorContent>
+       </extension>
+	<extension point="org.eclipse.ui.propertyPages">
+	  <page
+         adaptable="true"
+         class="aurora.ide.project.propertypage.ProjectPropertyPage"
+         icon="icons/aurora.gif"
+         id="aurora.ide.projectproperty"
+         name="Aurora工程设置"
+         objectClass="org.eclipse.core.resources.IProject">
+      	<filter name="nature" value="aurora.ide.auroranature"/>
+	  </page>
+	  
+	</extension>
+	<extension  
+      point="org.eclipse.ui.editors.annotationTypes">  
+   		<type  
+         markerSeverity="2"  
+         markerType="org.eclipse.core.resources.textmarker"  
+         name="aurora.ide.word.highlight"  
+         super="org.eclipse.search.results">  
+  		 </type>
+     <type
+           markerSeverity="2"
+           markerType="org.eclipse.core.resources.problemmarker"
+           name="aurora.ide.text.valid"
+           super="org.eclipse.ui.workbench.texteditor.error">
+     </type>
+     <type
+           markerSeverity="2"
+           markerType="org.eclipse.core.resources.textmarker"
+           name="aurora.ide.braces.match">
+     </type>  
+		</extension>  
+	<extension  
+	      point="org.eclipse.ui.editors.markerAnnotationSpecification">  
+	   <specification
+          annotationType="aurora.ide.word.highlight"
+          colorPreferenceKey="highlight.corlor"
+          colorPreferenceValue="212,212,212"
+          highlightPreferenceKey="highlight.highlight"
+          highlightPreferenceValue="true"
+          includeOnPreferencePage="true"
+          isGoToNextNavigationTarget="true"
+          isGoToNextNavigationTargetKey="hightlight.isOccurrenceGoToNextNavigationTarget"
+          isGoToPreviousNavigationTarget="true"
+          isGoToPreviousNavigationTargetKey="highlight_isOccurrenceGoToPreviousNavigationTarget"
+          label="Aurora Word Highlight"
+          overviewRulerPreferenceKey="highlight.overviewRuler"
+          overviewRulerPreferenceValue="true"
+          showInNextPrevDropdownToolbarAction="true"
+          showInNextPrevDropdownToolbarActionKey="highlight.showInNextPrevDropdownToolbarAction"
+          textPreferenceKey="highlight.text"
+          textPreferenceValue="true"
+          verticalRulerPreferenceKey="highlight.verticalRuler"
+          verticalRulerPreferenceValue="false">
+	  </specification>
+   <specification  
+         annotationType="aurora.ide.text.valid"  
+         colorPreferenceKey="text.valid.color"  
+         colorPreferenceValue="255,0,0"  
+         contributesToHeader="true"  
+         highlightPreferenceKey="text.valid.highlight"  
+         highlightPreferenceValue="false"  
+         icon="icons/error.gif"  
+         includeOnPreferencePage="true"  
+         isGoToNextNavigationTarget="true"  
+         isGoToNextNavigationTargetKey="text.valid.isOccurrenceGoToNextNavigationTarget"  
+         isGoToPreviousNavigationTarget="true"  
+         isGoToPreviousNavigationTargetKey="text.valid.isOccurrenceGoToPreviousNavigationTarget"  
+         label="Aurora Text Valid"  
+         overviewRulerPreferenceKey="text.valid.overviewRuler"  
+         overviewRulerPreferenceValue="true"  
+         presentationLayer="4"  
+         quickFixIcon="icons/error.gif"  
+         showInNextPrevDropdownToolbarAction="true"  
+         showInNextPrevDropdownToolbarActionKey="text.valid.showInNextPrevDropdownToolbarAction"  
+         symbolicIcon="error"  
+         textPreferenceKey="text.valid.text"  
+         textPreferenceValue="true"  
+         textStylePreferenceKey="text.valid.textStyle"  
+         textStylePreferenceValue="PROBLEM_UNDERLINE"  
+         verticalRulerPreferenceKey="text.valid.verticalRuler"  
+         verticalRulerPreferenceValue="true">  
+   </specification>
+   <specification
+         annotationType="aurora.ide.braces.match"
+         colorPreferenceKey="braces.match.color"
+         colorPreferenceValue="0,128,255"
+         highlightPreferenceKey="braces.match.highlight"
+         highlightPreferenceValue="false"
+         includeOnPreferencePage="true"
+         isGoToNextNavigationTarget="false"
+         isGoToPreviousNavigationTarget="false"
+         label="Aurora Brace Match"
+         overviewRulerPreferenceKey="braces.match.overviewRuler"
+         overviewRulerPreferenceValue="false"
+         showInNextPrevDropdownToolbarAction="false"
+         textPreferenceKey="braces.match.text"
+         textPreferenceValue="true"
+         textStylePreferenceKey="braces.match.textStyle"
+         textStylePreferenceValue="BOX"
+         verticalRulerPreferenceKey="braces.match.verticalRuler"
+         verticalRulerPreferenceValue="false">
+   </specification>
+	</extension>
+	<extension  
+      id="auroranature"  
+      point="org.eclipse.core.resources.natures">  
+       <runtime>  
+          <run  
+                class="aurora.ide.AuroraProjectNature">  
+          </run>  
+       </runtime>
+       <builder
+             id="aurora.ide.auroraBuilder">
+       </builder>
+    </extension>
+    
+
+    <extension id="auroraBuilder" name="Aurora Project Builder" 
+        point="org.eclipse.core.resources.builders">
+        <builder
+              callOnEmptyDelta="false"
+              hasNature="true"
+              isConfigurable="true"
+              supportsConfigurations="true">
+            <run class="aurora.ide.builder.AuroraBuilder">
+            </run>
+        </builder>
+    </extension>
+    <extension id="undefinedAttribute" name="Undefined Attribute" 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+    <extension id="undefinedBM" name="Undefined BM " 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+    <extension id="undefinedDataSet" name="Undefined DataSet" 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+    <extension id="undefinedForeignField" name="Undefined ForeignField" 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+    <extension id="undefinedLocalField" name="Undefined LocalField" 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+    <extension id="undefinedScreen" name="Undefined Screen" 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+    <extension id="nonenamespace" name="No NameSpace" 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+    <extension id="configProblem" name="Config Problem" 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+    <extension id="undefinedTag" name="Undefined Tag" 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+    <extension id="fatalError" name="Fatal Error" 
+        point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.core.resources.problemmarker">
+        </super>
+        <persistent value="true">
+        </persistent>
+    </extension>
+
+ <extension
+       point="org.eclipse.ui.commands">
+    <category
+          description="Aurora commands"
+          id="aurora.ide.commands"
+          name="Aurora commands">
+    </category>
+    <category
+          id="aurora.search.commands.category"
+          name="Aurora Command Category">
+    </category>
+    <command
+          categoryId="aurora.ide.commands"
+          description="Format Aurora Source Code"
+          id="aurora.ide.format"
+          name="Aurora format ">
+    </command>
+    <command
+          categoryId="aurora.search.commands.category"
+          id="aurora.ide.search.command.FiledReferenceCommand"
+          name="Reference Command">
+    </command>
+    <command
+          categoryId="aurora.ide.commands"
+          description="Toggle Line Comment"
+          id="aurora.ide.togglecomment"
+          name="Aurora Toggle Line Comment">
+    </command>
+     <command
+          categoryId="aurora.ide.commands"
+          description="Copy File Name"
+          id="aurora.ide.text.editor.copy.fileName"
+          name="Aurora Text Copy File Name">
+    </command>
+    <command
+          categoryId="aurora.ide.commands"
+          description="Toggle Block Comment"
+          id="aurora.ide.toggleblockcomment"
+          name="Aurora Toggle Block Comment">
+    </command>
+    <command
+          categoryId="aurora.ide.commands"
+          description="Export sql for register function"
+          id="aurora.ide.text.editor.export.function.register.sql"
+          name="Export SQL for register function">
+    </command>
+ </extension>
+  
+ <extension
+       point="org.eclipse.ui.bindings">
+    <key
+          commandId="aurora.ide.format"
+          contextId="org.eclipse.ui.textEditorScope"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+M2+F">
+    </key> <!--shiliyan3310-2011-08-08-->
+       <key
+            commandId="aurora.ide.search.command.FiledReferenceCommand"
+            contextId="org.eclipse.ui.textEditorScope"
+            sequence="M1+M2+G"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+       <key
+             commandId="aurora.ide.togglecomment"
+             contextId="org.eclipse.ui.textEditorScope"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M1+/">
+       </key>
+       <key
+             commandId="aurora.ide.text.editor.copy.fileName"
+             contextId="org.eclipse.ui.textEditorScope"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M1+M2+C">
+       </key>
+       <key
+             commandId="aurora.ide.toggleblockcomment"
+             contextId="org.eclipse.ui.textEditorScope"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M1+M2+/">
+       </key>
+       <key
+             commandId="aurora.ide.text.editor.export.function.register.sql"
+             contextId="org.eclipse.ui.textEditorScope"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M1+M2+E">
+       </key>
+ </extension>
+
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="aurora.ide.search.command.FiledReferenceCommand"
+            class="aurora.ide.search.command.FiledReferenceCommand">
+      </handler>
+   </extension>
+ <extension 
+    id="aurora.ide.search.ui.SearchReferenceResultPage"
+    point="org.eclipse.search.searchResultViewPages"> 
+    <viewPage 
+    id="aurora.ide.search.core.AuroraSearchReferenceResult"
+	 searchResultClass="aurora.ide.search.core.AuroraSearchReferenceResult"
+    class="aurora.ide.search.ui.SearchReferenceResultPage"> 
+ 	</viewPage> 
+ </extension>
+
+  <extension 
+    id="aurora.ide.search.SearchResultPage"
+    point="org.eclipse.search.searchResultViewPages"> 
+    <viewPage 
+    id="aurora.ide.search.core.AuroraSearchResult"
+	 searchResultClass="aurora.ide.search.core.AuroraSearchResult"
+    class="aurora.ide.search.ui.SearchResultPage"> 
+ 	</viewPage> 
+ </extension>
+ 
+
+  <extension point="org.eclipse.ltk.core.refactoring.renameParticipants">
+	<renameParticipant
+   	 	id="aurora.ide.refactoring.BmRenameParticipant"
+    	name="Aurora BM Rename Participant" 
+    	class="aurora.ide.refactoring.FileRenameParticipant"> 
+    <enablement>
+    </enablement>    
+	</renameParticipant>
+    <renameParticipant
+   	 	id="aurora.ide.refactoring.FolderRenameParticipant"
+    	name="Aurora Folder Participant" 
+    	class="aurora.ide.refactoring.FolderRenameParticipant"> 
+    <enablement>
+    </enablement>    
+	</renameParticipant>
+ </extension>
+ 
+  <extension point="org.eclipse.ltk.core.refactoring.moveParticipants">
+	<moveParticipant
+   	 	id="aurora.ide.refactoring.BMMoveParticipant"
+    	name="Aurora Move Participant" 
+    	class="aurora.ide.refactoring.FileMoveParticipant"> 
+    <enablement>
+    </enablement>    
+	</moveParticipant>
+	<moveParticipant
+   	 	id="aurora.ide.refactoring.FolderMoveParticipant"
+    	name="Aurora Folder Move Participant" 
+    	class="aurora.ide.refactoring.FolderMoveParticipant"> 
+    <enablement>
+    </enablement>    
+	</moveParticipant>
+ </extension>
+ 
+ <extension point="org.eclipse.ltk.core.refactoring.deleteParticipants">
+	<deleteParticipant
+   	 	id="aurora.ide.refactoring.BMDeleteParticipant"
+    	name="Aurora Delete Participant" 
+    	class="aurora.ide.refactoring.FileDeleteParticipant"> 
+    <enablement>
+    </enablement>    
+	</deleteParticipant>
+	<deleteParticipant
+   	 	id="aurora.ide.refactoring.FolderDeleteParticipant"
+    	name="Aurora Folder Delete Participant"
+    	class="aurora.ide.refactoring.FolderDeleteParticipant"> 
+    <enablement>
+    </enablement>    
+	</deleteParticipant>
+ </extension>
+ 
+ <extension point="org.eclipse.search.searchPages"> 
+      <page 
+         id="aurora.ide.search.ui.SearchPage" 
+         label="Aurora Search" 
+         icon="icons/aurora.gif" 
+         sizeHint="250,160" 
+         tabPosition="1" 
+         extensions="*:1" 
+         showScopeSection="true"
+         canSearchEnclosingProjects="true"
+         class="aurora.ide.search.ui.SearchPage">
+      </page> 
+   </extension>
+ <extension
+       id="aurora.ide.perspectives"
+       point="org.eclipse.ui.perspectives">
+    <perspective
+          class="aurora.ide.perspectives.AuroraPerspective"
+          icon="icons/aurora.gif"
+          id="aurora.ide.perspectives.AuroraPerspective"
+          name="Aurora">
+    </perspective>
+ </extension>
+ <extension
+       point="org.eclipse.ui.perspectiveExtensions">
+    <perspectiveExtension
+          targetID="aurora.ide.perspectives.AuroraPerspective">
+       <newWizardShortcut
+             id="aurora.ide.wizard.ProjectWizard">
+       </newWizardShortcut>
+       <newWizardShortcut
+             id="aurora.ide.wizard.meta.ProjectWizard">
+       </newWizardShortcut>
+       <newWizardShortcut
+             id="aurora.ide.wizard.ServiceNewWizard">
+       </newWizardShortcut>
+       <newWizardShortcut
+             id="aurora.ide.wizard.BMFromSQLWizard">
+       </newWizardShortcut>
+       <newWizardShortcut
+             id="aurora.ide.wizard.BMFromDBWizard">
+       </newWizardShortcut>
+       <newWizardShortcut
+             id="aurora.ide.wizard.BMFromProcedure">
+       </newWizardShortcut>
+       <newWizardShortcut
+             id="aurora.ide.wizard.CreateFormGridWizard">
+       </newWizardShortcut>
+
+       <actionSet
+             id="aurora.ide.actionset.quickopenfile">
+       </actionSet>
+       <view
+             id="org.eclipse.search.ui.views.SearchView"
+             minimized="false"
+             relationship="stack"
+             relative="org.eclipse.ui.views.ProblemView">
+       </view>
+       <view
+             id="org.eclipse.wst.server.ui.ServersView"
+             minimized="false"
+             relationship="stack"
+             relative="org.eclipse.ui.views.ProblemView">
+       </view>
+       <viewShortcut
+             id="aurora.ide.viewer.statistics.StatisticsView">
+       </viewShortcut>
+       <viewShortcut
+             id="org.eclipse.team.ccvs.ui.RepositoriesView">
+       </viewShortcut>
+       <showInPart
+             id="org.eclipse.team.ui.GenericHistoryView">
+       </showInPart>
+    </perspectiveExtension>
+    <perspectiveExtension
+          targetID="*">
+       <perspectiveShortcut
+             id="aurora.ide.perspectives.AuroraPerspective">
+       </perspectiveShortcut>
+    </perspectiveExtension>
+ </extension>
+
+    <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Aurora"
+            id="aurora.viewer.category">
+      </category>
+      <view
+            name="统计与度量"
+            icon="icons/aurora.gif"
+            category="aurora.viewer.category"
+            class="aurora.ide.statistics.viewer.StatisticsView"
+            id="aurora.ide.viewer.statistics.StatisticsView">
+      </view>
+   </extension>
+    <extension
+          point="org.eclipse.core.runtime.contentTypes">
+       <content-type
+             default-charset="UTF-8"
+             file-extensions="screen,svc,bm,config"
+             id="aurora.ide.sourcefile"
+             name="Aurora Source File"
+             priority="normal">
+       </content-type>
+    </extension>
+    <extension point="org.eclipse.ui.ide.projectNatureImages">
+  		<image 
+  		 id="aurora.project.natureimage"
+    	 natureId="aurora.ide.auroranature"
+    	 icon="icons/aurora8x8.png">
+  		</image>
+ 	</extension>
+    
+    
+</plugin>
