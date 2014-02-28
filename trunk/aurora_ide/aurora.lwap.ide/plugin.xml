@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+  <extension point="org.eclipse.ui.newWizards">
+        <category id="aurora.ide.wizard" name="%category.name">
+        </category>
+        <wizard category="aurora.ide.wizard"
+            class="aurora.lwap.ide.project.NewLWAPProjectWizard" 
+            finalPerspective="aurora.ide.perspectives.AuroraPerspective" 
+            icon="icons/aurora.gif" id="aurora.lwap.ide.project.NewLWAPProjectWizard" 
+            name="%aurora.project" project="true"/>
+        
+        <wizard category="aurora.ide.wizard" 
+            class="aurora.lwap.ide.service.NewServiceWizard" 
+            icon="icons/service.gif" id="aurora.lwap.ide.service.NewServiceWizard" 
+            name="%wizard.screen.file">
+        </wizard>
+      
+       
+    </extension>
+      <extension
+          point="org.eclipse.ui.contexts">
+       <context
+             name="Aurora EditorScope"
+             description="Aurora EditorScope"
+             parentId="org.eclipse.ui.textEditorScope"
+             id="aurora.ide.EditorScope">
+       </context> 
+   </extension>
+   <extension
+         id="BusinessModelEditor"
+         point="org.eclipse.ui.editors">
+      <editor
+            class="aurora.ide.screen.editor.ServiceEditor"
+            contributorClass="aurora.ide.editor.BaseCompositeMapEditorContributor"
+            default="true"
+            filenames="*.service,*.screen,*.svc"
+            icon="icons/service.gif"
+            id="aurora.ide.ServiceEditor"
+            name="%editor.screen"/>
+   </extension>
+  
+   <extension
+         point="org.eclipse.ui.popupMenus">
+     
+	   <viewerContribution 
+	      id="aurora.ide.editor.textpage.format"
+	   targetID="aurora.ide.editor.textpage.context">
+       <menu
+             id="aurora.ide.sourcemenu"
+             label="Source"
+             path="additions">
+          <groupMarker
+                name="context">
+          </groupMarker>
+       </menu> 
+	      <action
+             class="aurora.ide.editor.textpage.action.CFormatAction"
+             definitionId="aurora.ide.format"
+             id="aurora.ide.editor.textpage.FormatAction"
+             label="%source.format"
+             menubarPath="aurora.ide.sourcemenu/context"> 
+	      </action>
+       <action
+             class="aurora.ide.editor.textpage.action.ToggleBlockCommentAction"
+             definitionId="aurora.ide.toggleblockcomment"
+             id="aurora.ide.editor.textpage.toggleblockcomment"
+             label="%source.toggleblockcomment"
+             menubarPath="aurora.ide.sourcemenu/context">
+       </action>
+       <action
+             class="aurora.ide.editor.textpage.action.ToggleCommentAction"
+             definitionId="aurora.ide.togglecomment"
+             id="aurora.ide.editor.textpage.togglecomment"
+             label="%source.togglecomment"
+             menubarPath="aurora.ide.sourcemenu/context">
+       </action> 
+       <action
+             class="aurora.ide.editor.textpage.action.GetFileNameAction"
+             definitionId="aurora.ide.text.editor.copy.fileName"
+             id="aurora.ide.editor.textpage.GetFileNameAction"
+             label="%source.copyfilename"
+             menubarPath="additions">
+       </action>
+    
+	   </viewerContribution>
+    
+    
+   </extension>
+      
+       
+	
+	  
+	<extension  
+      point="org.eclipse.ui.editors.annotationTypes">  
+   		<type  
+         markerSeverity="2"  
+         markerType="org.eclipse.core.resources.textmarker"  
+         name="aurora.ide.word.highlight"  
+         super="org.eclipse.search.results">  
+  		 </type>
+     <type
+           markerSeverity="2"
+           markerType="org.eclipse.core.resources.problemmarker"
+           name="aurora.ide.text.valid"
+           super="org.eclipse.ui.workbench.texteditor.error">
+     </type>
+     <type
+           markerSeverity="2"
+           markerType="org.eclipse.core.resources.textmarker"
+           name="aurora.ide.braces.match">
+     </type>  
+		</extension>  
+	<extension  
+	      point="org.eclipse.ui.editors.markerAnnotationSpecification">  
+	   <specification
+          annotationType="aurora.ide.word.highlight"
+          colorPreferenceKey="highlight.corlor"
+          colorPreferenceValue="212,212,212"
+          highlightPreferenceKey="highlight.highlight"
+          highlightPreferenceValue="true"
+          includeOnPreferencePage="true"
+          isGoToNextNavigationTarget="true"
+          isGoToNextNavigationTargetKey="hightlight.isOccurrenceGoToNextNavigationTarget"
+          isGoToPreviousNavigationTarget="true"
+          isGoToPreviousNavigationTargetKey="highlight_isOccurrenceGoToPreviousNavigationTarget"
+          label="Aurora Word Highlight"
+          overviewRulerPreferenceKey="highlight.overviewRuler"
+          overviewRulerPreferenceValue="true"
+          showInNextPrevDropdownToolbarAction="true"
+          showInNextPrevDropdownToolbarActionKey="highlight.showInNextPrevDropdownToolbarAction"
+          textPreferenceKey="highlight.text"
+          textPreferenceValue="true"
+          verticalRulerPreferenceKey="highlight.verticalRuler"
+          verticalRulerPreferenceValue="false">
+	  </specification>
+   <specification  
+         annotationType="aurora.ide.text.valid"  
+         colorPreferenceKey="text.valid.color"  
+         colorPreferenceValue="255,0,0"  
+         contributesToHeader="true"  
+         highlightPreferenceKey="text.valid.highlight"  
+         highlightPreferenceValue="false"  
+         icon="icons/error.gif"  
+         includeOnPreferencePage="true"  
+         isGoToNextNavigationTarget="true"  
+         isGoToNextNavigationTargetKey="text.valid.isOccurrenceGoToNextNavigationTarget"  
+         isGoToPreviousNavigationTarget="true"  
+         isGoToPreviousNavigationTargetKey="text.valid.isOccurrenceGoToPreviousNavigationTarget"  
+         label="Aurora Text Valid"  
+         overviewRulerPreferenceKey="text.valid.overviewRuler"  
+         overviewRulerPreferenceValue="true"  
+         presentationLayer="4"  
+         quickFixIcon="icons/error.gif"  
+         showInNextPrevDropdownToolbarAction="true"  
+         showInNextPrevDropdownToolbarActionKey="text.valid.showInNextPrevDropdownToolbarAction"  
+         symbolicIcon="error"  
+         textPreferenceKey="text.valid.text"  
+         textPreferenceValue="true"  
+         textStylePreferenceKey="text.valid.textStyle"  
+         textStylePreferenceValue="PROBLEM_UNDERLINE"  
+         verticalRulerPreferenceKey="text.valid.verticalRuler"  
+         verticalRulerPreferenceValue="true">  
+   </specification>
+   <specification
+         annotationType="aurora.ide.braces.match"
+         colorPreferenceKey="braces.match.color"
+         colorPreferenceValue="0,128,255"
+         highlightPreferenceKey="braces.match.highlight"
+         highlightPreferenceValue="false"
+         includeOnPreferencePage="true"
+         isGoToNextNavigationTarget="false"
+         isGoToPreviousNavigationTarget="false"
+         label="Aurora Brace Match"
+         overviewRulerPreferenceKey="braces.match.overviewRuler"
+         overviewRulerPreferenceValue="false"
+         showInNextPrevDropdownToolbarAction="false"
+         textPreferenceKey="braces.match.text"
+         textPreferenceValue="true"
+         textStylePreferenceKey="braces.match.textStyle"
+         textStylePreferenceValue="BOX"
+         verticalRulerPreferenceKey="braces.match.verticalRuler"
+         verticalRulerPreferenceValue="false">
+   </specification>
+	</extension>
+	<extension  
+      id="aurora.lwap.ide.lwap.nature"  
+      point="org.eclipse.core.resources.natures">  
+       <runtime>  
+          <run  
+                class="aurora.lwap.ide.project.LWAPProjectNature">  
+          </run>  
+       </runtime>
+      
+    </extension>
+    
+
+   
+ <extension
+       point="org.eclipse.ui.commands">
+    <category
+          description="Aurora commands"
+          id="aurora.ide.commands"
+          name="Aurora commands">
+    </category>
+    <category
+          id="aurora.search.commands.category"
+          name="Aurora Command Category">
+    </category>
+    <command
+          categoryId="aurora.ide.commands"
+          description="Format Aurora Source Code"
+          id="aurora.ide.format"
+          name="Aurora format ">
+    </command>
+  
+    <command
+          categoryId="aurora.ide.commands"
+          description="Toggle Line Comment"
+          id="aurora.ide.togglecomment"
+          name="Aurora Toggle Line Comment">
+    </command>
+     <command
+          categoryId="aurora.ide.commands"
+          description="Copy File Name"
+          id="aurora.ide.text.editor.copy.fileName"
+          name="Aurora Text Copy File Name">
+    </command>
+    <command
+          categoryId="aurora.ide.commands"
+          description="Toggle Block Comment"
+          id="aurora.ide.toggleblockcomment"
+          name="Aurora Toggle Block Comment">
+    </command>
+   
+ </extension>
+  
+ <extension
+       point="org.eclipse.ui.bindings">
+    <key
+          commandId="aurora.ide.format"
+          contextId="org.eclipse.ui.textEditorScope"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+M2+F">
+    </key> <!--shiliyan3310-2011-08-08-->
+       <key
+             commandId="aurora.ide.togglecomment"
+             contextId="org.eclipse.ui.textEditorScope"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M1+/">
+       </key>
+       <key
+             commandId="aurora.ide.text.editor.copy.fileName"
+             contextId="org.eclipse.ui.textEditorScope"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M1+M2+C">
+       </key>
+       <key
+             commandId="aurora.ide.toggleblockcomment"
+             contextId="org.eclipse.ui.textEditorScope"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M1+M2+/">
+       </key>
+ </extension>
+
+
+ <extension
+       id="aurora.ide.perspectives"
+       point="org.eclipse.ui.perspectives">
+    <perspective
+          class="aurora.ide.perspectives.AuroraPerspective"
+          icon="icons/aurora.gif"
+          id="aurora.ide.perspectives.AuroraPerspective"
+          name="Aurora">
+    </perspective>
+ </extension>
+ <extension
+       point="org.eclipse.ui.perspectiveExtensions">
+    <perspectiveExtension
+          targetID="aurora.ide.perspectives.AuroraPerspective">
+       <newWizardShortcut
+             id="aurora.lwap.ide.project.NewLWAPProjectWizard">
+       </newWizardShortcut>
+       <newWizardShortcut
+             id="aurora.lwap.ide.service.NewServiceWizard">
+       </newWizardShortcut>
+       
+
+       <actionSet
+             id="aurora.ide.actionset.quickopenfile">
+       </actionSet>
+      
+    </perspectiveExtension>
+    <perspectiveExtension
+          targetID="*">
+       <perspectiveShortcut
+             id="aurora.ide.perspectives.AuroraPerspective">
+       </perspectiveShortcut>
+    </perspectiveExtension>
+ </extension>
+
+    <extension
+          point="org.eclipse.core.runtime.contentTypes">
+       <content-type
+             default-charset="UTF-8"
+             file-extensions="screen,svc,bm,config"
+             id="aurora.ide.sourcefile"
+             name="Aurora Source File"
+             priority="normal">
+       </content-type>
+    </extension>
+    <extension point="org.eclipse.ui.ide.projectNatureImages">
+  		<image 
+  		 id="aurora.project.natureimage"
+    	 natureId="aurora.lwap.ide.lwap.nature"
+    	 icon="icons/aurora8x8.png">
+  		</image> 
+ 	</extension>
+    
+
+</plugin>
