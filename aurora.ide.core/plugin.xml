@@ -623,7 +623,7 @@
    </specification>
 	</extension>
 	<extension  
-      id="auroranature"  
+      id="aurora.ide.auroranature"  
       point="org.eclipse.core.resources.natures">  
        <runtime>  
           <run  
@@ -636,7 +636,7 @@
     </extension>
     
 
-    <extension id="auroraBuilder" name="Aurora Project Builder" 
+    <extension id="aurora.ide.auroraBuilder" name="Aurora Project Builder" 
         point="org.eclipse.core.resources.builders">
         <builder
               callOnEmptyDelta="false"
