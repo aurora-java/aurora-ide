@@ -9,12 +9,12 @@
             class="aurora.lwap.ide.project.NewLWAPProjectWizard" 
             finalPerspective="aurora.ide.perspectives.AuroraPerspective" 
             icon="icons/aurora.gif" id="aurora.lwap.ide.project.NewLWAPProjectWizard" 
-            name="%aurora.project" project="true"/>
+            name="Aurora Project" project="true"/>
         
         <wizard category="aurora.ide.wizard" 
             class="aurora.lwap.ide.service.NewServiceWizard" 
             icon="icons/service.gif" id="aurora.lwap.ide.service.NewServiceWizard" 
-            name="%wizard.screen.file">
+            name="Service File">
         </wizard>
       
        
