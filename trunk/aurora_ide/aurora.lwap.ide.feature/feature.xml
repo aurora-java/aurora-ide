@@ -186,7 +186,7 @@ Library.
    </license>
 
    <url>
-      <update label="LWAP" url="http://aurora-project.googlecode.com/svn/trunk/lwap_ide_release/"/>
+      <update label="LWAP IDE" url="https://aurora-project.googlecode.com/svn/trunk/lwap_ide"/>
    </url>
 
    <requires>
