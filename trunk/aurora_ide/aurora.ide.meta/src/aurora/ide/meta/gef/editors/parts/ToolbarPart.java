@@ -13,7 +13,7 @@ import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties
 public class ToolbarPart extends ContainerPart {
 
 	@Override
-	protected IFigure createFigure() {
+	protected IFigure createFigure() {	
 		Figure figure = new ToolbarFigure();
 		return figure;
 	}
