@@ -7,7 +7,6 @@ import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -99,11 +98,11 @@ public class ToolbarButtonFigure extends Figure implements IResourceDispose {
 			g.drawImage(getBgImage(), r1, r2);
 			if (TextStyleUtil.isTextLayoutUseless(this.model,
 					ComponentProperties.text) == false) {
-				paintStyledText(g, text, ComponentProperties.text, rect.x
+				paintStyledText(g, text, ComponentProperties.text, rect.x+2
 						+ (dim.width - textExtents.width) / 2 + 8, rect.y
 						+ (dim.height - textExtents.height) / 2);
 			} else {
-				g.drawString(text, rect.x + (dim.width - textExtents.width) / 2
+				g.drawString(text, rect.x+2 + (dim.width - textExtents.width) / 2
 						+ 8, rect.y + (dim.height - textExtents.height) / 2);
 			}
 		}

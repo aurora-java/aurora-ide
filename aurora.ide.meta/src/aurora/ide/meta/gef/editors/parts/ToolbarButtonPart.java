@@ -15,14 +15,12 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.widgets.Text;
 
 import aurora.ide.meta.MetaPlugin;
-import aurora.ide.meta.gef.editors.figures.ButtonFigure;
 import aurora.ide.meta.gef.editors.figures.ToolbarButtonFigure;
 import aurora.ide.meta.gef.editors.models.commands.ChangeTextStyleCommand;
 import aurora.ide.meta.gef.editors.policies.ComponentDirectEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeDirectEditManager;
 import aurora.ide.meta.gef.editors.wizard.dialog.TextEditDialog;
 import aurora.ide.prototype.consultant.demonstrate.Demonstrating;
-import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.StyledStringText;
 import aurora.plugin.source.gen.screen.model.ToolbarButton;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;

@@ -33,7 +33,7 @@ public class ButtonDemonstrating {
 		if (dd == null) {
 			EditorMode editorMode = part.getEditorMode();
 			if (editorMode instanceof DemonstrateEditorMode)
-				;
+				showMessage(Messages.ButtonDemonstrating_0);
 			else
 				showMessage(Messages.ButtonDemonstrating_0);
 		} else if (DemonstrateData.OPEN_MESSAGE.equals(dd.getOpenType())) {
