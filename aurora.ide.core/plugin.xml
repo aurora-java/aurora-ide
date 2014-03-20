@@ -74,6 +74,15 @@
             name="%editor.bm">
       </editor>
       
+      <editor
+            class="aurora.ide.screen.editor.NewScreenEditor"
+            contributorClass="aurora.ide.editor.BaseCompositeMapEditorContributor"
+            default="true"
+            filenames="*.screen"
+            icon="icons/service.gif"
+            id="aurora.ide.screen.editor.NewScreenEditor"
+            name="新Screen编辑器"/>
+      
       <!--
       <editor
             class="aurora.ide.editor.CollaborateEditor"
@@ -943,12 +952,7 @@
              relationship="stack"
              relative="org.eclipse.ui.views.ProblemView">
        </view>
-       <view
-             id="org.eclipse.wst.server.ui.ServersView"
-             minimized="false"
-             relationship="stack"
-             relative="org.eclipse.ui.views.ProblemView">
-       </view>
+       
        <viewShortcut
              id="aurora.ide.viewer.statistics.StatisticsView">
        </viewShortcut>
@@ -980,6 +984,27 @@
             class="aurora.ide.statistics.viewer.StatisticsView"
             id="aurora.ide.viewer.statistics.StatisticsView">
       </view>
+      <view
+            name="项目状态"
+            icon="icons/aurora.gif"
+            category="aurora.viewer.category"
+            class="aurora.ide.core.server.viewer.ProjectStatusView"
+            id="aurora.ide.core.server.viewer.ProjectStatusView">
+      </view>
+      <view
+            name="Screen预览"
+            icon="icons/aurora.gif"
+            category="aurora.viewer.category"
+            class="aurora.ide.core.screen.preview.browser.viewer.PreviewBrowserView"
+            id="aurora.ide.core.screen.preview.browser.viewer.PreviewBrowserView">
+      </view>
+      <view
+            name="BM测试"
+            icon="icons/aurora.gif"
+            category="aurora.viewer.category"
+            class="aurora.ide.core.bm.test.view.BMTestViewer"
+            id="aurora.ide.core.bm.test.view.BMTestViewer">
+      </view>
    </extension>
     <extension
           point="org.eclipse.core.runtime.contentTypes">
@@ -998,6 +1023,28 @@
     	 icon="icons/aurora8x8.png">
   		</image>
  	</extension>
-    
-    
+
+<extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            sourceLocatorId="aurora.sourceLocator"
+            delegate="aurora.ide.core.server.launch.AuroraServerLaunchDelegate"
+            sourcePathComputerId="aurora.sourcePathComputer"
+            name="Aurora Application"
+            id="aurora.server.launchType"
+            modes="run, debug"/>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourcePathComputers">
+      <sourcePathComputer
+            class="aurora.ide.core.debug.AuroraSourcePathComputerDelegate"
+            id="aurora.sourcePathComputer"/>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourceLocators">
+      <sourceLocator
+            class="aurora.ide.core.debug.AuroraSourceLookupDirector"
+            name="Aurora Source Locator"
+            id="aurora.sourceLocator"/>
+   </extension>
 </plugin>
