@@ -20,26 +20,38 @@ import aurora.ide.prototype.consultant.view.wizard.CreateProjectWizard;
 public class ResourceUtil {
 
 	public static boolean isProject(File pj) {
-		File p = new File(pj, CreateProjectWizard.QUICK_UI_PROJECT);
+		File p = getProjectPropertyFile(pj);
 		return p.exists();
 	}
 
 	public static boolean isModule(File file) {
-		File p = new File(file, CreateModuleWizard.QUICK_UI_MODULE);
+		File p = getModulePropertyFile(file);
 		return p.exists();
+	}
+
+	public static File getModulePropertyFile(File file) {
+		return new File(file, CreateModuleWizard.QUICK_UI_MODULE);
 	}
 
 	public static boolean isFunction(File file) {
-		File p = new File(file, CreateFunctionWizard.QUICK_UI_FUNCTION);
+		File p = getFunctionPropertyFile(file);
 		return p.exists();
 	}
 
+	public static File getFunctionPropertyFile(File file) {
+		return new File(file, CreateFunctionWizard.QUICK_UI_FUNCTION);
+	}
+
 	public static CompositeMap loadProjectProperties(File file) {
-		File p = new File(file, CreateProjectWizard.QUICK_UI_PROJECT);
+		File p = getProjectPropertyFile(file);
 		if (p.exists() == false)
 			return null;
 		CompositeMap loadFile = CompositeMapUtil.loadFile(p);
 		return loadFile;
+	}
+
+	public static File getProjectPropertyFile(File file) {
+		return new File(file, CreateProjectWizard.QUICK_UI_PROJECT);
 	}
 
 	public static CompositeMap loadDemonProperties(File file) {
@@ -52,7 +64,7 @@ public class ResourceUtil {
 	}
 
 	public static CompositeMap loadFunctionProperties(File file) {
-		File p = new File(file, CreateFunctionWizard.QUICK_UI_FUNCTION);
+		File p = getFunctionPropertyFile(file);
 		if (p.exists() == false)
 			return null;
 		CompositeMap loadFile = CompositeMapUtil.loadFile(p);
@@ -102,7 +114,7 @@ public class ResourceUtil {
 	}
 
 	public static CompositeMap loadModuleProperties(File file) {
-		File p = new File(file, CreateModuleWizard.QUICK_UI_MODULE);
+		File p = getModulePropertyFile(file);
 		if (p.exists() == false)
 			return null;
 		CompositeMap loadFile = CompositeMapUtil.loadFile(p);

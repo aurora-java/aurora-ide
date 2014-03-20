@@ -11,7 +11,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
+import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -29,14 +33,19 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 
 import uncertain.composite.CompositeMap;
+import uncertain.composite.IterationHandle;
 import aurora.ide.helpers.CompositeMapUtil;
 import aurora.ide.libs.AuroraImagesUtils;
 import aurora.ide.prototype.consultant.product.fsd.FunctionDesc;
+import aurora.ide.prototype.consultant.view.CNFContentProvider;
+import aurora.ide.prototype.consultant.view.CNFLabelProvider;
+import aurora.ide.prototype.consultant.view.CNFViewerSorter;
 import aurora.ide.prototype.consultant.view.FunctionSelectionDialog;
+import aurora.ide.prototype.consultant.view.NavigationView;
 import aurora.ide.prototype.consultant.view.Node;
+import aurora.ide.prototype.consultant.view.Root;
 import aurora.ide.prototype.consultant.view.util.ResourceUtil;
 import aurora.ide.swt.util.PageModel;
-import aurora.ide.swt.util.TableContentProvider;
 import aurora.ide.swt.util.TableLabelProvider;
 import aurora.ide.swt.util.TextField;
 import aurora.ide.swt.util.WidgetFactory;
@@ -44,13 +53,25 @@ import aurora.ide.swt.util.viewer.CTableViewer;
 
 public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 
-	private static final String FILES = "files"; //$NON-NLS-1$
+	public static final String GRAYED = "grayed";
+	public static final String CHECKED = "checked";
+	public static final String PROPERTIES_PATH = "properties_path";
+	public static final String NODE_PATH = "node_path";
+	public static final String FILE = "file";
+	public static final String MENU = "menu";
+	public static final String ROOT = "root";
+	public static final String ROOT_MENU = "Root_Menu";
+	public static final String FILES = "files"; //$NON-NLS-1$
 	public static final String DEMONSTRATE_SETTING = "demonstrate.setting"; //$NON-NLS-1$
 	public static final String FUNCTION = "function"; //$NON-NLS-1$
 	public static final String FUNCTIONS = "functions"; //$NON-NLS-1$
 	public static final String WELCOME_UIP = "welcome_uip"; //$NON-NLS-1$
 	public static final String LOGIN_IMG = "login_img"; //$NON-NLS-1$
+
 	private PageModel model = new PageModel();
+
+	private List<Node> checkedElement = new ArrayList<Node>();
+	private List<Node> grayedElement = new ArrayList<Node>();
 
 	protected Control createContents(final Composite parent) {
 		Composite root = new Composite(parent, SWT.NONE);
@@ -58,7 +79,8 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 		layout.numColumns = 3;
 		root.setLayout(layout);
 		final TextField loginBkr = WidgetFactory.createTextButtonField(root,
-				Messages.ProjectDemonstratePropertyPage_6, Messages.ProjectDemonstratePropertyPage_7);
+				Messages.ProjectDemonstratePropertyPage_6,
+				Messages.ProjectDemonstratePropertyPage_7);
 		loginBkr.getText().setEditable(false);
 		loginBkr.addButtonClickListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -86,7 +108,8 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 		});
 
 		final TextField welcomeUip = WidgetFactory.createTextButtonField(root,
-				Messages.ProjectDemonstratePropertyPage_9, Messages.ProjectDemonstratePropertyPage_10);
+				Messages.ProjectDemonstratePropertyPage_9,
+				Messages.ProjectDemonstratePropertyPage_10);
 		welcomeUip.getText().setEditable(false);
 		welcomeUip.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
@@ -118,56 +141,146 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 		g.setLayoutData(layoutData);
 		g.setLayout(layout);
 
-		CTableViewer ctv = new CTableViewer() {
-			protected void clickAddButton(Shell shell, final TableViewer tv) {
-				InnerDialog id = new InnerDialog(shell);
-				int open = id.open();
-				if (InnerDialog.OK == open) {
-					this.getInput().add(id.f);
-					this.setInput(tv);
-				}
-			}
-		};
-
-		ctv.addColumn(Messages.ProjectDemonstratePropertyPage_12, 128);
-		ctv.addColumn(Messages.ProjectDemonstratePropertyPage_13, 193);
-		ctv.addColumn(Messages.ProjectDemonstratePropertyPage_14, 293);
-		ctv.setTableContentProvider(new TableContentProvider());
-		ctv.setTableLabelProvider(new TableLabelProvider() {
-			public String getColumnText(Object element, int i) {
-
-				if (element instanceof F) {
-					Path p = new Path(((F) element).functionPath);
-					File file = p.toFile();
-					if (file.exists() == false)
-						return Messages.ProjectDemonstratePropertyPage_0; 
-					if (i == 0) {
-						return file.getParentFile().getName();
-					}
-					if (i == 1) {
-						CompositeMap loadFile = CompositeMapUtil.loadFile(file);
-						CompositeMap child = loadFile
-								.getChild(FunctionDesc.fun_name);
-						String text = child == null ? "" : child.getText(); //$NON-NLS-1$
-						return text == null ? "" : text; //$NON-NLS-1$
-					}
-					if (i == 2) {
-						List<Object> uipFiles = ((F) element).uipFiles;
-						String s = ""; //$NON-NLS-1$
-						for (Object object : uipFiles) {
-							Path path = new Path("" +object); //$NON-NLS-1$
-							String name = path.removeFileExtension().lastSegment();
-							s = s + "[ " + name + " ]  "; //$NON-NLS-1$ //$NON-NLS-2$
-						}
-						return s;
-					}
-				}
-				return ""; //$NON-NLS-1$
-			}
-		});
+		CheckboxTreeViewer ctv = new CheckboxTreeViewer(g);
+		ctv.setContentProvider(new CNFContentProvider());
+		ctv.setLabelProvider(new CNFLabelProvider());
+		ctv.setSorter(new CNFViewerSorter());
+		ctv.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
+		// CTableViewer ctv = new CTableViewer() {
+		// protected void clickAddButton(Shell shell, final TableViewer tv) {
+		// InnerDialog id = new InnerDialog(shell);
+		// int open = id.open();
+		// if (InnerDialog.OK == open) {
+		// this.getInput().add(id.f);
+		// this.setInput(tv);
+		// }
+		// }
+		// };
+		//
+		// ctv.addColumn(Messages.ProjectDemonstratePropertyPage_12, 128);
+		// ctv.addColumn(Messages.ProjectDemonstratePropertyPage_13, 193);
+		// ctv.addColumn(Messages.ProjectDemonstratePropertyPage_14, 293);
+		// ctv.setTableContentProvider(new TableContentProvider());
+		// ctv.setTableLabelProvider(new TableLabelProvider() {
+		// public String getColumnText(Object element, int i) {
+		//
+		// if (element instanceof F) {
+		// Path p = new Path(((F) element).functionPath);
+		// File file = p.toFile();
+		// if (file.exists() == false)
+		// return Messages.ProjectDemonstratePropertyPage_0;
+		// if (i == 0) {
+		// return file.getParentFile().getName();
+		// }
+		// if (i == 1) {
+		// CompositeMap loadFile = CompositeMapUtil.loadFile(file);
+		// CompositeMap child = loadFile
+		// .getChild(FunctionDesc.fun_name);
+		//						String text = child == null ? "" : child.getText(); //$NON-NLS-1$
+		//						return text == null ? "" : text; //$NON-NLS-1$
+		// }
+		// if (i == 2) {
+		// List<Object> uipFiles = ((F) element).uipFiles;
+		//						String s = ""; //$NON-NLS-1$
+		// for (Object object : uipFiles) {
+		//							Path path = new Path("" +object); //$NON-NLS-1$
+		// String name = path.removeFileExtension().lastSegment();
+		//							s = s + "[ " + name + " ]  "; //$NON-NLS-1$ //$NON-NLS-2$
+		// }
+		// return s;
+		// }
+		// }
+		//				return ""; //$NON-NLS-1$
+		// }
+		// });
 		setInput(loginBkr, welcomeUip, ctv);
-		ctv.createContentTable(g);
+		// ctv.createContentTable(g);
 		return root;
+	}
+
+	private void setInput(TextField loginBkr, TextField welcomeUip,
+			final CheckboxTreeViewer ctv) {
+		welcomeUip.setText(model.getStringPropertyValue(WELCOME_UIP));
+		String stringPropertyValue = model.getStringPropertyValue(LOGIN_IMG);
+		loginBkr.setText(stringPropertyValue == null
+				|| "".equals(stringPropertyValue) ? Messages.ProjectDemonstratePropertyPage_23 : Messages.ProjectDemonstratePropertyPage_24); //$NON-NLS-1$
+		ctv.setInput(model.getPropertyValue(ROOT_MENU));
+		// ctv.getCheckedElements()
+
+		ctv.setCheckedElements(checkedElement.toArray(new Node[checkedElement
+				.size()]));
+		ctv.setGrayedElements(grayedElement.toArray(new Node[grayedElement
+				.size()]));
+
+		ctv.addCheckStateListener(new ICheckStateListener() {
+
+			@Override
+			public void checkStateChanged(CheckStateChangedEvent event) {
+				Node n = (Node) event.getElement();
+				n.setChecked(event.getChecked());
+				n.setGrayed(isParentGrayed(n));
+				ctv.setGrayed(n, n.isGrayed());
+				setSubtreeGrayed(n,false);
+				setSubtreeChecked(n,event.getChecked());
+				TreePath[] expandedTreePaths = ctv.getExpandedTreePaths();
+				for (TreePath treePath : expandedTreePaths) {
+					Object lastSegment = treePath.getLastSegment();
+					if (lastSegment.equals(n.getParent()) == false) {
+						continue;
+					}
+					int segmentCount = treePath.getSegmentCount();
+					for (int i = segmentCount - 1; i >= 0; i--) {
+						Node object = (Node) treePath.getSegment(i);
+
+						object.setChecked(isParentChecked(object));
+						object.setGrayed(isParentGrayed(object));
+						ctv.setChecked(object, object.isChecked());
+						ctv.setGrayed(object, object.isGrayed());
+					}
+				}
+			}
+
+			public void setSubtreeGrayed(Node element,boolean b){
+				List<Node> children = element.getChildren();
+				for (Node node : children) {
+					node.setGrayed(b);
+					ctv.setGrayed(node, b);
+					setSubtreeGrayed(node,b);
+				}
+			}
+			public void setSubtreeChecked(Node element,boolean b){
+				List<Node> children = element.getChildren();
+				for (Node node : children) {
+					node.setChecked(b);
+					ctv.setChecked(node, b);
+					setSubtreeChecked(node,b);
+				}
+			}
+			
+			public boolean isParentChecked(Node p) {
+				List<Node> children = p.getChildren();
+				for (Node node : children) {
+					if (node.isChecked()) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			public boolean isParentGrayed(Node p) {
+				List<Node> children = p.getChildren();
+				int checkedSize = 0;
+				for (Node node : children) {
+					if (node.isChecked()) {
+						checkedSize++;
+					}
+					if (node.isGrayed())
+						return true;
+				}
+				return checkedSize > 0 && checkedSize < children.size();
+			}
+
+		});
 	}
 
 	protected void setInput(TextField loginBkr, TextField welcomeUip,
@@ -176,6 +289,7 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 		String stringPropertyValue = model.getStringPropertyValue(LOGIN_IMG);
 		loginBkr.setText(stringPropertyValue == null
 				|| "".equals(stringPropertyValue) ? Messages.ProjectDemonstratePropertyPage_23 : Messages.ProjectDemonstratePropertyPage_24); //$NON-NLS-1$
+
 		List<Object> propertyValue = (List<Object>) model
 				.getPropertyValue(FUNCTIONS);
 		ctv.setInput(propertyValue);
@@ -210,17 +324,20 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			p.setLayout(layout);
 			p.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-			final TextField fn = WidgetFactory.createTextButtonField(p, Messages.ProjectDemonstratePropertyPage_25,
+			final TextField fn = WidgetFactory.createTextButtonField(p,
+					Messages.ProjectDemonstratePropertyPage_25,
 					Messages.ProjectDemonstratePropertyPage_26);
 			fn.getText().setEditable(false);
 			fn.addButtonClickListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
 					FunctionSelectionDialog fsd = new FunctionSelectionDialog();
 					String path = fsd.openFolderSelectionDialog(
-							Messages.ProjectDemonstratePropertyPage_27, parent.getShell(), getElement());
+							Messages.ProjectDemonstratePropertyPage_27,
+							parent.getShell(), getElement());
 					if (path != null && path.length() > 0) {
-						
-						CompositeMap loadFile = CompositeMapUtil.loadFile(new File(path));
+
+						CompositeMap loadFile = CompositeMapUtil
+								.loadFile(new File(path));
 						CompositeMap child = loadFile
 								.getChild(FunctionDesc.fun_name);
 						String text = child == null ? "" : child.getText(); //$NON-NLS-1$
@@ -236,25 +353,26 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 				public void modifyText(ModifyEvent e) {
 					updateStatus();
 				}
-			}); 
-			ctv = new CTableViewer(){
+			});
+			ctv = new CTableViewer() {
 				protected void clickAddButton(Shell shell, final TableViewer tv) {
-//					FileDialog dialog = new FileDialog(shell, SWT.OPEN);
-//					dialog.setText("Open File"); //$NON-NLS-1$
-//					dialog.setFilterExtensions(new String[] { "*.uip" }); //$NON-NLS-1$
-//					String path = dialog.open();
-//					if (path != null && path.length() > 0) {
-//						getTableInput().add(path);
-//					}
-//					setInput(tv);
+					// FileDialog dialog = new FileDialog(shell, SWT.OPEN);
+					//					dialog.setText("Open File"); //$NON-NLS-1$
+					//					dialog.setFilterExtensions(new String[] { "*.uip" }); //$NON-NLS-1$
+					// String path = dialog.open();
+					// if (path != null && path.length() > 0) {
+					// getTableInput().add(path);
+					// }
+					// setInput(tv);
 					FunctionSelectionDialog fsd = new FunctionSelectionDialog();
-					String path = fsd.openUIPSelectionDialog(Messages.ProjectDemonstratePropertyPage_29, shell,
+					String path = fsd.openUIPSelectionDialog(
+							Messages.ProjectDemonstratePropertyPage_29, shell,
 							getProjectNode());
 					if (path != null && path.length() > 0) {
 						getTableInput().add(path);
 					}
 					tv.setInput(getTableInput());
-					
+
 				}
 			};
 			ctv.addColumn(Messages.ProjectDemonstratePropertyPage_30, 128);
@@ -308,31 +426,87 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			if (child != null) {
 				model.setPropertyValue(LOGIN_IMG, child.getText());
 			}
-			child = pp.getChild(FUNCTIONS);
-
-			List<F> fff = new ArrayList<F>();
-			if (child != null) {
-				List childsNotNull = child.getChildsNotNull();
-				for (Object object : childsNotNull) {
-					CompositeMap m = (CompositeMap) object;
-					F f = new F();
-					String ss = m.getString(FUNCTION, ""); //$NON-NLS-1$
-					CompositeMap child2 = m.getChild(FILES);
-					String t = child2 == null ? "" : child2.getText(); //$NON-NLS-1$
-					if (t == null)
-						t = ""; //$NON-NLS-1$
-					String[] split = t.split(","); //$NON-NLS-1$
-					f.uipFiles = new ArrayList<Object>();
-					for (String s : split) {
-						if (s != null && "".equals(s) == false) { //$NON-NLS-1$
-							f.uipFiles.add(makeAbsolute(s));
-						}
-					}
-					f.functionPath = makeAbsolute(ss);
-					fff.add(f);
+			Root _root = (Root) NavigationView.getInitialInput();
+			List<Node> children = _root.getChildren();
+			Node root = (Node) this.getProjectNode();
+			for (Node node : children) {
+				if (node.getPath().equals(root.getPath())) {
+					root = node;
+					root.makeChildren();
+					break;
 				}
 			}
-			model.setPropertyValue(FUNCTIONS, fff);
+			CompositeMap root_menu = pp.getChild(ROOT_MENU);
+			if (root_menu != null) {
+				updateCheckedNode(root, root_menu);
+			}
+			model.setPropertyValue(ROOT_MENU, root);
+
+			// child = pp.getChild(FUNCTIONS);
+
+			// List<F> fff = new ArrayList<F>();
+			// if (child != null) {
+			// List childsNotNull = child.getChildsNotNull();
+			// for (Object object : childsNotNull) {
+			// CompositeMap m = (CompositeMap) object;
+			// F f = new F();
+			//					String ss = m.getString(FUNCTION, ""); //$NON-NLS-1$
+			// CompositeMap child2 = m.getChild(FILES);
+			//					String t = child2 == null ? "" : child2.getText(); //$NON-NLS-1$
+			// if (t == null)
+			//						t = ""; //$NON-NLS-1$
+			//					String[] split = t.split(","); //$NON-NLS-1$
+			// f.uipFiles = new ArrayList<Object>();
+			// for (String s : split) {
+			//						if (s != null && "".equals(s) == false) { //$NON-NLS-1$
+			// f.uipFiles.add(makeAbsolute(s));
+			// }
+			// }
+			// f.functionPath = makeAbsolute(ss);
+			// fff.add(f);
+			// }
+			// }
+			// model.setPropertyValue(FUNCTIONS, fff);
+		}
+	}
+
+	private boolean[] isGrayChecked(CompositeMap root_menu, final Node node) {
+		final boolean[] s = { false, false };
+		root_menu.iterate(new IterationHandle() {
+
+			@Override
+			public int process(CompositeMap map) {
+				String np = map.getString(NODE_PATH, "");
+				if ("".equals(np) == false) {
+					if (new Path(makeAbsolute(np)).equals(node.getPath())) {
+						s[0] = map.getBoolean(CHECKED, false);
+						s[1] = map.getBoolean(GRAYED, false);
+						return IterationHandle.IT_BREAK;
+					}
+
+				}
+				return IterationHandle.IT_CONTINUE;
+			}
+		}, false);
+		return s;
+	}
+
+	private void updateCheckedNode(Node root, CompositeMap root_menu) {
+		List<Node> children = root.getChildren();
+		for (Node node : children) {
+			node.makeChildren();
+			boolean[] grayChecked = isGrayChecked(root_menu, node);
+			node.setChecked(grayChecked[0]);
+			node.setGrayed(grayChecked[1]);
+			if (grayChecked[1]) {
+				grayedElement.add(node);
+			}
+			if (grayChecked[0]) {
+				checkedElement.add(node);
+			}
+			if (node.hasChildren()) {
+				updateCheckedNode(node, root_menu);
+			}
 		}
 	}
 
@@ -355,7 +529,6 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 			File file = ((Node) element).getFile();
 			ResourceUtil.createFile(file, DEMONSTRATE_SETTING, map);
 		}
-
 	}
 
 	protected void saveTOMap(CompositeMap map) {
@@ -363,22 +536,46 @@ public class ProjectDemonstratePropertyPage extends AbstractFSDPropertyPage {
 		map.createChild(WELCOME_UIP).setText(makeRelative(s));
 		s = model.getStringPropertyValue(LOGIN_IMG);
 		map.createChild(LOGIN_IMG).setText(s);
+		Node root = (Node) model.getPropertyValue(ROOT_MENU);
+		if (root != null) {
+			CompositeMap rm = map.createChild(ROOT_MENU);
+			createMenuMap(root, rm);
+		}
 
-		@SuppressWarnings("unchecked")
-		List<F> propertyValue = (List<F>) (model.getPropertyValue(FUNCTIONS));
+		// List<F> propertyValue = (List<F>)
+		// (model.getPropertyValue(FUNCTIONS));
+		//
+		// if (propertyValue != null) {
+		// CompositeMap fff = map.createChild(FUNCTIONS);
+		// for (F f : propertyValue) {
+		// CompositeMap ff = fff.createChild(FUNCTION);
+		// ff.put(FUNCTION, makeRelative(f.functionPath));
+		// List<Object> uipFiles = f.uipFiles;
+		//				String ss = ""; //$NON-NLS-1$
+		// for (Object string : uipFiles) {
+		//					ss = ss + "," + makeRelative(string.toString()); //$NON-NLS-1$
+		// }
+		//				ss = ss.replaceFirst(",", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		// ff.createChild(FILES).setText(ss);
+		// }
+		// }
+	}
 
-		if (propertyValue != null) {
-			CompositeMap fff = map.createChild(FUNCTIONS);
-			for (F f : propertyValue) {
-				CompositeMap ff = fff.createChild(FUNCTION);
-				ff.put(FUNCTION, makeRelative(f.functionPath));
-				List<Object> uipFiles = f.uipFiles;
-				String ss = ""; //$NON-NLS-1$
-				for (Object string : uipFiles) {
-					ss = ss + "," + makeRelative(string.toString()); //$NON-NLS-1$
+	public void createMenuMap(Node root, CompositeMap rm) {
+		List<Node> children = root.getChildren();
+		for (Node node : children) {
+			if (node.isChecked()) {
+				CompositeMap c = null;
+				c = node.hasChildren() ? rm.createChild(MENU) : rm
+						.createChild(FILE);
+				c.put(NODE_PATH, makeRelative(node.getPath().toString()));
+				c.put(PROPERTIES_PATH, makeRelative(node.getPropertiesPath()));
+				c.put(CHECKED, node.isChecked());
+				c.put(GRAYED, node.isGrayed());
+				c.setText(node.getPropertiesPath());
+				if (node.hasChildren()) {
+					this.createMenuMap(node, c);
 				}
-				ss = ss.replaceFirst(",", ""); //$NON-NLS-1$ //$NON-NLS-2$
-				ff.createChild(FILES).setText(ss);
 			}
 		}
 	}

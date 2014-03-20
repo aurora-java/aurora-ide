@@ -8,14 +8,19 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.PlatformObject;
 
+import aurora.ide.prototype.consultant.view.util.ResourceUtil;
+
 public class Node extends PlatformObject {
 	private Node parent;
 	private List<Node> children = new ArrayList<Node>();
 
-	public static Node node;
 	private IPath path;
 
 	private boolean makeChildFinish = false;
+
+	private boolean isChecked = false;
+	
+	private boolean isGrayed = false;
 
 	protected Node() {
 		super();
@@ -39,7 +44,7 @@ public class Node extends PlatformObject {
 	}
 
 	public File getFile() {
-		if(path == null)
+		if (path == null)
 			return null;
 		return path.toFile();
 	}
@@ -128,5 +133,35 @@ public class Node extends PlatformObject {
 			}
 		}
 		return null;
+	}
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
+	}
+
+	public String getPropertiesPath() {
+		boolean project = ResourceUtil.isProject(getFile());
+		if (project)
+			return ResourceUtil.getProjectPropertyFile(getFile()).getPath();
+		boolean module = ResourceUtil.isModule(this.getFile());
+		if (module)
+			return ResourceUtil.getModulePropertyFile(getFile()).getPath();
+		boolean function = ResourceUtil.isFunction(this.getFile());
+		if (function)
+			return ResourceUtil.getFunctionPropertyFile(getFile()).getPath();
+
+		return path == null ? "" : path.toString();
+	}
+
+	public boolean isGrayed() {
+		return isGrayed;
+	}
+
+	public void setGrayed(boolean isGrayed) {
+		this.isGrayed = isGrayed;
 	}
 }
