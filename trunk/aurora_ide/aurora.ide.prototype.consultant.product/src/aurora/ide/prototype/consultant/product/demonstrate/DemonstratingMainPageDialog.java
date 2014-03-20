@@ -38,6 +38,7 @@ import aurora.ide.prototype.consultant.product.fsd.wizard.TitleControl;
 import aurora.ide.prototype.consultant.view.Node;
 import aurora.ide.prototype.consultant.view.property.page.ProjectDemonstratePropertyPage;
 import aurora.ide.prototype.consultant.view.property.page.ProjectDemonstratePropertyPage.F;
+import aurora.ide.prototype.consultant.view.util.ResourceUtil;
 import aurora.ide.swt.util.PageModel;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.io.CompositeMap2Object;
@@ -163,8 +164,11 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 						if (file.isFile())
 							openFile(file);
 						else {
-							MessageDialog.openError(parentShell, "ERROR", //$NON-NLS-1$
-									Messages.DemonstratingMainPageDialog_2 + p.toString() + Messages.DemonstratingMainPageDialog_3);
+							MessageDialog.openError(parentShell,
+									"ERROR", //$NON-NLS-1$
+									Messages.DemonstratingMainPageDialog_2
+											+ p.toString()
+											+ Messages.DemonstratingMainPageDialog_3);
 						}
 					}
 				});
@@ -173,21 +177,101 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 		return menu;
 	}
 
+	private String getMenuName(Node node) {
+		boolean module = ResourceUtil.isModule(node.getFile());
+		if (module) {
+			return node.getFile().getName();
+		}
+
+		boolean function = ResourceUtil.isFunction(node.getFile());
+		if (function) {
+			File file = new File(node.getPropertiesPath());
+			if (file.isFile()) {
+				CompositeMap loadFile = CompositeMapUtil.loadFile(file);
+				PageModel mm = new PageModel();
+				TitleControl tc = new TitleControl(mm);
+				tc.loadFromMap(loadFile);
+				return mm.getStringPropertyValue(FunctionDesc.fun_name);
+			}
+		}
+		return "NONE_NAME"; //$NON-NLS-1$
+
+	}
+
 	protected void createFunctionMenu(ToolBar textToolBar) {
 
-		List<ProjectDemonstratePropertyPage.F> functions = (List<ProjectDemonstratePropertyPage.F>) model
-				.getPropertyValue(ProjectDemonstratePropertyPage.FUNCTIONS);
-		if (functions == null)
-			return;
-		for (F f : functions) {
+		Node root = (Node) model
+				.getPropertyValue(ProjectDemonstratePropertyPage.ROOT_MENU);
+
+		List<Node> children = root.getChildren();
+		for (Node node : children) {
+			if(node.isChecked() == false)
+				continue;
 			ToolItem item = new ToolItem(textToolBar, SWT.DROP_DOWN);
-			String loadFuncitonName = loadFuncitonName(f);
-			item.setText(loadFuncitonName);
-			item.setToolTipText(loadFuncitonName);
-			item.setData(f);
-			Menu menu = createMenu(f);
+			String menuName = getMenuName(node);
+			item.setText(menuName);
+			item.setToolTipText(menuName);
+			item.setData(node);
+			Menu menu = createMenu(node);
 			item.addSelectionListener(new DropDownSelectionListener(menu));
 		}
+
+		// List<ProjectDemonstratePropertyPage.F> functions =
+		// (List<ProjectDemonstratePropertyPage.F>) model
+		// .getPropertyValue(ProjectDemonstratePropertyPage.FUNCTIONS);
+		// if (functions == null)
+		// return;
+		// for (F f : functions) {
+		// ToolItem item = new ToolItem(textToolBar, SWT.DROP_DOWN);
+		// String loadFuncitonName = loadFuncitonName(f);
+		// item.setText(loadFuncitonName);
+		// item.setToolTipText(loadFuncitonName);
+		// item.setData(f);
+		// Menu menu = createMenu(f);
+		// item.addSelectionListener(new DropDownSelectionListener(menu));
+		// }
+	}
+
+	private void fillMenu(Menu menu,Node node){
+		List<Node> children = node.getChildren();
+		for (Node n : children) {
+			if(n.isChecked() == false)
+				continue;
+			if (n.hasChildren()) {
+				MenuItem subMenu = new MenuItem(menu, SWT.CASCADE);
+				subMenu.setText(getMenuName(n));
+				Menu menu_1 = new Menu(subMenu);
+				subMenu.setMenu(menu_1);
+				fillMenu(menu_1,n);
+			} else {
+				final MenuItem item = new MenuItem(menu, SWT.NONE);
+				final IPath p = n.getPath();
+				String fileName = p.removeFileExtension().lastSegment();
+				item.setText(fileName);
+				item.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent event) {
+						File file = p.toFile();
+						if (file.isFile())
+							openFile(file);
+						else {
+							MessageDialog.openError(parentShell,
+									"ERROR", //$NON-NLS-1$
+									Messages.DemonstratingMainPageDialog_2
+											+ p.toString()
+											+ Messages.DemonstratingMainPageDialog_3);
+						}
+					}
+				});
+			}
+		}	
+	}
+	
+	private Menu createMenu(Node node) {
+		Menu menu = new Menu(parentShell, SWT.POP_UP);
+		
+		fillMenu(menu,node);
+
+		return menu;
 	}
 
 	protected Control innerCreateDialogArea(Composite parent) {
@@ -234,7 +318,6 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 			}
 		}
 		return new ScreenBody();
-
 	}
 
 	public void applyValue(String value) {
@@ -275,7 +358,7 @@ public class DemonstratingMainPageDialog extends DemonstratingDialog {
 			final ToolItem toolItem = (ToolItem) event.widget;
 			final ToolBar toolBar = toolItem.getParent();
 			Rectangle rect = toolItem.getBounds();
-			Point pt = new Point(rect.x, rect.y + rect.height +3);
+			Point pt = new Point(rect.x, rect.y + rect.height + 3);
 			Point point = toolBar.toDisplay(pt);
 			menu.setLocation(point.x, point.y);
 			menu.setVisible(true);

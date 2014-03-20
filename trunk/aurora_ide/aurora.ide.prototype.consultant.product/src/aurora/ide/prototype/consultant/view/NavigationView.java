@@ -449,7 +449,7 @@ public class NavigationView extends ViewPart {
 		viewer.getControl().setFocus();
 	}
 
-	protected IAdaptable getInitialInput() {
+	public static IAdaptable getInitialInput() {
 		Root root = new Root();
 		NavViewSetting nvs = new NavViewSetting();
 		String[] folders = nvs.getFolders();
