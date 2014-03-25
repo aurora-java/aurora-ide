@@ -952,9 +952,42 @@
              relationship="stack"
              relative="org.eclipse.ui.views.ProblemView">
        </view>
+       <view
+             id="aurora.ide.core.screen.preview.browser.viewer.PreviewBrowserView"
+             minimized="false"
+             relationship="stack"
+             relative="org.eclipse.ui.views.ProblemView">
+       </view>
+       <view
+             id="aurora.ide.core.server.viewer.ProjectStatusView"
+             minimized="false"
+             relationship="stack"
+             relative="org.eclipse.ui.views.ProblemView">
+       </view>
+       <view
+             id="aurora.ide.views.prompts.view.PromptsView"
+             minimized="false"
+             relationship="stack"
+             relative="org.eclipse.ui.views.ProblemView">
+       </view>
+       <view
+             id="aurora.ide.core.bm.test.view.BMTestViewer"
+             minimized="false"
+             relationship="stack"
+             relative="org.eclipse.ui.views.ProblemView">
+       </view>
        
        <viewShortcut
              id="aurora.ide.viewer.statistics.StatisticsView">
+       </viewShortcut>
+        <viewShortcut
+             id="aurora.ide.core.server.viewer.ProjectStatusView">
+       </viewShortcut>
+        <viewShortcut
+             id="aurora.ide.core.screen.preview.browser.viewer.PreviewBrowserView">
+       </viewShortcut>
+        <viewShortcut
+             id="aurora.ide.core.bm.test.view.BMTestViewer">
        </viewShortcut>
        <viewShortcut
              id="org.eclipse.team.ccvs.ui.RepositoriesView">
