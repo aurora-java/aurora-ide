@@ -21,8 +21,8 @@ public class DemonstrateDSManager {
 	static public DemonstrateDSManager getInstance() {
 		return instance;
 	}
-	
-	static public DemonstrateDSManager makeInstance(){
+
+	static public DemonstrateDSManager makeInstance() {
 		return instance = new DemonstrateDSManager();
 	}
 
@@ -30,6 +30,8 @@ public class DemonstrateDSManager {
 		if (new File(dsLocation).exists() == false)
 			return;
 		CompositeMap loadFile = CompositeMapUtil.loadFile(new File(dsLocation));
+		if (loadFile == null)
+			return;
 		loadFile.iterate(new IterationHandle() {
 
 			public int process(CompositeMap map) {
@@ -42,7 +44,6 @@ public class DemonstrateDSManager {
 			}
 		}, false);
 	}
-
 
 	public void saveDemonstrateDS() {
 
