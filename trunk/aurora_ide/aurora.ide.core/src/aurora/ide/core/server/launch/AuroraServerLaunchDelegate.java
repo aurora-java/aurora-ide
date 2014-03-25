@@ -1,12 +1,13 @@
 package aurora.ide.core.server.launch;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -19,8 +20,10 @@ import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 
 import aurora.ide.core.Activator;
+import aurora.ide.project.AuroraProject;
 
-public class AuroraServerLaunchDelegate extends LaunchConfigurationDelegate {
+public class AuroraServerLaunchDelegate extends LaunchConfigurationDelegate
+		implements ILaunchConstants {
 
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode,
@@ -34,6 +37,17 @@ public class AuroraServerLaunchDelegate extends LaunchConfigurationDelegate {
 		// "\"echo foo\""}, null);
 		// # new RuntimeProcess(launch, process, "Hello", null);
 		// #else
+		String pjName = configuration.getAttribute(DEPLOY_PROJECT, "");
+		int port = configuration.getAttribute(SERVER_PORT, 8888);
+
+		if ("".equals(pjName)) {
+			return;
+		}
+
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IProject project = root.getProject(pjName);
+		AuroraProject ap = new AuroraProject(project);
+		String deployPath = ap.getWeb_home().getLocation().toString();
 
 		List commandList = new ArrayList();
 
@@ -85,10 +99,11 @@ public class AuroraServerLaunchDelegate extends LaunchConfigurationDelegate {
 		// + DebugCorePlugin.getFileInPlugin(new Path("bin")));
 
 		commandList.add("aurora.ide.core.server.launch.AuroraServerRunner");
-		commandList
-				.add("/Users/shiliyan/Desktop/work/aurora/workspace/runtime-aurora_protypes/preview_test/webRoot");
+
+		commandList.add(deployPath);
+		// "/Users/shiliyan/Desktop/work/aurora/workspace/runtime-aurora_protypes/preview_test/webRoot");
 		commandList.add("/");
-		commandList.add("8888");
+		commandList.add("" + port);
 		// program name
 		// String program =
 		// configuration.getAttribute(DebugCorePlugin.ATTR_PDA_PROGRAM,
@@ -133,23 +148,6 @@ public class AuroraServerLaunchDelegate extends LaunchConfigurationDelegate {
 		// launch.addDebugTarget(target);
 		// }
 		// #endif
-	}
-
-	public static int findFreePort() {
-		ServerSocket socket = null;
-		try {
-			socket = new ServerSocket(0);
-			return socket.getLocalPort();
-		} catch (IOException e) {
-		} finally {
-			if (socket != null) {
-				try {
-					socket.close();
-				} catch (IOException e) {
-				}
-			}
-		}
-		return -1;
 	}
 
 	private void abort(String message, Throwable e) throws CoreException {

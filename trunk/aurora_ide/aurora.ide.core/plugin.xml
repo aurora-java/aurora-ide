@@ -73,7 +73,8 @@
             id="aurora.ide.BusinessModelEditor"
             name="%editor.bm">
       </editor>
-      
+        
+      <!--
       <editor
             class="aurora.ide.screen.editor.NewScreenEditor"
             contributorClass="aurora.ide.editor.BaseCompositeMapEditorContributor"
@@ -82,8 +83,7 @@
             icon="icons/service.gif"
             id="aurora.ide.screen.editor.NewScreenEditor"
             name="新Screen编辑器"/>
-      
-      <!--
+    
       <editor
             class="aurora.ide.editor.CollaborateEditor"
             filenames="*.service,*.screen,*.svc,*.bm"
