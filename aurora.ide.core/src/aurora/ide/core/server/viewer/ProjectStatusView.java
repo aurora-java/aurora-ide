@@ -191,10 +191,10 @@ public class ProjectStatusView extends ViewPart {
 		TableColumn column4 = new TableColumn(table, SWT.NONE);
 		column4.setWidth(200);
 		column4.setText("默认数据源");
-
-		statusLabel = new Label(parent, SWT.NONE);
-		statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		updateErrMsg(null);
+//
+//		statusLabel = new Label(parent, SWT.NONE);
+//		statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//		updateErrMsg(null);
 		viewer.setInput(getViewerInput());
 		configuration();
 
@@ -339,8 +339,8 @@ public class ProjectStatusView extends ViewPart {
 				viewer.setInput(getViewerInput());
 			}
 		};
-		refreshAction.setText("Action 1");
-		refreshAction.setToolTipText("Action 1 tooltip");
+		refreshAction.setText("刷新");
+		refreshAction.setToolTipText("刷新");
 		refreshAction.setImageDescriptor(AuroraImagesUtils
 				.getImageDescriptor("refresh.gif"));
 		// refreshAction.setDisabledImageDescriptor(AuroraImagesUtils
@@ -355,8 +355,8 @@ public class ProjectStatusView extends ViewPart {
 				}
 			}
 		};
-		runAction.setText("Action 1");
-		runAction.setToolTipText("Action 1 tooltip");
+		runAction.setText("运行");
+		runAction.setToolTipText("运行");
 		runAction.setImageDescriptor(AuroraImagesUtils
 				.getImageDescriptor("debug/run_tool(1).gif"));
 		runAction.setDisabledImageDescriptor(AuroraImagesUtils
@@ -364,12 +364,11 @@ public class ProjectStatusView extends ViewPart {
 
 		debugAction = new Action() {
 			public void run() {
-
 				// hai buzhichi
 			}
 		};
-		debugAction.setText("Action 2");
-		debugAction.setToolTipText("Action 2 tooltip");
+		debugAction.setText("调试");
+		debugAction.setToolTipText("调试");
 		debugAction.setImageDescriptor(AuroraImagesUtils
 				.getImageDescriptor("debug/debug_exc(1).gif"));
 		debugAction.setDisabledImageDescriptor(AuroraImagesUtils
@@ -382,8 +381,8 @@ public class ProjectStatusView extends ViewPart {
 			}
 		};
 		terminateAction.setEnabled(false);
-		terminateAction.setText("Action 1");
-		terminateAction.setToolTipText("Action 1 tooltip");
+		terminateAction.setText("停止");
+		terminateAction.setToolTipText("停止");
 		terminateAction.setImageDescriptor(AuroraImagesUtils
 				.getImageDescriptor("debug/terminate_co(1).gif"));
 		terminateAction.setDisabledImageDescriptor(AuroraImagesUtils

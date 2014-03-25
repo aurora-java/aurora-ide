@@ -1,12 +1,5 @@
 package aurora.ide.core.screen.preview.browser.viewer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
@@ -32,30 +25,6 @@ public class PreviewBrowserView extends ViewPart implements ITestViewerPart {
 		linkHelper = new EditorViewerLinkAction(this);
 		linkHelper.activate();
 		editorChanged(this.getSite().getPage().getActiveEditor());
-
-		// instance.getBrowser().addProgressListener(new ProgressListener() {
-		//
-		// @Override
-		// public void completed(ProgressEvent event) {
-		// System.out.println("completed");
-		// System.out.println(event.data);
-		// }
-		//
-		// @Override
-		// public void changed(ProgressEvent event) {
-		// System.out.println("changed");
-		// System.out.println(event.data);
-		// System.out.println(instance.getBrowser().getWebBrowser());
-		// }
-		// });
-		// instance.getBrowser().addAuthenticationListener(new
-		// AuthenticationListener() {
-		//
-		// @Override
-		// public void authenticate(AuthenticationEvent event) {
-		// System.out.println("authenticate");
-		// }
-		// });
 
 	}
 
