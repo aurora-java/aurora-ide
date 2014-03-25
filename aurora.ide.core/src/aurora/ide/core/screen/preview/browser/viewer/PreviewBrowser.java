@@ -87,7 +87,7 @@ public class PreviewBrowser {
 			}
 		});
 		if (top) {
-			browser.setUrl("http://localhost:8888/pmg/manager.screen");
+//			browser.setUrl("http://localhost:8888/pmg/manager.screen");
 			show(false, null, null, false, true, true, false);
 		} else {
 			browser.addVisibilityWindowListener(new VisibilityWindowListener() {
