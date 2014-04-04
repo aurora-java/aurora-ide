@@ -9,6 +9,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 
+import aurora.ide.libs.AuroraImagesUtils;
 import aurora.ide.prototype.consultant.view.NavigationView;
 import aurora.ide.prototype.consultant.view.Node;
 import aurora.ide.prototype.consultant.view.wizard.CreateUIPWizard;
@@ -22,6 +23,10 @@ public class CreateUIPAction extends Action implements
 	public CreateUIPAction(NavigationView viewer) {
 		super(Messages.CreateUIPAction_0);
 		setToolTipText(Messages.CreateUIPAction_1);
+
+		this.setImageDescriptor(AuroraImagesUtils
+				.getImageDescriptor("/meta.png"));
+
 		this.viewer = viewer;
 		commonViewer = viewer.getViewer();
 		commonViewer.addSelectionChangedListener(this);

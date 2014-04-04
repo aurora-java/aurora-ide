@@ -7,6 +7,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 
+import aurora.ide.libs.AuroraImagesUtils;
 import aurora.ide.prototype.consultant.view.NavigationView;
 import aurora.ide.prototype.consultant.view.Node;
 import aurora.ide.prototype.consultant.view.util.UIPViewerSortSeq;
@@ -16,9 +17,13 @@ public class UpItemAction extends MenuAction {
 	private NavigationView viewer;
 
 	public UpItemAction(NavigationView viewer) {
-		this.setText("向上");
+		this.setText(Messages.UpItemAction_0);
 		setToolTipText(Messages.CreateUIPAction_1);
 		this.viewer = viewer;
+//		
+		this.setImageDescriptor(AuroraImagesUtils
+				.getImageDescriptor("/prev_nav_up.gif")); //$NON-NLS-1$
+
 		// commonViewer = viewer.getViewer();
 		// commonViewer.addSelectionChangedListener(this);
 		// selectionChanged();
@@ -75,6 +80,8 @@ public class UpItemAction extends MenuAction {
 					.testFindItem(selectionNode);
 			if (testFindItem instanceof TreeItem) {
 				TreeItem parentItem = ((TreeItem) testFindItem).getParentItem();
+				if (parentItem == null)
+					return false;
 				int indexOf = parentItem.indexOf((TreeItem) testFindItem);
 				if (indexOf != 0 && indexOf != -1) {
 					TreeItem pre = parentItem.getItem(indexOf - 1);
@@ -97,6 +104,5 @@ public class UpItemAction extends MenuAction {
 
 		return false;
 	}
-
 
 }

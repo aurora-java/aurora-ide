@@ -12,6 +12,7 @@ public class Messages extends NLS {
 	public static String CreateProjectAction_1;
 	public static String CreateUIPAction_0;
 	public static String CreateUIPAction_1;
+	public static String DownItemAction_0;
 	public static String NewMenuAction_0;
 	public static String NewMenuAction_1;
 	public static String NewMenuAction_2;
@@ -20,6 +21,7 @@ public class Messages extends NLS {
 	public static String OpenLocalProjectAction_1;
 	public static String OpenLocalProjectAction_3;
 	public static String RemoveLocalFolderAction_1;
+	public static String UpItemAction_0;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

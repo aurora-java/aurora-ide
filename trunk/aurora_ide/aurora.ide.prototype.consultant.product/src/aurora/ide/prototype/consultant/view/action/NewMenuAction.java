@@ -8,7 +8,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
+import aurora.ide.libs.AuroraImagesUtils;
 import aurora.ide.prototype.consultant.view.NavigationView;
 
 public class NewMenuAction extends Action implements IMenuCreator {
@@ -28,7 +31,6 @@ public class NewMenuAction extends Action implements IMenuCreator {
 		makeActions();
 	}
 
-
 	private void makeActions() {
 		createProjectAction = new CreateProjectAction(this.viewer);
 		createFunctionAction = new CreateFunctionAction(this.viewer);
@@ -39,7 +41,7 @@ public class NewMenuAction extends Action implements IMenuCreator {
 	public void run() {
 		if (activeAction != null && activeAction.isEnabled()) {
 			activeAction.run();
-		}else{
+		} else {
 			createProjectAction.run();
 		}
 	}
@@ -55,7 +57,6 @@ public class NewMenuAction extends Action implements IMenuCreator {
 		return menu;
 	}
 
-
 	private class ActionRunner extends SelectionAdapter {
 
 		private Action action;
@@ -65,26 +66,36 @@ public class NewMenuAction extends Action implements IMenuCreator {
 		}
 
 		public void widgetSelected(SelectionEvent e) {
-			if (action != null && action.isEnabled()){
+			if (action != null && action.isEnabled()) {
 				action.run();
 				activeAction = action;
 			}
 		}
 	}
 
-	private MenuItem createMenuItem(Menu menu,Action action,String text){
+	private MenuItem createMenuItem(Menu menu, Action action, String text) {
 		MenuItem mi = new MenuItem(menu, SWT.NONE);
 		mi.setText(text);
 		mi.setEnabled(action.isEnabled());
 		mi.addSelectionListener(new ActionRunner(action));
 		return mi;
 	}
-	
+
 	public void fillMenu(Menu menu) {
-		createMenuItem(menu,createProjectAction,Messages.NewMenuAction_1);
-		createMenuItem(menu,createModuleAction,Messages.NewMenuAction_2);
-		createMenuItem(menu,createFunctionAction,Messages.NewMenuAction_3);
-		createMenuItem(menu,createUIPAction,Messages.NewMenuAction_4);
+		createMenuItem(menu, createProjectAction, Messages.NewMenuAction_1)
+				.setImage(
+						PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJ_FOLDER));
+		createMenuItem(menu, createModuleAction, Messages.NewMenuAction_2)
+				.setImage(
+						PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJ_FOLDER));
+		createMenuItem(menu, createFunctionAction, Messages.NewMenuAction_3)
+				.setImage(
+						PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJ_FOLDER));
+		createMenuItem(menu, createUIPAction, Messages.NewMenuAction_4)
+				.setImage(AuroraImagesUtils.getImage("/meta.png"));
 	}
 
 	public Menu getMenu(Menu parent) {
