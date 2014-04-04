@@ -33,6 +33,11 @@ public class ResourceUtil {
 		return new File(file, CreateModuleWizard.QUICK_UI_MODULE);
 	}
 
+	
+	public static File getSortFile(File file) {
+		return new File(file, UIPViewerSortSeq.QUICK_UI_SORT);
+	}
+	
 	public static boolean isFunction(File file) {
 		File p = getFunctionPropertyFile(file);
 		return p.exists();
@@ -49,6 +54,15 @@ public class ResourceUtil {
 		CompositeMap loadFile = CompositeMapUtil.loadFile(p);
 		return loadFile;
 	}
+	
+	public static CompositeMap loadSortProperties(File file) {
+		File p = getSortFile(file);
+		if (p.exists() == false)
+			return null;
+		CompositeMap loadFile = CompositeMapUtil.loadFile(p);
+		return loadFile;
+	}
+	
 
 	public static File getProjectPropertyFile(File file) {
 		return new File(file, CreateProjectWizard.QUICK_UI_PROJECT);
@@ -74,10 +88,13 @@ public class ResourceUtil {
 	public static File getProject(File file) {
 		if (isProject(file)) {
 			return file;
-		} else if (file.getParentFile().exists()) {
-			return getProject(file.getParentFile());
 		} else {
-			return file;
+			File parentFile = file.getParentFile();
+			if (parentFile != null && parentFile.exists()) {
+				return getProject(parentFile);
+			} else {
+				return file;
+			}
 		}
 	}
 
