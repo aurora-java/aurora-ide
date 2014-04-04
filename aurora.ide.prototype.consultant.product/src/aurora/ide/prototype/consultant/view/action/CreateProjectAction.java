@@ -6,6 +6,8 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
 import aurora.ide.prototype.consultant.view.NavViewSetting;
 import aurora.ide.prototype.consultant.view.NavigationView;
@@ -21,6 +23,15 @@ public class CreateProjectAction extends Action implements
 	public CreateProjectAction(NavigationView viewer) {
 		super(Messages.CreateProjectAction_0);
 		setToolTipText(Messages.CreateProjectAction_1);
+		// if (((Node) element).getFile().isDirectory()) {
+		// return PlatformUI.getWorkbench().getSharedImages()
+		// .getImage(ISharedImages.IMG_OBJ_FOLDER);
+		// } else {
+		// return AuroraImagesUtils.getImage("/meta.png");
+		// }
+		this.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
+				.getImageDescriptor(ISharedImages.IMG_OBJ_FOLDER));
+
 		this.viewer = viewer;
 		commonViewer = viewer.getViewer();
 		commonViewer.addSelectionChangedListener(this);
@@ -33,8 +44,7 @@ public class CreateProjectAction extends Action implements
 			NavViewSetting vs = new NavViewSetting();
 			vs.addFolder(w.getProject());
 			Node newNode = new Node(new Path(w.getProject().getPath()));
-			viewer.addNewNode(viewer.getViewer().getInput(),
-					newNode);
+			viewer.addNewNode(viewer.getViewer().getInput(), newNode);
 		}
 	}
 

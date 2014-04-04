@@ -10,6 +10,8 @@ public class ProjectExportFSDAction extends Action {
 
 	public ProjectExportFSDAction(NavigationView nv, String string) {
 		super(string);
+		setImageDescriptor(aurora.ide.prototype.consultant.product.Activator
+				.getImageDescriptor("/icons/export_fsd.gif"));
 		this.nv = nv;
 	}
 

@@ -6,6 +6,8 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
 import aurora.ide.prototype.consultant.view.NavigationView;
 import aurora.ide.prototype.consultant.view.Node;
@@ -21,6 +23,7 @@ public class CreateModuleAction extends Action implements
 	public CreateModuleAction(NavigationView viewer) {
 		super(Messages.CreateModuleAction_0);
 		setToolTipText(Messages.CreateModuleAction_1);
+		this.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_FOLDER));
 		this.viewer = viewer;
 		commonViewer = viewer.getViewer();
 		commonViewer.addSelectionChangedListener(this);

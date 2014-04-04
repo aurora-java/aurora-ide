@@ -12,6 +12,8 @@ public class FunctionExportFSDAction extends Action {
 	public FunctionExportFSDAction(NavigationView navigationView, String string) {
 		super(string);
 		this.nv = navigationView;
+		setImageDescriptor(aurora.ide.prototype.consultant.product.Activator
+				.getImageDescriptor("/icons/export_fsd.gif"));
 	}
 
 	public void run() {

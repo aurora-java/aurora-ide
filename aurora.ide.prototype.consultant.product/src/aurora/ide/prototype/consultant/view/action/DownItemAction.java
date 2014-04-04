@@ -1,13 +1,13 @@
 package aurora.ide.prototype.consultant.view.action;
 
 import java.io.File;
-import java.util.List;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 
+import aurora.ide.libs.AuroraImagesUtils;
 import aurora.ide.prototype.consultant.view.NavigationView;
 import aurora.ide.prototype.consultant.view.Node;
 import aurora.ide.prototype.consultant.view.util.UIPViewerSortSeq;
@@ -17,9 +17,11 @@ public class DownItemAction extends MenuAction {
 	private NavigationView viewer;
 
 	public DownItemAction(NavigationView viewer) {
-		this.setText("向下");
+		this.setText(Messages.DownItemAction_0);
 		setToolTipText(Messages.CreateUIPAction_1);
 		this.viewer = viewer;
+		this.setImageDescriptor(AuroraImagesUtils
+				.getImageDescriptor("/prev_nav_down.gif")); //$NON-NLS-1$
 		// commonViewer = viewer.getViewer();
 		// commonViewer.addSelectionChangedListener(this);
 		// selectionChanged();
@@ -75,6 +77,8 @@ public class DownItemAction extends MenuAction {
 					.testFindItem(selectionNode);
 			if (testFindItem instanceof TreeItem) {
 				TreeItem parentItem = ((TreeItem) testFindItem).getParentItem();
+				if (parentItem == null)
+					return false;
 				int indexOf = parentItem.indexOf((TreeItem) testFindItem);
 				if (indexOf != parentItem.getItemCount() - 1 && indexOf != -1) {
 					TreeItem next = parentItem.getItem(indexOf + 1);
