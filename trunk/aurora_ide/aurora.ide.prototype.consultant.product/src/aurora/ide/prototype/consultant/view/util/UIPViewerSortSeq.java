@@ -50,10 +50,12 @@ public class UIPViewerSortSeq {
 		List childsNotNull = loadProperties.getChildsNotNull();
 		for (Object object : childsNotNull) {
 			if (object instanceof CompositeMap) {
-				int int1 = ((CompositeMap) object).getInt(node.getFile()
-						.getName(), -1);
-				if (-1 != int1)
-					return int1;
+				if (node.getFile().getName()
+						.equals(((CompositeMap) object).getText())) {
+					int int1 = ((CompositeMap) object).getInt("num", -1);
+					if (-1 != int1)
+						return int1;
+				}
 			}
 		}
 		return getSortNum(node);
@@ -87,7 +89,9 @@ public class UIPViewerSortSeq {
 			Set<String> keySet = map.keySet();
 			for (String s : keySet) {
 				Integer integer = map.get(s);
-				sm.createChild("sort").put(s, integer);
+				CompositeMap createChild = sm.createChild("sort");
+				createChild.put("num", integer);
+				createChild.setText(s);
 			}
 		}
 
