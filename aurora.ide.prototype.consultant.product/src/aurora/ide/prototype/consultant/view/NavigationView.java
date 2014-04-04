@@ -63,6 +63,7 @@ import aurora.ide.prototype.consultant.view.action.FunctionExportFSDAction;
 import aurora.ide.prototype.consultant.view.action.LinkEditorAction;
 import aurora.ide.prototype.consultant.view.action.NewMenuAction;
 import aurora.ide.prototype.consultant.view.action.OpenLocalProjectAction;
+import aurora.ide.prototype.consultant.view.action.PopMenuManager;
 import aurora.ide.prototype.consultant.view.action.ProjectExportFSDAction;
 import aurora.ide.prototype.consultant.view.action.RefreshLocalFileSystemAction;
 import aurora.ide.prototype.consultant.view.action.RemoveLocalFolderAction;
@@ -78,6 +79,9 @@ public class NavigationView extends ViewPart {
 	private Action removeLocalFolderAction;
 	private Action openLocalFolderActionAction;
 	private boolean isLinkingEnabled;
+
+	private PopMenuManager pmm;
+	
 	public static final int IS_LINKING_ENABLED_PROPERTY = 0x10000;
 
 	private IPropertyChangeListener partPropertyChangeListener = new IPropertyChangeListener() {
@@ -208,6 +212,8 @@ public class NavigationView extends ViewPart {
 		openLocalProjectAction.setImageDescriptor(icon);
 		openLocalProjectAction.setHoverImageDescriptor(icon);
 
+		
+		pmm = new PopMenuManager(this);
 	}
 
 	protected void initContextMenu() {
@@ -254,6 +260,8 @@ public class NavigationView extends ViewPart {
 	private void fillContextMenu(IMenuManager menu) {
 		// menu.add(new Separator("AAA"));
 
+		pmm.fillContextMenu(menu);
+		
 		Node node = getSelectionNode();
 		if (node.getFile().isFile()) {
 			menu.add(new Action(Messages.NavigationView_1) {
@@ -280,11 +288,13 @@ public class NavigationView extends ViewPart {
 			menu.add(new ProjectExportFSDAction(this, Messages.NavigationView_3));
 		}
 		if (ResourceUtil.isFunction(selectionNode.getFile())) {
-			menu.add(new FunctionExportFSDAction(this, Messages.NavigationView_5));
+			menu.add(new FunctionExportFSDAction(this,
+					Messages.NavigationView_5));
 		}
 
 		if (getSelectionNode() != null)
-			menu.add(new Action(aurora.ide.prototype.consultant.view.Messages.NavigationView_4) { //$NON-NLS-1$
+			menu.add(new Action(
+					aurora.ide.prototype.consultant.view.Messages.NavigationView_4) { //$NON-NLS-1$
 
 				@Override
 				public void run() {
