@@ -12,6 +12,7 @@ import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -82,8 +83,8 @@ public class ConsultantVScreenEditor extends FlayoutBMGEFEditor {
 				return false;
 			}
 		};
-		// this.getPalettePreferences().setPaletteState(
-		// FlyoutPaletteComposite.STATE_PINNED_OPEN);
+		this.getPalettePreferences().setPaletteState(
+				FlyoutPaletteComposite.STATE_PINNED_OPEN);
 	}
 
 	/**
