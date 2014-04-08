@@ -66,7 +66,7 @@ public class AuroraServerLaunchDelegate extends LaunchConfigurationDelegate
 		}
 		commandList.add(javaVMExec);
 
-		commandList.add("-Dfile.encoding=UTF-8");
+//		commandList.add("-Dfile.encoding=UTF-8");
 
 		commandList.add("-classpath");
 		// commandList.add(File.pathSeparator

@@ -8,8 +8,10 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IPartService;
 import org.eclipse.ui.IPropertyListener;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.part.ISetSelectionTarget;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.UIJob;
@@ -165,10 +167,16 @@ public class EditorViewerLinkAction extends Action implements IPropertyListener 
 	}
 
 	public void deactivated() {
-		IPartService partService = Activator.getDefault().getWorkbench()
-				.getActiveWorkbenchWindow().getPartService();
-		partService.removePartListener(partListener);
-
+		IWorkbench workbench = Activator.getDefault().getWorkbench();
+		if (workbench != null) {
+			IWorkbenchWindow activeWorkbenchWindow = workbench
+					.getActiveWorkbenchWindow();
+			if (activeWorkbenchWindow != null) {
+				IPartService partService = activeWorkbenchWindow
+						.getPartService();
+				partService.removePartListener(partListener);
+			}
+		}
 	}
 
 	/*

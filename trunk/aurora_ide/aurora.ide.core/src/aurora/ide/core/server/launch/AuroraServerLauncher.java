@@ -33,7 +33,6 @@ public class AuroraServerLauncher implements ILaunchConstants {
 				"Start Aurora Server on " + findFreePort);
 		workingCopy.setAttribute(DEPLOY_PROJECT, project.getName());
 		workingCopy.setAttribute(SERVER_PORT, findFreePort);
-
 		ILaunchConfiguration configuration = workingCopy.doSave();
 		DebugUITools.launch(configuration, ILaunchManager.RUN_MODE);
 	}
