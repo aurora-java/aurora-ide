@@ -49,6 +49,8 @@ public class PreviewBrowserView extends ViewPart implements ITestViewerPart {
 
 	@Override
 	public void editorChanged(IEditorPart activeEditor) {
+		if(activeEditor==null)
+			return;
 		IFile file = ResourceUtil.getFile(activeEditor.getEditorInput());
 		if (file != null) {
 			String fileExtension = file.getFileExtension();
