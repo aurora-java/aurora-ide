@@ -50,6 +50,7 @@ import aurora.ide.meta.gef.util.MessageUtil;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.FSD;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.IDatasetFieldDelegate;
 import aurora.plugin.source.gen.screen.model.Input;
@@ -200,7 +201,7 @@ public class BlockedContentPage {
 			if (type.equals(ac.getPropertyValue(FSD.FSD_COMPONENT_TYPE))) {
 				result.add(ac);
 			}
-			if (type.equals(ac.getPropertyValue(FSD.FSD_NONE_TYPE))
+			if (FSD.FSD_NONE_TYPE.equals(ac.getPropertyValue(FSD.FSD_COMPONENT_TYPE))
 					&& ac instanceof Container) {
 				result.addAll(getFSDTypeComponent((Container) ac, type));
 			}

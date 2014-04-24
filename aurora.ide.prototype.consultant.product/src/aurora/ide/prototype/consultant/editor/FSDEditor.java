@@ -23,6 +23,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
@@ -214,6 +215,13 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 				((Text) control).setText(ac.getStringPropertyValue("" //$NON-NLS-1$
 						+ pd.getId()));
 			}
+			if (control instanceof Combo) {
+				String pp = ac.getStringPropertyValue("" //$NON-NLS-1$
+						+ pd.getId());
+				// S tring[] items = ((Combo) control).getItems();
+				int indexOf = ((Combo) control).indexOf(pp);
+				((Combo) control).select(indexOf == -1 ? 0 : indexOf);
+			}
 			TypedListener typedListener = new TypedListener(
 					new Listener(ac, pd));
 			control.addListener(SWT.Modify, typedListener);
@@ -235,6 +243,9 @@ public class FSDEditor extends EditorPart implements ISelectionChangedListener {
 			Object source = e.getSource();
 			if (source instanceof Text) {
 				updateFSDProperty(pd, ((Text) source).getText(), ac);
+			}
+			if (source instanceof Combo) {
+				updateFSDProperty(pd, ((Combo) source).getText(), ac);
 			}
 		}
 	}
