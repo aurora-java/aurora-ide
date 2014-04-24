@@ -3,6 +3,7 @@ package aurora.ide.meta.gef.editors.consultant.property;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
+import aurora.plugin.source.gen.screen.model.FSD;
 import aurora.plugin.source.gen.screen.model.properties.ComponentFSDProperties;
 
 public class FSDPropertyFactory implements ComponentFSDProperties {
@@ -21,11 +22,19 @@ public class FSDPropertyFactory implements ComponentFSDProperties {
 	private static final IPropertyDescriptor PD_FSD_DATA_FROM = new TextAreaFSDPropertyDescriptor(
 			FSD_DATA_FROM, "数据来源");
 
+	private static final IPropertyDescriptor PD_FSD_COMPONENT_TYPE_BOX = new ComboFSDPropertyDescriptor(
+			FSD.FSD_COMPONENT_TYPE, "容器类型", new String[] { FSD.FSD_NONE_TYPE,
+					FSD.FSD_CONTAINER });
+
+	//
+
 	private static final IPropertyDescriptor[] input_pds = { PD_FSD_MEANING,
 			PD_FSD_DATA_FROM, PD_FSD_LOGIC };
 	private static final IPropertyDescriptor[] page_pds = { PD_FSD_PAGE_NAME,
 			PD_FSD_PAGE_DESC };
-	private static final IPropertyDescriptor[] container_pds = { PD_FSD_DESC };
+	private static final IPropertyDescriptor[] container_pds = {
+			PD_FSD_COMPONENT_TYPE_BOX, PD_FSD_DESC };
+	private static final IPropertyDescriptor[] grid_pds = { PD_FSD_DESC };
 	private static final IPropertyDescriptor[] button_pds = { PD_FSD_DESC };
 
 	public IPropertyDescriptor[] createPropertyDescriptors(
@@ -58,7 +67,7 @@ public class FSDPropertyFactory implements ComponentFSDProperties {
 			return container_pds;
 		}
 		if ("grid".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
-			return container_pds;
+			return grid_pds;
 		}
 		if ("gridcolumn".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return input_pds;
