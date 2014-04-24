@@ -81,7 +81,7 @@ public class NavigationView extends ViewPart {
 	private boolean isLinkingEnabled;
 
 	private PopMenuManager pmm;
-	
+
 	public static final int IS_LINKING_ENABLED_PROPERTY = 0x10000;
 
 	private IPropertyChangeListener partPropertyChangeListener = new IPropertyChangeListener() {
@@ -212,7 +212,6 @@ public class NavigationView extends ViewPart {
 		openLocalProjectAction.setImageDescriptor(icon);
 		openLocalProjectAction.setHoverImageDescriptor(icon);
 
-		
 		pmm = new PopMenuManager(this);
 	}
 
@@ -260,9 +259,10 @@ public class NavigationView extends ViewPart {
 	private void fillContextMenu(IMenuManager menu) {
 		// menu.add(new Separator("AAA"));
 
-		pmm.fillContextMenu(menu);
-		
 		Node node = getSelectionNode();
+		if (node == null)
+			return;
+		pmm.fillContextMenu(menu);
 		if (node.getFile().isFile()) {
 			menu.add(new Action(Messages.NavigationView_1) {
 				public void run() {
