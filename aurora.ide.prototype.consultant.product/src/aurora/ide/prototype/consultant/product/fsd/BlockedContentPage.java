@@ -54,6 +54,7 @@ import aurora.plugin.source.gen.screen.model.FSD;
 import aurora.plugin.source.gen.screen.model.GridColumn;
 import aurora.plugin.source.gen.screen.model.IDatasetFieldDelegate;
 import aurora.plugin.source.gen.screen.model.Input;
+import aurora.plugin.source.gen.screen.model.RadioItem;
 import aurora.plugin.source.gen.screen.model.ScreenBody;
 import aurora.plugin.source.gen.screen.model.TabFolder;
 import aurora.plugin.source.gen.screen.model.TabItem;
@@ -141,20 +142,40 @@ public class BlockedContentPage {
 				.getPropertyValue(FSD.FSD_COMPONENT_TYPE))) {
 			inputs = ifGridColumnComponent(inputs);
 		}
-		List<AuroraComponent> containers = getFSDTypeComponent(container,
-				FSD.FSD_CONTAINER);
-		List<AuroraComponent> grids = getFSDTypeComponent(container,
-				FSD.FSD_GRID);
+//		List<AuroraComponent> containers = getFSDTypeComponent(container,
+//				FSD.FSD_CONTAINER);
+//		List<AuroraComponent> grids = getFSDTypeComponent(container,
+//				FSD.FSD_GRID);
 		createInputFSD(mdp, container, inputs);
 		if (FSD.FSD_GRID.equals(container
 				.getPropertyValue(FSD.FSD_COMPONENT_TYPE))) {
 			List<AuroraComponent> buttons = this.getButtons(container);
 			createButtonsContent(mdp, buttons);
 		}
-		containers.addAll(grids);
+//		containers.addAll(grids);
+		List<AuroraComponent> containers = getFSDTypeContainer_Grid(container);
 		for (AuroraComponent ac : containers) {
 			createContentInfo(mdp, (Container) ac);
 		}
+	}
+
+	private List<AuroraComponent> getFSDTypeContainer_Grid(Container container) {
+
+		List<AuroraComponent> children = container.getChildren();
+		List<AuroraComponent> result = new ArrayList<AuroraComponent>();
+		for (AuroraComponent ac : children) {
+			Object propertyValue = ac.getPropertyValue(FSD.FSD_COMPONENT_TYPE);
+			if (FSD.FSD_CONTAINER.equals(propertyValue)
+					|| FSD.FSD_GRID.equals(propertyValue)) {
+				result.add(ac);
+			}
+			if (FSD.FSD_NONE_TYPE.equals(propertyValue)
+					&& ac instanceof Container) {
+				result.addAll(getFSDTypeContainer_Grid((Container) ac));
+			}
+		}
+		return result;
+
 	}
 
 	protected void createInputFSD(MainDocumentPart mdp, Container container,
@@ -201,7 +222,8 @@ public class BlockedContentPage {
 			if (type.equals(ac.getPropertyValue(FSD.FSD_COMPONENT_TYPE))) {
 				result.add(ac);
 			}
-			if (FSD.FSD_NONE_TYPE.equals(ac.getPropertyValue(FSD.FSD_COMPONENT_TYPE))
+			if (FSD.FSD_NONE_TYPE.equals(ac
+					.getPropertyValue(FSD.FSD_COMPONENT_TYPE))
 					&& ac instanceof Container) {
 				result.addAll(getFSDTypeComponent((Container) ac, type));
 			}
@@ -520,7 +542,7 @@ public class BlockedContentPage {
 		tc.getContent().add(
 				wordMLPackage.getMainDocumentPart()
 						.createStyledParagraphOfText("contentTable", //$NON-NLS-1$
-								ac.getPrompt()));
+								this.getFieldDesc(ac)));
 		tr.getContent().add(tc);
 		tc = objectFactory.createTc();
 		tc.getContent().add(
@@ -563,6 +585,15 @@ public class BlockedContentPage {
 
 		tr.getContent().add(tc);
 		return tr;
+	}
+
+	private String getFieldDesc(AuroraComponent ac) {
+
+		if (RadioItem.RADIO_ITEM.equals(ac.getComponentType())) {
+			return ac.getStringPropertyValue(ComponentProperties.text);
+		}
+
+		return ac.getPrompt();
 	}
 
 	private String getDefaultValue(AuroraComponent ac) {
