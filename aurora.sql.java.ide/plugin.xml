@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="sampleBuilder"
+         name="SQLJ Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+         <run
+               class="aurora.sql.java.ide.builder.SampleBuilder">
+         </run>
+      </builder>
+   </extension>
+   
+   <extension
+         id="aurora.meta.gef.editor"
+         point="org.eclipse.ui.editors">
+      <editor
+            class="aurora.sql.java.ide.editor.SQLJEDitor"
+            default="true"
+            extensions="sqlj"
+            icon="icons/meta.png"
+            id="aurora.sql.java.ide.editor.SQLJEDitor"
+            name="SQLJ Editor">
+      </editor>
+	</extension>
+   
+   
+   <extension
+         id="sampleNature"
+         name="Sample Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="aurora.sql.java.ide.builder.SampleNature">
+         </run>
+      </runtime>
+      <builder
+            id="aurora.sql.java.ide.sampleBuilder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IProject"
+            nameFilter="*"
+            id="aurora.sql.java.ide.contribution1">
+         <action
+               label="Add/Remove Sample Nature"
+               class="aurora.sql.java.ide.builder.ToggleNatureAction"
+               menubarPath="additions"
+               enablesFor="+"
+               id="aurora.sql.java.ide.addRemoveNatureAction">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         id="xmlProblem"
+         name="XML Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+
+</plugin>
