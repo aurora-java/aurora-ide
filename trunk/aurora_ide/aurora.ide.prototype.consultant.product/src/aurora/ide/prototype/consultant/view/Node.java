@@ -19,7 +19,7 @@ public class Node extends PlatformObject {
 	private boolean makeChildFinish = false;
 
 	private boolean isChecked = false;
-	
+
 	private boolean isGrayed = false;
 
 	protected Node() {
@@ -76,7 +76,9 @@ public class Node extends PlatformObject {
 
 		if (listFiles != null) {
 			for (File file : listFiles) {
-				if (file.getName().endsWith(".uip") || file.isDirectory()) {
+				if (file.getName()
+				// .toLowerCase()
+						.endsWith(".uip") || file.isDirectory()) {
 					Node child = new Node(new Path(file.getPath()));
 					if (contains(child) == false) {
 						this.addChild(child);
