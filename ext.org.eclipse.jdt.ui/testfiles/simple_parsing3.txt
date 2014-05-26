@@ -1,0 +1,7 @@
+// format:
+// statement row1
+// statement row2
+// ...
+// statement rown
+// <empty line>
+select a pp,x,(select o from b) k from xx  d
