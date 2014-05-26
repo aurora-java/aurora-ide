@@ -3,8 +3,9 @@ package aurora.sql.java.ide.editor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 import org.eclipse.ui.IEditorInput;
+
+import ext.org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 
 import aurora.sql.java.ide.builder.ToggleNatureAction;
 
