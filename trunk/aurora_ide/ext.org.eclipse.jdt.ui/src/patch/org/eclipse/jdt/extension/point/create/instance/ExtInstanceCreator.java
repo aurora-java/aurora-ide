@@ -31,8 +31,13 @@ public class ExtInstanceCreator {
 				return null;
 			}
 			System.out.println(attribute);
-			loadClass = JavaPlugin.getDefault().getBundle()
-					.loadClass("ext." + attribute);
+			if("org.eclipse.jdt.internal.debug.ui.JavaDebugHover".equals(attribute)){
+				loadClass = JavaPlugin.getDefault().getBundle()
+						.loadClass( attribute);
+			}else{
+				loadClass = JavaPlugin.getDefault().getBundle()
+						.loadClass("ext." + attribute);
+			}
 			return loadClass.newInstance();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

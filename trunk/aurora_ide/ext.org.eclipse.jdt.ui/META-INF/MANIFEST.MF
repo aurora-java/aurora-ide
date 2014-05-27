@@ -40,7 +40,13 @@ Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
 Bundle-Name: %pluginName
 Bundle-ManifestVersion: 2
-Export-Package: ext.org.eclipse.jdt.internal.corext,
+Export-Package: aurora.sql.java.editor,
+ aurora.sql.java.editor.configration,
+ aurora.sql.java.editor.content.assist,
+ aurora.sql.java.sqlparser,
+ aurora.sql.java.sqlparser.test,
+ aurora.sql.java.text.highlight,
+ ext.org.eclipse.jdt.internal.corext,
  ext.org.eclipse.jdt.internal.corext.buildpath,
  ext.org.eclipse.jdt.internal.corext.callhierarchy,
  ext.org.eclipse.jdt.internal.corext.codemanipulation,
@@ -129,7 +135,10 @@ Export-Package: ext.org.eclipse.jdt.internal.corext,
  ext.org.eclipse.jdt.internal.ui.wizards.buildpaths,
  ext.org.eclipse.jdt.internal.ui.wizards.buildpaths.newsourcepage,
  ext.org.eclipse.jdt.internal.ui.wizards.dialogfields,
- ext.org.eclipse.jdt.internal.ui.workingsets
+ ext.org.eclipse.jdt.internal.ui.workingsets,
+ net.sf.jsqlparser,
+ net.sf.jsqlparser.parser,
+ net.sf.jsqlparser.statement
 Bundle-ClassPath: sqlj.jar,
  .,
  jsqlparser.jar
