@@ -7,7 +7,6 @@ import org.eclipse.gef.requests.SimpleFactory;
 
 import aurora.ide.meta.gef.editors.components.part.CustomTreeContainerPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
-import aurora.plugin.source.gen.screen.model.CustomTree;
 import aurora.plugin.source.gen.screen.model.CustomTreeContainerNode;
 
 public class TreeNodeContainerCreator extends ComponentCreator {
@@ -17,7 +16,7 @@ public class TreeNodeContainerCreator extends ComponentCreator {
 	public PaletteEntry createPaletteEntry() {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"NodeContainer", "Create a new NodeContainer", CustomTreeContainerNode.class,
-				new SimpleFactory(CustomTree.class),
+				new SimpleFactory(CustomTreeContainerNode.class),
 				aurora.ide.prototype.consultant.product.Activator
 						.getImageDescriptor("/icons/full/obj16/image_obj.gif"),
 				aurora.ide.prototype.consultant.product.Activator
@@ -33,7 +32,7 @@ public class TreeNodeContainerCreator extends ComponentCreator {
 	}
 
 	public Class<? extends AuroraComponent> clazz() {
-		return CustomTree.class;
+		return CustomTreeContainerNode.class;
 	}
 
 	public AuroraComponent createComponent(String type) {

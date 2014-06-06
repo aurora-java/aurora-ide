@@ -1,9 +1,9 @@
-
 package aurora.ide.meta.gef.editors.components.command;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.CustomTreeContainerNode;
 import aurora.plugin.source.gen.screen.model.CustomTreeNode;
 
@@ -12,7 +12,7 @@ import aurora.plugin.source.gen.screen.model.CustomTreeNode;
  */
 public class CreateTreeNodeCommand extends Command {
 	private CustomTreeContainerNode parent;
-	private CustomTreeNode treeNode;
+	private AuroraComponent treeNode;
 	private CreateRequest request;
 
 	public CreateTreeNodeCommand(String label, Object parent,
@@ -33,7 +33,8 @@ public class CreateTreeNodeCommand extends Command {
 	@Override
 	public boolean canExecute() {
 		return this.getParent() != null
-				&& request.getNewObject() instanceof CustomTreeNode;
+				&& (request.getNewObject() instanceof CustomTreeNode || request
+						.getNewObject() instanceof CustomTreeContainerNode);
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class CreateTreeNodeCommand extends Command {
 
 	@Override
 	public void execute() {
-		treeNode = (CustomTreeNode) request.getNewObject();
+		treeNode = (AuroraComponent) request.getNewObject();
 		parent.addNode(treeNode);
 		if (treeNode instanceof CustomTreeContainerNode)
 			treeNode.setName("folder");
