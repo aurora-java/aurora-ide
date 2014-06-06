@@ -20,8 +20,8 @@ import aurora.ide.meta.gef.editors.components.figure.TreeLayoutManager;
 import aurora.ide.meta.gef.editors.components.figure.TreeNodeContainerFigure;
 import aurora.ide.meta.gef.editors.components.figure.TreeNodeFigure;
 import aurora.ide.meta.gef.editors.parts.ContainerPart;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.CustomTreeContainerNode;
-import aurora.plugin.source.gen.screen.model.CustomTreeNode;
 
 /**
  * @author shily Created on Feb 16, 2009
@@ -38,7 +38,7 @@ public class CustomTreeContainerPart extends ContainerPart {
 	}
 
 	protected List getModelChildren() {
-		return this.getTreeContainer().getNodes();
+		return this.getTreeContainer().getChildren();
 	}
 
 	private CustomTreeContainerNode getTreeContainer() {
@@ -49,7 +49,7 @@ public class CustomTreeContainerPart extends ContainerPart {
 	protected void refreshVisuals() {
 		super.refreshVisuals();
 		((TreeNodeFigure) this.getFigure())
-				.refreshVisuals((CustomTreeNode) getModel());
+				.refreshVisuals( (AuroraComponent) getModel());
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {

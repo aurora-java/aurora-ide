@@ -6,16 +6,16 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
-import aurora.plugin.source.gen.screen.model.CustomTreeNode;
+import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 public class TreeNodeFigure extends ImageFigure {
 	private String text;
 
 	public TreeNodeFigure(Image image) {
-		super(image, PositionConstants.NORTH_WEST);	
+		super(image, PositionConstants.NORTH_WEST);
 	}
 
-	public void refreshVisuals(CustomTreeNode treeNode) {
+	public void refreshVisuals(AuroraComponent treeNode) {
 		this.setText(treeNode.getName());
 		this.repaint();
 	}
@@ -32,6 +32,6 @@ public class TreeNodeFigure extends ImageFigure {
 	}
 
 	private String getText() {
-		return text;
+		return "" + text;
 	}
 }
