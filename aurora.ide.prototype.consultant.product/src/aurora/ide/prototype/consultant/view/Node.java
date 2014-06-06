@@ -76,9 +76,12 @@ public class Node extends PlatformObject {
 
 		if (listFiles != null) {
 			for (File file : listFiles) {
-				if (file.getName()
+				String name = file.getName();
+				if ("CVS".equals(name) || ".svn".equals(name))
+					continue;
+				if (name
 				// .toLowerCase()
-						.endsWith(".uip") || file.isDirectory()) {
+				.endsWith(".uip") || file.isDirectory()) {
 					Node child = new Node(new Path(file.getPath()));
 					if (contains(child) == false) {
 						this.addChild(child);

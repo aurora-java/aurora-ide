@@ -442,6 +442,37 @@
            name="toolbar_button"
            types="toolbar_button">
      </component>
+     
+     <component
+           categoryId="aurora.ide.meta.palette.category.input"
+           creator="aurora.ide.meta.gef.editors.components.TreeCreator"
+           descriptor="aurora.ide.meta.component.TreeDesc"
+           id="aurora.ide.meta.component.Tree"
+           name="Tree"
+           types="custom_tree">
+     </component>
+     
+      <component
+           categoryId="aurora.ide.meta.palette.category.input"
+           creator="aurora.ide.meta.gef.editors.components.TreeNodeCreator"
+           descriptor="aurora.ide.meta.component.TreeNodeDesc"
+           id="aurora.ide.meta.component.TreeNode"
+           name="tree_node"
+           types="custom_tree_node">
+     </component>
+     
+      <component
+           categoryId="aurora.ide.meta.palette.category.input"
+           creator="aurora.ide.meta.gef.editors.components.TreeNodeContainerCreator"
+           descriptor="aurora.ide.meta.component.TreeNodeContainerDesc"
+           id="aurora.ide.meta.component.TreeNodeContaier"
+           name="tree_node_container"
+           types="custom_tree_container_node">
+     </component>
+     
+     
+     
+     
   </extension>
 	
 <extension
