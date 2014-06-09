@@ -1,12 +1,10 @@
 package aurora.ide.meta.gef.editors.components.figure;
 
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.swt.graphics.Image;
 
 public class TreeNodeContainerFigure extends TreeNodeFigure {
 
-	public TreeNodeContainerFigure(Image image) {
-		super(image);
+	public TreeNodeContainerFigure() {
 	}
 
 	private Dimension realSize;
