@@ -10,7 +10,6 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 
-import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.eidtpolicy.TreeConstrainedLayoutEditPolicy;
 import aurora.ide.meta.gef.editors.components.eidtpolicy.TreeExpandSupportEditPolicy;
 import aurora.ide.meta.gef.editors.components.eidtpolicy.TreeNodeContainerEditPolicy;
@@ -30,8 +29,7 @@ public class CustomTreeContainerPart extends ContainerPart {
 
 	@Override
 	protected IFigure createFigure() {
-		TreeNodeContainerFigure image = new TreeNodeContainerFigure(
-				PrototypeImagesUtils.getImage("palette/itembar_02.png"));
+		TreeNodeContainerFigure image = new TreeNodeContainerFigure();
 		image.setSize(TreeLayoutManager.NODE_DEFUAULT_SIZE);
 		image.setLayoutManager(new TreeContainerLayoutManager());
 		return image;

@@ -29,7 +29,7 @@ public class CustomTreeNodePart extends ComponentPart {
 
 	@Override
 	protected IFigure createFigure() {
-		TreeNodeFigure node = new TreeNodeFigure(PrototypeImagesUtils.getImage("palette/itembar_02.png"));
+		TreeNodeFigure node = new TreeNodeFigure();
 		node.setSize(TreeLayoutManager.NODE_DEFUAULT_SIZE);
 		return node;
 	}
