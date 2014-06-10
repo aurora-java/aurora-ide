@@ -11,15 +11,18 @@
 package aurora.ide.meta.gef.editors.components.part;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
-import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.eidtpolicy.TreeNodeDeleteableEditPolicy;
+import aurora.ide.meta.gef.editors.components.figure.BackTreeLayout;
 import aurora.ide.meta.gef.editors.components.figure.TreeLayoutManager;
 import aurora.ide.meta.gef.editors.components.figure.TreeNodeFigure;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
+import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
 import aurora.plugin.source.gen.screen.model.CustomTreeNode;
 
 /**
@@ -29,21 +32,21 @@ public class CustomTreeNodePart extends ComponentPart {
 
 	@Override
 	protected IFigure createFigure() {
-		TreeNodeFigure node = new TreeNodeFigure();
+		TreeNodeFigure node = new TreeNodeFigure((CustomTreeNode) getModel());
 		node.setSize(TreeLayoutManager.NODE_DEFUAULT_SIZE);
 		return node;
 	}
 
 	@Override
 	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
 		installEditPolicy(TreeNodeDeleteableEditPolicy.DELETE_NODE_POLICY,
 				new TreeNodeDeleteableEditPolicy());
 	}
 
 	protected void refreshVisuals() {
-		super.refreshVisuals();
-		((TreeNodeFigure) this.getFigure())
-				.refreshVisuals((CustomTreeNode) getModel());
+//		super.refreshVisuals();
+		((TreeNodeFigure) this.getFigure()).refreshVisuals();
 	}
 
 	@Override
@@ -55,4 +58,11 @@ public class CustomTreeNodePart extends ComponentPart {
 	public EditPart getTargetEditPart(Request request) {
 		return super.getTargetEditPart(request);
 	}
+	public Rectangle layout() {
+//		return super.layout();
+		return new BackTreeLayout().layout(this);
+	}
+//	public int getResizeDirection() {
+//		return NSEW;
+//	}
 }

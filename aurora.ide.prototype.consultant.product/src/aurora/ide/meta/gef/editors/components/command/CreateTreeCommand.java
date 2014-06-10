@@ -25,12 +25,12 @@ public class CreateTreeCommand extends Command {
 	private CustomTree tree;
 	private CreateRequest request;
 
-	public CreateTreeCommand(String label, Container object, CreateRequest request) {
+	public CreateTreeCommand(String label, Container object,
+			CreateRequest request) {
 		super(label);
 		this.container = object;
 		this.request = request;
 	}
-
 
 	@Override
 	public boolean canExecute() {
@@ -46,12 +46,10 @@ public class CreateTreeCommand extends Command {
 	public void execute() {
 		tree = (CustomTree) request.getNewObject();
 		container.addChild(tree);
-		if (tree.getRoot() == null) {
-			CustomTreeContainerNode root = new CustomTreeContainerNode();
-			root.setName("TreeContainer.ROOT_NAME");
-//			root.setId("TreeContainer.ROOT_ID");
-			tree.setRoot(root);
-		}
+		CustomTreeContainerNode root = new CustomTreeContainerNode();
+		root.setName("NO_NAME");
+		// root.setId("TreeContainer.ROOT_ID");
+		tree.addChild(root);
 	}
 
 	@Override
@@ -63,14 +61,12 @@ public class CreateTreeCommand extends Command {
 	public void undo() {
 		super.undo();
 		container.removeChild(tree);
-//		diagram.removeTree(tree);
+		// diagram.removeTree(tree);
 	}
-
 
 	public Container getContainer() {
 		return container;
 	}
-
 
 	public void setContainer(Container container) {
 		this.container = container;

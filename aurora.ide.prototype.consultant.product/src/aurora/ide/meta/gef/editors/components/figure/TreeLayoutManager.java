@@ -19,13 +19,13 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 public class TreeLayoutManager extends AbstractLayout {
-	public static final int NODE_DEFUAULT_WIDTH = 50;
-	public static final int NODE_DEFUAULT_HIGHT = 16;
+	public static final int NODE_DEFUAULT_WIDTH = 150;
+	public static final int NODE_DEFUAULT_HIGHT = 24;
 	public static final int X_STEP = 15;
 	public static final int Y_STEP = NODE_DEFUAULT_HIGHT;
 	public static final Point NODE_RELATIVE_LOCATION = new Point(X_STEP, Y_STEP);
 	public static final Dimension NODE_DEFUAULT_SIZE = new Dimension(NODE_DEFUAULT_WIDTH, NODE_DEFUAULT_HIGHT);
-	public static final Dimension TREE_DEFUAULT_SIZE = new Dimension(200, 200);
+	public static final Dimension TREE_DEFUAULT_SIZE = new Dimension(200, 180);
 	public static final Dimension ZERO_SIZE = new Dimension(0, 0);
 
 	protected Dimension calculatePreferredSize(IFigure container, int wHint,
