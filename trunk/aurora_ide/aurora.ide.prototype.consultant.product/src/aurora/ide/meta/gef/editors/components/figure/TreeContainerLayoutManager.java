@@ -17,6 +17,16 @@ public class TreeContainerLayoutManager extends AbstractLayout {
 		return super.getConstraint(child);
 	}
 
+	private Dimension getNodeSize(IFigure node) {
+		if (node instanceof TreeNodeFigure) {
+			aurora.plugin.source.gen.screen.model.Point size = ((TreeNodeFigure) node)
+					.getTreeNode().getSize();
+			Dimension nodeSize = new Dimension(size.x, size.y);
+			return nodeSize;
+		}
+		return node.getSize();
+	}
+
 	@Override
 	public void setConstraint(IFigure child, Object constraint) {
 		super.setConstraint(child, constraint);
@@ -28,11 +38,13 @@ public class TreeContainerLayoutManager extends AbstractLayout {
 		List children = parent.getChildren();
 		for (int i = 0; i < children.size(); i++) {
 			IFigure node = (IFigure) children.get(i);
-			Dimension nodeSize = node.getSize();
-			newSize.width = newSize.width >= nodeSize.width
-					+ TreeLayoutManager.X_STEP ? newSize.width : nodeSize.width
-					+ TreeLayoutManager.X_STEP;
-			newSize.height += nodeSize.height;
+			if (node instanceof TreeNodeFigure) {
+				Dimension nodeSize = getNodeSize(node);
+				newSize.width = newSize.width >= nodeSize.width
+						+ TreeLayoutManager.X_STEP ? newSize.width
+						: nodeSize.width + TreeLayoutManager.X_STEP;
+				newSize.height += nodeSize.height;
+			}
 		}
 		IFigure god = parent.getParent();
 		newSize.height += TreeLayoutManager.NODE_DEFUAULT_HIGHT;
@@ -53,11 +65,12 @@ public class TreeContainerLayoutManager extends AbstractLayout {
 	protected Dimension calculatePreferredSize(IFigure container, int wHint,
 			int hHint) {
 		container.validate();
-		Dimension result = container.getSize().getCopy();
+		Dimension result = getNodeSize(container);
 		List children = container.getChildren();
 		for (int i = 0; i < children.size(); i++) {
 			IFigure child = (IFigure) children.get(i);
-			Dimension childSize = child.getBounds().getSize();
+			Dimension childSize = this.getNodeSize(child);
+			// childSize = new Dimension(200,24);
 			childSize.expand(child.getBounds().getLocation());
 			result.union(childSize);
 		}
@@ -71,7 +84,7 @@ public class TreeContainerLayoutManager extends AbstractLayout {
 		for (IFigure treeNode : trees) {
 			Rectangle bounds = treeNode.getBounds();
 			Point location = TreeLayoutManager.NODE_RELATIVE_LOCATION.getCopy();
-			Dimension size = bounds.getSize();
+			Dimension size = this.getNodeSize(treeNode);
 			if (temp != null) {
 				Rectangle lastBounds = temp.getBounds();
 				location = lastBounds.getBottomLeft().getCopy();

@@ -46,8 +46,8 @@ public class TreeConstrainedLayoutEditPolicy extends
 	}
 
 	private void sizeChanged(AbstractGraphicalEditPart node) {
-		LayoutManager layoutManager = this.getHostFigure().getLayoutManager();
-		layoutManager.setConstraint(node.getFigure(), getHostFigure());
+//		LayoutManager layoutManager = this.getHostFigure().getLayoutManager();
+//		layoutManager.setConstraint(node.getFigure(), getHostFigure());
 	}
 
 	@Override

@@ -2,9 +2,15 @@ package aurora.ide.meta.gef.editors.components.figure;
 
 import org.eclipse.draw2d.geometry.Dimension;
 
+import aurora.plugin.source.gen.screen.model.CustomTreeContainerNode;
+
 public class TreeNodeContainerFigure extends TreeNodeFigure {
 
-	public TreeNodeContainerFigure() {
+	private CustomTreeContainerNode node;
+
+	public TreeNodeContainerFigure(CustomTreeContainerNode node) {
+		super(node);
+		this.setNode(node);
 	}
 
 	private Dimension realSize;
@@ -29,9 +35,19 @@ public class TreeNodeContainerFigure extends TreeNodeFigure {
 	}
 
 	public void expand(boolean expanded) {
+		getNode().setExpand(expanded);
+		this.setExpand(expanded);
 		if (expanded) {
 			expand();
 		} else
 			collapse();
+	}
+
+	public CustomTreeContainerNode getNode() {
+		return node;
+	}
+
+	public void setNode(CustomTreeContainerNode node) {
+		this.node = node;
 	}
 }

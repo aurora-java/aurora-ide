@@ -10,12 +10,13 @@ import org.eclipse.swt.graphics.Image;
 
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
-import aurora.plugin.source.gen.screen.model.Container;
+import aurora.plugin.source.gen.screen.model.CustomTreeContainerNode;
+import aurora.plugin.source.gen.screen.model.CustomTreeNode;
 
 public class TreeNodeFigure extends Figure {
 	private String text;
 
-	private boolean isFolder;
+	// private boolean isFolder;
 	private boolean isExpand;
 
 	private AuroraComponent treeNode;
@@ -31,13 +32,14 @@ public class TreeNodeFigure extends Figure {
 	static final private int IMG_JOIN_TOP = 10, IMG_JOIN = 11,
 			IMG_JOIN_BOTTOM = 12;
 
-	public TreeNodeFigure() {
-		// super(PositionConstants.NORTH_WEST);
+
+	public TreeNodeFigure(AuroraComponent treeNode) {
+		this.setTreeNode(treeNode);
 	}
 
-	public void refreshVisuals(AuroraComponent treeNode) {
-		this.treeNode = treeNode;
-		this.setText(treeNode.getName());
+	public void refreshVisuals() {
+//		this.treeNode = treeNode;
+		this.setText(getTreeNode().getName());
 		this.repaint();
 	}
 
@@ -47,9 +49,9 @@ public class TreeNodeFigure extends Figure {
 
 	private int getNodeLocation() {
 
-		if (treeNode != null && treeNode.getParent() != null) {
-			List<AuroraComponent> children = treeNode.getParent().getChildren();
-			int index = children.indexOf(this.treeNode);
+		if (getTreeNode() != null && getTreeNode().getParent() != null) {
+			List<AuroraComponent> children = getTreeNode().getParent().getChildren();
+			int index = children.indexOf(this.getTreeNode());
 			if (index == 0) {
 				return 0;
 			}
@@ -57,8 +59,9 @@ public class TreeNodeFigure extends Figure {
 			if (size - index == 1) {
 				return 2;
 			}
+			return 1;
 		}
-		return 1;
+		return 0;
 	}
 
 	@Override
@@ -67,42 +70,52 @@ public class TreeNodeFigure extends Figure {
 		// 18 * 24
 		int x = area.x;
 		int nl = getNodeLocation();
-		if (isFolder) {
-			if (isExpand) {
-				graphics.drawImage(getImage(IMG_MINUS_TOP + nl), x, area.y);
-				x += 18;
+		if (isFolder()) {
+			if (isExpand()) {
+				x = drawImage(graphics, IMG_MINUS_TOP + nl, x, area.y, 18);
 				drawLine(graphics);
 			} else {
-				graphics.drawImage(getImage(IMG_PLUS_TOP + nl), x, area.y);
-				x += 18;
+				x = drawImage(graphics, IMG_PLUS_TOP + nl, x, area.y, 18);
 			}
-			graphics.drawImage(getImage(IMG_FOLDER), x, area.y);
-			x += 18;
+			x = drawImage(graphics, IMG_FOLDER, x, area.y, 18);
 		} else {
-			graphics.drawImage(getImage(IMG_JOIN_TOP + nl), x, area.y);
-			x += 18;
-			graphics.drawImage(getImage(IMG_LEAF), x, area.y);
-			x += 18;
+			x = drawImage(graphics, IMG_JOIN_TOP + (nl == 0 ? 1 : nl), x,
+					area.y, 18);
+			x = drawImage(graphics, IMG_LEAF, x, area.y, 18);
 		}
 		if (isCheckTree()) {
-			graphics.drawImage(getImage(IMG_CHECK), x, area.y);
-			x += 18;
+			x = drawImage(graphics, IMG_CHECK, x, area.y - 3, 18);
 		}
 
 		Rectangle clientArea = this.getClientArea();
 		graphics.drawText(getText(), x, clientArea.y);
 	}
 
+	private int drawImage(Graphics graphics, int img, int x, int y,
+			int img_width) {
+		Image image = getImage(img);
+		if (image != null) {
+			graphics.drawImage(image, x, y);
+			x += img_width;
+		}
+		return x;
+	}
+
+	private boolean isFolder() {
+		return this.getTreeNode() instanceof CustomTreeContainerNode;
+	}
+
 	private void drawLine(Graphics graphics) {
 		Rectangle area = getBounds().getShrinked(getInsets());
 		if (area.getSize().height > 24) {
-			int size = this.treeNode.getParent().getChildren().size();
+			int size = ((CustomTreeContainerNode) getTreeNode()).getChildren()
+					.size();
+			int y = area.y;
 			for (int i = 0; i < size; i++) {
-				int y = area.y;
+				y += 24;
 				graphics.drawImage(
 						PrototypeImagesUtils.getImage("tree/line.gif"), area.x,
 						y);
-				y += 24;
 			}
 		}
 
@@ -150,5 +163,21 @@ public class TreeNodeFigure extends Figure {
 	private int getTreeType() {
 		// SWT.NONE
 		return SWT.CHECK;
+	}
+
+	public boolean isExpand() {
+		return isExpand;
+	}
+
+	public void setExpand(boolean isExpand) {
+		this.isExpand = isExpand;
+	}
+
+	public AuroraComponent getTreeNode() {
+		return treeNode;
+	}
+
+	public void setTreeNode(AuroraComponent treeNode) {
+		this.treeNode = treeNode;
 	}
 }
