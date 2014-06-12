@@ -356,7 +356,7 @@ public class SetLinkOrRefWizardPage extends WizardPage {
 			} else {
 				String path = ((IFile) obj).getFullPath().toString();
 				txt.setText(path);
-				if (path.endsWith("uip")) { //$NON-NLS-1$
+				if (path.toLowerCase().endsWith("uip")) { //$NON-NLS-1$
 					path = path.substring(path.indexOf("ui_prototype") + "ui_prototype".length()); //$NON-NLS-1$ //$NON-NLS-2$
 				} else if (path.endsWith("screen")) { //$NON-NLS-1$
 					path = path.substring(path.indexOf(webHome) + webHome.length());

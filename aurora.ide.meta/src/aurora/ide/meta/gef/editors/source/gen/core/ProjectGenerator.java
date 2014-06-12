@@ -334,7 +334,7 @@ public class ProjectGenerator {
 			if (ComponentInnerProperties.PAGE_REDIRECT.equals(type)) {
 				String openpath = renderer.getString(
 						ComponentInnerProperties.OPEN_PATH, "");
-				if ("".equals(openpath) || openpath.endsWith("uip") == false) {
+				if ("".equals(openpath) || openpath.toLowerCase().endsWith("uip") == false) {
 					continue;
 				}
 				CompositeMap inner_paramerter = renderer.getChildByAttrib(
