@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -13,7 +12,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import aurora.ide.meta.gef.editors.components.part.CustomTreeNodePart;
 import aurora.ide.meta.gef.editors.layout.BackLayout;
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
-import aurora.ide.meta.gef.editors.parts.ContainerPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.CustomTreeContainerNode;
 
@@ -24,41 +22,11 @@ public class BackTreeLayout extends BackLayout {
 	// return super.getConstraint(child);
 	// }
 
-	private static final Insets TREE_PADDING = new Insets(24, 18, 0, 0);
+	private static final int D_WIDTH = 18 + 18 + 40, D_HIGHT = 20;
+	
+	private static final Insets TREE_PADDING = new Insets(D_HIGHT, 18, 0, 0);
 
-	private static final int D_WIDTH = 18 + 18 + 40, D_HIGHT = 24;
 
-	public void setConstraint(IFigure child, Object constraint) {
-		// super.setConstraint(child, constraint);
-		IFigure parent = child.getParent();
-		// for delete if child delete parent is null.
-		if (parent == null)
-			parent = (IFigure) constraint;
-		Dimension newSize = new Dimension();
-		List children = parent.getChildren();
-		for (int i = 0; i < children.size(); i++) {
-			IFigure node = (IFigure) children.get(i);
-			Dimension nodeSize = node.getSize();
-			newSize.width = newSize.width >= nodeSize.width
-					+ TreeLayoutManager.X_STEP ? newSize.width : nodeSize.width
-					+ TreeLayoutManager.X_STEP;
-			newSize.height += nodeSize.height;
-		}
-		IFigure god = parent.getParent();
-		newSize.height += TreeLayoutManager.NODE_DEFUAULT_HIGHT;
-		// for delete has no child
-		if (newSize.width == 0)
-			newSize.width = TreeLayoutManager.NODE_DEFUAULT_WIDTH;
-		parent.setSize(newSize);
-		// for expand resize re-layout
-		// Deprecated cause delete.
-		// if (TreeExpandSupportEditPolicy.SIZE_CHANGED.equals(constraint))
-		// layout(parent);
-		// for delete if child delete parent is null.
-		if (constraint instanceof IFigure)
-			layout(parent);
-		god.getLayoutManager().setConstraint(parent, constraint);
-	}
 
 	protected Dimension calculatePreferredSize(ComponentPart treeContainer) {
 		Dimension rc = new Dimension();
@@ -82,6 +50,7 @@ public class BackTreeLayout extends BackLayout {
 		List children = treeContainer.getChildren();
 		if (treeContainer instanceof CustomTreeNodePart || children == null
 				|| children.size() == 0 || isExpand == false) {
+			hideChildren(treeContainer);
 			Rectangle rc = new Rectangle();
 			return rc.setSize(calculatePreferredSize(treeContainer));
 		}
@@ -90,66 +59,32 @@ public class BackTreeLayout extends BackLayout {
 		Point cl = location.setX(location.x + TREE_PADDING.left);
 
 		Dimension size = calculatePreferredSize(treeContainer);
-
+		cl.setY(cl.y + TREE_PADDING.top);
 		for (Object object : children) {
 			if (object instanceof ComponentPart) {
 				Rectangle layout = ((ComponentPart) object).layout();
-				cl.setY(cl.y + TREE_PADDING.top);
 				layout.setLocation(cl);
 				this.applyToFigure((ComponentPart) object, layout);
 				size.setWidth(Math.max(size.width, layout.width
 						+ TREE_PADDING.left));
-				size.expand(0, TREE_PADDING.top);
+				cl.setY(cl.y + layout.height);
+				size.expand(0, layout.height);
 			}
 		}
 		return getBounds(treeContainer).setSize(size);
 	}
 
-	private Rectangle calculateRectangle(ComponentPart parent) {
 
-		Dimension newSize = new Dimension();
-		List children = parent.getFigure().getChildren();
-		for (int i = 0; i < children.size(); i++) {
-			IFigure node = (IFigure) children.get(i);
-			Dimension nodeSize = node.getSize();
-			newSize.width = newSize.width >= nodeSize.width
-					+ TreeLayoutManager.X_STEP ? newSize.width : nodeSize.width
-					+ TreeLayoutManager.X_STEP;
-			newSize.height += nodeSize.height;
-		}
-		newSize.height += TreeLayoutManager.NODE_DEFUAULT_HIGHT;
-		// for delete has no child
-		if (newSize.width == 0)
-			newSize.width = TreeLayoutManager.NODE_DEFUAULT_WIDTH;
 
-		return new Rectangle().setSize(newSize);
-	}
-
-	@SuppressWarnings("unchecked")
-	public void layout(IFigure container) {
-		List<IFigure> trees = container.getChildren();
-		IFigure temp = null;
-		for (IFigure treeNode : trees) {
-			Rectangle bounds = treeNode.getBounds();
-			Point location = TreeLayoutManager.NODE_RELATIVE_LOCATION.getCopy();
-			Dimension size = bounds.getSize();
-			if (temp != null) {
-				Rectangle lastBounds = temp.getBounds();
-				location = lastBounds.getBottomLeft().getCopy();
-				location = new Point(location.x, location.y);
-
-			} else {
-				location.translate(container.getBounds().getLocation());
+	private void hideChildren(ComponentPart treeContainer) {
+		List children = treeContainer.getChildren();
+		if(children !=null){
+			for (Object object : children) {
+				if (object instanceof ComponentPart) {
+					this.applyToFigure((ComponentPart) object, new Rectangle());
+				}
 			}
-			if (size.equals(0, 0))
-				treeNode.setSize(TreeLayoutManager.NODE_DEFUAULT_SIZE);
-			treeNode.getBounds().setLocation(location);
-			temp = treeNode;
-			LayoutManager layoutManager = treeNode.getLayoutManager();
-			if (layoutManager != null)
-				layoutManager.layout(treeNode);
 		}
-		container.repaint();
 	}
 
 	// un use

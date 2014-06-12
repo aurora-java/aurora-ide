@@ -186,6 +186,12 @@
               label="%uipeditor.palette.category.Tab"
               >
         </category>
+         <category
+              filter="aurora.ide.meta.gef.editors.PaletteCategoryFilter"
+              id="aurora.ide.meta.palette.category.tree"
+              label="TREE"
+              >
+        </category>
        
      </palette>
   </extension>
@@ -444,7 +450,7 @@
      </component>
      
      <component
-           categoryId="aurora.ide.meta.palette.category.input"
+           categoryId="aurora.ide.meta.palette.category.tree"
            creator="aurora.ide.meta.gef.editors.components.TreeCreator"
            descriptor="aurora.ide.meta.component.TreeDesc"
            id="aurora.ide.meta.component.Tree"
@@ -453,7 +459,7 @@
      </component>
      
       <component
-           categoryId="aurora.ide.meta.palette.category.input"
+           categoryId="aurora.ide.meta.palette.category.tree"
            creator="aurora.ide.meta.gef.editors.components.TreeNodeCreator"
            descriptor="aurora.ide.meta.component.TreeNodeDesc"
            id="aurora.ide.meta.component.TreeNode"
@@ -462,7 +468,7 @@
      </component>
      
       <component
-           categoryId="aurora.ide.meta.palette.category.input"
+           categoryId="aurora.ide.meta.palette.category.tree"
            creator="aurora.ide.meta.gef.editors.components.TreeNodeContainerCreator"
            descriptor="aurora.ide.meta.component.TreeNodeContainerDesc"
            id="aurora.ide.meta.component.TreeNodeContaier"
