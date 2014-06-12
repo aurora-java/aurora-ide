@@ -81,7 +81,7 @@ public class CridColumnDialog extends Dialog {
 			public void modifyText(ModifyEvent e) {
 				String webHome = ResourceUtil.getWebHome(page.getAuroraProject());
 				String path = getTextString((Text) e.getSource());
-				if (path.endsWith("uip")) { //$NON-NLS-1$
+				if (path.toLowerCase().endsWith("uip")) { //$NON-NLS-1$
 					path = path.substring(path.indexOf("ui_prototype") + "ui_prototype".length()); //$NON-NLS-1$ //$NON-NLS-2$
 				} else if (path.endsWith("screen")) { //$NON-NLS-1$
 					path = path.substring(path.indexOf(webHome) + webHome.length());

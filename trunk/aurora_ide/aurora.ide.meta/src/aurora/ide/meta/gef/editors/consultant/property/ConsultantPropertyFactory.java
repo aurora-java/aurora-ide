@@ -12,6 +12,7 @@ import aurora.ide.meta.gef.editors.property.StylePropertyDescriptor;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.Button;
 import aurora.plugin.source.gen.screen.model.CheckBox;
+import aurora.plugin.source.gen.screen.model.CustomTree;
 import aurora.plugin.source.gen.screen.model.Input;
 import aurora.plugin.source.gen.screen.model.properties.ComponentInnerProperties;
 import aurora.plugin.source.gen.screen.model.properties.ComponentProperties;
@@ -99,8 +100,28 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 		if ("radio_item".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
 			return this.radioItem();
 		}
+
+		if ("custom_tree".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
+			return this.customTree();
+		}
+		if ("custom_tree_container_node".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
+			return this.cTreeCN();
+		}
+		if ("custom_tree_node".equalsIgnoreCase(componentType)) { //$NON-NLS-1$
+			return this.cTreeCN();
+		}
+
 		return NONE_PROPS;
 
+	}
+
+	private IPropertyDescriptor[] cTreeCN() {
+		return new IPropertyDescriptor[] { PD_PROMPT};
+	}
+
+	private IPropertyDescriptor[] customTree() {
+		return new IPropertyDescriptor[] { PD_WIDTH, PD_HEIGHT, PD_ROWSPAN,
+				PD_COLSPAN,PD_CHECKED_TREE };
 	}
 
 	protected static final IPropertyDescriptor PD_ROWSPAN = new IntegerPropertyDescriptor(
@@ -146,8 +167,8 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	}
 
 	private static final IPropertyDescriptor PD_ICON_SELECTION = new DialogPropertyDescriptor(
-			ComponentInnerProperties.ICON_BYTES_DATA_DEO, Messages.ConsultantPropertyFactory_5,
-			IconSelectionDialog.class);
+			ComponentInnerProperties.ICON_BYTES_DATA_DEO,
+			Messages.ConsultantPropertyFactory_5, IconSelectionDialog.class);
 
 	private IPropertyDescriptor[] toolbar_button(AuroraComponent component) {
 		IPropertyDescriptor[] inner_pds = new IPropertyDescriptor[] {
@@ -171,7 +192,7 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	private IPropertyDescriptor[] gridcolumn() {
 		return new IPropertyDescriptor[] { PD_PROMPT, PD_WIDTH,
 				PD_COLUMN_EDITOR, PD_READONLY, PD_REQUIRED,
-				PD_GRID_COLUMN_SORTABLE ,PD_COLUMN_ALIGNMENT};
+				PD_GRID_COLUMN_SORTABLE, PD_COLUMN_ALIGNMENT };
 
 	}
 
@@ -301,12 +322,14 @@ public class ConsultantPropertyFactory implements ComponentInnerProperties,
 	protected static final IPropertyDescriptor PD_GRID_COLUMN_SORTABLE = new BooleanPropertyDescriptor(
 			GRID_COLUMN_SORTABLE, Messages.ConsultantPropertyFactory_4);
 	
-	public static final String[] aligns = { "left","center","right"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	protected static final IPropertyDescriptor PD_CHECKED_TREE = new BooleanPropertyDescriptor(
+			CustomTree.CHECKED_TREE, "CHECKED");
+
+	public static final String[] aligns = { "left", "center", "right" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	private static final ComboPropertyDescriptor PD_COLUMN_ALIGNMENT = new ComboPropertyDescriptor(
-			GRID_COLUMN_ALIGNMENT, Messages.ConsultantPropertyFactory_12, aligns); //$NON-NLS-1$
-	
-	
-	
+			GRID_COLUMN_ALIGNMENT, Messages.ConsultantPropertyFactory_12,
+			aligns); //$NON-NLS-1$
+
 	private IPropertyDescriptor[] screenbody() {
 		return NONE_PROPS;
 	}

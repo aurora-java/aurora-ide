@@ -184,7 +184,9 @@ public class ComboCellEditor extends AbstractComboBoxCellEditor {
 	 *         <code>Integer</code>
 	 */
 	protected Object doGetValue() {
-//		return new Integer(selection);
+		// return new Integer(selection);
+		if (selection == -1)
+			return null;
 		return items[selection];
 	}
 
@@ -228,8 +230,8 @@ public class ComboCellEditor extends AbstractComboBoxCellEditor {
 	 */
 	protected void doSetValue(Object value) {
 		Assert.isTrue(comboBox != null);
-//		selection = value == null ? 0 : ((Integer) value).intValue();
-		selection = comboBox.indexOf(""+value);
+		// selection = value == null ? 0 : ((Integer) value).intValue();
+		selection = comboBox.indexOf("" + value);
 		comboBox.select(selection);
 	}
 

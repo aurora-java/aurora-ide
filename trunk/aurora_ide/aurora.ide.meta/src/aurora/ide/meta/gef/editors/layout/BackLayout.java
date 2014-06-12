@@ -6,11 +6,11 @@ import aurora.ide.meta.gef.editors.parts.ComponentPart;
 
 public class BackLayout {
 	// protected static final Insets PADDING = new Insets(8, 16, 8, 6);//8,6,8,6
-	Rectangle toDraw2d(aurora.plugin.source.gen.screen.model.Rectangle rect) {
+	protected Rectangle toDraw2d(aurora.plugin.source.gen.screen.model.Rectangle rect) {
 		return new Rectangle(rect.x, rect.y, rect.width, rect.height);
 	}
 
-	aurora.plugin.source.gen.screen.model.Rectangle toAurora(Rectangle rect) {
+	protected	aurora.plugin.source.gen.screen.model.Rectangle toAurora(Rectangle rect) {
 		return new aurora.plugin.source.gen.screen.model.Rectangle(rect.x,
 				rect.y, rect.width, rect.height);
 	}
