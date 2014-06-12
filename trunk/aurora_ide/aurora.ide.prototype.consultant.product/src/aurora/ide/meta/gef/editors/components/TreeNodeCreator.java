@@ -5,6 +5,7 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
+import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.components.part.CustomTreeNodePart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.CustomTreeNode;
@@ -13,14 +14,13 @@ public class TreeNodeCreator extends ComponentCreator {
 
 	public TreeNodeCreator() {
 	}
+
 	public PaletteEntry createPaletteEntry() {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Node", "Create a new Node", CustomTreeNode.class,
 				new SimpleFactory(CustomTreeNode.class),
-				aurora.ide.prototype.consultant.product.Activator
-						.getImageDescriptor("/icons/full/obj16/image_obj.gif"),
-				aurora.ide.prototype.consultant.product.Activator
-						.getImageDescriptor("/icons/full/obj16/image_obj.gif"));
+				PrototypeImagesUtils.getImageDescriptor("tree/leaf.gif"),
+				PrototypeImagesUtils.getImageDescriptor("tree/leaf.gif"));
 		return combined;
 	}
 

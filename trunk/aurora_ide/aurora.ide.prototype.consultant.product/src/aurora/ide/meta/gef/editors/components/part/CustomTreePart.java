@@ -10,8 +10,9 @@
  *******************************************************************************/
 package aurora.ide.meta.gef.editors.components.part;
 
+import java.beans.PropertyChangeEvent;
+
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LabeledContainer;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -19,16 +20,15 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
-import aurora.ide.meta.gef.editors.components.figure.BackTreeLayout;
-import aurora.ide.meta.gef.editors.components.figure.TreeContainerLayoutManager;
-import aurora.ide.meta.gef.editors.components.figure.TreeLayoutManager;
 import aurora.ide.meta.gef.editors.figures.BoxFigure;
 import aurora.ide.meta.gef.editors.layout.RowColSpanBackLayout;
 import aurora.ide.meta.gef.editors.parts.ContainerPart;
 import aurora.ide.meta.gef.editors.policies.ContainerLayoutEditPolicy;
 import aurora.ide.meta.gef.editors.policies.NodeEditPolicy;
+import aurora.ide.meta.gef.editors.policies.PasteComponentEditPolicy;
 import aurora.plugin.source.gen.screen.model.BOX;
 import aurora.plugin.source.gen.screen.model.CustomTree;
+import aurora.plugin.source.gen.screen.model.CustomTreeContainerNode;
 
 /**
  * @author shily Created on Feb 16, 2009
@@ -58,12 +58,18 @@ public class CustomTreePart extends ContainerPart {
 	public EditPart getTargetEditPart(Request request) {
 		return super.getTargetEditPart(request);
 	}
-
+	public void propertyChange(PropertyChangeEvent evt) {
+		super.propertyChange(evt);
+		String prop = evt.getPropertyName();
+		if (CustomTree.CHECKED_TREE.equals(prop))
+			refreshChildren();
+	}
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new NodeEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE,
 				new ContainerLayoutEditPolicy());
+		installEditPolicy("Paste Components", new PasteComponentEditPolicy());
 		// installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
 		//
 		// @Override

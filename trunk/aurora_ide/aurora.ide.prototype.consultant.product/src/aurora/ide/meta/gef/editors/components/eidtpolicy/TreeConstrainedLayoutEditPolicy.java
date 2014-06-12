@@ -10,6 +10,9 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
+import aurora.ide.meta.gef.editors.layout.GraphLayoutManager;
+import aurora.ide.meta.gef.editors.parts.ComponentPart;
+
 public class TreeConstrainedLayoutEditPolicy extends
 		ConstrainedLayoutEditPolicy {
 
@@ -46,6 +49,7 @@ public class TreeConstrainedLayoutEditPolicy extends
 	}
 
 	private void sizeChanged(AbstractGraphicalEditPart node) {
+//		GraphLayoutManager.layout((ComponentPart) node.getParent());
 //		LayoutManager layoutManager = this.getHostFigure().getLayoutManager();
 //		layoutManager.setConstraint(node.getFigure(), getHostFigure());
 	}

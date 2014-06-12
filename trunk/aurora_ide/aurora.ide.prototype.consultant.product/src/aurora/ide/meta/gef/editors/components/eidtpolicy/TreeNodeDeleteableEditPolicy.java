@@ -42,10 +42,10 @@ public class TreeNodeDeleteableEditPolicy extends GraphicalEditPolicy {
 
 	private Command getDeleteCommand(Request request) {
 		GroupRequest req = (GroupRequest) request;
-		System.out.println("**********************");
-		System.out.println(req.getEditParts());
-		System.out.println(getHost());
-		System.out.println("**********************");
+//		System.out.println("**********************");
+//		System.out.println(req.getEditParts());
+//		System.out.println(getHost());
+//		System.out.println("**********************");
 		return new DeleteTreeNodeCommand(req);
 		// return new DeleteNodeCommand(this.getHost());
 	}

@@ -1,8 +1,6 @@
 package aurora.ide.meta.gef.editors.components.eidtpolicy;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
@@ -11,7 +9,6 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
@@ -20,6 +17,7 @@ import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 import aurora.ide.meta.gef.editors.components.figure.TreeLayoutManager;
 import aurora.ide.meta.gef.editors.components.part.CustomTreeContainerPart;
 import aurora.ide.meta.gef.editors.components.part.CustomTreePart;
+import aurora.plugin.source.gen.screen.model.CustomTreeContainerNode;
 
 public class TreeExpandSupportEditPolicy extends GraphicalEditPolicy {
 	public EditPart getTargetEditPart(Request request) {
@@ -42,21 +40,44 @@ public class TreeExpandSupportEditPolicy extends GraphicalEditPolicy {
 		}
 
 		public void expand() {
-			CustomTreeContainerPart host = (CustomTreeContainerPart) getHost();
-			host.expand(expanded = !expanded);
-			AbstractGraphicalEditPart parent = (AbstractGraphicalEditPart) host
-					.getParent();
+			final CustomTreeContainerPart host = (CustomTreeContainerPart) getHost();
+			host.getViewer().getEditDomain().getCommandStack().execute(new Command("expand") {
+				public void execute() {
+					host.getComponent().setPropertyValue(
+							CustomTreeContainerNode.CONTAINER_EXPAND, expanded = !expanded);
+				}
+			});
+//			host.getComponent().setPropertyValue(
+//					CustomTreeContainerNode.CONTAINER_EXPAND, expanded = !expanded);
+//			host.expand(expanded = !expanded);
+			getTreeRoot(host).layout();
+			
+			
+
+//			return new Command("expand") {
+//				public void execute() {
+//					CustomTreeContainerPart host = (CustomTreeContainerPart) getHost();
+//					host.getComponent().setPropertyValue(
+//							CustomTreeContainerNode.CONTAINER_EXPAND, true);
+//				}
+//			};
+//		
+			
+			
+			// AbstractGraphicalEditPart parent = (AbstractGraphicalEditPart)
+			// host
+			// .getParent();
 			// unused
 			// notifyParent();
 			// parent.getParent();
-			EditPolicy editPolicy = parent.getEditPolicy(LAYOUT_ROLE);
-			if (editPolicy != null) {
-				Request request = new Request(SIZE_CHANGED);
-				Map hashMap = new HashMap();
-				hashMap.put(SIZE_CHANGED, host);
-				request.setExtendedData(hashMap);
-				editPolicy.showSourceFeedback(request);
-			}
+			// EditPolicy editPolicy = parent.getEditPolicy(LAYOUT_ROLE);
+			// if (editPolicy != null) {
+			// Request request = new Request(SIZE_CHANGED);
+			// Map hashMap = new HashMap();
+			// hashMap.put(SIZE_CHANGED, host);
+			// request.setExtendedData(hashMap);
+			// editPolicy.showSourceFeedback(request);
+			// }
 			// LayoutManager layoutManager =
 			// parent.getFigure().getLayoutManager();
 			// layoutManager.setConstraint(host.getFigure(), SIZE_CHANGED);
@@ -126,11 +147,12 @@ public class TreeExpandSupportEditPolicy extends GraphicalEditPolicy {
 			return new Command("expand") {
 				public void execute() {
 					CustomTreeContainerPart host = (CustomTreeContainerPart) getHost();
-					host.expand(true);
+					host.getComponent().setPropertyValue(
+							CustomTreeContainerNode.CONTAINER_EXPAND, true);
 				}
 			};
 		}
 
-		return super.getCommand(request);
+		return null;
 	}
 }
