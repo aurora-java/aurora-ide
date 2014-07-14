@@ -13,6 +13,7 @@ import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.SWT;
 
 import aurora.ide.meta.MetaPlugin;
 import aurora.ide.meta.gef.editors.figures.InputField;
@@ -134,6 +135,9 @@ public class InputPart extends ComponentPart {
 		TextEditDialog ted = new TextEditDialog(this.getViewer().getControl()
 				.getShell());
 		StyledStringText sst = new StyledStringText();
+		if(ComponentProperties.prompt.equals(propertyID)){
+			sst.setAlignment(SWT.RIGHT);
+		}
 		Object obj = this.getModel().getPropertyValue(
 				propertyID + ComponentInnerProperties.TEXT_STYLE);
 		if (obj instanceof StyledStringText)

@@ -5,7 +5,6 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -17,7 +16,6 @@ import org.eclipse.ui.actions.ActionFactory;
 
 import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.ide.meta.gef.editors.parts.ViewDiagramPart;
-import aurora.plugin.source.gen.screen.model.AuroraComponent;
 
 /**
  * Provides a context menu for the flow editor.
@@ -91,10 +89,10 @@ public class ViewContextMenuProvider extends ContextMenuProvider {
 					return;
 				MenuManager typeManager = new MenuManager("TypeChange");
 				menu.appendToGroup(GEFActionConstants.GROUP_EDIT, typeManager);
-				AuroraComponent model = (AuroraComponent) ((ComponentPart) ele)
-						.getModel();
+//				AuroraComponent model = (AuroraComponent) ((ComponentPart) ele)
+//						.getModel();
 				TypeChangeUtil tc = new TypeChangeUtil(commandStack);
-				for (Action a : tc.getActionFor(model))
+				for (IAction a : tc.getActionFor(ss))
 					typeManager.add(a);
 
 			}
