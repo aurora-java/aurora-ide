@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.IStructuredSelection;
 
 import aurora.ide.meta.extensions.ComponentFactory;
 import aurora.ide.meta.gef.editors.PrototypeImagesUtils;
 import aurora.ide.meta.gef.editors.models.commands.ChangeTypeCommand;
+import aurora.ide.meta.gef.editors.parts.ComponentPart;
 import aurora.plugin.source.gen.screen.model.AuroraComponent;
 import aurora.plugin.source.gen.screen.model.BOX;
 import aurora.plugin.source.gen.screen.model.CheckBox;
@@ -106,7 +109,8 @@ public class TypeChangeUtil {
 				imageKey = "palette/itembar_04.png";
 			else if (CheckBox.CHECKBOX.equals(text))
 				imageKey = "palette/checkbox_01.png";
-			setImageDescriptor(PrototypeImagesUtils.getImageDescriptor(imageKey));
+			setImageDescriptor(PrototypeImagesUtils
+					.getImageDescriptor(imageKey));
 		}
 
 		public void setInput(Input input) {
@@ -124,18 +128,18 @@ public class TypeChangeUtil {
 		}
 
 		public void apply() {
-			newInput = (Input)ComponentFactory.createComponent(newType);
-			
-//			newInput = null;
-//			if (type_change_mode == TYPE_CHANGE_MODE1) {
-//				input.setType(newType);
-//				return;
-//			} else if (type_change_mode == TYPE_CHANGE_MODE2) {
-//				newInput = new CheckBox();
-//			} else if (type_change_mode == TYPE_CHANGE_MODE3) {
-//				newInput = new Input();
-//				newInput.setType(newType);
-//			}
+			newInput = (Input) ComponentFactory.createComponent(newType);
+
+			// newInput = null;
+			// if (type_change_mode == TYPE_CHANGE_MODE1) {
+			// input.setType(newType);
+			// return;
+			// } else if (type_change_mode == TYPE_CHANGE_MODE2) {
+			// newInput = new CheckBox();
+			// } else if (type_change_mode == TYPE_CHANGE_MODE3) {
+			// newInput = new Input();
+			// newInput.setType(newType);
+			// }
 			newInput.setReadOnly(input.isReadOnly());
 			newInput.setRequired(input.isRequired());
 			newInput.setPrompt(input.getPrompt());
@@ -151,10 +155,10 @@ public class TypeChangeUtil {
 
 		@Override
 		public void unApply() {
-			if (type_change_mode == TYPE_CHANGE_MODE1) {
-				input.setComponentType(oldType);
-				return;
-			}
+//			if (type_change_mode == TYPE_CHANGE_MODE1) {
+//				input.setComponentType(oldType);
+//				return;
+//			}
 			Container cont = this.newInput.getParent();
 			int idx = cont.getChildren().indexOf(this.newInput);
 			cont.removeChild(idx);
@@ -166,6 +170,7 @@ public class TypeChangeUtil {
 			input.setEmptyText(newInput.getEmptyText());
 			input.setTypeCase(newInput.getTypeCase());
 		}
+
 	}
 
 	/**
@@ -242,4 +247,103 @@ public class TypeChangeUtil {
 			oldCmp.setSectionType(newCmp.getSectionType());
 		}
 	}
+
+	public IAction[] getActionFor(IStructuredSelection ss) {
+
+		ArrayList<Action> als = new ArrayList<Action>();
+		Object ele = ss.getFirstElement();
+		AuroraComponent ac = (AuroraComponent) ((ComponentPart) ele).getModel();
+		if (ss.size() == 1) {
+			return getActionFor(ac);
+		}
+		if (ac instanceof Input) {
+			String[] types = { Input.TEXT, Input.NUMBER, Input.Combo,
+					Input.LOV, Input.DATE_PICKER, Input.DATETIMEPICKER,
+					CheckBox.CHECKBOX };
+			for (String s : types) {
+				InputsTypeChangeAction action = new InputsTypeChangeAction(s);
+				action.setSelection(ss);
+				als.add(action);
+			}
+		} else if (ac instanceof Form) {
+			BoxChangeAction action = new BoxChangeAction("fieldSet");
+			action.setModelType((Form) ac, FieldSet.class);
+			als.add(action);
+		} else if (ac instanceof FieldSet) {
+			BoxChangeAction action = new BoxChangeAction("form");
+			action.setModelType((FieldSet) ac, Form.class);
+			als.add(action);
+		} else if (ac instanceof HBox) {
+			BoxChangeAction action = new BoxChangeAction("VBox");
+			action.setModelType((HBox) ac, VBox.class);
+			als.add(action);
+		} else if (ac instanceof VBox) {
+			BoxChangeAction action = new BoxChangeAction("HBox");
+			action.setModelType((VBox) ac, HBox.class);
+			als.add(action);
+		}
+		return als.toArray(new Action[als.size()]);
+
+	}
+
+	public class InputsTypeChangeAction extends TypeChangeAction {
+
+		private ArrayList<TypeChangeAction> runningActions = new ArrayList<TypeChangeAction>();
+		private String newType;
+
+		public InputsTypeChangeAction(String text) {
+			super(text);
+			this.newType = text;
+			String imageKey = "";
+			if (Input.Combo.equals(text))
+				imageKey = "palette/itembar_01.png";
+			else if (Input.DATE_PICKER.equals(text)
+					|| Input.DATETIMEPICKER.equals(text))
+				imageKey = "palette/itembar_02.png";
+			else if (Input.LOV.endsWith(text))
+				imageKey = "palette/itembar_03.png";
+			else if (Input.NUMBER.endsWith(text))
+				imageKey = "palette/itembar_05.png";
+			else if (Input.TEXT.equals(text))
+				imageKey = "palette/itembar_04.png";
+			else if (CheckBox.CHECKBOX.equals(text))
+				imageKey = "palette/checkbox_01.png";
+			setImageDescriptor(PrototypeImagesUtils
+					.getImageDescriptor(imageKey));
+		}
+
+		public void run() {
+			// runningActions
+			for (IAction a : runningActions) {
+				a.run();
+			}
+		}
+
+		public void apply() {
+			for (TypeChangeAction a : runningActions) {
+				a.apply();
+			}
+		}
+
+		@Override
+		public void unApply() {
+			for (TypeChangeAction a : runningActions) {
+				a.unApply();
+			}
+		}
+
+		public void setSelection(IStructuredSelection ss) {
+			Object[] array = ss.toArray();
+			for (Object object : array) {
+				AuroraComponent ac = (AuroraComponent) ((ComponentPart) object)
+						.getModel();
+				InputTypeChangeAction action = new InputTypeChangeAction(
+						this.newType);
+				action.setInput((Input) ac);
+				runningActions.add(action);
+			}
+		}
+
+	}
+
 }
