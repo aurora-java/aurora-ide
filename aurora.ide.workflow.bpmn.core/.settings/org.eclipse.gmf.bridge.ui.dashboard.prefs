@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/aurora.ide.workflow.bpmn.core/model/BPMN20.genmodel
+gmf_dashboard/domainModel=platform\:/resource/aurora.ide.workflow.bpmn.core/model/BPMN20.ecore
+gmf_dashboard/generationModel=platform\:/resource/aurora.ide.workflow.bpmn.core/model/BPMN20.gmfgen
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/aurora.ide.workflow.bpmn.core/model/BPMN20.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/aurora.ide.workflow.bpmn.core/model/BPMN20.gmfmap
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/aurora.ide.workflow.bpmn.core/model/BPMN20.gmftool
