@@ -189,7 +189,10 @@ public class TreeNodeFigure extends Figure {
 	}
 
 	private boolean isCheckTree() {
-		return getTree().isCheckedTree();
+		CustomTree tree2 = getTree();
+		if (tree2 == null)
+			return false;
+		return tree2.isCheckedTree();
 	}
 
 	public boolean isExpand() {
@@ -209,6 +212,9 @@ public class TreeNodeFigure extends Figure {
 	}
 
 	private CustomTree getTree(AuroraComponent treeNode) {
+		if (treeNode == null) {
+			return null;
+		}
 		Container parent = treeNode.getParent();
 		if (parent instanceof CustomTree) {
 			return (CustomTree) parent;

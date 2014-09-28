@@ -2,12 +2,9 @@ package aurora.ide.prototype.consultant.product;
 
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
-import org.eclipse.swt.graphics.DeviceData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-
-import aurora.ide.prototype.consultant.sleak.Sleak;
 
 /**
  * This class controls all aspects of the application's execution
