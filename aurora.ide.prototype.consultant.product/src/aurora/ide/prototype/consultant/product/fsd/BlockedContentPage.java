@@ -112,6 +112,8 @@ public class BlockedContentPage {
 				+ Messages.ContentPage_1 + " : ");
 		mdp.addParagraphOfText(""); //$NON-NLS-1$
 
+		updateTabSelectCurrent(screenBody);
+		
 		try {
 			mdp.getContent()
 					.add(newImage(
@@ -133,6 +135,19 @@ public class BlockedContentPage {
 		List<AuroraComponent> buttons = getFSDOperation(screenBody);
 		createButtonsContent(mdp, buttons);
 		createTabContent(screenBody);
+	}
+
+	private void updateTabSelectCurrent(ScreenBody screenBody) {
+		boolean hasTab = this.hasTab(screenBody);
+		if(hasTab){
+			List<TabFolder> tabs = this.getTabs(screenBody);
+			for (TabFolder tabFolder : tabs) {
+				ArrayList<TabItem> tabItems = tabFolder.getTabItems();
+				if(tabItems.size()>0){
+					tabItems.get(0).setCurrent(true);
+				}
+			}
+		}
 	}
 
 	public void createContentInfo(MainDocumentPart mdp, Container container) {
@@ -237,6 +252,8 @@ public class BlockedContentPage {
 		for (TabFolder tabFolder : tabs) {
 			ArrayList<TabItem> tabItems = tabFolder.getTabItems();
 			for (TabItem c : tabItems) {
+				boolean current = c.isCurrent();
+				System.out.println(current);
 				ScreenBody sb = createNewTab(c);
 
 				mdp.addStyledParagraphOfText("3", c.getPrompt() + "Tab : ");

@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISharedImages;
@@ -272,6 +273,16 @@ public class NavigationView extends ViewPart {
 					IWorkbenchPage page = getViewSite().getWorkbenchWindow()
 							.getActivePage();
 					try {
+						IEditorReference[] editorReferences = page.getEditorReferences();
+						for (IEditorReference iEditorReference : editorReferences) {
+							IEditorInput editorInput = iEditorReference.getEditorInput();
+							if(input.equals(editorInput)){
+								boolean openConfirm = MessageDialog.openConfirm(getSite().getShell(), Messages.NavigationView_0, Messages.NavigationView_6);
+								if(openConfirm){
+									page.closeEditor(iEditorReference.getEditor(true), true);	
+								}
+							}
+						}
 						page.openEditor(input, FSDEditor.EDITOR_ID);
 					} catch (PartInitException e) {
 					}
@@ -294,7 +305,7 @@ public class NavigationView extends ViewPart {
 
 		if (getSelectionNode() != null)
 			menu.add(new Action(
-					aurora.ide.prototype.consultant.view.Messages.NavigationView_4) { //$NON-NLS-1$
+					"") { //$NON-NLS-1$
 
 				@Override
 				public void run() {
