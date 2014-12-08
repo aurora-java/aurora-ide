@@ -32,7 +32,7 @@ public class CreateFunctionPage extends UWizardPage {
 		this.f_parent = parent;
 	}
 
-	private TextField createInputField(Composite parent, String label,
+	protected TextField createInputField(Composite parent, String label,
 			String key) {
 		TextField createTextField = WidgetFactory
 				.createTextField(parent, label);
