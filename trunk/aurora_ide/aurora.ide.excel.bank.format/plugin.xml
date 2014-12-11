@@ -56,5 +56,17 @@
          </menu>
       </menuContribution>
    </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="aurora.ide.excel.bank.format.application"
+            name="Aurora Application">
+         <property
+               name="appName"
+               value="Aurora Application">
+         </property>
+      </product>
+   </extension>
 
 </plugin>
