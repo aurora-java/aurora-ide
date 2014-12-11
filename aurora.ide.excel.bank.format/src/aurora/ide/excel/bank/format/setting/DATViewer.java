@@ -29,7 +29,7 @@ public class DATViewer extends CTableViewer {
 						return ((CompositeMap) element).getText();
 					}
 					if (i == 1) {
-						return ((CompositeMap) element).getString("value", "");
+						return ((CompositeMap) element).getString("value", ""); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}
 				return ""; //$NON-NLS-1$
@@ -50,7 +50,7 @@ public class DATViewer extends CTableViewer {
 				clickAddButton(tableComposite.getShell(), tv);
 			}
 		});
-		Button edit = WidgetFactory.button(buttonComposite, "编辑");
+		Button edit = WidgetFactory.button(buttonComposite, Messages.DATViewer_2);
 		edit.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -78,10 +78,10 @@ public class DATViewer extends CTableViewer {
 				return;
 
 			CompositeMap firstElement = (CompositeMap) ss.getFirstElement();
-			if ("data".equals(firstElement.getName())) {
+			if ("data".equals(firstElement.getName())) { //$NON-NLS-1$
 				super.clickDelButton(tv);
 			} else {
-				MessageDialog.openInformation(shell, "INFO", "不能删除"
+				MessageDialog.openInformation(shell, Messages.DATViewer_4, Messages.DATViewer_5
 						+ firstElement.getText());
 			}
 		}
@@ -97,14 +97,14 @@ public class DATViewer extends CTableViewer {
 			CompositeMap firstElement = (CompositeMap) ss.getFirstElement();
 
 			IDXInputDialog d = new IDXInputDialog(shell);
-			d.setCode(firstElement.getString("name", ""));
+			d.setCode(firstElement.getString("name", "")); //$NON-NLS-1$ //$NON-NLS-2$
 			d.setDesc(firstElement.getText());
-			d.setValue(firstElement.getString("value", ""));
+			d.setValue(firstElement.getString("value", "")); //$NON-NLS-1$ //$NON-NLS-2$
 			int open = d.open();
 			if (IDXInputDialog.OK == open) {
 				firstElement.setText(d.getDesc());
-				firstElement.put("name", d.getCode());
-				firstElement.put("value", d.getValue());
+				firstElement.put("name", d.getCode()); //$NON-NLS-1$
+				firstElement.put("value", d.getValue()); //$NON-NLS-1$
 				setInput(tv);
 			}
 		}
@@ -112,12 +112,12 @@ public class DATViewer extends CTableViewer {
 
 	protected void clickAddButton(Shell shell, TableViewer tv) {
 		IDXInputDialog d = new IDXInputDialog(shell);
-		d.setCode("data");
-		d.setDesc("数据值列");
-		d.setValue("3");
+		d.setCode("data"); //$NON-NLS-1$
+		d.setDesc(Messages.DATViewer_13);
+		d.setValue("3"); //$NON-NLS-1$
 		int open = d.open();
 		if (IDXInputDialog.OK == open) {
-			CompositeMap m = PreferencesSetting.createMap("data", d.getDesc(),
+			CompositeMap m = PreferencesSetting.createMap("data", d.getDesc(), //$NON-NLS-1$
 					d.getValue());
 			getTableInput().add(m);
 			setInput(tv);

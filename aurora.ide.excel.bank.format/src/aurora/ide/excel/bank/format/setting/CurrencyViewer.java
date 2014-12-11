@@ -32,7 +32,7 @@ public class CurrencyViewer extends CTableViewer {
 						return getUnit(element);
 					}
 				}
-				return "";
+				return ""; //$NON-NLS-1$
 			}
 		};
 	}
@@ -50,7 +50,7 @@ public class CurrencyViewer extends CTableViewer {
 				clickAddButton(tableComposite.getShell(), tv);
 			}
 		});
-		Button edit = WidgetFactory.button(buttonComposite, "编辑");
+		Button edit = WidgetFactory.button(buttonComposite, Messages.CurrencyViewer_1);
 		edit.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -84,8 +84,8 @@ public class CurrencyViewer extends CTableViewer {
 			if (CurrencyInputDialog.OK == open) {
 				CompositeMap m = CurrencySetting.createMap(
 						d.getCurrency_type(), d.getUnit());
-				firstElement.put("currency_type", this.getCurType(m));
-				firstElement.put("unit", this.getUnit(m));
+				firstElement.put("currency_type", this.getCurType(m)); //$NON-NLS-1$
+				firstElement.put("unit", this.getUnit(m)); //$NON-NLS-1$
 				setInput(tv);
 			}
 
@@ -105,11 +105,11 @@ public class CurrencyViewer extends CTableViewer {
 	}
 
 	public String getCurType(Object element) {
-		return ((CompositeMap) element).getString("currency_type", "");
+		return ((CompositeMap) element).getString("currency_type", ""); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	public String getUnit(Object element) {
-		return ((CompositeMap) element).getString("unit", "");
+		return ((CompositeMap) element).getString("unit", ""); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 }

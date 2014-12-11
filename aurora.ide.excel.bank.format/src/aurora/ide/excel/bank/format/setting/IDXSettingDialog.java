@@ -59,7 +59,7 @@ public class IDXSettingDialog extends Dialog {
 		c2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label l = new Label(c2, SWT.NONE);
-		l.setText("IDX设置");
+		l.setText(Messages.IDXSettingDialog_0);
 		l.setFont(JFaceResources.getBannerFont());
 		WidgetFactory.hSeparator(c2);
 
@@ -73,18 +73,18 @@ public class IDXSettingDialog extends Dialog {
 		
 
 		l = new Label(c0, SWT.NONE);
-		l.setText("描述");
+		l.setText(Messages.IDXSettingDialog_1);
 
 		final Text t = new Text(c0, SWT.BORDER);
 		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		if (idxMap.getString("desc") != null) {
-			t.setText(idxMap.getString("desc", ""));
+		if (idxMap.getString("desc") != null) { //$NON-NLS-1$
+			t.setText(idxMap.getString("desc", "")); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		t.addModifyListener(new ModifyListener() {
 
 			@Override
 			public void modifyText(ModifyEvent e) {
-				getIdxMap().put("desc", t.getText());
+				getIdxMap().put("desc", t.getText()); //$NON-NLS-1$
 			}
 		});
 		
@@ -96,8 +96,8 @@ public class IDXSettingDialog extends Dialog {
 
 
 		idxViewer = new IDXViewer();
-		idxViewer.addColumn("字段名", 150);
-		idxViewer.addColumn("字段值", 150);
+		idxViewer.addColumn(Messages.IDXSettingDialog_6, 150);
+		idxViewer.addColumn(Messages.IDXSettingDialog_7, 150);
 		idxViewer.setInput(getIdxMap().getChildsNotNull());
 		tableViewer = idxViewer.createContentTable(c);
 		return c;
@@ -115,12 +115,12 @@ public class IDXSettingDialog extends Dialog {
 	}
 
 	public CompositeMap getResult() {
-		CompositeMap m = new CompositeMap("idx");
+		CompositeMap m = new CompositeMap("idx"); //$NON-NLS-1$
 		List<Object> input = this.idxViewer.getInput();
 		for (Object object : input) {
 			m.addChild((CompositeMap) object);
 		}
-		m.put("desc", idxMap.getString("desc", ""));
+		m.put("desc", idxMap.getString("desc", "")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return m;
 
 	}

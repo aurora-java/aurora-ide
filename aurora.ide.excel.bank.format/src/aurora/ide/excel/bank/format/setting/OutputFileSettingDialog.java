@@ -55,7 +55,7 @@ public class OutputFileSettingDialog extends Dialog {
 		c2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label l = new Label(c2, SWT.NONE);
-		l.setText("通讯接口文件");
+		l.setText(Messages.OutputFileSettingDialog_0);
 		l.setFont(JFaceResources.getBannerFont());
 		WidgetFactory.hSeparator(c2);
 
@@ -73,16 +73,17 @@ public class OutputFileSettingDialog extends Dialog {
 		// 23 批次
 		// 24 顺序号（文件名的顺序码没有特别的含义，主要为区分多次报送而设置，也可以在数据修改阶段，用于对不同时间报送的数据进行区分）
 
-		final Text t1 = createProperty(c, "代号");
-		t1.addModifyListener(new ModifyListener() {
-
-			@Override
-			public void modifyText(ModifyEvent e) {
-				getSetting().setCode(t1.getText());
-			}
-		});
-		t1.setText("B");
-		final Text t2 = createProperty(c, "机构类代码");
+		// final Text t1 = createProperty(c,
+		// Messages.OutputFileSettingDialog_1);
+		// t1.addModifyListener(new ModifyListener() {
+		//
+		// @Override
+		// public void modifyText(ModifyEvent e) {
+		// getSetting().setCode(t1.getText());
+		// }
+		// });
+		//		t1.setText("B"); //$NON-NLS-1$
+		final Text t2 = createProperty(c, Messages.OutputFileSettingDialog_3);
 		t2.addModifyListener(new ModifyListener() {
 
 			@Override
@@ -90,8 +91,8 @@ public class OutputFileSettingDialog extends Dialog {
 				getSetting().setOrg_code(t2.getText());
 			}
 		});
-		t2.setText("c302");
-		final Text t3 = createProperty(c, "地区代码");
+		t2.setText("g305"); //$NON-NLS-1$
+		final Text t3 = createProperty(c, Messages.OutputFileSettingDialog_5);
 		t3.addModifyListener(new ModifyListener() {
 
 			@Override
@@ -99,8 +100,8 @@ public class OutputFileSettingDialog extends Dialog {
 				getSetting().setArea_code(t3.getText());
 			}
 		});
-		t3.setText("1201070");
-		final Text t4 = createProperty(c, "日期");
+		t3.setText("1200000"); //$NON-NLS-1$
+		final Text t4 = createProperty(c, Messages.OutputFileSettingDialog_7);
 		t4.addModifyListener(new ModifyListener() {
 
 			@Override
@@ -108,9 +109,9 @@ public class OutputFileSettingDialog extends Dialog {
 				getSetting().setDate(t4.getText());
 			}
 		});
-		t4.setText((new java.text.SimpleDateFormat("yyyyMMdd"))
+		t4.setText((new java.text.SimpleDateFormat("yyyyMMdd")) //$NON-NLS-1$
 				.format(new Date()));
-		final Text t5 = createProperty(c, "频度");
+		final Text t5 = createProperty(c, Messages.OutputFileSettingDialog_9);
 		t5.addModifyListener(new ModifyListener() {
 
 			@Override
@@ -118,8 +119,8 @@ public class OutputFileSettingDialog extends Dialog {
 				getSetting().setRate(t5.getText());
 			}
 		});
-		t5.setText("1");
-		final Text t6 = createProperty(c, "批次");
+		t5.setText("4"); //$NON-NLS-1$
+		final Text t6 = createProperty(c, Messages.OutputFileSettingDialog_11);
 		t6.addModifyListener(new ModifyListener() {
 
 			@Override
@@ -127,8 +128,8 @@ public class OutputFileSettingDialog extends Dialog {
 				getSetting().setBatch(t6.getText());
 			}
 		});
-		t6.setText("1");
-		final Text t7 = createProperty(c, "顺序号");
+		t6.setText("1"); //$NON-NLS-1$
+		final Text t7 = createProperty(c, Messages.OutputFileSettingDialog_13);
 		t7.addModifyListener(new ModifyListener() {
 
 			@Override
@@ -136,7 +137,7 @@ public class OutputFileSettingDialog extends Dialog {
 				getSetting().setOrder(t7.getText());
 			}
 		});
-		t7.setText("1");
+		t7.setText("1"); //$NON-NLS-1$
 		return c;
 	}
 
