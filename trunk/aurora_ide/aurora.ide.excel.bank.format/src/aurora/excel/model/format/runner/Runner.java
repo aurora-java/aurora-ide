@@ -39,20 +39,20 @@ public class Runner {
 			List<String> lines = makeIDXFile.getLines();
 			for (String string : lines) {
 				idxSB.append(string);
-				idxSB.append("\n");
+				idxSB.append("\n"); //$NON-NLS-1$
 			}
 			List<String> lines2 = makeDATFile.getLines();
 			for (String string : lines2) {
 				datSB.append(string);
-				datSB.append("\n");
+				datSB.append("\n"); //$NON-NLS-1$
 			}
 		}
 
 		try {
-			writeFile(fileName("I") + ".IDX", idxSB.toString());
-			writeFile(fileName("J") + ".DAT", datSB.toString());
-			writeFile(fileName("D") + ".TXT", (new java.text.SimpleDateFormat(
-					"yyyy年MM月dd日")).format(new Date()) + "邦银金融租赁股份有限公司数据说明");
+			writeFile(fileName("BI") + ".IDX", idxSB.toString()); //$NON-NLS-1$ //$NON-NLS-2$
+			writeFile(fileName("BJ") + ".DAT", datSB.toString()); //$NON-NLS-1$ //$NON-NLS-2$
+			writeFile(fileName("AD") + ".TXT", (new java.text.SimpleDateFormat( //$NON-NLS-1$ //$NON-NLS-2$
+					Messages.Runner_8)).format(new Date()) + Messages.Runner_9);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
@@ -62,13 +62,15 @@ public class Runner {
 
 	private String fileName(String d) {
 		OutputFileSetting o = outputFileSetting;
-		String s = o.getCode() + d + o.getOrg_code() + o.getArea_code()
-				+ o.getDate() + o.getRate() + o.getBatch() + o.getOrder();
+		String s =
+		// o.getCode() +
+		d + o.getOrg_code() + o.getArea_code() + o.getDate() + o.getRate()
+				+ o.getBatch() + o.getOrder();
 		return s;
 	}
 
 	public void writeFile(String fileName, String content) throws IOException {
-		FileWriter fw = new FileWriter(savePath + "/" + fileName);
+		FileWriter fw = new FileWriter(savePath + "/" + fileName); //$NON-NLS-1$
 		fw.write(content, 0, content.length());
 		fw.flush();
 	}

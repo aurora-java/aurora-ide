@@ -52,7 +52,7 @@ public class CurrencyInputDialog extends Dialog {
 		ly.numColumns = 2;
 
 		Label n = new Label(c, SWT.NONE);
-		n.setText("币种类型");
+		n.setText(Messages.CurrencyInputDialog_0);
 		final Text t = new Text(c, SWT.BORDER);
 		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		t.addModifyListener(new ModifyListener() {
@@ -63,7 +63,7 @@ public class CurrencyInputDialog extends Dialog {
 			}
 		});
 		n = new Label(c, SWT.NONE);
-		n.setText("币种单位");
+		n.setText(Messages.CurrencyInputDialog_1);
 		final Text t2 = new Text(c, SWT.BORDER);
 		t2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		t2.addModifyListener(new ModifyListener() {

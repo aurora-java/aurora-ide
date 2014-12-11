@@ -17,7 +17,7 @@ public class XLSFile extends AbstractXLSFile {
 
 	private int key_word_start;
 
-	public XLSFile(XLSFileSetting setting,int key_word_start) {
+	public XLSFile(XLSFileSetting setting, int key_word_start) {
 		super();
 		this.setting = setting;
 		this.setFilePath(setting.getFilePath());
@@ -105,7 +105,10 @@ public class XLSFile extends AbstractXLSFile {
 					List<String> dds = datas.get(i).getDatas();
 					String target_code = dds.get(target_code_c);
 					String data = dds.get(col);
-					if ("".equals(target_code) && "".equals(data))
+					if (target_code == null || data == null
+							|| "".equals(target_code.trim())
+							|| "".equals(data.trim())
+							|| "0".equals(data.trim()))
 						continue;
 					dat.addHead(new DATLine(key_word_code, target_code, data)
 							.toDATString());
@@ -114,21 +117,6 @@ public class XLSFile extends AbstractXLSFile {
 		}
 
 		return dat;
-	}
-
-	public static void main(String[] args) {
-		XLSFile a = new XLSFile(null,1);
-		a.setFilePath("/Users/shiliyan/Desktop/组合文件格式/示例/A1463.xls");
-		DAT makeDATFile = a.makeDATFile();
-		IDX makeIDXFile = a.makeIDXFile();
-		List<String> lines2 = makeIDXFile.getLines();
-		for (String string : lines2) {
-			System.out.println(string);
-		}
-		List<String> lines = makeDATFile.getLines();
-		for (String string : lines) {
-			System.out.println(string);
-		}
 	}
 
 	public XLSFileSetting getSetting() {

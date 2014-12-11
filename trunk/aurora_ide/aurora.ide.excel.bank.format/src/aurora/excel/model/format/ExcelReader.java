@@ -129,27 +129,6 @@ public class ExcelReader {
 
 	}
 
-	public static void main(String[] args) {
-		try {
-			InputStream is = new FileInputStream(
-					"/Users/shiliyan/Desktop/组合文件格式/示例/A1463.xls");
-			ExcelReader excelReader = new ExcelReader();
-			String[] title = excelReader.readExcelTitle(is);
-			for (String s : title) {
-				System.out.print(s + " ");
-			}
-
-			InputStream is2 = new FileInputStream(
-					"/Users/shiliyan/Desktop/组合文件格式/示例/A1463.xls");
-			List<XLSLine> map = excelReader.readExcelContent(is2);
-			for (XLSLine xlsLine : map) {
-				// System.out.println(xlsLine.);
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public int getStart() {
 		return start;

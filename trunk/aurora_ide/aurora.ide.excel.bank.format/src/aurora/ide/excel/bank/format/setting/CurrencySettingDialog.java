@@ -59,7 +59,7 @@ public class CurrencySettingDialog extends Dialog {
 		c2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label l = new Label(c2, SWT.NONE);
-		l.setText("币种");
+		l.setText(Messages.CurrencySettingDialog_0);
 		l.setFont(JFaceResources.getBannerFont());
 		WidgetFactory.hSeparator(c2);
 
@@ -70,8 +70,8 @@ public class CurrencySettingDialog extends Dialog {
 		ly.numColumns = 2;
 
 		v2 = new CurrencyViewer();
-		v2.addColumn("币种", 100);
-		v2.addColumn("币种单位", 100);
+		v2.addColumn(Messages.CurrencySettingDialog_1, 100);
+		v2.addColumn(Messages.CurrencySettingDialog_2, 100);
 		v2.setInput(loadCurrency.getChildsNotNull());
 		tableViewer = v2.createContentTable(c);
 		return c;
@@ -106,7 +106,7 @@ public class CurrencySettingDialog extends Dialog {
 				return;
 			}
 		}
-		MessageDialog.openInformation(this.getShell(), "INFO", "未选择币种");
+		MessageDialog.openInformation(this.getShell(), Messages.CurrencySettingDialog_3, Messages.CurrencySettingDialog_4);
 	}
 
 	public CompositeMap getFirstElement() {

@@ -32,7 +32,7 @@ import aurora.ide.excel.bank.format.setting.PreferencesSetting;
 import aurora.ide.excel.bank.format.setting.PropertySettingDialog;
 
 public class View extends ViewPart {
-	public static final String ID = "aurora.ide.excel.bank.format.view";
+	public static final String ID = "aurora.ide.excel.bank.format.view"; //$NON-NLS-1$
 
 	private TableViewer viewer;
 
@@ -95,7 +95,7 @@ public class View extends ViewPart {
 			protected void createButton(final Composite tableComposite,
 					final TableViewer tv, Composite buttonComposite) {
 				super.createButton(tableComposite, tv, buttonComposite);
-				Button convert = WidgetFactory.button(buttonComposite, "运行");
+				Button convert = WidgetFactory.button(buttonComposite, Messages.View_1);
 				convert.addSelectionListener(new SelectionAdapter() {
 
 					@Override
@@ -114,8 +114,8 @@ public class View extends ViewPart {
 						.open();
 			}
 		};
-		v.addColumn("表单码", 100);
-		v.addColumn("表单地址", 300);
+		v.addColumn(Messages.View_2, 100);
+		v.addColumn(Messages.View_3, 300);
 		viewer = v.createContentTable(parent);
 	}
 
@@ -126,13 +126,13 @@ public class View extends ViewPart {
 		if (OutputFileSettingDialog.OK == open) {
 			DirectoryDialog dialog = new DirectoryDialog(this.getSite()
 					.getShell());
-			dialog.setText("保存地址");
+			dialog.setText(Messages.View_4);
 			String _path = dialog.open();
 			if (_path != null && _path.length() > 0) {
 				List<Object> input = v.getInput();
 				List<XLSFileSetting> settings = new ArrayList<XLSFileSetting>();
 				for (Object object : input) {
-					String path = "" + object;
+					String path = "" + object; //$NON-NLS-1$
 					String fName = new Path(path).removeFileExtension()
 							.lastSegment();
 					XLSFileSetting set = new XLSFileSetting();
@@ -143,7 +143,7 @@ public class View extends ViewPart {
 				boolean run = new Runner(d.getSetting(), settings, _path).run();
 				if (run) {
 					MessageDialog.openInformation(this.getSite().getShell(),
-							"完成", "转换完成");
+							Messages.View_6, Messages.View_7);
 				}
 			}
 		}

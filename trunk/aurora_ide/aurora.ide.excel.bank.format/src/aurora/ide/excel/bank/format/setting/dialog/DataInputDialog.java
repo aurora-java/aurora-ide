@@ -22,7 +22,7 @@ public class DataInputDialog extends Dialog {
 
 	private String desc;
 	private String value;
-	private String code = "data";
+	private String code = "data"; //$NON-NLS-1$
 
 	public DataInputDialog(Shell parentShell) {
 		super(parentShell);
@@ -53,7 +53,7 @@ public class DataInputDialog extends Dialog {
 		ly.numColumns = 2;
 
 		Label n = new Label(c, SWT.NONE);
-		n.setText("描述");
+		n.setText(Messages.DataInputDialog_1);
 		final Text t = new Text(c, SWT.BORDER);
 		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		t.addModifyListener(new ModifyListener() {
@@ -64,7 +64,7 @@ public class DataInputDialog extends Dialog {
 			}
 		});
 		n = new Label(c, SWT.NONE);
-		n.setText("值");
+		n.setText(Messages.DataInputDialog_2);
 		final Text t2 = new Text(c, SWT.BORDER);
 		t2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		t2.addModifyListener(new ModifyListener() {

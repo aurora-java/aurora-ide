@@ -56,13 +56,13 @@ public class PropertySettingDialog extends Dialog {
 
 	private CompositeMap createSetting() {
 
-		CompositeMap compositeMap = new CompositeMap("xls_setting");
+		CompositeMap compositeMap = new CompositeMap("xls_setting"); //$NON-NLS-1$
 		List<Object> input = v2.getInput();
 		for (Object object : input) {
 			compositeMap.addChild((CompositeMap) object);
 		}
 		//
-		CompositeMap dat = new CompositeMap("dat");
+		CompositeMap dat = new CompositeMap("dat"); //$NON-NLS-1$
 		List<Object> input2 = this.datViewer.getInput();
 		for (Object object : input2) {
 			dat.addChild((CompositeMap) object);
@@ -102,19 +102,19 @@ public class PropertySettingDialog extends Dialog {
 		ly.numColumns = 2;
 
 		datViewer = new DATViewer();
-		datViewer.addColumn("字段名", 150);
-		datViewer.addColumn("行/列", 150);
-		datViewer.setInput(xlsSetting.getChild("dat").getChildsNotNull());
+		datViewer.addColumn(Messages.PropertySettingDialog_2, 150);
+		datViewer.addColumn(Messages.PropertySettingDialog_3, 150);
+		datViewer.setInput(xlsSetting.getChild("dat").getChildsNotNull()); //$NON-NLS-1$
 
 		l = new Label(c, SWT.NONE);
-		l.setText("头文件设置");
+		l.setText(Messages.PropertySettingDialog_5);
 		GridData d1 = new GridData(GridData.FILL_HORIZONTAL);
 		d1.horizontalSpan = 2;
 		l.setLayoutData(d1);
 
 		v2 = new IDXListViewer(this.xls_code);
-		v2.addColumn("描述", 100);
-		v2.addColumn("预览", 400);
+		v2.addColumn(Messages.PropertySettingDialog_6, 100);
+		v2.addColumn(Messages.PropertySettingDialog_7, 400);
 
 		v2.setInput(getIDXChilds());
 		v2.createContentTable(c);
@@ -123,7 +123,7 @@ public class PropertySettingDialog extends Dialog {
 
 		WidgetFactory.hSeparator(c).setLayoutData(d1);
 		l = new Label(c, SWT.NONE);
-		l.setText("数据文件设置");
+		l.setText(Messages.PropertySettingDialog_8);
 		l.setLayoutData(d1);
 
 		datViewer.createContentTable(c);
@@ -141,7 +141,7 @@ public class PropertySettingDialog extends Dialog {
 		List childsNotNull = xlsSetting.getChildsNotNull();
 		for (Object object : childsNotNull) {
 			if (object instanceof CompositeMap) {
-				if ("idx".equals(((CompositeMap) object).getName())) {
+				if ("idx".equals(((CompositeMap) object).getName())) { //$NON-NLS-1$
 					l.add((CompositeMap) object);
 				}
 			}

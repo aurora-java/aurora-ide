@@ -13,14 +13,14 @@ public class CurrencySetting {
 	static public void saveCurrency(CompositeMap map) {
 		IPreferenceStore preferenceStore = Activator.getDefault()
 				.getPreferenceStore();
-		preferenceStore.setValue("CURRENCY_INFO", map.toXML());
+		preferenceStore.setValue("CURRENCY_INFO", map.toXML()); //$NON-NLS-1$
 	}
 
 	static public CompositeMap loadCurrency() {
 		IPreferenceStore preferenceStore = Activator.getDefault()
 				.getPreferenceStore();
-		String xml = preferenceStore.getString("CURRENCY_INFO");
-		if (xml == null || "".equals(xml))
+		String xml = preferenceStore.getString("CURRENCY_INFO"); //$NON-NLS-1$
+		if (xml == null || "".equals(xml)) //$NON-NLS-1$
 			return defaultCurrency();
 		try {
 			CompositeMap map = CompositeLoader.createInstanceForOCM()
@@ -35,16 +35,16 @@ public class CurrencySetting {
 	}
 
 	static public CompositeMap defaultCurrency() {
-		CompositeMap compositeMap = new CompositeMap("CURRENCY_INFO");
-		CompositeMap m = createMap("CNY0001", "5");
+		CompositeMap compositeMap = new CompositeMap("CURRENCY_INFO"); //$NON-NLS-1$
+		CompositeMap m = createMap("CNY0001", "5"); //$NON-NLS-1$ //$NON-NLS-2$
 		compositeMap.addChild(m);
 		return compositeMap;
 	}
 
 	public static CompositeMap createMap(String c_type, String unit) {
-		CompositeMap m = new CompositeMap("c");
-		m.put("currency_type", c_type);
-		m.put("unit", unit);
+		CompositeMap m = new CompositeMap("c"); //$NON-NLS-1$
+		m.put("currency_type", c_type); //$NON-NLS-1$
+		m.put("unit", unit); //$NON-NLS-1$
 		return m;
 	}
 }

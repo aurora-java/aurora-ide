@@ -8,6 +8,19 @@ public class Messages extends NLS {
 	public static String CTableViewer_1;
 	public static String CTableViewer_2;
 	public static String CTableViewer_3;
+	public static String CurrencyViewer_1;
+	public static String DATViewer_13;
+	public static String DATViewer_2;
+	public static String DATViewer_4;
+	public static String DATViewer_5;
+	public static String IDXListViewer_3;
+	public static String IDXViewer_2;
+	public static String View_1;
+	public static String View_2;
+	public static String View_3;
+	public static String View_4;
+	public static String View_6;
+	public static String View_7;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

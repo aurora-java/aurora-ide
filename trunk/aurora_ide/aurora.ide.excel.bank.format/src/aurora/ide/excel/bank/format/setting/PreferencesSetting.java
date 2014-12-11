@@ -21,7 +21,7 @@ public class PreferencesSetting {
 		IPreferenceStore preferenceStore = Activator.getDefault()
 				.getPreferenceStore();
 		String xml = preferenceStore.getString(xls_code);
-		if (xml == null || "".equals(xml))
+		if (xml == null || "".equals(xml)) //$NON-NLS-1$
 			return defaultXLSSetting(xls_code);
 		try {
 			CompositeMap map = CompositeLoader.createInstanceForOCM()
@@ -36,15 +36,15 @@ public class PreferencesSetting {
 	}
 
 	static public CompositeMap defaultXLSSetting(String xls_code) {
-		CompositeMap compositeMap = new CompositeMap("xls_setting");
+		CompositeMap compositeMap = new CompositeMap("xls_setting"); //$NON-NLS-1$
 
 		CompositeMap m = defautIDXMap(xls_code);
 		compositeMap.addChild(m);
 
-		CompositeMap dat = new CompositeMap("dat");
-		dat.addChild(createMap("start_row", "数据开始行号", "6"));
-		dat.addChild(createMap("target_code", "指标代码列", "1"));
-		CompositeMap createMap = createMap("data", "数据值列", "3");
+		CompositeMap dat = new CompositeMap("dat"); //$NON-NLS-1$
+		dat.addChild(createMap("start_row", Messages.PreferencesSetting_4, "6")); //$NON-NLS-1$ //$NON-NLS-3$
+		dat.addChild(createMap("target_code", Messages.PreferencesSetting_7, "1")); //$NON-NLS-1$ //$NON-NLS-3$
+		CompositeMap createMap = createMap("data", Messages.PreferencesSetting_10, "3"); //$NON-NLS-1$ //$NON-NLS-3$
 //		createMap.put("idx", "0");
 		dat.addChild(createMap);
 		compositeMap.addChild(dat);
@@ -52,25 +52,25 @@ public class PreferencesSetting {
 	}
 
 	public static CompositeMap defautIDXMap(String xls_code) {
-		CompositeMap m = new CompositeMap("idx");
+		CompositeMap m = new CompositeMap("idx"); //$NON-NLS-1$
 		// m.addChild(createMap("key_word_code", "关键字代码", ""));
-		m.addChild(createMap("xls_code", "表单代码", xls_code));
-		m.addChild(createMap("org_code", "机构类代码", "c302"));
-		m.addChild(createMap("area_code", "地区代码", "1201070"));
-		m.addChild(createMap("data_type", "数据属性", "1"));
-		m.addChild(createMap("currency_type", "币种", "CNY0001"));
-		m.addChild(createMap("unit", "单位", "5"));
-		m.addChild(createMap("b_data_flag", "业务数据标志", "1"));
-		m.addChild(createMap("num_type", "数值型类型", "1"));
-		m.addChild(createMap("std_org_code", "标准化机构编码", "C5003912000016"));
-		m.put("desc", "默认");
+		m.addChild(createMap("xls_code", Messages.PreferencesSetting_14, xls_code)); //$NON-NLS-1$
+		m.addChild(createMap("org_code", Messages.PreferencesSetting_16, "c302")); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("area_code", Messages.PreferencesSetting_19, "1201070")); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("data_type", Messages.PreferencesSetting_22, "1")); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("currency_type", Messages.PreferencesSetting_25, "CNY0001")); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("unit", Messages.PreferencesSetting_28, "5")); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("b_data_flag", Messages.PreferencesSetting_31, "1")); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("num_type", Messages.PreferencesSetting_34, "1")); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("std_org_code", Messages.PreferencesSetting_37, "C5003912000016")); //$NON-NLS-1$ //$NON-NLS-3$
+		m.put("desc", Messages.PreferencesSetting_40); //$NON-NLS-1$
 		return m;
 	}
 
 	static public CompositeMap createMap(String name, String text, String value) {
 		CompositeMap m = new CompositeMap(name);
-		m.put("name", name);
-		m.put("value", value);
+		m.put("name", name); //$NON-NLS-1$
+		m.put("value", value); //$NON-NLS-1$
 		m.setText(text);
 		return m;
 	}

@@ -31,10 +31,10 @@ public class IDXListViewer extends CTableViewer {
 
 				if (element instanceof CompositeMap) {
 					if (i == 0) {
-						return ((CompositeMap) element).getString("desc", "");
+						return ((CompositeMap) element).getString("desc", ""); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 					if (i == 1) {
-						return "I00006|A3411|c302|1201070|1|CNY0001|5|1|1|C5003912000016";
+						return "I00006|A3411|c302|1201070|1|CNY0001|5|1|1|C5003912000016"; //$NON-NLS-1$
 					}
 				}
 				return ""; //$NON-NLS-1$
@@ -55,7 +55,7 @@ public class IDXListViewer extends CTableViewer {
 				clickAddButton(tableComposite.getShell(), tv);
 			}
 		});
-		Button edit = WidgetFactory.button(buttonComposite, "编辑");
+		Button edit = WidgetFactory.button(buttonComposite, Messages.IDXListViewer_3);
 		edit.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -88,7 +88,7 @@ public class IDXListViewer extends CTableViewer {
 				CompositeMap result = d.getResult();
 				firstElement.clear();
 				firstElement.setName(result.getName());
-				firstElement.put("desc", result.getString("desc", ""));
+				firstElement.put("desc", result.getString("desc", "")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				firstElement.copy(result);
 				setInput(tv);
 			}
