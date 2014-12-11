@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="aurora.ide.excel.bank.format.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="Perspective"
+            class="aurora.ide.excel.bank.format.Perspective"
+            id="aurora.ide.excel.bank.format.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="View"
+            class="aurora.ide.excel.bank.format.view.View"
+            id="aurora.ide.excel.bank.format.view">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               standalone="true"
+               minimized="false"
+               relative="org.eclipse.ui.editorss"
+               relationship="left"
+               showTitle="false"
+               moveable="false"
+               closeable="false"
+               id="aurora.ide.excel.bank.format.view">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="File">
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  label="Exit">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>

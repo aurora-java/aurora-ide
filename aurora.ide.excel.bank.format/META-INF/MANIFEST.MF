@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Format
+Bundle-SymbolicName: aurora.ide.excel.bank.format; singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: aurora.ide.excel.bank.format.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: lib/poi-3.9-20121203.jar,
+ lib/poi-ooxml-3.9-20121203.jar,
+ lib/poi-ooxml-schemas-3.9-20121203.jar,
+ .,
+ lib/uncertain.jar
