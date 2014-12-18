@@ -68,10 +68,13 @@ public class SapUserDistil {
 			ILogger logger) throws Exception {
 		Object[] o = null;
 		if (verifyPseFile.endsWith(".pse")) {
+			logger.info("pse");
 			o = SSO2Ticket.evalLogonTicket(ticket, verifyPseFile, null);
 		} else if (verifyPseFile.endsWith(".cert")) {
+			logger.info("cert");
 			o = certEvalLogonTicket(verifyPseFile, ticket, logger);
 		} else {
+			logger.info("certEvalLogonTicket");
 			o = certEvalLogonTicket(verifyPseFile, ticket, logger);
 		}
 		return o;
@@ -95,11 +98,10 @@ public class SapUserDistil {
 			// evaluate the ticket
 			o = SSO2Ticket.evalLogonTicket(ticket, null, null);
 		} catch (Exception e) {
-			logger.info(e.getCause().getMessage());
+			logger.info(e.getMessage());
 		} catch (Throwable te) {
-			logger.info(te.getCause().getMessage());
+			logger.info(te.getMessage());
 		}
 		return o;
 	}
-
 }
