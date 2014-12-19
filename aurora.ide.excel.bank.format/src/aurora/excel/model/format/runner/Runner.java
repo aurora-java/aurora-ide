@@ -39,12 +39,12 @@ public class Runner {
 			List<String> lines = makeIDXFile.getLines();
 			for (String string : lines) {
 				idxSB.append(string);
-				idxSB.append("\n"); //$NON-NLS-1$
+				idxSB.append("|"); //$NON-NLS-1$
 			}
 			List<String> lines2 = makeDATFile.getLines();
 			for (String string : lines2) {
 				datSB.append(string);
-				datSB.append("\n"); //$NON-NLS-1$
+//				datSB.append("|"); //$NON-NLS-1$
 			}
 		}
 

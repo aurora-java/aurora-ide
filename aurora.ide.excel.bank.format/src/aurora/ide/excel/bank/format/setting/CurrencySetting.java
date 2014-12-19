@@ -7,6 +7,7 @@ import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
+import aurora.excel.model.format.Formater;
 import aurora.ide.excel.bank.format.Activator;
 
 public class CurrencySetting {
@@ -36,7 +37,7 @@ public class CurrencySetting {
 
 	static public CompositeMap defaultCurrency() {
 		CompositeMap compositeMap = new CompositeMap("CURRENCY_INFO"); //$NON-NLS-1$
-		CompositeMap m = createMap("CNY0001", "5"); //$NON-NLS-1$ //$NON-NLS-2$
+		CompositeMap m = createMap(Formater.currency_type, Formater.unit); //$NON-NLS-1$ //$NON-NLS-2$
 		compositeMap.addChild(m);
 		return compositeMap;
 	}

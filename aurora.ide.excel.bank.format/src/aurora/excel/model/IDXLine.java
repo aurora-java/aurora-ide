@@ -1,32 +1,34 @@
 package aurora.excel.model;
 
+import aurora.excel.model.format.Formater;
+
 public class IDXLine {
 	// （1）头文件。
-	// I00006|A3411|c302|1201070|1|CNY0001|5|1|1|C5003912000016
+	// I00006|A3411|c302|1201070|1|CNY0001|5|1|1|D3002412000012
 
 	// 关键字代码 |表单代码|机构类代码|地区代码 |数据属性|币种 | 单位|业务数据标志|数值型类型|标准化机构编码
-	// I00006 A3411 c302 1201070 1 CNY0001 5 1 1 C5003912000016
+	// I00006 A3411 c302 1201070 1 CNY0001 5 1 1 D3002412000012
 
 	// 字段1 关键字代码 6位
 	private String key_word_code = "";
 	// 字段2 表单代码 5位
 	private String xls_code = "";
 	// 字段3 机构类代码 4位
-	private String org_code = "c302";
+	private String org_code = Formater.org_code;
 	// 字段4 地区代码 7位
-	private String area_code = "1201070";
+	private String area_code = Formater.area_code;
 	// 字段5 数据属性 1位〔AB类表单为数据属性，对CD类表单，此处是列号〕
-	private String data_type = "1";
+	private String data_type = Formater.data_type;
 	// 字段6 币种 7位
-	private String currency_type = "CNY0001";
+	private String currency_type = Formater.currency_type;
 	// 字段7 单位 1位
-	private String unit = "5";
+	private String unit = Formater.unit;
 	// 字段8 业务数据标志 1位
-	private String b_data_flag = "1";
+	private String b_data_flag = Formater.b_data_flag;
 	// 字段9 数值型类型 1位（值为“1”）
-	private String num_type = "1";
+	private String num_type = Formater.num_type;
 	// 字段10 标准化机构编码 14位
-	private String std_org_code = "C5003912000016";
+	private String std_org_code = Formater.std_org_code;
 
 	public IDXLine(String key_word_code, String xls_code) {
 		super();
