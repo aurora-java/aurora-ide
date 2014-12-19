@@ -25,6 +25,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import aurora.excel.model.format.Formater;
 import aurora.excel.model.format.runner.Runner;
 import aurora.excel.model.format.runner.XLSFileSetting;
 import aurora.ide.excel.bank.format.setting.OutputFileSettingDialog;
@@ -95,7 +96,8 @@ public class View extends ViewPart {
 			protected void createButton(final Composite tableComposite,
 					final TableViewer tv, Composite buttonComposite) {
 				super.createButton(tableComposite, tv, buttonComposite);
-				Button convert = WidgetFactory.button(buttonComposite, Messages.View_1);
+				Button convert = WidgetFactory.button(buttonComposite,
+						Messages.View_1);
 				convert.addSelectionListener(new SelectionAdapter() {
 
 					@Override
@@ -108,15 +110,31 @@ public class View extends ViewPart {
 
 			protected void handleDoubleClick(DoubleClickEvent event) {
 				String string = event.getSelection().toString();
-				String fName = new Path(string).removeFileExtension()
-						.lastSegment();
-				new PropertySettingDialog(View.this.getSite().getShell(), fName)
-						.open();
+				string = string.substring(1, string.length()-1);
+				String xls_code = Formater.getXLS_code((String) string);
+				new PropertySettingDialog(View.this.getSite().getShell(),
+						xls_code).open();
 			}
 		};
+		v.setTableLabelProvider(new TableLabelProvider() {
+			public String getColumnText(Object element, int i) {
+
+				if (element instanceof String) {
+					if (i == 0) {
+						return Formater.getXLS_code((String) element);
+					}
+					if (i == 1) {
+						return element.toString();
+					}
+				}
+				return ""; //$NON-NLS-1$
+			}
+
+		});
 		v.addColumn(Messages.View_2, 100);
 		v.addColumn(Messages.View_3, 300);
 		viewer = v.createContentTable(parent);
+
 	}
 
 	private void doConvert(SelectionEvent e) {
@@ -133,11 +151,11 @@ public class View extends ViewPart {
 				List<XLSFileSetting> settings = new ArrayList<XLSFileSetting>();
 				for (Object object : input) {
 					String path = "" + object; //$NON-NLS-1$
-					String fName = new Path(path).removeFileExtension()
-							.lastSegment();
+					String xls_code = Formater.getXLS_code(path);
 					XLSFileSetting set = new XLSFileSetting();
 					set.setFilePath(path);
-					set.setXls_setting(PreferencesSetting.loadXLSSetting(fName));
+					set.setXls_setting(PreferencesSetting
+							.loadXLSSetting(xls_code));
 					settings.add(set);
 				}
 				boolean run = new Runner(d.getSetting(), settings, _path).run();

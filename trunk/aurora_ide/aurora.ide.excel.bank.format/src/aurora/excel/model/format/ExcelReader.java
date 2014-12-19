@@ -1,7 +1,5 @@
 package aurora.excel.model.format;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -42,6 +40,18 @@ public class ExcelReader {
 			title[i] = getCellFormatValue(row.getCell((short) i));
 		}
 		return title;
+	}
+
+	public String readExcelFirstSheetName(InputStream is) {
+		try {
+			fs = new POIFSFileSystem(is);
+			wb = new HSSFWorkbook(fs);
+			sheet = wb.getSheetAt(0);
+			return sheet.getSheetName();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	public List<XLSLine> readExcelContent(InputStream is) {
@@ -99,7 +109,6 @@ public class ExcelReader {
 		return strCell;
 	}
 
-
 	private String getCellFormatValue(HSSFCell cell) {
 		String cellvalue = "";
 		if (cell != null) {
@@ -128,7 +137,6 @@ public class ExcelReader {
 		return cellvalue;
 
 	}
-
 
 	public int getStart() {
 		return start;

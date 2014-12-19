@@ -7,6 +7,7 @@ import org.xml.sax.SAXException;
 
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
+import aurora.excel.model.format.Formater;
 import aurora.ide.excel.bank.format.Activator;
 
 public class PreferencesSetting {
@@ -55,14 +56,14 @@ public class PreferencesSetting {
 		CompositeMap m = new CompositeMap("idx"); //$NON-NLS-1$
 		// m.addChild(createMap("key_word_code", "关键字代码", ""));
 		m.addChild(createMap("xls_code", Messages.PreferencesSetting_14, xls_code)); //$NON-NLS-1$
-		m.addChild(createMap("org_code", Messages.PreferencesSetting_16, "c302")); //$NON-NLS-1$ //$NON-NLS-3$
-		m.addChild(createMap("area_code", Messages.PreferencesSetting_19, "1201070")); //$NON-NLS-1$ //$NON-NLS-3$
-		m.addChild(createMap("data_type", Messages.PreferencesSetting_22, "1")); //$NON-NLS-1$ //$NON-NLS-3$
-		m.addChild(createMap("currency_type", Messages.PreferencesSetting_25, "CNY0001")); //$NON-NLS-1$ //$NON-NLS-3$
-		m.addChild(createMap("unit", Messages.PreferencesSetting_28, "5")); //$NON-NLS-1$ //$NON-NLS-3$
-		m.addChild(createMap("b_data_flag", Messages.PreferencesSetting_31, "1")); //$NON-NLS-1$ //$NON-NLS-3$
-		m.addChild(createMap("num_type", Messages.PreferencesSetting_34, "1")); //$NON-NLS-1$ //$NON-NLS-3$
-		m.addChild(createMap("std_org_code", Messages.PreferencesSetting_37, "C5003912000016")); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("org_code", Messages.PreferencesSetting_16, Formater.org_code)); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("area_code", Messages.PreferencesSetting_19, Formater.area_code)); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("data_type", Messages.PreferencesSetting_22, Formater.data_type)); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("currency_type", Messages.PreferencesSetting_25, Formater.currency_type)); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("unit", Messages.PreferencesSetting_28, Formater.unit)); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("b_data_flag", Messages.PreferencesSetting_31, Formater.b_data_flag)); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("num_type", Messages.PreferencesSetting_34, Formater.num_type)); //$NON-NLS-1$ //$NON-NLS-3$
+		m.addChild(createMap("std_org_code", Messages.PreferencesSetting_37, Formater.std_org_code)); //$NON-NLS-1$ //$NON-NLS-3$
 		m.put("desc", Messages.PreferencesSetting_40); //$NON-NLS-1$
 		return m;
 	}

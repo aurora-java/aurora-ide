@@ -5,11 +5,12 @@ import java.util.List;
 
 import uncertain.composite.CompositeMap;
 import aurora.excel.model.DATLine;
+import aurora.excel.model.format.Formater;
 import aurora.excel.model.format.runner.XLSFileSetting;
 
 public class XLSFile extends AbstractXLSFile {
 
-	private static final String KEY = "I";
+	private static final String KEY = Formater.KEY;
 
 	private XLSFileSetting setting;
 
@@ -44,18 +45,21 @@ public class XLSFile extends AbstractXLSFile {
 		for (Object object : childsNotNull) {
 			CompositeMap m = ((CompositeMap) object);
 			if ("idx".equals(m.getName())) {
-				if (i < 10) {
-					key_word_codes.add(KEY + "0000" + i);
-				} else if (i < 100) {
-					key_word_codes.add(KEY + "000" + i);
-				} else if (i < 1000) {
-					key_word_codes.add(KEY + "00" + i);
-				} else if (i < 10000) {
-					key_word_codes.add(KEY + "0" + i);
-				} else if (i < 100000) {
-					key_word_codes.add(KEY + "" + i);
+				String[] a_codes = Formater.getArea_codes(m);
+				for (String a_code : a_codes) {
+					if (i < 10) {
+						key_word_codes.add(KEY + "0000" + i);
+					} else if (i < 100) {
+						key_word_codes.add(KEY + "000" + i);
+					} else if (i < 1000) {
+						key_word_codes.add(KEY + "00" + i);
+					} else if (i < 10000) {
+						key_word_codes.add(KEY + "0" + i);
+					} else if (i < 100000) {
+						key_word_codes.add(KEY + "" + i);
+					}
+					i++;
 				}
-				i++;
 			}
 		}
 		return i;
@@ -70,12 +74,31 @@ public class XLSFile extends AbstractXLSFile {
 		for (Object object : childsNotNull) {
 			CompositeMap m = ((CompositeMap) object);
 			if ("idx".equals(m.getName())) {
-				String key_word_code = key_word_codes.get(i);
-				i++;
-				idx.addHead(makeLine(key_word_code, m));
+				String[] a_codes = Formater.getArea_codes(m);
+				for (String a_code : a_codes) {
+					String key_word_code = key_word_codes.get(i);
+					i++;
+					idx.addHead(makeLine(key_word_code, m, a_code));
+				}
 			}
 		}
 		return idx;
+	}
+
+	private String makeLine(String key_word_code, CompositeMap m, String a_code) {
+
+		List childsNotNull = m.getChildsNotNull();
+		StringBuilder sb = new StringBuilder();
+		for (Object object : childsNotNull) {
+			CompositeMap mm = ((CompositeMap) object);
+			String s = mm.getString("value", "");
+			if ("area_code".equals(mm.getName())) {
+				s = a_code;
+			}
+			sb.append("|");
+			sb.append(s);
+		}
+		return key_word_code + sb.toString();
 	}
 
 	public DAT makeDATFile() {
@@ -92,31 +115,55 @@ public class XLSFile extends AbstractXLSFile {
 		List<XLSLine> datas = readXLS(start - 1);
 		List childsNotNull = dat_setting.getChildsNotNull();
 
-		int k = 0;
 		DAT dat = new DAT();
-		for (Object object : childsNotNull) {
+		List<CompositeMap> datDataSettings = getDatDatasSetting();
+		List idx_settings = xls_setting.getChildsNotNull();
+		int k = 0;
+		int idx = 0;
+		for (Object object : idx_settings) {
 			CompositeMap m = ((CompositeMap) object);
-			if ("data".equals(m.getName())) {
-				String key_word_code = key_word_codes.get(k);
-				String s3 = m.getString("value", "3");
-				int col = Integer.valueOf(s3);
-				k++;
-				for (int i = 0; i < datas.size(); i++) {
-					List<String> dds = datas.get(i).getDatas();
-					String target_code = dds.get(target_code_c);
-					String data = dds.get(col);
-					if (target_code == null || data == null
-							|| "".equals(target_code.trim())
-							|| "".equals(data.trim())
-							|| "0".equals(data.trim()))
-						continue;
-					dat.addHead(new DATLine(key_word_code, target_code, data)
-							.toDATString());
+			if ("idx".equals(m.getName())) {
+				String[] a_codes = Formater.getArea_codes(m);
+				for (String a_code : a_codes) {
+					String key_word_code = key_word_codes.get(k);
+					k++;
+					if (datDataSettings.size() > idx) {
+						CompositeMap dm = datDataSettings.get(idx);
+						String s3 = dm.getString("value", "3");
+						int col = Integer.valueOf(s3);
+						for (int i = 0; i < datas.size(); i++) {
+							List<String> dds = datas.get(i).getDatas();
+							String target_code = dds.get(target_code_c);
+							String data = dds.get(col);
+							if (target_code == null || data == null
+									|| "".equals(target_code.trim())
+									|| "".equals(data.trim())
+									|| "0".equals(data.trim()))
+								continue;
+							dat.addHead(new DATLine(key_word_code, target_code,
+									data).toDATString());
+						}
+					}
 				}
+				idx++;
 			}
 		}
 
 		return dat;
+	}
+
+	private List<CompositeMap> getDatDatasSetting() {
+		CompositeMap xls_setting = setting.getXls_setting();
+		CompositeMap dat_setting = xls_setting.getChild("dat");
+		List<CompositeMap> datDatas = new ArrayList<CompositeMap>();
+		List childsNotNull = dat_setting.getChildsNotNull();
+		for (Object object : childsNotNull) {
+			CompositeMap m = ((CompositeMap) object);
+			if ("data".equals(m.getName())) {
+				datDatas.add(m);
+			}
+		}
+		return datDatas;
 	}
 
 	public XLSFileSetting getSetting() {
