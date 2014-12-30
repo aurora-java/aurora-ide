@@ -1,5 +1,7 @@
 package aurora.excel.model.format.runner;
 
+import aurora.excel.model.format.Formater;
+
 public class OutputFileSetting {
 	// 1 代号（金融统计监测管理信息系统-数值型统计指标数据－B）
 	// 2 标志位（头文件：I；数据文件：J；数据说明文件：D）
@@ -11,10 +13,10 @@ public class OutputFileSetting {
 	// 24 顺序号（文件名的顺序码没有特别的含义，主要为区分多次报送而设置，也可以在数据修改阶段，用于对不同时间报送的数据进行区分）
 	private String code;
 	private String org_code;
-	private String area_code;
+	private String area_code = Formater.default_area_code;
 	private String date;
-	private String rate;
-	private String batch;
+	private String rate = "4";
+	private String batch = "1";
 	private String order;
 	public String getCode() {
 		return code;

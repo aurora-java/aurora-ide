@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import aurora.excel.model.format.Formater;
 import aurora.excel.model.format.runner.OutputFileSetting;
 import aurora.ide.excel.bank.format.view.WidgetFactory;
 
@@ -95,36 +96,50 @@ public class OutputFileSettingDialog extends Dialog {
 			}
 		});
 		t2.setText("g305"); //$NON-NLS-1$
-		
-		
-//		final Text t3 = createProperty(c, Messages.OutputFileSettingDialog_5);
-//		t3.addModifyListener(new ModifyListener() {
-//
-//			@Override
-//			public void modifyText(ModifyEvent e) {
-//				getSetting().setArea_code(t3.getText());
-//			}
-//		});
-//		t3.setText("1200000"); //$NON-NLS-1$
-		
+
+		// final Text t3 = createProperty(c,
+		// Messages.OutputFileSettingDialog_5);
+		// t3.addModifyListener(new ModifyListener() {
+		//
+		// @Override
+		// public void modifyText(ModifyEvent e) {
+		// getSetting().setArea_code(t3.getText());
+		// }
+		// });
+		//		t3.setText("1200000"); //$NON-NLS-1$
+
 		final Combo c3 = createCombo(c, Messages.OutputFileSettingDialog_5);
-		c3.add("1200000");
-		c3.add("1201000");
-		c3.add("1201070");
+		c3.add(Messages.OutputFileSettingDialog_2);
+		c3.add(Messages.OutputFileSettingDialog_4);
+		c3.add(Messages.OutputFileSettingDialog_6);
 		c3.addSelectionListener(new SelectionListener() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				getSetting().setArea_code(c3.getText());
+				int selectionIndex = c3.getSelectionIndex();
+				switch (selectionIndex) {
+				case 0:
+					getSetting().setArea_code(Formater.default_area_code);
+					break;
+				case 1:
+					getSetting().setArea_code("1201000"); //$NON-NLS-1$
+					break;
+				case 2:
+					getSetting().setArea_code("1201070"); //$NON-NLS-1$
+					break;
+				default:
+					getSetting().setArea_code(Formater.default_area_code);
+				}
+//				getSetting().setArea_code(c3.getText());
 			}
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				
+
 			}
 		});
 		c3.select(0);
-		
-		
+
 		final Text t4 = createProperty(c, Messages.OutputFileSettingDialog_7);
 		t4.addModifyListener(new ModifyListener() {
 
@@ -135,65 +150,93 @@ public class OutputFileSettingDialog extends Dialog {
 		});
 		t4.setText((new java.text.SimpleDateFormat("yyyyMMdd")) //$NON-NLS-1$
 				.format(new Date()));
-		
-		
-//		final Text t5 = createProperty(c, Messages.OutputFileSettingDialog_9);
-//		t5.addModifyListener(new ModifyListener() {
-//
-//			@Override
-//			public void modifyText(ModifyEvent e) {
-//				getSetting().setRate(t5.getText());
-//			}
-//		});
-//		t5.setText("4"); //$NON-NLS-1$
-		
-		
+
+		// final Text t5 = createProperty(c,
+		// Messages.OutputFileSettingDialog_9);
+		// t5.addModifyListener(new ModifyListener() {
+		//
+		// @Override
+		// public void modifyText(ModifyEvent e) {
+		// getSetting().setRate(t5.getText());
+		// }
+		// });
+		//		t5.setText("4"); //$NON-NLS-1$
+
 		final Combo c5 = createCombo(c, Messages.OutputFileSettingDialog_9);
-		c5.add("4");
-		c5.add("7");
-		c5.add("3");
-		c5.add("0");
+		c5.add(Messages.OutputFileSettingDialog_10);
+		c5.add(Messages.OutputFileSettingDialog_8);
+		c5.add(Messages.OutputFileSettingDialog_15);
+		c5.add(Messages.OutputFileSettingDialog_16);
 		c5.addSelectionListener(new SelectionListener() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				getSetting().setRate(c5.getText());
+				
+				int selectionIndex = c5.getSelectionIndex();
+				switch (selectionIndex) {
+				case 0:
+					getSetting().setRate("4"); //$NON-NLS-1$
+					break;
+				case 1:
+					getSetting().setRate("7"); //$NON-NLS-1$
+					break;
+				case 2:
+					getSetting().setRate("3"); //$NON-NLS-1$
+					break;
+				case 3:
+					getSetting().setRate("0"); //$NON-NLS-1$
+					break;
+				default:
+					getSetting().setRate("4"); //$NON-NLS-1$
+				}
+//				getSetting().setRate(c5.getText());
 			}
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				
+
 			}
 		});
 		c5.select(0);
-		
-		
-//		final Text t6 = createProperty(c, Messages.OutputFileSettingDialog_11);
-//		t6.addModifyListener(new ModifyListener() {
-//
-//			@Override
-//			public void modifyText(ModifyEvent e) {
-//				getSetting().setBatch(t6.getText());
-//			}
-//		});
-//		t6.setText("1"); //$NON-NLS-1$
-		
+
+		// final Text t6 = createProperty(c,
+		// Messages.OutputFileSettingDialog_11);
+		// t6.addModifyListener(new ModifyListener() {
+		//
+		// @Override
+		// public void modifyText(ModifyEvent e) {
+		// getSetting().setBatch(t6.getText());
+		// }
+		// });
+		//		t6.setText("1"); //$NON-NLS-1$
+
 		final Combo c6 = createCombo(c, Messages.OutputFileSettingDialog_11);
-		c6.add("1");
-		c6.add("2");
+		c6.add(Messages.OutputFileSettingDialog_22);
+		c6.add(Messages.OutputFileSettingDialog_23);
 		c6.addSelectionListener(new SelectionListener() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				getSetting().setBatch(c6.getText());
+				int selectionIndex = c6.getSelectionIndex();
+				switch (selectionIndex) {
+				case 0:
+					getSetting().setBatch("1"); //$NON-NLS-1$
+					break;
+				case 1:
+					getSetting().setBatch("2"); //$NON-NLS-1$
+					break;
+				default:
+					getSetting().setBatch("1"); //$NON-NLS-1$
+				}
+//				getSetting().setBatch(c6.getText());
 			}
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				
 			}
 		});
 		c6.select(0);
-		
-		
+
 		final Text t7 = createProperty(c, Messages.OutputFileSettingDialog_13);
 		t7.addModifyListener(new ModifyListener() {
 
@@ -223,7 +266,7 @@ public class OutputFileSettingDialog extends Dialog {
 		// t.setText(value);
 		return t;
 	}
-	
+
 	@Override
 	protected Point getInitialSize() {
 		Point initialSize = super.getInitialSize();
