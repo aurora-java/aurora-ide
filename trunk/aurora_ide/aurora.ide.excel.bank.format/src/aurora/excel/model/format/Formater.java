@@ -20,6 +20,8 @@ public class Formater {
 	static final public String org_code = "g305";
 	// 字段4 地区代码 7位
 	static final public String area_code = "1200000,1201000,1201070";
+	static final public String default_area_code = "1200000";
+
 	// 字段5 数据属性 1位〔AB类表单为数据属性，对CD类表单，此处是列号〕
 	static final public String data_type = "1";
 	// 字段6 币种 7位
