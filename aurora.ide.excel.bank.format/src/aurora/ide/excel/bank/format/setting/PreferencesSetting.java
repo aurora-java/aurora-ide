@@ -44,7 +44,7 @@ public class PreferencesSetting {
 
 		CompositeMap dat = new CompositeMap("dat"); //$NON-NLS-1$
 		dat.addChild(createMap("start_row", Messages.PreferencesSetting_4, "6")); //$NON-NLS-1$ //$NON-NLS-3$
-		dat.addChild(createMap("target_code", Messages.PreferencesSetting_7, "1")); //$NON-NLS-1$ //$NON-NLS-3$
+		dat.addChild(createMap("target_code", Messages.PreferencesSetting_7, "2")); //$NON-NLS-1$ //$NON-NLS-3$
 		CompositeMap createMap = createMap("data", Messages.PreferencesSetting_10, "3"); //$NON-NLS-1$ //$NON-NLS-3$
 //		createMap.put("idx", "0");
 		dat.addChild(createMap);

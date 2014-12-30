@@ -105,12 +105,12 @@ public class XLSFile extends AbstractXLSFile {
 		CompositeMap xls_setting = setting.getXls_setting();
 		CompositeMap dat_setting = xls_setting.getChild("dat");
 		// start_row", "数据开始行号", "6"));
-		// dat.addChild(createMap("target_code", "指标代码列", "1"));
+		// dat.addChild(createMap("target_code", "指标代码列", "2"));
 		// CompositeMap createMap = createMap("data", "数据值列", "3");
 		String s1 = dat_setting.getChild("start_row").getString("value", "6");
-		String s2 = dat_setting.getChild("target_code").getString("value", "1");
+		String s2 = dat_setting.getChild("target_code").getString("value", "2");
 		int start = Integer.valueOf(s1);
-		int target_code_c = Integer.valueOf(s2);
+		int target_code_c = Integer.valueOf(s2) - 1;
 
 		List<XLSLine> datas = readXLS(start - 1);
 		List childsNotNull = dat_setting.getChildsNotNull();
