@@ -8,6 +8,7 @@ import java.util.List;
 
 import aurora.excel.model.files.DAT;
 import aurora.excel.model.files.IDX;
+import aurora.excel.model.files.TXT;
 import aurora.excel.model.files.XLSFile;
 
 public class Runner {
@@ -51,8 +52,7 @@ public class Runner {
 		try {
 			writeFile(fileName("BI") + ".IDX", idxSB.toString()); //$NON-NLS-1$ //$NON-NLS-2$
 			writeFile(fileName("BJ") + ".DAT", datSB.toString()); //$NON-NLS-1$ //$NON-NLS-2$
-			writeFile(fileName("AD") + ".TXT", (new java.text.SimpleDateFormat( //$NON-NLS-1$ //$NON-NLS-2$
-					Messages.Runner_8)).format(new Date()) + Messages.Runner_9);
+			writeFile(fileName("AD") + ".TXT", TXT.content());
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
