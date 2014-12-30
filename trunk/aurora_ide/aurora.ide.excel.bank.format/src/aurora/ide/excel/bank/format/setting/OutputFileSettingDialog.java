@@ -16,6 +16,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -107,6 +108,11 @@ public class OutputFileSettingDialog extends Dialog {
 		// }
 		// });
 		//		t3.setText("1200000"); //$NON-NLS-1$
+		
+//		Label n = new Label(c, SWT.NONE);
+//		n.setText(Messages.OutputFileSettingDialog_7);
+//		DateTime dt = new DateTime(c,SWT.DATE|SWT.BORDER);
+//		dt.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		final Combo c3 = createCombo(c, Messages.OutputFileSettingDialog_5);
 		c3.add(Messages.OutputFileSettingDialog_2);
@@ -150,6 +156,8 @@ public class OutputFileSettingDialog extends Dialog {
 		});
 		t4.setText((new java.text.SimpleDateFormat("yyyyMMdd")) //$NON-NLS-1$
 				.format(new Date()));
+		
+		
 
 		// final Text t5 = createProperty(c,
 		// Messages.OutputFileSettingDialog_9);

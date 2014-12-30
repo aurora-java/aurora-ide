@@ -32,20 +32,29 @@ public class Runner {
 		StringBuilder idxSB = new StringBuilder();
 		StringBuilder datSB = new StringBuilder();
 		int key_word_start = 1;
-		for (XLSFileSetting setting : xlsList) {
+		for (int k = 0; k < xlsList.size(); k++) {
+			XLSFileSetting setting = xlsList.get(k);
 			XLSFile xlsFile = new XLSFile(setting, key_word_start);
 			key_word_start = xlsFile.makeKeyWordCode();
 			IDX makeIDXFile = xlsFile.makeIDXFile();
 			DAT makeDATFile = xlsFile.makeDATFile();
 			List<String> lines = makeIDXFile.getLines();
+			int i = 0;
 			for (String string : lines) {
 				idxSB.append(string);
+				if (k == xlsList.size() - 1 && i == lines.size() - 1)
+					continue;
 				idxSB.append("\r\n"); //$NON-NLS-1$
+				i++;
 			}
 			List<String> lines2 = makeDATFile.getLines();
+			i = 0;
 			for (String string : lines2) {
 				datSB.append(string);
+				if (k == xlsList.size() - 1 && i == lines2.size() - 1)
+					continue;
 				datSB.append("\r\n"); //$NON-NLS-1$
+				i++;
 			}
 		}
 
