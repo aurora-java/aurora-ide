@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<str:AMQReceiver xmlns:str="aurora.plugin.oracle.streams" amqUrl="failover:(tcp://127.0.0.1:61616)">
+</str:AMQReceiver>
