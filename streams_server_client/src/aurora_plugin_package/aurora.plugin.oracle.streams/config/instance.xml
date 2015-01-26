@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<u:instance-config xmlns:u="uncertain.pkg">
+	<u:instances>
+		<u:configurable-instance configFile="streams.config">
+			<u:description>Oracle Streams Listener</u:description>
+			<u:required-instances>
+				<u:type typeName="javax.sql.DataSource" />
+			</u:required-instances>
+		</u:configurable-instance>	
+		<u:configurable-instance configFile="amq.config">
+			<u:description>AMQ Listener</u:description>
+			<u:required-instances>
+				<u:type typeName="javax.sql.DataSource" />
+			</u:required-instances>
+		</u:configurable-instance>				
+	</u:instances>
+</u:instance-config>

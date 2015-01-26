@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uncertain-engine name="aurora">
+	 <packages>
+		<package-path classPath="aurora_plugin_package/aurora.plugin.oracle.streams" />
+	 </packages>
+</uncertain-engine>

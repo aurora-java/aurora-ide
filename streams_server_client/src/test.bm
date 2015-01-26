@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Author: linjinxiao  
+    $Date: 2013-9-13 下午3:48:18  
+    $Revision: 1.0  
+    $Purpose: 
+-->
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm">
+    <bm:operations>
+        <bm:operation name="execute">
+            <bm:parameters>
+                <bm:parameter name="LCR" dataType="java.lang.String" input="true" output="false"/>
+            </bm:parameters>
+            <bm:update-sql><![CDATA[
+                BEGIN
+                    gl_log_pkg.log(p_log_text =>${@LCR} ,p_user_id =>1 );
+                END;
+            ]]></bm:update-sql>
+        </bm:operation>
+    </bm:operations>
+</bm:model>
