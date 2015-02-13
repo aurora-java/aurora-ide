@@ -20,13 +20,13 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.ide.undo.CreateFileOperation;
 
-import sqlj.ast.AstTransform;
-import sqlj.core.ParsedSource;
-import sqlj.core.SqljBlock;
-import sqlj.exception.ParserException;
-import sqlj.exception.TransformException;
-import sqlj.parser.SqljParser;
 import aurora.sql.java.sqlparser.SqlParser;
+import aurora.sqlje.ast.AstTransform;
+import aurora.sqlje.exception.ParserException;
+import aurora.sqlje.exception.TransformException;
+import aurora.sqlje.parser.ParsedSource;
+import aurora.sqlje.parser.SqlBlock;
+import aurora.sqlje.parser.SqljeParser;
 
 public class CreateJavaFileAction extends Action {
 	private static String MARKER_TYPE = "aurora.sql.java.ide.xmlProblem";
@@ -43,12 +43,12 @@ public class CreateJavaFileAction extends Action {
 			fis.read(b);
 			fis.close();
 			String sqlj = new String(b, "UTF-8");
-			SqljParser parser = new SqljParser(sqlj);
+			SqljeParser parser = new SqljeParser(sqlj);
 			ParsedSource ps = parser.parse();
 
 			int m = ps.getSqljBlockSize();
 			for (int i = 0; i < m; i++) {
-				SqljBlock sqlBlock = ps.getSqlById(i);
+				SqlBlock sqlBlock = ps.getSqlById(i);
 				String s = sqlBlock.getParsedSql().toStringLiteral();
 				try {
 					checkSQL(s);

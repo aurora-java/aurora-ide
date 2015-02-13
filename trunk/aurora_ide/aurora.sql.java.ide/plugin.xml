@@ -19,7 +19,7 @@
       <editor
             class="aurora.sql.java.ide.editor.SQLJEDitor"
             default="true"
-            extensions="sqlj"
+            extensions="sqlje"
             icon="icons/meta.png"
             id="aurora.sql.java.ide.editor.SQLJEDitor"
             name="SQLJ Editor">

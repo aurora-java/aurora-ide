@@ -141,7 +141,7 @@ public class SampleBuilder extends IncrementalProjectBuilder {
 			return false;
 		}
 		String fileExtension = resource.getFileExtension();
-		if ("sqlj".equalsIgnoreCase(fileExtension) == false) {
+		if ("sqlje".equalsIgnoreCase(fileExtension) == false) {
 			return false;
 		}
 		return resource.exists();
