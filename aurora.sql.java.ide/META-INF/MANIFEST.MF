@@ -31,10 +31,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.navigator,
  org.eclipse.ui.navigator.resources,
  com.ibm.icu,
- org.eclipse.jdt.core.manipulation
+ org.eclipse.jdt.core.manipulation,
+ ext.org.eclipse.jdt.ui;bundle-version="3.7.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  lib/aurora-sqlje.jar,
- lib/ext-jdt.jar,
  lib/jsqlparser.jar

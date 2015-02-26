@@ -67,5 +67,72 @@
             value="true">
       </persistent>
    </extension>
-
+     <extension
+         point="org.eclipse.ltk.core.refactoring.refactoringContributions">
+         <contribution
+            class="aurora.sql.java.ide.refactoring.RenameSQLJEFileContribution"
+            id="aurora.sql.java.ide.refactoring.RenameSQLJEFileContribution"/>
+            <contribution
+            class="aurora.sql.java.ide.refactoring.MoveSQLJEFileContribution"
+            id="aurora.sql.java.ide.refactoring.MoveSQLJEFileContribution"/>
+         <!--
+         <contribution
+            class="org.eclipse.jdt.internal.corext.refactoring.scripting.RenameCompilationUnitRefactoringContribution"
+            id="org.eclipse.jdt.ui.rename.compilationunit"/>
+             <contribution
+            class="org.eclipse.jdt.internal.corext.refactoring.scripting.DeleteRefactoringContribution"
+            id="org.eclipse.jdt.ui.delete"/>
+      <contribution
+            class="org.eclipse.jdt.internal.corext.refactoring.scripting.MoveRefactoringContribution"
+            id="org.eclipse.jdt.ui.move"/>
+      <contribution
+            class="org.eclipse.jdt.internal.corext.refactoring.scripting.CopyRefactoringContribution"
+            id="org.eclipse.jdt.ui.copy"/>
+            -->
+         </extension>
+         
+          <extension point="org.eclipse.ltk.core.refactoring.renameParticipants">
+	<renameParticipant
+   	 	id="aurora.sql.java.ide.refactoring.rename"
+    	name="Aurora BM Rename Participant" 
+    	class="aurora.sql.java.ide.refactoring.FileRenameParticipant"> 
+    <enablement>
+    </enablement>    
+	</renameParticipant>
+  
+ </extension>
+ 
+  <extension point="org.eclipse.ltk.core.refactoring.moveParticipants">
+	<moveParticipant
+   	 	id="aurora.sql.java.ide.refactoring.move"
+    	name="Aurora Move Participant" 
+    	class="aurora.sql.java.ide.refactoring.FileMoveParticipant"> 
+    <enablement>
+    </enablement>    
+	</moveParticipant>
+ </extension>
+<extension point="org.eclipse.ui.newWizards">
+        <category id="aurora.ide.wizard.sqlje" name="Aurora SQLJE">
+        </category>
+        <wizard category="aurora.ide.wizard.sqlje" 
+            class="aurora.sql.java.ide.wizard.NewSQLJWizard" 
+            icon="icons/meta.png" id="aurora.sql.java.ide.wizard.NewSQLJWizard" 
+            name="SQLJE File">
+        </wizard>
+    <!--  
+        <wizard
+            name="%NewJavaClass.label"
+            icon="$nl$/icons/full/etool16/newclass_wiz.gif"
+            category="org.eclipse.jdt.ui.java"
+            id="org.eclipse.jdt.ui.wizards.NewClassCreationWizard">
+         <class class="org.eclipse.jdt.internal.ui.wizards.NewClassCreationWizard">
+            <parameter name="javatype" value="true"/>
+         </class>
+         <description>
+            %NewJavaClass.description
+         </description>
+         <keywordReference id="org.eclipse.jdt.ui.wizards.java"/>
+      </wizard>
+      -->
+    </extension>
 </plugin>

@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/jsqlparser.jar"/>
-	<classpathentry kind="lib" path="lib/ext-jdt.jar" sourcepath="/ext.org.eclipse.jdt.ui"/>
 	<classpathentry kind="lib" path="lib/aurora-sqlje.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
