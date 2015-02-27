@@ -13,6 +13,18 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.refactoring.descriptors.MoveDescriptor;
 import org.eclipse.jdt.internal.core.refactoring.descriptors.RefactoringSignatureDescriptorFactory;
+import org.eclipse.jdt.internal.corext.refactoring.reorg.IConfirmQuery;
+import org.eclipse.jdt.internal.corext.refactoring.reorg.ICreateTargetQueries;
+import org.eclipse.jdt.internal.corext.refactoring.reorg.ICreateTargetQuery;
+import org.eclipse.jdt.internal.corext.refactoring.reorg.IReorgPolicy.IMovePolicy;
+import org.eclipse.jdt.internal.corext.refactoring.reorg.IReorgDestination;
+import org.eclipse.jdt.internal.corext.refactoring.reorg.IReorgQueries;
+import org.eclipse.jdt.internal.corext.refactoring.reorg.JavaMoveProcessor;
+import org.eclipse.jdt.internal.corext.refactoring.reorg.ReorgDestinationFactory;
+import org.eclipse.jdt.internal.corext.refactoring.reorg.ReorgPolicyFactory;
+import org.eclipse.jdt.internal.ui.refactoring.reorg.CreateTargetQueries;
+import org.eclipse.jdt.internal.ui.refactoring.reorg.ReorgMoveWizard;
+import org.eclipse.jdt.internal.ui.refactoring.reorg.ReorgQueries;
 import org.eclipse.jdt.ui.refactoring.RenameSupport;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.Refactoring;
@@ -20,6 +32,9 @@ import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext;
 import org.eclipse.ltk.core.refactoring.participants.MoveArguments;
 import org.eclipse.ltk.core.refactoring.participants.MoveParticipant;
+import org.eclipse.ltk.core.refactoring.participants.MoveRefactoring;
+import org.eclipse.ltk.core.refactoring.participants.RefactoringProcessor;
+import org.eclipse.ltk.ui.refactoring.RefactoringWizard;
 
 public class FileMoveParticipant extends MoveParticipant {
 
@@ -33,7 +48,7 @@ public class FileMoveParticipant extends MoveParticipant {
 	protected boolean initialize(Object element) {
 		// if (true)
 		// return false;
-		System.out.println(element.getClass());
+		// System.out.println(element.getClass());
 		MoveArguments arguments = this.getArguments();
 		Object destination = arguments.getDestination();
 
@@ -51,13 +66,13 @@ public class FileMoveParticipant extends MoveParticipant {
 				// ((ICompilationUnit)javaElement).
 				MoveDescriptor javaDescriptor = RefactoringSignatureDescriptorFactory
 						.createMoveDescriptor();
-//				javaDescriptor.setFlags(RenameSupport.UPDATE_REFERENCES);
+				// javaDescriptor.setFlags(RenameSupport.UPDATE_REFERENCES);
 				if (destination instanceof IJavaElement)
 					javaDescriptor.setDestination((IJavaElement) destination);
 				if (destination instanceof IResource) {
 					javaDescriptor.setDestination((IResource) destination);
 				}
-//				javaDescriptor.setFlags(flags);
+				// javaDescriptor.setFlags(flags);
 				javaDescriptor.setUpdateReferences(true);
 				javaDescriptor.setProject(((IFile) element).getProject()
 						.getName());
@@ -66,9 +81,68 @@ public class FileMoveParticipant extends MoveParticipant {
 								new IFile[] {},
 								new IFolder[] {},
 								new ICompilationUnit[] { (ICompilationUnit) javaElement });
+				// javaDescriptor.setUpdateQualifiedNames(true);
 				try {
+					// IMovePolicy policy = ReorgPolicyFactory
+					// .createMovePolicy(
+					// new IResource[] {},
+					// new ICompilationUnit[] { (ICompilationUnit) javaElement
+					// });
+					//
+					// IReorgDestination destination1=
+					// ReorgDestinationFactory.createDestination(element);
+					// policy.setDestination(destination1);
+					// if (policy.canEnable() == false) {
+					// return false;
+					// }
+					// JavaMoveProcessor processor = new
+					// JavaMoveProcessor(policy);
+					// createRefactoring = new MoveRefactoring(processor);
+					// RefactoringWizard wizard = new ReorgMoveWizard(processor,
+					// createRefactoring);
+					// processor.setCreateTargetQueries(new
+					// ICreateTargetQueries(){
+					//
+					// @Override
+					// public ICreateTargetQuery createNewPackageQuery() {
+					// return null;
+					// }
+					//
+					// });
+					// processor.setReorgQueries(new IReorgQueries(){
+					//
+					// @Override
+					// public IConfirmQuery createSkipQuery(String queryTitle,
+					// int queryID) {
+					// // TODO Auto-generated method stub
+					// return null;
+					// }
+					//
+					// @Override
+					// public IConfirmQuery createYesNoQuery(
+					// String queryTitle, boolean allowCancel,
+					// int queryID) {
+					// // TODO Auto-generated method stub
+					// return null;
+					// }
+					//
+					// @Override
+					// public IConfirmQuery createYesYesToAllNoNoToAllQuery(
+					// String queryTitle, boolean allowCancel,
+					// int queryID) {
+					// // TODO Auto-generated method stub
+					// return null;
+					// }
+					//
+					// });
 					createRefactoring = javaDescriptor
 							.createRefactoring(new RefactoringStatus());
+					// MoveRefactoring m = (MoveRefactoring) createRefactoring;
+					// JavaMoveProcessor processor = (JavaMoveProcessor) m
+					// .getProcessor();
+					// processor.
+
+					// createRefactoring.
 					// checkInitialConditions
 					return true;
 				} catch (CoreException e) {
