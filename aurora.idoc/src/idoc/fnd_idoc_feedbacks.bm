@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Author: linjinxiao  
+    $Date: 2013-5-30 下午1:23:27  
+    $Revision: 1.0  
+    $Purpose: 
+-->
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm" xmlns:f="aurora.database.features" alias="t1" baseTable="FND_IDOC_FEEDBACKS">
+    <bm:fields>
+        <bm:field name="idoc_file_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="IDOC_FILE_ID" prompt="FND_IDOC_FEEDBACKS.IDOC_FILE_ID"/>
+        <bm:field name="status" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="STATUS" prompt="FND_IDOC_FEEDBACKS.STATUS"/>
+        <bm:field name="message" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="MESSAGE" prompt="FND_IDOC_FEEDBACKS.MESSAGE"/>
+    </bm:fields>
+    <bm:features>
+        <f:standard-who/>
+    </bm:features>
+    <bm:primary-key>
+        <bm:pk-field name="idoc_file_id"/>
+    </bm:primary-key>
+    <bm:query-fields>
+        <bm:query-field field="idoc_file_id" queryOperator="="/>
+    </bm:query-fields>
+</bm:model>

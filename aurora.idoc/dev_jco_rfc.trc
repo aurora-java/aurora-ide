@@ -1,0 +1,3789 @@
+
+**** Error file opened at 20150107 124949 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 12:49:49,475<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 12:49:49 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 12:49:51,401<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 12:49:51 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 12:49:53,401<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 12:49:53 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 12:49:57,402<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 12:49:57 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 12:50:05,405<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 12:50:05 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 12:50:21,414<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 12:50:21 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 12:50:53,430<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 12:50:53 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 12:51:57,462<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 12:51:57 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 132007 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 13:20:07,811<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:20:07 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:20:09,763<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:20:09 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:20:11,764<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:20:11 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:20:15,766<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:20:15 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:20:23,771<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:20:23 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:20:39,779<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:20:39 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 132350 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 13:23:50,124<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:23:50 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:23:52,063<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:23:52 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:23:54,064<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:23:54 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:23:58,065<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:23:58 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:24:06,070<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:24:06 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:24:22,094<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:24:22 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:24:54,096<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:24:54 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:25:58,128<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:25:58 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:28:06,194<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:28:06 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     9
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 133233 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 13:32:33,510<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:32:33 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:32:35,450<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:32:35 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:32:37,451<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:32:37 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:32:41,452<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:32:41 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:32:49,456<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:32:49 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:33:05,465<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:33:05 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:33:37,484<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:33:37 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:34:41,521<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:34:41 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:36:49,591<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:36:49 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     9
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 133830 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 13:38:30,086<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:38:30 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:38:32,024<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:38:32 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:38:34,025<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:38:34 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:38:38,027<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:38:38 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:38:46,032<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:38:46 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:39:02,042<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:39:02 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:39:34,059<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:39:34 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:40:38,090<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:40:38 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:42:46,167<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:42:46 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     9
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:47:02,321<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:47:02 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     10
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:55:34,658<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:55:34 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     11
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 135910 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 13:59:10,677<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:59:10 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:59:12,637<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:59:12 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:59:14,639<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:59:14 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:59:18,640<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:59:18 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:59:26,644<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:59:26 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 13:59:42,652<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 13:59:42 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:00:14,670<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:00:14 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:01:18,699<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:01:18 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:03:26,766<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:03:26 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     9
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 140845 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 14:08:45,202<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:08:45 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:08:47,140<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:08:47 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:08:49,141<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:08:49 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:08:53,144<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:08:53 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:09:01,148<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:09:01 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:09:17,157<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:09:17 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 143145 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 14:31:45,104<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:31:45 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:31:47,057<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:31:47 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:31:49,059<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:31:49 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:31:53,061<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:31:53 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:32:01,067<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:32:01 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:32:17,075<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:32:17 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 143323 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 14:33:23,129<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:33:23 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:33:25,068<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:33:25 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:33:27,069<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:33:27 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:33:31,073<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:33:31 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:33:39,075<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:33:39 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:33:55,084<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:33:55 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:34:27,097<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:34:27 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:35:31,136<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:35:31 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 143828 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 14:38:28,511<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:38:28 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:39:00,468<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:39:00 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:39:04,470<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:39:04 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:39:08,473<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:39:08 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:39:16,476<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:39:16 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:39:32,485<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:39:32 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:40:04,503<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:40:04 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 14:45:54,825<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 14:45:54 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 150752 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:07:52,883<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:07:52 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:07:54,829<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:07:54 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:07:56,830<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:07:56 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:08:00,831<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:08:00 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:08:08,835<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:08:08 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 150942 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:09:42,516<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:09:42 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:09:44,460<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:09:44 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 151349 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:13:49,060<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:13:49 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:13:51,005<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:13:51 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:13:53,006<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:13:53 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 151507 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:15:07,921<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:15:07 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:15:09,868<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:15:09 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:15:11,869<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:15:11 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:15:15,871<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:15:15 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:15:23,875<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:15:23 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:15:39,882<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:15:39 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:16:11,900<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:16:11 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 151637 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:16:37,775<    RfcException:
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=ABAP_AS ASHOST=appserver SYSNR=00 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       hostname 'appserver' unknown
+TIME        Wed Jan  7 15:16:37 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -2
+MODULE      niuxi.c
+LINE        1759
+DETAIL      NiPGetHostByName: 'appserver' not found
+SYSTEM CALL getaddrinfo
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:17:15,932<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:17:15 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 151720 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:17:20,419<    RfcException:
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=ABAP_AS ASHOST=appserver SYSNR=00 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       hostname 'appserver' unknown
+TIME        Wed Jan  7 15:17:20 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -2
+MODULE      niuxi.c
+LINE        1759
+DETAIL      NiPGetHostByName: 'appserver' not found
+SYSTEM CALL getaddrinfo
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 151740 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:17:40,033<    RfcException:
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=ABAP_AS ASHOST=appserver SYSNR=00 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       hostname 'appserver' unknown
+TIME        Wed Jan  7 15:17:40 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -2
+MODULE      niuxi.c
+LINE        1759
+DETAIL      NiPGetHostByName: 'appserver' not found
+SYSTEM CALL getaddrinfo
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:19:23,995<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:19:23 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     9
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 151956 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:19:56,712<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:19:56 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:19:58,661<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:19:58 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:20:00,661<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:20:00 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:20:04,683<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:20:04 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 152034 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:20:34,434<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:20:34 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:20:36,376<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:20:36 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:20:38,377<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:20:38 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:20:42,380<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:20:42 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:20:50,388<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:20:50 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 152205 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:22:05,525<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:22:05 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:22:07,475<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:22:07 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:23:40,120<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:23:40 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     10
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 152410 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:24:10,387<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:24:10 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 153127 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:31:27,496<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:31:27 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:31:29,442<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:31:29 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:31:31,443<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:31:31 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 153140 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:31:40,975<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:31:40 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 155138 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:51:38,464<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:51:38 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:51:40,400<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:51:40 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:51:44,404<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:51:44 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 155507 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:55:07,300<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:55:07 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:55:09,246<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:55:09 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 155657 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 15:56:57,903<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:56:57 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:58:21,884<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:58:21 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 15:58:23,885<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 15:58:23 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 161340 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 16:13:40,038<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 16:13:40 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 16:13:41,986<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 16:13:41 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 16:13:43,987<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 16:13:43 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 16:13:47,989<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 16:13:47 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 16:13:55,993<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 16:13:55 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150107 162750 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Jan 07 16:27:50,624<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 16:27:50 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Jan 07 16:27:52,571<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Jan  7 16:27:52 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150112 145634 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Mon Jan 12 14:56:34,918<    RfcException:
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=BCE ASHOST=192.168.11.11 SYSNR=51 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       partner '192.168.11.11:3351' not reached
+TIME        Mon Jan 12 14:56:34 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -10
+MODULE      nibuf.cpp
+LINE        4658
+DETAIL      NiBufIConnect: connection pending after 60000ms
+SYSTEM CALL connect
+ERRNO       36
+ERRNO TEXT  Operation now in progress
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Jan 12 14:56:35,017<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Jan 12 14:56:35 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Jan 12 14:56:36,980<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Jan 12 14:56:36 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Jan 12 14:56:40,982<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Jan 12 14:56:40 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Jan 12 14:56:44,984<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Jan 12 14:56:44 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150112 150006 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Mon Jan 12 15:00:06,528<    RfcException:
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=BCE ASHOST=192.168.11.11 SYSNR=51 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host
+ERROR       partner '192.168.11.11:3351' not reached
+TIME        Mon Jan 12 15:00:06 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -10
+MODULE      nibuf.cpp
+LINE        4658
+DETAIL      NiBufIConnect: connection pending after 60000ms
+SYSTEM CALL connect
+ERRNO       36
+ERRNO TEXT  Operation now in progress
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Jan 12 15:00:06,592<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Jan 12 15:00:06 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Jan 12 15:00:08,566<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Jan 12 15:00:08 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Jan 12 15:00:10,567<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Jan 12 15:00:10 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150112 150144 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Mon Jan 12 15:01:44,885<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Jan 12 15:01:44 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Jan 12 15:01:46,815<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Jan 12 15:01:46 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150302 100233 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Mon Mar 02 10:02:33,742<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Mar  2 10:02:33 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Mar 02 10:02:35,688<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Mar  2 10:02:35 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Mar 02 10:02:37,689<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Mar  2 10:02:37 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Mar 02 10:02:41,691<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Mar  2 10:02:41 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Mar 02 10:02:49,696<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Mar  2 10:02:49 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Mar 02 10:03:05,704<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Mar  2 10:03:05 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Mar 02 10:03:37,720<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Mar  2 10:03:37 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Mon Mar 02 10:04:41,756<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Mon Mar  2 10:04:41 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150303 101512 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Tue Mar 03 10:15:12,516<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:15:12 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:15:14,422<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:15:14 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:15:16,424<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:15:16 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:15:20,426<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:15:20 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:15:28,428<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:15:28 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150303 102016 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Tue Mar 03 10:20:16,498<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:20:16 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:20:18,396<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:20:18 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:20:20,397<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:20:20 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:20:24,399<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:20:24 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:20:32,403<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:20:32 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150303 103347 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Tue Mar 03 10:33:47,610<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:33:47 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:33:49,487<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:33:49 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:33:51,487<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:33:51 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:33:55,489<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:33:55 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:34:03,492<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:34:03 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150303 103508 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Tue Mar 03 10:35:08,975<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:35:08 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Tue Mar 03 10:35:10,898<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Tue Mar  3 10:35:10 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150304 095428 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Wed Mar 04 09:54:28,058<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Mar  4 09:54:28 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Mar 04 09:54:29,975<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Mar  4 09:54:29 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Mar 04 09:54:31,977<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Mar  4 09:54:31 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Mar 04 09:54:35,979<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Mar  4 09:54:35 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Mar 04 09:54:43,982<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Mar  4 09:54:43 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Wed Mar 04 09:54:59,990<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Wed Mar  4 09:54:59 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150306 095813 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Fri Mar 06 09:58:13,353<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 09:58:13 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 09:58:15,218<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 09:58:15 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 09:58:19,218<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 09:58:19 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 09:58:23,233<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 09:58:23 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 09:58:33,225<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 09:58:33 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 09:58:49,235<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 09:58:49 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 09:59:21,250<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 09:59:21 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150306 100111 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Fri Mar 06 10:01:11,086<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:01:11 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 10:01:12,948<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:01:12 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 10:01:14,949<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:01:14 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150306 102722 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Fri Mar 06 10:27:22,943<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:27:22 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 10:27:24,861<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:27:24 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 10:27:26,860<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:27:26 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 10:27:30,864<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:27:30 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 10:27:38,865<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:27:38 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 10:27:54,873<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:27:54 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 10:28:26,899<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:28:26 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 10:29:30,924<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 10:29:30 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+**** Error file opened at 20150306 110102 China Standard Time Rel 3.0.12 (2014-11-21) [720.713]
+Error:  >Fri Mar 06 11:01:02,088<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 11:01:02 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      niuxi.c
+LINE        1814
+DETAIL      NiPGetServByName: 'sapgw51' not found
+SYSTEM CALL getaddrinfo
+COUNTER     1
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 11:01:03,996<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 11:01:03 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     2
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 11:01:05,997<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 11:01:05 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     3
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 11:01:09,999<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 11:01:09 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     4
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 11:01:18,002<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 11:01:18 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     5
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 11:01:34,007<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 11:01:34 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     6
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 11:02:06,021<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 11:02:06 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     7
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 11:03:10,050<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 11:03:10 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     8
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+Error:  >Fri Mar 06 11:05:18,102<    RfcException:
+    message: Connect to SAP gateway failed
+    Connection parameters: PROGID="scfidoc" GWHOST=192.168.11.11 GWSERV=sapgw51
+
+ERROR       service 'sapgw51' unknown
+TIME        Fri Mar  6 11:05:18 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+MODULE      nixxsl.cpp
+LINE        184
+DETAIL      NiSrvLGetServNo: service name cached as unknown
+COUNTER     9
+
+    return code: RFC_FAILURE (1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION

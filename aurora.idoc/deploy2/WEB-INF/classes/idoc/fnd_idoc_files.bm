@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Author: linjinxiao  
+    $Date: 2013-6-13 下午3:38:02  
+    $Revision: 1.0  
+    $Purpose: 
+-->
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm" xmlns:f="aurora.database.features" alias="t1" baseTable="FND_IDOC_FILES">
+    <bm:fields>
+        <bm:field name="idoc_file_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="IDOC_FILE_ID" prompt="FND_IDOC_FILES.IDOC_FILE_ID"/>
+        <bm:field name="server_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="SERVER_ID" prompt="FND_IDOC_FILES.SERVER_ID"/>
+        <bm:field name="file_path" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="FILE_PATH" prompt="FND_IDOC_FILES.FILE_PATH"/>
+        <bm:field name="tabnam" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="TABNAM" prompt="FND_IDOC_FILES.TABNAM"/>
+        <bm:field name="mandt" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="MANDT" prompt="FND_IDOC_FILES.MANDT"/>
+        <bm:field name="docnum" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="DOCNUM" prompt="FND_IDOC_FILES.DOCNUM"/>
+        <bm:field name="docrel" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="DOCREL" prompt="FND_IDOC_FILES.DOCREL"/>
+        <bm:field name="status" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="STATUS" prompt="FND_IDOC_FILES.STATUS"/>
+        <bm:field name="direct" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="DIRECT" prompt="FND_IDOC_FILES.DIRECT"/>
+        <bm:field name="outmod" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="OUTMOD" prompt="FND_IDOC_FILES.OUTMOD"/>
+        <bm:field name="idoctyp" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="IDOCTYP" prompt="FND_IDOC_FILES.IDOCTYP"/>
+        <bm:field name="cimtyp" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="CIMTYP" prompt="FND_IDOC_FILES.CIMTYP"/>
+        <bm:field name="mestyp" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="MESTYP" prompt="FND_IDOC_FILES.MESTYP"/>
+        <bm:field name="sndpor" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="SNDPOR" prompt="FND_IDOC_FILES.SNDPOR"/>
+        <bm:field name="sndprt" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="SNDPRT" prompt="FND_IDOC_FILES.SNDPRT"/>
+        <bm:field name="sndprn" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="SNDPRN" prompt="FND_IDOC_FILES.SNDPRN"/>
+        <bm:field name="rcvpor" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="RCVPOR" prompt="FND_IDOC_FILES.RCVPOR"/>
+        <bm:field name="rcvprt" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="RCVPRT" prompt="FND_IDOC_FILES.RCVPRT"/>
+        <bm:field name="rcvprn" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="RCVPRN" prompt="FND_IDOC_FILES.RCVPRN"/>
+        <bm:field name="credat" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="CREDAT" prompt="FND_IDOC_FILES.CREDAT"/>
+        <bm:field name="cretim" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="CRETIM" prompt="FND_IDOC_FILES.CRETIM"/>
+        <bm:field name="serial" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="SERIAL" prompt="FND_IDOC_FILES.SERIAL"/>
+        <bm:field name="sync_status" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="SYNC_STATUS" prompt="FND_IDOC_FILES.SYNC_STATUS"/>
+        <bm:field name="exception_message" databaseType="CLOB" datatype="java.sql.Clob" physicalName="EXCEPTION_MESSAGE" prompt="FND_IDOC_FILES.EXCEPTION_MESSAGE"/>
+    </bm:fields>
+    <bm:features>
+        <f:standard-who/>
+    </bm:features>
+    <bm:primary-key>
+        <bm:pk-field name="idoc_file_id"/>
+    </bm:primary-key>
+    <bm:query-fields>
+        <bm:query-field field="idoc_file_id" queryOperator="="/>
+    </bm:query-fields>
+</bm:model>

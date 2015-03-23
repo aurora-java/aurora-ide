@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:jco="aurora.plugin.sap.jco3" trace="true">
+	<a:model-query fetchAll="true" model="idoc.fnd_idoc_files" rootpath="executeResult"/>
+	<p:echo/>
+	<jco:jco-invoke function="MONTH_NAMES_GET" return_target="/model/JcoResult">
+		<jco:parameters>
+			<jco:parameter name="LANGUAGE" value="EN"/>
+			<jco:parameter name="RETURN_CODE" return_field="@RETURN_CODE"/>
+		</jco:parameters>
+		<jco:tables>
+			<jco:table name="MONTH_NAMES" fetchAll="true" target="/model/JcoResult/MONTH_NAMES">
+				<jco:field-mappings>
+					<jco:field-mapping name="SP" return_field="@SP"/>
+					<jco:field-mapping name="MN" return_field="@MN"/>
+					<jco:field-mapping name="KTX" return_field="@KTX"/>
+					<jco:field-mapping name="LTX" return_field="@LTX"/>
+				</jco:field-mappings>
+			</jco:table>
+		</jco:tables>
+	</jco:jco-invoke>
+	<p:echo/>
+    <p:echo message="Feedback execute successful!"/>
+</p:procedure>

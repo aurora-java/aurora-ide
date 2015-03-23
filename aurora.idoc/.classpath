@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/c3p0-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/ow2-jta-1.1-spec.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/sapidoc3.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/sapidocjco.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/sapjco3.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/sqlserverjdbc.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/xapool.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aurora-plugin.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aurora.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/ojdbc6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

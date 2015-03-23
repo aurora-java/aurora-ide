@@ -1,0 +1,6 @@
+jco.server.progid=scfidoc
+jco.server.name=BP5
+jco.server.gwhost=192.168.11.11
+jco.server.gwserv=sapgw51
+jco.server.unicode=1
+jco.server.repository_destination=BCE
