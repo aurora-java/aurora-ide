@@ -1,0 +1,1213 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Eclipse BPMN2 Modeler User Guide (Version 1.0.1)</title>
+
+<link rel="stylesheet" type="text/css" href="MsoStyles-modified.css">
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+	<div class=WordSection1>
+
+		<div class="h1">
+
+			<h1>
+				<a name="_Toc371905920">Appendix: BPMN 2.0 Reference</a>
+			</h1>
+
+		</div>
+
+		<p class=MsoNormal>This appendix contains a brief description of all of the BPMN 2.0 elements and their visual representation in BPMN2 Modeler. There is also a detailed discussion of the
+			supported diagram types.</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905921"></a><a name="_Connections_1"></a>Connections
+			</h2>
+
+		</div>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905922">Association</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=38 height=20 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image003.jpg" align=left hspace=12>An <span class=MsoSubtleReference>Association</span> is used to link information and <span
+				class=MsoSubtleReference>Artifacts</span> with BPMN graphical elements. <span class=MsoSubtleReference>Text Annotations</span> and other <span class=MsoSubtleReference>Artifacts</span> can be
+			associated with the graphical elements. An arrowhead on the <span class=MsoSubtleReference>Association </span>indicates a direction of flow, when appropriate.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905923">Conversation Link</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=62 height=17 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image004.jpg" align=left hspace=12><span class=MsoSubtleReference>Conversation Links</span> are used to connect <span
+				class=MsoSubtleReference>Conversations</span> to and from <span class=MsoSubtleReference>Participants</span> (<span class=MsoSubtleReference>Pools</span>)
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905924"></a><a name="_Data_Association"></a>Data Association
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=62 height=27 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image005.png" align=left hspace=12><span class=MsoSubtleReference>Data Associations</span> show a flow of data out of, or
+			in to an <span class=MsoSubtleReference>Activity</span>. An arrow head is used to indicate the direction of the data flow.
+		</p>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Data Associations </span>are used to move data between <span class=MsoSubtleReference>Data Objects</span>, Process Variables, and inputs and outputs of <span
+				class=MsoSubtleReference>Activities</span>, <span class=MsoSubtleReference>Processes</span>, and <span class=MsoSubtleReference>Global Tasks</span>. Process execution does not flow along a <span
+				class=MsoSubtleReference>Data Association</span>, and as a result they have no direct effect on the flow of the <span class=MsoSubtleReference>Process</span>. The purpose of retrieving data from <span
+				class=MsoSubtleReference>Data Objects</span> or Process <span class=MsoSubtleReference>Data Inputs</span> is to fill the <span class=MsoSubtleReference>Activities</span> inputs and later push the
+			output values from the execution of the <span class=MsoSubtleReference>Activity</span> back into <span class=MsoSubtleReference>Data Objects</span> or Process <span class=MsoSubtleReference>Data
+				Outputs</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905925">Message Flow</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=84 height=25 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image006.jpg" align=left hspace=12>A <span class=MsoSubtleReference>Message Flow</span> is used to show the flow of <span
+				class=MsoSubtleReference>Messages</span> between two <span class=MsoSubtleReference>Participants</span>. <span class=MsoSubtleReference>Pools</span> in a Collaboration Diagram are used to
+			represent the two <span class=MsoSubtleReference>Participants</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905926">Sequence Flow</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=75 height=20 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image007.jpg" align=left hspace=12><span style='font-family: "Segoe UI", "sans-serif"'>A </span><span
+				class=MsoSubtleReference>Sequence Flow</span><span style='font-family: "Segoe UI", "sans-serif"'> is used to show the order in which </span><span class=MsoSubtleReference>Activities</span><span
+				style='font-family: "Segoe UI", "sans-serif"'> will be performed in a Process or Choreography. A </span><span class=MsoSubtleReference>Sequence Flow</span><span
+				style='font-family: "Segoe UI", "sans-serif"'> can optionally define a condition </span><span class=MsoSubtleReference>Expression</span><span style='font-family: "Segoe UI", "sans-serif"'>,
+				indicating that control will be passed down the </span><span class=MsoSubtleReference>Sequence Flow</span><span style='font-family: "Segoe UI", "sans-serif"'> only if the </span><span
+				class=MsoSubtleReference>Expression</span><span style='font-family: "Segoe UI", "sans-serif"'> evaluates to true. This </span><span class=MsoSubtleReference>Expression</span><span
+				style='font-family: "Segoe UI", "sans-serif"'> is typically used when the source of the </span><span class=MsoSubtleReference>Sequence Flow</span><span
+				style='font-family: "Segoe UI", "sans-serif"'> is a </span><span class=MsoSubtleReference>Gateway</span><span style='font-family: "Segoe UI", "sans-serif"'> or an </span><span
+				class=MsoSubtleReference>Activity</span><span style='font-family: "Segoe UI", "sans-serif"'>. A </span><span class=MsoSubtleReference>Sequence Flow</span><span
+				style='font-family: "Segoe UI", "sans-serif"'> that has an Exclusive, Inclusive, or </span><span class=MsoSubtleReference>Complex Gateway</span><span style='font-family: "Segoe UI", "sans-serif"'>
+				or an </span><span class=MsoSubtleReference>Activity</span><span style='font-family: "Segoe UI", "sans-serif"'> as its source can also be defined as &quot;default&quot;. Such a </span><span
+				class=MsoSubtleReference>Sequence Flow</span><span style='font-family: "Segoe UI", "sans-serif"'> will have a marker to show that it is a default flow. The default </span><span
+				class=MsoSubtleReference>Sequence Flow</span><span style='font-family: "Segoe UI", "sans-serif"'> is taken only if all the other outgoing </span><span class=MsoSubtleReference>Sequence
+				Flows</span><span style='font-family: "Segoe UI", "sans-serif"'> from the </span><span class=MsoSubtleReference>Activity</span><span style='font-family: "Segoe UI", "sans-serif"'> or </span><span
+				class=MsoSubtleReference>Gateway</span><span style='font-family: "Segoe UI", "sans-serif"'> are not valid (i.e., their condition </span><span class=MsoSubtleReference>Expressions</span><span
+				style='font-family: "Segoe UI", "sans-serif"'> are false).</span>
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905927"></a><a name="_Events"></a>Events
+			</h2>
+
+		</div>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905928">Boundary Event</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=45 height=36 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image008.png" align=left hspace=12><span class=MsoSubtleReference>Boundary Events</span><span
+				style='font-family: "Segoe UI", "sans-serif"'> are attached to the borders of an </span><span class=MsoSubtleReference>Activity</span><span style='font-family: "Segoe UI", "sans-serif"'>
+				and are used to handle conditions (</span><span class=MsoSubtleReference>Event Definitions</span><span style='font-family: "Segoe UI", "sans-serif"'>) that may have resulted during execution of
+				the </span><span class=MsoSubtleReference>Activity</span><span style='font-family: "Segoe UI", "sans-serif"'>.</span>
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905929">End Event</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=46 height=42 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image009.png" align=left hspace=12><span style='font-family: "Segoe UI", "sans-serif"'>As the name implies, the </span><span
+				class=MsoSubtleReference>End Event</span><span style='font-family: "Segoe UI", "sans-serif"'> indicates where a Process will end. In terms of </span><span class=MsoSubtleReference>Sequence
+				Flows</span><span style='font-family: "Segoe UI", "sans-serif"'>, the </span><span class=MsoSubtleReference>End Event</span><span style='font-family: "Segoe UI", "sans-serif"'> ends the flow of
+				the Process, and thus, will not have any outgoing </span><span class=MsoSubtleReference>Sequence Flows</span><span style='font-family: "Segoe UI", "sans-serif"'> and no </span><span
+				class=MsoSubtleReference>Sequence Flow</span><span style='font-family: "Segoe UI", "sans-serif"'> can connect from an </span><span class=MsoSubtleReference>End Even</span><span
+				style='font-family: "Segoe UI", "sans-serif"'>t. An </span><span class=MsoSubtleReference>End Event</span><span style='font-family: "Segoe UI", "sans-serif"'> may have one or more triggers
+				(</span><span class=MsoSubtleReference>Event Definitions</span><span style='font-family: "Segoe UI", "sans-serif"'>), which are passed back to an invoking or containing Process (if any).</span>
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905930">Intermediate Catch Event</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=44 height=45 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image010.png" align=left hspace=12><span style='font-family: "Segoe UI", "sans-serif"'>The </span><span
+				class=MsoSubtleReference>Intermediate Catch Event</span><span style='font-family: "Segoe UI", "sans-serif"'> is used to handle some kind of condition (</span><span class=MsoSubtleReference>Event
+				Definition</span><span style='font-family: "Segoe UI", "sans-serif"'>) that has occurred within the process or in an external process.</span>
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905931">Intermediate Throw Event</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=42 height=42 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image011.png" align=left hspace=12><span style='font-family: "Segoe UI", "sans-serif"'>The </span><span
+				class=MsoSubtleReference>Intermediate Throw Event</span><span style='font-family: "Segoe UI", "sans-serif"'> is used to report some kind of condition (</span><span class=MsoSubtleReference>Event
+				Definition</span><span style='font-family: "Segoe UI", "sans-serif"'>) to an invoking or containing Process. The receiving Process should be designed so that it is prepared to handle the event,
+				either with a </span><span class=MsoSubtleReference>Start Event, Intermediate Catch Event</span><span style='font-family: "Segoe UI", "sans-serif"'> or a </span><span class=MsoSubtleReference>Boundary
+				Event.</span>
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905932">Start Event</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=52 height=46 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image012.png" align=left hspace=12><span style='font-family: "Segoe UI", "sans-serif"'>As the name implies, the </span><span
+				class=MsoSubtleReference>Start Event</span><span style='font-family: "Segoe UI", "sans-serif"'> indicates where a particular Process will start. In terms of </span><span class=MsoSubtleReference>Sequence
+				Flows</span><span style='font-family: "Segoe UI", "sans-serif"'>, the </span><span class=MsoSubtleReference>Start Event</span><span style='font-family: "Segoe UI", "sans-serif"'> starts the flow
+				of the Process, and thus, will not have any incoming </span><span class=MsoSubtleReference>Sequence Flows</span><span style='font-family: "Segoe UI", "sans-serif"'> and no </span><span
+				class=MsoSubtleReference>Sequence Flow</span><span style='font-family: "Segoe UI", "sans-serif"'> can connect to a </span><span class=MsoSubtleReference>Start Even</span><span
+				style='font-family: "Segoe UI", "sans-serif"'>t. A </span><span class=MsoSubtleReference>Start Event</span><span style='font-family: "Segoe UI", "sans-serif"'> may have one or more event
+				triggers (</span><span class=MsoSubtleReference>Event Definitions</span><span style='font-family: "Segoe UI", "sans-serif"'>) which cause the Process to be initiated.</span>
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905933"></a><a name="_Event_Definitions"></a>Event Definitions
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Event Definitions</span> determine the behavior of <span class=MsoSubtleReference>Events</span>. An <span class=MsoSubtleReference>Event</span> may have zero or more
+			<span class=MsoSubtleReference>Event Definitions</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905934">Cancel</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			This type of <span class=MsoSubtleReference>Event Definition</span> is only allowed when used within a <span class=MsoSubtleReference>Transaction</span> Sub-Process. It is used to “roll back” the
+			effects of the Transaction.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905935">Compensate</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			Compensation is similar to a <span class=MsoSubtleReference>Cancel Event</span> in that it is used to reverse the effects of one or more <span class=MsoSubtleReference>Activities</span>. In this
+			case, the <span class=MsoSubtleReference>Activities</span> may not be contained in a <span class=MsoSubtleReference>Transaction</span> Sub-Process, so each <span class=MsoSubtleReference>Activity</span>
+			needs to be compensated separately.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905936">Conditional</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			This type of <span class=MsoSubtleReference>Event</span> is triggered when a condition becomes true. The <span class=MsoSubtleReference>Event Definition</span> contains the condition <span
+				class=MsoSubtleReference>Expression</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905937">Error</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			An <span class=MsoSubtleReference>Error Event Definition</span> is used to throw or catch an <span class=MsoSubtleReference>Error</span>. The <span class=MsoSubtleReference>Error</span> payload is
+			associated with a variable owned by the <span class=MsoSubtleReference>Event</span>. See <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Error">Error</a> below, for more details.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905938">Escalation</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			An <span class=MsoSubtleReference>Escalation Event Definition</span> is used to throw or catch an <span class=MsoSubtleReference>Escalation</span>. The <span class=MsoSubtleReference>Escalation</span>
+			payload is associated with a variable owned by the <span class=MsoSubtleReference>Event</span>. See <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Escalation">Escalation</a> below, for more details.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905939">Link</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			A <span class=MsoSubtleReference>Link</span> is a mechanism for connecting two sections of a <span class=MsoSubtleReference>Process</span>. <span class=MsoSubtleReference>Link Events</span> can be
+			used to create looping situations or to avoid long <span class=MsoSubtleReference>Sequence Flow</span> lines. <span class=MsoSubtleReference>Link Event</span> uses are limited to a single <span
+				class=MsoSubtleReference>Process</span> level (i.e., they cannot link a parent <span class=MsoSubtleReference>Process</span> with a <span class=MsoSubtleReference>Sub-Process</span>). Paired <span
+				class=MsoSubtleReference>Intermediate Events</span> can also be used as “Off-Page Connectors” for printing a Process across multiple pages. They can also be used as generic “Go To” objects within
+			the <span class=MsoSubtleReference>Process</span> level.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905940">Message</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			A <span class=MsoSubtleReference>Message</span> <span class=MsoSubtleReference>Event Definition</span> can be used to either send or receive a <span class=MsoSubtleReference>Message</span>. The <span
+				class=MsoSubtleReference>Message</span> payload is associated with a variable owned by the <span class=MsoSubtleReference>Event</span>. See <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Message">Message</a> below, for more details.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905941">Signal</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			A <span class=MsoSubtleReference>Signal Event Definition</span> is used to throw or catch a <span class=MsoSubtleReference>Signal</span>. See <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Signal">Signal</a> below, for more details.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905942">Terminate</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			This type of <span class=MsoSubtleReference>End Event</span> indicates that all <span class=MsoSubtleReference>Activities</span> in the <span class=MsoSubtleReference>Process</span> should be
+			immediately ended. This includes all instances of multi-instances. The <span class=MsoSubtleReference>Process</span> is ended without compensation or event handling.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905943">Timer</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			The Timer <span class=MsoSubtleReference>Event Definition</span> acts as a delay mechanism based on a specific time-date or a specific cycle (e.g., every Monday at 9am) can be set that will trigger
+			the <span class=MsoSubtleReference>Event</span>.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905944"></a><a name="_Gateways"></a>Gateways
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			A <span class=MsoSubtleReference>Gateway</span> must have multiple incoming or multiple outgoing <span class=MsoSubtleReference>Sequence Flows</span> (i.e., it must either merge or split the
+			process flow). The Gateway Direction property determines its behavior; this property can be one of the following
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Unspecified</b> – the <span class=MsoSubtleReference>Gateway</span>
+			may have both multiple incoming and outgoing <span class=MsoSubtleReference>Sequence Flows</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Mixed</b> – the <span class=MsoSubtleReference>Gateway</span>
+			<b>must</b> have both multiple incoming and outgoing <span class=MsoSubtleReference>Sequence Flows</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Converging</b> – the <span class=MsoSubtleReference>Gateway</span>
+			<b>must</b> have multiple incoming <span class=MsoSubtleReference>Sequence Flows</span>, but may have only one outgoing <span class=MsoSubtleReference>Sequence Flow</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span class=MsoSubtleReference><span style='font-family: Symbol; color: windowtext; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span></span><b>Diverging</b>– the <span class=MsoSubtleReference>Gateway</span> may have only one incoming <span class=MsoSubtleReference>Sequence Flow</span>, but <b>must</b> have multiple outgoing <span
+				class=MsoSubtleReference>Sequence Flows</span>
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905945">Complex Gateway</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=49 height=50 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image013.jpg" align=left hspace=12>The <span class=MsoSubtleReference>Complex Gateway</span> can be used to model complex
+			synchronization behavior. An <span class=MsoSubtleReference>Expression</span> is used to describe the precise behavior. For example, this <span class=MsoSubtleReference>Expression</span> could
+			specify that three out of five incoming <span class=MsoSubtleReference>Sequence Flows</span> are needed to activate the <span class=MsoSubtleReference>Gateway</span>. The outgoing paths that are
+			taken by the <span class=MsoSubtleReference>Gateway</span>, is determined by conditions on the outgoing <span class=MsoSubtleReference>Sequence Flows</span> as in the split behavior of the <span
+				class=MsoSubtleReference>Inclusive Gateway</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905946">Exclusive Gateway</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			A diverging <span class=MsoSubtleReference>Exclusive Gateway</span> (decision) is used to create alternative paths within a Process flow. This is basically the &quot;diversion point in the
+			road&quot; for a Process. For a given instance of the Process, only one of the paths can be taken. A decision can be thought of as a question that is asked at a particular point in the Process. The
+			question has a defined set of alternative answers. Each answer is associated with a condition <span class=MsoSubtleReference>Expression</span> that is associated with a Gateway's outgoing <span
+				class=MsoSubtleReference>Sequence Flows</span>.
+		</p>
+
+		<p class=MsoNormal>
+			A default path can optionally be identified, to be taken in the event that none of the conditional <span class=MsoSubtleReference>Expressions</span> evaluate to true. If a default path is not
+			specified and the <span class=MsoSubtleReference>Process</span> is executed such that none of the conditional <span class=MsoSubtleReference>Expressions</span> evaluates to true, a runtime
+			exception occurs.
+		</p>
+
+		<p class=MsoNormal>
+			A converging <span class=MsoSubtleReference>Exclusive</span> <span class=MsoSubtleReference>Gateway</span> is used to merge alternative paths.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905947"></a><a name="_Event_Based_Gateway"></a>Event Based Gateway
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=48 height=50 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image014.png" align=left hspace=12>The <span class=MsoSubtleReference>Event-Based Gateway</span> represents a branching
+			point in the Process where the alternative paths that follow the <span class=MsoSubtleReference>Gateway</span> are based on events that occur, rather than the evaluation of expressions using
+			Process data (as with an Exclusive or <span class=MsoSubtleReference>Inclusive Gateway</span>). A specific event, usually the receipt of a <span class=MsoSubtleReference>Message</span>, determines
+			the path that will be taken. Basically, the decision is made by another <span class=MsoSubtleReference>Participant</span> based on data that is not visible to a Process, thus requiring the use of
+			the <span class=MsoSubtleReference>Event-Based Gateway</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905948">Inclusive Gateway</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=50 height=48 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image015.png" align=left hspace=12>A diverging <span class=MsoSubtleReference>Inclusive Gateway</span> (inclusive
+			decision) can be used to create alternative but also parallel paths within a Process flow. Unlike the <span class=MsoSubtleReference>Exclusive Gateway</span>, all condition expressions are
+			evaluated. The true evaluation of one condition expression does not exclude the evaluation of other condition expressions. All <span class=MsoSubtleReference>Sequence Flows</span> with a true
+			evaluation will be traversed. Since each path is considered to be independent, all combinations of the paths <b>may</b> be taken, from zero to all. However, it should be designed so that at least
+			one path is taken.
+		</p>
+
+		<p class=MsoNormal>
+			A default path can optionally be identified, to be taken in the event that none of the conditional <span class=MsoSubtleReference>Expressions</span> evaluate to true. If a default path is not
+			specified and the <span class=MsoSubtleReference>Process</span> is executed such that none of the conditional <span class=MsoSubtleReference>Expressions</span> evaluates to true, a runtime
+			exception occurs.
+		</p>
+
+		<p class=MsoNormal>
+			A converging <span class=MsoSubtleReference>Inclusive</span> <span class=MsoSubtleReference>Gateway</span> is used to merge a combination of alternative and parallel paths.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905949">Parallel Gateway</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=48 height=48 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image016.png" align=left hspace=12>A <span class=MsoSubtleReference>Parallel Gateway</span> is used to synchronize
+			(combine) parallel flows and to create parallel flows. A <span class=MsoSubtleReference>Parallel Gateway</span> creates parallel paths without checking any conditions; each outgoing <span
+				class=MsoSubtleReference>Sequence Flow</span> is passed control upon execution of this <span class=MsoSubtleReference>Gateway</span>. For incoming flows, the <span class=MsoSubtleReference>Parallel
+				Gateway</span> will wait for all incoming flows before triggering the flow through its outgoing <span class=MsoSubtleReference>Sequence Flows</span>.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905950">Activities</a>
+			</h2>
+
+		</div>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905951">Business Rule Task</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=88 height=43 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image017.png" align=left hspace=12>A <span class=MsoSubtleReference>Business Rule Task</span> provides a mechanism for
+			the Process to provide input to a Business Rules Engine and to get the output of calculations that the Business Rules Engine might provide.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905952"></a><a name="_Choreography_Task"></a>Choreography Task
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=84 height=132 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image018.png" align=left hspace=12>A <span class=MsoSubtleReference>Choreography Task</span> is an atomic <span
+				class=MsoSubtleReference>Activity</span> in a Choreography Process. It represents an Interaction, which may be one or two <span class=MsoSubtleReference>Message</span> exchanges between two <span
+				class=MsoSubtleReference>Participants</span>.
+		</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905953">Manual Task</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=88 height=43 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image019.jpg" align=left hspace=12>A <span class=MsoSubtleReference>Manual Task</span> is a task that is not managed by
+			any business process engine. It can be considered as an unmanaged task, in the sense that the business process engine does not track the start and completion of such a task. An example of this
+			could be a paper based instruction for a telephone technician to install a telephone at a customer location.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905954">Receive Task</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=88 height=43 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image020.png" align=left hspace=12>A <span class=MsoSubtleReference>Receive Task</span> is a simple task that is designed
+			to wait for a <span class=MsoSubtleReference>Message</span> to arrive from an external <span class=MsoSubtleReference>Participant</span> (relative to the Process). Once the <span
+				class=MsoSubtleReference>Message</span> has been received, the task is completed.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905955">Script Task</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=88 height=43 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image021.png" align=left hspace=12>A <span class=MsoSubtleReference>Script Task</span> is executed by a business process
+			engine The modeler or implementer defines a script in a language that the engine can interpret When the task is ready to start, the engine will execute the script When the script is completed, the
+			task will also be completed.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905956">Send Task</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=88 height=43 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image022.png" align=left hspace=12>A <span class=MsoSubtleReference>Send Task</span> is a simple task that is designed to
+			send a <span class=MsoSubtleReference>Message</span> to an external <span class=MsoSubtleReference>Participant</span> (relative to the Process). Once the <span class=MsoSubtleReference>Message</span>
+			has been sent, the task is completed.
+		</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905957"></a><a name="_Service_Task"></a>Service Task
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=88 height=43 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image023.png" align=left hspace=12>A <span class=MsoSubtleReference>Service Task</span> is a task that uses some sort of
+			service, which could be a Web service or an automated application.
+		</p>
+
+		<p class=MsoNormal>
+			A Service Task defines an <b>Implementation</b> which is the underlying technology that will be used to implement the service. Valid values are &quot;##unspecified&quot; for leaving the
+			implementation technology open, &quot;##WebService&quot; for the Web service technology or a URI identifying any other technology or coordination protocol.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905958">Task</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=88 height=43 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image024.png" align=left hspace=12>A <span class=MsoSubtleReference>Task</span> is an atomic <span
+				class=MsoSubtleReference>Activity</span> that is included within a Process. A <span class=MsoSubtleReference>Task</span> is used when the work in the Process is not broken down to a finer level of
+			Process detail.
+		</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905959"></a><a name="_User_Task"></a>User Task
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=88 height=43 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image025.png" align=left hspace=12>A <span class=MsoSubtleReference>User Task</span> is a typical workflow task where a
+			human actor performs the task with the assistance of a software application. The lifecycle of the task is managed by a software component (called the “Task Manager”) and is typically executed in
+			the context of a Process. The <span class=MsoSubtleReference>User Task </span>can be implemented using different technologies, specified by the <b>Implementation</b> attribute. Besides the Web
+			service technology, any technology can be used. A <span class=MsoSubtleReference>User Task</span> for instance can be implemented using WSHumanTask by setting <b>Implementation</b> to
+			“http://docs.oasis-open.org/ns/bpel4people/ws-humantask/protocol/200803”.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905960"></a><a name="_Data_Elements"></a>Data Elements
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>This section describes all of the possible data elements that can be manipulated by Activities in a Process, both visual and non-visual.</p>
+
+		<p class=MsoNormal>The BPMN 2.0 spec also provides for a “Data State”, which is a state of the data contained in a data element. The definition of these states, e.g., possible values, and any
+			specific semantics are out of scope of the BPMN 2.0 spec. Therefore, BPMN adopters can use this element and the BPMN extensibility capabilities to define their own states.</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Data_Input/Output"></a> <a name="_Toc371905961">Data Input/Output</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=123 height=60 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image026.png" align=left hspace=12>Activities and Processes often required data in order to execute. In addition they
+			may produce data during or as a result of execution. Data requirements are captured as <span class=MsoSubtleReference>Data Inputs</span> and <span class=MsoSubtleReference>Data Outputs</span>.
+		</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905962"></a><a name="_Input_and_Output"></a>Input and Output Sets
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			An <span class=MsoSubtleReference>Activity</span> or <span class=MsoSubtleReference>Process</span> may be designed such that it can execute with differing sets of input data. This allows the
+			process architect greater flexibility in designing the process, since not all data may be available or even required when executing an <span class=MsoSubtleReference>Activity</span>. For example,
+			some information (e.g. a city name) can be derived or looked up (by, e.g. city postal code) if not provided to the <span class=MsoSubtleReference>Activity</span> at runtime. This is similar to the
+			concept of method overloading in Java or C++.
+		</p>
+
+		<p class=MsoNormal>
+			BPMN 2.0 introduced the concept of <span class=MsoSubtleReference>Input Sets</span> and <span class=MsoSubtleReference>Output Sets</span> to support this concept. Essentially, <span
+				class=MsoSubtleReference>Data Inputs</span>, when grouped together (the “<span class=MsoSubtleReference>Input Set</span>”), define a valid set of data inputs for an <span class=MsoSubtleReference>Activity</span>.
+			<span class=MsoSubtleReference>Data Outputs</span> grouped together (the “<span class=MsoSubtleReference>Output Set</span>”) define the set of data items produced when the <span
+				class=MsoSubtleReference>Activity</span> completes. These <span class=MsoSubtleReference>Input</span> and <span class=MsoSubtleReference>Output Sets</span> also allow you to specify which data
+			items are optionally available on input or optionally created on output, and which items are required or mandatory.
+		</p>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Input</span> and <span class=MsoSubtleReference>Output Sets</span> can also define mutual dependencies; an <span class=MsoSubtleReference>Input Set</span> can
+			indicate which <span class=MsoSubtleReference>Output Sets</span> are produced, and an <span class=MsoSubtleReference>Output Set</span> can indicate <span class=MsoSubtleReference>the Input
+				Sets</span> needed to produce the output data.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905963"></a><a name="_Data_Object"></a>Data Object
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=62 height=60 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image027.png" align=left hspace=12><span class=MsoSubtleReference>Data Objects</span> are the primary construct for
+			modeling data within the Process flow. A <span class=MsoSubtleReference>Data Object</span> has a well-defined lifecycle and structure. A <span class=MsoSubtleReference>Data Object</span> can appear
+			multiple times in a Process diagram, each of which references the same <span class=MsoSubtleReference>Data Object</span> instance. These references are used to simplify diagram connections.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905964"></a><a name="_Data_Store"></a>Data Store
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=58 height=58 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image028.png" align=left hspace=12>A <span class=MsoSubtleReference>Data Store</span> provides a mechanism for <span
+				class=MsoSubtleReference>Activities</span> to retrieve or update stored information that will persist beyond the scope of the Process. The same <span class=MsoSubtleReference>Data Store</span> can
+			be visualized, through a <span class=MsoSubtleReference>Data Store Reference</span>, in one or more places in the Process.
+		</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905965"></a><a name="_Message"></a>Message
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=50 height=36 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image029.png" align=left hspace=12>A <span class=MsoSubtleReference>Message</span> represents the content of a
+			communication between two <span class=MsoSubtleReference>Participants</span>.
+		</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905966"></a><a name="_Error"></a>Error
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=31 height=28 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image030.png" align=left hspace=12>An <span class=MsoSubtleReference>Error</span> represents the content of an <span
+				class=MsoSubtleReference>Error Event</span> or the Fault of a failed <span class=MsoSubtleReference>Operation</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905967"></a><a name="_Escalation"></a>Escalation
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=33 height=30 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image031.png" align=left hspace=12>An <span class=MsoSubtleReference>Escalation</span> identifies a business situation
+			that a Process might need to react to.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905968"></a><a name="_Signal"></a>Signal
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=27 height=25 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image032.png" align=left hspace=12><span class=MsoSubtleReference>Signals</span> are triggers generated in the <span
+				class=MsoSubtleReference>Pool</span> they are published. They are typically used for broadcast communication within and across Processes, across <span class=MsoSubtleReference>Pools</span>, and
+			between Process diagrams.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905969"></a><a name="_Resource"></a>Resource
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			A <span class=MsoSubtleReference>Resource</span> is an actor or responsible party that participates in an activity. This could be, for example, a specific individual, a group, an organization role
+			or position, or an organization. Resources are assigned to Activities during Process execution time.
+		</p>
+
+		<p class=MsoNormal>
+			A <span class=MsoSubtleReference>Resource</span> may need additional information to complete a task. This could be, for example, a customer’s contact information, an order request, invoice, etc.
+			This information is represented as <span class=MsoSubtleReference>Resource Parameters</span>. In an executable <span class=MsoSubtleReference>Process</span>, <span class=MsoSubtleReference>Resource
+				Parameters </span>must be in the form of data items that are accessible within the scope of the <span class=MsoSubtleReference>Activity</span> that owns the <span class=MsoSubtleReference>Resource</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905970"></a><a name="_Variable_(Property)"></a>Variable (Property)
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Properties</span>, like <span class=MsoSubtleReference>Data Objects</span>, are data containers. But, unlike <span class=MsoSubtleReference>Data Objects</span>, they
+			are not visually displayed on a diagram. Only <span class=MsoSubtleReference>Processes</span>, <span class=MsoSubtleReference>Activities</span>, and <span class=MsoSubtleReference>Events</span> may
+			contain <span class=MsoSubtleReference>Properties</span>. <span class=MsoSubtleReference>Properties</span> are analogous to “Variables” in the context of a programming language, in that they are
+			used to store, transform and convey data as it is moved through the process. <span class=MsoSubtleReference>Properties</span> have the same properties as <span class=MsoSubtleReference>Data
+				Objects</span>, in that they have a well-defined structure, kind and cardinality.
+		</p>
+
+		<p class=MsoNormal>
+			BPMN2 Modeler uses the term “Variable” instead of “Property” because it seems more intuitive to the software developer, though they refer to the same BPMN2 model element. Also, because the term
+			“Property” is so ubiquitous it can sometimes cause confusion when discussing the “properties of a <span class=MsoSubtleReference>Property</span>”.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905971"></a><a name="_Data_Type_(ItemDefinition)"></a>Data Type (ItemDefinition)
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			BPMN elements, such as <span class=MsoSubtleReference>Data Objects</span> and <span class=MsoSubtleReference>Messages</span>, represent items that are manipulated during process flows. The set of
+			characteristics that describe these items are known in BPMN 2.0 as <span class=MsoSubtleReference>Item Definitions</span>. However, since BPMN2 Modeler is designed primarily with the software
+			engineer in mind, it uses the more intuitive name “Data Type”.
+		</p>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Item Definitions</span> can be either “Physical”, such as the mechanical part of a vehicle, or “Informational” such as the catalog of the mechanical parts of a
+			vehicle. This is known as the “Item Kind”. If the item is Informational, then its data structure must also be provided in the <span class=MsoSubtleReference>Item Definition</span>.
+		</p>
+
+		<p class=MsoNormal>It is also possible to define collections of items by setting the “is collection” flag. No assumption is made about the ordering of the items in the collection.</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905972">Containers</a>
+			</h2>
+
+		</div>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905973"></a><a name="_Ad_Hoc_Sub"></a>Ad Hoc Sub Process
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img border=0 width=118 height=60 id="Picture 306" src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image033.png">An <span class=MsoSubtleReference>Ad-Hoc Sub-Process</span> contains any number
+			of embedded inner <span class=MsoSubtleReference>Activities</span> and is intended to be executed with a more flexible ordering compared to the typical routing of Processes. The contained <span
+				class=MsoSubtleReference>Activities</span> are executed sequentially or in parallel, they can be executed multiple times in an order that is only constrained through the specified <span
+				class=MsoSubtleReference>Sequence Flows</span>, <span class=MsoSubtleReference>Gateways</span>, and data connections.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905974">Call Activity</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img border=0 width=119 height=60 id="Picture 308" src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image034.png">A <span class=MsoSubtleReference>Call Activity</span> identifies a point in the
+			Process where a global Process or a <span class=MsoSubtleReference>Global Task</span> is used. The <span class=MsoSubtleReference>Call Activity</span> acts as a wrapper for the invocation of a
+			global Process or <span class=MsoSubtleReference>Global Task</span> within the execution. The activation of a <span class=MsoSubtleReference>Call Activity</span> results in the transfer of control
+			to the called global Process or <span class=MsoSubtleReference>Global Task</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905975">Call Choreography</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=84 height=81 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image035.png" align=left hspace=12>A <span class=MsoSubtleReference>Call Choreography</span> identifies a point in the
+			Process where a global Choreography or a <span class=MsoSubtleReference>Global Choreography Task</span> is used. The <span class=MsoSubtleReference>Call Choreography</span> acts as a place holder
+			for the inclusion of the Choreography element it is calling.
+		</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905976">Lane</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=213 height=59 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image036.png" align=left hspace=12>A <span class=MsoSubtleReference>Lane</span> is a sub-partition within a Process
+			(often within a <span class=MsoSubtleReference>Pool</span>) used to organize and categorize <span class=MsoSubtleReference>Activities</span> within a <span class=MsoSubtleReference>Pool</span>. <span
+				class=MsoSubtleReference>Lanes</span> are often used for such things as internal roles (e.g., Manager, Associate), systems (e.g., an enterprise application), an internal department (e.g.,
+			shipping, finance), etc. In addition, <span class=MsoSubtleReference>Lanes</span> can be nested or defined in a matrix. For example, there could be an outer set of <span class=MsoSubtleReference>Lanes</span>
+			for company departments and then an inner set of <span class=MsoSubtleReference>Lanes</span> for roles within each department.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905977">Pool</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=296 height=127 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image037.png" align=left hspace=12>A <span class=MsoSubtleReference>Pool</span> is the graphical representation of a <span
+				class=MsoSubtleReference>Participant</span> in a Collaboration or Choreography and can be a specific <span class=MsoSubtleReference>Partner Entity</span> (e.g., a company) or can be a more general
+			<span class=MsoSubtleReference>Partner Role</span> (e.g., a buyer, seller, or manufacturer). A <span class=MsoSubtleReference>Pool</span> may reference a Process, but is not required to, i.e., it
+			can be a “black box”.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905978">Sub Choreography</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=84 height=83 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image038.png" align=left hspace=12>A <span class=MsoSubtleReference>Sub-Choreography</span> is a compound <span
+				class=MsoSubtleReference>Activity</span> in that it has detail that is defined as a flow of other <span class=MsoSubtleReference>Activities</span>, in this case, a Choreography. Each <span
+				class=MsoSubtleReference>Sub-Choreography</span> involves two or more <span class=MsoSubtleReference>Participants</span>. The name of the <span class=MsoSubtleReference>Sub-Choreography</span> and
+			each of the <span class=MsoSubtleReference>Participants</span> are all displayed in the different bands that make up the graphical notation. There are two or more <span class=MsoSubtleReference>Participant
+				Bands</span> and one <span class=MsoSubtleReference>Sub-Process</span> name band.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905979"></a><a name="_Sub_Process"></a>Sub Process
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=89 height=46 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image039.png" align=left hspace=12>A <span class=MsoSubtleReference>Sub-Process</span> is an <span
+				class=MsoSubtleReference>Activity</span> whose internal details have been modeled using <span class=MsoSubtleReference>Activities</span>, <span class=MsoSubtleReference>Gateways</span>, <span
+				class=MsoSubtleReference>Events</span>, and <span class=MsoSubtleReference>Sequence Flows</span>. <span class=MsoSubtleReference>Sub-Processes</span> define a contextual scope that can be used for
+			attribute visibility, transactional scope, for the handling of exceptions, of events, or for compensation. A <span class=MsoSubtleReference>Sub-Process</span> can be in a collapsed view that hides
+			its details or in an expanded view that shows its details within the view of the Process in which it is contained.
+		</p>
+
+		<p class=MsoNormal>
+			If a <span class=MsoSubtleReference>Sub-Process</span> is declared as an event handler (the “Is Triggered by Event” flag is set), it is not part of the normal process flow and must be configured as
+			follows:
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>It may not have any incoming or outgoing <span
+				class=MsoSubtleReference>Sequence Flows</span>.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>It must have one and only one <span
+				class=MsoSubtleReference>Start Event</span> trigger that has one or more of the following <span class=MsoSubtleReference>Event Definitions</span>:
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Message
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Error
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Escalation
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Compensation
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Conditional
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Signal
+		</p>
+
+		<p class=MsoNormal>There are two possible consequences to the parent Process when an Event Sub-Process is triggered:</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			1.<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>the parent Process can be interrupted
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			2.<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>the parent Process can continue its work (not interrupted)
+		</p>
+
+		<p class=MsoNormal>This is determined by whether the Start Event that is used has the “Is Interrupting” flag set.</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905980"></a><a name="_Transaction"></a>Transaction
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=91 height=46 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image040.png" align=left hspace=12>A <span class=MsoSubtleReference>Transaction</span> is a specialized <span
+				class=MsoSubtleReference>Sub-Process</span> that is executed atomically, that is, all of its contained activities either execute successfully to completion, or their combined effects (primarily on
+			data) are rolled back.
+		</p>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Transactions</span> must specify a <b>Transaction</b> <b>Protocol</b> and the <b>Method</b> used to commit or cancel the transaction. The <b>Protocol</b> should be
+			set to a technology specific URI, e.g., http://schemas.xmlsoap.org/ws/2004/10/wsat for WSAtomicTransaction, or http://docs.oasis-open.org/ws-tx/wsba/2006/06/AtomicOutcome for WS-BusinessActivity.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905981">Artifacts</a>
+			</h2>
+
+		</div>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905982">Conversation</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=32 height=45 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image041.png" align=left hspace=12>A <span class=MsoSubtleReference>Conversation</span> is an atomic element for a
+			Conversation (Collaboration) diagram. It represents a set of <span class=MsoSubtleReference>Message</span> <span class=MsoSubtleReference>Flows</span> grouped together based on a concept and/or a <span
+				class=MsoSubtleReference>Correlation Key</span>. A Conversation will involve two or more <span class=MsoSubtleReference>Participants</span>.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905983">Group</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=98 height=53 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image042.png" align=left hspace=12>The <span class=MsoSubtleReference>Group</span> object is an <span
+				class=MsoSubtleReference>Artifact</span> that provides a visual mechanism to group elements of a diagram informally. A <span class=MsoSubtleReference>Group</span> is not an <span
+				class=MsoSubtleReference>Activity</span> or any <span class=MsoSubtleReference>Flow Object</span> and therefore, cannot connect to <span class=MsoSubtleReference>Sequence Flows</span> or <span
+				class=MsoSubtleReference>Message Flows</span>. In addition, <span class=MsoSubtleReference>Groups</span> are not constrained by restrictions of <span class=MsoSubtleReference>Pools</span> and <span
+				class=MsoSubtleReference>Lanes</span>. This means that a <span class=MsoSubtleReference>Group</span> can stretch across the boundaries of a <span class=MsoSubtleReference>Pool</span> to surround
+			diagram elements, often to identify <span class=MsoSubtleReference>Activities</span> that exist within a distributed business-to-business transaction. <span class=MsoSubtleReference>Groups</span>
+			are often used to highlight certain sections of a diagram and do not affect the flow of the Process.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905984">Text Annotation</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<img width=84 height=53 src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image043.png" align=left hspace=12><span class=MsoSubtleReference>Text Annotations</span> provide additional information
+			to the reader about a BPMN diagram.
+		</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905985"></a><a name="_Diagram_Types"></a>Diagram Types
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			As a software developer involved in implementing a BPM system for your organization or for a customer you are probably focused mainly on defining user roles, work activities, process flow logic,
+			exception handling, making sure all of the data structures are properly defined and all of the endpoints are correct, and so on. Sometimes it feels like you're too close to the forest to see the
+			trees. <br> <br> The smart folks that make up the OMG understand that business processes can be extremely complex and that no one type of diagram can capture all of the details required
+			to fully understand the inner workings of a large enterprise, much less how one organization interacts with others in the business world. That is why the spec defines several types of diagrams,
+			which present different views of a business process. This section discusses these diagram types and how they are intended to be used.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905986">Process Diagrams</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>This is the &quot;boxes and arrows&quot; flow chart type of diagram that defines the activities (&quot;boxes&quot;) their sequencing (&quot;arrows&quot;), decision branches
+			(&quot;diamonds&quot;) and so on. This type of diagram typically represents an Organization's private process, i.e. a description of how an Organization works internally. While the diagram may show
+			information (in the form of &quot;messages&quot;) coming in from, or leaving the Organization to the outside world, this type of diagram is not intended to show interactions between different
+			Organizations.</p>
+
+		<p class=MsoNormal>It's also possible to describe two or more departments interacting with each other inside the Organization using &quot;swim lanes&quot; (or just “Lanes”). Swim lanes can be
+			nested to reflect the Organization's departmental hierarchy and individual roles within a department. Here's an example showing the product development cycle in a software consulting firm:</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=519 height=298 id="Picture 50" src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image044.jpg"
+				alt="APPENDIX_%20BPMN%202.0%20REFERENCE_files/ProcessDiagramWithLanes.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182471">Figure </a>76: Example Process Diagram
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905987">Collaboration Diagrams</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal style='margin-bottom: 12.0pt'>
+			This type of diagram shows the interactions between two or more processes, typically owned by different parties or Organizations. The processes are represented by &quot;Pools&quot; and, as with
+			Process Diagrams, each Pool may contain one or more Lanes. Collaboration Diagrams are similar to Process Diagrams in that they depict the flow of activities internal to an Organization; the
+			difference is whereas a Process Diagram is used to depict a single process, Collaboration Diagrams show multiple processes as well as the interface points between them.<br> <br> Here's a
+			Collaboration Diagram illustrating a Pizza order:
+		</p>
+
+		<p class=MsoNormal style='margin-bottom: 0in; margin-bottom: .0001pt; page-break-after: avoid'>
+			<a href="APPENDIX_%20BPMN%202.0%20REFERENCE_files/CollaborationDiagramType.png"><span style='color: blue; text-decoration: none'><img border=0
+					width=513 height=355 id="Picture 49" src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image045.png"
+					alt="APPENDIX_%20BPMN%202.0%20REFERENCE_files/CollaborationDiagramType.png"></span></a>
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182472">Figure </a>77: Example Collaboration Diagram
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905988">Choreography Diagrams</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal style='margin-bottom: 12.0pt'>
+			Choreography Diagrams are mainly focused on the participants (&quot;Pools&quot;) in a business process and the information exchanged between them, rather than on the orchestration of the work being
+			performed. A Choreography Diagram can be thought of as a business contract between two or more Organizations.<br> <br> Here's a Choreography Diagram showing the interaction between a
+			buyer and an online retailer. Each exchange is represented by a rounded rectangle, called a Choreography Task; the information exchanged between them is shown as an envelope representing a message
+			sent from the initiating participant.
+		</p>
+
+		<p class=MsoNormal style='margin-bottom: 0in; margin-bottom: .0001pt; page-break-after: avoid'>
+			<a href="APPENDIX_%20BPMN%202.0%20REFERENCE_files/ChoreographyDiagramType.png"><span style='color: blue; text-decoration: none'><img border=0
+					width=511 height=183 id="Picture 48" src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image046.jpg"
+					alt="APPENDIX_%20BPMN%202.0%20REFERENCE_files/ChoreographyDiagramType.png"></span></a>
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182473">Figure </a>78: Example Choreography Diagram
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905989">Conversation Diagrams</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal style='margin-bottom: 12.0pt'>
+			These are a simplification of a Choreography Diagram and are intended as an overview to illustrate which participants co-operate on which tasks. Conversations, as you would guess, are exchanges of
+			packets of information (&quot;Messages&quot;) related to the completion of a task.<br> <br> In Conversation Diagrams, the participants are represented as Pools, similar to the
+			Collaboration Diagram, and the information exchange (Conversation) as a hexagon connecting them, as shown here:
+		</p>
+
+		<p class=MsoNormal style='margin-bottom: 0in; margin-bottom: .0001pt; page-break-after: avoid'>
+			<a href="APPENDIX_%20BPMN%202.0%20REFERENCE_files/ConversationDiagramType.png"><span style='color: blue; text-decoration: none'><img border=0
+					width=258 height=123 id="Picture 47" src="APPENDIX_%20BPMN%202.0%20REFERENCE_files/image047.jpg"
+					alt="APPENDIX_%20BPMN%202.0%20REFERENCE_files/ConversationDiagramType.png"></span></a>
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182474">Figure </a>79: Example Conversation Diagram
+		</p>
+
+		<p class=MsoNormal>Conversation Diagrams are not yet fully supported by the BPMN2 Modeler, but they are planned as an enhancement for a future release.</p>
+
+		<span style='font-size: 10.0pt; line-height: 115%; font-family: "Trebuchet MS", "sans-serif"'><br clear=all style='page-break-before: always'> </span>
+
+		<p class=MsoNormal>
+			<span style='font-size: 26.0pt; line-height: 115%; color: #4F81BD; text-transform: uppercase; letter-spacing: .5pt'>&nbsp;</span>
+		</p>
+
+	</div>
+
+</body>
+
+</html>

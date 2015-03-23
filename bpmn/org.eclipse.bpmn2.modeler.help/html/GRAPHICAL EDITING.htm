@@ -1,0 +1,263 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Eclipse BPMN2 Modeler User Guide (Version 1.0.1)</title>
+
+<link rel="stylesheet" type="text/css" href="MsoStyles-modified.css">
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+	<div class=WordSection1>
+
+		<div class="h1">
+
+			<h1>
+				<a name="_Toc371905859">Graphical Editing</a>
+			</h1>
+
+		</div>
+
+		<p class=MsoNormal>This section explains the use of the graphical editor and all user gestures (mouse clicks, keyboard actions, etc.) in more detail.</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905860"></a><a name="_Tool_Palette"></a>Tool Palette
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>The Tool Palette appears along the right edge of the Drawing Canvas, although it can also be “docked” at the left edge. It consists of several “tool drawers” which can be
+			individually expanded and collapsed, or pinned open (see screenshot at left).</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img width=109 height=354 id="Picture 35" src="GRAPHICAL%20EDITING_files/image003.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182406">Figure </a>9: Tool Palette
+		</p>
+
+		<p class=MsoNormal>
+			The Tool Palette can also be collapsed to save screen real-estate, using the <img width=9 height=12 id="Picture 36" src="GRAPHICAL%20EDITING_files/image004.jpg"> button in the title bar.
+		</p>
+
+		<p class=MsoNormal>
+			Tool Drawers contain any number of “tools” which are categorized either as <b>Selection Tools</b>, <b>Connector Tools</b> or <b>Creation Tools</b>. The category defines their behavior:
+		</p>
+
+		<p class=MsoNormal>
+			<b>Selection Tools</b> remain active as long as they are enabled. The <b>Select</b> tool allows you to select individual elements on the Drawing Canvas by clicking the primary (left) mouse button;
+			holding either the Control or Shift key allows you to select additional elements. The <b>Marquee</b> tool is used to select multiple elements by dragging a rectangular selection box around the
+			elements. Additional elements can be selected by switching back to the <b>Select</b> tool.
+		</p>
+
+		<p class=MsoNormal>
+			<b>Connector Tools</b> also remain active as long as they are enabled. To create a connection between two elements, click the first element (the “source” of the connection) and then the second (the
+			“target”).
+		</p>
+
+		<p class=MsoNormal>
+			<b>Creation Tools</b> are “single shot”, that is they are only active for a single mouse click action. Once the element has been created on the Drawing Canvas, the <b>Select</b> tool becomes active
+			again.
+		</p>
+
+		<p class=MsoNormal>
+			Pressing the ESC key while a tool is active cancels its action, and re-activates the <b>Select</b> tool.
+		</p>
+
+		<p class=MsoNormal>The Tool Palette’s behavior and appearance can be adjusted in the Settings dialog which is accessible from its context menu, as shown here:</p>
+
+		<p class=MsoNormal>
+			<img width=421 height=251 id="Picture 189" src="GRAPHICAL%20EDITING_files/image005.jpg">                                      
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182407">Figure </a>10: Tool Palette Configuration
+		</p>
+
+		<p class=MsoNormal>The Tool Palette supports the concept of “Profiles” which customizes the tools available based on the task to be accomplished. For example, the jBPM Target Runtime extension
+			defines the following Profiles; each Profile is designed to limit the Tool Palette for a specific task:</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img width=357 height=283 src="GRAPHICAL%20EDITING_files/image006.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182408">Figure </a>11: Tool Palette Profiles
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="GRAPHICAL%20EDITING_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>See also the <a href="USER PREFERENCES.htm#_Tool_Profiles">User Preferences</a> section for information about Tool Profiles.
+			</p>
+
+		</div>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905861"></a><a name="_Context_Button_Pad"></a>Context Button Pad
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			As mentioned in the <a href="#_Menu_&amp;_Toolbar">Anatomy of the BPMN2 Modeler</a> section, when the mouse is hovered over a shape, a Context Button Pad appears for that shape as shown here:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=143 height=112 id="Picture 18" src="GRAPHICAL%20EDITING_files/image007.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182409">Figure </a>12: Context Button Pad
+		</p>
+
+		<p class=MsoNormal>
+			The list below describes these buttons and their function. Note that not all buttons are available for all types of elements, for example, it does not make sense to have an <b>Append Activity</b>
+			button on an <span class=MsoSubtleReference>End Event</span>. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Connections_1">Appendix</a> for more information.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 44" src="GRAPHICAL%20EDITING_files/image008.png"> <b>Delete</b> – deletes the selected element.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 45" src="GRAPHICAL%20EDITING_files/image009.png"> <b>Show Properties</b> – displays the element’s properties in a popup dialog. This allows the
+			Property View to be completely hidden and open more screen real-estate for the Drawing Canvas.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=17 height=17 id="Picture 9" src="GRAPHICAL%20EDITING_files/image010.png"><b> Append Activity</b> – appends a new <span class=MsoSubtleReference>Activity</span> to the
+			selected element and joins the new one with a <span class=MsoSubtleReference>Sequence Flow</span>. The type of activity created is selected from a popup menu that appears when the <b>Append
+				Activity</b> button is clicked.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=17 height=17 id="Picture 19" src="GRAPHICAL%20EDITING_files/image011.png"><b> Append Gateway</b> – connects a new <span class=MsoSubtleReference>Gateway</span> to the
+			selected element with a <span class=MsoSubtleReference>Sequence Flow</span>. The type of gateway is selected from a popup menu, similar to <b>Append Activity</b>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=17 height=17 id="Picture 7" src="GRAPHICAL%20EDITING_files/image012.png"><b> Append Event</b> – connects a new intermediate or <span class=MsoSubtleReference>End
+				Event</span> to the selected element with a <span class=MsoSubtleReference>Sequence Flow</span>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=17 height=17 id="Picture 20" src="GRAPHICAL%20EDITING_files/image013.png"> <b>Morph Activity</b>/<b>Gateway</b> – changes the element’s type, depending on whether the
+			selected element is an <span class=MsoSubtleReference>Activity</span> or <span class=MsoSubtleReference>Gateway</span>. The new type can be selected from a popup menu when the button is clicked.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 21" src="GRAPHICAL%20EDITING_files/image014.png"> <b>Create Connection</b> – creates a new connection between this element and another element on
+			the canvas. To create a new connection, click and drag the <b>Create Connection</b> button to the target element. When the mouse is released, a popup menu shows the type of connections that are
+			valid for the source and target element. Select a type from this popup menu to complete the connection.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 41" src="GRAPHICAL%20EDITING_files/image015.png"> <b>Collapse</b> – this is available for <span class=MsoSubtleReference>Sub-Process</span>, <span
+				class=MsoSubtleReference>Transaction</span> and <span class=MsoSubtleReference>Ad Hoc Sub-Process</span> only. This action collapses the figure into a smaller rectangle and hides its contents.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 40" src="GRAPHICAL%20EDITING_files/image016.png"> <b>Expand/Show Diagram</b> – the opposite of <b>Collapse</b>, restores a collapsed <span
+				class=MsoSubtleReference>Sub-Process</span>, <span class=MsoSubtleReference>Transaction</span> or <span class=MsoSubtleReference>Ad Hoc Sub-Process</span> so that all of its contents are again
+			visible. <b>Show Diagram</b> is only available for <span class=MsoSubtleReference>Call Activities</span>; when clicked, the tab that contains the called process is activated. If the process is
+			contained in an external file, a new editor will be opened for that file.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=17 height=16 id="Picture 42" src="GRAPHICAL%20EDITING_files/image017.png"> <b>Push-Down</b> – this is available for <span class=MsoSubtleReference>Pool</span>, <span
+				class=MsoSubtleReference>Sub-Process</span>, <span class=MsoSubtleReference>Transaction</span> and <span class=MsoSubtleReference>Ad Hoc Sub-Process</span> only. This action moves the contents of
+			the figure into a new diagram which is displayed as a separate tab at the bottom of the editor window. The <span class=MsoSubtleReference>Pool</span>, <span class=MsoSubtleReference>Sub-Process</span>,
+			<span class=MsoSubtleReference>Transaction</span> or <span class=MsoSubtleReference>Ad Hoc Sub-Process</span> is then shown as a collapsed figure.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 43" src="GRAPHICAL%20EDITING_files/image018.png"> <b>Pull-Up</b> – the opposite of <b>Push-Down</b>, moves the contents of the <span
+				class=MsoSubtleReference>Pool</span>, <span class=MsoSubtleReference>Sub-Process</span>, <span class=MsoSubtleReference>Transaction</span> or <span class=MsoSubtleReference>Ad Hoc
+				Sub-Process</span> back to its parent and expands the figure. The tab that once contained these elements is removed from the editor.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 22" src="GRAPHICAL%20EDITING_files/image019.png" alt="*"> <b>Change Orientation</b> – switches the orientation of the <span
+				class=MsoSubtleReference>Pool</span> or <span class=MsoSubtleReference>Lane</span> figure from vertical to horizontal or vice-versa. Elements contained in the <span class=MsoSubtleReference>Pool</span>
+			or <span class=MsoSubtleReference>Lane</span>, are moved as well to conform to the new orientation.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=15 id="Picture 23" src="GRAPHICAL%20EDITING_files/image020.png" alt="*"> <b>Whitebox</b> – this is available for <span class=MsoSubtleReference>Choreography
+				Participant Bands</span> only. This action creates a new diagram tab that contains the Process for the <span class=MsoSubtleReference>Participant Band</span>. This action is similar to <b>Push-Down</b>,
+			with the exception that a <span class=MsoSubtleReference>Participant Band</span> cannot be used to display the underlying Process as embedded elements.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 26" src="GRAPHICAL%20EDITING_files/image021.png"> <b>Blackbox</b> – this is the opposite of <b>Whitebox</b>. This action deletes the Process and
+			diagram tab associated with the <span class=MsoSubtleReference>Participant Band</span>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 29" src="GRAPHICAL%20EDITING_files/image022.png"> Add Participant Band – available for <span class=MsoSubtleReference>Choreography Tasks</span>
+			only. This action adds a new <span class=MsoSubtleReference>Participant Band</span> to the <span class=MsoSubtleReference>Choreography Task</span>. Note that a <span class=MsoSubtleReference>Choreography
+				Task</span> may have any number of Participants, but only one of them can be the Initiator. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Choreography_Task">Appendix</a> for an explanation of Participants and Choreographies.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 34" src="GRAPHICAL%20EDITING_files/image023.png"> <b>Remove Participant Band</b> – available for <span class=MsoSubtleReference>Choreography</span>
+			<span class=MsoSubtleReference>Participant Bands</span> only. This action removes a <span class=MsoSubtleReference>Participant Band</span> from its <span class=MsoSubtleReference>Choreography
+				Task</span>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=16 id="Picture 25" src="GRAPHICAL%20EDITING_files/image024.png"> <b>Add Message</b> – available for <span class=MsoSubtleReference>Choreography</span> <span
+				class=MsoSubtleReference>Participant Bands</span> only. This action adds a <span class=MsoSubtleReference>Message</span> to the <span class=MsoSubtleReference>Participant Band</span>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=16 height=15 id="Picture 27" src="GRAPHICAL%20EDITING_files/image025.png"> <b>Remove Message</b> – available for <span class=MsoSubtleReference>Choreography</span> <span
+				class=MsoSubtleReference>Participant Bands</span> only. This action removes the <span class=MsoSubtleReference>Message</span> attached to the <span class=MsoSubtleReference>Participant Band</span>.
+			This has the same effect as selecting the attached <span class=MsoSubtleReference>Message</span> and deleting it.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905862"></a><a name="_Connections"></a>Connections
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			Connections between shapes can be created in one of three ways: using the <b>Connector</b> tools from the Tool Palette, using the <b>Create Connection</b> Context Button and implicitly using the <b>Append</b>
+			Context buttons.
+		</p>
+
+		<p class=MsoNormal>
+			When a Connection is selected, one or more “handles” will appear on the connection line. The connection’s path can be altered by dragging one of these handles. Note that new handles will appear as
+			a handle is dragged to create new line segments. The locations of these handles are known as “bendpoints” to the graphical editor, but are stored as <span class=MsoSubtleReference>Waypoint</span>
+			elements in the BPMN file.
+		</p>
+
+		<p class=MsoNormal>
+			BPMN2 Modeler allows you to specify different layout styles (“Routings”) for connections. Routing styles are applied by connection type, so for example, all <span class=MsoSubtleReference>Sequence
+				Flows</span> can be laid out using Manhattan routing, all <span class=MsoSubtleReference>Associations</span> can use Manual Bendpoint routing, and so on. The <a href="USER PREFERENCES.htm#_Editor_Appearance">Editor
+				Appearance Preferences</a> section explains how to configure connection routing styles.
+		</p>
+
+		<p class=MsoNormal>
+			Connections may also have labels, which are edited using the <a href="PROPERTY VIEW.htm#_The_Tabbed_Property">Property View</a>. The labels are situated about the center of the connection, but may be dragged to a
+			different location with the mouse.
+		</p>
+
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Eclipse BPMN2 Modeler User Guide (Version 1.0.1)</title>
+
+<link rel="stylesheet" type="text/css" href="MsoStyles-modified.css">
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+	<div class=WordSection1>
+
+		<div class="h1">
+
+			<h1>
+				<a name="_Toc371905854">BPMN2 New File Wizards</a>
+			</h1>
+
+		</div>
+
+		<p class=MsoNormal>
+			The Eclipse New File wizard is used to create a new BPMN2 file. From the Main Menu, click <b>File -&gt; New -&gt; Other…</b> which opens the New File Wizard Dialog box. Navigate to the <b>BPMN2</b>
+			category and you will see several entries as shown here:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img width=262 height=249 id="Picture 11" src="BPMN2%20NEW%20FILE%20WIZARDS_files/image003.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182401">Figure </a>4: Eclipse &quot;New File&quot; Wizard
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905855">BPMN Model Wizard</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			The first entry, <b>BPMN2 Model,</b> is actually contributed by the Eclipse BPMN2 Metamodel plug-in. This creates an empty BPMN2 file containing only a root element. When this is opened with the <i>BPMN2
+				Model Editor</i> (a simple tree-oriented editor also contributed by the BPMN2 Metamodel plug-in) it looks something like this:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img width=269 height=154 id="Picture 46" src="BPMN2%20NEW%20FILE%20WIZARDS_files/image004.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182402">Figure </a>5: BPMN2 Metamodel Editor
+		</p>
+
+		<p class=MsoNormal>
+			Since these components are part of the Eclipse BPMN2 Metamodel project, they will not be discussed further in this document. However, suffice it to say that this editor <b>can</b> be useful for
+			viewing the physical structure of a BPMN2 file, and is marginally better than a visual XML editor.
+		</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905856">Generic BPMN 2.0 Diagram Wizard</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			The second entry in the <b>BPMN2</b> category, <b>Generic BPMN 2.0 Diagram</b>, is contributed by the BPMN2 Modeler plug-in, and can be used to create a new, properly initialized Diagram file. This
+			wizard creates a file that is not intended for deployment to any particular BPM process engine (see <a href="TARGET RUNTIME EXTENSIONS.htm#_Target_Runtime_Extensions">Target Runtime Extensions</a> for a detailed discussion).
+			Selecting this entry displays the first page of the wizard, as shown here:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=262 height=249 id="Picture 12" src="BPMN2%20NEW%20FILE%20WIZARDS_files/image005.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182403">Figure </a>6: BPMN2 Modeler Wizard Page 1
+		</p>
+
+		<p class=MsoNormal>
+			This allows you to select the type of diagram you wish to create. This page contains a brief description of each of the diagram types; pick one by clicking the image next to the description and
+			then click the <b>Next &gt; </b>button. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Diagram_Types">Appendix</a> for a more detailed discussion of diagram types.
+		</p>
+
+		<p class=MsoNormal>The next page of the wizard asks for a location, file name and a target namespace. These fields are already filled in with reasonable defaults, but you may want to change them
+			as necessary.</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=262 height=249 id="Picture 13" src="BPMN2%20NEW%20FILE%20WIZARDS_files/image006.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182404">Figure </a>7: BPMN2 Modeler Wizard Page 2
+		</p>
+
+		<p class=MsoNormal>
+			Click the <b>Finish</b> button to create a template for the selected Diagram type and open the BPMN2 Modeler.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905857">jBPM Process Diagram Wizard</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			Part of the BPMN2 Modeler extension mechanism is the ability for plug-ins to contribute New File wizard entries. These will appear as additional entries under the <b>BPMN2</b> category. Here, the <b>jBPM
+				Process Diagram </b>wizard is specifically designed to create a process suitable for deployment to the jBPM engine.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=262 height=249 id="Picture 44" src="BPMN2%20NEW%20FILE%20WIZARDS_files/image007.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182405">Figure </a>8: jBPM New File Wizard
+		</p>
+
+		<p class=MsoNormal>
+			The first, and only, page of this wizard asks for a Process Name which, when edited, automatically fills in appropriate values for the remaining fields (<b>Process ID</b> and <b>File Name</b>).
+			These can be edited as necessary.
+		</p>
+
+		<p class=MsoNormal>
+			Also required is a <b>Package name</b>; this is an <a href="#_BPMN_2.0_Element">extension of the BPMN2 language</a> required by the jBPM engine.
+		</p>
+
+		<p class=MsoNormal>
+			The optional checkbox labeled <b>Set jBPM Runtime as the default for this project</b> will create project settings appropriate for the jBPM Target Runtime.
+		</p>
+
+	</div>
+
+</body>
+
+</html>

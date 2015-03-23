@@ -1,0 +1,48 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Eclipse BPMN2 Modeler User Guide (Version 1.0.1)</title>
+
+<link rel="stylesheet" type="text/css" href="MsoStyles-modified.css">
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+	<div class=WordSection1>
+
+		<div class="h1">
+
+			<h1>
+				<a name="_Toc371905858">Importing BPMN2 Files</a>
+			</h1>
+
+		</div>
+
+		<p class=MsoNormal>One of the major changes from version 1.1 to version 2.0 of the BPMN Specification is that it defines not only a model that describes the business logic, but also a model that
+			defines the presentation of graphical elements that represent these logic elements. This presentation model, known as the Diagram Interchange or “DI” model, defines visual presentation details such
+			as locations and sizes of shapes, connection bend points, labels, etc. While it is an important part of the BPMN 2.0 spec and is the standard model to be implemented by tool vendors, it is also
+			simply a “recommendation” by the OMG; in other words this section is optional. As such, some tool vendors do not provide DI metadata, relying on auto layout algorithms and default presentation
+			settings to render the business logic elements in their modeling tools.</p>
+
+		<p class=MsoNormal>BPMN2 Modeler has the ability to import files that do not contain DI metadata and will generate it using an auto layout algorithm. This algorithm is still in the experimental
+			phase as of this version – it does a fair, but not optimal job of arranging the business logic elements. If, after importing such a BPMN file, any elements that appear “out of place” or not
+			optimally placed can simply be dragged around on the canvas for more visually pleasing configurations. Once these changes have been saved, the DI metadata is added to the file and the new layout is
+			restored next time the file is opened.</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="IMPORTING%20BPMN2%20FILES_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>See also the <a href="ANATOMY OF THE BPMN2 MODELER.htm#_Outline_View_1">Outline View</a> for more information about the DI model.
+			</p>
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>

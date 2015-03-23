@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="BPMN2 Modeler Table of Contents" topic="html/toc.html">
+   <topic href="html/INTRODUCTION.htm" label="Introduction">
+   </topic>
+   <topic href="html/ANATOMY OF THE BPMN2 MODELER.htm" label="Anatomy of the BPMN2 Modeler">
+   </topic>
+   <topic href="html/BPMN2 NEW FILE WIZARDS.htm" label="BPMN2 New File Wizards">
+   </topic>
+   <topic href="html/IMPORTING BPMN2 FILES.htm" label="Importing BPMN2 Files">
+   </topic>
+   <topic href="html/GRAPHICAL EDITING.htm" label="Graphical Editing">
+   </topic>
+   <topic href="html/PROPERTY VIEW.htm" label="Property View">
+   </topic>
+   <topic href="html/OUTLINE VIEW.htm" label="Outline View">
+   </topic>
+   <topic href="html/POPUP DIALOGS.htm" label="Popup Dialogs">
+   </topic>
+   <topic href="html/USER PREFERENCES.htm" label="User Preferences">
+   </topic>
+   <topic href="html/TARGET RUNTIME EXTENSIONS.htm" label="Target Runtime Extensions">
+   </topic>
+   <topic href="html/APPENDIX_ BPMN 2.0 REFERENCE.htm" label="Appendix - BPMN 2.0 Reference">
+   </topic>
+   <topic href="html/FIGURES AND TABLES.htm" label="Figures and Tables">
+   </topic>
+</toc>

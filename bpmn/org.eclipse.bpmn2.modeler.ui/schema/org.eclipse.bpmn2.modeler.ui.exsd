@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.bpmn2.modeler.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.bpmn2.modeler.ui" id="org.eclipse.bpmn2.modeler.ui" name="BPMN2 Modeler UI contributions"/>
+      </appinfo>
+      <documentation>
+         BPMN2 Modeler contributions to the UI.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+         <documentation>
+            This extension point allows plugins to contribute to, and customize the BPMN2 Modeler User Interface.
+         </documentation>
+      </annotation>
+      <complexType>
+         <choice>
+            <element ref="importDialog" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="toolProvider" minOccurs="0" maxOccurs="1"/>
+         </choice>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="importDialog">
+      <annotation>
+         <documentation>
+            This element defines a Dialog that the editor will use for selecting Import resources (e.g. WSDL, XSD Schema, Java, BPMN2, etc.)
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Unique ID for this Import Dialog
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="runtimeId" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Identifies one of the previously defined target runtime definitions for which this Import Dialog will be used.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The class that implements the Import Dialog. This must extend SelectionStatusDialog.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.ui.dialogs.SelectionStatusDialog:"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="toolProvider">
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Unique ID for the toolProvider extension.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="runtimeId" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Identifies one of the previously defined runtime elements for which this toolProvider will be used.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The class that implements the Graphiti Tool Behavior Provider, i.e. extends the org.eclipse.bpmn2.ui.BPMN2ToolBehaviorProvider class.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.bpmn2.modeler.ui.diagram.Bpmn2ToolBehaviorProvider:"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="implementation"/>
+      </appinfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+
+</schema>

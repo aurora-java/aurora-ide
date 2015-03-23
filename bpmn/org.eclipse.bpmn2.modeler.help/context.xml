@@ -1,0 +1,33 @@
+<contexts>
+   <context id="TOC">
+      <description>This is a graphical editor for authoring BPMN 2.0 compliant process diagrams.</description>
+      <topic href="html/toc.html" label="BPMN2 Modeler" />
+   </context>
+   <context id="Property_View">
+      <description>This shows the properties of the currently selected BPMN2 element.</description>
+      <topic href="html/PROPERTY VIEW.htm" label="BPMN2 Properties View" />
+      <topic href="html/APPENDIX_ BPMN 2.0 REFERENCE.htm" label="BPMN 2.0 Element Reference" />
+   </context>
+   <context id="Property_Dialog">
+      <description>This shows the properties of the currently selected BPMN2 element in a popup dialog instead of the Property View.</description>
+      <topic href="html/POPUP DIALOGS.htm" label="BPMN2 Properties Dialog" />
+      <topic href="html/APPENDIX_ BPMN 2.0 REFERENCE.htm" label="BPMN 2.0 Element Reference" />
+   </context>
+   <context id="Outline_View">
+      <description>This shows an outline of of the BPMN2 process currently being edited.</description>
+      <topic href="html/OUTLINE VIEW.htm" label="BPMN2 Outline View" />
+   </context>
+   <context id="User_Preferences">
+      <description>Preference settings for the BPMN2 Diagram Editor.</description>
+      <topic href="html/USER PREFERENCES.htm" label="BPMN2 Preferences" />
+   </context>
+   <context id="New_File_Wizard">
+      <description>This wizard creates a new BPMN 2.0 process diagram.</description>
+      <topic href="html/BPMN2 NEW FILE WIZARDS.htm#_Toc371905856" label="New File Wizard" />
+      <topic href="html/APPENDIX_ BPMN 2.0 REFERENCE.htm#_Toc371905985" label="BPMN 2.0 Diagram Types" />
+   </context>
+   <context id="JBPM_New_File_Wizard">
+      <description>This wizard creates a new jBPM process diagram.</description>
+      <topic href="html/BPMN2 NEW FILE WIZARDS.htm#_Toc371905857" label="New jBPM Process Wizard" />
+   </context>
+</contexts>

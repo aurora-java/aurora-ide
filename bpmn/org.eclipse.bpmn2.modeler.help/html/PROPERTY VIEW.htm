@@ -1,0 +1,1476 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Eclipse BPMN2 Modeler User Guide (Version 1.0.1)</title>
+
+<link rel="stylesheet" type="text/css" href="MsoStyles-modified.css">
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+	<div class=WordSection1>
+
+		<div class="h1">
+
+			<h1>
+				<a name="_Toc371905863"></a><a name="_The_Tabbed_Property"></a><a name="_Property_View"></a>Property View
+			</h1>
+
+		</div>
+
+		<p class=MsoNormal>The Property View is used to edit all parameters for the currently selected BPMN2 element. BPMN2 Modeler uses tabbed property sheets that are based on Eclipse Forms widgets
+			(see screenshot below).</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img width=433 height=165 id="Picture 20" src="PROPERTY%20VIEW_files/image003.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182410">Figure </a>13: Tabbed Property View
+		</p>
+
+		<p class=MsoNormal>
+			Although the number of tabs and their contents depends on which BPMN2 element is selected, the first tab of each element is similar. This is the <b>Description</b> tab which contains the element’s
+			name (if it has one), a brief description of the element type, and a <b>Documentation</b> edit box which can be used to document the element.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="PROPERTY%20VIEW_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>The Description text can be hidden by changing the <a href="USER PREFERENCES.htm#_Editor_Behavior">Editor Behavior</a> preferences.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>
+			The element’s ID attribute will also be displayed on this tab, if its visibility is enabled (see <a href="USER PREFERENCES.htm#_Editor_Behavior">Editor Behavior</a> preferences.)
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905864"></a><a name="_Editing_Widgets"></a>Editing Widgets
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>If you are familiar with Eclipse Forms, most of the Property View editing widgets should be familiar (e.g. Text Editing fields, Check Boxes, Combo Boxes, etc.) The Eclipse
+			Plug-in Manifest editor is an example of how these Form widgets look and behave.</p>
+
+		<p class=MsoNormal>
+			BPMN2 Modeler uses a unique editing widget, which deserves further explanation, called the “List and Detail”. This is essentially a table (the “List”) with several editing controls at the top, and
+			an optional Detail panel that pops out to the right when the <img border=0 width=12 height=12 id="Picture 110" src="PROPERTY%20VIEW_files/image004.jpg">edit button is clicked. The figures
+			below illustrate the List and Detail widget in its normal and expanded form:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=475 height=107 id="Picture 114" src="PROPERTY%20VIEW_files/image005.jpg">
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=458 height=103 id="Picture 115" src="PROPERTY%20VIEW_files/image006.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182411">Figure </a>14: List and Detail widget in normal an expanded views
+		</p>
+
+		<p class=MsoNormal>Here the List portion of the widget is automatically collapsed to make room for the Detail panel, which appears to the right of the List. The Detail panel typically contains
+			more information than can be displayed in the List.</p>
+
+		<p class=MsoNormal>
+			List and Detail widgets can also be nested, as shown here with the <b>Interfaces </b>tab:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=594 height=208 id="Picture 125" src="PROPERTY%20VIEW_files/image007.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182412">Figure </a>15: Nested List and Detail widgets
+		</p>
+
+		<p class=MsoNormal>
+			Here, the <b>Interface Details</b> panel contains an <b>Operation List and Detail</b>, which is also shown expanded.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="PROPERTY%20VIEW_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>You may wish to use a popup dialog instead of the sliding Detail Panel. See the <a href="USER PREFERENCES.htm#_Editor_Behavior">Editor Behavior</a> preferences section for information.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>The List and Detail widget control buttons should already be familiar:</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<img border=0 width=18 height=17 id="Picture 8" src="PROPERTY%20VIEW_files/image008.jpg"> Add a new entry to the List
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<img border=0 width=18 height=17 id="Picture 5" src="PROPERTY%20VIEW_files/image009.jpg"> Remove an entry from the List.
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<img border=0 width=32 height=15 id="Picture 26" src="PROPERTY%20VIEW_files/image010.jpg"> Re-order items in the List.
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<img border=0 width=18 height=17 id="Picture 56" src="PROPERTY%20VIEW_files/image011.jpg"> Edit the selected List item by opening the Detail panel to the right of the List, or a popup dialog
+			depending on preference.
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<img border=0 width=18 height=17 id="Picture 4" src="PROPERTY%20VIEW_files/image012.jpg"> Delete the selected entry entirely from the model. This is different from <img border=0 width=18
+				height=17 id="Picture 126" src="PROPERTY%20VIEW_files/image013.jpg"> in that the selected entry and all of its contained entries (as with the <b>Interface</b> <b>List</b> mentioned above)
+			are deleted.
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<img border=0 width=18 height=17 id="Picture 106" src="PROPERTY%20VIEW_files/image014.jpg"> Close the Detail panel
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<img border=0 width=46 height=17 id="Picture 109" src="PROPERTY%20VIEW_files/image015.jpg"> This button is seen in conjunction with other Text widgets and typically opens a new Dialog from
+			which values can be selected for the Text widget.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905865">Property Tabs</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>In this section we discuss all of the Property Tabs and their contents for each of the BPMN2 element categories.</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905866">Process Diagram</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>This Property Tab is displayed when the Drawing Canvas is clicked, or if a Process element is selected from the Outline View.</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905867">Process Tab</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal>
+			The <b>Process</b> tab defines attributes specific to the selected Process:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=432 height=211 id="Picture 10" src="PROPERTY%20VIEW_files/image016.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182413">Figure </a>16: Process Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Name</b> – the Process name for identification
+			purposes only. This may or may not be required by the execution engine.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Process Type</b> – can be either “Private” or
+			“Public”; “None” indicates no decision has been made about the Process Type and is flagged as an error by the BPMN2 Core validator.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Private – indicates the Process is internal to a specific organization. A
+			Private Process can be either executable or non-executable (see below.)
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span class=MsoSubtleReference><span style='font-family: "Courier New"; color: windowtext; font-weight: normal'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+				</span></span></span>Public – represents the interaction between a Private Business Process and another Process or Participant<span class=MsoSubtleReference> </span>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Is Executable</b> – indicates if the Process is
+			designed to be executable or not. If this box is checked, the Process must contain enough information so it can be deployed to an execution engine. Thus, information needed for execution, such as
+			formal condition Expressions are typically not included in a non-executable Process.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Is Closed</b> - In some applications it is useful to
+			allow additional Messages to be sent between Participants that may not be explicitly declared in the Collaboration. If this box is checked then Participants <b>may not</b> send any Messages other
+			than those declared.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905868">Interfaces Tab</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal>
+			The <b>Interfaces</b> tab contains Process Interface definitions:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=429 height=192 id="Picture 128" src="PROPERTY%20VIEW_files/image017.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182414">Figure </a>17: Interfaces Tab
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Interface List</b> – list of all defined Interfaces,
+			both consumed and exposed. Clicking the <img border=0 width=18 height=17 id="Picture 97" src="PROPERTY%20VIEW_files/image008.jpg"> button displays the Interface Definition details:
+		</p>
+
+		<p class=MsoNormal style='margin-left: .25in'>
+			<img border=0 width=349 height=165 id="Picture 104" src="PROPERTY%20VIEW_files/image018.jpg">
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Name</b> – the Interface name
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Implementation</b> – the concrete artifact in the underlying implementation
+			technology, such as a WSDL Port Type.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Operation List</b> – a list of the Operations provided by the Interface.
+			Clicking the <img border=0 width=18 height=17 id="Picture 130" src="PROPERTY%20VIEW_files/image008.jpg"> button displays the Operation Definition details:
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<img border=0 width=347 height=129 id="Picture 118" src="PROPERTY%20VIEW_files/image019.jpg">
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span><b>Name</b> – the Operation name
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span><b>Implementation</b> – the artifact in the underlying implementation technology, such as a
+			WSDL Operation.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span><b>In Message</b> – the request message definition provided by the Process and sent to the
+			service that implements this Interface. Messages are defined in the <b>Definitions</b> tab, below.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span><b>Out Message</b> – the response message returned by the invoked service.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span><b>Error Refs</b> – a list of possible error responses that may be returned by the invoked
+			service. Errors are defined in the <b>Definitions</b> tab, below.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Interfaces Provided by Process</b> – lists only
+			those Interfaces exposed by this Process. Clicking the <img border=0 width=18 height=17 id="Picture 131" src="PROPERTY%20VIEW_files/image008.jpg"> button allows you to select from the list of
+			defined Interfaces.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=430 height=170 id="Picture 129" src="PROPERTY%20VIEW_files/image020.jpg">
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905869"></a><a name="_Definitions_Tab"></a>Definitions Tab
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal>
+			The <b>Definitions</b> tab defines a list of imported resources, Data Types, Messages, Errors, Signals, Escalations and Resources. This tab also contains additional process attributes as follows:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=430 height=204 id="Picture 133" src="PROPERTY%20VIEW_files/image021.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182415">Figure </a>18: Definitions Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Name</b> – the name of the root element of this XML
+			document. This is different from the Process name, primarily for documentation purposes.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Target Namespace</b> – the Target Namespace of this
+			XML document. This will be specific to the organization or service that owns this process.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Type Language</b> – identifies the type system used
+			by the data elements in this file. By default, this is <a href="http://www.w3.org/2001/XMLSchema">http://www.w3.org/2001/XMLSchema</a> but may be any URI supported by the Target Runtime.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Expression Language</b> – identifies the default
+			language implementation used in condition expressions. The Default is <a href="http://www.w3.org/1999/XPath">http://www.w3.org/1999/XPath</a> but can be overridden for each expression as needed.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Import List</b> – Imports are external files that
+			may define data structures, services, processes, etc. that are required by this Process. See also <a href="POPUP DIALOGS.htm#_Resource_Import_Dialog">File Import Dialog</a>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=431 height=210 id="Picture 134" src="PROPERTY%20VIEW_files/image022.jpg">
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data Type List</b> – Data Types define the structure
+			of <span class=MsoSubtleReference>Messages</span>, variables, <span class=MsoSubtleReference>Data Objects</span> and other data. See also the <a href="POPUP DIALOGS.htm#_New_Data_Type">Data Type Dialog</a> and a
+			discussion of <a href="#_Data_Type_(ItemDefinition)">Data Types</a> In the Appendix.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=435 height=215 id="Picture 137" src="PROPERTY%20VIEW_files/image023.jpg">
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Resource List</b> – This is a list of actors
+			involved in the Process. See also the <a href="POPUP DIALOGS.htm#_Resource_Dialog">Resource Dialog</a> and definition of a <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Resource">Resource</a>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=430 height=211 id="Picture 140" src="PROPERTY%20VIEW_files/image024.jpg">
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data Store List</b> – defines all <a
+a href=				href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Data_Store">Data Stores</a> used. See also the <a href="POPUP DIALOGS.htm#_Data_Store_Dialog">Data Store Dialog</a>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=430 height=211 id="Picture 141" src="PROPERTY%20VIEW_files/image025.jpg">
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Message List</b> – defines all <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Message">Messages</a>
+			used. See also the <a href="POPUP DIALOGS.htm#_Message_Dialog">Message Dialog</a>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=430 height=211 id="Picture 142" src="PROPERTY%20VIEW_files/image026.jpg">
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Error List</b> – defines all <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Data_Store">Data
+				Stores</a> used. See also the <a href="POPUP DIALOGS.htm#_Error_Dialog">Error Dialog</a>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=430 height=211 id="Picture 143" src="PROPERTY%20VIEW_files/image027.jpg">
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Escalation List</b> – defines all <a
+a href=				href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Escalation">Escalations</a> used. See also the <a href="POPUP DIALOGS.htm#_Escalation_Dialog">Escalation Dialog</a>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=430 height=211 id="Picture 160" src="PROPERTY%20VIEW_files/image028.jpg">
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Signal List</b> – defines all <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Signal">Signals</a>
+			used. See also the <a href="POPUP DIALOGS.htm#_Signal_Dialog">Signal Dialog</a>.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=430 height=211 id="Picture 161" src="PROPERTY%20VIEW_files/image029.jpg">
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905870">Data Items Tab</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal>
+			The <b>Data Items</b> tab contains global Process variable and Resource Role definitions. See the <a href="POPUP DIALOGS.htm#_Variable_Dialog">Variable Dialog</a> and the discussion of <a
+a href=				href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Variable_(Property)(Property)">Variables</a> in the Appendix. Also see the <a href="POPUP DIALOGS.htm#_Resource_Dialog">Resource Dialog</a> and the discussion of <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Resource">Resources</a> in the Appendix
+			for more information.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=492 height=255 id="Picture 107" src="PROPERTY%20VIEW_files/image030.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182416">Figure </a>19: Data Items Tab
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905871">Activity</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			This section describes the Property Tabs used for of these <span class=MsoSubtleReference>Activities</span>:
+		</p>
+
+		<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0 style='margin-left: .5in; border-collapse: collapse; border: none'>
+			<tr>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpFirst style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Task</span>
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Business Rule Task</span>
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Service Task</span>
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpLast style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>User Task</span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpFirst style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Manual Task</span>
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Receive Task</span>
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Sub-Process</span>
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpLast style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Ad Hoc Sub-Process</span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpFirst style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Script Task</span>
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Send Task</span>
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Transaction</span>
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoListParagraphCxSpLast style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span class=MsoSubtleReference><span style='font-family: Symbol; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</span></span></span><span class=MsoSubtleReference>Call Activity</span>
+					</p>
+				</td>
+			</tr>
+		</table>
+
+		<p class=MsoNormal>
+			Each specialized <span class=MsoSubtleReference>Activity</span> has its own Property tab (see the <a href="#_Ad_Hoc_Sub-Process">following sections</a>), but all contain these common items:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=493 height=296 id="Picture 3" src="PROPERTY%20VIEW_files/image031.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182417">Figure </a>20: Manual Task Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Is For Compensation</b> – if this box is checked
+			this <span class=MsoSubtleReference>Activity</span> is only activated when a <span class=MsoSubtleReference>Compensation Event</span> is detected and initiated; if not checked, the <span
+				class=MsoSubtleReference>Activity</span> is run as part of normal execution flow.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Loop Characteristics</b> – determines whether the <span
+				class=MsoSubtleReference>Activity</span> is run once (<b>Loop Characteristics</b> = “None”) or multiple times (“Standard” and “Multi-Instance”), and whether instances of the <span
+				class=MsoSubtleReference>Activity</span> run concurrently or in parallel. This property is quite complicated and is discussed in more detail in the following sections.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Variable List </b>– list of “local” variables. Local
+			variables are visible only to the Activity itself, not to the <span class=MsoSubtleReference>Process</span> or other <span class=MsoSubtleReference>Activities</span>. See the <a
+a href=				href="POPUP DIALOGS.htm#_Variable_Dialog">Variable Dialog</a> and the discussion of <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Variable_(Property)(Property)">Variables</a> in the Appendix for more information.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Resource List </b>– defines the resource that will
+			perform or will be responsible for the Activity. See the <a href="POPUP DIALOGS.htm#_Resource_Dialog">Resource Dialog</a> and the discussion of <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Resource">Resources</a> in the Appendix for more
+			information.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905872">Standard Loop Characteristics</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal>
+			The “Standard” loop semantics is to simply execute an <span class=MsoSubtleReference>Activity</span> as long as some <span class=MsoSubtleReference>Expression</span> condition evaluates to true.
+			The condition can be tested before or after the <span class=MsoSubtleReference>Activity</span> is executed. Also, a maximum limit may be set on the total number of executions.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=391 height=178 id="Picture 59" src="PROPERTY%20VIEW_files/image032.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182418">Figure </a>21: Standard Loop Characteristics
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Test Before</b> – if this box is checked, test the
+			Loop Condition before the <span class=MsoSubtleReference>Activity</span> is executed
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Loop Condition</b> – a script executed by the
+			process engine. If it evaluates to true, the process engine will execute the <span class=MsoSubtleReference>Activity</span>.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Loop Maximum</b> – maximum number of times the
+			Activity will be executed. For example, if an <span class=MsoSubtleReference>Activity</span> should be executed exactly 10 times the <b>Loop Condition</b> expression would be “true” and <b>Loop
+				Maximum</b> would be set to 10.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905873">Multi-Instance Loop Characteristics</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal>The “Multi-Instance” loop semantic is a bit more complicated, and looks like this:</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=394 height=95 id="Picture 171" src="PROPERTY%20VIEW_files/image033.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182419">Figure </a>22: Mult-Instance Loop Characteristics
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Sequential instead of Parallel Execution</b> -
+			determines whether an <span class=MsoSubtleReference>Activity</span> is executed sequentially (box checked) or in parallel (not checked). The number of instances of the <span
+				class=MsoSubtleReference>Activity</span> created is either specified by an integer Expression or the number of items in a specific data item collection (described by the next property). When this
+			box is checked, the Property sheet expands to show the Completion Condition widget:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=374 height=132 id="Picture 172" src="PROPERTY%20VIEW_files/image034.jpg">
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Number of Instances determined by</b> – can be
+			either an integer Expression, or a data item collection. When the <b>Integer Expression</b> radio button is checked, the Property sheet expands to show the Expression widget:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=367 height=135 id="Picture 173" src="PROPERTY%20VIEW_files/image035.jpg">
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			If the <b>Collection of Data Items</b> radio button is checked instead, the Property sheet expands to show the <b>Input Data Items</b> widget:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=398 height=94 id="Picture 174" src="PROPERTY%20VIEW_files/image036.jpg">
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			An <b>Input Instance Parameter</b> can be defined that will hold the value of each item in the <b>Input Data Collection</b>. This value can then be accessed by the <span class=MsoSubtleReference>Activity</span>
+			during execution.
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Activity Execution Produces Output</b> – if this box
+			is checked, the <span class=MsoSubtleReference>Activity</span> is expected to produce output, and the Property sheet expands to show the <b>Output Data Items</b> widget:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=370 height=87 id="Picture 175" src="PROPERTY%20VIEW_files/image037.jpg">
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			As with <b>Input Data Items</b> (above) a parameter can be defined that can be accessed by the <span class=MsoSubtleReference>Activity</span>. The value of this parameter will be added to the
+			output collection when the <span class=MsoSubtleReference>Activity</span> completes.
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Throw Behavior</b> - defines if and when an <span
+				class=MsoSubtleReference>Event</span> is thrown from an <span class=MsoSubtleReference>Activity</span> instance that is about to complete. It has values of <b>None</b>, <b>One</b>, <b>All</b>, and
+			<b>Complex</b>, assuming the following behavior:
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>None </b>- an <span class=MsoSubtleReference>Event Definition</span> is
+			thrown for all instances completing.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=330 height=41 id="Picture 178" src="PROPERTY%20VIEW_files/image038.png">
+		</p>
+
+		<p class=MsoListParagraph style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>One</b> - an <span class=MsoSubtleReference>Event Definition</span> is
+			thrown upon the first instance completing.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=330 height=41 id="Picture 176" src="PROPERTY%20VIEW_files/image039.jpg">
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>All</b> - no Event is ever thrown.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Complex</b> - the <b>Complex Behavior Definition List</b> (below) is
+			consulted to determine if and which <span class=MsoSubtleReference>Events</span> to throw. The Property sheet expands to show the <b>Complex Behavior Definition List</b>:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=373 height=113 id="Picture 179" src="PROPERTY%20VIEW_files/image040.png">
+		</p>
+
+		<p class=MsoNormal style='margin-left: 1.0in'>Each entry in this List contains a Condition Expression which, if it evaluates to true, will cause the associated Event to be thrown by the
+			Activity. The details dialog to edit the Condition Expression and assign a Throw Event is shown below:</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=328 height=160 id="Picture 101" src="PROPERTY%20VIEW_files/image041.jpg">
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905874"></a><a name="_I/O_Parameters"></a>I/O Parameters
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal>
+			The I/O Parameters Property tab is used to define the inputs and outputs for an <span class=MsoSubtleReference>Activity</span> and how these are associated with (“mapped to”) other data items from
+			the <span class=MsoSubtleReference>Process</span> that are available to the <span class=MsoSubtleReference>Activity</span>. This Property tab contains lists of <span class=MsoSubtleReference>Input
+				Sets</span>, <span class=MsoSubtleReference>Input</span> <span class=MsoSubtleReference>Data Associations</span> (“Mappings”), <span class=MsoSubtleReference>Output Sets</span> and <span
+				class=MsoSubtleReference>Output</span> <span class=MsoSubtleReference>Data Associations</span>.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="PROPERTY%20VIEW_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>See the discussion of <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Data_Association">Data Associations</a> and <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Input_and_Output">Input and Output Sets</a> in the Appendix for more information.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=594 height=261 id="Picture 154" src="PROPERTY%20VIEW_files/image042.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182420">Figure </a>23: I/O Parameters Tab
+		</p>
+
+		<p class=MsoNormal>
+			When adding or editing an <span class=MsoSubtleReference>Input Set</span> item, the following details panel is displayed:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=350 height=135 id="Picture 144" src="PROPERTY%20VIEW_files/image043.png">
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Name</b> – is the <span class=MsoSubtleReference>Input
+				Set</span> name
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data</b> <b>Inputs</b> - is the list of <span
+				class=MsoSubtleReference>Data Inputs</span> for the <span class=MsoSubtleReference>Activity</span> (a.k.a. “Input Parameters”) defined in the <b>Input Parameter Mapping</b> list
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Optional</b> <b>Inputs</b> – is a list of <span
+				class=MsoSubtleReference>Data Inputs</span> that may be unavailable when the <span class=MsoSubtleReference>Activity</span> starts execution
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>While Executing Inputs</b> – is a list of <span
+				class=MsoSubtleReference>Data Inputs</span> that can be evaluated while the <span class=MsoSubtleReference>Activity</span> is executing
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span class=MsoSubtleReference><span style='font-family: Symbol; color: windowtext; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span></span><b>Output Sets</b> – is a list <span class=MsoSubtleReference>of Output Sets</span> produced by the <span class=MsoSubtleReference>Activity</span>
+		</p>
+
+		<p class=MsoNormal>
+			<b>Input Parameter Mapping </b>determines how the Input Parameters are filled before the Activity is executed. Similarly, Output Parameter Mapping determines how data is pulled from Output
+			Parameters after the Activity has finished.
+		</p>
+
+		<p class=MsoNormal>In the following discussion, only the Input Parameter Mapping will be shown; the behavior of Output Parameter Mapping is similar except that the “From” and “To” directions are
+			reversed.</p>
+
+		<p class=MsoNormal>
+			The “<b>To</b>” section identifies the Input Parameter, its <span class=MsoSubtleReference>Data State</span> and Data Type.
+		</p>
+
+		<p class=MsoNormal>
+			The “<b>From”</b> section of the Mapping Details panel identifies the source of the data for the Data Input:
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Variable</b> – the source is a Process Variable, <span
+				class=MsoSubtleReference>Data Object </span>or <span class=MsoSubtleReference>Data Store</span>. This data item must have the same Data Type as the Input Parameter.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Transformation</b> – the transformation expression
+			is executed and must populate the Input Parameter.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Expression</b> – the Input Parameter is populated by
+			evaluating the Expression.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Assignments</b> – allows for any number of
+			assignment expressions that copy data from any available data items to the Input Parameter.
+		</p>
+
+		<p class=MsoNormal>The figures below illustrate these different sources.</p>
+
+		<p class=MsoNormal>
+			<b>Variable</b>: here the Process variable “username” is copied to the Input Parameter “greeting”.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=301 height=198 id="Picture 187" src="PROPERTY%20VIEW_files/image044.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182421">Figure </a>24: Parameter Mapping Details
+		</p>
+
+		<p class=MsoNormal>
+			<b>Transformation</b>: here an expression is evaluated that transforms source data items to the Data Type required by the Input Parameter.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=300 height=291 id="Picture 186" src="PROPERTY%20VIEW_files/image045.png">
+		</p>
+
+		<p class=MsoNormal>
+			<b>Expression</b>: the expression is evaluated and the Input Parameter is populated. This source type is simply a convenience for an <b>Assignment</b> (see below) that has an expression as the
+			source, and the Input Parameter as a target. The difference between <b>Expression</b> and <b>Transformation</b> is in their execution semantics: if a <b>Transformation</b> is specified, any <b>Assignments</b>
+			are ignored.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=386 height=292 id="Picture 183" src="PROPERTY%20VIEW_files/image046.png">
+		</p>
+
+		<p class=MsoNormal>
+			<b>Assignments</b>: this allows for multiple source expressions to populate individual elements of the Input Parameter. Shown here is an Input Parameter “address” being populated with different
+			bits of information from Process variables.
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=349 height=301 id="Picture 184" src="PROPERTY%20VIEW_files/image047.png">
+		</p>
+
+		<p class=MsoNormal>
+			The <b>Output Sets</b> and <b>Output Parameter Mapping</b> Lists are similar to their input counterparts, but with the “from” and “to” directions reversed.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905875"></a><a name="_Ad_Hoc_Sub-Process"></a>Ad Hoc Sub-Process
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=604 height=240 id="Picture 156" src="PROPERTY%20VIEW_files/image048.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182422">Figure </a>25: Ad Hoc Sub-Process Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Triggered By Event </b>- if this box is checked, the
+			Sub-Process is used for event handling. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Sub_Process">Appendix</a> for constraints on event handlers.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Cancel Remaining Instances </b>– if this box is
+			checked, any running inner Activities will be canceled once the <b>Completion Condition</b> is evaluated and is true.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Ordering </b>– may be either “Sequential” meaning
+			only one inner Activity may execute at a time, or “Parallel” if more than one Activity may start at the same time.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Completion Condition </b>– a condition expression
+			that is evaluated after completion of any inner Activity: if the condition is false, other inner Activities can be executed; if true, the Ad Hoc Sup-Process completes and no other Activities will
+			be executed.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905876">Business Rule Task</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=607 height=107 id="Picture 157" src="PROPERTY%20VIEW_files/image049.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182423">Figure </a>26: Business Rule Task Tab
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Implementation </b>– the underlying technology used
+			to implement the Business Rule execution. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Service_Task">Appendix</a> for a discussion of service implementations.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905877">Call Activity</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=602 height=109 id="Picture 158" src="PROPERTY%20VIEW_files/image050.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182424">Figure </a>27: Call Activity Tab
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Called Activity </b>– the Activity to be executed.
+			This can be either a <span class=MsoSubtleReference>Process</span> or<span class=MsoSubtleReference> Global Task.</span>
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905878">Receive Task</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=604 height=255 id="Picture 167" src="PROPERTY%20VIEW_files/image051.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182425">Figure </a>28: Receive Task Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Implementation </b>– the underlying technology
+			implement by the <span class=MsoSubtleReference>Receive Task</span>. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Service_Task">Appendix</a> for a discussion of service implementations.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Operation </b>– the <span class=MsoSubtleReference>Operation</span>
+			through which the <span class=MsoSubtleReference>Receive Task</span> receives the <span class=MsoSubtleReference>Message</span>.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Message </b>– the <span class=MsoSubtleReference>Message</span>
+			expected by the <span class=MsoSubtleReference>Receive Task</span>.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Map Incoming Message Data To </b>– <a
+				href="#_I/O_Parameters">I/O Parameter</a> mapping that specifies how the <span class=MsoSubtleReference>Message</span> payload is copied to a Process data item.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Instantiate </b>– if this box is checked, this will
+			create a new instance of its containing <span class=MsoSubtleReference>Process</span> to handle the <span class=MsoSubtleReference>Message</span>.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905879">Script Task</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=605 height=170 id="Picture 169" src="PROPERTY%20VIEW_files/image052.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182426">Figure </a>29: Script Task Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Script Format </b>– defines the format of the
+			script. This attribute value must be specified with a mime-type format (e.g. “application/javascript” and “application/x-sh”). This is required if a script is provided.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Script </b>– the script to be executed.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905880">Send Task</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=605 height=244 id="Picture 164" src="PROPERTY%20VIEW_files/image053.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182427">Figure </a>30: Send Task Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Implementation </b>– the underlying technology
+			implement by the <span class=MsoSubtleReference>Send Task</span>. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Service_Task">Appendix</a> for a discussion of service implementations.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Operation </b>– the <span class=MsoSubtleReference>Operation</span>
+			through which the <span class=MsoSubtleReference>Send Task</span> sends the <span class=MsoSubtleReference>Message</span>.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Message </b>– the <span class=MsoSubtleReference>Message</span>
+			sent by the <span class=MsoSubtleReference>Send Task</span>.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Map Outgoing Message Data From </b>– <a
+				href="#_I/O_Parameters">I/O Parameter</a> mapping that specifies how the <span class=MsoSubtleReference>Message</span> is populated.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905881">Service Task</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=603 height=319 id="Picture 168" src="PROPERTY%20VIEW_files/image054.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182428">Figure </a>31: Service Task Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Implementation </b>– the underlying technology
+			implement by the <span class=MsoSubtleReference>Service Task</span>. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Service_Task">Appendix</a> for a discussion of service implementations.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Operation </b>– the <span class=MsoSubtleReference>Operation</span>
+			through which the <span class=MsoSubtleReference>Send Task</span> sends the <span class=MsoSubtleReference>Message</span>.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Map Service Request Message Data From </b>– <a
+				href="#_I/O_Parameters">I/O Parameter</a> mapping that specifies how the service request <span class=MsoSubtleReference>Message</span> is populated.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Map Service Response Message Data To </b>– <a
+				href="#_I/O_Parameters">I/O Parameter</a> mapping that specifies how the service response <span class=MsoSubtleReference>Message</span> payload is copied back into the Process as, e.g. a Data
+			Object, Process Variable, etc.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905882">Sub-Process</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=605 height=102 id="Picture 170" src="PROPERTY%20VIEW_files/image055.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182429">Figure </a>32: Sub-Process Tab
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Triggered By Event </b>- if this box is checked, the
+			Sub-Process is used for event handling. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Sub_Process">Appendix</a> for constraints on event handlers.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905883">Transaction</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=605 height=129 id="Picture 180" src="PROPERTY%20VIEW_files/image056.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182430">Figure </a>33: Transaction Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Triggered By Event </b>- if this box is checked, the
+			Sub-Process is used for event handling. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Sub_Process">Appendix</a> for constraints on event handlers.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Method </b>- the method used to commit or cancel a
+			transaction.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Protocol </b>- the transaction protocol to use. See
+			the Appendix for a description of <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Transaction">Transaction</a> Protocols.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905884">User Task</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=604 height=108 id="Picture 181" src="PROPERTY%20VIEW_files/image057.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182431">Figure </a>34: User Task Tab
+		</p>
+
+		<p class=MsoListParagraph style='text-indent: -.25in'>
+			<a name="_Gateway"></a><span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Implementation </b>– the
+			underlying technology implement by the <span class=MsoSubtleReference>User Task</span>. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_User_Task">Appendix</a> for a discussion of service implementations.
+		</p>
+
+		<div class="h4">
+
+			<h3>
+				<a name="_Toc371905885">Gateway</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Gateways</span> also share some common properties, as shown below.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=468 height=206 id="Picture 135" src="PROPERTY%20VIEW_files/image058.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182432">Figure </a>35: Gateway Tab
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Gateway Direction</b> – specifies whether the
+			process flow is merged (diverging) or joined (converging) or neither. See the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Gateways">Appendix</a> for a discussion of Gateway behavior.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Sequence Flow List </b>– contains a list of all
+			outgoing Sequence Flows, which can be configured for the Gateway behavior. Clicking the <img border=0 width=18 height=17 id="Picture 136" src="PROPERTY%20VIEW_files/image059.jpg"> button
+			displays the Sequence Flow detail panel as shown:
+		</p>
+
+		<p class=MsoNormal style='margin-left: .25in'>
+			<img border=0 width=273 height=71 id="Picture 132" src="PROPERTY%20VIEW_files/image060.jpg">
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			The <b>Add Condition</b> button will expand the Property sheet to show a <b>Condition Expression</b> widget, like so:
+		</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<img border=0 width=326 height=172 id="Picture 124" src="PROPERTY%20VIEW_files/image061.jpg">
+		</p>
+
+		<p class=MsoNormal>
+			The <b>Remove Condition</b> button will delete the <b>Condition Expression</b>.
+		</p>
+
+		<p class=MsoNormal>
+			Note that a <span class=MsoSubtleReference>Parallel Gateway</span> creates (<b>Diverging</b>) or merges (<b>Converging</b>) parallel process flow paths without checking any conditions, so the
+			Property sheet does not contain the <b>Sequence Flow List</b>.
+		</p>
+
+		<p class=MsoNormal>
+			The Property sheet for a <span class=MsoSubtleReference>Complex Gateway</span> also includes an <b>Activation Condition</b> expression which, when it evaluates true, will cause the <span
+				class=MsoSubtleReference>Gateway</span> to trigger.
+		</p>
+
+		<p class=MsoNormal>
+			The <span class=MsoSubtleReference>Event Based Gateway</span> Property Tab looks like this:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=480 height=214 id="Picture 145" src="PROPERTY%20VIEW_files/image062.jpg">
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="PROPERTY%20VIEW_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>Please refer to the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Event_Based_Gateway">Appendix</a> for a discussion of <span class=MsoSubtleReference>Event Based Gateways</span> and the meanings of these properties.
+			</p>
+
+		</div>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905886">Events</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Events</span> come in three flavors: Catching, Throwing and Boundary. The <span class=MsoSubtleReference>Boundary Event</span> is also a Catching event, but is
+			attached to an <span class=MsoSubtleReference>Activity</span>. All Event types have an <b>Event Definitions List</b> as shown below:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=624 height=177 id="Picture 188" src="PROPERTY%20VIEW_files/image063.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182433">Figure </a>36: Event Tab
+		</p>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Event Definitions</span> determine the behavior of the Event. There are ten different types of <span class=MsoSubtleReference>Event Definitions</span> but not all of
+			them apply to all types of <span class=MsoSubtleReference>Events</span>.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="PROPERTY%20VIEW_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>Please see the Appendix for a discussion of <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Events">Events</a> and <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Event_Definitions">Event Definitions</a>.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>
+			Clicking the <img border=0 width=18 height=17 id="Picture 177" src="PROPERTY%20VIEW_files/image008.jpg"> button in the <b>Event Definitions List</b> displays the <span
+				class=MsoSubtleReference>Event Definition</span> selection dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=230 height=227 id="Picture 102" src="PROPERTY%20VIEW_files/image064.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182434">Figure </a>37: Event Definitions Selection Dialog
+		</p>
+
+		<p class=MsoNormal>
+			The list of available event definitions will depend on the type of <span class=MsoSubtleReference>Event</span> (Catching, Throwing, Start, End or Boundary) and where in the <span
+				class=MsoSubtleReference>Process</span> the <span class=MsoSubtleReference>Event</span> is declared.
+		</p>
+
+		<p class=MsoNormal>
+			Some <span class=MsoSubtleReference>Event Definitions</span> may involve the transfer of data, either flowing out of the <span class=MsoSubtleReference>Process</span> to the <span
+				class=MsoSubtleReference>Event Definition </span>(for Throwing Events) or coming into the <span class=MsoSubtleReference>Process</span> (Catching Events). This data is transferred through
+			variables attached to the <span class=MsoSubtleReference>Event </span>and the mapping mechanism to associate Process data with these variables is similar to the <b>I/O Parameters</b> described in
+			the <a href="#_I/O_Parameters">Activities Property Tabs</a> section.
+		</p>
+
+		<div class="h4">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_Toc371905887">Event Definitions With Data Items</a>
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal>
+			Some Event Definitions <b>may</b> optionally have a data payload associated with them, they are:
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Error
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Escalation
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Message
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Signal
+		</p>
+
+		<div style='border: none; border-bottom: solid #4F81BD 1.0pt; padding: 0in 0in 1.0pt 0in'>
+
+			<h5>Error Event Definition</h5>
+
+		</div>
+
+		<p class=MsoNormal>The Details panel for an Error Event Defintion looks like this:</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=287 height=142 id="Picture 192" src="PROPERTY%20VIEW_files/image065.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182435">Figure </a>38: Error Event Definition Details
+		</p>
+
+		<p class=MsoNormal>
+			The label “<b>Map Incoming Error Data To:</b>” indicates that this is a Catching Event, and that the <span class=MsoSubtleReference>Error</span> data payload that was thrown by the Throwing Event
+			will be copied into a process variable named “error_info”. The Data Type of the payload that was sent by the corresponding Throwing Event must match the Data Type of the receiving “error_info”
+			variable.
+		</p>
+
+		<div style='border: none; border-bottom: solid #4F81BD 1.0pt; padding: 0in 0in 1.0pt 0in'>
+
+			<h5>Escalation Event Definition</h5>
+
+		</div>
+
+		<p class=MsoNormal>The Details panel for an Escalation Event Definition is similar:</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=287 height=236 id="Picture 191" src="PROPERTY%20VIEW_files/image066.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182436">Figure </a>39: Escalation Event Definition Details
+		</p>
+
+		<p class=MsoNormal>
+			Here the <span class=MsoSubtleReference>Event</span> is a Throwing Event (“<b>Map Outgoing Escalation Data From:</b>”) and in this example, an <span class=MsoSubtleReference>Expression</span> is
+			used to populate a variable in the <span class=MsoSubtleReference>Event</span>. The payload (a String in this case) will be passed to the Catching Event triggered by this Throwing Event.
+		</p>
+
+		<div style='border: none; border-bottom: solid #4F81BD 1.0pt; padding: 0in 0in 1.0pt 0in'>
+
+			<h5>Message Event Definition</h5>
+
+		</div>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Message Event Definitions</span> require a message<span class=MsoSubtleReference> </span>identified by either an <span class=MsoSubtleReference>Operation</span>/<span
+				class=MsoSubtleReference>Message</span> pair, or just a <span class=MsoSubtleReference>Message</span> defined within the <span class=MsoSubtleReference>Process</span>:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=289 height=158 id="Picture 190" src="PROPERTY%20VIEW_files/image067.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182437">Figure </a>40: Message Event Definition Details
+		</p>
+
+		<p class=MsoNormal>
+			In this example, the contents of the process variable “addressRequest” will be copied to the <span class=MsoSubtleReference>Event</span> variable and transferred to the Catching Event that is
+			triggered by this Throwing Event. The “addressRequest” Data Type must be the same as the <span class=MsoSubtleReference>Message</span>. The Catching Event must specify the same message type in its
+			<span class=MsoSubtleReference>Message Event Definition</span>.
+		</p>
+
+		<div style='border: none; border-bottom: solid #4F81BD 1.0pt; padding: 0in 0in 1.0pt 0in'>
+
+			<h5>Signal Event Definition</h5>
+
+		</div>
+
+		<p class=MsoNormal>This is similar to the Error and Escalation Event Definitions:</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=287 height=146 id="Picture 193" src="PROPERTY%20VIEW_files/image068.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182438">Figure </a>41: Signal Event Definition Details
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905888">Data Items</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>Data Items fall in to three categories:</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Data_Object">Data Objects</a>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><a href="#_Data_Input/Output">Data Inputs and
+				Outputs</a>
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Data_Store">Data Stores</a>
+		</p>
+
+		<p class=MsoNormal>
+			The Property Tabs for these are very similar and all define a Data Type and Data State. The <b>Is Collection</b> check box indicates the data item is a collection of objects:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=457 height=138 id="Picture 195" src="PROPERTY%20VIEW_files/image069.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182439">Figure </a>42: Data Object Tab
+		</p>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Data Objects</span> and <span class=MsoSubtleReference>Data Stores</span> are reusable entities, thus we can have multiple visual representations of the same data
+			instance on the Drawing Canvas. These are known as “References” to the original and have an additional <b>Reference</b> tab:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=455 height=128 id="Picture 196" src="PROPERTY%20VIEW_files/image070.png">
+		</p>
+
+		<p class=MsoNormal>A Reference may be in a different Data State than the original object, as shown above.</p>
+
+		<p class=MsoNormal>Data Stores may also specify a fixed capacity, or may be “unlimited” in size:</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=456 height=155 id="Picture 197" src="PROPERTY%20VIEW_files/image071.png">
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905889">Sequence Flows</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			The Sequence Flow Property Tab allows an optional condition expression to be added to the <span class=MsoSubtleReference>Sequence Flow</span> as shown here:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=456 height=215 id="Picture 198" src="PROPERTY%20VIEW_files/image072.png">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182440">Figure </a>43: Sequence Flow Tab
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="PROPERTY%20VIEW_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>See also the Property Tab for <a href="PROPERTY VIEW.htm#_Gateway">Gateways</a>.
+			</p>
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,328 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Eclipse BPMN2 Modeler User Guide (Version 1.0.1)</title>
+
+<link rel="stylesheet" type="text/css" href="MsoStyles-modified.css">
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+	<div class=WordSection1>
+
+		<div class="h1">
+
+			<h1>
+				<a name="_Toc371905841">Introduction</a>
+			</h1>
+
+		</div>
+
+		<p class=MsoNormal>The Eclipse BPMN2 Modeler is an open-source, graphical tool for authoring and editing files that are compliant with the OMG BPMN 2.0 standard. It is assumed that the reader is
+			familiar with BPMN 2.0 and its applications; discussions about the details of the BPMN 2.0 specification (a.k.a. “the spec”) are beyond the scope of this document, but there are many resources
+			online [1]  and in print [2], [3] that cover this topic.</p>
+
+		<p class=MsoNormal>The foundation of the BPMN2 Modeler is the Eclipse BPMN2 Metamodel [4] (a.k.a. “the model”), which was developed by contributing members of the OMG BPMN 2.0 working group and
+			is fully compliant with the spec. However, the BPMN2 Modeler UI surfaces only the most commonly used elements, simply because the model is incredibly complex and all-inclusive. In the real world,
+			most BPMN execution engines only support a subset of the spec, and the BPMN2 Modeler can be easily customized to target any spec-compliant runtime with User Preference settings and/or specialized
+			extension plug-ins.</p>
+
+		<p class=MsoNormal>This document covers version 1.0.1 of BPMN2 Modeler, published November 15, 2013.</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905842"></a><a name="_Background"></a>Background
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			Development of the BPMN2 Modeler project is sponsored by Red Hat/JBoss and was intended to replace the Eclipse-based <i>BPMN Designer</i>, developed in-house for jBPM. As the jBPM engine evolved to
+			support more and more features of the spec, it became increasingly difficult to extend the <i>Designer</i> to support those features.
+		</p>
+
+		<p class=MsoNormal>
+			Being the leader of open source, Red Hat understands the benefits of developing software in the community, and it was decided at the beginning that the replacement for the <i>BPMN Designer</i>
+			should not be limited to only supporting the jBPM suite, but should be broader in scope and fully spec compliant. Not only is this a good thing for the community, but it also leaves the path open
+			for the jBPM suite to evolve as new features are requested by customers.
+		</p>
+
+		<p class=MsoNormal>
+			This User Guide covers both the generic editor as well as the <a href="TARGET RUNTIME EXTENSIONS.htm#_The_jBPM_Target">jBPM Target Runtime</a> plug-in extensions.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905843">Eclipse Platform Compatibility</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>The BPMN2 Modeler uses Graphiti, a project that is (as of this writing) still in the incubation phase at Eclipse. Because there are several released versions of the Graphiti
+			API that are incompatible with each other, there are also different versions of the BPMN2 Modeler for each version of Graphiti.  The table below summarizes these versions and their Eclipse platform
+			releases.</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182475">Table </a>1: Eclipse Platform Compatibility
+		</p>
+
+		<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 style='border-collapse: collapse; border: none'>
+			<tr>
+				<td width=108 valign=top style='width: 80.8pt; border: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>Graphiti versions</p>
+				</td>
+				<td width=158 valign=top style='width: 118.75pt; border: solid windowtext 1.0pt; border-left: none; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>Eclipse Platform versions</p>
+				</td>
+				<td width=358 valign=top style='width: 268.8pt; border: solid windowtext 1.0pt; border-left: none; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>BPMN2 Modeler update site</p>
+				</td>
+			</tr>
+			<tr>
+				<td width=108 valign=top style='width: 80.8pt; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>0.8.2</p>
+				</td>
+				<td width=158 valign=top style='width: 118.75pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>3.6.2 (Helios)</p>
+				</td>
+				<td width=358 valign=top style='width: 268.8pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>
+						<a href="http://download.eclipse.org/bpmn2-modeler/updates/helios">http://download.eclipse.org/bpmn2-modeler/updates/helios</a>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td width=108 valign=top style='width: 80.8pt; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>0.9.2</p>
+				</td>
+				<td width=158 valign=top style='width: 118.75pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>3.7  - 4.2.1 (Indigo - Juno)</p>
+				</td>
+				<td width=358 valign=top style='width: 268.8pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>
+						<a href="http://download.eclipse.org/bpmn2-modeler/updates/juno">http://download.eclipse.org/bpmn2-modeler/updates/juno</a>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td width=108 valign=top style='width: 80.8pt; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>0.10.0</p>
+				</td>
+				<td width=158 valign=top style='width: 118.75pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>4.3 (Kepler)</p>
+				</td>
+				<td width=358 valign=top style='width: 268.8pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>
+						<a href="http://download.eclipse.org/bpmn2-modeler/updates/kepler">http://download.eclipse.org/bpmn2-modeler/updates/kepler</a>
+					</p>
+				</td>
+			</tr>
+		</table>
+
+		<p class=MsoNormal>
+			Note that while the Graphiti project’s policy is to maintain backward-compatibility with at least one prior version of Eclipse, there may be problems installing two different versions of its API in
+			the same Workbench. Thus, while both versions 0.9.2 and 0.10.0 of Graphiti are supported in Eclipse Juno and Indigo, it <b>may not</b> be possible to install both versions because of dependency
+			conflicts.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905844">Document Conventions</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>Menu actions, mouse click commands or any other UI labels or callouts are in bold:</p>
+
+		<p class=MsoNormal style='text-indent: .5in'>
+			<img border=0 width=16 height=16 id="Picture 2" src="INTRODUCTION_files/image003.png"> <b>Delete</b> – deletes the selected element.
+		</p>
+
+		<p class=MsoNormal>Sequences of actions that involve cascading menus are separated with an arrow:</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			<span style='font-size: 8.0pt; line-height: 115%; font-family: "Lucida Console"'>From the main menu, click <b>Help -&gt; Install New Software</b>
+			</span>
+		</p>
+
+		<p class=MsoNormal>
+			Sometimes it is necessary to distinguish between references to specific BPMN2 model elements and the concepts they represent. For example BPMN2 defines a <span class=MsoSubtleReference>Process</span>
+			element, but we may also refer to a process in a broader sense outside the context of the BPMN2 model. Whenever a BPMN2 model element is discussed, it will be highlighted in a different color and
+			font:
+		</p>
+
+		<p class=MsoNormal style='text-indent: .5in'>
+			<span style='font-family: "Segoe UI", "sans-serif"'>A </span><span class=MsoSubtleReference>Sequence Flow</span><span style='font-family: "Segoe UI", "sans-serif"'> is used to show the order
+				in which </span><span class=MsoSubtleReference>Activities</span><span style='font-family: "Segoe UI", "sans-serif"'> will be performed</span>.
+		</p>
+
+		<p class=MsoNormal>Usage Tips and hints are highlighted with a border:</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="INTRODUCTION_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>The Description text can be hidden by changing the <a href="USER PREFERENCES.htm#_Editor_Behavior">Editor Behavior</a> preferences.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>Actions that may cause unexpected results are highlighted with a border:</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Caution style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="INTRODUCTION_files/image002.jpg" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>If any of the above attributes are changed as a result of these settings, those changes will be reflected in the file when it is saved.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>Hyperlinks to other sections of the document are highlighted and underlined:</p>
+
+		<p class=MsoNormal style='margin-left: .5in'>
+			See the <a href="GRAPHICAL EDITING.htm#_Context_Button_Pad">Context Button Pad</a> section for more information.
+		</p>
+
+		<p class=MsoNormal>Source code and console commands are highlighted with a border:</p>
+
+		<div style='border: solid #365F91 1.0pt; padding: 1.0pt 4.0pt 1.0pt 4.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=CodeCxSpFirst style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<b><span style='font-size: 6.0pt; line-height: 115%; color: #7F0055'>package</span></b><span style='font-size: 6.0pt; line-height: 115%'> org.jboss.jbpm5.runtime;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>&nbsp;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<b><span style='font-size: 6.0pt; line-height: 115%; color: #7F0055'>public</span></b><span style='font-size: 6.0pt; line-height: 115%'> <b><span style='color: #7F0055'>class</span></b>
+					Configuration {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>&nbsp;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      <b><span style='color: #7F0055'>public</span></b> <b><span style='color: #7F0055'>static</span></b> <b><span
+						style='color: #7F0055'>class</span></b> Parameter {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               String <span style='color: #0000C0'>name</span>;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               String <span style='color: #0000C0'>value</span>;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      }</span>
+			</p>
+
+			<p class=CodeCxSpLast style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>}</span>
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905845">Installation</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			The BPMN2 Modeler is installed the same way as any other Eclipse plug-in. From the Eclipse Workbench main menu, select <b><span
+				style='font-size: 8.0pt; line-height: 115%; font-family: "Lucida Console"'>Help -&gt; Install New Software</span></b>. Next, select the update site URL for your version of eclipse, as defined in <span
+				class=TableorFigureReferenceChar><span style='font-size: 8.0pt; line-height: 115%'>Table 1 </span></span>and enter this in the <b>Work with</b> text box of the Install Software wizard as shown
+			below:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=435 height=385 id="Picture 6" src="INTRODUCTION_files/image004.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182398">Figure </a>1: Install Software Wizard Dialog
+		</p>
+
+		<p class=MsoNormal>Select the features you wish to install then finish the wizard by clicking the “Next” and “Finish” buttons. Once the software has been installed, you will need to restart the
+			workbench.</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905846">Project Resources</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>Please visit the BPMN2 Modeler project website for new release announcements and other news concerning the project, here:</p>
+
+		<p class=MsoNormal style='text-indent: .5in'>
+			<a href="http://eclipse.org/bpmn2-modeler/">http://eclipse.org/bpmn2-modeler/</a>
+		</p>
+
+		<p class=MsoNormal>A community forum for posting questions and exchanging ideas is also available here:</p>
+
+		<p class=MsoNormal style='text-indent: .5in'>
+			<a href="http://www.eclipse.org/forums/">http://www.eclipse.org/forums/</a>
+		</p>
+
+		<p class=MsoNormal>A Bugzilla bug tracking system is available for reporting new bugs, or checking the status of existing bugs, here:</p>
+
+		<p class=MsoNormal style='text-indent: .5in'>
+			<a href="https://bugs.eclipse.org/bugs/buglist.cgi?product=BPMN2Modeler">https://bugs.eclipse.org/bugs/buglist.cgi?product=BPMN2Modeler</a>
+		</p>
+
+		<p class=MsoNormal>The source code for the editor as well as several sample extension plug-ins can be found at the Eclipse Git repository. To clone a local repository, simply use the following
+			Git command:</p>
+
+		<div style='border: solid #365F91 1.0pt; padding: 1.0pt 4.0pt 1.0pt 4.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Code style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				$ git clone <a href="http://git.eclipse.org/gitroot/bpmn2-modeler/org.eclipse.bpmn2-modeler.git">http://git.eclipse.org/gitroot/bpmn2-modeler/org.eclipse.bpmn2-modeler.git</a>
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>
+			The repository is also mirrored at <i>github.com</i> and can be cloned like this:
+		</p>
+
+		<div style='border: solid #365F91 1.0pt; padding: 1.0pt 4.0pt 1.0pt 4.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Code style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>$ git clone git://github.com/eclipse/bpmn2-modeler.git</p>
+
+		</div>
+
+		<p class=MsoNormal>
+			<b><span style='font-size: 11.0pt; line-height: 115%; color: white; text-transform: uppercase; letter-spacing: .75pt'>&nbsp;</span></b>
+		</p>
+
+	</div>
+
+</body>
+
+</html>

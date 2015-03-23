@@ -1,0 +1,659 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Eclipse BPMN2 Modeler User Guide (Version 1.0.1)</title>
+
+<link rel="stylesheet" type="text/css" href="MsoStyles-modified.css">
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+	<div class=WordSection1>
+
+		<div class="h1">
+
+			<h1>
+				<a name="_Toc371905915"></a><a name="_Target_Runtime_Extensions"></a>Target Runtime Extensions
+			</h1>
+
+		</div>
+
+		<p class=MsoNormal>
+			While it has its merits as a graphical modeling tool to simply document complex business processes, BPMN2 Modeler was primarily designed to be used by software architects for building artifacts
+			that can be deployed, and executed by a business process engine. The authors of the BPMN 2.0 spec have intentionally left many of the implementation details for execution engines open to
+			interpretation by software vendors because they understood that software <b>and</b> hardware technologies are constantly evolving and BPMN2 Modeler was designed to evolve with them.
+		</p>
+
+		<p class=MsoNormal>The so-called “Target Runtime” represents a specific BPM engine technology and is encapsulated by an extension plug-in. BPMN2 Modeler defines a flexible, and open programming
+			API to facilitate development of new Target Runtime plug-ins by third-party vendors. These plug-ins may contribute one or more components to BPMN2 Modeler, for example:</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Extension Models in the form of EMF model definitions
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Tool Profiles
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Property View tabs
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Preference Pages
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Editor UI components (Dialogs, Menus, behavior, etc.)
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>New File Wizards
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Model Validation constraints
+		</p>
+
+		<p class=MsoNormal>
+			A Target Runtime is defined on a Workspace Project using the Project Property Page (from the Project’s <b>Properties</b> context menu action.) Once the Project has been declared as being associated
+			with a specific Target Runtime, the extension plug-in that implements that Target Runtime will be invoked whenever a BPMN file needs to be edited, created, validated or manipulated in any way
+			required by the Target Runtime.
+		</p>
+
+		<p class=MsoNormal>One such Target Runtime has already been developed as part of the BPMN2 Modeler project and, indeed was the inspiration behind many of the design decisions made during
+			development. The jBPM Target Runtime demonstrates BPMN2 Modeler’s extensibility and is described in more detail in the sections that follow.</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905916"></a><a name="_The_jBPM_Target"></a>The jBPM Target Runtime
+			</h2>
+
+		</div>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905917">BPMN 2.0 Language Subset and Extensions</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>This section describes the jBPM language subset of BPMN 2.0 as well as extension elements.</p>
+
+		<div class="h3">
+
+			<h4 style='border: none; padding: 0in'>Elements not supported</h4>
+
+		</div>
+
+		<p class=MsoNormal>
+			The following BPMN 2.0 elements are not supported by jBPM and, while they can be enabled using the Tool Profile Preferences, there is no guarantee that a <span class=MsoSubtleReference>Process
+			</span>containing any of these unsupported elements can be successfully deployed and executed.
+		</p>
+
+		<span style='font-size: 10.0pt; line-height: 115%; font-family: "Trebuchet MS", "sans-serif"'><br clear=all style='page-break-before: always'> </span>
+
+		<p class=MsoNormal>
+			<b><span style='font-size: 8.0pt; line-height: 115%; color: #365F91'>&nbsp;</span></b>
+		</p>
+
+		<p class=MsoCaption style='page-break-after: avoid'>
+			<a name="_Toc372182476">Table </a>2: BPMN 2.0 Elements not supported by jBPM
+		</p>
+
+		<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0 style='border-collapse: collapse; border: none'>
+			<tr style='page-break-inside: avoid'>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpFirst style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Call Choreography
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Call Conversation
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Choreography
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpLast style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Choreography Task
+					</p>
+				</td>
+			</tr>
+			<tr style='page-break-inside: avoid'>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpFirst style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Collaboration
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Complex Gateway
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Conversation
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpLast style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Conversation Link
+					</p>
+				</td>
+			</tr>
+			<tr style='page-break-inside: avoid'>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpFirst style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Correlation Property
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Correlation Subscription
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Data Store
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpLast style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Global Tasks
+					</p>
+				</td>
+			</tr>
+			<tr style='page-break-inside: avoid'>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpFirst style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Import
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Message Flow
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Participant
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpLast style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Standard Loop
+					</p>
+				</td>
+			</tr>
+			<tr style='page-break-inside: avoid'>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpFirst style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Sub Choreography
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpMiddle style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Sub Conversation
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoListParagraphCxSpLast style='margin-top: 0in; margin-right: 0in; margin-bottom: 0in; margin-left: .25in; margin-bottom: .0001pt; text-indent: -.25in; line-height: normal'>
+						<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Transaction
+					</p>
+				</td>
+				<td valign=top style='padding: 0in 5.75pt 0in 5.75pt'>
+					<p class=MsoNormal style='margin: 0in; margin-bottom: .0001pt; line-height: normal'>      Characteristics</p>
+				</td>
+			</tr>
+		</table>
+
+		<div class="h3">
+
+			<h4 style='border: none; padding: 0in'>
+				<a name="_BPMN_2.0_Element"></a>BPMN 2.0 Element Extensions
+			</h4>
+
+		</div>
+
+		<p class=MsoNormal>This section lists all of the jBPM extension elements and attributes. See the jBPM User Guide for more information about these extensions [7].</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span class=MsoSubtleReference>Process</span> – This
+			element has the following extension attributes and elements:
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Version</b> – Version number of the file
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Package Name</b> – The name of the Guvnor package that owns this Process.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Ad Hoc</b> – A Boolean attribute that identifies this as an Ad Hoc Process.
+			See the discussion of Ad Hoc Sub-Process in the <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Ad_Hoc_Sub">Appendix</a>.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Import</b> – This extension element is used instead of the BPMN 2.0 Import
+			element.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span>Name – the name of a Java class
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Global</b> – This extension element is used to define Process global
+			variables. Global variables differ from normal Process variables in that they can be accessed outside the scope of the Process.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span>Identifier – name of the global variable
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span>Type – Java Type name of the variable
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span class=MsoSubtleReference>Call Activity</span>–
+			This element has the following extension attributes:
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Wait For Completion</b> - If this property is true, the <span
+				class=MsoSubtleReference>Call Activity</span> will only continue after the child <span class=MsoSubtleReference>Process</span> (the <b>Called Activity</b>) has finished executing. If false, the
+			parent process flow will continue immediately after starting the child process.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Independent</b> - If this property is true, the child process is started as
+			an independent process, which means that it will not be terminated if the parent process finishes or, if the <span class=MsoSubtleReference>Sub-Process</span> containing the <span
+				class=MsoSubtleReference>Call Activity</span> is cancelled for some reason. If false, the active child process will be cancelled on termination of the parent process (or on cancellation of the <span
+				class=MsoSubtleReference>Sub-Process</span>).
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span class=MsoSubtleReference>Activities</span> – all
+			<span class=MsoSubtleReference>Activities</span> have extension elements for scripts that can be evaluated before and after execution.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>On Entry Script</b> – evaluated just before the <span
+				class=MsoSubtleReference>Activity</span> is executed.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span>Script Format – either Java or MVEL. The default is Java
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span>Script – the script text
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>On Exit Script</b> – evaluated after <span class=MsoSubtleReference>Activity</span>
+			execution.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span>Script Format – either Java or MVEL. The default is Java
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.5in; text-indent: -.25in'>
+			<span style='font-family: Wingdings'>§<span style='font: 7.0pt "Times New Roman"'>&nbsp; </span></span>Script – the script text
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span class=MsoSubtleReference>Business Rule
+				Task</span>– This element has the following extension attribute:
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Ruleflow Group</b> – In jBPM a <span class=MsoSubtleReference>Business
+				Rule Task</span> defines a set of rules that need to be evaluated. This attribute is the name of a specific Ruleflow group, which determines the evaluation semantics of these rules.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span class=MsoSubtleReference>Sequence Flow</span>–
+			This element has the following extension attribute:
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><b>Priority</b> – The decision which outgoing flow from an <b>Exclusive
+				Gateway</b> to take, is made by evaluating the constraints that are linked to each of the outgoing connections. The constraint with the lowest priority number that evaluates to true is selected.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905918">Tool Palette Profiles</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>The jBPM Target Runtime is configured with three sets of Tool Profiles: “Full”, “Simple” and “RuleFlow”. These are predefined with the BPMN2 elements most likely to be used
+			for various modeling tasks. These Tool Profiles can be configured in the Preference Page as desired to enable more or fewer elements, as shown below:</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=516 height=620 id="Picture 155" src="TARGET%20RUNTIME%20EXTENSIONS_files/image003.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182469">Figure </a>74: jBPM Tool Profiles Preference Page
+		</p>
+
+		<p class=MsoNormal>
+			Note that the <b>Target Runtime Model Extensions</b> towards the bottom of the <b>Extension Elements </b>tree contains all of the <a href="#_BPMN_2.0_Element">BPMN 2.0 extensions defined by
+				jBPM</a>. These can also be enabled or disabled in the UI as desired.
+		</p>
+
+		<div class="h3">
+
+			<h3>Work Item Definitions</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			The jBPM Target Runtime plug-in will automatically load work item definition files and add a Tool Palette entry for each definition found. These will be created in the <b>Custom Tasks </b>tool
+			drawer. These configuration files can be located anywhere within the Project directory hierarchy.
+		</p>
+
+		<p class=MsoNormal>See the jBPM documentation for information regarding work definition configuration files [7].</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905919">Java Type Import Wizard</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			Because the jBPM process engine is Java-centric, the jBPM Target Runtime plug-in defines Java data types as the <a href="PROPERTY VIEW.htm#_Definitions_Tab">BPMN2 Type Language</a>. Importing of different files
+			types, e.g. WSDL or XSD, is not supported. Instead, the BPMN2 Modeler’s <a href="POPUP DIALOGS.htm#_File_Import_Dialog">File Import Dialog</a> is replaced by the Java Type Import Wizard, shown here:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=364 height=290 id="Picture 182" src="TARGET%20RUNTIME%20EXTENSIONS_files/image004.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182470">Figure </a>75: Java Type Import Dialog
+		</p>
+
+		<p class=MsoNormal>There are two ways to invoke the Import Wizard:</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			1.<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>From the <b>Imports</b> <b>List</b> in the Process Definitions Property tab – this simply adds the Java Type definition to
+			the list of Imports and creates Process Data Types for all of the Java classes and interfaces used or defined in the imported Type.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			2.<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>From the <b>Interfaces List</b> in the Process Interfaces Property tab – this not only adds the Java Type definition to the
+			list of Imports, but it also creates <span class=MsoSubtleReference>Process Interface</span>, <span class=MsoSubtleReference>Operation</span>, <span class=MsoSubtleReference>Message</span> and Data
+			Type definitions from the imported Java class.
+		</p>
+
+		<p class=MsoNormal>
+			As you start typing text into the <b>Type</b> field, the <b>Java Types</b> list is updated to show the Java classes and interfaces that match the text. If the Import Wizard was invoked from the <b>Interfaces
+				List</b>, it will also have a <b>Create Process Variables </b>check box; setting this will cause the Import Wizard to create <span class=MsoSubtleReference>Process</span> variables for each of the
+			Java Types found in the imported class or interface, including method parameter and return value Types.
+		</p>
+
+		<p class=MsoNormal>To illustrate how the Import Wizard works, we will use the following Java class as an example. This class defines an inner class (named “Parameter”) several methods that
+			define parameters and return values of this type, and a method with a “throw” declaration.</p>
+
+		<div style='border: solid #365F91 1.0pt; padding: 1.0pt 4.0pt 1.0pt 4.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=CodeCxSpFirst style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<b><span style='font-size: 6.0pt; line-height: 115%; color: #7F0055'>package</span></b><span style='font-size: 6.0pt; line-height: 115%'> org.jboss.jbpm5.runtime;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>&nbsp;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<b><span style='font-size: 6.0pt; line-height: 115%; color: #7F0055'>public</span></b><span style='font-size: 6.0pt; line-height: 115%'> <b><span style='color: #7F0055'>class</span></b>
+					Configuration {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>&nbsp;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      <b><span style='color: #7F0055'>public</span></b> <b><span style='color: #7F0055'>static</span></b> <b><span
+						style='color: #7F0055'>class</span></b> Parameter {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               String <span style='color: #0000C0'>name</span>;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               String <span style='color: #0000C0'>value</span>;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               </span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               <b><span style='color: #7F0055'>public</span></b> String getName() {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>                         <b><span style='color: #7F0055'>return</span></b> <span style='color: #0000C0'>name</span>;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               }</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               <b><span style='color: #7F0055'>public</span></b> <b><span style='color: #7F0055'>void</span></b> setName(String name) {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>                         <b><span style='color: #7F0055'>this</span></b>.<span style='color: #0000C0'>name</span> = name;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               }</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               <b><span style='color: #7F0055'>public</span></b> String getValue() {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>                         <b><span style='color: #7F0055'>return</span></b> <span style='color: #0000C0'>value</span>;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               }</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               <b><span style='color: #7F0055'>public</span></b> <b><span style='color: #7F0055'>void</span></b> setValue(String value) {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>                         <b><span style='color: #7F0055'>this</span></b>.<span style='color: #0000C0'>value</span> = value;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               }</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      }</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      </span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      Parameter <span style='color: #0000C0'>parameter</span>;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>&nbsp;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      <b><span style='color: #7F0055'>public</span></b> Parameter getParameter() {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               <b><span style='color: #7F0055'>return</span></b> <span style='color: #0000C0'>parameter</span>;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      }</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>&nbsp;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      <b><span style='color: #7F0055'>public</span></b> <b><span style='color: #7F0055'>void</span></b> setParameter(Parameter parameter) {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               <b><span style='color: #7F0055'>this</span></b>.<span style='color: #0000C0'>parameter</span> = parameter;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      }</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      </span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      <b><span style='color: #7F0055'>public</span></b> <b><span style='color: #7F0055'>boolean</span></b> apply() <b><span
+						style='color: #7F0055'>throws</span></b> IllegalArgumentException {
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               <b><span style='color: #7F0055'>if</span></b> (<span style='color: #0000C0'>parameter</span>==<b><span
+						style='color: #7F0055'>null</span></b>)
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>                         <b><span style='color: #7F0055'>throw</span></b> <b><span style='color: #7F0055'>new</span></b>
+					IllegalArgumentException(<span style='color: #2A00FF'>&quot;Parameter is not set&quot;</span>);
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>               <b><span style='color: #7F0055'>return</span></b> <b><span style='color: #7F0055'>true</span></b>;
+				</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>      }</span>
+			</p>
+
+			<p class=CodeCxSpLast style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-size: 6.0pt; line-height: 115%'>}</span>
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>
+			<a name="_BPMN_2.0_Elements"></a>When we click the <img border=0 width=17 height=14 id="Picture 185" src="TARGET%20RUNTIME%20EXTENSIONS_files/image005.jpg"> Import button on the Interfaces
+			Property tab and select this class, the Import Wizard creates the following <span class=MsoSubtleReference>Process</span> definitions: A new <span class=MsoSubtleReference>Interface</span> is
+			created; this will have the same name as the imported Java Type:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=437 height=166 id="Picture 117" src="TARGET%20RUNTIME%20EXTENSIONS_files/image006.jpg">
+		</p>
+
+		<p class=MsoNormal>
+			New <span class=MsoSubtleReference>Imports</span> are created for each of the defined or referenced Java Types found:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=437 height=166 id="Picture 119" src="TARGET%20RUNTIME%20EXTENSIONS_files/image007.jpg">
+		</p>
+
+		<p class=MsoNormal>New Data Type definitions are created for each of the Java Types found:</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=437 height=166 id="Picture 120" src="TARGET%20RUNTIME%20EXTENSIONS_files/image008.jpg">
+		</p>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Message</span> definitions are created for each of the methods found:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=437 height=166 id="Picture 121" src="TARGET%20RUNTIME%20EXTENSIONS_files/image009.jpg">
+		</p>
+
+		<p class=MsoNormal>
+			<span class=MsoSubtleReference>Error </span>definitions are created for each “throw” declaration on methods:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=437 height=166 id="Picture 122" src="TARGET%20RUNTIME%20EXTENSIONS_files/image010.jpg">
+		</p>
+
+		<p class=MsoNormal>
+			And finally, <span class=MsoSubtleReference>Process</span> variables are created for each Java Type found:
+		</p>
+
+		<p class=MsoNormal>
+			<img border=0 width=437 height=166 id="Picture 123" src="TARGET%20RUNTIME%20EXTENSIONS_files/image011.jpg">
+		</p>
+
+		<span style='font-size: 10.0pt; line-height: 115%; font-family: "Trebuchet MS", "sans-serif"'><br clear=all style='page-break-before: always'> </span>
+
+		<p class=MsoNormal>
+			<span style='font-size: 26.0pt; line-height: 115%; color: #4F81BD; text-transform: uppercase; letter-spacing: .5pt'>&nbsp;</span>
+		</p>
+
+	</div>
+
+</body>
+
+</html>

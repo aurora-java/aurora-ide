@@ -1,0 +1,550 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Eclipse BPMN2 Modeler User Guide (Version 1.0.1)</title>
+
+<link rel="stylesheet" type="text/css" href="MsoStyles-modified.css">
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+	<div class=WordSection1>
+
+		<div class="h1">
+
+			<h1>Popup Dialogs</h1>
+
+		</div>
+
+		<p class=MsoNormal>Popup dialogs are used throughout the editor to prompt for additional configuration information or command confirmation. This section describes some the more “interesting” of
+			these dialogs.</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905891"></a><a name="_Popup_Property_Dialog"></a>BPMN2 Element Property Dialogs
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			As described in the section on <a href="GRAPHICAL EDITING.htm#_Context_Button_Pad">Graphical Editing</a>, you do have the option of closing the Property Viewer and using popup dialogs to configure the elements. In this
+			case, the property tabs are laid out horizontally in a popup dialog, instead of vertically (as in the Property View). Also, the <b>Description</b> tab is omitted to save space.
+		</p>
+
+		<p class=MsoNormal>
+			Like the Property View, the content of the Property Dialog varies, depending on which element is being edited. Here is an example of the Property Dialog showing the settings for a <span
+				class=MsoSubtleReference>Manual Task</span>:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=366 height=244 id="Picture 146" src="POPUP%20DIALOGS_files/image003.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182444">Figure </a>44: BPMN2 Element Property Dialogs
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="POPUP%20DIALOGS_files/image001.gif" alt="*"><span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span>As a shortcut to speed configuration of BPMN2 elements, you can configure the editor to have the <a href="USER PREFERENCES.htm#_Editor_Behavior">Property Dialog pop up automatically</a> when an element is dragged
+				onto the Drawing Canvas from the Tool Palette.
+			</p>
+
+		</div>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905892"></a><a name="_New_Data_Type"></a>Data Type Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			Data Types (a.k.a. “<a href="#_Data_Type_(ItemDefinition)">Item Definitions</a>”) use the following configuration dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=244 height=130 id="Picture 105" src="POPUP%20DIALOGS_files/image004.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182445">Figure </a>45: Data Type (“Item Definition”) Editing Dialog
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Item Kind</b> – indicates whether the item is
+			Physical or Informational
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Is Collection</b> – if checked, the item represents
+			a collection of data
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Structure</b> – a reference to the actual structure
+			of the data. By default, this is an XSD type, but may also be other language data types (e.g. Java) depending on the <a href="PROPERTY VIEW.htm#_Definitions_Tab">Type System</a> defined for the <span
+				class=MsoSubtleReference>Process</span>.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905893"></a><a name="_Message_Dialog"></a><a name="_Variable_Dialog"></a>Variable Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			Variables (a.k.a. “<a href="#_Variable_(Property)">Properties</a>”) are configured with the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=288 height=153 id="Picture 98" src="POPUP%20DIALOGS_files/image005.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182446">Figure </a>46: Variable (&quot;Property&quot;) Editing Dialog
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Name</b> – the variable name
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data State</b> – an application-defined state such
+			as “initialized” or “staging”.  See also <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Data_Elements">Data Elements</a>.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data Type</b> – the type and structure of the
+			variable (see above)
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905894">Message Dialog</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			<a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Message">Messages</a> are configured with the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=311 height=158 id="Picture 148" src="POPUP%20DIALOGS_files/image006.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182447">Figure </a>47: Message Editing Dialog
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Name </b>– the name of the <span
+				class=MsoSubtleReference>Message</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data Type</b> – the type and structure of the <span
+				class=MsoSubtleReference>Message</span> payload
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905895"></a><a name="_Error_Dialog"></a>Error Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			<a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Error">Errors</a> are configured with the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=237 height=156 id="Picture 149" src="POPUP%20DIALOGS_files/image007.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182448">Figure </a>48: Error Editing Dialog
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Name</b> – the name of the <span
+				class=MsoSubtleReference>Error</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Error Code</b> – an application-specific value that
+			can be used by Activities in, e.g. condition expressions to test for specific error types
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data Type</b> – the type and structure of the <span
+				class=MsoSubtleReference>Error</span> payload (if any)
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905896"></a><a name="_Signal_Dialog"></a>Signal Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			<a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Signal">Signals</a> are configured with the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=231 height=151 id="Picture 150" src="POPUP%20DIALOGS_files/image008.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182449">Figure </a>49: Signal Editing Dialog
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Name</b> – the name of the <span
+				class=MsoSubtleReference>Signal</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data Type</b> – the type and structure of the <span
+				class=MsoSubtleReference>Signal</span> payload (if any)
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905897"></a><a name="_Escalation_Dialog"></a>Escalation Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			<a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Escalation">Escalations</a> are configured with the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=253 height=169 id="Picture 151" src="POPUP%20DIALOGS_files/image009.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182450">Figure </a>50: Escalation Editing Dialog
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Name</b> – the name of the <span
+				class=MsoSubtleReference>Escalation</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Error Code</b> – an application-specific value that
+			can be used by Activities in, e.g. condition expressions to test for specific escalation types
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data Type</b> – the type and structure of the <span
+				class=MsoSubtleReference>Escalation</span> payload (if any)
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905898"></a><a name="_Data_Store_Dialog"></a>Data Store Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			<a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Data_Store">Data Stores</a> are configured with the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=312 height=185 id="Picture 152" src="POPUP%20DIALOGS_files/image010.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182451">Figure </a>51: Data Store Editing Dialog
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Name</b> – the name of the <span
+				class=MsoSubtleReference>Data Store</span>. This is typically a database table or file name, depending on the underlying technology used to persist the data.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Capacity</b> – an application-specific value that
+			represents the maximum capacity of the Data Store
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Is Unlimited </b>– if checked, indicates the Data
+			Store capacity is unlimited. This overrides the <b>Capacity</b> value.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span class=MsoSubtleReference><span style='font-family: Symbol; color: windowtext; font-weight: normal'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</span></span></span><b>Data Type</b> – the type and structure of the <span class=MsoSubtleReference>Data Store</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Data State</b> – an application-specific state of
+			the data, e.g. “committed”, “archived”, etc. See also <a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Data_Elements">Data Elements</a>.
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905899"></a><a name="_Resource_Import_Dialog"></a><a name="_File_Import_Dialog"></a>File Import Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			<a href="PROPERTY VIEW.htm#_Definitions_Tab">Imports</a> are used whenever data definitions required by the <span class=MsoSubtleReference>Process</span> are maintained in an external file or some online resource
+			(e.g. a web server.) The File Import dialog allows you to select and preview these resources before importing:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=280 height=335 id="Picture 100" src="POPUP%20DIALOGS_files/image011.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182452">Figure </a>52: File Import Dialog
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Import Type </b>– selects the type of file to
+			import, one of the following:
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>XML Schema (XSD) - for data type definitions
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Web Service Definition (WSDL) – for Web Service Interface definitions
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>BPMN 2.0 Diagram (BPMN2) – for BPMN2 Process definitions
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Java – for data type definitions if the data <b>Type Language</b> is <a
+				href="http://www.java.com/javaTypes">http://www.java.com/javaTypes</a>. See <a href="PROPERTY VIEW.htm#_Definitions_Tab">Process Definitions</a> for more information.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Import Source </b>– the location to search for the
+			import file:
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Workspace – the Eclipse Workspace
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>File System – the local host file system
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>URL – on online web server
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>WSIL – using the WSIL directory. See <a href="USER PREFERENCES.htm#_WSIL_Browser">WSIL Browser</a>
+			for more information.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Resource Selection Pane – this section displays the
+			available files in the selected <b>Import Source</b>
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Preview Pane – this section displays the parsed
+			contents of a selected file.
+		</p>
+
+		<p class=MsoNormal>
+			Clicking the <b>OK</b> button adds the selected file to the list of Imports and creates additional BPMN2 elements as appropriate:
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>XSD</b> – creates Data Type definitions for each of
+			the element definitions contained in the XSD file.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>WSDL</b> – creates <span class=MsoSubtleReference>Interfaces</span>,
+			<span class=MsoSubtleReference>Operations</span>, <span class=MsoSubtleReference>Message</span> types, <span class=MsoSubtleReference>Error</span> types and Data Types from the WSDL file.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>BPMN2</b> – creates <span class=MsoSubtleReference>Interface</span>
+			references and <span class=MsoSubtleReference>Process</span> references defined in the BPMN2 file. These are then available for use by <span class=MsoSubtleReference>Activities</span> in the <span
+				class=MsoSubtleReference>Process</span> (e.g., <span class=MsoSubtleReference>Service Tasks</span>, <span class=MsoSubtleReference>Call Activities</span>, etc.)
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Java</b> – imported Java files create the following
+			BPMN2 elements:
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Classes – create <span class=MsoSubtleReference>Interfaces</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Class methods – create <span class=MsoSubtleReference>Operations</span> for
+			these <span class=MsoSubtleReference>Interfaces</span>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Method Parameters – create <span class=MsoSubtleReference>Messages</span> and
+			Data Types for each of the parameters
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Method return values – create <span class=MsoSubtleReference>Messages</span>
+			and Data Types
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Method “throw” declarations create <span class=MsoSubtleReference>Errors</span>
+			and Data Types for the Java Exception
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905900">Import Editing Dialog</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			Editing an imported file from the <b>Imports List</b> in the <a href="PROPERTY VIEW.htm#_Definitions_Tab">Process Definitions</a> property tab displays the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=323 height=179 id="Picture 147" src="POPUP%20DIALOGS_files/image012.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182453">Figure </a>53: Import Editing Dialog
+		</p>
+
+		<p class=MsoNormal>
+			Note that only the <b>Prefix</b> can be edited, all other fields are read-only. Clicking the <img border=0 width=18 height=17 id="Picture 153" src="POPUP%20DIALOGS_files/image013.jpg">button
+			displays this dialog which allows you to select a namespace prefix:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=275 height=111 id="Picture 103" src="POPUP%20DIALOGS_files/image014.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182454">Figure </a>54: Namespace Editing Dialog
+		</p>
+
+		<p class=MsoNormal>The editor will check to ensure that the new prefix is not already in use.</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905901"></a><a name="_Resource_Dialog"></a>Resource Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			<a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Resource">Resources</a> are configured with the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=358 height=202 id="Picture 138" src="POPUP%20DIALOGS_files/image015.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182455">Figure </a>55: Edit Resource Dialog
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905902">Resource Parameter Dialog</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>
+			A <span class=MsoSubtleReference>Resource </span>may require one or more<span class=MsoSubtleReference> Resource Parameters</span>; these are configured with the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=274 height=174 id="Picture 139" src="POPUP%20DIALOGS_files/image016.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182456">Figure </a>56: Edit Resource Parameter Dialog
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905903"></a><a name="_Category_Dialog"></a>Resource Role Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			<a href="APPENDIX_ BPMN 2.0 REFERENCE.htm#_Resource">Resource Roles</a> are configured with the following dialog:
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=284 height=159 id="Picture 166" src="POPUP%20DIALOGS_files/image017.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182457">Figure </a>57: Edit Resource Role Dialog
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905904"></a><a name="_Export_Diagram_Dialog"></a>Export Diagram Dialog
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			This dialog is invoked from the <a href="ANATOMY OF THE BPMN2 MODELER.htm#_Drawing_Canvas">Drawing Canvas context menu</a>. It is used to save the currently selected diagram as an image file. The image can be saved in several
+			different formats and sizes.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=278 height=168 id="Picture 1" src="POPUP%20DIALOGS_files/image018.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182458">Figure </a>58: Export Diagram Dialog
+		</p>
+
+	</div>
+
+</body>
+
+</html>

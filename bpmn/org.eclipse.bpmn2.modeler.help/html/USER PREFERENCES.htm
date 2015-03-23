@@ -1,0 +1,568 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Eclipse BPMN2 Modeler User Guide (Version 1.0.1)</title>
+
+<link rel="stylesheet" type="text/css" href="MsoStyles-modified.css">
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+	<div class=WordSection1>
+
+		<div class="h1">
+
+			<h1>
+				<a name="_Toc371905906"></a><a name="_Outline_View"></a><a name="_User_Preferences"></a>User Preferences
+			</h1>
+
+		</div>
+
+		<p class=MsoNormal>
+			The BPMN2 Modeler appearance and behavior can be customized from Eclipse Preferences settings. To access the Preferences dialog, from the main menu click <b>Window -&gt; Settings</b> then select
+			the <b>BPMN2</b> category from the tree in the left of the dialog (see below).
+		</p>
+
+		<p class=MsoNormal>
+			The BPMN2 Modeler Preferences are divided into three general categories: General Settings, Editor Setting, and settings contributed by extension plug-ins. The Editor Settings are further divided
+			into <b>Appearance</b>, <b>Behavior</b> and <b>Tool Profiles</b>.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="USER%20PREFERENCES_files/image001.gif" alt="*"><span
+					style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Some of these settings may require a restart of the editor to take effect (i.e. closing and reopening the editor,
+				not the Eclipse workbench!)
+			</p>
+
+		</div>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905907">General Settings</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>These settings are related to the BPMN2 model itself and affect how imported files are treated.</p>
+
+		<p class=MsoNormal>
+			<b>Default values for BPMN DI optional attributes </b>settings<b> </b>determine the values of optional BPMN2 attributes; possible selections are:
+		</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span> <b>True if not set</b> – the attribute will be forced
+			to TRUE if it is missing from the file being imported.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>False if not set</b> – the attribute will be forced
+			to FALSE if it is missing from the file being imported.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Always True</b> – the attribute will always be
+			forced to TRUE, even if it <b>is set</b> in the file being imported.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Always False</b> – the attribute will always be
+			forced to FALSE, even if it <b>is set</b> in the file being imported.
+		</p>
+
+		<p class=MsoNormal>The result for each of these attributes will be either TRUE or FALSE; these have the following meanings:</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Horizontal layout of Pools, Lanes and diagram
+				elements (isHorizontal)</b>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>TRUE: Pools and Lanes will be drawn horizontally.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>FALSE: Pools and Lanes are drawn vertically. Also, the <a
+				href="GRAPHICAL EDITING.htm#_Context_Button_Pad">Append features</a> will create new shapes below, instead of to the right of the shape.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Expand activity containers (isExpanded)</b>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>TRUE: Sub-Process, Transaction, Call Activity, etc. container shapes will be
+			drawn as expanded figures, with their contents visible.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>FALSE: containers will be draw as collapsed figures; their contents will not
+			be visible but they will take up less screen real-estate.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span> <b>Show Participant Band Messages
+				(isMessageVisible)</b>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>TRUE: Message icons will be drawn connected to their Participant Bands in
+			Choreography Tasks
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>FALSE: no Messages are drawn.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Decorate Exclusive Gateway with “X” marker
+				(isMarkerVisible)</b>
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>TRUE: Exclusive Gateways will be drawn with an “X” in the center.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='margin-left: 1.0in; text-indent: -.25in'>
+			<span style='font-family: "Courier New"'>o<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>FALSE: the center of Exclusive Gateways is left empty.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Caution style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="USER%20PREFERENCES_files/image002.jpg" alt="*"><span
+					style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>If any of the above attributes are changed as a result of these settings, those changes will be reflected in the
+				file when it is saved.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>
+			The <b>Connection Timeout for resolving remote objects</b> setting is the number of milliseconds to wait before giving up on loading imported resources.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="USER%20PREFERENCES_files/image001.gif" alt="*"><span
+					style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Using a connection timeout prevents the editor from “hanging” because of slow internet connections, unavailable
+				servers, etc. while searching for documents on the web.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=366 height=349 id="Picture 22" src="USER%20PREFERENCES_files/image003.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182459">Figure </a>64: BPMN2 General Settings
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905908"></a><a name="_Editor_Appearance"></a>Editor Appearance
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>Appearance settings affect the rendering of graphical shapes and lines in the editor, e.g. colors, fonts, line styles, etc.</p>
+
+		<p class=MsoNormal>Shapes have several different settings for colors:</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Fill Color – the interior of the shape
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Foreground – the shape’s border color
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Selected – the fill color when the shape is the primary
+			selection
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Multi-Selected – fill color when the shape is one of
+			several selected shapes, but not the primary selection
+		</p>
+
+		<p class=MsoNormal>Labels also have a color setting as well as a font style and size.</p>
+
+		<p class=MsoNormal>
+			The <b>Override shape size with default values</b> setting can be used to normalize unusually large or small shapes in a file being imported.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=366 height=349 id="Picture 23" src="USER%20PREFERENCES_files/image004.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182460">Figure </a>65: Editor Appearance (Shapes)
+		</p>
+
+		<p class=MsoNormal>Connection lines only have a foreground color, but their labels may also have a different color and font.</p>
+
+		<p class=MsoNormal>The Routing Style setting determines how connection lines are routed from source to target:</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Manual Bendpoint</b> – the line is drawn directly
+			from source to target; if a shape is moved so that it “collides” with the connection line, the editor does not attempt to reroute the connection. Also, manual bendpoints are not relocated. See the
+			<a href="GRAPHICAL EDITING.htm#_Connections">Graphical Editing</a> section for an explanation of bendpoints.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Automatic Bendpoint</b> – the line is drawn directly
+			from source to target; the editor attempts to reroute connections around shapes so that they do not collide with the shape. Also, manual bendpoints are not relocated.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Manhattan</b> – connections are drawn as a series of
+			horizontal and vertical line segments from source to target (reminiscent of the Manhattan skyline.) Bendpoints are automatically relocated as necessary.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=366 height=349 id="Picture 24" src="USER%20PREFERENCES_files/image005.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182461">Figure </a>66: Editor Appearance (Connections)
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905909"></a><a name="_Editor_Behavior"></a>Editor Behavior
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>These settings have the following meanings:</p>
+
+		<p class=MsoListParagraphCxSpFirst style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Show Advanced Properties Tab</b> – displays an
+			optional “Advanced” tab in the <a href="PROPERTY VIEW.htm#_The_Tabbed_Property">Property View</a>.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Show descriptions</b> – displays descriptive
+			information about each selected element in the “Description” tab of the Property View.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Show ID attribute</b> – displays the ID attribute
+			for selected elements.
+		</p>
+
+		<p class=MsoListParagraphCxSpMiddle style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Use a popup dialog instead of Details Panel to
+				edit List items</b> – by default, the <a href="PROPERTY VIEW.htm#_Editing_Widgets">List and Details</a> Property widget will use a sliding Detail Panel to edit a List item. Setting this checkbox will display the
+			Details in a popup dialog instead.
+		</p>
+
+		<p class=MsoListParagraphCxSpLast style='text-indent: -.25in'>
+			<span style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b>Display element configuration popup dialog</b> –
+			this causes the <a href="POPUP DIALOGS.htm#_Popup_Property_Dialog">Property Configuration Dialog</a> to automatically pop up whenever a new element is dropped on the Drawing Canvas.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Caution style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="USER%20PREFERENCES_files/image002.jpg" alt="*"><span
+					style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Editing ID attributes should be used with caution! IDs are considered “internal” data and may cause the file to
+				become corrupted if duplicate IDs are created inadvertently.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=407 height=271 id="Picture 127" src="USER%20PREFERENCES_files/image006.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182462">Figure </a>67: Editor Behavior
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905910"></a><a name="_Tool_Profiles"></a>Tool Profiles
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			Tool Profiles allow the editor to be constrained to displaying specific BPMN2 elements, based on the type of diagram being edited. See the <a href="#_BPMN_2.0_Elements">BPMN 2.0 Elements</a>
+			section for a detailed discussion of diagram types.
+		</p>
+
+		<p class=MsoNormal>
+			A Tool Profile is defined as the set of BPMN2 elements that are active for a specific combination of Target Runtime and Diagram Type. The Profile name should be brief, but descriptive, since it is
+			displayed in the editor’s <a href="ANATOMY OF THE BPMN2 MODELER.htm#_Tool_Palette_1">Tool Palette</a>. The “stock” version of the editor already has several Tool Profiles defined, and these may be edited, created or deleted as
+			desired.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="USER%20PREFERENCES_files/image001.gif" alt="*"><span
+					style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>The <b>Restore Defaults</b> button can be used to reset all Profiles to their original settings.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>
+			The Tool Profiles Preference page consists of several widgets to select a specific Profile, and either one or two <b>Model Elements and Attributes</b> trees, depending on whether the Target Runtime
+			has defined extensions to the BPMN2 model.
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="USER%20PREFERENCES_files/image001.gif" alt="*"><span
+					style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Note that only “top-level” model and extension elements are displayed; elements like InputOutputSpecification are
+				irrelevant since their types are enabled by the top-level elements that reference them.
+			</p>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="USER%20PREFERENCES_files/image001.gif" alt="*"><span
+					style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>A Target Runtime may define not only its own extension elements and attributes, but also extensions to the BPMN2
+				model. Those BPMN2 model extensions are displayed in the <b>Extension Elements</b> tree.
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>
+			The <b>Show ID attributes </b>checkbox is synchronized with the <a href="USER PREFERENCES.htm#_Editor_Behavior">Editor Behavior Preference</a>. Enabling this checkbox will also enable the ID attribute of all elements.
+		</p>
+
+		<p class=MsoNormal>To create a new Profile, click the Create Profile button. This displays the following dialog:</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=259 height=118 id="Picture 113" src="USER%20PREFERENCES_files/image007.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182463">Figure </a>68: Create Profile Dialog
+		</p>
+
+		<p class=MsoNormal>
+			Checking the <b>Copy settings </b>checkbox will initialize the new Profile using the selected one.
+		</p>
+
+		<p class=MsoNormal>
+			Tool Profiles can also be saved on the local file system, and can be restored using the <b>Import Profile</b> and <b>Export Profile</b> buttons.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=366 height=349 id="Picture 33" src="USER%20PREFERENCES_files/image008.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182464">Figure </a>69: Tool Profiles (Model Enablement)
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			The Tool Palette tab displays the resulting Tool Palette, based on changes made on the <b>Enabled Model Elements and Attributes</b> tab. Tools and Drawers that are not available will be shown as a
+			<img border=0 width=10 height=9 id="Picture 112" src="USER%20PREFERENCES_files/image009.jpg"> symbol.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=319 height=348 id="Picture 111" src="USER%20PREFERENCES_files/image010.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182465">Figure </a>70: Tool Profiles (Tool Palette)
+		</p>
+
+		<div style='border: solid #4F81BD 1.0pt; padding: 2.0pt 4.0pt 1.0pt 10.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=Hint style='margin-top: .25in; margin-right: 0in; margin-bottom: .25in; margin-left: .25in'>
+				<span style='font-family: Symbol; color: windowtext'><img width=11 height=11 src="USER%20PREFERENCES_files/image001.gif" alt="*"><span
+					style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>The <b>Tool Palette</b> tab is read-only; the next release of the BPMN2 Modeler will also allow creation and
+				editing of Tool Palettes.
+			</p>
+
+		</div>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905911">Extension Plug-in Settings</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			As was <a href="INTRODUCTION.htm#_Background">mentioned earlier</a>, BPMN2 Modeler can be extended by third-party plug-in developers to customize the editor for specific BPM execution engines or BPMN2 language
+			subsets. This section describes the Preference pages for two of these extensions.
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905912">jBPM Runtime</a>
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>As of this version, the only jBPM runtime setting is to enable or disable the Simulation Parameter model extension. These extensions conform to the BPSim version 1.0
+			specification [5] and are compatible with the jBPM Web Designer product and jBPM execution engine.</p>
+
+		<p class=MsoNormal>The jBPM Preference Page is shown here:</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=366 height=349 id="Picture 96" src="USER%20PREFERENCES_files/image011.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182466">Figure </a>71: jBPM Runtime Preferences
+		</p>
+
+		<div class="h3">
+
+			<h3>
+				<a name="_Toc371905913"></a><a name="_WSIL_Browser"></a>WSIL Browser
+			</h3>
+
+		</div>
+
+		<p class=MsoNormal>Web Services Inspection Language (WSIL) is a service discovery mechanism, similar to UDDI and was developed jointly by Microsoft® and IBM®. A complete discussion of this
+			standard is beyond the scope of this document, but there are many online references available [6].</p>
+
+		<p class=MsoNormal>
+			The <b>WSIL Browser</b> settings allow you to specify a WSIL document that can be used as a lookup mechanism for web services. The following is a simple WSIL document that can be located anywhere
+			on the local file system, or even on a remote server. This document is used by the <a href="POPUP DIALOGS.htm#_Resource_Import_Dialog">File Import Dialog</a> when searching for files to import.
+		</p>
+
+		<div style='border: solid #365F91 1.0pt; padding: 1.0pt 4.0pt 1.0pt 4.0pt; margin-left: .2in; margin-right: 1.0in'>
+
+			<p class=CodeCxSpFirst style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='color: teal'>&lt;?</span><span style='color: #3F7F7F'>xml</span> version<span style='color: black'>=</span><i><span style='color: #2A00FF'>&quot;1.0&quot;</span></i> encoding<span
+					style='color: black'>=</span><i><span style='color: #2A00FF'>&quot;UTF-8&quot;</span></i><span style='color: teal'>?&gt;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: teal'>&lt;?</span><span style='font-family: Consolas; color: #3F7F7F'>xml</span><span style='font-family: Consolas'> <span style='color: #7F007F'>version</span><span
+					style='color: black'>=</span><i><span style='color: #2A00FF'>&quot;1.0&quot;</span></i> <span style='color: #7F007F'>encoding</span><span style='color: black'>=</span><i><span
+						style='color: #2A00FF'>&quot;UTF-8&quot;</span></i><span style='color: teal'>?&gt;</span></span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: teal'>&lt;</span><span style='font-family: Consolas; color: #3F7F7F'>inspection</span><span style='font-family: Consolas'> <span
+					style='color: #7F007F'>xmlns</span><span style='color: black'>=</span><i><span style='color: #2A00FF'>&quot;http://schemas.xmlsoap.org/ws/2001/10/inspection/&quot;</span></i><span
+					style='color: teal'>&gt;</span></span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>  </span><span style='font-family: Consolas; color: teal'>&lt;</span><span style='font-family: Consolas; color: #3F7F7F'>abstract</span><span
+					style='font-family: Consolas; color: teal'>&gt;</span><span style='font-family: Consolas; color: black'>Acme Industries Public Web Services</span><span style='font-family: Consolas; color: teal'>&lt;/</span><span
+					style='font-family: Consolas; color: #3F7F7F'>abstract</span><span style='font-family: Consolas; color: teal'>&gt;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>  </span><span style='font-family: Consolas; color: teal'>&lt;</span><span style='font-family: Consolas; color: #3F7F7F'>service</span><span
+					style='font-family: Consolas; color: teal'>&gt;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>    </span><span style='font-family: Consolas; color: teal'>&lt;</span><span style='font-family: Consolas; color: #3F7F7F'>abstract</span><span
+					style='font-family: Consolas; color: teal'>&gt;</span><span style='font-family: Consolas; color: black'>A service to perform a geographical search of Acme </span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>             store locations.</span><span style='font-family: Consolas; color: teal'>&lt;/</span><span
+					style='font-family: Consolas; color: #3F7F7F'>abstract</span><span style='font-family: Consolas; color: teal'>&gt;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>    </span><span style='font-family: Consolas; color: teal'>&lt;</span><span style='font-family: Consolas; color: #3F7F7F'>name</span><span
+					style='font-family: Consolas; color: teal'>&gt;</span><span style='font-family: Consolas; color: black'>Store Finder Service</span><span style='font-family: Consolas; color: teal'>&lt;/</span><span
+					style='font-family: Consolas; color: #3F7F7F'>name</span><span style='font-family: Consolas; color: teal'>&gt;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>    </span><span style='font-family: Consolas; color: teal'>&lt;</span><span style='font-family: Consolas; color: #3F7F7F'>description</span><span
+					style='font-family: Consolas'> <span style='color: #7F007F'>location</span><span style='color: black'>=</span><i><span style='color: #2A00FF'>&quot;http://example.org/services/storefinder.wsdl&quot;
+					</span></i><span style='color: #7F007F'>referencedNamespace</span><span style='color: black'>=</span><i><span style='color: #2A00FF'>&quot;http://schemas.xmlsoap.org/wsdl/&quot;</span></i><span
+					style='color: teal'>/&gt;</span></span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>  </span><span style='font-family: Consolas; color: teal'>&lt;/</span><span style='font-family: Consolas; color: #3F7F7F'>service</span><span
+					style='font-family: Consolas; color: teal'>&gt;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>  </span><span style='font-family: Consolas; color: teal'>&lt;</span><span style='font-family: Consolas; color: #3F7F7F; background: lightgrey'>link</span><span
+					style='font-family: Consolas'> <span style='color: #7F007F'>location</span><span style='color: black'>=</span><i><span style='color: #2A00FF'>&quot;http://example.org/services/ecommerce.wsil&quot;
+					</span></i><span style='color: #7F007F'>referencedNamespace</span><span style='color: black'>=</span><i><span style='color: #2A00FF'>&quot;http://schemas.xmlsoap.org/ws/2001/10/inspection/&quot;</span></i><span
+					style='color: teal'>&gt;</span></span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>    </span><span style='font-family: Consolas; color: teal'>&lt;</span><span style='font-family: Consolas; color: #3F7F7F'>abstract</span><span
+					style='font-family: Consolas; color: teal'>&gt;</span><span style='font-family: Consolas; color: black'>Acme Industries Public e-Commerce Services</span><span
+					style='font-family: Consolas; color: teal'>&lt;/</span><span style='font-family: Consolas; color: #3F7F7F'>abstract</span><span style='font-family: Consolas; color: teal'>&gt;</span>
+			</p>
+
+			<p class=CodeCxSpMiddle style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: black'>  </span><span style='font-family: Consolas; color: teal'>&lt;/</span><span style='font-family: Consolas; color: #3F7F7F; background: lightgrey'>link</span><span
+					style='font-family: Consolas; color: teal'>&gt;</span>
+			</p>
+
+			<p class=CodeCxSpLast style='margin-top: 10.0pt; margin-right: 0in; margin-bottom: 10.0pt; margin-left: 0in; border: none; padding: 0in'>
+				<span style='font-family: Consolas; color: teal'>&lt;/</span><span style='font-family: Consolas; color: #3F7F7F'>inspection</span><span style='font-family: Consolas; color: teal'>&gt;</span>
+			</p>
+
+		</div>
+
+		<p class=MsoNormal>&nbsp;</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=389 height=230 id="Picture 108" src="USER%20PREFERENCES_files/image012.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182467">Figure </a>72: WSIL Browser Preferences
+		</p>
+
+		<div class="h2">
+
+			<h2>
+				<a name="_Toc371905914">Project-Specific Preferences</a>
+			</h2>
+
+		</div>
+
+		<p class=MsoNormal>
+			An Eclipse Workspace project may have one or more <i>Natures </i>which may cause some background processing to happen whenever a project file is changed. For example, the Java nature causes Java
+			classes to be recompiled whenever a class is edited. A complete discussion of Eclipse <i>Natures</i> is beyond the scope of this document, but suffice it to say that the BPMN2 Modeler defines a <i>BPMN2
+				Nature</i> which invokes a model validation process whenever a BPMN2 file is saved.
+		</p>
+
+		<p class=MsoNormal>
+			Whenever a BPMN2 file is saved, the editor checks if the <i>BPMN2 Nature</i> has been set on the containing project. If not, it prompts for permission to add the <i>Nature</i> to the project. The
+			Project Preferences Dialog allows you to enable or disable this prompt dialog, and to define the Target Runtime against which to validate the files in that project.
+		</p>
+
+		<p class=MsoNormal style='page-break-after: avoid'>
+			<img border=0 width=325 height=259 id="Picture 99" src="USER%20PREFERENCES_files/image013.jpg">
+		</p>
+
+		<p class=MsoCaption>
+			<a name="_Toc372182468">Figure </a>73: Project-Specific Settings
+		</p>
+
+	</div>
+
+</body>
+
+</html>

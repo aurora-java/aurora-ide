@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+  <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="aurora.bpmn.designer.rcp.workbench.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="Aurora BPMN Perspective"
+            class="aurora.bpmn.designer.rcp.workbench.Perspective"
+            id="aurora.bpmn.designer.rcp.perspective">
+      </perspective>
+   </extension>
+   <!--
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Message"
+            allowMultiple="true"
+            icon="icons/sample2.gif"
+            class="aurora.bpmn.designer.rcp.workbench.View"
+            id="aurora.bpmn.designer.rcp.view">
+      </view>
+      <view
+            name="Mailboxes"
+            allowMultiple="true"
+            icon="icons/sample3.gif"
+            class="aurora.bpmn.designer.rcp.workbench.NavigationView"
+            id="aurora.bpmn.designer.rcp.navigationView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Mail"
+            id="aurora.bpmn.designer.rcp.category">
+      </category>
+      <command
+            name="Open Mailbox"
+            description="Opens a mailbox"
+            categoryId="aurora.bpmn.designer.rcp.category"
+            id="aurora.bpmn.designer.rcp.open">
+      </command>
+      <command
+            name="Open Message Dialog"
+            description="Open a message dialog"
+            categoryId="aurora.bpmn.designer.rcp.category"
+            id="aurora.bpmn.designer.rcp.openMessage">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="aurora.bpmn.designer.rcp.open"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+SHIFT+O">
+      </key>
+      <key
+            commandId="aurora.bpmn.designer.rcp.openMessage"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+SHIFT+M">
+      </key>
+      <key
+            commandId="org.eclipse.ui.file.exit"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+SHIFT+Q">
+      </key>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="aurora.bpmn.designer.rcp.application"
+            name="Aurora BPM Product">
+         <property
+               name="aboutText"
+               value="RCP Mail template created by PDE">
+         </property>
+         <property
+               name="windowImages"
+               value="icons/sample2.gif">
+         </property>
+         <property
+               name="aboutImage"
+               value="product_lg.gif">
+         </property>
+         <property
+               name="appName"
+               value="Aurora BPM Product">
+         </property>
+      </product>
+   </extension>
+    -->
+   <extension point="org.eclipse.ui.editors">
+		<editor
+			class="aurora.ide.designer.editor.AuroraBpmnEditor"
+			contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+			default="true"
+			extensions="bpmn,bpmn2"
+			icon="icons/bpmn2_editor_16.png"
+			id="aurora.ide.workflow.bpmn.graphiti.ui.editor.AuroraBpmnEditor"
+			name="Aurora BPMN Editor"
+			matchingStrategy="org.eclipse.bpmn2.modeler.ui.editor.BPMN2EditorMatchingStrategy">
+			<contentTypeBinding contentTypeId="org.eclipse.bpmn2.content-type.xml">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.xml"
+			id="org.eclipse.bpmn2.content-type.xml"
+			name="%content-type.name"
+			file-extensions="bpmn,bpmn2,bpmn20,xml"
+			priority="high">
+			<describer
+				class="org.eclipse.bpmn2.modeler.ui.Bpmn2ContentDescriber"
+				plugin="org.eclipse.bpmn2.modeler.ui">
+			</describer>
+		</content-type>
+		<file-association
+			content-type="org.eclipse.bpmn2.content-type.xml"
+			file-extensions="bpmn,bpmn2">
+		</file-association>
+	</extension>
+	
+	<extension point="org.eclipse.graphiti.ui.diagramTypes">
+		<diagramType description="This is the diagram type for the BMPN2 diagram"
+			id="org.eclipse.bpmn2.modeler.ui.diagram.MainBPMNDiagramType" name="BPMN2 Diagram Type"
+			type="BPMN2">
+		</diagramType>
+	</extension>
+
+	<extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
+		<diagramTypeProvider
+			class="aurora.ide.designer.diagram.AuroraBpmn2DiagramTypeProvider"
+			description="This is the editor for the BPMN2 diagram"
+			id="org.eclipse.bpmn2.modeler.ui.diagram.MainBPMNDiagramType" name="BPMN2 Editor">
+			<diagramType
+				id="org.eclipse.bpmn2.modeler.ui.diagram.MainBPMNDiagramType">
+			</diagramType>
+			<imageProvider id="org.eclipse.bpmn2.modeler.ui.ImageProvider">
+			</imageProvider>
+		</diagramTypeProvider>
+	</extension>
+	
+	<extension point="org.eclipse.graphiti.ui.imageProviders">
+		<imageProvider class="org.eclipse.bpmn2.modeler.ui.ImageProvider"
+			id="org.eclipse.bpmn2.modeler.ui.ImageProvider">
+		</imageProvider>
+	</extension>
+ <extension
+       id="product"
+       point="org.eclipse.core.runtime.products">
+    <product
+          application="aurora.bpmn.designer.rcp.application"
+          name="Aurora BPM">
+       <property
+             name="appName"
+             value="Aurora BPM">
+       </property>
+    </product>
+ </extension>
+ <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="BPM Service"
+            icon="icons/sample2.gif"
+            class="aurora.bpmn.designer.rcp.viewer.BPMServiceViewer"
+            id="aurora.bpmn.designer.rcp.viewer.BPMServiceViewer">
+      </view>
+     
+   </extension>
+   
+   
+   <extension point="org.eclipse.bpmn2.modeler.runtime">
+   <!--
+		<dataType name="EColor" class="org.eclipse.bpmn2.modeler.ui.property.EColorConversionDelegate"/>
+		<dataType name="EFont" class="org.eclipse.bpmn2.modeler.ui.property.EFontConversionDelegate"/>
+-->
+		<modelExtension
+			id="aurora.bpmn2.ext.xxx"
+			uri="http://test.com/bpmn2/ex"
+			runtimeId="org.eclipse.bpmn2.modeler.runtime.none"
+			name="auroraEX"
+			type="BaseElement"
+			decorator="org.eclipse.bpmn2.modeler.ui.DefaultObjectDecorator">
+			<property name="auroraEx" type="AuroraEXModel" label="AuroraEX">
+				<value>
+					<property name="name" type="EString" label="aurora ex test" />
+				</value>
+			</property>
+		</modelExtension>
+		
+		
+		<!--
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.description.tab.simple"
+			class="aurora.ide.designer.diagram.feature.property.SimplePropertySection"
+			image="icons/20/Thumbnail.png"
+			popup="true"
+			label="Properties">
+		</propertyTab>
+		-->
+		<!--afterTab="org.eclipse.bpmn2.modeler.description.tab"-->
+		
+		<!--
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.description.tab.aurora"
+			class="aurora.ide.designer.diagram.feature.property.AuroraEXPropertySection"
+			image="icons/20/Thumbnail.png"
+			popup="true"
+			runtimeId="org.eclipse.bpmn2.modeler.runtime.none"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			label="Aurora Setting">
+		</propertyTab>
+		-->
+		</extension>
+		
+</plugin>

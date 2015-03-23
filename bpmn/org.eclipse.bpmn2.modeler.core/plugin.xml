@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.eclipse.bpmn2.modeler.runtime" name="%extension-point.name" schema="schema/org.eclipse.bpmn2.modeler.runtime.exsd"/>
+   
+	<!-- EMF Extensions -->
+   
+	<extension
+		point="org.eclipse.emf.ecore.factory_override">
+		<factory
+			class="org.eclipse.bpmn2.modeler.core.model.Bpmn2ModelerFactory"
+			uri="http://www.omg.org/spec/BPMN/20100524/MODEL-XMI">
+		</factory>
+	</extension>
+
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+      <category
+            name="%category.name"
+            id="org.eclipse.bpmn2.modeler.core.validation"/>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://www.omg.org/spec/BPMN/20100524/MODEL-XMI"/>
+         <constraints categories="org.eclipse.bpmn2.modeler.core.validation">
+            <constraint
+                  lang="Java"
+                  class="org.eclipse.bpmn2.modeler.core.validation.ValidIdConstraint"
+                  severity="WARNING"
+                  mode="Batch"
+                  name="%constraint.name"
+                  id="org.eclipse.bpmn2.modeler.core.validation.ValidId"
+                  statusCode="1">
+               <description>
+                  %constraint.description
+               </description>
+               <message>
+                  %constraint.message
+               </message>
+               <target class="BaseElement">
+                  <event name="Set">
+                     <feature name="id"/>
+                  </event>
+                  <event name="Unset">
+                     <feature name="id"/>
+                  </event>
+               </target>
+            </constraint>
+            <constraint
+			        lang="OCL"
+			         severity="ERROR"
+			         mode="Live"
+			         name="%constraint.name.0"
+			         id="org.eclipse.bpmn2.modeler.core.validation.StartEvent.incoming"
+			         statusCode="2" isEnabledByDefault="true">
+			      <description>%constraint.description.0</description>
+			      <message>%constraint.message.0</message>
+			      <target class="StartEvent" />
+			      <![CDATA[
+			      	self.incoming->isEmpty()
+			      ]]>
+			</constraint>
+			<constraint
+			        lang="OCL"
+			         severity="ERROR"
+			         mode="Live"
+			         name="%constraint.name.1"
+			         id="org.eclipse.bpmn2.modeler.core.validation.EndEvent.outgoing"
+			         statusCode="3" isEnabledByDefault="true">
+			      <description>%constraint.description.1</description>
+			      <message>%constraint.message.1</message>
+			      <target class="EndEvent" />
+			      <![CDATA[
+			         self.outgoing->isEmpty()
+			      ]]>
+			</constraint>
+			<constraint
+			        lang="OCL"
+			         severity="WARNING"
+			         mode="Live"
+			         name="%constraint.name.2"
+			         id="org.eclipse.bpmn2.modeler.core.validation.BaseElement.id"
+			         statusCode="3" isEnabledByDefault="true">
+			      <description>%constraint.description.2</description>
+			      <message>%constraint.message.2</message>
+			      <target class="BaseElement" />
+					<![CDATA[
+						self.id->notEmpty() implies bpmn2::BaseElement.allInstances()->select(s | s.id = self.id)->size() <= 1
+					]]>
+			</constraint>
+			<constraint
+					class="org.eclipse.bpmn2.modeler.core.validation.BPMN2ValidationConstraints"
+					id="org.eclipse.bpmn2.modeler.core.validation.error"
+					isEnabledByDefault="true"
+					lang="Java"
+					mode="Batch"
+					name="%constraint.name.3"
+					severity="ERROR"
+					statusCode="1">
+				<message>%constraint.message.3</message>
+				<description>%constraint.description.3</description>
+				<target class="Definitions"/>
+				<target class="BaseElement"/>
+			</constraint>
+ 			<constraint
+					class="org.eclipse.bpmn2.modeler.core.validation.BPMN2ValidationConstraints"
+					id="org.eclipse.bpmn2.modeler.core.validation.warning"
+					isEnabledByDefault="true"
+					lang="Java"
+					mode="Batch"
+					name="%constraint.name.4"
+					severity="WARNING"
+					statusCode="1">
+				<message>%constraint.message.4</message>
+				<description>%constraint.description.4</description>
+				<target class="Definitions"/>
+				<target class="BaseElement"/>
+			</constraint>
+			<!-- Live validation constraints for user feedback during editing -->
+			<constraint
+					class="org.eclipse.bpmn2.modeler.core.validation.BPMN2ValidationConstraints"
+					id="org.eclipse.bpmn2.modeler.core.validation.live.error"
+					isEnabledByDefault="true"
+					lang="Java"
+					mode="Live"
+					name="%constraint.name.5"
+					severity="ERROR"
+					statusCode="1">
+				<message>%constraint.message.5</message>
+				<description>%constraint.description.5</description>
+				<target class="Process"/>
+				<target class="BaseElement"/>
+			</constraint>
+		    <constraint
+		         class="org.eclipse.bpmn2.modeler.core.validation.TaskNameNotEmpty"
+		         id="org.eclipse.bpmn2.modeler.core.validation.TaskEmptyNameConstraint"
+		         lang="java"
+		         mode="Batch"
+		         name="%constraint.name.6"
+		         severity="ERROR"
+		         statusCode="1">
+		      <message>
+		         %constraint.message.6
+		      </message>
+		      <description>
+		         %constraint.description.6
+		      </description>
+		      <target
+		            class="Task">
+		      </target>
+		   </constraint>
+		   <constraint
+		         class="org.eclipse.bpmn2.modeler.core.validation.FormalExpressionConstraint"
+		         id="org.eclipse.bpmn2.modeler.core.validation.FormalExpressionConstraint"
+		         lang="java"
+		         mode="Batch"
+		         name="%constraint.name.7"
+		         severity="WARNING"
+		         statusCode="1">
+		      <message>
+		         %constraint.message.7
+		      </message>
+		      <description>
+		         %constraint.description.7
+		      </description>
+		      <target
+		            class="FormalExpression">
+		      </target>
+		   </constraint>
+		 
+         </constraints>
+      </constraintProvider>
+   </extension>
+
+   <extension
+         point="org.eclipse.emf.validation.constraintBindings">
+      <clientContext
+            default="false"
+            id="org.eclipse.bpmn2.modeler.core.validationContext">
+         <enablement>
+            <or>
+	         	<test
+	                property="org.eclipse.bpmn2.modeler.property.targetRuntimeId"
+	                value="org.eclipse.bpmn2.modeler.runtime.none"/>
+	         	<test
+	                property="org.eclipse.bpmn2.modeler.property.doCoreValidation"
+	                value="true"/>
+            </or>
+         </enablement>
+      </clientContext>
+      <binding
+            context="org.eclipse.bpmn2.modeler.core.validationContext"
+            category="org.eclipse.bpmn2.modeler.core.validation"/>
+   </extension>
+	
+	<extension point="org.eclipse.emf.validation.validationListeners">
+		<listener class="org.eclipse.bpmn2.modeler.core.validation.LiveValidationListener">
+			<clientContext id="org.eclipse.bpmn2.modeler.core.validationContext"/>
+		</listener>
+	</extension>
+
+  <extension
+        id="org.eclipse.bpmn2.modeler.core.projectValidator"
+        name="%extension.name"
+        point="org.eclipse.wst.validation.validatorV2">
+     <validator
+           class="org.eclipse.bpmn2.modeler.core.validation.BPMN2ProjectValidator"
+           markerId="org.eclipse.bpmn2.modeler.core.problemMarker">
+        <include>
+           <rules>
+              <contentType
+                    exactMatch="true"
+                    id="org.eclipse.bpmn2.content-type.xml">
+              </contentType>
+              <file
+                    caseSensitive="true"
+                    name="bpmn2.xml"
+                    type="file">
+              </file>
+           </rules>
+        </include>
+        <exclude>
+           <rules>
+              <file
+                    caseSensitive="true"
+                    name="bpmn2.xml.diagram"
+                    type="file">
+              </file>
+           </rules>
+        </exclude>
+     </validator>
+  </extension>
+  
+  <extension
+        id="org.eclipse.bpmn2.modeler.core.problemMarker"
+        name="%extension.name.0"
+        point="org.eclipse.core.resources.markers">
+     <persistent
+           value="true">
+     </persistent>
+     <super
+           type="org.eclipse.emf.validation.problem">
+     </super>
+  </extension>
+  
+  <extension
+        id="org.eclipse.bpmn2.modeler.core.bpmn2Builder"
+        name="%extension.name.1"
+        point="org.eclipse.core.resources.builders">
+     <builder
+           hasNature="true">
+        <run
+              class="org.eclipse.bpmn2.modeler.core.builder.BPMN2Builder">
+        </run>
+     </builder>
+  </extension>
+  <extension
+        id="org.eclipse.bpmn2.modeler.core.bpmn2Nature"
+        name="%extension.name.2"
+        point="org.eclipse.core.resources.natures">
+     <runtime>
+        <run
+              class="org.eclipse.bpmn2.modeler.core.builder.BPMN2Nature">
+        </run>
+     </runtime>
+     <builder
+           id="org.eclipse.bpmn2.modeler.core.bpmn2Builder">
+     </builder>
+  </extension>
+  <extension
+        id="xmlProblem"
+        name="%extension.name.3"
+        point="org.eclipse.core.resources.markers">
+     <super
+           type="org.eclipse.core.resources.problemmarker">
+     </super>
+     <persistent
+           value="true">
+     </persistent>
+  </extension>
+  <extension
+        point="org.eclipse.core.expressions.propertyTesters">
+     <propertyTester
+           class="org.eclipse.bpmn2.modeler.core.validation.ResourcePropertyTester"
+           id="org.eclipse.bpmn2.modeler.core.targetRuntimePropertyTester"
+           namespace="org.eclipse.bpmn2.modeler.property"
+           properties="targetRuntimeId,toolPaletteProfile,doCoreValidation"
+           type="org.eclipse.emf.ecore.EObject">
+     </propertyTester>
+  </extension>
+  <extension
+        point="org.eclipse.emf.ecore.conversion_delegate">
+     <factory
+           class="org.eclipse.bpmn2.modeler.core.EDataTypeConversionFactory"
+           uri="http://org.eclipse.bpmn2.modeler.EDataTypeConversionFactory">
+     </factory>
+  </extension>
+</plugin>

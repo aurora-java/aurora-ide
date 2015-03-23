@@ -1,0 +1,1365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.eclipse.bpmn2.modeler.ui" name="%extension-point.name" schema="schema/org.eclipse.bpmn2.modeler.ui.exsd"/>
+	<extension point="org.eclipse.ui.newWizards">
+		<!-- <primaryWizard id="org.eclipse.bpmn2.modeler.ui.diagram"> </primaryWizard> -->
+		<wizard category="org.eclipse.bpmn2.wizardCategory"
+			class="org.eclipse.bpmn2.modeler.ui.wizards.BPMN2DiagramWizard" icon="icons/bpmn2_editor_16.png"
+			id="org.eclipse.bpmn2.modeler.ui.diagram" name="%wizard.name">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor
+			class="org.eclipse.bpmn2.modeler.ui.editor.BPMN2MultiPageEditor"
+			contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+			default="true"
+			extensions="bpmn,bpmn2"
+			icon="icons/bpmn2_editor_16.png"
+			id="org.eclipse.bpmn2.modeler.ui.bpmn2editor"
+			name="%editor.name"
+			matchingStrategy="org.eclipse.bpmn2.modeler.ui.editor.BPMN2EditorMatchingStrategy">
+			<contentTypeBinding contentTypeId="org.eclipse.bpmn2.content-type.xml">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.xml"
+			id="org.eclipse.bpmn2.content-type.xml"
+			name="%content-type.name"
+			file-extensions="bpmn,bpmn2,bpmn20,xml"
+			priority="high">
+			<describer
+				class="org.eclipse.bpmn2.modeler.ui.Bpmn2ContentDescriber"
+				plugin="org.eclipse.bpmn2.modeler.ui">
+			</describer>
+		</content-type>
+		<file-association
+			content-type="org.eclipse.bpmn2.content-type.xml"
+			file-extensions="bpmn,bpmn2">
+		</file-association>
+	</extension>
+
+	<extension
+			point="org.eclipse.ui.elementFactories"
+			id=".Bpmn2DiagramEditorInputFactory"
+			name="%extension.name">
+		<factory
+				class="org.eclipse.bpmn2.modeler.ui.Bpmn2DiagramEditorInputFactory"
+				id=   "org.eclipse.bpmn2.modeler.ui.Bpmn2DiagramEditorInputFactory"/>
+	</extension>
+
+	<!-- Preference Pages -->
+	
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.eclipse.bpmn2.modeler.ui.preferences.Bpmn2HomePreferencePage"
+            id="org.eclipse.bpmn2.modeler.BPMN2"
+            name="%PREFERENCE_PAGE_HOME"/>
+      <page
+            category="org.eclipse.bpmn2.modeler.BPMN2"
+            class="org.eclipse.bpmn2.modeler.ui.preferences.Bpmn2EditorPreferencePage"
+            id="org.eclipse.bpmn2.modeler.Editor"
+            name="%PREFERENCE_PAGE_EDITOR"/>
+
+	      <page
+	            category="org.eclipse.bpmn2.modeler.BPMN2/org.eclipse.bpmn2.modeler.Editor"
+	            class="org.eclipse.bpmn2.modeler.ui.preferences.Bpmn2EditorAppearancePreferencePage"
+	            id="org.eclipse.bpmn2.modeler.Appearance"
+	            name="%PREFERENCE_PAGE_APPEARANCE"/>
+	      <page
+	            category="org.eclipse.bpmn2.modeler.BPMN2/org.eclipse.bpmn2.modeler.Editor"
+	            class="org.eclipse.bpmn2.modeler.ui.preferences.Bpmn2EditorBehaviorPreferencePage"
+	            id="org.eclipse.bpmn2.modeler.Behavior"
+	            name="%PREFERENCE_PAGE_BEHAVIOR"/>
+	      <page
+	            category="org.eclipse.bpmn2.modeler.BPMN2/org.eclipse.bpmn2.modeler.Editor"
+	            class="org.eclipse.bpmn2.modeler.ui.preferences.ToolProfilesPreferencePage"
+	            id="org.eclipse.bpmn2.modeler.Profiles"
+	            name="%PREFERENCE_PAGE_PROFILES"/>
+   </extension>
+
+	<!-- Property Pages - these per-project settings override the global preferences (above)-->
+
+	<extension point="org.eclipse.ui.propertyPages">
+		<page class="org.eclipse.bpmn2.modeler.ui.preferences.Bpmn2PropertyPage"
+			id="org.eclipse.bpmn2.modeler.ui" name="%page.name">
+			<enabledWhen>
+				<or>
+					<!-- TODO: do we need a java project? <adapt type="org.eclipse.core.resources.IProject"> 
+						<test property="org.eclipse.core.resources.projectNature" value="org.eclipse.jdt.core.javanature"> 
+						</test> </adapt> -->
+					<adapt type="org.eclipse.core.resources.IProject">
+					</adapt>
+				</or>
+			</enabledWhen>
+		</page>
+	</extension>
+
+	<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+		<propertyContributor
+			contributorId="org.eclipse.bpmn2.modeler.ui.PropertyContributor"
+           labelProvider="org.eclipse.bpmn2.modeler.ui.property.PropertyLabelProvider"
+			tabDescriptorProvider="org.eclipse.bpmn2.modeler.ui.property.PropertyTabDescriptorProvider">
+			<propertyCategory category="BPMN2">
+			</propertyCategory>
+		</propertyContributor>
+	</extension>
+
+	<extension point="org.eclipse.graphiti.ui.diagramTypes">
+		<diagramType description="This is the diagram type for the BMPN2 diagram"
+			id="org.eclipse.bpmn2.modeler.ui.diagram.MainBPMNDiagramType" name="BPMN2 Diagram Type"
+			type="BPMN2">
+		</diagramType>
+	</extension>
+
+	<extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
+		<diagramTypeProvider
+			class="org.eclipse.bpmn2.modeler.ui.diagram.Bpmn2DiagramTypeProvider"
+			description="This is the editor for the BPMN2 diagram"
+			id="org.eclipse.bpmn2.modeler.ui.diagram.MainBPMNDiagramType" name="BPMN2 Editor">
+			<diagramType
+				id="org.eclipse.bpmn2.modeler.ui.diagram.MainBPMNDiagramType">
+			</diagramType>
+			<imageProvider id="org.eclipse.bpmn2.modeler.ui.ImageProvider">
+			</imageProvider>
+		</diagramTypeProvider>
+	</extension>
+	
+	<extension point="org.eclipse.graphiti.ui.imageProviders">
+		<imageProvider class="org.eclipse.bpmn2.modeler.ui.ImageProvider"
+			id="org.eclipse.bpmn2.modeler.ui.ImageProvider">
+		</imageProvider>
+	</extension>
+
+	<!-- Provide a default "runtime" behavior -->
+
+	<extension point="org.eclipse.bpmn2.modeler.runtime">
+		<runtime class="org.eclipse.bpmn2.modeler.ui.DefaultBpmn2RuntimeExtension"
+			description="%runtime.description" id="org.eclipse.bpmn2.modeler.runtime.none"
+			name="%runtime.name">
+		</runtime>
+
+		<model runtimeId="org.eclipse.bpmn2.modeler.runtime.none"
+			uri="http://www.omg.org/spec/BPMN/20100524/MODEL-XMI"
+			resourceFactory="org.eclipse.bpmn2.modeler.core.model.Bpmn2ModelerResourceFactoryImpl">
+		</model>
+		
+		<!-- ======================================== -->
+		<!-- ===========  Model Extensions ========== -->
+		<!-- ======================================== -->
+		
+		<dataType name="EColor" class="org.eclipse.bpmn2.modeler.ui.property.EColorConversionDelegate"/>
+		<dataType name="EFont" class="org.eclipse.bpmn2.modeler.ui.property.EFontConversionDelegate"/>
+
+		<modelExtension
+			id="org.eclipse.bpmn2.modeler.runtime.none.modelExtension.appearance.BaseElement"
+			uri="http://org.eclipse.bpmn2/ext"
+			name="BaseElement Appearance"
+			type="BaseElement">
+			<property name="style" type="ShapeStyle" label="%appearance">
+				<value>
+					<property name="shapeForeground" type="EColor" label="%border.color" />
+					<property name="shapeBackground" type="EColor" label="%fill.color" />
+					<property name="labelForeground" type="EColor" label="%label.color" />
+					<property name="labelFont" type="EFont" label="%label.font" />
+					<property name="labelPosition" type="LabelPosition:EEnum" value="%label.position.values" label="%label.position" />
+					<property name="routingStyle" type="RoutingStyle:EEnum" value="%routing.style.values" label="%routing.style" />
+				</value>
+			</property>
+		</modelExtension>
+
+		<!-- ======================================== -->
+		<!-- ============  Property Tabs ============ -->
+		<!-- ======================================== -->
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.DescriptionPropertySection"
+			image="icons/20/Thumbnail.png"
+			popup="true"
+			label="%propertyTab.label.General">
+		</propertyTab>
+
+		<!-- ============  Diagrams ============ -->
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.process.diagram.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.diagrams.ProcessDiagramPropertySection"
+			type="org.eclipse.bpmn2.di.BPMNDiagram"
+			label="%propertyTab.label.0">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.participant.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.diagrams.ParticipantPropertySection"
+			type="org.eclipse.bpmn2.Participant"
+			label="%propertyTab.label.60">
+		</propertyTab>
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.definitions.tab"
+			afterTab="org.eclipse.bpmn2.modeler.interface.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.diagrams.DefinitionsPropertySection"
+			type="org.eclipse.bpmn2.di.BPMNDiagram org.eclipse.bpmn2.Process"
+			label="%propertyTab.label.1">
+		</propertyTab>
+
+		<!-- ============  Connections ============ -->
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.assocation.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="associationDirection"
+			type="org.eclipse.bpmn2.Association"
+			label="%propertyTab.label.2">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.dataAssocation.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="transformation assignment"
+			type="org.eclipse.bpmn2.DataInputAssociation org.eclipse.bpmn2.DataOutputAssociation"
+			label="%propertyTab.label.3">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.sequenceflow.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.connectors.SequenceFlowPropertySection"
+			type="org.eclipse.bpmn2.SequenceFlow"
+			label="%propertyTab.label.4">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.messageFlow.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.connectors.MessageFlowPropertySection"
+			type="org.eclipse.bpmn2.MessageFlow"
+			label="%propertyTab.label.5">
+		</propertyTab>
+		
+		<!-- ============  Activities ============ -->
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.callActivity.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			type="org.eclipse.bpmn2.CallActivity"
+			label="%propertyTab.label.6">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.subProcess.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.features.activity.subprocess.SubProcessPropertySection"
+			type="org.eclipse.bpmn2.SubProcess"
+			label="%propertyTab.label.7">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.adHocSubProcess.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			type="org.eclipse.bpmn2.AdHocSubProcess"
+			label="%propertyTab.label.8">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.transaction.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			type="org.eclipse.bpmn2.Transaction"
+			label="%propertyTab.label.9">
+		</propertyTab>
+
+		<!-- ============  Tasks ============ -->
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.task.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.TaskPropertySection"
+			type="org.eclipse.bpmn2.Task"
+			label="%propertyTab.label.10">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.businessRuleTask.tab"
+			replaceTab="org.eclipse.bpmn2.modeler.task.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.TaskPropertySection"
+			type="org.eclipse.bpmn2.BusinessRuleTask"
+			label="%propertyTab.label.11">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.manualTask.tab"
+			replaceTab="org.eclipse.bpmn2.modeler.task.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ManualTaskPropertySection"
+			type="org.eclipse.bpmn2.ManualTask"
+			label="%propertyTab.label.12">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.receiveTask.tab"
+			replaceTab="org.eclipse.bpmn2.modeler.task.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			features="implementation instantiate messageRef operationRef isForCompensation"
+			type="org.eclipse.bpmn2.ReceiveTask"
+			label="%propertyTab.label.13">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.scriptTask.tab"
+			replaceTab="org.eclipse.bpmn2.modeler.task.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ScriptTaskPropertySection"
+			type="org.eclipse.bpmn2.ScriptTask"
+			label="%propertyTab.label.14">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.sendTask.tab"
+			replaceTab="org.eclipse.bpmn2.modeler.task.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			features="implementation messageRef operationRef isForCompensation"
+			type="org.eclipse.bpmn2.SendTask"
+			label="%propertyTab.label.15">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.serviceTask.tab"
+			replaceTab="org.eclipse.bpmn2.modeler.task.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			features="implementation operationRef isForCompensation"
+			type="org.eclipse.bpmn2.ServiceTask"
+			label="%propertyTab.label.16">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.userTask.tab"
+			replaceTab="org.eclipse.bpmn2.modeler.task.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			features="implementation resources renderings isForCompensation"
+			type="org.eclipse.bpmn2.UserTask"
+			label="%propertyTab.label.17">
+		</propertyTab>
+
+		<!-- ============  Global Tasks ============ -->
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.globalBusinessRuleTask.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			features="implementation resources"
+			type="org.eclipse.bpmn2.GlobalBusinessRuleTask"
+			label="%propertyTab.label.18">
+		</propertyTab>
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.globalManualTask.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="resources"
+			type="org.eclipse.bpmn2.GlobalManualTask"
+			label="%propertyTab.label.19">
+		</propertyTab>
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.globalScriptTask.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="scriptLanguage script resources"
+			type="org.eclipse.bpmn2.GlobalScriptTask"
+			label="%propertyTab.label.20">
+		</propertyTab>
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.globalUserTask.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			features="implementation resources"
+			type="org.eclipse.bpmn2.GlobalUserTask"
+			label="%propertyTab.label.21">
+		</propertyTab>
+
+		<!-- ============  Choreography Activities ============ -->
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.callChoreography.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.ActivityPropertySection"
+			type="org.eclipse.bpmn2.CallChoreography"
+			label="%propertyTab.label.22">
+		</propertyTab>
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.choreographyTask.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="loopType initiatingParticipantRef correlationKeys messageFlowRef"
+			type="org.eclipse.bpmn2.ChoreographyTask"
+			label="%propertyTab.label.23">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.subChoreography.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="anyAttribute loopType participantRefs initiatingParticipantRef correlationKeys artifacts"
+			type="org.eclipse.bpmn2.SubChoreography"
+			label="%propertyTab.label.24">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.conversation.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="correlationKeys"
+			type="org.eclipse.bpmn2.Conversation"
+			label="%propertyTab.label.25">
+		</propertyTab>
+
+		<!-- ============  Gateways ============ -->
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.gateway.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.gateways.GatewayPropertySection"
+			type="org.eclipse.bpmn2.Gateway"
+			label="%propertyTab.label.26">
+		</propertyTab>
+
+		<!-- ============  Events ============ -->
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.commonEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.events.CommonEventPropertySection"
+			type="org.eclipse.bpmn2.Event"
+			label="%propertyTab.label.27">
+		</propertyTab>
+
+		<!-- ============  Event Definitionss ============ -->
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.conditionalEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.events.ConditionalEventDefinitionPropertySection"
+			type="org.eclipse.bpmn2.ConditionalEventDefinition"
+			label="%propertyTab.label.28">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.compensateEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="activityRef waitForCompletion"
+			type="org.eclipse.bpmn2.CompensateEventDefinition"
+			label="%propertyTab.label.29">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.errorEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="errorRef"
+			type="org.eclipse.bpmn2.ErrorEventDefinition"
+			label="%propertyTab.label.30">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.escalationEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="escalationRef"
+			type="org.eclipse.bpmn2.EscalationEventDefinition"
+			label="%propertyTab.label.31">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.errorEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="errorRef"
+			type="org.eclipse.bpmn2.ErrorEventDefinition"
+			label="%propertyTab.label.32">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.linkEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="name"
+			type="org.eclipse.bpmn2.LinkEventDefinition"
+			label="%propertyTab.label.33">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.messageEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="messageRef operationReft"
+			type="org.eclipse.bpmn2.MessageEventDefinition"
+			label="%propertyTab.label.34">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.signalEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="signalRef"
+			type="org.eclipse.bpmn2.SignalEventDefinition"
+			label="%propertyTab.label.35">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.timerEvent.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.events.TimerEventDefinitionPropertySection"
+			type="org.eclipse.bpmn2.TimerEventDefinition"
+			label="%propertyTab.label.36">
+		</propertyTab>
+		
+		<!-- ============  Artifacts ============ -->
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.group.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="categoryValueRef"
+			type="org.eclipse.bpmn2.Group"
+			label="%propertyTab.label.37">
+		</propertyTab>
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.textAnnotation.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.artifact.TextAnnotationPropertySection"
+			type="org.eclipse.bpmn2.TextAnnotation"
+			label="%propertyTab.label.38">
+		</propertyTab>
+
+		<!-- ============  Root Elements ============ -->
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.error.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="errorCode structureRef"
+			type="org.eclipse.bpmn2.Error"
+			label="%propertyTab.label.39">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.escalation.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="escalationCode structureRef"
+			type="org.eclipse.bpmn2.Escalation"
+			label="%propertyTab.label.40">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.interface.tab"
+			afterTab="org.eclipse.bpmn2.modeler.process.diagram.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.data.InterfacePropertySection"
+			type="org.eclipse.bpmn2.di.BPMNDiagram org.eclipse.bpmn2.Process org.eclipse.bpmn2.Participant"
+			label="%propertyTab.label.41">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.interface.details.tab"
+			afterTab="org.eclipse.bpmn2.modeler.process.diagram.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.data.InterfacePropertySection"
+			type="org.eclipse.bpmn2.Interface"
+			label="%propertyTab.label.42">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.operation.tab"
+			afterTab="org.eclipse.bpmn2.modeler.process.diagram.tab"
+			class="default"
+			features="implementationRef inMessageRef outMessageRef errorRefs"
+			type="org.eclipse.bpmn2.Operation"
+			label="%propertyTab.label.43">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.itemDefinition.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="itemKind structureRef isCollection"
+			type="org.eclipse.bpmn2.ItemDefinition"
+			label="%propertyTab.label.44">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.message.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="itemRef"
+			type="org.eclipse.bpmn2.Message"
+			label="%propertyTab.label.45">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.partnerEntity.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="participantRef"
+			type="org.eclipse.bpmn2.PartnerEntity"
+			label="%propertyTab.label.46">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.partnerRole.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="participantRef"
+			type="org.eclipse.bpmn2.PartnerRole"
+			label="%propertyTab.label.47">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.resource.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="resourceParameters"
+			type="org.eclipse.bpmn2.Resource"
+			label="%propertyTab.label.48">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.signal.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="structureRef"
+			type="org.eclipse.bpmn2.Signal"
+			label="%propertyTab.label.49">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.category.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="default"
+			features="categoryValue"
+			type="org.eclipse.bpmn2.Category"
+			label="%propertyTab.label.59">
+		</propertyTab>
+
+		<!-- ============  Item Aware Elements ============ -->
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.dataitems.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.diagrams.DataItemsPropertySection"
+			type="org.eclipse.bpmn2.di.BPMNDiagram org.eclipse.bpmn2.Process"
+			label="%propertyTab.label.50">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.dataInput.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.data.DataInputPropertySection"
+			type="org.eclipse.bpmn2.DataInput"
+			label="%propertyTab.label.51">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.dataobject.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.data.DataObjectPropertySection"
+			type="org.eclipse.bpmn2.DataObject org.eclipse.bpmn2.DataObjectReference"
+			label="%propertyTab.label.52">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.dataobjectref.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.data.DataObjectReferencePropertySection"
+			type="org.eclipse.bpmn2.DataObjectReference"
+			label="%propertyTab.label.53">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.dataOutput.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.data.DataOutputPropertySection"
+			type="org.eclipse.bpmn2.DataOutput"
+			label="%propertyTab.label.54">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.datastore.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.data.DataStorePropertySection"
+			type="org.eclipse.bpmn2.DataStore org.eclipse.bpmn2.DataStoreReference"
+			label="%propertyTab.label.55">
+		</propertyTab>
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.datastoreref.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.data.DataStoreReferencePropertySection"
+			type="org.eclipse.bpmn2.DataStoreReference"
+			label="%propertyTab.label.56">
+		</propertyTab>
+
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.activity.io.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.tasks.IoParametersPropertySection"
+			label="%propertyTab.label.57">
+		</propertyTab>
+		
+		<propertyTab
+			id="org.eclipse.bpmn2.modeler.advanced.tab"
+			afterTab="org.eclipse.bpmn2.modeler.description.tab"
+			class="org.eclipse.bpmn2.modeler.ui.property.AdvancedPropertySection"
+			popup="false"
+			label="%propertyTab.label.58">
+		</propertyTab>
+
+		<toolPalette
+			id="org.bpmn2.modeler.toolpalette.process.default"
+			runtimeId="org.eclipse.bpmn2.modeler.runtime.none"
+			type="Process" profile="Default Process,Simple Process">
+			
+			<category id="org.bpmn2.modeler.toolpalette.default.categories"/>
+			
+			<category id="org.bpmn2.modeler.toolpalette.process.patterns" name="%category.name">
+				<tool name="%tool.name" id="org.bpmn2.modeler.tool.arbitrary.cycles" description="%arbitrary.cycles.description">
+					<object type="Task[$name='Task A']" id="arbitrary.cycles.taskA" optional="true"/>
+					<object type="Task[$name='Task B',x=200]" id="arbitrary.cycles.taskB"/>
+					<object type="Task[$name='Task C',x=200,y=100]" id="arbitrary.cycles.taskC"/>
+					<object type="Task[$name='Task D',x=400,y=50]" id="arbitrary.cycles.taskD"/>
+					<object type="Task[$name='Task E',x=600]" id="arbitrary.cycles.taskE"/>
+					<object type="Task[$name='Task F',x=600,y=100]" id="arbitrary.cycles.taskF"/>
+					<object type="Task[$name='Task G',x=700,y=200]" id="arbitrary.cycles.taskG" optional="true"/>
+					<object type="ExclusiveGateway[x=100]" id="arbitrary.cycles.xor1"/>
+					<object type="ExclusiveGateway[x=100,y=200]" id="arbitrary.cycles.xor2"/>
+					<object type="ExclusiveGateway[x=300,y=50]" id="arbitrary.cycles.xor3"/>
+					<object type="ExclusiveGateway[x=500,y=50]" id="arbitrary.cycles.xor4"/>
+					<object type="ExclusiveGateway[x=600,y=200]" id="arbitrary.cycles.xor5"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.taskA',target='arbitrary.cycles.xor1']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.xor1',target='arbitrary.cycles.taskB']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.xor1',target='arbitrary.cycles.xor2']" />
+					<object type="SequenceFlow[source='arbitrary.cycles.xor2',target='arbitrary.cycles.taskC']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.taskB',target='arbitrary.cycles.xor3']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.taskC',target='arbitrary.cycles.xor3']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.xor3',target='arbitrary.cycles.taskD']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.taskD',target='arbitrary.cycles.xor4']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.xor4',target='arbitrary.cycles.taskE']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.xor4',target='arbitrary.cycles.taskF']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.taskF',target='arbitrary.cycles.xor5']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.xor5',target='arbitrary.cycles.taskG']"/>
+					<object type="SequenceFlow[source='arbitrary.cycles.xor5',target='arbitrary.cycles.xor2']" />
+				</tool>
+
+				<tool name="%tool.name.0" id="org.bpmn2.modeler.tool.deferred.choice">
+					<object type="Task[$name='Task A',y=50]" id="deferred.choice.taskA" optional="true"/>
+					<object type="Task[$name='Task B',x=300]" id="deferred.choice.taskB"/>
+					<object type="Task[$name='Task C',x=300,y=100]" id="deferred.choice.taskC"/>
+					<object type="EventBasedGateway[x=100,y=50]" id="deferred.choice.gateway"/>
+					<object type="IntermediateCatchEvent[x=200]+MessageEventDefinition" id="deferred.choice.event1"/>
+					<object type="IntermediateCatchEvent[x=200,y=100]+MessageEventDefinition" id="deferred.choice.event2"/>
+					<object type="SequenceFlow[source='deferred.choice.taskA',target='deferred.choice.gateway']"/>
+					<object type="SequenceFlow[source='deferred.choice.gateway',target='deferred.choice.event1']"/>
+					<object type="SequenceFlow[source='deferred.choice.gateway',target='deferred.choice.event2']"/>
+					<object type="SequenceFlow[source='deferred.choice.event1',target='deferred.choice.taskB']"/>
+					<object type="SequenceFlow[source='deferred.choice.event2',target='deferred.choice.taskC']"/>
+				</tool>
+				
+				<tool name="%tool.name.1" id="org.bpmn2.modeler.tool.exclusive.choice">
+					<object type="Task[$name='Task A',y=100]" id="exclusive.choice.taskA" optional="true"/>
+					<object type="Task[$name='Task B',x=200]" id="exclusive.choice.taskB"/>
+					<object type="Task[$name='Task C',x=200,y=100]" id="exclusive.choice.taskC"/>
+					<object type="Task[$name='Task D',x=200,y=200]" id="exclusive.choice.taskD"/>
+					<object type="ExclusiveGateway[x=100,y=100]" id="exclusive.choice.gateway"/>
+					<object type="SequenceFlow[source='exclusive.choice.taskA',target='exclusive.choice.gateway']"/>
+					<object type="SequenceFlow[source='exclusive.choice.gateway',target='exclusive.choice.taskB']"/>
+					<object type="SequenceFlow[source='exclusive.choice.gateway',target='exclusive.choice.taskC']"/>
+					<object type="SequenceFlow[source='exclusive.choice.gateway',target='exclusive.choice.taskD']"/>
+				</tool>
+				
+				<tool name="%tool.name.2" id="org.bpmn2.modeler.tool.implicit.termination">
+					<object type="StartEvent[y=50]" id="implicit.termination.start"/>
+					<object type="Task[$name='Task A',x=100,y=50]" id="implicit.termination.taskA"/>
+					<object type="Task[$name='Task B1',x=300]" id="implicit.termination.taskB"/>
+					<object type="Task[$name='Task B2',x=300,y=100]" id="implicit.termination.taskC"/>
+					<object type="ExclusiveGateway[x=200,y=50]" id="implicit.termination.gateway"/>
+					<object type="EndEvent[x=400]+TerminateEventDefinition" id="implicit.termination.end1"/>
+					<object type="EndEvent[x=400,y=100]+TerminateEventDefinition" id="implicit.termination.end2"/>
+					<object type="SequenceFlow[source='implicit.termination.start',target='implicit.termination.taskA']"/>
+					<object type="SequenceFlow[source='implicit.termination.taskA',target='implicit.termination.gateway']"/>
+					<object type="SequenceFlow[source='implicit.termination.gateway',target='implicit.termination.taskB']"/>
+					<object type="SequenceFlow[source='implicit.termination.gateway',target='implicit.termination.taskC']"/>
+					<object type="SequenceFlow[source='implicit.termination.taskB',target='implicit.termination.end1']"/>
+					<object type="SequenceFlow[source='implicit.termination.taskC',target='implicit.termination.end2']"/>
+				</tool>
+								
+				<tool name="%tool.name.3" id="org.bpmn2.modeler.tool.mi.no.sync">
+					<object type="Task[$name='Task A']" id="mi.no.sync.taskA" optional="true"/>
+					<object type="SubProcess[$name='Task B',$loopCharacteristics=$MultiInstanceLoopCharacteristics,x=200,width=200,height=100]" id="mi.no.sync.taskB"/>
+					<object type="Task[$name='Task C',x=400]" id="mi.no.sync.taskC" optional="true"/>
+					<object type="SequenceFlow[source='mi.no.sync.taskA',target='mi.no.sync.taskB']"/>
+					<object type="SequenceFlow[source='mi.no.sync.taskB',target='mi.no.sync.taskC']"/>
+				</tool>
+
+				<tool name="%tool.name.4" id="org.bpmn2.modeler.tool.parallel.split">
+					<object type="Task[$name='Task A',y=50]" id="parallel.split.taskA" optional="true"/>
+					<object type="Task[$name='Task B',x=200]" id="parallel.split.taskB" optional="true"/>
+					<object type="Task[$name='Task C',x=200,y=100]" id="parallel.split.taskC" optional="true"/>
+					<object type="ParallelGateway[x=100,y=50]" id="parallel.split.gateway"/>
+					<object type="SequenceFlow[source='parallel.split.taskA',target='parallel.split.gateway']"/>
+					<object type="SequenceFlow[source='parallel.split.gateway',target='parallel.split.taskB']"/>
+					<object type="SequenceFlow[source='parallel.split.gateway',target='parallel.split.taskC']"/>
+				</tool>
+								
+				<tool name="%tool.name.5" id="org.bpmn2.modeler.tool.sequence">
+					<object type="Task[$name='Task A']" id="sequence.taskA" optional="true"/>
+					<object type="Task[$name='Task B',x=200]" id="sequence.taskB"/>
+					<object type="Task[$name='Task C',x=400]" id="sequence.taskC"/>
+					<object type="SequenceFlow[source='sequence.taskA',target='sequence.taskB']"/>
+					<object type="SequenceFlow[source='sequence.taskB',target='sequence.taskC']"/>
+				</tool>
+				
+				<tool name="%tool.name.6" id="org.bpmn2.modeler.tool.simple.merge">
+					<object type="Task[$name='Task B']" id="simple.merge.taskB" optional="true"/>
+					<object type="Task[$name='Task C',y=100]" id="simple.merge.taskC" optional="true"/>
+					<object type="Task[$name='Task D',y=200]" id="simple.merge.taskD" optional="true"/>
+					<object type="Task[$name='Task E',x=200,y=100]" id="simple.merge.taskE" optional="true"/>
+					<object type="ExclusiveGateway[x=100,y=100,$gatewayDirection=Converging]" id="simple.merge.gateway"/>
+					<object type="SequenceFlow[source='simple.merge.taskB',target='simple.merge.gateway']"/>
+					<object type="SequenceFlow[source='simple.merge.taskC',target='simple.merge.gateway']"/>
+					<object type="SequenceFlow[source='simple.merge.taskD',target='simple.merge.gateway']"/>
+					<object type="SequenceFlow[source='simple.merge.gateway',target='simple.merge.taskE']"/>
+				</tool>
+								
+				<tool name="%tool.name.7" id="org.bpmn2.modeler.tool.synchronization">
+					<object type="Task[$name='Task B1']" id="synchronization.taskB1" optional="true"/>
+					<object type="Task[$name='Task B2',y=100]" id="synchronization.taskB2" optional="true"/>
+					<object type="Task[$name='Task C',x=200,y=50]" id="synchronization.taskC" optional="true"/>
+					<object type="ParallelGateway[x=100,y=50,$gatewayDirection=Converging]" id="synchronization.gateway"/>
+					<object type="SequenceFlow[source='synchronization.taskB1',target='synchronization.gateway']"/>
+					<object type="SequenceFlow[source='synchronization.taskB2',target='synchronization.gateway']"/>
+					<object type="SequenceFlow[source='synchronization.gateway',target='synchronization.taskC']"/>
+				</tool>
+								
+				<tool name="%tool.name.8" id="org.bpmn2.modeler.tool.synchronizing.merge">
+					<object type="Task[$name='Task A',y=100]" id="synchronizing.merge.taskA" optional="true"/>
+					<object type="Task[$name='Task B',x=200]" id="synchronizing.merge.taskB"/>
+					<object type="Task[$name='Task C',x=200,y=200]" id="synchronizing.merge.taskC"/>
+					<object type="Task[$name='Task D',x=400,y=100]" id="synchronizing.merge.taskD" optional="true"/>
+					<object type="InclusiveGateway[x=100,y=100,$gatewayDirection=Diverging]" id="synchronizing.merge.gateway1"/>
+					<object type="InclusiveGateway[x=300,y=100,$gatewayDirection=Converging]" id="synchronizing.merge.gateway2"/>
+					<object type="SequenceFlow[source='synchronizing.merge.taskA',target='synchronizing.merge.gateway1']"/>
+					<object type="SequenceFlow[source='synchronizing.merge.gateway1',target='synchronizing.merge.taskB']"/>
+					<object type="SequenceFlow[source='synchronizing.merge.gateway1',target='synchronizing.merge.taskC']"/>
+					<object type="SequenceFlow[source='synchronizing.merge.taskB',target='synchronizing.merge.gateway2']"/>
+					<object type="SequenceFlow[source='synchronizing.merge.taskC',target='synchronizing.merge.gateway2']"/>
+					<object type="SequenceFlow[source='synchronizing.merge.gateway2',target='synchronizing.merge.taskD']"/>
+				</tool>
+				
+			</category>
+			
+		</toolPalette>
+
+		<!-- ======================================== -->
+		<!-- ===  Model Enablements and Profiles ==== -->
+		<!-- ======================================== -->
+
+		<modelEnablement
+				runtimeId="org.eclipse.bpmn2.modeler.runtime.none"
+				type="Process"
+				profile="Default Process">
+			<enable object="Definitions"/>
+
+			<!-- process -->
+			<enable object="Process"/>
+			<enable object="SubProcess"/>
+			<enable object="Transaction"/>
+			<enable object="AdHocSubProcess"/>
+
+			<!-- gateways -->
+			<enable object="ExclusiveGateway"/>
+			<enable object="InclusiveGateway"/>
+			<enable object="ParallelGateway"/>
+			<enable object="EventBasedGateway"/>
+			<enable object="ComplexGateway"/>
+
+			<!-- tasks -->
+			<enable object="BusinessRuleTask"/>
+			<enable object="CallActivity"/>
+			<enable object="ManualTask"/>
+			<enable object="ReceiveTask"/>
+			<enable object="ScriptTask"/>
+			<enable object="SendTask"/>
+			<enable object="ServiceTask"/>
+			<enable object="Task"/>
+			<enable object="UserTask"/>
+
+			<enable object="GlobalTask"/>
+			<enable object="GlobalBusinessRuleTask"/>
+			<enable object="GlobalManualTask"/>
+			<enable object="GlobalScriptTask"/>
+			<enable object="GlobalUserTask"/>
+			<enable object="Task"/>
+
+			<!-- connections -->
+			<enable object="SequenceFlow"/>
+			<enable object="Association"/>
+			<enable object="DataAssociation"/>
+
+			<!-- events -->
+			<enable object="StartEvent"/>
+			<enable object="EndEvent"/>
+			<enable object="IntermediateCatchEvent"/>
+			<enable object="IntermediateThrowEvent"/>
+			<enable object="Escalation"/>
+			<enable object="CatchEvent"/>
+			<enable object="ThrowEvent"/>
+			<enable object="BoundaryEvent"/>
+			<enable object="Signal"/>
+			<enable object="Error"/>
+
+			<!-- event definitions -->
+			<enable object="ConditionalEventDefinition"/>
+			<enable object="TimerEventDefinition"/>
+			<enable object="SignalEventDefinition"/>
+			<enable object="MessageEventDefinition"/>
+			<enable object="EscalationEventDefinition"/>
+			<enable object="CompensateEventDefinition"/>
+			<enable object="LinkEventDefinition" feature="name"/>
+			<enable object="ErrorEventDefinition"/>
+			<enable object="CancelEventDefinition"/>
+			<enable object="TerminateEventDefinition"/>
+			<enable object="ComplexBehaviorDefinition"/>
+			<enable object="ImplicitThrowEvent"/>
+			
+
+			<!-- data definitions -->
+			<enable object="Import"/>
+			<enable object="InputOutputSpecification"/>
+			<enable object="InputSet"/>
+			<enable object="OutputSet"/>
+			<enable object="Operation"/>
+			<enable object="Interface"/>
+			<enable object="ItemDefinition"/>
+			<enable object="Message"/>
+			<enable object="DataInput"/>
+			<enable object="DataInputAssociation"/>
+			<enable object="DataOutput"/>
+			<enable object="DataOutputAssociation"/>
+			<enable object="Property"/>
+			<enable object="ItemAwareElement"/>
+			<enable object="DataState"/>
+			<enable object="DataStore"/>
+			<enable object="DataStoreReference"/>
+			<enable object="DataObjectReference"/>
+			<enable object="DataObject"/>
+			<enable object="Group"/>
+			<enable object="Category"/>
+			<enable object="CategoryValue"/>
+			<enable object="TextAnnotation"/>
+			<enable object="ExtensionAttributeValue"/>
+			<enable object="ExtensionAttributeDefinition"/>
+			<enable object="StandardLoopCharacteristics"/>
+			<enable object="MultiInstanceLoopCharacteristics"/>
+			<enable object="Lane"/>
+			<enable object="LaneSet"/>
+			<enable object="Participant"/>
+			<enable object="Resource"/>
+			<enable object="ResourceAssignmentExpression"/>
+			<enable object="ResourceParameter"/>
+			<enable object="ResourceParameterBinding"/>
+			<enable object="ResourceRole"/>
+			
+			<!-- this is intended to be a baseclass for global tasks and Process and -->
+			<!-- should NOT be a valid selection in ModelSubclassSelectionDialog -->
+			<disable object="CallableElement"/>
+			<enable object="CallActivity" feature="calledElementRef"/>
+			
+			<disable object="MessageFlow"/>
+			<disable object="ConversationLink"/>
+			<disable object="ConversationAssociation"/>
+			<disable object="Collaboration"/>
+			<disable object="Choreography"/>
+			<disable object="ConversationNode"/>
+			<disable object="MessageFlowAssociation"/>
+			<disable object="Participant"/>
+			<disable object="ParticipantAssociation"/>
+			<disable object="ParticipantMultiplicity"/>
+			
+			<enable object="Assignment"/>
+			<enable object="FormalExpression"/>
+			<disable object="FormalExpression" feature="evaluatesToTypeRef"/>
+			<enable object="EndPoint"/>
+			<enable object="Documentation"/>
+		</modelEnablement>
+
+		<modelEnablement
+				runtimeId="org.eclipse.bpmn2.modeler.runtime.none"
+				type="Process"
+				profile="Simple Process"
+				ref="org.eclipse.bpmn2.modeler.runtime.none:Process:Default Process">
+			<disable object="DataAssociation"/>
+			<disable object="UserTask"/>
+			<disable object="ScriptTask"/>
+			<disable object="BusinessRuleTask"/>
+			<disable object="ComplexGateway"/>
+			<disable object="EventBasedGateway"/>
+			<disable object="Transaction"/>
+			<disable object="AdHocSubProcess"/>
+			<disable object="CallActivity"/>
+
+			<disable object="ConditionalEventDefinition"/>
+			<disable object="LinkEventDefinition"/>
+			<disable object="CancelEventDefinition"/>
+			<disable object="CompensateEventDefinition"/>
+				
+		</modelEnablement>
+
+		<modelEnablement
+				runtimeId="org.eclipse.bpmn2.modeler.runtime.none"
+				type="Collaboration"
+				profile="Default Collaboration"
+				ref="org.eclipse.bpmn2.modeler.runtime.none:Process:Default Process">
+				
+			<!-- copy the enablements from "Process" diagram type -->
+			<!-- and then add these objects -->
+			<enable object="Collaboration"/>
+			<enable object="Participant"/>
+			<enable object="MessageFlow"/>
+			<enable object="Conversation"/>
+			<enable object="SubConversation"/>
+			<enable object="CallConversation"/>
+			<enable object="ConversationLink"/>
+		</modelEnablement>
+
+		<modelEnablement
+				runtimeId="org.eclipse.bpmn2.modeler.runtime.none"
+				type="Choreography"
+				profile="Default Choreography"
+				ref="org.eclipse.bpmn2.modeler.runtime.none:Process:Default Process">
+				
+			<!-- copy the enablements from "Process" diagram type -->
+			<!-- and then add these objects -->
+			<enable object="Definitions"/>
+			<enable object="Group"/>
+
+			<enable object="StartEvent"/>
+			<enable object="EndEvent"/>
+
+			<disable object="DataObject"/>
+			<disable object="DataObjectReference"/>
+			<disable object="DataState"/>
+			<disable object="DataStore"/>
+			<disable object="DataStoreReference"/>
+			<disable object="DataInput"/>
+			<disable object="DataInputAssociation"/>
+			<disable object="DataOutput"/>
+			<disable object="DataOutputAssociation"/>
+			
+			<enable object="TextAnnotation"/>
+			<enable object="SequenceFlow"/>
+			<enable object="Choreography"/>
+			<enable object="SubChoreography"/>
+			<enable object="CallChoreography"/>
+			<enable object="ChoreographyTask"/>
+
+			<enable object="ExclusiveGateway"/>
+			<enable object="InclusiveGateway"/>
+			<enable object="ParallelGateway"/>
+			<enable object="EventBasedGateway"/>
+			<enable object="ComplexGateway"/>
+
+			<enable object="ConditionalEventDefinition"/>
+			<enable object="TimerEventDefinition"/>
+			<enable object="SignalEventDefinition"/>
+			<enable object="MessageEventDefinition"/>
+			<enable object="EscalationEventDefinition"/>
+			<enable object="CompensateEventDefinition"/>
+			<enable object="LinkEventDefinition" feature="name"/>
+			<enable object="ErrorEventDefinition"/>
+			<enable object="CancelEventDefinition"/>
+			<enable object="TerminateEventDefinition"/>
+
+			<enable object="MessageFlow"/>
+			<enable object="Participant"/>
+			
+			<disable object="ConversationLink"/>
+			<disable object="ConversationAssociation"/>
+			<disable object="Collaboration"/>
+			<disable object="ConversationNode"/>
+			<disable object="ExtensionAttributeDefinition"/>
+			<disable object="MessageFlowAssociation"/>
+		</modelEnablement>
+
+		<style object="AdHocSubProcess" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="Association" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="BoundaryEvent" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="BusinessRuleTask" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="CallActivity" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="CallChoreography" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="ChoreographyTask" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="ComplexGateway" foreground="484800" background="C8C864" textColor="484800" font="arial,10,-,-"/>
+		<style object="Conversation" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="DataAssociation" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="DataInput" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="DataObject" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="DataOutput" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="DataStoreReference" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="EndEvent" foreground="7F0000" background="FF8080" textColor="7F0000" font="arial,10,-,-"/>
+		<style object="EventBasedGateway" foreground="484800" background="C8C864" textColor="484800" font="arial,10,-,-"/>
+		<style object="ExclusiveGateway" foreground="484800" background="C8C864" textColor="484800" font="arial,10,-,-"/>
+		<style object="Group" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="InclusiveGateway" foreground="484800" background="C8C864" textColor="484800" font="arial,10,-,-"/>
+		<style object="IntermediateCatchEvent" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="IntermediateThrowEvent" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="Lane" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="ManualTask" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="Message" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="MessageFlow" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="ParallelGateway" foreground="484800" background="C8C864" textColor="484800" font="arial,10,-,-"/>
+		<style object="Participant" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="ReceiveTask" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="ScriptTask" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="SendTask" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="SequenceFlow" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="ServiceTask" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="StartEvent" foreground="007F00" background="80FF80" textColor="007F00" font="arial,10,-,-"/>
+		<style object="SubChoreography" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="SubProcess" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="Task" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="TextAnnotation" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="Transaction" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="UserTask" foreground="546778" background="D4E7F8" textColor="546778" font="arial,10,-,-"/>
+		<style object="CANVAS" background="FFFFFF"/>
+		<style object="GRID" foreground="E3EEF9"/>
+		
+		<typeLanguage name="XSD Schema" uri="http://www.w3.org/2001/XMLSchema" prefix="xs">
+			<type name="string"/>
+			<type name="date"/>
+			<type name="byte"/>
+			<type name="decimal"/>
+			<type name="int"/>
+			<type name="integer"/>
+			<type name="long"/>
+			<type name="short"/>
+			<type name="boolean"/>
+		</typeLanguage>
+		
+		<typeLanguage name="Java Types" uri="http://www.java.com/javaTypes" prefix="java">
+			<type name="Boolean" qname="java.lang.Boolean"/>
+			<type name="Byte" qname="java.lang.Byte"/>
+			<type name="Character" qname="java.lang.Character"/>
+			<type name="Float" qname="java.lang.Float"/>
+			<type name="Integer" qname="java.lang.Integer"/>
+			<type name="Long" qname="java.lang.Long"/>
+			<type name="Short" qname="java.lang.Short"/>
+			<type name="Double" qname="java.lang.Double"/>
+			<type name="String" qname="java.lang.String"/>
+			<type name="Object" qname="java.lang.Object"/>
+		</typeLanguage>
+		
+		<expressionLanguage name="XPath" uri="http://www.w3.org/1999/XPath"/>
+		<expressionLanguage name="Java" uri="http://www.java.com/java"/>
+
+		<serviceImplementation name="Web Service" uri="##WebService"/>
+		<serviceImplementation name="Unspecified" uri="##unspecified"/>
+		
+	</extension>
+	
+	<!-- menu commands -->
+  <extension
+        point="org.eclipse.ui.commands">
+        <category
+              id="org.eclipse.bpmn2.modeler.command.category"
+              name="%category.name.0">
+        </category>
+     <command
+           id="org.eclipse.bpmn2.modeler.command.createProcess"
+           categoryId="org.eclipse.bpmn2.modeler.command.category"
+           name="%command.name"/>
+     <command
+           id="org.eclipse.bpmn2.modeler.command.createChoreography"
+           categoryId="org.eclipse.bpmn2.modeler.command.category"
+           name="%command.name.0">
+     </command>
+     <command
+           id="org.eclipse.bpmn2.modeler.command.createCollaboration"
+           categoryId="org.eclipse.bpmn2.modeler.command.category"
+           name="%command.name.1">
+     </command>
+  </extension>
+
+	<!-- menu handlers -->
+	<extension
+	        point="org.eclipse.ui.handlers">
+	     <handler
+	        class="org.eclipse.bpmn2.modeler.ui.commands.CreateDiagramCommand"
+	        commandId="org.eclipse.bpmn2.modeler.command.createProcess">
+	     </handler>
+	     <handler
+	        class="org.eclipse.bpmn2.modeler.ui.commands.CreateDiagramCommand"
+	        commandId="org.eclipse.bpmn2.modeler.command.createChoreography">
+	     </handler>
+	     <handler
+	        class="org.eclipse.bpmn2.modeler.ui.commands.CreateDiagramCommand"
+	        commandId="org.eclipse.bpmn2.modeler.command.createCollaboration">
+	     </handler>
+	</extension> 
+	
+	<!-- menu -->
+	<extension 
+	  id="org.eclipse.bpmn2.modeler.diagram.menu.extension"
+	  point="org.eclipse.ui.menus">
+	 <menuContribution
+	    locationURI= "menu:org.eclipse.ui.main.menu?after=additions">
+	    <menu
+	       id="org.eclipse.bpmn2.modeler.diagram.menu"
+	       label="%menu.label">
+        <visibleWhen>
+           <with
+                 variable="activeEditorId">
+              <equals
+                    value="org.eclipse.bpmn2.modeler.ui.bpmn2editor">
+              </equals>
+           </with>
+        </visibleWhen>
+	    </menu>
+	</menuContribution>
+	<menuContribution
+	    locationURI= "menu:org.eclipse.bpmn2.modeler.diagram.menu?after=additions">
+	    <command
+	       commandId="org.eclipse.bpmn2.modeler.command.createProcess"
+	       id= "createProcess"
+	       label= "%command.label">
+	    </command>
+	    <command
+	       commandId="org.eclipse.bpmn2.modeler.command.createChoreography"
+	       id= "createChoreography"
+	       label= "%command.label.0">
+	    </command>
+	    <command
+	       commandId="org.eclipse.bpmn2.modeler.command.createCollaboration"
+	       id= "createCollaboration"
+	       label= "%command.label.1">
+	    </command>
+	</menuContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="M1+ARROW_UP">
+			<parameter
+				id="org.eclipse.graphiti.ui.featureHint"
+				value="moveup">
+			</parameter>
+		</key>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="M1+ARROW_DOWN">
+			<parameter
+				id="org.eclipse.graphiti.ui.featureHint"
+				value="movedown">
+			</parameter>
+		</key>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="M1+ARROW_LEFT">
+			<parameter
+				id="org.eclipse.graphiti.ui.featureHint"
+				value="moveleft">
+			</parameter>
+		</key>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="M1+ARROW_RIGHT">
+			<parameter
+				id="org.eclipse.graphiti.ui.featureHint"
+				value="moveright">
+			</parameter>
+		</key>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="M1+M2+ARROW_UP">
+			<parameter
+				id="org.eclipse.graphiti.ui.featureHint"
+				value="moveup10">
+			</parameter>
+		</key>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="M1+M2+ARROW_DOWN">
+			<parameter
+				id="org.eclipse.graphiti.ui.featureHint"
+				value="movedown10">
+			</parameter>
+		</key>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="M1+M2+ARROW_LEFT">
+			<parameter
+				id="org.eclipse.graphiti.ui.featureHint"
+				value="moveleft10">
+			</parameter>
+		</key>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="M1+M2+ARROW_RIGHT">
+			<parameter
+				id="org.eclipse.graphiti.ui.featureHint"
+				value="moveright10">
+			</parameter>
+		</key>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="M1+D">
+			<parameter
+				id="org.eclipse.graphiti.ui.featureHint"
+				value="duplicate">
+			</parameter>
+		</key>
+	</extension>
+</plugin>
