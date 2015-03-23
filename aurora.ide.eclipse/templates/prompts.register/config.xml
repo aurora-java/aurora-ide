@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template-config default="standered">
+	<templates>
+		<template name="standered" file="standered.tpl" description="标准导出模板" />
+	</templates>
+</template-config>

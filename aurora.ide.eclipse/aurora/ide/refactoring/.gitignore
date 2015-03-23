@@ -1,0 +1,13 @@
+/FileDeleteParticipant.class
+/FileMoveParticipant.class
+/FileRenameParticipant.class
+/FolderDeleteParticipant.class
+/FolderMoveParticipant.class
+/FolderRefactorParticipant$ScopeVisitor.class
+/FolderRefactorParticipant.class
+/FolderRenameParticipant.class
+/RefactoringReplaceInfo.class
+/RemoveElementRefactoring.class
+/ReplaceRefactoring.class
+/ScreenRefactoring.class
+/TextFileChangeManager.class

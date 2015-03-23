@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+<extension-point id="compositeMapCacher" name="CompoisiteMapCacher" schema="schema/compositeMapCacher.exsd"/>
+   <extension
+          point="aurora.ide.compositeMapCacher">
+          <files desc="AuroraFile" extentionNames="bm, screen, svc"/> 
+           <files desc="ConfigFile" extentionNames="xml, proc, config"/> 
+           <files desc="PrototypeFile" extentionNames="bmq, uip,code,prototype"/> 
+    </extension>
+</plugin>

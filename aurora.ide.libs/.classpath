@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="aurora-plugin.jar" sourcepath="/aurora-plugin"/>
+	<classpathentry exported="true" kind="lib" path="freemarker.jar" sourcepath="/Users/shishiliyan/Desktop/freemarker-2.3.19/src"/>
+	<classpathentry exported="true" kind="lib" path="SQLinForm.jar"/>
+	<classpathentry exported="true" kind="lib" path="aurora.jar" sourcepath="/aurora"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.4"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry exported="true" kind="lib" path="c3p0-0.9.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="classes12.jar"/>
+	<classpathentry exported="true" kind="lib" path="jotm-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="jta.jar"/>
+	<classpathentry exported="true" kind="lib" path="mysql-connector-java-5.1.12-bin.jar"/>
+	<classpathentry exported="true" kind="lib" path="ow2-jta-1.1-spec.jar"/>
+	<classpathentry exported="true" kind="lib" path="servlet.jar"/>
+	<classpathentry exported="true" kind="lib" path="sqlserverjdbc.jar"/>
+	<classpathentry exported="true" kind="lib" path="uncertain.jar" sourcepath="/uncertain"/>
+	<classpathentry exported="true" kind="lib" path="xapool.jar"/>
+	<classpathentry exported="true" kind="lib" path="jco.jar"/>
+	<classpathentry exported="true" kind="lib" path="rhino-1.7R3.jar" sourcepath="/rhino.javascript"/>
+	<classpathentry exported="true" kind="lib" path="poi-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="aurora-js.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
