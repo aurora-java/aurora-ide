@@ -33,6 +33,7 @@ public class SQLJContentAssistProvider {
 			if ((sqlPositionType & KEY_WORD) != 0) {
 				result.addAll(new SQLKeyWordProposal(context)
 						.getCompletionProposal());
+				return result;
 			}
 			if ((sqlPositionType & COMUMN) != 0) {
 				result.addAll(new SQLColumnProposal(context)

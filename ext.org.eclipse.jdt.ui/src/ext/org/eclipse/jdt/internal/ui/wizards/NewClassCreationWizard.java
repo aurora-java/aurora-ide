@@ -34,7 +34,7 @@ public class NewClassCreationWizard extends NewElementWizard {
 		setDialogSettings(JavaPlugin.getDefault().getDialogSettings());
 		setWindowTitle(NewWizardMessages.NewClassCreationWizard_title);
 
-		fPage= page;
+		setfPage(page);
 		fOpenEditorOnFinish= openEditorOnFinish;
 	}
 
@@ -48,11 +48,11 @@ public class NewClassCreationWizard extends NewElementWizard {
 	@Override
 	public void addPages() {
 		super.addPages();
-		if (fPage == null) {
-			fPage= new NewClassWizardPage();
-			fPage.init(getSelection());
+		if (getfPage() == null) {
+			setfPage(new NewClassWizardPage());
+			getfPage().init(getSelection());
 		}
-		addPage(fPage);
+		addPage(getfPage());
 	}
 
 	/*(non-Javadoc)
@@ -60,7 +60,7 @@ public class NewClassCreationWizard extends NewElementWizard {
 	 */
 	@Override
 	protected boolean canRunForked() {
-		return !fPage.isEnclosingTypeSelected();
+		return !getfPage().isEnclosingTypeSelected();
 	}
 
 	/* (non-Javadoc)
@@ -68,7 +68,7 @@ public class NewClassCreationWizard extends NewElementWizard {
 	 */
 	@Override
 	protected void finishPage(IProgressMonitor monitor) throws InterruptedException, CoreException {
-		fPage.createType(monitor); // use the full progress monitor
+		getfPage().createType(monitor); // use the full progress monitor
 	}
 
 	/* (non-Javadoc)
@@ -78,15 +78,15 @@ public class NewClassCreationWizard extends NewElementWizard {
 	public boolean performFinish() {
 		warnAboutTypeCommentDeprecation();
 		boolean res= super.performFinish();
-		if (res) {
-			IResource resource= fPage.getModifiedResource();
-			if (resource != null) {
-				selectAndReveal(resource);
-				if (fOpenEditorOnFinish) {
-					openResource((IFile) resource);
-				}
-			}
-		}
+//		if (res) {
+//			IResource resource= getfPage().getModifiedResource();
+//			if (resource != null) {
+//				selectAndReveal(resource);
+//				if (fOpenEditorOnFinish) {
+//					openResource((IFile) resource);
+//				}
+//			}
+//		}
 		return res;
 	}
 
@@ -95,7 +95,15 @@ public class NewClassCreationWizard extends NewElementWizard {
 	 */
 	@Override
 	public IJavaElement getCreatedElement() {
-		return fPage.getCreatedType();
+		return getfPage().getCreatedType();
+	}
+
+	public NewClassWizardPage getfPage() {
+		return fPage;
+	}
+
+	public void setfPage(NewClassWizardPage fPage) {
+		this.fPage = fPage;
 	}
 
 }
