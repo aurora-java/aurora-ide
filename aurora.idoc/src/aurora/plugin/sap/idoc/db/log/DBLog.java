@@ -21,6 +21,7 @@ import aurora.service.ServiceThreadLocal;
 import aurora.service.http.HttpServiceInstance;
 
 import com.sap.conn.idoc.jco.JCoIDocServer;
+import com.sap.conn.jco.server.JCoServer;
 
 public class DBLog extends AbstractLocatableObject implements ILifeCycle {
 	// type,message,date
@@ -104,8 +105,9 @@ public class DBLog extends AbstractLocatableObject implements ILifeCycle {
 			JCoIDocServer jcoIDocServer, String serverName, int idocServerId,
 			Throwable e) {
 		executeProc("ErrorOnStarting", e.getMessage(), serverManager);
-		System.out.println("idocServer" + jcoIDocServer.getMySncName()
-				+ "idocErrorOnStarting" + e.getMessage());
+		System.out.println("idocServer" + jcoIDocServer == null ? ""
+				: jcoIDocServer.getMySncName() + "idocErrorOnStarting"
+						+ e.getMessage());
 	}
 
 	@Override
@@ -130,8 +132,8 @@ public class DBLog extends AbstractLocatableObject implements ILifeCycle {
 			String fileFullPath, int idocFileId, int idocFileId2) {
 		System.out.println("receiveIdocFile {" + fileFullPath + " }");
 	}
-	
-	public static void ln(String msg){
+
+	public static void ln(String msg) {
 		System.out.println(msg);
 	}
 
@@ -210,5 +212,11 @@ public class DBLog extends AbstractLocatableObject implements ILifeCycle {
 		if (config != null)
 			svc.setRootConfig(config);
 		return svc;
+	}
+
+	public static void idocServerIsDead(JCoServer jcoIDocServer,
+			IDocServerManager serverManager) {
+		executeProc("ServerIsDead", "Host : [" + jcoIDocServer.getGatewayHost()
+				+ "] ServerIsDead ", serverManager);
 	}
 }

@@ -66,9 +66,11 @@ public class IDocFileListener {
 									JCoServerState arg2) {
 								DBLog.ln("State Changed [" + arg1.name()
 										+ "] >> [" + arg2.name() + "]");
-
+								if (arg2.DEAD.name().equals(arg2.name())) {
+									DBLog.idocServerIsDead(arg0,serverManager);
+								}
 							}
-						})  ;
+						});
 				addListeners();
 				logger.config(serverName + " ConnectionCount= "
 						+ jcoIDocServer.getConnectionCount());
