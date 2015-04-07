@@ -86,6 +86,8 @@ public class DBLog extends AbstractLocatableObject implements ILifeCycle {
 	static private void executeProc(String type, String message,
 			IDocServerManager serverManager) {
 
+		if (serverManager == null)
+			return;
 		DatabaseTool databaseTool = null;
 		try {
 			databaseTool = serverManager.getDatabaseTool();
