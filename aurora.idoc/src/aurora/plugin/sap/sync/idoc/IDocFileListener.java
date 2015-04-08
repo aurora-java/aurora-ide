@@ -376,7 +376,7 @@ public class IDocFileListener {
 				JCoServerContextInfo ctx, Error error) {
 			String message = ">>> Error occured on " + server.getProgramID()
 					+ " connection " + connectionId;
-			DBLog.otherError(null, message + "  " + error.getMessage());
+			DBLog.otherError(serverManager, message + "  " + error.getMessage());
 
 			logger.log(Level.SEVERE, message, error);
 		}
@@ -385,7 +385,7 @@ public class IDocFileListener {
 				String connectionId, JCoServerContextInfo ctx, Exception error) {
 			String message = ">>> Exception occured on "
 					+ server.getProgramID() + " connection " + connectionId;
-			DBLog.otherError(null, message + "  " + error.getMessage());
+			DBLog.otherError(serverManager, message + "  " + error.getMessage());
 			logger.log(Level.SEVERE, message, error);
 		}
 	}
