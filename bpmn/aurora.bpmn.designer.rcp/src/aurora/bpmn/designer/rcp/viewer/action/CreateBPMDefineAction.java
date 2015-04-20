@@ -155,7 +155,8 @@ public class CreateBPMDefineAction extends ViewAction {
 		}
 		// boolean b2 = model instanceof BPMNDefineCategory;
 		boolean b1 = model instanceof ServiceModel;
-
+		if(model == null)
+			return ;
 		this.setVisible(model.isLoaded() ? model instanceof ServiceModel
 				: false);
 
