@@ -315,7 +315,9 @@ public class DatabaseTool {
 				fieldMapsSt.setInt(1, segment_map_id);
 				filedMapsRs = fieldMapsSt.executeQuery();
 				StringBuffer insert_sql = new StringBuffer("insert into " + table_name
-						+ " (idoc_file_id,created_by,creation_date,last_updated_by,last_update_date");
+						+ 
+						" (idoc_file_id,created_by,creation_date,last_updated_by,last_update_date");
+//				" (idoc_file_id,idoc_created_by,idoc_creation_date,idoc_last_updated_by,idoc_last_update_date");
 				StringBuffer values_sql = new StringBuffer("values(" + idoc_file_id + ",0,sysdate,0,sysdate");
 				List<String> values = new LinkedList<String>();
 				while (filedMapsRs.next()) {
