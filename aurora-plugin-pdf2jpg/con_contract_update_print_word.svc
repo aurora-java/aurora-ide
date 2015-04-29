@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Author: wangwei5743 
+    $Date: 2013-7-15 下午05:16:39  
+    $Revision: 1.0  
+    $Purpose: 
+-->
+<a:screen xmlns:c="aurora.application.action" xmlns:s="aurora.plugin.script" xmlns:w="aurora.plugin.export.word" xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" customizationEnabled="true" trace="true">
+    <a:init-procedure>
+        <a:model-query fetchAll="true" model="cont.CON500.con_contract_basic_clause_print" rootPath="con_basic_clause_path"/>
+        <w:word-export name="${/parameter/@content_number}.pdf" savePath="${/parameter/@doc_name}" template="aurora.plugin.export.word/${/parameter/@templt_name}" type="pdf">
+            <w:replaces>
+                <w:replace name="contract_number" path="/parameter/@contract_number"/>
+            </w:replaces>
+            <w:sectLists>
+                <w:sectList id="con_basic_clause" model="/model/con_basic_clause_path"/>
+            </w:sectLists>
+        </w:word-export>
+        <s:server-script import="seal_util.js"/>
+    </a:init-procedure>
+    <a:service-output output="/parameter"/>
+</a:screen>
