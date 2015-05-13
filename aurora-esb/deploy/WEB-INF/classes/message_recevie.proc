@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:jco="aurora.plugin.sap.jco3" trace="true">
+    
+    <a:model-execute model="test"/>
+    
+    <p:echo message="${/parameter/@LCR}"/>
+</p:procedure>
