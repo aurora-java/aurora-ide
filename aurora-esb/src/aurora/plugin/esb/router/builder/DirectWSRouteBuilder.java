@@ -2,6 +2,7 @@ package aurora.plugin.esb.router.builder;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
+import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.AMQMsg;
 import aurora.plugin.esb.model.DirectConfig;
@@ -29,6 +31,9 @@ public class DirectWSRouteBuilder extends RouteBuilder {
 	private DirectConfig config;
 	private CamelContext context;
 	private ConsoleLog clog = new ConsoleLog();
+	private String workPath;
+	private AuroraEsbContext esbContext;
+//	static private String path = "/Users/shiliyan/Desktop/esb/";
 
 	// get server data
 	// save to file
@@ -44,31 +49,39 @@ public class DirectWSRouteBuilder extends RouteBuilder {
 
 	// feedback to server
 
-	public DirectWSRouteBuilder(DirectConfig config, CamelContext context) {
+	public DirectWSRouteBuilder(DirectConfig config, AuroraEsbContext esbContext) {
 		this.config = config;
 		this.r = config.getRouter();
-		this.context = context;
+		this.context = esbContext.getCamelContext();
+		 workPath = esbContext.getWorkPath();
+		 this.esbContext = esbContext;
 	}
 
 	private String loadPara(Task task, From from) {
 		try {
 			String exchangeID = from.getExchangeID();
+			String name = from.getName();
 
-			int lastIndexOf = exchangeID.lastIndexOf("-");
-			String e = exchangeID.substring(lastIndexOf);
-			String fileid = exchangeID.substring(0, lastIndexOf)
-					+ (Integer.valueOf(e) - 1);
-
-			File file = new File(path + task.getRouter().getName() + "/"
-					+ from.getName(), fileid);
-			// from.getExchangeID()
-			FileInputStream fis = new FileInputStream(file);
-			String inputStream2String = XMLHelper.inputStream2String(fis);
-			return inputStream2String;
+			return loadSavedParaData(task, exchangeID, name);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public String loadSavedParaData(Task task, String exchangeID, String name)
+			throws FileNotFoundException, IOException {
+		int lastIndexOf = exchangeID.lastIndexOf("-");
+		String e = exchangeID.substring(lastIndexOf);
+		String fileid = exchangeID.substring(0, lastIndexOf)
+				+ (Integer.valueOf(e) - 1);
+
+		File file = new File(workPath + task.getRouter().getName() + "/" + name,
+				fileid);
+		// from.getExchangeID()
+		FileInputStream fis = new FileInputStream(file);
+		String inputStream2String = XMLHelper.inputStream2String(fis);
+		return inputStream2String;
 	}
 
 	private void msgBuilder() {
@@ -127,26 +140,26 @@ public class DirectWSRouteBuilder extends RouteBuilder {
 
 		try {
 			String exchangeID = to.getExchangeID();
-
-			int lastIndexOf = exchangeID.lastIndexOf("-");
-			String e = exchangeID.substring(lastIndexOf);
-			String fileid = exchangeID.substring(0, lastIndexOf)
-					+ (Integer.valueOf(e) - 1);
-
-			File file = new File(path + task.getRouter().getName() + "/"
-					+ to.getName(), fileid);
-
-			FileInputStream fis = new FileInputStream(file);
-			String inputStream2String = XMLHelper.inputStream2String(fis);
-			return inputStream2String;
+			String name = to.getName();
+			return loadSavedParaData(task, exchangeID, name);
+			// int lastIndexOf = exchangeID.lastIndexOf("-");
+			// String e = exchangeID.substring(lastIndexOf);
+			// String fileid = exchangeID.substring(0, lastIndexOf)
+			// + (Integer.valueOf(e) - 1);
+			//
+			// File file = new File(path + task.getRouter().getName() + "/"
+			// + name, fileid);
+			//
+			// FileInputStream fis = new FileInputStream(file);
+			// String inputStream2String = XMLHelper.inputStream2String(fis);
+			// return inputStream2String;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	// String path = "file:/Users/shiliyan/Desktop/target/";
-	static private String path = "/Users/shiliyan/Desktop/esb/";
+	
 
 	private void serverBuilder() {
 		From from = r.getFrom();
@@ -157,7 +170,7 @@ public class DirectWSRouteBuilder extends RouteBuilder {
 					public void process(Exchange arg0) throws Exception {
 						Map<String, Object> paras = wsHeaderOptions(
 								from.getUserName(), from.getPsd());
-						TaskManager tm = new TaskManager(context);
+						TaskManager tm = new TaskManager(esbContext);
 						Task t = tm.createTask(config);
 
 						t.getRouter().getFrom()
@@ -186,7 +199,7 @@ public class DirectWSRouteBuilder extends RouteBuilder {
 						clog.log2Console(exchange,
 								TaskStatus.SERVER_DATA_LOADED);
 					}
-				}).to("file:" + path + r.getName() + "/" + from.getName())
+				}).to("file:" + workPath + r.getName() + "/" + from.getName())
 				.process(new Processor() {
 
 					@Override
@@ -216,7 +229,7 @@ public class DirectWSRouteBuilder extends RouteBuilder {
 	private Task updateTaskStatus(Exchange exchange, String status) {
 		String task_id = (String) exchange.getIn().getHeader("task_id");
 		String task_name = (String) exchange.getIn().getHeader("task_name");
-		TaskManager tm = new TaskManager(context);
+		TaskManager tm = new TaskManager(esbContext);
 		Task task = tm.updateTaskStatus(task_id, task_name, status);
 		return task;
 	}
@@ -243,7 +256,7 @@ public class DirectWSRouteBuilder extends RouteBuilder {
 								TaskStatus.INVOKE_CLIENT_POINT);
 						task.getRouter().getTo()
 								.setExchangeID(exchange.getExchangeId());
-						TaskManager tm = new TaskManager(context);
+						TaskManager tm = new TaskManager(esbContext);
 						tm.updateTask(task);
 						clog.log2Console(exchange,
 								TaskStatus.INVOKE_CLIENT_POINT);
@@ -257,7 +270,7 @@ public class DirectWSRouteBuilder extends RouteBuilder {
 						exchange.getOut().setBody(exchange.getIn().getBody());
 						clog.log2Console(exchange, TaskStatus.CLIENT_RESPONSED);
 					}
-				}).to("file:" + path + r.getName() + "/" + to.getName())
+				}).to("file:" + workPath + r.getName() + "/" + to.getName())
 				.process(new Processor() {
 
 					@Override

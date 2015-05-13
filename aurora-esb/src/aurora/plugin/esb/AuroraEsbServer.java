@@ -45,6 +45,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		File configDirectory = uncertainEngine.getConfigDirectory();
 		File config = new File(configDirectory, packageName);
 		System.out.println(config);
+		esbContext.setWorkPath(workPath);
 
 		String routers = this.getRouters();
 		String[] split = routers.split(",");

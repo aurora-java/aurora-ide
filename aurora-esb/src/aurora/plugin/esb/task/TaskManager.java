@@ -3,18 +3,24 @@ package aurora.plugin.esb.task;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 
+import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.Router;
 import aurora.plugin.esb.model.Task;
 import aurora.plugin.esb.model.TaskStatus;
 import aurora.plugin.esb.router.builder.DirectWSRouteBuilder;
+import aurora.plugin.esb.router.builder.MonitorDirectRouteBuilder;
 
 public class TaskManager {
 	private CamelContext context;
+	private String workPath = null;
+	private AuroraEsbContext esbContext;
 
-	public TaskManager(CamelContext context) {
+	public TaskManager(AuroraEsbContext esbContext) {
 		super();
-		this.context = context;
+		this.context = esbContext.getCamelContext();
+		this.workPath = esbContext.getWorkPath();
+		this.esbContext = esbContext;
 	}
 
 	public Task createTask(DirectConfig config) {
@@ -23,18 +29,19 @@ public class TaskManager {
 		Task createTask = new Task();
 		createTask.setName(config.getName());
 		createTask.setRouter(config.getRouter());
-		TaskStore s = new TaskStore();
+		TaskStore s = new TaskStore(workPath);
 		s.save(createTask);
 		return createTask;
 	}
 
 	public void configDirectRouter(DirectConfig config) {
-//		Task createTask = Demo.createTask();
+		// Task createTask = Demo.createTask();
 		try {
-			context.addRoutes(new DirectWSRouteBuilder(config, context));
+//			context.addRoutes(new DirectWSRouteBuilder(config, esbContext));
+			context.addRoutes(new MonitorDirectRouteBuilder(config, esbContext));
 		} catch (Exception e) {
 			e.printStackTrace();
-//			this.updateTaskStatus(createTask, TaskStatus.ERROR_ON_STARTING);
+			// this.updateTaskStatus(createTask, TaskStatus.ERROR_ON_STARTING);
 		}
 	}
 
@@ -46,7 +53,7 @@ public class TaskManager {
 					createRouter.getFrom().getParaText());
 		} catch (Exception e) {
 			e.printStackTrace();
-//			this.updateTaskStatus(task, TaskStatus.ERROR_ON_STARTING);
+			// this.updateTaskStatus(task, TaskStatus.ERROR_ON_STARTING);
 		}
 	}
 
@@ -76,17 +83,17 @@ public class TaskManager {
 	}
 
 	public void updateTask(Task task) {
-		new TaskStore().update(task);
+		new TaskStore(workPath).update(task);
 	}
 
-	public Task updateTaskStatus(String task_id,String task_name, String status) {
-		Task t = loadTask(task_id,task_name);
+	public Task updateTaskStatus(String task_id, String task_name, String status) {
+		Task t = loadTask(task_id, task_name);
 		updateTaskStatus(t, status);
 		return t;
 	}
 
-	private Task loadTask(String task_id,String task_name) {
-		return new TaskStore().getTask(task_id,task_name);
+	private Task loadTask(String task_id, String task_name) {
+		return new TaskStore(workPath).getTask(task_id, task_name);
 	}
 
 }

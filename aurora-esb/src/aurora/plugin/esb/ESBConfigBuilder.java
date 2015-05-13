@@ -78,7 +78,7 @@ public final class ESBConfigBuilder {
 	}
 
 	public void configRouters(CamelContext context) throws Exception {
-		TaskManager m = new TaskManager(context);
+		TaskManager m = new TaskManager(esbContext);
 		List<DirectConfig> task_configs = esbContext.getDirectConfigs();
 		for (DirectConfig c : task_configs) {
 			m.configDirectRouter(c);

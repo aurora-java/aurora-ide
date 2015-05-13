@@ -50,7 +50,7 @@ public class Console {
 	private void directStartTask(DirectConfig directConfig) {
 		try {
 
-			TaskManager m = new TaskManager(esbContext.getCamelContext());
+			TaskManager m = new TaskManager(esbContext);
 			m.directStartTask(directConfig);
 
 			// try {

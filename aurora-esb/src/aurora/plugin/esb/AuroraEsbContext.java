@@ -6,12 +6,13 @@ import java.util.List;
 import org.apache.camel.impl.DefaultCamelContext;
 
 import aurora.plugin.esb.model.DirectConfig;
-import aurora.plugin.esb.model.Task;
 
 public class AuroraEsbContext {
 	private AuroraEsbServer server;
 	private List<DirectConfig> task_configs = new ArrayList<DirectConfig>();
 	private DefaultCamelContext context;
+
+	private String workPath = null;
 
 	public AuroraEsbServer getServer() {
 		return server;
@@ -36,6 +37,17 @@ public class AuroraEsbContext {
 
 	public DefaultCamelContext getCamelContext() {
 		return context;
+	}
+
+	public String getWorkPath() {
+		return workPath;
+	}
+
+	public void setWorkPath(String workPath) {
+		if (workPath.endsWith("/"))
+			this.workPath = workPath;
+		else
+			this.workPath = workPath + "/";
 	}
 
 }

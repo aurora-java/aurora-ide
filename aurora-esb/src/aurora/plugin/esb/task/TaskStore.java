@@ -16,11 +16,22 @@ import aurora.plugin.esb.model.XMLHelper;
 
 public class TaskStore {
 
-	static private String path = "/Users/shiliyan/Desktop/esb/" + "task";
+//	static private String path = "/Users/shiliyan/Desktop/esb/" + "task";
+
+
+	private String taskStorePath;
+	
+	
+	
+	
+	public TaskStore(String workPath) {
+		super();
+		this.taskStorePath = workPath +"task";
+	}
 
 	public void save(Task task) {
 		String name = task.getName();
-		File file = new File(path, name);
+		File file = new File(taskStorePath, name);
 		CompositeMap fileMap = new CompositeMap("tasks");
 		if (file.exists()) {
 			fileMap = loadFile(file);
@@ -36,7 +47,7 @@ public class TaskStore {
 
 	public List<Task> load(String taskName) {
 		String name = taskName;
-		File file = new File(path, name);
+		File file = new File(taskStorePath, name);
 		CompositeMap fileMap = new CompositeMap("tasks");
 		if (file.exists()) {
 			fileMap = loadFile(file);
@@ -52,7 +63,7 @@ public class TaskStore {
 
 	public void update(Task task) {
 		String name = task.getName();
-		File file = new File(path, name);
+		File file = new File(taskStorePath, name);
 		CompositeMap fileMap = new CompositeMap("tasks");
 		if (file.exists()) {
 			fileMap = loadFile(file);
@@ -118,7 +129,7 @@ public class TaskStore {
 
 	public Task getTask(String task_id, String task_name) {
 		String name = task_name;
-		File file = new File(path, name);
+		File file = new File(taskStorePath, name);
 		CompositeMap fileMap = new CompositeMap("tasks");
 		if (file.exists()) {
 			fileMap = loadFile(file);
