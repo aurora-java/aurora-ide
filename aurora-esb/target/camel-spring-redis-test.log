@@ -1,6 +1,6 @@
-2015-05-13 14:18:42,348 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.14.1 (CamelContext: camel-1) is starting
-2015-05-13 14:18:42,350 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-05-13 14:18:43,135 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.dataformat.rss.RssConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: com/sun/syndication/feed/synd/SyndFeed
+2015-05-13 17:40:19,012 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.14.1 (CamelContext: camel-1) is starting
+2015-05-13 17:40:19,014 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-05-13 17:40:19,825 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.dataformat.rss.RssConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: com/sun/syndication/feed/synd/SyndFeed
 java.lang.NoClassDefFoundError: com/sun/syndication/feed/synd/SyndFeed
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -22,7 +22,7 @@ java.lang.NoClassDefFoundError: com/sun/syndication/feed/synd/SyndFeed
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -39,7 +39,7 @@ Caused by: java.lang.ClassNotFoundException: com.sun.syndication.feed.synd.SyndF
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,140 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.ical.ICalConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: net/fortuna/ical4j/model/Date
+2015-05-13 17:40:19,830 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.ical.ICalConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: net/fortuna/ical4j/model/Date
 java.lang.NoClassDefFoundError: net/fortuna/ical4j/model/Date
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -61,7 +61,7 @@ java.lang.NoClassDefFoundError: net/fortuna/ical4j/model/Date
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -78,7 +78,7 @@ Caused by: java.lang.ClassNotFoundException: net.fortuna.ical4j.model.Date
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,143 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.flatpack.FlatpackConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: net/sf/flatpack/DataSet
+2015-05-13 17:40:19,833 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.flatpack.FlatpackConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: net/sf/flatpack/DataSet
 java.lang.NoClassDefFoundError: net/sf/flatpack/DataSet
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -100,7 +100,7 @@ java.lang.NoClassDefFoundError: net/sf/flatpack/DataSet
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -117,7 +117,7 @@ Caused by: java.lang.ClassNotFoundException: net.sf.flatpack.DataSet
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,155 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.dns.types.DnsRecordConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/xbill/DNS/Resolver
+2015-05-13 17:40:19,848 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.dns.types.DnsRecordConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/xbill/DNS/Resolver
 java.lang.NoClassDefFoundError: org/xbill/DNS/Resolver
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -139,7 +139,7 @@ java.lang.NoClassDefFoundError: org/xbill/DNS/Resolver
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -156,7 +156,7 @@ Caused by: java.lang.ClassNotFoundException: org.xbill.DNS.Resolver
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,157 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.groovy.converter.GPathResultConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: groovy/util/slurpersupport/GPathResult
+2015-05-13 17:40:19,850 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.groovy.converter.GPathResultConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: groovy/util/slurpersupport/GPathResult
 java.lang.NoClassDefFoundError: groovy/util/slurpersupport/GPathResult
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -178,7 +178,7 @@ java.lang.NoClassDefFoundError: groovy/util/slurpersupport/GPathResult
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -195,7 +195,7 @@ Caused by: java.lang.ClassNotFoundException: groovy.util.slurpersupport.GPathRes
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,162 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.xmlrpc.converter.XmlRpcConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/apache/xmlrpc/XmlRpcRequest
+2015-05-13 17:40:19,853 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.xmlrpc.converter.XmlRpcConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/apache/xmlrpc/XmlRpcRequest
 java.lang.NoClassDefFoundError: org/apache/xmlrpc/XmlRpcRequest
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -217,7 +217,7 @@ java.lang.NoClassDefFoundError: org/apache/xmlrpc/XmlRpcRequest
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -234,7 +234,7 @@ Caused by: java.lang.ClassNotFoundException: org.apache.xmlrpc.XmlRpcRequest
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,180 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.netty4.NettyConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: io/netty/buffer/ByteBufInputStream
+2015-05-13 17:40:19,871 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.netty4.NettyConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: io/netty/buffer/ByteBufInputStream
 java.lang.NoClassDefFoundError: io/netty/buffer/ByteBufInputStream
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -256,7 +256,7 @@ java.lang.NoClassDefFoundError: io/netty/buffer/ByteBufInputStream
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -273,7 +273,7 @@ Caused by: java.lang.ClassNotFoundException: io.netty.buffer.ByteBufInputStream
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,182 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.dataformat.xmljson.converters.XmlJsonConverters as a dependent class could not be found: java.lang.NoClassDefFoundError: net/sf/json/JSON
+2015-05-13 17:40:19,873 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.dataformat.xmljson.converters.XmlJsonConverters as a dependent class could not be found: java.lang.NoClassDefFoundError: net/sf/json/JSON
 java.lang.NoClassDefFoundError: net/sf/json/JSON
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -295,7 +295,7 @@ java.lang.NoClassDefFoundError: net/sf/json/JSON
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -312,7 +312,7 @@ Caused by: java.lang.ClassNotFoundException: net.sf.json.JSON
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,184 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.netty.NettyConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/jboss/netty/buffer/ChannelBufferInputStream
+2015-05-13 17:40:19,879 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.netty.NettyConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/jboss/netty/buffer/ChannelBufferInputStream
 java.lang.NoClassDefFoundError: org/jboss/netty/buffer/ChannelBufferInputStream
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -334,7 +334,7 @@ java.lang.NoClassDefFoundError: org/jboss/netty/buffer/ChannelBufferInputStream
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -351,7 +351,7 @@ Caused by: java.lang.ClassNotFoundException: org.jboss.netty.buffer.ChannelBuffe
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,193 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.mina.MinaConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/apache/mina/common/ByteBuffer
+2015-05-13 17:40:19,881 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.mina.MinaConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/apache/mina/common/ByteBuffer
 java.lang.NoClassDefFoundError: org/apache/mina/common/ByteBuffer
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -373,7 +373,7 @@ java.lang.NoClassDefFoundError: org/apache/mina/common/ByteBuffer
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -390,8 +390,8 @@ Caused by: java.lang.ClassNotFoundException: org.apache.mina.common.ByteBuffer
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,194 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.restlet.converter.RestletConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: [Lorg/restlet/data/Method;
-java.lang.NoClassDefFoundError: [Lorg/restlet/data/Method;
+2015-05-13 17:40:19,883 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.restlet.converter.RestletConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/restlet/data/Method
+java.lang.NoClassDefFoundError: org/restlet/data/Method
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
 	at java.lang.Class.getDeclaredMethods(Class.java:1975)
@@ -412,7 +412,7 @@ java.lang.NoClassDefFoundError: [Lorg/restlet/data/Method;
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -429,7 +429,7 @@ Caused by: java.lang.ClassNotFoundException: org.restlet.data.Method
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,196 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.spring.ws.converter.StringSourceConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/springframework/xml/transform/StringSource
+2015-05-13 17:40:19,887 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.spring.ws.converter.StringSourceConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/springframework/xml/transform/StringSource
 java.lang.NoClassDefFoundError: org/springframework/xml/transform/StringSource
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -451,7 +451,7 @@ java.lang.NoClassDefFoundError: org/springframework/xml/transform/StringSource
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -468,7 +468,7 @@ Caused by: java.lang.ClassNotFoundException: org.springframework.xml.transform.S
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,199 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.converter.saxon.SaxonConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: net/sf/saxon/om/NodeInfo
+2015-05-13 17:40:19,890 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.converter.saxon.SaxonConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: net/sf/saxon/om/NodeInfo
 java.lang.NoClassDefFoundError: net/sf/saxon/om/NodeInfo
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -490,7 +490,7 @@ java.lang.NoClassDefFoundError: net/sf/saxon/om/NodeInfo
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -507,7 +507,7 @@ Caused by: java.lang.ClassNotFoundException: net.sf.saxon.om.NodeInfo
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,201 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.elasticsearch.converter.ElasticsearchActionRequestConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/elasticsearch/action/index/IndexRequest
+2015-05-13 17:40:19,892 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.elasticsearch.converter.ElasticsearchActionRequestConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/elasticsearch/action/index/IndexRequest
 java.lang.NoClassDefFoundError: org/elasticsearch/action/index/IndexRequest
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -529,7 +529,7 @@ java.lang.NoClassDefFoundError: org/elasticsearch/action/index/IndexRequest
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -546,8 +546,8 @@ Caused by: java.lang.ClassNotFoundException: org.elasticsearch.action.index.Inde
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,203 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.scala.converter.ScalaMutableCollections as a dependent class could not be found: java.lang.NoClassDefFoundError: scala/collection/mutable/Set
-java.lang.NoClassDefFoundError: scala/collection/mutable/Set
+2015-05-13 17:40:19,894 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.scala.converter.ScalaMutableCollections as a dependent class could not be found: java.lang.NoClassDefFoundError: scala/collection/mutable/Map
+java.lang.NoClassDefFoundError: scala/collection/mutable/Map
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
 	at java.lang.Class.getDeclaredMethods(Class.java:1975)
@@ -568,7 +568,7 @@ java.lang.NoClassDefFoundError: scala/collection/mutable/Set
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -579,13 +579,13 @@ java.lang.NoClassDefFoundError: scala/collection/mutable/Set
 	at uncertain.core.UncertainEngine.startup(UncertainEngine.java:668)
 	at aurora.application.admin.ServerAdmin.doStartup(ServerAdmin.java:74)
 	at aurora.application.admin.ServerAdmin.main(ServerAdmin.java:129)
-Caused by: java.lang.ClassNotFoundException: scala.collection.mutable.Set
+Caused by: java.lang.ClassNotFoundException: scala.collection.mutable.Map
 	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,207 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.cxf.converter.CxfConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/apache/cxf/message/MessageContentsList
+2015-05-13 17:40:19,898 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.cxf.converter.CxfConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/apache/cxf/message/MessageContentsList
 java.lang.NoClassDefFoundError: org/apache/cxf/message/MessageContentsList
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -607,7 +607,7 @@ java.lang.NoClassDefFoundError: org/apache/cxf/message/MessageContentsList
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -624,7 +624,7 @@ Caused by: java.lang.ClassNotFoundException: org.apache.cxf.message.MessageConte
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,210 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.jclouds.JcloudsPayloadConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/jclouds/io/Payload
+2015-05-13 17:40:19,906 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.jclouds.JcloudsPayloadConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/jclouds/io/Payload
 java.lang.NoClassDefFoundError: org/jclouds/io/Payload
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -646,7 +646,7 @@ java.lang.NoClassDefFoundError: org/jclouds/io/Payload
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -663,7 +663,7 @@ Caused by: java.lang.ClassNotFoundException: org.jclouds.io.Payload
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,212 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.mina2.Mina2Converter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/apache/mina/core/buffer/IoBuffer
+2015-05-13 17:40:19,908 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.mina2.Mina2Converter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/apache/mina/core/buffer/IoBuffer
 java.lang.NoClassDefFoundError: org/apache/mina/core/buffer/IoBuffer
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -685,7 +685,7 @@ java.lang.NoClassDefFoundError: org/apache/mina/core/buffer/IoBuffer
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -702,7 +702,7 @@ Caused by: java.lang.ClassNotFoundException: org.apache.mina.core.buffer.IoBuffe
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,216 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.mongodb.converters.MongoDbBasicConverters as a dependent class could not be found: java.lang.NoClassDefFoundError: com/mongodb/DBObject
+2015-05-13 17:40:19,911 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.mongodb.converters.MongoDbBasicConverters as a dependent class could not be found: java.lang.NoClassDefFoundError: com/mongodb/DBObject
 java.lang.NoClassDefFoundError: com/mongodb/DBObject
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -724,7 +724,7 @@ java.lang.NoClassDefFoundError: com/mongodb/DBObject
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -741,7 +741,7 @@ Caused by: java.lang.ClassNotFoundException: com.mongodb.DBObject
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,218 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.quickfixj.converter.QuickfixjConverters as a dependent class could not be found: java.lang.NoClassDefFoundError: quickfix/FieldNotFound
+2015-05-13 17:40:19,912 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.quickfixj.converter.QuickfixjConverters as a dependent class could not be found: java.lang.NoClassDefFoundError: quickfix/FieldNotFound
 java.lang.NoClassDefFoundError: quickfix/FieldNotFound
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -763,7 +763,7 @@ java.lang.NoClassDefFoundError: quickfix/FieldNotFound
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -780,7 +780,7 @@ Caused by: java.lang.ClassNotFoundException: quickfix.FieldNotFound
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,220 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.snmp.SnmpConverters as a dependent class could not be found: java.lang.NoClassDefFoundError: org/snmp4j/PDU
+2015-05-13 17:40:19,913 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.snmp.SnmpConverters as a dependent class could not be found: java.lang.NoClassDefFoundError: org/snmp4j/PDU
 java.lang.NoClassDefFoundError: org/snmp4j/PDU
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -802,7 +802,7 @@ java.lang.NoClassDefFoundError: org/snmp4j/PDU
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -819,7 +819,7 @@ Caused by: java.lang.ClassNotFoundException: org.snmp4j.PDU
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,221 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.scala.converter.ScalaTypeConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: scala/Symbol
+2015-05-13 17:40:19,915 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.scala.converter.ScalaTypeConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: scala/Symbol
 java.lang.NoClassDefFoundError: scala/Symbol
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -841,7 +841,7 @@ java.lang.NoClassDefFoundError: scala/Symbol
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -858,7 +858,7 @@ Caused by: java.lang.ClassNotFoundException: scala.Symbol
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,222 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.cache.CacheConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: net/sf/ehcache/store/MemoryStoreEvictionPolicy
+2015-05-13 17:40:19,916 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.cache.CacheConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: net/sf/ehcache/store/MemoryStoreEvictionPolicy
 java.lang.NoClassDefFoundError: net/sf/ehcache/store/MemoryStoreEvictionPolicy
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -880,7 +880,7 @@ java.lang.NoClassDefFoundError: net/sf/ehcache/store/MemoryStoreEvictionPolicy
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -897,7 +897,7 @@ Caused by: java.lang.ClassNotFoundException: net.sf.ehcache.store.MemoryStoreEvi
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,224 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.box.BoxConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: com/box/restclientv2/requestsbase/BoxFileUploadRequestObject
+2015-05-13 17:40:19,917 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.box.BoxConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: com/box/restclientv2/requestsbase/BoxFileUploadRequestObject
 java.lang.NoClassDefFoundError: com/box/restclientv2/requestsbase/BoxFileUploadRequestObject
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -919,7 +919,7 @@ java.lang.NoClassDefFoundError: com/box/restclientv2/requestsbase/BoxFileUploadR
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -936,9 +936,9 @@ Caused by: java.lang.ClassNotFoundException: com.box.restclientv2.requestsbase.B
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,260 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static byte[] org.apache.camel.converter.IOConverter.toByteArray(java.lang.String,org.apache.camel.Exchange) throws java.io.IOException to: StaticMethodTypeConverter: public static byte[] org.apache.camel.component.hbase.converter.HBaseModelConverter.stringToBytes(java.lang.String)
-2015-05-13 14:18:43,261 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static java.lang.String org.apache.camel.converter.IOConverter.toString(byte[],org.apache.camel.Exchange) throws java.io.IOException to: StaticMethodTypeConverter: public static java.lang.String org.apache.camel.component.hbase.converter.HBaseModelConverter.bytesToString(byte[])
-2015-05-13 14:18:43,262 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.groovy.converter.TypeConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: groovy/lang/GString
+2015-05-13 17:40:19,926 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static byte[] org.apache.camel.converter.IOConverter.toByteArray(java.lang.String,org.apache.camel.Exchange) throws java.io.IOException to: StaticMethodTypeConverter: public static byte[] org.apache.camel.component.hbase.converter.HBaseModelConverter.stringToBytes(java.lang.String)
+2015-05-13 17:40:19,926 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static java.lang.String org.apache.camel.converter.IOConverter.toString(byte[],org.apache.camel.Exchange) throws java.io.IOException to: StaticMethodTypeConverter: public static java.lang.String org.apache.camel.component.hbase.converter.HBaseModelConverter.bytesToString(byte[])
+2015-05-13 17:40:19,927 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.groovy.converter.TypeConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: groovy/lang/GString
 java.lang.NoClassDefFoundError: groovy/lang/GString
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -960,7 +960,7 @@ java.lang.NoClassDefFoundError: groovy/lang/GString
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -977,10 +977,10 @@ Caused by: java.lang.ClassNotFoundException: groovy.lang.GString
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,264 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static java.io.InputStream org.apache.camel.component.http4.HttpConverter.toInputStream(javax.servlet.http.HttpServletRequest,org.apache.camel.Exchange) throws java.io.IOException to: StaticMethodTypeConverter: public static java.io.InputStream org.apache.camel.component.http.HttpConverter.toInputStream(javax.servlet.http.HttpServletRequest,org.apache.camel.Exchange) throws java.io.IOException
-2015-05-13 14:18:43,264 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static javax.servlet.http.HttpServletRequest org.apache.camel.component.http4.HttpConverter.toServletRequest(org.apache.camel.Message) to: StaticMethodTypeConverter: public static javax.servlet.http.HttpServletRequest org.apache.camel.component.http.HttpConverter.toServletRequest(org.apache.camel.Message)
-2015-05-13 14:18:43,265 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static javax.servlet.http.HttpServletResponse org.apache.camel.component.http4.HttpConverter.toServletResponse(org.apache.camel.Message) to: StaticMethodTypeConverter: public static javax.servlet.http.HttpServletResponse org.apache.camel.component.http.HttpConverter.toServletResponse(org.apache.camel.Message)
-2015-05-13 14:18:43,266 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.netty.http.NettyHttpConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/jboss/netty/handler/codec/http/HttpResponse
+2015-05-13 17:40:19,928 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static java.io.InputStream org.apache.camel.component.http4.HttpConverter.toInputStream(javax.servlet.http.HttpServletRequest,org.apache.camel.Exchange) throws java.io.IOException to: StaticMethodTypeConverter: public static java.io.InputStream org.apache.camel.component.http.HttpConverter.toInputStream(javax.servlet.http.HttpServletRequest,org.apache.camel.Exchange) throws java.io.IOException
+2015-05-13 17:40:19,929 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static javax.servlet.http.HttpServletRequest org.apache.camel.component.http4.HttpConverter.toServletRequest(org.apache.camel.Message) to: StaticMethodTypeConverter: public static javax.servlet.http.HttpServletRequest org.apache.camel.component.http.HttpConverter.toServletRequest(org.apache.camel.Message)
+2015-05-13 17:40:19,929 [main           ] WARN  DefaultTypeConverter           - Overriding type converter from: StaticMethodTypeConverter: public static javax.servlet.http.HttpServletResponse org.apache.camel.component.http4.HttpConverter.toServletResponse(org.apache.camel.Message) to: StaticMethodTypeConverter: public static javax.servlet.http.HttpServletResponse org.apache.camel.component.http.HttpConverter.toServletResponse(org.apache.camel.Message)
+2015-05-13 17:40:19,930 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.netty.http.NettyHttpConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/jboss/netty/handler/codec/http/HttpResponse
 java.lang.NoClassDefFoundError: org/jboss/netty/handler/codec/http/HttpResponse
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1002,7 +1002,7 @@ java.lang.NoClassDefFoundError: org/jboss/netty/handler/codec/http/HttpResponse
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1019,7 +1019,7 @@ Caused by: java.lang.ClassNotFoundException: org.jboss.netty.handler.codec.http.
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,268 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.jcr.JcrConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: javax/jcr/Value
+2015-05-13 17:40:19,931 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.jcr.JcrConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: javax/jcr/Value
 java.lang.NoClassDefFoundError: javax/jcr/Value
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1041,7 +1041,7 @@ java.lang.NoClassDefFoundError: javax/jcr/Value
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1058,7 +1058,7 @@ Caused by: java.lang.ClassNotFoundException: javax.jcr.Value
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,269 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.spring.integration.converter.SpringIntegrationConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/springframework/integration/Message
+2015-05-13 17:40:19,932 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.spring.integration.converter.SpringIntegrationConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/springframework/integration/Message
 java.lang.NoClassDefFoundError: org/springframework/integration/Message
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1080,7 +1080,7 @@ java.lang.NoClassDefFoundError: org/springframework/integration/Message
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1097,7 +1097,7 @@ Caused by: java.lang.ClassNotFoundException: org.springframework.integration.Mes
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,270 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.scala.converter.ScalaImmutableCollections as a dependent class could not be found: java.lang.NoClassDefFoundError: scala/collection/Seq
+2015-05-13 17:40:19,933 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.scala.converter.ScalaImmutableCollections as a dependent class could not be found: java.lang.NoClassDefFoundError: scala/collection/Seq
 java.lang.NoClassDefFoundError: scala/collection/Seq
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1119,7 +1119,7 @@ java.lang.NoClassDefFoundError: scala/collection/Seq
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1136,7 +1136,7 @@ Caused by: java.lang.ClassNotFoundException: scala.collection.Seq
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,272 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.twitter.util.TwitterConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: twitter4j/Trends
+2015-05-13 17:40:19,953 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.twitter.util.TwitterConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: twitter4j/Trends
 java.lang.NoClassDefFoundError: twitter4j/Trends
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1158,7 +1158,7 @@ java.lang.NoClassDefFoundError: twitter4j/Trends
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1175,7 +1175,7 @@ Caused by: java.lang.ClassNotFoundException: twitter4j.Trends
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,273 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.hl7.HL7Converter as a dependent class could not be found: java.lang.NoClassDefFoundError: ca/uhn/hl7v2/HapiContext
+2015-05-13 17:40:19,954 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.hl7.HL7Converter as a dependent class could not be found: java.lang.NoClassDefFoundError: ca/uhn/hl7v2/HapiContext
 java.lang.NoClassDefFoundError: ca/uhn/hl7v2/HapiContext
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1197,7 +1197,7 @@ java.lang.NoClassDefFoundError: ca/uhn/hl7v2/HapiContext
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1214,7 +1214,7 @@ Caused by: java.lang.ClassNotFoundException: ca.uhn.hl7v2.HapiContext
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,275 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.scala.converter.ScalaOption as a dependent class could not be found: java.lang.NoClassDefFoundError: scala/collection/Seq
+2015-05-13 17:40:19,955 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.scala.converter.ScalaOption as a dependent class could not be found: java.lang.NoClassDefFoundError: scala/collection/Seq
 java.lang.NoClassDefFoundError: scala/collection/Seq
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1236,7 +1236,7 @@ java.lang.NoClassDefFoundError: scala/collection/Seq
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1253,7 +1253,7 @@ Caused by: java.lang.ClassNotFoundException: scala.collection.Seq
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,277 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.dns.types.DnsConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/xbill/DNS/Message
+2015-05-13 17:40:19,958 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.dns.types.DnsConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: org/xbill/DNS/Message
 java.lang.NoClassDefFoundError: org/xbill/DNS/Message
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1275,7 +1275,7 @@ java.lang.NoClassDefFoundError: org/xbill/DNS/Message
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1292,7 +1292,7 @@ Caused by: java.lang.ClassNotFoundException: org.xbill.DNS.Message
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,279 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.netty4.http.NettyHttpConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: io/netty/handler/codec/http/FullHttpResponse
+2015-05-13 17:40:19,959 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.netty4.http.NettyHttpConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: io/netty/handler/codec/http/FullHttpResponse
 java.lang.NoClassDefFoundError: io/netty/handler/codec/http/FullHttpResponse
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1314,7 +1314,7 @@ java.lang.NoClassDefFoundError: io/netty/handler/codec/http/FullHttpResponse
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1331,7 +1331,7 @@ Caused by: java.lang.ClassNotFoundException: io.netty.handler.codec.http.FullHtt
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,280 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.google.drive.GoogleDriveFilesConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: com/google/api/services/drive/model/File
+2015-05-13 17:40:19,960 [main           ] WARN  AnnotationTypeConverterLoader  - Ignoring converter type: org.apache.camel.component.google.drive.GoogleDriveFilesConverter as a dependent class could not be found: java.lang.NoClassDefFoundError: com/google/api/services/drive/model/File
 java.lang.NoClassDefFoundError: com/google/api/services/drive/model/File
 	at java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
@@ -1353,7 +1353,7 @@ java.lang.NoClassDefFoundError: com/google/api/services/drive/model/File
 	at org.apache.camel.support.ServiceSupport.start(ServiceSupport.java:61)
 	at org.apache.camel.impl.DefaultCamelContext.start(DefaultCamelContext.java:1735)
 	at aurora.plugin.esb.ESBConfigBuilder.start(ESBConfigBuilder.java:55)
-	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:71)
+	at aurora.plugin.esb.AuroraEsbServer.startup(AuroraEsbServer.java:72)
 	at uncertain.core.UncertainEngine.loadInstance(UncertainEngine.java:374)
 	at uncertain.core.UncertainEngine.access$0(UncertainEngine.java:368)
 	at uncertain.core.UncertainEngine$1.onInstanceCreate(UncertainEngine.java:675)
@@ -1370,23 +1370,21 @@ Caused by: java.lang.ClassNotFoundException: com.google.api.services.drive.model
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	... 31 more
-2015-05-13 14:18:43,298 [main           ] INFO  DefaultTypeConverter           - Loaded 238 type converters
-2015-05-13 14:18:43,663 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-05-13 14:18:43,664 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-05-13 14:18:44,110 [ActiveMQ Task-1] INFO  FailoverTransport              - Successfully connected to tcp://127.0.0.1:61616
-2015-05-13 14:18:44,126 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[test-jms://hungup]
-2015-05-13 14:18:44,131 [main           ] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
-2015-05-13 14:18:44,133 [main           ] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[direct://getData]
-2015-05-13 14:18:44,150 [ActiveMQ Task-1] INFO  FailoverTransport              - Successfully connected to tcp://127.0.0.1:61616
-2015-05-13 14:18:44,176 [main           ] INFO  DefaultCamelContext            - Route: route4 started and consuming from: Endpoint[test-jms://get_data_record]
-2015-05-13 14:18:44,184 [ActiveMQ Task-1] INFO  FailoverTransport              - Successfully connected to tcp://127.0.0.1:61616
-2015-05-13 14:18:44,214 [main           ] INFO  DefaultCamelContext            - Route: route5 started and consuming from: Endpoint[test-jms://send_data_record]
-2015-05-13 14:18:44,215 [main           ] INFO  DefaultCamelContext            - Route: route6 started and consuming from: Endpoint[direct://sendData]
-2015-05-13 14:18:44,215 [main           ] INFO  DefaultCamelContext            - Total 6 routes, of which 6 is started.
-2015-05-13 14:18:44,219 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.14.1 (CamelContext: camel-1) started in 1.870 seconds
-2015-05-13 14:18:44,274 [main           ] INFO  MLog                           - MLog clients using log4j logging.
-2015-05-13 14:18:44,392 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
-2015-05-13 14:18:56,954 [ActiveMQ Task-1] INFO  FailoverTransport              - Successfully connected to tcp://127.0.0.1:61616
-2015-05-13 14:18:57,091 [0.1:61616@54544] WARN  FailoverTransport              - Transport (tcp://127.0.0.1:61616) failed, reason:  java.io.EOFException, attempting to automatically reconnect
-2015-05-13 14:18:57,106 [ActiveMQ Task-2] INFO  FailoverTransport              - Successfully reconnected to tcp://127.0.0.1:61616
-2015-05-13 14:24:54,381 [ActiveMQ Task-1] INFO  FailoverTransport              - Successfully connected to tcp://127.0.0.1:61616
+2015-05-13 17:40:19,973 [main           ] INFO  DefaultTypeConverter           - Loaded 238 type converters
+2015-05-13 17:40:20,335 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-05-13 17:40:20,335 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-05-13 17:40:20,789 [ActiveMQ Task-1] INFO  FailoverTransport              - Successfully connected to tcp://127.0.0.1:61616
+2015-05-13 17:40:20,803 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[test-jms://hungup]
+2015-05-13 17:40:20,809 [main           ] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-05-13 17:40:20,810 [main           ] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[direct://getData]
+2015-05-13 17:40:20,814 [ActiveMQ Task-1] INFO  FailoverTransport              - Successfully connected to tcp://127.0.0.1:61616
+2015-05-13 17:40:20,836 [main           ] INFO  DefaultCamelContext            - Route: route4 started and consuming from: Endpoint[test-jms://get_data_record]
+2015-05-13 17:40:20,852 [ActiveMQ Task-1] INFO  FailoverTransport              - Successfully connected to tcp://127.0.0.1:61616
+2015-05-13 17:40:20,879 [main           ] INFO  DefaultCamelContext            - Route: route5 started and consuming from: Endpoint[test-jms://send_data_record]
+2015-05-13 17:40:20,881 [main           ] INFO  DefaultCamelContext            - Route: route6 started and consuming from: Endpoint[direct://sendData]
+2015-05-13 17:40:20,881 [main           ] INFO  DefaultCamelContext            - Total 6 routes, of which 6 is started.
+2015-05-13 17:40:20,885 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.14.1 (CamelContext: camel-1) started in 1.871 seconds
+2015-05-13 17:40:20,938 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-05-13 17:40:21,043 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-05-13 17:41:06,824 [ActiveMQ Task-1] INFO  FailoverTransport              - Successfully connected to tcp://127.0.0.1:61616
+2015-05-13 17:41:06,901 [0.1:61616@56127] WARN  FailoverTransport              - Transport (tcp://127.0.0.1:61616) failed, reason:  java.io.EOFException, not attempting to automatically reconnect

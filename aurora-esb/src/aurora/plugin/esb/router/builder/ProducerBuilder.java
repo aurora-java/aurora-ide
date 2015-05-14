@@ -19,7 +19,6 @@ import aurora.plugin.esb.ws.WSHelper;
 
 public class ProducerBuilder {
 
-	
 
 	private ConsoleLog clog = new ConsoleLog();
 	private RouteBuilder rb;
