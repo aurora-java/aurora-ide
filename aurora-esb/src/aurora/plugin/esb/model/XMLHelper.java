@@ -55,12 +55,16 @@ public class XMLHelper {
 
 	static private TO toTo(CompositeMap map) {
 		TO t = new TO();
+		if (map == null)
+			return t;
 		if ("to".equals(map.getName())) {
 			t.setName(map.getString("name", ""));
 			t.setEndpoint(map.getString("endpoint", ""));
 			t.setUserName(map.getString("username", ""));
 			t.setPsd(map.getString("password", ""));
-			t.setParaText(map.getChild("para").getText());
+			CompositeMap child = map.getChild("para");
+			if (child != null)
+				t.setParaText(child.getText());
 			t.setExchangeID(map.getString("exchangeid", ""));
 		}
 
@@ -70,13 +74,17 @@ public class XMLHelper {
 	static private From toFrom(CompositeMap map) {
 
 		From f = new From();
+		if (map == null)
+			return f;
 		if ("from".equals(map.getName())) {
 			f.setName(map.getString("name", ""));
 			f.setEndpoint(map.getString("endpoint", ""));
 			f.setUserName(map.getString("username", ""));
 			f.setPsd(map.getString("password", ""));
 			f.setFeedbackPoint(map.getString("feedbackpoint", ""));
-			f.setParaText(map.getChild("para").getText());
+			CompositeMap child = map.getChild("para");
+			if (child != null)
+				f.setParaText(child.getText());
 			f.setExchangeID(map.getString("exchangeid", ""));
 		}
 		return f;
@@ -113,9 +121,11 @@ public class XMLHelper {
 
 	public static CompositeMap toCompositeMap(Router router) {
 		CompositeMap map = new CompositeMap("router");
-		map.put("name", router.getName());
-		map.addChild(toCompositeMap(router.getFrom()));
-		map.addChild(toCompositeMap(router.getTo()));
+		if (router != null) {
+			map.put("name", router.getName());
+			map.addChild(toCompositeMap(router.getFrom()));
+			map.addChild(toCompositeMap(router.getTo()));
+		}
 		// String name = router.getName();
 		// From from = router.getFrom();
 		// TO to = router.getTo();
@@ -129,7 +139,8 @@ public class XMLHelper {
 
 	private static CompositeMap toCompositeMap(From from) {
 		CompositeMap map = new CompositeMap("from");
-
+		if (from == null)
+			return map;
 		map.put("endpoint", from.getEndpoint());
 		map.put("feedbackpoint", from.getFeedbackPoint());
 		map.put("name", from.getName());
@@ -153,6 +164,8 @@ public class XMLHelper {
 
 	private static CompositeMap toCompositeMap(TO to) {
 		CompositeMap map = new CompositeMap("to");
+		if (to == null)
+			return map;
 		// to.getEndpoint();
 		// to.getName();
 		// to.getParaText();

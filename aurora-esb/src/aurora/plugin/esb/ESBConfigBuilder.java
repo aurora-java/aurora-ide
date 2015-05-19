@@ -29,6 +29,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 
 import aurora.plugin.esb.console.Console;
 import aurora.plugin.esb.model.DirectConfig;
+import aurora.plugin.esb.router.builder.MsgBuilder;
 import aurora.plugin.esb.task.TaskManager;
 
 public final class ESBConfigBuilder {
@@ -72,8 +73,8 @@ public final class ESBConfigBuilder {
 						new Console(esbContext),"run");
 			}
 		});
-
-		configRouters(context);
+		context.addRoutes(new MsgBuilder(esbContext));
+//		configRouters(context);
 		// testRouter(context);
 	}
 

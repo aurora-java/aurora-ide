@@ -47,21 +47,21 @@ public class MonitorDirectRouteBuilder extends RouteBuilder {
 		mmb.createBuilder();
 	}
 
-	private void producerBuilder() {
-		ProducerBuilder pb = new ProducerBuilder(this,esbContext,r,config);
-		pb.createBuilder();
-	}
+//	private void producerBuilder() {
+//		ProducerBuilder pb = new ProducerBuilder(this,esbContext,r,config);
+//		pb.createBuilder();
+//	}
 
-	private void consumerBuilder() {
-		ConsumerBuilder cb = new ConsumerBuilder(this, esbContext, r, config);
-		cb.createBuilder();
-	}
+//	private void consumerBuilder() {
+//		ConsumerBuilder cb = new ConsumerBuilder(this, esbContext, r, config);
+//		cb.createBuilder();
+//	}
 
 	@Override
 	public void configure() throws Exception {
-		producerBuilder();
+//		producerBuilder();
 		msgBuilder();
-		consumerBuilder();
+//		consumerBuilder();
 	}
 
 }

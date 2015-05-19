@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import uncertain.core.ILifeCycle;
 import uncertain.core.UncertainEngine;
@@ -21,6 +19,8 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 	private static final String packageName = "aurora.plugin.esb";
 	private String workPath = null;
 	private String routers = "";
+	private String producer = "";
+	private String consumer = "";
 	private UncertainEngine uncertainEngine;
 	private IObjectRegistry registry;
 	private AuroraEsbContext esbContext = new AuroraEsbContext();
@@ -47,9 +47,24 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		System.out.println(config);
 		esbContext.setWorkPath(workPath);
 
-		String routers = this.getRouters();
-		String[] split = routers.split(",");
+		loadProducer(config);
 		
+		loadConsumer(config);
+		
+		
+		ESBConfigBuilder runner = new ESBConfigBuilder(esbContext);
+		try {
+			runner.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	private void loadConsumer(File config) {
+		String routers = this.getConsumer();
+		String[] split = routers.split(",");
+
 		for (String ts : split) {
 			File tf = new File(config, ts);
 			FileInputStream fis;
@@ -60,20 +75,36 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 				DirectConfig dc = new DirectConfig();
 				dc.setName(task.getName());
 				dc.setRouter(task.getRouter());
-				esbContext.addTaskConfig(dc);
+				esbContext.addConsumer(dc);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		ESBConfigBuilder runner = new ESBConfigBuilder(esbContext);
-		try {
-			runner.start();
-		} catch (Exception e) {
-			e.printStackTrace();
+	}
+
+	public void loadProducer(File config) {
+		String routers = this.getProducer();
+		String[] split = routers.split(",");
+
+		for (String ts : split) {
+			File tf = new File(config, ts);
+			FileInputStream fis;
+			try {
+				fis = new FileInputStream(tf);
+				String inputStream2String = XMLHelper.inputStream2String(fis);
+				Task task = XMLHelper.toTask(inputStream2String);
+				DirectConfig dc = new DirectConfig();
+				dc.setName(task.getName());
+				dc.setRouter(task.getRouter());
+				esbContext.addProducer(dc);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		return true;
 	}
 
 	@Override
@@ -87,6 +118,22 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 
 	public void setRouters(String routers) {
 		this.routers = routers;
+	}
+
+	public String getProducer() {
+		return producer;
+	}
+
+	public void setProducer(String producer) {
+		this.producer = producer;
+	}
+
+	public String getConsumer() {
+		return consumer;
+	}
+
+	public void setConsumer(String consumer) {
+		this.consumer = consumer;
 	}
 
 }

@@ -33,6 +33,17 @@ public class TaskManager {
 		s.save(createTask);
 		return createTask;
 	}
+	
+	public Task createTask(String name) {
+		// timer task
+		// direct task
+		Task createTask = new Task();
+		createTask.setName(name);
+//		createTask.setRouter(config.getRouter());
+		TaskStore s = new TaskStore(workPath);
+		s.save(createTask);
+		return createTask;
+	}
 
 	public void configDirectRouter(DirectConfig config) {
 		// Task createTask = Demo.createTask();

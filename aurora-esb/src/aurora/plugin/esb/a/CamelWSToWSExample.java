@@ -74,7 +74,7 @@ public final class CamelWSToWSExample {
 			@Override
 			public void configure() throws Exception {
 				
-				from("stream:in?promptMessage=Enter something: ").bean(new Console(context));
+//				from("stream:in?promptMessage=Enter something: ").bean(new Console(context));
 //				.transform()
 //						.simple("${body.toUpperCase()}");
 				
@@ -107,8 +107,8 @@ public final class CamelWSToWSExample {
 	}
 
 	public static void testRouter(CamelContext context) throws Exception {
-		TaskManager m = new TaskManager(context);
-		m.configDirectRouter(Demo.createDirectConfig());
+//		TaskManager m = new TaskManager(context);
+//		m.configDirectRouter(Demo.createDirectConfig());
 		// Demo.createTask()
 		// Task task = m.createTask(Demo.createDirectConfig());
 //		m.directStartTask(Demo.createTask());
