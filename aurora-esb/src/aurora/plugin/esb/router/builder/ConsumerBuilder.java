@@ -1,5 +1,6 @@
 package aurora.plugin.esb.router.builder;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.camel.Exchange;
@@ -10,6 +11,7 @@ import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.AMQMsg;
 import aurora.plugin.esb.model.Consumer;
+import aurora.plugin.esb.model.ConsumerTask;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.Router;
 import aurora.plugin.esb.model.TO;
@@ -68,33 +70,14 @@ public class ConsumerBuilder extends RouteBuilder {
 								.createHeaderOptions(to.getUserName(),
 										to.getPsd());
 
-						// String task_id = (String) exchange.getIn().getHeader(
-						// "task_id");
-						// String task_name = (String)
-						// exchange.getIn().getHeader(
-						// "task_name");
-						// paras.put("task_id", task_id);
-						// paras.put("task_name", task_name);
-
-						
-						// Task task = updateTaskStatus(exchange,
-						// TaskStatus.INVOKE_CLIENT_POINT);
-						// task.getRouter().getTo()
-						// .setExchangeID(exchange.getExchangeId());
-						// tm.updateTask(task);
 
 						TaskManager tm = new TaskManager(esbContext);
-						// TaskManager tm = new TaskManager(esbContext);
-						Task t = tm.createTask(consumer.getName());
-						Router router = new Router();
-						router.setName(consumer.getName());
-						router.setTo(consumer.getTo());
-						// router.setFrom(producer.getFrom());
-						t.setRouter(router);
-						t.getRouter().getTo()
-								.setExchangeID(exchange.getExchangeId());
-
-						tm.updateTask(t);
+						ConsumerTask t = tm.createTask(consumer);
+					
+						t.setStartTime(new Date().getTime());
+						t.getTo().setExchangeID(exchange.getExchangeId());
+						tm.saveTask(t);
+//						tm.updateTask(t);
 						paras.put("task_id", t.getId());
 						paras.put("task_name", t.getName());
 						exchange.getIn().setHeader("task_id", t.getId());
@@ -138,8 +121,16 @@ public class ConsumerBuilder extends RouteBuilder {
 					@Override
 					public void process(Exchange exchange) throws Exception {
 						Thread.sleep(1000);
-						Task task = updateTaskStatus(exchange,
-								TaskStatus.FINISH);
+						String task_id = (String) exchange.getIn().getHeader(
+								"task_id");
+						String task_name = (String) exchange.getIn().getHeader(
+								"task_name");
+						TaskManager tm = new TaskManager(esbContext);
+						Task task = tm.loadTask(task_id, task_name);
+						task.setEndTime(new Date().getTime());
+						task.setStatus(TaskStatus.FINISH);
+						tm.updateTask(task);
+
 						clog.log2Console(exchange, TaskStatus.FINISH);
 					}
 				});

@@ -11,7 +11,7 @@ public class Demo {
 		Task t = new Task();
 		t.setId("task_id");
 		t.setName("task_name");
-		t.setRouter(createRouter());
+//		t.setRouter(createRouter());
 		return t;
 	}
 	public static DirectConfig createDirectConfig(){

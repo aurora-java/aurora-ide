@@ -4,14 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import uncertain.core.ILifeCycle;
 import uncertain.core.UncertainEngine;
 import uncertain.ocm.AbstractLocatableObject;
 import uncertain.ocm.IObjectRegistry;
 import aurora.plugin.esb.model.DirectConfig;
-import aurora.plugin.esb.model.Task;
-import aurora.plugin.esb.model.XMLHelper;
+import aurora.plugin.esb.model.xml.XMLHelper;
 
 public class AuroraEsbServer extends AbstractLocatableObject implements
 		ILifeCycle {
@@ -48,10 +49,9 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		esbContext.setWorkPath(workPath);
 
 		loadProducer(config);
-		
+
 		loadConsumer(config);
-		
-		
+
 		ESBConfigBuilder runner = new ESBConfigBuilder(esbContext);
 		try {
 			runner.start();
@@ -62,48 +62,45 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 	}
 
 	private void loadConsumer(File config) {
-		String routers = this.getConsumer();
-		String[] split = routers.split(",");
+		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
+				this.getConsumer());
+		for (DirectConfig directConfig : loadDirectConfig) {
+			esbContext.addConsumer(directConfig);
+			
+		}
+	}
 
+	private List<DirectConfig> loadDirectConfig(File config, String routers) {
+		String[] split = routers.split(",");
+		List<DirectConfig> dcs = new ArrayList<DirectConfig>();
 		for (String ts : split) {
 			File tf = new File(config, ts);
 			FileInputStream fis;
 			try {
 				fis = new FileInputStream(tf);
 				String inputStream2String = XMLHelper.inputStream2String(fis);
-				Task task = XMLHelper.toTask(inputStream2String);
-				DirectConfig dc = new DirectConfig();
-				dc.setName(task.getName());
-				dc.setRouter(task.getRouter());
-				esbContext.addConsumer(dc);
+				// DirectConfig task =
+				// XMLHelper.toDirectConfig(inputStream2String);
+				DirectConfig dc = XMLHelper.toDirectConfig(inputStream2String);
+				// dc.setName(task.getName());
+				// dc.setRouter(task.getRouter());
+				dcs.add(dc);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		return dcs;
 	}
 
 	public void loadProducer(File config) {
-		String routers = this.getProducer();
-		String[] split = routers.split(",");
-
-		for (String ts : split) {
-			File tf = new File(config, ts);
-			FileInputStream fis;
-			try {
-				fis = new FileInputStream(tf);
-				String inputStream2String = XMLHelper.inputStream2String(fis);
-				Task task = XMLHelper.toTask(inputStream2String);
-				DirectConfig dc = new DirectConfig();
-				dc.setName(task.getName());
-				dc.setRouter(task.getRouter());
-				esbContext.addProducer(dc);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		
+		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
+				this.getProducer());
+		for (DirectConfig directConfig : loadDirectConfig) {
+			esbContext.addProducer(directConfig);
+			
 		}
 	}
 

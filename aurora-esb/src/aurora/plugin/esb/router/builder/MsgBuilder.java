@@ -15,6 +15,7 @@ import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.From;
 import aurora.plugin.esb.model.ProducerConsumer;
+import aurora.plugin.esb.model.ProducerTask;
 import aurora.plugin.esb.model.Router;
 import aurora.plugin.esb.model.TO;
 import aurora.plugin.esb.model.Task;
@@ -149,8 +150,8 @@ public class MsgBuilder extends RouteBuilder {
 						for (Consumer consumer : consumers) {
 							TO to2 = consumer.getTo();
 							directStartTask(to2.getName(), WSHelper.loadPara(
-									esbContext.getWorkPath(), task, task
-											.getRouter().getFrom()));
+									esbContext.getWorkPath(), task,
+									((ProducerTask) task).getFrom()));
 						}
 					}
 				}

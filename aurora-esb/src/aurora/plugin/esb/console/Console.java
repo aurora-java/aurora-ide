@@ -23,6 +23,10 @@ public class Console {
 	final private static String test = "test";
 
 	final private static String list = "list";
+	
+	final private static String watch = "watch ";
+	final private static String redo = "redo ";
+	final private static String stop = "stop ";
 
 	public Console(AuroraEsbContext esbContext) {
 		this.esbContext = esbContext;

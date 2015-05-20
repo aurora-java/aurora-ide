@@ -1,5 +1,6 @@
 package aurora.plugin.esb.router.builder;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.camel.Exchange;
@@ -11,6 +12,7 @@ import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.AMQMsg;
 import aurora.plugin.esb.model.From;
 import aurora.plugin.esb.model.Producer;
+import aurora.plugin.esb.model.ProducerTask;
 import aurora.plugin.esb.model.Router;
 import aurora.plugin.esb.model.Task;
 import aurora.plugin.esb.model.TaskStatus;
@@ -32,7 +34,6 @@ public class ProducerBuilder extends RouteBuilder {
 		this.producer = producer;
 		// this.config = config;
 	}
-
 
 	private Task updateTaskStatus(Exchange exchange, String status) {
 		String task_id = (String) exchange.getIn().getHeader("task_id");
@@ -62,15 +63,15 @@ public class ProducerBuilder extends RouteBuilder {
 								.createHeaderOptions(from.getUserName(),
 										from.getPsd());
 						TaskManager tm = new TaskManager(esbContext);
-						Task t = tm.createTask(producer.getName());
-						Router router = new Router();
-						router.setName(producer.getName());
-						router.setFrom(producer.getFrom());
-						t.setRouter(router);
-						t.getRouter().getFrom()
-								.setExchangeID(arg0.getExchangeId());
-
-						tm.updateTask(t);
+						ProducerTask t = tm.createTask(producer);
+						// Router router = new Router();
+						// router.setName(producer.getName());
+						// router.setFrom(producer.getFrom());
+						// t.setRouter(router);
+						t.setStartTime(new Date().getTime());
+						t.getFrom().setExchangeID(arg0.getExchangeId());
+						tm.saveTask(t);
+//						tm.updateTask(t);
 						paras.put("task_id", t.getId());
 						paras.put("task_name", t.getName());
 						arg0.getOut().setHeaders(paras);
@@ -94,22 +95,37 @@ public class ProducerBuilder extends RouteBuilder {
 								TaskStatus.SERVER_DATA_LOADED);
 					}
 				})
-				.to("file:" + esbContext.getWorkPath() + producer.getName() + "/"
-						+ from.getName()).process(new Processor() {
+				.to("file:" + esbContext.getWorkPath() + producer.getName()
+						+ "/" + from.getName()).process(new Processor() {
 
 					@Override
 					public void process(Exchange exchange) throws Exception {
 
 						keepTaskAlive(exchange);
+						
 						Task task = updateTaskStatus(exchange,
 								TaskStatus.SERVER_WORK_FINISH);
-
+						task.setEndTime(new Date().getTime());
+						TaskManager tm = new TaskManager(esbContext);
+						tm.updateTask(task);
+						
 						AMQMsg msg = new AMQMsg();
 						msg.setTask(task);
 						exchange.getOut().setBody(AMQMsg.toXML(msg));
 						clog.log2Console(exchange,
 								TaskStatus.SERVER_WORK_FINISH);
 					}
-				}).to("test-jms:get_data_record");
+				}).to("test-jms:get_data_record").process(new Processor() {
+					
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						String task_id = (String) exchange.getIn().getHeader("task_id");
+						String task_name = (String) exchange.getIn().getHeader("task_name");
+						TaskManager tm = new TaskManager(esbContext);
+						Task task = tm.loadTask(task_id, task_name);
+						task.setEndTime(new Date().getTime());
+						tm.updateTask(task);
+					}
+				});
 	}
 }

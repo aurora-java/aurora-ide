@@ -11,7 +11,7 @@ import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
 import uncertain.composite.XMLOutputter;
 import aurora.plugin.esb.model.Task;
-import aurora.plugin.esb.model.XMLHelper;
+import aurora.plugin.esb.model.xml.XMLHelper;
 
 
 public class TaskStore {

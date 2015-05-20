@@ -4,29 +4,29 @@ public class Task {
 
 	private String id = Integer.toHexString(hashCode());;
 	private String name;
-	private Router router;
+//	private Router router;
 
-	public int getStartTime() {
+	public long getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(int startTime) {
+	public void setStartTime(long startTime) {
 		this.startTime = startTime;
 	}
 
-	public int getEndTime() {
+	public long getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(int endTime) {
+	public void setEndTime(long endTime) {
 		this.endTime = endTime;
 	}
 
-	public int getFeedbackTime() {
+	public long getFeedbackTime() {
 		return feedbackTime;
 	}
 
-	public void setFeedbackTime(int feedbackTime) {
+	public void setFeedbackTime(long feedbackTime) {
 		this.feedbackTime = feedbackTime;
 	}
 
@@ -38,9 +38,9 @@ public class Task {
 		this.status = status;
 	}
 
-	private int startTime;
-	private int endTime;
-	private int feedbackTime;
+	private long startTime;
+	private long endTime;
+	private long feedbackTime;
 	private String status = TaskStatus.STARTING;
 
 	public String getId() {
@@ -59,12 +59,12 @@ public class Task {
 		this.name = name;
 	}
 
-	public Router getRouter() {
-		return router;
-	}
-
-	public void setRouter(Router router) {
-		this.router = router;
-	}
+//	public Router getRouter() {
+//		return router;
+//	}
+//
+//	public void setRouter(Router router) {
+//		this.router = router;
+//	}
 
 }

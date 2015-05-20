@@ -1,5 +1,7 @@
 package aurora.plugin.esb.model;
 
+import aurora.plugin.esb.model.xml.XMLHelper;
+
 public class AMQMsg {
 
 	private Task task;
@@ -13,7 +15,8 @@ public class AMQMsg {
 	}
 
 	static public String toXML(AMQMsg msg) {
-		return XMLHelper.toXML(msg.getTask());
+		return XMLHelper.toCompositeMap(msg.getTask()).toXML();
+		// return XMLHelper.toXML(msg.getTask());
 	}
 
 	static public AMQMsg toObject(String xml) {

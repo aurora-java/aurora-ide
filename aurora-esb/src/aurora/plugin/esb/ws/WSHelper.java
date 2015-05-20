@@ -12,7 +12,7 @@ import org.apache.axis2.util.Base64;
 import aurora.plugin.esb.model.From;
 import aurora.plugin.esb.model.TO;
 import aurora.plugin.esb.model.Task;
-import aurora.plugin.esb.model.XMLHelper;
+import aurora.plugin.esb.model.xml.XMLHelper;
 
 public class WSHelper {
 	public static Map<String, Object> createHeaderOptions(String userName, String psd) {
@@ -55,7 +55,7 @@ public class WSHelper {
 		String fileid = exchangeID.substring(0, lastIndexOf)
 				+ (Integer.valueOf(e) - 1);
 
-		File file = new File(workPath  + task.getRouter().getName() + "/"
+		File file = new File(workPath  + task.getName() + "/"
 				+ name, fileid);
 		// from.getExchangeID()
 		FileInputStream fis = new FileInputStream(file);

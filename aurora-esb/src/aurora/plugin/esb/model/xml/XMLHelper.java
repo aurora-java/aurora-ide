@@ -1,4 +1,4 @@
-package aurora.plugin.esb.model;
+package aurora.plugin.esb.model.xml;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,13 @@ import java.io.InputStreamReader;
 
 import org.xml.sax.SAXException;
 
+import aurora.plugin.esb.model.ConsumerTask;
+import aurora.plugin.esb.model.DirectConfig;
+import aurora.plugin.esb.model.From;
+import aurora.plugin.esb.model.ProducerTask;
+import aurora.plugin.esb.model.Router;
+import aurora.plugin.esb.model.TO;
+import aurora.plugin.esb.model.Task;
 import uncertain.composite.CompositeLoader;
 import uncertain.composite.CompositeMap;
 
@@ -27,23 +34,23 @@ public class XMLHelper {
 		return map;
 	}
 
-	static public Task toTask(String xml) {
+	static public DirectConfig toDirectConfig(String xml) {
 		CompositeMap map = toMap(xml);
-		return toTask(map);
+		return toDirectConfig(map);
 	}
 
-	static public Task toTask(CompositeMap map) {
-		Task t = new Task();
+	static public DirectConfig toDirectConfig(CompositeMap map) {
+		DirectConfig t = new DirectConfig();
 		if ("task".equals(map.getName())) {
-			t.setId(map.getString("id", ""));
+			// t.setId(map.getString("id", ""));
 			t.setName(map.getString("name", ""));
-			t.setStatus(map.getString("status", ""));
+			// t.setStatus(map.getString("status", ""));
 			t.setRouter(toRouter(map.getChild("router")));
 		}
 		return t;
 	}
 
-	static private Router toRouter(CompositeMap map) {
+	static public Router toRouter(CompositeMap map) {
 		Router r = new Router();
 		if ("router".equals(map.getName())) {
 			r.setName(map.getString("name", ""));
@@ -53,7 +60,7 @@ public class XMLHelper {
 		return r;
 	}
 
-	static private TO toTo(CompositeMap map) {
+	static public TO toTo(CompositeMap map) {
 		TO t = new TO();
 		if (map == null)
 			return t;
@@ -71,7 +78,7 @@ public class XMLHelper {
 		return t;
 	}
 
-	static private From toFrom(CompositeMap map) {
+	static public From toFrom(CompositeMap map) {
 
 		From f = new From();
 		if (map == null)
@@ -90,29 +97,29 @@ public class XMLHelper {
 		return f;
 	}
 
-	static public String toXML(Task task) {
-		CompositeMap map = toCompositeMap(task);
-		// task.getId();
-		// task.getName();
-		// task.getRouter();
+	// static public String toXML(Task task) {
+	// CompositeMap map = toCompositeMap(task);
+	// // task.getId();
+	// // task.getName();
+	// // task.getRouter();
+	//
+	// return map.toXML();
+	// }
 
-		return map.toXML();
-	}
-
-	public static CompositeMap toCompositeMap(Task task) {
-		CompositeMap map = new CompositeMap("task");
-
-		map.put("id", task.getId());
-		map.put("name", task.getName());
-
-		// task.getStartTime();
-		// task.getEndTime();
-		// task.getFeedbackTime();
-		// task.getStatus();
-		map.put("status", task.getStatus());
-		map.addChild(toCompositeMap(task.getRouter()));
-		return map;
-	}
+	// public static CompositeMap toCompositeMap(Task task) {
+	// CompositeMap map = new CompositeMap("task");
+	//
+	// map.put("id", task.getId());
+	// map.put("name", task.getName());
+	//
+	// // task.getStartTime();
+	// // task.getEndTime();
+	// // task.getFeedbackTime();
+	// // task.getStatus();
+	// map.put("status", task.getStatus());
+	// map.addChild(toCompositeMap(task.getRouter()));
+	// return map;
+	// }
 
 	static public String toXML(Router router) {
 		CompositeMap map = toCompositeMap(router);
@@ -137,7 +144,7 @@ public class XMLHelper {
 		return map.toXML();
 	}
 
-	private static CompositeMap toCompositeMap(From from) {
+	public static CompositeMap toCompositeMap(From from) {
 		CompositeMap map = new CompositeMap("from");
 		if (from == null)
 			return map;
@@ -162,7 +169,7 @@ public class XMLHelper {
 		return map.toXML();
 	}
 
-	private static CompositeMap toCompositeMap(TO to) {
+	public static CompositeMap toCompositeMap(TO to) {
 		CompositeMap map = new CompositeMap("to");
 		if (to == null)
 			return map;
@@ -188,5 +195,39 @@ public class XMLHelper {
 			buffer.append(line);
 		}
 		return buffer.toString();
+	}
+
+	public static CompositeMap toCompositeMap(Task task) {
+		if (task instanceof ProducerTask) {
+			ProducerTaskXML xml = new ProducerTaskXML((ProducerTask) task);
+			return xml.toCompositeMap();
+		}
+		if (task instanceof ConsumerTask) {
+			ConsumerTaskXML xml = new ConsumerTaskXML((ConsumerTask) task);
+			return xml.toCompositeMap();
+		}
+
+		return new CompositeMap();
+	}
+
+	public static Task toTask(CompositeMap map) {
+		if ("consumer_task".equals(map.getName())) {
+			ConsumerTaskXML xml = new ConsumerTaskXML(map);
+			return (Task) xml.toObject();
+		}
+		if ("producer_task".equals(map.getName())) {
+			ProducerTaskXML xml = new ProducerTaskXML(map);
+			return (Task) xml.toObject();
+		}
+		return null;
+	}
+
+	public static Router toRouter(String xml) {
+		CompositeMap map = toMap(xml);
+		return toRouter(map);
+	}
+
+	public static Task toTask(String xml) {
+		return toTask(toMap(xml));
 	}
 }
