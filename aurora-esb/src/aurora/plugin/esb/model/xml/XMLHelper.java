@@ -44,6 +44,7 @@ public class XMLHelper {
 		if ("task".equals(map.getName())) {
 			// t.setId(map.getString("id", ""));
 			t.setName(map.getString("name", ""));
+			t.setType(map.getString("type", ""));
 			// t.setStatus(map.getString("status", ""));
 			t.setRouter(toRouter(map.getChild("router")));
 		}

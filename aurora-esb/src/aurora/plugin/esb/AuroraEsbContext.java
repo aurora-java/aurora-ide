@@ -5,17 +5,21 @@ import java.util.List;
 
 import org.apache.camel.impl.DefaultCamelContext;
 
+import aurora.plugin.esb.config.DataStore;
 import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.Producer;
 import aurora.plugin.esb.model.ProducerConsumer;
-import aurora.plugin.esb.router.builder.ConsumerBuilder;
-import aurora.plugin.esb.router.builder.ProducerBuilder;
+import aurora.plugin.esb.router.builder.consumer.ConsumerBuilder;
+//import aurora.plugin.esb.router.builder.ConsumerBuilder;
+import aurora.plugin.esb.router.builder.producer.ProducerBuilder;
 
 public class AuroraEsbContext {
 	private AuroraEsbServer server;
 	private List<DirectConfig> task_configs = new ArrayList<DirectConfig>();
 	private DefaultCamelContext context;
+	
+	private DataStore ds;
 
 	private List<Producer> producers = new ArrayList<Producer>();
 
@@ -90,6 +94,7 @@ public class AuroraEsbContext {
 	public void addProducer(DirectConfig dc) {
 		Producer pro = new Producer();
 		pro.setName(dc.getName());
+		pro.setType(dc.getType());
 		pro.setFrom(dc.getRouter().getFrom());
 		this.addProducer(pro);
 	}
@@ -97,6 +102,7 @@ public class AuroraEsbContext {
 	public void addConsumer(DirectConfig dc) {
 		Consumer co = new Consumer();
 		co.setName(dc.getName());
+		co.setType(dc.getType());
 		co.setTo(dc.getRouter().getTo());
 		this.addConsumer(co);
 	}
@@ -159,6 +165,14 @@ public class AuroraEsbContext {
 		pc.setProducer(producer);
 		this.getProducerConsumer().add(pc);
 		this.context.addRoutes(new ProducerBuilder(this, producer));
+	}
+
+	public DataStore getDataStore() {
+		return ds;
+	}
+
+	public void setDataStore(DataStore ds) {
+		this.ds = ds;
 	}
 
 }

@@ -2,6 +2,7 @@ package aurora.plugin.esb.model;
 
 public class DirectConfig {
 	private String name;
+	private String type;
 	private Router router;
 	public String getName() {
 		return name;
@@ -14,6 +15,12 @@ public class DirectConfig {
 	}
 	public void setRouter(Router router) {
 		this.router = router;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 
 import aurora.plugin.esb.AuroraEsbContext;
+import aurora.plugin.esb.config.DataStore;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.AMQMsg;
 import aurora.plugin.esb.model.Consumer;
@@ -149,13 +150,19 @@ public class MsgBuilder extends RouteBuilder {
 						List<Consumer> consumers = pc.getConsumers();
 						for (Consumer consumer : consumers) {
 							TO to2 = consumer.getTo();
-							directStartTask(to2.getName(), WSHelper.loadPara(
-									esbContext.getWorkPath(), task,
-									((ProducerTask) task).getFrom()));
+							directStartTask(to2.getName(),
+									loadData((ProducerTask) task));
 						}
 					}
 				}
 
+			}
+
+			public String loadData(ProducerTask task) {
+
+				return esbContext.getDataStore().loadData(esbContext, task);
+				// return WSHelper.loadPara(esbContext.getWorkPath(), task,
+				// ((ProducerTask) task).getFrom());
 			}
 
 		});

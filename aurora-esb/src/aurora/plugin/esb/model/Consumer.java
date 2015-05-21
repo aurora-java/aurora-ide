@@ -4,6 +4,7 @@ public class Consumer {
 
 	private String name;
 	private TO to;
+	private String type;
 	
 	private Producer producer;
 	public TO getTo() {
@@ -23,5 +24,11 @@ public class Consumer {
 	}
 	public void setProducer(Producer producer) {
 		this.producer = producer;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Producer {
 	private String name;
+	private String type;
 	private From from;
 
 	private List<Consumer> consumers = new ArrayList<Consumer>();
@@ -37,5 +38,13 @@ public class Producer {
 	public void removeConsumer(Consumer consumer) {
 //		consumer.setProducer(null);
 		this.consumers.remove(consumer);
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

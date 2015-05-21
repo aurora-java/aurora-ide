@@ -19,7 +19,7 @@ import aurora.plugin.esb.model.TaskStatus;
 import aurora.plugin.esb.task.TaskManager;
 import aurora.plugin.esb.ws.WSHelper;
 
-public class ProducerBuilder extends RouteBuilder {
+public class _ProducerBuilder extends RouteBuilder {
 
 	private ConsoleLog clog = new ConsoleLog();
 	private AuroraEsbContext esbContext;
@@ -28,7 +28,7 @@ public class ProducerBuilder extends RouteBuilder {
 	// private Router r;
 	// private DirectConfig config;
 
-	public ProducerBuilder(AuroraEsbContext esbContext, Producer producer) {
+	public _ProducerBuilder(AuroraEsbContext esbContext, Producer producer) {
 		this.esbContext = esbContext;
 		// this.r = r;
 		this.producer = producer;

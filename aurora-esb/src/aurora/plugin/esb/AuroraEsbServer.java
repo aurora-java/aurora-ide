@@ -11,6 +11,7 @@ import uncertain.core.ILifeCycle;
 import uncertain.core.UncertainEngine;
 import uncertain.ocm.AbstractLocatableObject;
 import uncertain.ocm.IObjectRegistry;
+import aurora.plugin.esb.config.FileDataStore;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.xml.XMLHelper;
 
@@ -46,7 +47,9 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		File configDirectory = uncertainEngine.getConfigDirectory();
 		File config = new File(configDirectory, packageName);
 		System.out.println(config);
+		//config
 		esbContext.setWorkPath(workPath);
+		esbContext.setDataStore(new FileDataStore());
 
 		loadProducer(config);
 
@@ -66,7 +69,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 				this.getConsumer());
 		for (DirectConfig directConfig : loadDirectConfig) {
 			esbContext.addConsumer(directConfig);
-			
+
 		}
 	}
 
@@ -95,12 +98,12 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 	}
 
 	public void loadProducer(File config) {
-		
+
 		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
 				this.getProducer());
 		for (DirectConfig directConfig : loadDirectConfig) {
 			esbContext.addProducer(directConfig);
-			
+
 		}
 	}
 
