@@ -11,6 +11,8 @@ import uncertain.core.ILifeCycle;
 import uncertain.core.UncertainEngine;
 import uncertain.ocm.AbstractLocatableObject;
 import uncertain.ocm.IObjectRegistry;
+import aurora.plugin.adapter.ws.std.producer.WSSTDProducerAdapter;
+import aurora.plugin.esb.adapter.ws.std.consumer.WSSTDConsumerAdapter;
 import aurora.plugin.esb.config.FileDataStore;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.xml.XMLHelper;
@@ -55,6 +57,15 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 
 		loadConsumer(config);
 
+		
+		{
+			esbContext.getAdapterManager().registry(new WSSTDProducerAdapter());
+			esbContext.getAdapterManager().registry(new WSSTDConsumerAdapter());
+		}
+		
+		
+		
+		
 		ESBConfigBuilder runner = new ESBConfigBuilder(esbContext);
 		try {
 			runner.start();

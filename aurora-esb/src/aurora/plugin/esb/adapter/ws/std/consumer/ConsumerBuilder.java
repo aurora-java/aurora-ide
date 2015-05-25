@@ -6,8 +6,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.RouteDefinition;
 
 import aurora.plugin.esb.AuroraEsbContext;
-import aurora.plugin.esb.adapter.manager.AdapterManager;
-import aurora.plugin.esb.config.DataStore;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.TO;

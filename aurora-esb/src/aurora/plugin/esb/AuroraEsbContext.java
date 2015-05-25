@@ -5,8 +5,7 @@ import java.util.List;
 
 import org.apache.camel.impl.DefaultCamelContext;
 
-import aurora.plugin.adapter.ws.std.producer.ProducerBuilder;
-import aurora.plugin.esb.adapter.ws.std.consumer.ConsumerBuilder;
+import aurora.plugin.esb.adapter.AdapterManager;
 import aurora.plugin.esb.config.DataStore;
 import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.DirectConfig;
@@ -17,7 +16,7 @@ public class AuroraEsbContext {
 	private AuroraEsbServer server;
 	private List<DirectConfig> task_configs = new ArrayList<DirectConfig>();
 	private DefaultCamelContext context;
-	
+
 	private DataStore ds;
 
 	private List<Producer> producers = new ArrayList<Producer>();
@@ -26,7 +25,7 @@ public class AuroraEsbContext {
 
 	private List<ProducerConsumer> producerConsumer = new ArrayList<ProducerConsumer>();
 
-	//
+	private AdapterManager adapterManager = new AdapterManager();
 
 	private String workPath = null;
 
@@ -149,7 +148,9 @@ public class AuroraEsbContext {
 		ProducerConsumer pc = this.getProducerConsumer(producer.getName());
 		if (pc != null) {
 			pc.addConsumer(consumer);
-			this.context.addRoutes(new ConsumerBuilder(this, consumer));
+			// this.context.addRoutes(new ConsumerBuilder(this, consumer));
+			this.context.addRoutes(this.adapterManager.createRouteBuilder(this,
+					consumer));
 		}
 
 	}
@@ -163,7 +164,9 @@ public class AuroraEsbContext {
 		ProducerConsumer pc = new ProducerConsumer();
 		pc.setProducer(producer);
 		this.getProducerConsumer().add(pc);
-		this.context.addRoutes(new ProducerBuilder(this, producer));
+		// this.context.addRoutes(new ProducerBuilder(this, producer));
+		this.context.addRoutes(this.adapterManager.createRouteBuilder(this,
+				producer));
 	}
 
 	public DataStore getDataStore() {
@@ -172,6 +175,14 @@ public class AuroraEsbContext {
 
 	public void setDataStore(DataStore ds) {
 		this.ds = ds;
+	}
+
+	public AdapterManager getAdapterManager() {
+		return adapterManager;
+	}
+
+	public void setAdapterManager(AdapterManager adapterManager) {
+		this.adapterManager = adapterManager;
 	}
 
 }
