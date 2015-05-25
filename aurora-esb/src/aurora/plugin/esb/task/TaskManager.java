@@ -1,5 +1,8 @@
 package aurora.plugin.esb.task;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 
@@ -25,37 +28,53 @@ public class TaskManager {
 		this.esbContext = esbContext;
 	}
 
-//	public Task createTask(DirectConfig config) {
-//		// timer task
-//		// direct task
-//		Task createTask = new Task();
-//		createTask.setName(config.getName());
-//		createTask.setRouter(config.getRouter());
-//		TaskStore s = new TaskStore(workPath);
-//		s.save(createTask);
-//		return createTask;
-//	}
-	
-//	public Task createTask(String name) {
-//		// timer task
-//		// direct task
-//		Task createTask = new Task();
-//		createTask.setName(name);
-////		createTask.setRouter(config.getRouter());
-//		TaskStore s = new TaskStore(workPath);
-//		s.save(createTask);
-//		return createTask;
-//	}
+	public List<Task> getAllTask() {
+		List<Task> tasks = new ArrayList<Task>();
+		TaskStore s = new TaskStore(workPath);
+
+		String[] taskNames = s.getTaskNames();
+
+		for (String t : taskNames) {
+			if (t.equals(".DS_Store"))
+				continue;
+			List<Task> load = s.load(t);
+			tasks.addAll(load);
+		}
+
+		return tasks;
+	}
+
+	// public Task createTask(DirectConfig config) {
+	// // timer task
+	// // direct task
+	// Task createTask = new Task();
+	// createTask.setName(config.getName());
+	// createTask.setRouter(config.getRouter());
+	// TaskStore s = new TaskStore(workPath);
+	// s.save(createTask);
+	// return createTask;
+	// }
+
+	// public Task createTask(String name) {
+	// // timer task
+	// // direct task
+	// Task createTask = new Task();
+	// createTask.setName(name);
+	// // createTask.setRouter(config.getRouter());
+	// TaskStore s = new TaskStore(workPath);
+	// s.save(createTask);
+	// return createTask;
+	// }
 
 	public void configDirectRouter(DirectConfig config) {
 		// Task createTask = Demo.createTask();
-//		try {
-////			context.addRoutes(new DirectWSRouteBuilder(config, esbContext));
-//			context.addRoutes(new MonitorDirectRouteBuilder(config, esbContext));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			// this.updateTaskStatus(createTask, TaskStatus.ERROR_ON_STARTING);
-//		}
+		// try {
+		// // context.addRoutes(new DirectWSRouteBuilder(config, esbContext));
+		// context.addRoutes(new MonitorDirectRouteBuilder(config, esbContext));
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// // this.updateTaskStatus(createTask, TaskStatus.ERROR_ON_STARTING);
+		// }
 	}
 
 	public void directStartTask(DirectConfig directConfig) {
@@ -70,17 +89,17 @@ public class TaskManager {
 		}
 	}
 
-//	public void directStartTask(Task task) {
-//		try {
-//			ProducerTemplate template = context.createProducerTemplate();
-//			Router createRouter = task.getRouter();
-//			template.sendBody("direct:" + createRouter.getFrom().getName(),
-//					createRouter.getFrom().getParaText());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			this.updateTaskStatus(task, TaskStatus.ERROR_ON_STARTING);
-//		}
-//	}
+	// public void directStartTask(Task task) {
+	// try {
+	// ProducerTemplate template = context.createProducerTemplate();
+	// Router createRouter = task.getRouter();
+	// template.sendBody("direct:" + createRouter.getFrom().getName(),
+	// createRouter.getFrom().getParaText());
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// this.updateTaskStatus(task, TaskStatus.ERROR_ON_STARTING);
+	// }
+	// }
 
 	public void finishTask(Task task) {
 		updateTaskStatus(task, TaskStatus.FINISH);

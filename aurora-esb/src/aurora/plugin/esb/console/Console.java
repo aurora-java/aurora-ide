@@ -3,13 +3,12 @@ package aurora.plugin.esb.console;
 import java.util.List;
 
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.impl.DefaultCamelContext;
 
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.Producer;
-import aurora.plugin.esb.model.ProducerConsumer;
+import aurora.plugin.esb.model.Task;
 import aurora.plugin.esb.task.TaskManager;
 
 public class Console {
@@ -19,11 +18,11 @@ public class Console {
 	final private static String start = "start ";
 	final private static String producer = "producer ";
 	final private static String consumer = "consumer ";
-	
+
 	final private static String test = "test";
 
 	final private static String list = "list";
-	
+
 	final private static String watch = "watch ";
 	final private static String redo = "redo ";
 	final private static String stop = "stop ";
@@ -53,27 +52,92 @@ public class Console {
 		if (isList) {
 			return list(cmd);
 		}
+
+		boolean isWatch = cmd.startsWith(watch);
+		if (isWatch) {
+			return watch(cmd);
+		}
+
+		boolean isRedo = cmd.startsWith(redo);
+		if (isRedo) {
+			return redo(cmd);
+		}
 		return cmd + " is an invalid command.";
 
 	}
 
+	private String redo(String cmd) {
+
+		String taskName = cmd.replaceFirst(redo, "");
+		String startProducer = startProducer(taskName);
+		return startProducer;
+	}
+
+	public String startConsumer(String taskName) {
+		Consumer consumer = esbContext.getConsumer(taskName);
+		if (consumer == null) {
+			return taskName + " is not exist.";
+		} else {
+			directStartTask(consumer);
+			return "TASK " + taskName + " is restarted.";
+		}
+	}
+
+	private void directStartTask(Consumer consumer) {
+		try {
+			ProducerTemplate template = esbContext.getCamelContext()
+					.createProducerTemplate();
+			// Router createRouter = directConfig.getRouter();
+			template.sendBody("direct:" + consumer.getTo().getName(), consumer
+					.getTo().getParaText());
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public String startProducer(String taskName) {
+		Producer producer = esbContext.getProducer(taskName);
+		if (producer == null) {
+			return taskName + " is not exist.";
+		} else {
+			directStartTask(producer);
+			return "TASK " + taskName + " is restarted.";
+		}
+	}
+
+	private String watch(String cmd) {
+
+		// esbContext
+		TaskManager tm = new TaskManager(esbContext);
+		List<Task> allTask = tm.getAllTask();
+		for (Task task : allTask) {
+			String name = task.getName();
+			String status = task.getStatus();
+			long startTime = task.getStartTime();
+
+			System.out.println("task :" + name + " status: " + status
+					+ " startTime : " + startTime + "");
+		}
+
+		return "";
+	}
+
 	private String test(String cmd) {
-		if(test.equals(cmd)){
+		if (test.equals(cmd)) {
 			System.out.println("============bindProducer==========");
-			
+
 			bindProducer("producer task_name");
-			
-			
+
 			System.out.println("============bindConsumer==========");
 			this.bindConsumer("consumer task_name consumer1");
-			
+
 			System.out.println("============startTask==========");
 			this.start("start task_name");
-			
+
 		}
-		
-		
-		
+
 		return null;
 	}
 
@@ -106,7 +170,7 @@ public class Console {
 		try {
 			esbContext.bind(producer);
 		} catch (Exception e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 			return "error " + e.getMessage();
 		}
 		return p + " is activing.";
@@ -135,7 +199,7 @@ public class Console {
 				esbContext.bind(producer, consumer);
 				return split[1] + " is activing.";
 			} catch (Exception e) {
-				 e.printStackTrace();
+				e.printStackTrace();
 				return "error " + e.getMessage();
 			}
 		}
@@ -171,8 +235,8 @@ public class Console {
 			ProducerTemplate template = esbContext.getCamelContext()
 					.createProducerTemplate();
 			// Router createRouter = directConfig.getRouter();
-			template.sendBody("direct:" + producer.getFrom().getName(), producer
-					.getFrom().getParaText());
+			template.sendBody("direct:" + producer.getFrom().getName(),
+					producer.getFrom().getParaText());
 			Thread.sleep(2000);
 
 		} catch (Exception e) {

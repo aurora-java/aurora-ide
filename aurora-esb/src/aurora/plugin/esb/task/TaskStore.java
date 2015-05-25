@@ -13,20 +13,21 @@ import uncertain.composite.XMLOutputter;
 import aurora.plugin.esb.model.Task;
 import aurora.plugin.esb.model.xml.XMLHelper;
 
-
 public class TaskStore {
 
-//	static private String path = "/Users/shiliyan/Desktop/esb/" + "task";
-
+	// static private String path = "/Users/shiliyan/Desktop/esb/" + "task";
 
 	private String taskStorePath;
-	
-	
-	
-	
+
+	public String[] getTaskNames() {
+		File store = new File(taskStorePath);
+		String[] files = store.list();
+		return files;
+	}
+
 	public TaskStore(String workPath) {
 		super();
-		this.taskStorePath = workPath +"task";
+		this.taskStorePath = workPath + "task";
 	}
 
 	public void save(Task task) {
@@ -116,9 +117,9 @@ public class TaskStore {
 
 	public static void createFile(CompositeMap map, File p_file)
 			throws IOException {
-//		if(p_file.exists() ==false){
-//			
-//		}
+		// if(p_file.exists() ==false){
+		//
+		// }
 		p_file.createNewFile();
 		if (p_file.exists()) {
 			if (p_file.canWrite()) {
@@ -138,7 +139,7 @@ public class TaskStore {
 		List<Task> tasks = new ArrayList<Task>();
 		for (Object object : childsNotNull) {
 			Task t = XMLHelper.toTask((CompositeMap) object);
-			if(t.getId().equals(task_id))
+			if (t.getId().equals(task_id))
 				return t;
 		}
 		return null;

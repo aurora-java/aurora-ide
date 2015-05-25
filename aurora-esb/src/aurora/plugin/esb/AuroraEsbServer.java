@@ -64,8 +64,6 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		}
 		
 		
-		
-		
 		ESBConfigBuilder runner = new ESBConfigBuilder(esbContext);
 		try {
 			runner.start();
