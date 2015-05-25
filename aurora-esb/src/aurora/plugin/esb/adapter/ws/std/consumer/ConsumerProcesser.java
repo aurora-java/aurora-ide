@@ -1,4 +1,4 @@
-package aurora.plugin.esb.router.builder.producer;
+package aurora.plugin.esb.adapter.ws.std.consumer;
 
 import org.apache.camel.Exchange;
 
@@ -6,10 +6,10 @@ import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.model.Task;
 import aurora.plugin.esb.task.TaskManager;
 
-public abstract class ProducerProcesser {
+public abstract class ConsumerProcesser {
 	private AuroraEsbContext esbContext;
 
-	public ProducerProcesser(AuroraEsbContext esbContext) {
+	public ConsumerProcesser(AuroraEsbContext esbContext) {
 		super();
 		this.esbContext = esbContext;
 	}

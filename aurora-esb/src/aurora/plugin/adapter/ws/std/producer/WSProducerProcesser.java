@@ -1,4 +1,4 @@
-package aurora.plugin.esb.router.builder.producer;
+package aurora.plugin.adapter.ws.std.producer;
 
 import java.util.Date;
 import java.util.Map;

@@ -5,14 +5,13 @@ import java.util.List;
 
 import org.apache.camel.impl.DefaultCamelContext;
 
+import aurora.plugin.adapter.ws.std.producer.ProducerBuilder;
+import aurora.plugin.esb.adapter.ws.std.consumer.ConsumerBuilder;
 import aurora.plugin.esb.config.DataStore;
 import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.Producer;
 import aurora.plugin.esb.model.ProducerConsumer;
-import aurora.plugin.esb.router.builder.consumer.ConsumerBuilder;
-//import aurora.plugin.esb.router.builder.ConsumerBuilder;
-import aurora.plugin.esb.router.builder.producer.ProducerBuilder;
 
 public class AuroraEsbContext {
 	private AuroraEsbServer server;
