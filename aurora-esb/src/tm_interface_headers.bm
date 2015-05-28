@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm">
+    <bm:operations>
+        <bm:operation name="update">
+            <bm:update-sql><![CDATA[
+                DECLARE
+                    file_exist NUMBER;
+                    v_head_id  number;
+                BEGIN
+                    SELECT COUNT(1) into file_exist FROM tm_interface_headers WHERE filename = ${@fileName};
+                    
+                    v_head_id := tm_interface_headers_s.nextval;
+                    ${@head_id} := v_head_id;
+                    
+                    IF file_exist = 0 THEN
+                        INSERT
+                        INTO
+                            tm_interface_headers
+                            (
+                                head_id,
+                                filename,
+                                filedate,
+                                batchid,
+                                version,
+                                COUNT,
+                                islast,
+                                enabled_flag,
+                                creation_date,
+                                created_by,
+                                last_update_date,
+                                last_updated_by
+                            )
+                            VALUES
+                            (
+                                v_head_id,
+                                ${@fileName},
+                                ${@yyymmdd},
+                                to_number(${@batchNo}),
+                                ${@version},
+                                ${@count},
+                                ${@isLast},
+                                'Y',
+                                sysdate,
+                                1,
+                                sysdate,
+                                1
+                            );
+                    END IF;
+                END;
+            ]]></bm:update-sql>
+            <bm:parameters>
+                <bm:parameter name="head_id" dataType="java.lang.Long" output="true" outputPath="@head_id"/>
+            </bm:parameters>
+        </bm:operation>
+    </bm:operations>
+</bm:model>

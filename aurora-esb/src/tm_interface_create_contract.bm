@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm">
+    <bm:operations>
+        <bm:operation name="update">
+            <bm:update-sql><![CDATA[
+                DECLARE
+                    con_exists NUMBER;
+                    bp_exists  NUMBER;
+                BEGIN
+                    SELECT
+                        COUNT(1)
+                    INTO
+                        con_exists
+                    FROM
+                        tm_interface_create_contract t
+                    WHERE
+                        t.applyno = ${/@applyNo};
+                    IF con_exists = 0 THEN
+                        INSERT
+                        INTO
+                            tm_interface_create_contract
+                            (
+                                contract_line_id,
+                                head_id,
+                                applyno,
+                                name,
+                                certno,
+                                mobile,
+                                account,
+                                itemprice,
+                                itemname,
+                                applyamount,
+                                loantenor,
+                                termamount,
+                                defaultloanrate,
+                                loanrate,
+                                totalintamt,
+                                ratetype,
+                                discountamt,
+                                document_status,
+                                cert_status,
+                                creation_date,
+                                created_by,
+                                last_update_date,
+                                last_updated_by
+                            )
+                            VALUES
+                            (
+                                tm_interface_create_contract_s.nextval,
+                                ${../../@head_id},
+                                ${@applyNo},
+                                ${@name},
+                                ${@certno},
+                                ${@mobile},
+                                ${@account},
+                                ${@itemprice},
+                                ${@itemname},
+                                ${@applyamount},
+                                ${@loantenor},
+                                ${@termamount},
+                                ${@defaultloanrate},
+                                ${@loanrate},
+                                ${@totalintamt},
+                                ${@ratetype},
+                                ${@discountamt},
+                                'NEW',
+                                'NEW',
+                                sysdate,
+                                1,
+                                sysdate,
+                                1
+                            );
+                    ELSE
+                        UPDATE
+                            tm_interface_create_contract t
+                        SET
+                            t.head_id          = ${../../@head_id},
+                            t.name             = ${@name},
+                            t.certno           = ${@certno},
+                            t.mobile           = ${@mobile},
+                            t.account          = ${@account},
+                            t.itemprice        = ${@itemprice},
+                            t.itemname         = ${@itemname},
+                            t.applyamount      = ${@applyamount},
+                            t.loantenor        = ${@loantenor},
+                            t.termamount       = ${@termamount},
+                            t.defaultloanrate  = ${@defaultloanrate},
+                            t.loanrate         = ${@loanrate},
+                            t.totalintamt      = ${@termamount},
+                            t.ratetype         = ${@ratetype},
+                            t.discountamt      = ${@discountamt},
+                            t.last_update_date = sysdate,
+                            t.last_updated_by  = 1
+                        WHERE
+                            t.applyno = ${@applyNo};
+                    END IF;
+                    SELECT
+                        COUNT(1)
+                    INTO
+                        bp_exists
+                    FROM
+                        hls_bp_master hm
+                    WHERE
+                        hm.id_card_no = ${@certno};
+                    IF bp_exists      = 1 THEN
+                        UPDATE
+                            tm_interface_create_contract t
+                        SET
+                            t.bp_id =
+                            (SELECT hm.bp_id FROM hls_bp_master hm WHERE hm.id_card_no = ${@certno}
+                            ),
+                            t.last_update_date = sysdate,
+                            t.last_updated_by  = 1
+                        WHERE
+                            t.applyno = ${@applyNo};
+                    END IF;
+                END;
+            ]]></bm:update-sql>
+        </bm:operation>
+    </bm:operations>
+</bm:model>

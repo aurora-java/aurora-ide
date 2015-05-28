@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <task name="ali_upload" type="cf.ali.sftp.upload">
+        <router name="demo">
+            <from endpoint="http://localhost:8888/HAP_DBI/ws/query.svc" password="psd" name="getData" feedbackpoint="http://localhost:8888/HAP_DBI/ws/query.svc" username="userName">
+                <para><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ><soapenv:Body><in  a="c">Hello</in></soapenv:Body></soapenv:Envelope>]]></para>
+            </from>
+            <to endpoint="http://localhost:8888/HAP_DBI/ws/save.svc" password="psd" name="sendData" username="userName">
+                <para><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ><soapenv:Body><in  a="c">Hello</in></soapenv:Body></soapenv:Envelope>]]></para>
+            </to>
+        </router>
+    </task>

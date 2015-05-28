@@ -25,7 +25,6 @@
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-test-2.14.1.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-test-2.15.1.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-test-spring-2.15.1.jar"/>
-	<classpathentry kind="lib" path="deploy/WEB-INF/lib/classes12.jar_"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/commons-logging-1.0.4.jar"/>

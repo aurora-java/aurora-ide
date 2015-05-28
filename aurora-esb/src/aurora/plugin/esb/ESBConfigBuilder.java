@@ -57,13 +57,13 @@ public final class ESBConfigBuilder {
 	}
 
 	public void configure(DefaultCamelContext context) throws Exception {
-		context.addRoutes(new RouteBuilder() {
-
-			@Override
-			public void configure() throws Exception {
-				from("test-jms:hungup").to("mock:end");
-			}
-		});
+//		context.addRoutes(new RouteBuilder() {
+//
+//			@Override
+//			public void configure() throws Exception {
+//				from("test-jms:hungup").to("mock:end");
+//			}
+//		});
 		context.addRoutes(new RouteBuilder() {
 
 			@Override
@@ -73,7 +73,7 @@ public final class ESBConfigBuilder {
 						new Console(esbContext),"run");
 			}
 		});
-		context.addRoutes(new MsgBuilder(esbContext));
+//		context.addRoutes(new MsgBuilder(esbContext));
 //		configRouters(context);
 		// testRouter(context);
 	}

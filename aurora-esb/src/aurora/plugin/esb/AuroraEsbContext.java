@@ -5,12 +5,22 @@ import java.util.List;
 
 import org.apache.camel.impl.DefaultCamelContext;
 
+import uncertain.composite.CompositeMap;
+import uncertain.core.IContainer;
+import uncertain.event.Configuration;
+import uncertain.logging.ILogger;
+import uncertain.ocm.IObjectRegistry;
+import uncertain.proc.IProcedureManager;
+import uncertain.proc.Procedure;
 import aurora.plugin.esb.adapter.AdapterManager;
 import aurora.plugin.esb.config.DataStore;
 import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.Producer;
 import aurora.plugin.esb.model.ProducerConsumer;
+import aurora.service.IServiceFactory;
+import aurora.service.ServiceThreadLocal;
+import aurora.service.http.HttpServiceInstance;
 
 public class AuroraEsbContext {
 	private AuroraEsbServer server;
@@ -28,6 +38,8 @@ public class AuroraEsbContext {
 	private AdapterManager adapterManager = new AdapterManager();
 
 	private String workPath = null;
+	private ILogger mLogger;
+	private IObjectRegistry registry;
 
 	public AuroraEsbServer getServer() {
 		return server;
@@ -185,4 +197,62 @@ public class AuroraEsbContext {
 		this.adapterManager = adapterManager;
 	}
 
+	public void setLoger(ILogger mLogger) {
+		this.mLogger = mLogger;
+	}
+
+	public ILogger getmLogger() {
+		return mLogger;
+	}
+
+	public void executeProc(String proc_name,CompositeMap para) throws Exception {
+		IProcedureManager procedureManager = (IProcedureManager) registry
+				.getInstanceOfType(IProcedureManager.class);
+		IServiceFactory serviceFactory = (IServiceFactory) registry
+				.getInstanceOfType(IServiceFactory.class);
+		String autoLoginProc = proc_name;
+		Procedure proc = procedureManager.loadProcedure(autoLoginProc);
+		CompositeMap auroraContext = new CompositeMap("esb_conext");
+		CompositeMap createChild = auroraContext.createChild("parameter");
+		// String locale = request.getLocale().toString();
+		createChild.addChild(para);
+		// createChild.put("locale", locale);
+		HttpServiceInstance svc = createHttpService(autoLoginProc,
+				procedureManager, auroraContext);
+
+		ServiceThreadLocal.setCurrentThreadContext(auroraContext);
+		ServiceInvoker.invokeProcedureWithTransaction(autoLoginProc, proc,
+				serviceFactory, svc, auroraContext);
+
+		// ServiceThreadLocal.setCurrentThreadContext(auroraContext);
+		// HttpRequestTransfer.copyRequest(svc);
+		// HttpSessionCopy.copySession(auroraContext,
+		// request.getSession(false));
+	}
+
+	public HttpServiceInstance createHttpService(String service_name,
+
+	IProcedureManager procedureManager, CompositeMap context) {
+		HttpServiceInstance svc = new HttpServiceInstance(service_name,
+				procedureManager);
+		// svc.setRequest(request);
+		// svc.setResponse(response);
+		svc.setContextMap(context);
+		svc.setName(service_name);
+		// HttpRequestTransfer.copyRequest(svc);
+		// HttpSessionCopy.copySession(svc.getContextMap(),
+		// request.getSession(false));
+		IContainer container = (IContainer) registry
+				.getInstanceOfType(IContainer.class);
+		Configuration config = (Configuration) container.getEventDispatcher();
+		if (config != null)
+			svc.setRootConfig(config);
+		return svc;
+	}
+
+	public void setRegistry(IObjectRegistry registry) {
+		this.registry =registry;
+	}
+
+	
 }

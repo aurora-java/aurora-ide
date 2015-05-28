@@ -9,9 +9,16 @@ import java.util.List;
 
 import uncertain.core.ILifeCycle;
 import uncertain.core.UncertainEngine;
+import uncertain.logging.ILogger;
+import uncertain.logging.LoggingContext;
 import uncertain.ocm.AbstractLocatableObject;
 import uncertain.ocm.IObjectRegistry;
 import aurora.plugin.adapter.ws.std.producer.WSSTDProducerAdapter;
+import aurora.plugin.esb.adapter.cf.ali.sftp.download.consumer.CFAliDownloadConsumerAdapter;
+import aurora.plugin.esb.adapter.cf.ali.sftp.download.producer.CFAliDownloadProducerAdapter;
+import aurora.plugin.esb.adapter.cf.ali.sftp.reader.producer.CFAliFileReaderProducerAdapter;
+import aurora.plugin.esb.adapter.cf.ali.sftp.upload.consumer.CFAliUploadConsumerAdapter;
+import aurora.plugin.esb.adapter.cf.ali.sftp.upload.producer.CFAliUploadProducerAdapter;
 import aurora.plugin.esb.adapter.ws.std.consumer.WSSTDConsumerAdapter;
 import aurora.plugin.esb.config.FileDataStore;
 import aurora.plugin.esb.model.DirectConfig;
@@ -29,11 +36,18 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 	private IObjectRegistry registry;
 	private AuroraEsbContext esbContext = new AuroraEsbContext();
 
+	private ILogger mLogger;
+
 	public AuroraEsbServer(IObjectRegistry registry) {
 		this.registry = registry;
 		uncertainEngine = (UncertainEngine) registry
 				.getInstanceOfType(UncertainEngine.class);
+		esbContext.setRegistry(registry);
 		esbContext.setServer(this);
+		mLogger = LoggingContext.getLogger(this.getClass().getCanonicalName(),
+				registry);
+		esbContext.setLoger(mLogger);
+
 	}
 
 	public String getWorkPath() {
@@ -49,7 +63,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		File configDirectory = uncertainEngine.getConfigDirectory();
 		File config = new File(configDirectory, packageName);
 		System.out.println(config);
-		//config
+		// config
 		esbContext.setWorkPath(workPath);
 		esbContext.setDataStore(new FileDataStore());
 
@@ -57,13 +71,23 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 
 		loadConsumer(config);
 
-		
 		{
 			esbContext.getAdapterManager().registry(new WSSTDProducerAdapter());
 			esbContext.getAdapterManager().registry(new WSSTDConsumerAdapter());
+			esbContext.getAdapterManager().registry(
+					new CFAliDownloadConsumerAdapter());
+			esbContext.getAdapterManager().registry(
+					new CFAliUploadConsumerAdapter());
+
+			esbContext.getAdapterManager().registry(
+					new CFAliDownloadProducerAdapter());
+			esbContext.getAdapterManager().registry(
+					new CFAliUploadProducerAdapter());
+			esbContext.getAdapterManager().registry(
+					new CFAliFileReaderProducerAdapter());
+
 		}
-		
-		
+
 		ESBConfigBuilder runner = new ESBConfigBuilder(esbContext);
 		try {
 			runner.start();
