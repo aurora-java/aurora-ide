@@ -110,15 +110,17 @@ public class CFAliServiceReader {
 		CompositeMap datasss = header.createChild("datas");
 		List<String> datas = sn.getDatas();
 		for (String data : datas) {
+			if("".equals(data.trim()))
+				continue;
 			CompositeMap dddd = datasss.createChild("data");
 			String[] ddd = data.split("\\|");
 			for (int i = 0; i < ddd.length; i++) {
 				String col = ccoolls[i];
 				String d = ddd[i] == null ? "" : ddd[i];
-				dddd.put(col, d);
+				dddd.put(col.toLowerCase(), d);
 			}
 			dddd.put("_status", "update");
-//			_status="update"
+			// _status="update"
 		}
 
 		try {

@@ -205,7 +205,8 @@ public class AuroraEsbContext {
 		return mLogger;
 	}
 
-	public void executeProc(String proc_name,CompositeMap para) throws Exception {
+	public void executeProc(String proc_name, CompositeMap para)
+			throws Exception {
 		IProcedureManager procedureManager = (IProcedureManager) registry
 				.getInstanceOfType(IProcedureManager.class);
 		IServiceFactory serviceFactory = (IServiceFactory) registry
@@ -223,6 +224,8 @@ public class AuroraEsbContext {
 		ServiceThreadLocal.setCurrentThreadContext(auroraContext);
 		ServiceInvoker.invokeProcedureWithTransaction(autoLoginProc, proc,
 				serviceFactory, svc, auroraContext);
+		System.out.println("=================");
+		System.out.println(auroraContext.toXML());
 
 		// ServiceThreadLocal.setCurrentThreadContext(auroraContext);
 		// HttpRequestTransfer.copyRequest(svc);
@@ -251,8 +254,7 @@ public class AuroraEsbContext {
 	}
 
 	public void setRegistry(IObjectRegistry registry) {
-		this.registry =registry;
+		this.registry = registry;
 	}
 
-	
 }

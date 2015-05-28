@@ -3,8 +3,6 @@
     <bm:operations>
         <bm:operation name="update">
             <bm:update-sql><![CDATA[
-                DECLARE
-                    con_exists NUMBER;
                 BEGIN
                     INSERT
                     INTO
@@ -25,33 +23,15 @@
                         (
                             tm_interface_payment_result_s.nextval,
                             ${../../@head_id},
-                            ${@applyNo},
-                            ${@termNo},
-                            ${@paymentdate},
+                            ${@applyno},
+                            ${@termno},
+                            to_date(${@paymentdate},'YYYY-MM-DD'),
                             ${@amunt},
                             sysdate,
                             1,
                             sysdate,
                             1
                         );
-                    SELECT
-                        COUNT(1)
-                    INTO
-                        con_exists
-                    FROM
-                        tm_interface_create_contract t
-                    WHERE
-                        t.applyno = ${@applyNo};
-                    IF con_exists = 1 THEN
-                        UPDATE
-                            tm_interface_create_contract t
-                        SET
-                            t.document_status  = 'PAID',
-                            t.last_update_date = sysdate,
-                            t.last_updated_by  = 1
-                        WHERE
-                            t.applyno = ${@applyNo};
-                    END IF;
                 END;
             ]]></bm:update-sql>
         </bm:operation>

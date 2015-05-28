@@ -23,7 +23,7 @@
                         (
                             tm_interface_payee_info_s.nextval,
                             ${../../@head_id},
-                            ${@applyNo},
+                            ${@applyno},
                             ${@name},
                             ${@address},
                             ${@phone},

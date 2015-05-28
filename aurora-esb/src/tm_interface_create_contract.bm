@@ -3,19 +3,7 @@
     <bm:operations>
         <bm:operation name="update">
             <bm:update-sql><![CDATA[
-                DECLARE
-                    con_exists NUMBER;
-                    bp_exists  NUMBER;
                 BEGIN
-                    SELECT
-                        COUNT(1)
-                    INTO
-                        con_exists
-                    FROM
-                        tm_interface_create_contract t
-                    WHERE
-                        t.applyno = ${/@applyNo};
-                    IF con_exists = 0 THEN
                         INSERT
                         INTO
                             tm_interface_create_contract
@@ -25,6 +13,7 @@
                                 applyno,
                                 name,
                                 certno,
+                                createdate,
                                 mobile,
                                 account,
                                 itemprice,
@@ -48,9 +37,10 @@
                             (
                                 tm_interface_create_contract_s.nextval,
                                 ${../../@head_id},
-                                ${@applyNo},
+                                ${@applyno},
                                 ${@name},
                                 ${@certno},
+                                to_char(${@createdate},'YYYY-MM-DD'),
                                 ${@mobile},
                                 ${@account},
                                 ${@itemprice},
@@ -70,50 +60,7 @@
                                 sysdate,
                                 1
                             );
-                    ELSE
-                        UPDATE
-                            tm_interface_create_contract t
-                        SET
-                            t.head_id          = ${../../@head_id},
-                            t.name             = ${@name},
-                            t.certno           = ${@certno},
-                            t.mobile           = ${@mobile},
-                            t.account          = ${@account},
-                            t.itemprice        = ${@itemprice},
-                            t.itemname         = ${@itemname},
-                            t.applyamount      = ${@applyamount},
-                            t.loantenor        = ${@loantenor},
-                            t.termamount       = ${@termamount},
-                            t.defaultloanrate  = ${@defaultloanrate},
-                            t.loanrate         = ${@loanrate},
-                            t.totalintamt      = ${@termamount},
-                            t.ratetype         = ${@ratetype},
-                            t.discountamt      = ${@discountamt},
-                            t.last_update_date = sysdate,
-                            t.last_updated_by  = 1
-                        WHERE
-                            t.applyno = ${@applyNo};
-                    END IF;
-                    SELECT
-                        COUNT(1)
-                    INTO
-                        bp_exists
-                    FROM
-                        hls_bp_master hm
-                    WHERE
-                        hm.id_card_no = ${@certno};
-                    IF bp_exists      = 1 THEN
-                        UPDATE
-                            tm_interface_create_contract t
-                        SET
-                            t.bp_id =
-                            (SELECT hm.bp_id FROM hls_bp_master hm WHERE hm.id_card_no = ${@certno}
-                            ),
-                            t.last_update_date = sysdate,
-                            t.last_updated_by  = 1
-                        WHERE
-                            t.applyno = ${@applyNo};
-                    END IF;
+                 
                 END;
             ]]></bm:update-sql>
         </bm:operation>

@@ -35,7 +35,7 @@
                                 v_head_id,
                                 ${@fileName},
                                 ${@yyymmdd},
-                                to_number(${@batchNo}),
+                                ${@batchNo},
                                 ${@version},
                                 ${@count},
                                 ${@isLast},
