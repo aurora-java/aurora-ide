@@ -14,15 +14,22 @@ import org.apache.camel.Message;
 
 import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
+import aurora.plugin.esb.util.FileStore;
 
 public class CFAliServiceReader {
 
 	private AuroraEsbContext esbContext;
 
-	private List<String> readHistory = new ArrayList<String>();
+	private CompositeMap readHistory;
+
+	private FileStore fs;
+	private static final String fileName = "read_list";
 
 	public CFAliServiceReader(AuroraEsbContext esbContext) {
 		this.esbContext = esbContext;
+
+		fs = new FileStore(esbContext.getWorkPath());
+		readHistory = fs.load(fileName);
 	}
 
 	// log read file;
@@ -42,7 +49,7 @@ public class CFAliServiceReader {
 		// version:1.0|count:1|isLast:NO
 		// applyNo|name|address|phone
 		// 94012014070100039589S|杭州XX经销商|浙江省杭州市西湖区学院路999号|057188888888
-
+		// exchange.getIn().s
 		Message in = exchange.getIn();
 		Map<String, Object> headers = in.getHeaders();
 		Set<String> keySet = headers.keySet();
@@ -51,9 +58,13 @@ public class CFAliServiceReader {
 		}
 
 		String filenameonly = (String) headers.get("camelfilenameonly");
-		if (readHistory.contains(filenameonly))
+		String camelfileabsolutepath = (String) headers
+				.get("camelfileabsolutepath");
+		if (isRead(filenameonly)) {
+
 			return;
-		readHistory.add(filenameonly);
+		}
+		// file_status 'YES'表示正常文件，'NO'表示错序文件，下次接着读
 
 		ServiceFile sn = new ServiceFile(filenameonly);
 		if (sn.isInvalid()) {
@@ -78,13 +89,33 @@ public class CFAliServiceReader {
 				sn.addData(lines.get(i));
 			}
 		}
-		callProc(sn);
+		CompositeMap result = callProc(sn);
+		String file_status = result.getChild("parameter").getString(
+				"file_status", "NO");
+		if ("YES".equals(file_status)) {
+			addHistory(filenameonly, camelfileabsolutepath);
+		}
 
 		// System.out.println(body);
 
 	}
 
-	private void callProc(ServiceFile sn) {
+	private void addHistory(String filenameonly, String camelfileabsolutepath) {
+		CompositeMap createChild = readHistory.createChild("file");
+		createChild.put("file", filenameonly);
+		createChild.put("abPath", camelfileabsolutepath);
+		fs.save(readHistory, fileName);
+	}
+
+	List<String> names = new ArrayList<String>();
+
+	private boolean isRead(String filenameonly) {
+		CompositeMap childByAttrib = readHistory.getChildByAttrib("file",
+				"file", filenameonly);
+		return childByAttrib != null;
+	}
+
+	private CompositeMap callProc(ServiceFile sn) {
 		// sn.getFileName()
 		// message_recevie
 		CompositeMap header = new CompositeMap("result");
@@ -94,13 +125,13 @@ public class CFAliServiceReader {
 			String[] ss = hh.split(":");
 			header.put(ss[0].trim(), ss[1].trim());
 		}
-		header.put("fileName", sn.getFileName());
+		header.put("fileName".toLowerCase(), sn.getFileName());
 
-		header.put("serviceName", sn.getService());
+		header.put("serviceName".toLowerCase(), sn.getService());
 
-		header.put("orgCode", sn.getOrgCode());
-		header.put("yyymmdd", sn.getYymmdd());
-		header.put("batchNo", sn.getBatchNo().replace(".txt", ""));
+		header.put("orgCode".toLowerCase(), sn.getOrgCode());
+		header.put("yyymmdd".toLowerCase(), sn.getYymmdd());
+		header.put("batchNo".toLowerCase(), sn.getBatchNo().replace(".txt", ""));
 
 		String cols = sn.getCols();
 
@@ -110,7 +141,7 @@ public class CFAliServiceReader {
 		CompositeMap datasss = header.createChild("datas");
 		List<String> datas = sn.getDatas();
 		for (String data : datas) {
-			if("".equals(data.trim()))
+			if ("".equals(data.trim()))
 				continue;
 			CompositeMap dddd = datasss.createChild("data");
 			String[] ddd = data.split("\\|");
@@ -124,10 +155,13 @@ public class CFAliServiceReader {
 		}
 
 		try {
-			esbContext.executeProc("message_recevie", header);
+			CompositeMap executeProc = esbContext.executeProc(
+					"message_recevie", header);
+			return executeProc;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return new CompositeMap();
 
 	}
 

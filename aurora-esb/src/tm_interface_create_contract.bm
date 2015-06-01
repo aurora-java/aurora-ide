@@ -3,66 +3,37 @@
     <bm:operations>
         <bm:operation name="update">
             <bm:update-sql><![CDATA[
+            	DECLARE
+            	  v_file_status varchar2(50);
                 BEGIN
-                        INSERT
-                        INTO
-                            tm_interface_create_contract
-                            (
-                                contract_line_id,
-                                head_id,
-                                applyno,
-                                name,
-                                certno,
-                                createdate,
-                                mobile,
-                                account,
-                                itemprice,
-                                itemname,
-                                applyamount,
-                                loantenor,
-                                termamount,
-                                defaultloanrate,
-                                loanrate,
-                                totalintamt,
-                                ratetype,
-                                discountamt,
-                                document_status,
-                                cert_status,
-                                creation_date,
-                                created_by,
-                                last_update_date,
-                                last_updated_by
-                            )
-                            VALUES
-                            (
-                                tm_interface_create_contract_s.nextval,
-                                ${../../@head_id},
-                                ${@applyno},
-                                ${@name},
-                                ${@certno},
-                                to_char(${@createdate},'YYYY-MM-DD'),
-                                ${@mobile},
-                                ${@account},
-                                ${@itemprice},
-                                ${@itemname},
-                                ${@applyamount},
-                                ${@loantenor},
-                                ${@termamount},
-                                ${@defaultloanrate},
-                                ${@loanrate},
-                                ${@totalintamt},
-                                ${@ratetype},
-                                ${@discountamt},
-                                'NEW',
-                                'NEW',
-                                sysdate,
-                                1,
-                                sysdate,
-                                1
-                            );
-                 
-                END;
+				  v_file_status := tm_interface_pkg.save_create_contract(p_head_id         => ${../../@head_id},
+				                                        				 p_applyno         => ${@applyno},
+				                                        				 p_name            => ${@name},
+				                                        				 p_certno          => ${@certno},
+				                                        				 p_createdate      => ${@createdate},
+				                                        				 p_mobile          => ${@mobile},
+				                                        				 p_account         => ${@account},
+				                                        				 p_itemprice       => ${@itemprice},
+				                                        				 p_itemname        => ${@itemname},
+				                                        				 p_applyamount     => ${@applyamount},
+				                                        				 p_loantenor       => ${@loantenor},
+				                                        				 p_termamount      => ${@termamount},
+				                                        				 p_defaultloanrate => ${@defaultloanrate},
+				                                        				 p_loanrate        => ${@loanrate},
+				                                        				 p_totalintamt     => ${@totalintamt},
+				                                        				 p_ratetype        => ${@ratetype},
+				                                        				 p_discountamt     => ${@discountamt});
+				                                        				 
+				  if v_file_status = 'NO' or ${../../@file_status} = 'NO' then
+				  	${@file_status} := 'NO';
+				  else 
+				    ${@file_status} := 'YES';
+				  end if;
+				END;
             ]]></bm:update-sql>
+            <bm:parameters>
+                <bm:parameter name="file_status" dataType="java.lang.Long" input="true" output="true" outputPath="/parameter/@file_status"/>
+            </bm:parameters>
         </bm:operation>
     </bm:operations>
 </bm:model>

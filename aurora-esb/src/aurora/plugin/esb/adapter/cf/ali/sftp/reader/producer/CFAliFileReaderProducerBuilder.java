@@ -45,19 +45,22 @@ public class CFAliFileReaderProducerBuilder extends RouteBuilder {
 	// exchange.getOut().setHeader("task_id", task_id);
 	// exchange.getOut().setHeader("task_name", task_name);
 	// }
-
+	// noop=true&
 	@Override
 	public void configure() throws Exception {
 
 		getContext().getShutdownStrategy().setTimeout(10);
 
-		from("file:/Users/shiliyan/Desktop/esb/download" + "/" + "CFCar"
-				+ "?noop=true&delay=10s&recursive=true&charset=euc_cn").bean(
+		from(
+				"file:/Users/shiliyan/Desktop/esb/download" + "/" + "CFCar"
+						+ "?noop=true&idempotent=true&delay=5s&recursive=true&charset=euc_cn").bean(
 				new CFAliServiceReader(esbContext), "read");
+//		&idempotent=true
 		// .to("file:/Users/shiliyan/Desktop/esb/download" + "/" + "CFCar")
 		// .bean(new LogBean("Downloaded file ${file:name} complete.",
 		// esbContext), "log")
 		// .log("Downloaded file ${file:name} complete.");
-//		noop=true&
+		// noop=true&
+//		&move=../
 	}
 }

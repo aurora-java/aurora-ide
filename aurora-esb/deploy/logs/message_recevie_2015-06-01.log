@@ -1,0 +1,76 @@
+2015-06-01 11:36:35.404 [aurora.database] [CONFIG] Running batch-apply with data from path /parameter, total 1 records
+2015-06-01 11:36:35.404 [aurora.database] [CONFIG] Executing batch-apply on parameter No.0
+2015-06-01 11:36:35.418 [uncertain.proc] [CONFIG] [action] DecideStatement
+2015-06-01 11:36:35.420 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-06-01 11:36:35.420 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-06-01 11:36:35.420 [uncertain.proc] [CONFIG] [action] CreateOperationSql
+2015-06-01 11:36:35.420 [uncertain.proc] [CONFIG] [action] PopulateOperationSql
+2015-06-01 11:36:35.420 [uncertain.proc] [FINE] aurora.database.features.WhereClauseCreator.onPopulateOperationSql
+2015-06-01 11:36:35.420 [uncertain.proc] [FINE] aurora.database.features.OrderByClauseCreator.onPopulateOperationSql
+2015-06-01 11:36:35.420 [uncertain.proc] [CONFIG] [action] CreateSqlRunner
+2015-06-01 11:36:35.420 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onCreateSqlRunner
+2015-06-01 11:36:35.420 [uncertain.proc] [CONFIG] [action] ExecuteDmlStatement
+2015-06-01 11:36:35.420 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onExecuteDmlStatement
+2015-06-01 11:36:35.426 [aurora.database] [CONFIG] 
+============= BEGIN [Update] SQL Statement execution dump ============
+
+                BEGIN
+                    ? := tm_interface_pkg.save_tm_interface_headers(p_filename 	=> ?,
+                    										   				  p_filedate 	=> ?, 
+                    										   				  p_batchid 	=> ?, 
+                    										   				  p_version 	=> ?, 
+                    										   				  p_count 		=> ?, 
+                    										   				  p_islast 	=> ?);
+                    										   
+                    										   
+                END;
+            
+---------------------Binding info---------------------
+No.1	Access path:@head_id	Data type of passed value :[null]	Value:null	Output:true	Database Type:null	
+No.2	Access path:@filename	Data type of passed value :java.lang.String	Value:CFCar_AUTOFI_CANCLE_CONTRACT_20150202_1.txt	Output:false	Database Type:null	
+No.3	Access path:@yyymmdd	Data type of passed value :java.lang.String	Value:20150202	Output:false	Database Type:null	
+No.4	Access path:@batchno	Data type of passed value :java.lang.String	Value:1	Output:false	Database Type:null	
+No.5	Access path:@version	Data type of passed value :java.lang.String	Value:1.0	Output:false	Database Type:null	
+No.6	Access path:@count	Data type of passed value :java.lang.String	Value:1	Output:false	Database Type:null	
+No.7	Access path:@isLast	Data type of passed value :java.lang.String	Value:NO	Output:false	Database Type:null	
+
+=============== END [Update] SQL Statement execution dump ============
+
+2015-06-01 11:36:35.428 [aurora.database] [CONFIG] ============ Running model batch update with data from path @current_parameter/datas, total 1 records
+2015-06-01 11:36:35.428 [aurora.database] [CONFIG] execute update on record No.0 for model tm_interface_contract_cancel
+2015-06-01 11:36:35.429 [uncertain.proc] [CONFIG] [action] DecideStatement
+2015-06-01 11:36:35.431 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-06-01 11:36:35.431 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-06-01 11:36:35.431 [uncertain.proc] [CONFIG] [action] CreateOperationSql
+2015-06-01 11:36:35.431 [uncertain.proc] [CONFIG] [action] PopulateOperationSql
+2015-06-01 11:36:35.431 [uncertain.proc] [FINE] aurora.database.features.WhereClauseCreator.onPopulateOperationSql
+2015-06-01 11:36:35.431 [uncertain.proc] [FINE] aurora.database.features.OrderByClauseCreator.onPopulateOperationSql
+2015-06-01 11:36:35.431 [uncertain.proc] [CONFIG] [action] CreateSqlRunner
+2015-06-01 11:36:35.431 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onCreateSqlRunner
+2015-06-01 11:36:35.432 [uncertain.proc] [CONFIG] [action] ExecuteDmlStatement
+2015-06-01 11:36:35.432 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onExecuteDmlStatement
+2015-06-01 11:36:35.501 [aurora.database] [CONFIG] 
+============= BEGIN [Update] SQL Statement execution dump ============
+
+            	DECLARE
+            	  v_file_status varchar2(50);
+                BEGIN
+				  v_file_status := tm_interface_pkg.save_contract_cancel(p_head_id         => ?,
+				                                        				 p_applyno         => ?);
+				                                        				 
+				  if v_file_status = 'NO' or ? = 'NO' then
+				  	? := 'NO';
+				  else 
+				    ? := 'YES';
+				  end if;
+				END;
+            
+---------------------Binding info---------------------
+No.1	Access path:../../@head_id	Data type of passed value :java.lang.Long	Value:367	Output:false	Database Type:null	
+No.2	Access path:@applyno	Data type of passed value :java.lang.String	Value:94012014070100039589S	Output:false	Database Type:null	
+No.3	Access path:../../@file_status	Data type of passed value :[null]	Value:null	Output:false	Database Type:null	
+No.4	Access path:../../@file_status	Data type of passed value :[null]	Value:null	Output:false	Database Type:null	
+No.5	Access path:../../@file_status	Data type of passed value :[null]	Value:null	Output:false	Database Type:null	
+
+=============== END [Update] SQL Statement execution dump ============
+

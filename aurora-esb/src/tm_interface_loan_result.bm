@@ -3,36 +3,24 @@
     <bm:operations>
         <bm:operation name="update">
             <bm:update-sql><![CDATA[
+            	DECLARE
+            	  v_file_status varchar2(50);
                 BEGIN
-                    INSERT
-                    INTO
-                        tm_interface_loan_result
-                        (
-                            loan_line_id,
-                            head_id,
-                            applyno,
-                            loandate,
-                            applyamount,
-                            creation_date,
-                            created_by,
-                            last_update_date,
-                            last_updated_by
-                        )
-                        VALUES
-                        (
-                            tm_interface_invoice_info_s.nextval,
-                            ${../../@head_id},
-                            ${@applyno},
-                            to_date(${@loandate},'YYYY-MM-DD'),
-                            ${@applyamount},
-                            sysdate,
-                            1,
-                            sysdate,
-                            1
-                        );
-                   
-                END;
+				  v_file_status := tm_interface_pkg.save_loan_result(p_head_id         => ${../../@head_id},
+				                                        			 p_applyno         => ${@applyno},
+				                                        			 p_loandate		   => ${@loandate},
+				                                        			 p_applyamount 	   => ${@applyamount});
+				                                        				 
+				  if v_file_status = 'NO' or ${../../@file_status} = 'NO' then
+				  	${@file_status} := 'NO';
+				  else 
+				    ${@file_status} := 'YES';
+				  end if;
+				END;
             ]]></bm:update-sql>
+            <bm:parameters>
+                <bm:parameter name="file_status" dataType="java.lang.Long" input="true" output="true" outputPath="/parameter/@file_status"/>
+            </bm:parameters>
         </bm:operation>
     </bm:operations>
 </bm:model>

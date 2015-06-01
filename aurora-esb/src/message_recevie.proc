@@ -4,7 +4,7 @@
    <!-- <a:model-execute model="test"/>-->
     
    <a:batch-apply sourcepath="/parameter">
-            <p:switch test="@current_parameter/@serviceName">
+            <p:switch test="@current_parameter/@servicename">
                 <p:case value="AUTOFI_CREATE_CONTRACT">
                     <a:model-update model="tm_interface_headers"/>
                     <a:model-batch-update model="tm_interface_create_contract" sourcePath="@current_parameter/datas"/>
@@ -21,7 +21,7 @@
                     <a:model-update model="tm_interface_headers"/>
                     <a:model-batch-update model="tm_interface_invoice_info" sourcePath="@current_parameter/datas"/>
                 </p:case>
-                <p:case value="AAUTOFI_LOAN_RESULT">
+                <p:case value="AUTOFI_LOAN_RESULT">
                     <a:model-update model="tm_interface_headers"/>
                     <a:model-batch-update model="tm_interface_loan_result" sourcePath="@current_parameter/datas"/>
                 </p:case>
