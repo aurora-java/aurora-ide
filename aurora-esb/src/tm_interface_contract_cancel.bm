@@ -17,7 +17,7 @@
 				END;
             ]]></bm:update-sql>
             <bm:parameters>
-                <bm:parameter name="file_status" dataType="java.lang.Long" input="true" output="true" outputPath="/parameter/@file_status"/>
+                <bm:parameter name="file_status" dataType="java.lang.String" input="true" output="true" outputPath="/parameter/@file_status"/>
             </bm:parameters>
         </bm:operation>
     </bm:operations>

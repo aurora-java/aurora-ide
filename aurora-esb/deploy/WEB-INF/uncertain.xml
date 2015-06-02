@@ -2,5 +2,6 @@
 <uncertain-engine name="aurora">
 	 <packages>
 		<package-path classPath="aurora_plugin_package/aurora.plugin.esb" />
+		<package-path classPath="aurora_plugin_package/aurora.plugin.script"/>
 	 </packages>
 </uncertain-engine>

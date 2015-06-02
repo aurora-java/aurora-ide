@@ -24,27 +24,31 @@ public class CFAliGenFileProducerBuilder extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 
-		from("timer://foo?period=1000").bean(new ApprovalContractFile(),"genFile").to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
-		
-		from("timer://foo?period=1000").bean(new SendBillFile(),"genFile").to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
-		
-		
-//		String ftp_server_url = "sftp://115.124.16.69:22/"
-//				+ "upload"
-//				+ "?username=cfcar&password=123456&noop=true&delay=100s&recursive=true";
+		from("timer://foo?period=1000")
+				.bean(new ApprovalContractFile(esbContext), "genFile")
+				.to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
+
+		// from("timer://foo?period=1000").bean(new
+		// SendBillFile(),"genFile").to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
+		// TriggerUtils.makeDailyTrigger(hour, minute)
+
+		// String ftp_server_url = "sftp://115.124.16.69:22/"
+		// + "upload"
+		// +
+		// "?username=cfcar&password=123456&noop=true&delay=100s&recursive=true";
 
 		// configure properties component approval_contract
 
 		// lets shutdown faster in case of in-flight messages stack up
-//		getContext().getShutdownStrategy().setTimeout(10);
+		// getContext().getShutdownStrategy().setTimeout(10);
 		// file:target/upload?moveFailed=../errormove=movedone""
 		// move=../upload
 		// &charset=utf-8
-//		from(
-//				"file:/Users/shiliyan/Desktop/esb/upload?recursive=true&delay=10s&noop=true")
-//				// move
-//				.log("Uploading file ${file:name}").to(ftp_server_url)
-//				.log("Uploaded file ${file:name} complete.");
+		// from(
+		// "file:/Users/shiliyan/Desktop/esb/upload?recursive=true&delay=10s&noop=true")
+		// // move
+		// .log("Uploading file ${file:name}").to(ftp_server_url)
+		// .log("Uploaded file ${file:name} complete.");
 
 		// use system out so it stand out
 		// System.out.println("*********************************************************************************");

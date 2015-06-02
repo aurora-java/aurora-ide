@@ -3,6 +3,7 @@
 	<name>aurora-esb</name>
 	<comment></comment>
 	<projects>
+		<project>aurora-plugin</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

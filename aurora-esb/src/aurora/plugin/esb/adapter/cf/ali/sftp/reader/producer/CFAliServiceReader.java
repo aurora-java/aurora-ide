@@ -107,7 +107,6 @@ public class CFAliServiceReader {
 		fs.save(readHistory, fileName);
 	}
 
-	List<String> names = new ArrayList<String>();
 
 	private boolean isRead(String filenameonly) {
 		CompositeMap childByAttrib = readHistory.getChildByAttrib("file",

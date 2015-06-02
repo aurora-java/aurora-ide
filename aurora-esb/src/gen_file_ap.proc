@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:s="aurora.plugin.script" trace="true">
+        <s:server-script><![CDATA[
+       // importPackage(java.io);
+        var bm = $bm('tm_interface_contract_approval');
+        var record = bm.queryAsMap({
+           process_status: 'N'
+        }).getChildren();
+        if (record.length == 0){
+            //return;
+        }else {
+            var datas = new CompositeMap('datas');
+            for(var i = 0;i < record.length; i++){
+            	var data = new CompositeMap('data');
+                data.applyno = record[i].applyno;
+                data.allowloan = record[i].allowloan;
+                data.failreason = record[i].failreason;
+                data.contractno = record[i].contractno;
+                data.reasontype = record[i].reasontype;
+                data.applyamount = record[i].applyamount;
+                datas.addChild(data);
+            }
+            $ctx.parameter.addChild(datas.getData());
+            $ctx.parameter.count = record.length;
+        }
+		]]></s:server-script>
+        <p:echo/>
+</p:procedure>
+ 

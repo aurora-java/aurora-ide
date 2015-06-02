@@ -1,0 +1,6 @@
+2015-06-01 19:17:51.6 [uncertain.proc] [INFO] <esb_conext SERVICE_LOGGING_FILE="/Users/shiliyan/git/aurora-ide/aurora-esb/deploy/logs/gen_file_2015-06-01.log" __configuration__="uncertain.event.Configuration@4d41a0ce" service_name="gen_file" _instance.uncertain.logging.ILoggerProvider="uncertain.logging.LoggerProvider@2fadbc04" _instance.aurora.service.IService="aurora.service.http.HttpServiceInstance@5e611953" _instance.uncertain.logging.BasicFileHandler="uncertain.logging.BasicFileHandler@45ab8a47">
+    <parameter>
+        <result orgcode="orgnumger" filename="filename" servicename="servicename"/>
+    </parameter>
+</esb_conext>
+
