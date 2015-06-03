@@ -14,12 +14,16 @@ import uncertain.composite.CompositeMap;
 import uncertain.logging.ILogger;
 import aurora.plugin.esb.AuroraEsbContext;
 
-public class SendBillFile {
+public class GenFile {
 
 	private AuroraEsbContext esbContext;
+	private String serviceName;
+	private String procName;
 
-	public SendBillFile(AuroraEsbContext esbContext) {
+	public GenFile(AuroraEsbContext esbContext, String serviceName,String procName) {
 		this.esbContext = esbContext;
+		this.serviceName = serviceName;
+		this.procName = procName;
 	}
 
 	private CompositeMap callProc() {
@@ -29,8 +33,8 @@ public class SendBillFile {
 		CompositeMap header = new CompositeMap("result");
 
 		// header.put("fileName".toLowerCase(), "filename");
-
-		header.put("serviceName".toLowerCase(), "AUTOFI_SEND_BILL");
+//		"AUTOFI_SEND_BILL"
+		header.put("serviceName".toLowerCase(), serviceName);
 
 		header.put("orgCode".toLowerCase(), "CFCar");
 
@@ -44,7 +48,8 @@ public class SendBillFile {
 		// only once
 
 		try {
-			CompositeMap executeProc = esbContext.executeProc("gen_file_bill",
+//			"gen_file_bill"
+			CompositeMap executeProc = esbContext.executeProc(procName,
 					header);
 			return executeProc;
 		} catch (Exception e) {
@@ -87,15 +92,16 @@ public class SendBillFile {
 		}
 		CompositeMap header = parameter.getChild("header");
 		String orgCode = header.getString("orgCode", "CFCar");
+//		"AUTOFI_SEND_BILL"
 		String serviceName = header
-				.getString("serviceName", "AUTOFI_SEND_BILL");
+				.getString("serviceName", this.serviceName);
 		DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 		Date date = new Date();
 		String yyyymmdd = header.getString("yyymmdd", format1.format(date));
 		String batchNo = header.getString("batchNo", "1");
-		String isLast = header.getString("isLast", "YES");
+		String isLast = header.getString("isLast", "NO");
 		String version = header.getString("version", "1.0");
-		String counts = header.getString("count", "12");
+		String counts = header.getString("count", "0");
 
 		String fileName = orgCode + "_" + serviceName + "_" + yyyymmdd + "_"
 				+ batchNo + ".txt";
@@ -243,7 +249,7 @@ public class SendBillFile {
 		// value2="94012014070100039587S|YES|||1000|AAAAAAA" count="2"/>
 		// "camelfileabsolutepath",
 		// "/Users/shiliyan/Desktop/esb/upload/CFCar/AUTOFI_APPROVAL_CONTRACT/20150601/CFCar_AUTOFI_APPROVAL_CONTRACT_20150202_2.txt");
-//		out.setBody("version:1.0|count:3|isLast:NO\napplyNo|allowLoan|failReason|reasonType|applyAmount|contractNo\n94012014070100039587S|YES|||1000|AAAAAAA");
+		// out.setBody("version:1.0|count:3|isLast:NO\napplyNo|allowLoan|failReason|reasonType|applyAmount|contractNo\n94012014070100039587S|YES|||1000|AAAAAAA");
 
 		// out.setBody(null);
 

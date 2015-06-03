@@ -178,6 +178,8 @@
 	<classpathentry kind="lib" path="deploy/WEB-INF/axis_lib/xml-resolver-1.2.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/axis_lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/axis_lib/XmlSchema-1.4.7.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/quartz-2.2.1.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/quartz-jobs-2.2.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/camel-lib"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/aurora-plugin"/>
 	<classpathentry kind="output" path="bin"/>

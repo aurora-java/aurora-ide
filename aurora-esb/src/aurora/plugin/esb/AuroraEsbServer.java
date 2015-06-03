@@ -14,11 +14,9 @@ import uncertain.logging.LoggingContext;
 import uncertain.ocm.AbstractLocatableObject;
 import uncertain.ocm.IObjectRegistry;
 import aurora.plugin.adapter.ws.std.producer.WSSTDProducerAdapter;
-import aurora.plugin.esb.adapter.cf.ali.sftp.download.consumer.CFAliDownloadConsumerAdapter;
 import aurora.plugin.esb.adapter.cf.ali.sftp.download.producer.CFAliDownloadProducerAdapter;
 import aurora.plugin.esb.adapter.cf.ali.sftp.genfile.producer.CFAliGenFileProducerAdapter;
 import aurora.plugin.esb.adapter.cf.ali.sftp.reader.producer.CFAliFileReaderProducerAdapter;
-import aurora.plugin.esb.adapter.cf.ali.sftp.upload.consumer.CFAliUploadConsumerAdapter;
 import aurora.plugin.esb.adapter.cf.ali.sftp.upload.producer.CFAliUploadProducerAdapter;
 import aurora.plugin.esb.adapter.ws.std.consumer.WSSTDConsumerAdapter;
 import aurora.plugin.esb.config.FileDataStore;
@@ -75,10 +73,6 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		{
 			esbContext.getAdapterManager().registry(new WSSTDProducerAdapter());
 			esbContext.getAdapterManager().registry(new WSSTDConsumerAdapter());
-			esbContext.getAdapterManager().registry(
-					new CFAliDownloadConsumerAdapter());
-			esbContext.getAdapterManager().registry(
-					new CFAliUploadConsumerAdapter());
 
 			esbContext.getAdapterManager().registry(
 					new CFAliDownloadProducerAdapter());

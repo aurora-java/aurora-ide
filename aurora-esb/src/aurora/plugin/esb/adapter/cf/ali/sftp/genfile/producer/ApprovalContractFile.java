@@ -1,39 +1,41 @@
 package aurora.plugin.esb.adapter.cf.ali.sftp.genfile.producer;
 
+import java.util.logging.Level;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 
 import uncertain.composite.CompositeMap;
+import uncertain.logging.ILogger;
 import aurora.plugin.esb.AuroraEsbContext;
 
 public class ApprovalContractFile {
 
 	private int batchNo = 1;
 	private AuroraEsbContext esbContext;
-	
+
 	public ApprovalContractFile(AuroraEsbContext esbContext) {
 		this.esbContext = esbContext;
 	}
 
-
 	private CompositeMap callProc() {
 		// sn.getFileName()
 		// message_recevie
-		
+
 		CompositeMap header = new CompositeMap("result");
-		
+
 		header.put("fileName".toLowerCase(), "filename");
 
 		header.put("serviceName".toLowerCase(), "servicename");
 
 		header.put("orgCode".toLowerCase(), "orgnumger");
-//		header.put("yyymmdd".toLowerCase(), sn.getYymmdd());
-//		header.put("batchNo".toLowerCase(), sn.getBatchNo().replace(".txt", ""));
-		
+		// header.put("yyymmdd".toLowerCase(), sn.getYymmdd());
+		// header.put("batchNo".toLowerCase(), sn.getBatchNo().replace(".txt",
+		// ""));
 
 		try {
-			CompositeMap executeProc = esbContext.executeProc(
-					"gen_file_ap", header);
+			CompositeMap executeProc = esbContext.executeProc("gen_file_ap",
+					header);
 			return executeProc;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,20 +61,17 @@ public class ApprovalContractFile {
 		// applyNo|name|address|phone
 		// 94012014070100039589S|杭州XX经销商|浙江省杭州市西湖区学院路999号|057188888888
 		// exchange.getIn().s
-//		isLast
-		
+		// isLast
+
 		batchNo++;
-		System.out.println("youmeiyou" + batchNo);
 		callProc();
 		Message out = exchange.getOut();
-		out.setHeader(
-				"camelfilename",
-				"/CFCar/AUTOFI_APPROVAL_CONTRACT/20150601/CFCar_AUTOFI_APPROVAL_CONTRACT_20150202_"
-						+ batchNo + ".txt");
-		
-		
-		
-//		gen_file.proc
+		String fileName = "CFCar_AUTOFI_APPROVAL_CONTRACT_20150202_" + batchNo
+				+ ".txt";
+		out.setHeader("camelfilename",
+				"/CFCar/AUTOFI_APPROVAL_CONTRACT/20150601/" + fileName);
+
+		// gen_file.proc
 		// out.setHeader("camelfileabsolute",
 		// "false");
 		// out.setHeader(
@@ -81,15 +80,24 @@ public class ApprovalContractFile {
 		// out.setHeader("camelfilepath",
 		// "/AUTOFI_APPROVAL_CONTRACT/20150601/");
 		// out.setHeader(
-		//<parameter header="version:1.0|count:3|isLast:NO" att="napplyNo|allowLoan|failReason|reasonType|applyAmount|contractNo" value1="94012014070100039587S|YES|||1000|AAAAAAA" value2="94012014070100039587S|YES|||1000|AAAAAAA" count="2"/>
+		// <parameter header="version:1.0|count:3|isLast:NO"
+		// att="napplyNo|allowLoan|failReason|reasonType|applyAmount|contractNo"
+		// value1="94012014070100039587S|YES|||1000|AAAAAAA"
+		// value2="94012014070100039587S|YES|||1000|AAAAAAA" count="2"/>
 		// "camelfileabsolutepath",
 		// "/Users/shiliyan/Desktop/esb/upload/CFCar/AUTOFI_APPROVAL_CONTRACT/20150601/CFCar_AUTOFI_APPROVAL_CONTRACT_20150202_2.txt");
 		out.setBody("version:1.0|count:3|isLast:NO\napplyNo|allowLoan|failReason|reasonType|applyAmount|contractNo\n94012014070100039587S|YES|||1000|AAAAAAA");
-		
-//		out.setBody(null);
+
+		// out.setBody(null);
 		System.out.println("???");
+
+		log("file " + fileName + " generated. ");
 
 		// return exchange;
 	}
 
+	private void log(String msg) {
+		ILogger logger = esbContext.getmLogger();
+		logger.log(Level.SEVERE, "" + msg);
+	}
 }

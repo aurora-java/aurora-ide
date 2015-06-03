@@ -4,7 +4,6 @@ import org.apache.camel.builder.RouteBuilder;
 
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
-import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.Producer;
 
 public class CFAliUploadProducerBuilder extends RouteBuilder {
@@ -37,10 +36,14 @@ public class CFAliUploadProducerBuilder extends RouteBuilder {
 		// move=../upload
 		// &charset=utf-8
 		from(
-				"file:/Users/shiliyan/Desktop/esb/upload?recursive=true&delay=10s&noop=true")
+				"file:/Users/shiliyan/Desktop/esb/upload?recursive=true&delay=10s"
+//				+ "&noop=true"
+				+ "&delete=true")
 				// move
-				.log("Uploading file ${file:name}").to(ftp_server_url)
-				.log("Uploaded file ${file:name} complete.");
+				.log("Uploading file ${file:name}").to(ftp_server_url).to("file:/Users/shiliyan/Desktop/esb/uploading?recursive=true"
+//						+ "&delay=10s&noop=true"
+						+ "")
+				.log("Uploaded file ${file:name} complete.").bean(new LogBean(esbContext), "log");
 
 		// use system out so it stand out
 		// System.out.println("*********************************************************************************");

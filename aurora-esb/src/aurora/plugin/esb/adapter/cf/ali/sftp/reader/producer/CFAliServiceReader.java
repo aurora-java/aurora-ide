@@ -1,6 +1,7 @@
 package aurora.plugin.esb.adapter.cf.ali.sftp.reader.producer;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -8,12 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 
 import uncertain.composite.CompositeMap;
+import uncertain.logging.ILogger;
 import aurora.plugin.esb.AuroraEsbContext;
+import aurora.plugin.esb.util.FileCopyer;
 import aurora.plugin.esb.util.FileStore;
 
 public class CFAliServiceReader {
@@ -56,13 +60,13 @@ public class CFAliServiceReader {
 		for (String key : keySet) {
 			System.out.println(key + ":" + headers.get(key));
 		}
-
+		// exchange.getIn().setFault(true);
 		String filenameonly = (String) headers.get("camelfilenameonly");
 		String camelfileabsolutepath = (String) headers
 				.get("camelfileabsolutepath");
 		if (isRead(filenameonly)) {
 
-			return;
+			// return;
 		}
 		// file_status 'YES'表示正常文件，'NO'表示错序文件，下次接着读
 
@@ -92,12 +96,47 @@ public class CFAliServiceReader {
 		CompositeMap result = callProc(sn);
 		String file_status = result.getChild("parameter").getString(
 				"file_status", "NO");
+		System.out.println("file_status : " + file_status);
 		if ("YES".equals(file_status)) {
 			addHistory(filenameonly, camelfileabsolutepath);
+			log("file " + filenameonly + "loaded  success.");
+		} else {
+			log("file " + filenameonly + "loaded  failed.");
+			exchange.getOut().setFault(true);
 		}
 
 		// System.out.println(body);
 
+	}
+
+	private void log(String msg) {
+		ILogger logger = esbContext.getmLogger();
+		logger.log(Level.SEVERE, "" + msg);
+	}
+
+	private void moveFile(Exchange exchange) {
+		// camelfilename:CFCar_AUTOFI_PAYEE_INFO_20150202_1.txt
+		// exchange.getOut().setHeader("camelfilename",
+		// exchange.getIn().getHeader("camelfilename"));
+		// exchange.getOut().setBody(exchange.getIn().getBody());
+		String f = (String) exchange.getIn().getHeader("camelfileabsolutepath");
+		File from = new File(f);
+		// "
+		// + "/"
+		// + "CFCar"
+		File to = new File("/Users/shiliyan/Desktop/esb/download/read/CFCar"
+				+ f);
+		FileCopyer.copyFile(from, to);
+		deleteFile(exchange);
+	}
+
+	private void deleteFile(Exchange exchange) {
+		//
+		String f = (String) exchange.getIn().getHeader("camelfileabsolutepath");
+		File file = new File(f);
+		if (file.exists() && file.isFile()) {
+			file.delete();
+		}
 	}
 
 	private void addHistory(String filenameonly, String camelfileabsolutepath) {
@@ -106,7 +145,6 @@ public class CFAliServiceReader {
 		createChild.put("abPath", camelfileabsolutepath);
 		fs.save(readHistory, fileName);
 	}
-
 
 	private boolean isRead(String filenameonly) {
 		CompositeMap childByAttrib = readHistory.getChildByAttrib("file",

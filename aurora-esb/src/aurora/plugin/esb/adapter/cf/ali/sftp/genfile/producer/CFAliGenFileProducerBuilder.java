@@ -24,9 +24,17 @@ public class CFAliGenFileProducerBuilder extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 
-		from("timer://foo?period=1000")
-				.bean(new ApprovalContractFile(esbContext), "genFile")
+//		from("timer://foo?period=10000")
+//				.bean(new GenFile(esbContext,"AUTOFI_APPROVAL_CONTRACT","gen_file_ap"), "genFile")
+//				.to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
+
+		from("quartz2://timerName?cron=0 0 18 * * ?")
+				.bean(new GenFile(esbContext,"AUTOFI_SEND_BILL","gen_file_bill"), "genFile")
 				.to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
+
+//		from("timer://foo?period=20000")
+//				.bean(new GenFile(esbContext,"AUTOFI_SEND_BILL","gen_file_bill"), "genFile")
+//				.to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
 
 		// from("timer://foo?period=1000").bean(new
 		// SendBillFile(),"genFile").to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");

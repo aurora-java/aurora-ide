@@ -1,28 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:s="aurora.plugin.script" trace="true">
         <s:server-script><![CDATA[
-       // importPackage(java.io);
-        var bm = $bm('tm_interface_contract_approval');
-        var record = bm.queryAsMap({
-           process_status: 'N'
-        }).getChildren();
-        if (record.length == 0){
-            //return;
-        }else {
+     
+     
+
+
+
+ 
+        // version:1.0|count:3|isLast:NO
+         var header = new CompositeMap('header');
+         header.version="1.0";
+         header.count="3";
+         header.isLast="NO";
+         header.batchNo="1";
+         header.orgCode="CFCar"  ;
+         header.yyyymmdd="20150602";  
+         header.serviceName="AUTOFI_APPROVAL_CONTRACT";
+         
+       //|||||
             var datas = new CompositeMap('datas');
-            for(var i = 0;i < record.length; i++){
             	var data = new CompositeMap('data');
-                data.applyno = record[i].applyno;
-                data.allowloan = record[i].allowloan;
-                data.failreason = record[i].failreason;
-                data.contractno = record[i].contractno;
-                data.reasontype = record[i].reasontype;
-                data.applyamount = record[i].applyamount;
+             data.applyNo="94012014070100039587S";
+              data.allowLoan="YES";
+               data.failReason="";
+                data.reasonType="";
+                 data.applyAmount="1000";
+                  data.contractNo="AAAAAAA";
+                
                 datas.addChild(data);
-            }
+                
+                 	var data = new CompositeMap('data');
+             data.applyNo="94012014070100039588S";
+              data.allowLoan="NO";
+               data.failReason="发票验证不通过";
+                data.reasonType="INVALID_VOUCHER";
+                 data.applyAmount="0";
+                  data.contractNo="";
+                
+                datas.addChild(data);
+                 	var data = new CompositeMap('data');
+             data.applyNo="94012014070100039589S";
+              data.allowLoan="NO";
+               data.failReason="面签失败";
+                data.reasonType="UNDEFIND";
+                 data.applyAmount="0";
+                  data.contractNo="";
+                
+                datas.addChild(data);
+
+             $ctx.parameter.addChild(header.getData());
             $ctx.parameter.addChild(datas.getData());
-            $ctx.parameter.count = record.length;
-        }
+            $ctx.parameter.count = 3;
+     
+     
+     
+     
+     
+     
+     
 		]]></s:server-script>
         <p:echo/>
 </p:procedure>

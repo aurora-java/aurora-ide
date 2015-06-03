@@ -41,6 +41,10 @@ public class AuroraEsbContext {
 	private ILogger mLogger;
 	private IObjectRegistry registry;
 
+	public IObjectRegistry getRegistry() {
+		return registry;
+	}
+
 	public AuroraEsbServer getServer() {
 		return server;
 	}

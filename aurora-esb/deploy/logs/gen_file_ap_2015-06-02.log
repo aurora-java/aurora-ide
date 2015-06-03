@@ -1,0 +1,15 @@
+2015-06-02 17:18:28.203 [uncertain.proc] [INFO] <esb_conext SERVICE_LOGGING_FILE="/Users/shiliyan/git/aurora-ide/aurora-esb/deploy/logs/gen_file_ap_2015-06-02.log" __configuration__="uncertain.event.Configuration@1a792cee" service_name="gen_file_ap" _instance.uncertain.logging.ILoggerProvider="uncertain.logging.LoggerProvider@5065abce" _instance.aurora.service.IService="aurora.service.http.HttpServiceInstance@2ee813c0" sso="(ScriptShareObject : 4 elements)" _instance.uncertain.logging.BasicFileHandler="uncertain.logging.BasicFileHandler@4ffb54d7">
+    <parameter count="3.0">
+        <result orgcode="CFCar" yyyymmdd="20150602" servicename="AUTOFI_APPROVAL_CONTRACT"/>
+        <header batchNo="1" isLast="NO" count="3" serviceName="AUTOFI_APPROVAL_CONTRACT" version="1.0" orgCode="CFCar" yyyymmdd="20150602"/>
+        <datas>
+            <data contractNo="AAAAAAA" reasonType="" applyAmount="1000" allowLoan="YES" applyNo="94012014070100039587S" failReason=""/>
+            <data contractNo="" reasonType="INVALID_VOUCHER" applyAmount="0" allowLoan="NO" applyNo="94012014070100039588S" failReason="发票验证不通过"/>
+            <data contractNo="" reasonType="UNDEFIND" applyAmount="0" allowLoan="NO" applyNo="94012014070100039589S" failReason="面签失败"/>
+        </datas>
+    </parameter>
+    <session/>
+    <cookie/>
+    <model/>
+</esb_conext>
+

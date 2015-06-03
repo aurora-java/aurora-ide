@@ -3,7 +3,6 @@ package aurora.plugin.esb.adapter.cf.ali.sftp.download.producer;
 import org.apache.camel.builder.RouteBuilder;
 
 import aurora.plugin.esb.AuroraEsbContext;
-import aurora.plugin.esb.LogBean;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.Producer;
 
@@ -54,7 +53,7 @@ public class CFAliDownloadProducerBuilder extends RouteBuilder {
 				+ "/"
 				+ "CFCar"
 				+ "?username=cfcar&password=123456&noop=true&delay=100s&recursive=true"
-//				+ "&charset=utf-8"
+				// + "&charset=utf-8"
 				+ "";
 		// ftp.client=sftp://115.124.16.69:22/mypath?username=cfcar&password=123456&noop=true
 		// #idempotent=true
@@ -69,10 +68,8 @@ public class CFAliDownloadProducerBuilder extends RouteBuilder {
 
 		from(ftp_server_url)
 				.to("file:/Users/shiliyan/Desktop/esb/download" + "/" + "CFCar"
-//						+ "?charset=utf-8"
-						+ "")
-				.bean(new LogBean("Downloaded file ${file:name} complete.",
-						esbContext), "log")
+				// + "?charset=utf-8"
+						+ "").bean(new LogBean(esbContext), "log")
 				.log("Downloaded file ${file:name} complete.");
 	}
 }
