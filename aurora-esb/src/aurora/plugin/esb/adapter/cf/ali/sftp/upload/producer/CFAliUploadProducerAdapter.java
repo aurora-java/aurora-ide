@@ -2,6 +2,7 @@ package aurora.plugin.esb.adapter.cf.ali.sftp.upload.producer;
 
 import org.apache.camel.builder.RouteBuilder;
 
+import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.adapter.ConsumerAdapter;
 import aurora.plugin.esb.adapter.ProducerAdapter;
@@ -21,5 +22,11 @@ public class CFAliUploadProducerAdapter implements ProducerAdapter {
 	@Override
 	public String getType() {
 		return cf_ali;
+	}
+
+	@Override
+	public RouteBuilder createProducerBuilder(AuroraEsbContext esbContext,
+			CompositeMap producer) {
+		return new CFAliUploadProducerBuilder(esbContext, producer);
 	}
 }

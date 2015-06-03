@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:service xmlns:s="aurora.plugin.script" xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" trace="true">
+    <a:init-procedure>
+        <s:server-script><![CDATA[
+               importPackage(java.io);
+               var result = $bm('tm_create_contract_approval').execute({}); //通过一个BM去调用后台pkg去生成文件头
+               var head_id = $ctx.parameter.head_id;
+               
+               
+               var head_bm = $bm('tm_interface_headers');
+               var head_record = head_bm.queryAsMap({
+                   head_id: head_id
+               }).getChildren();
+               
+               var line_bm = $bm('tm_interface_con_approval');
+               var line_record = line_bm.queryAsMap({
+                   head_id: head_id
+               }).getChildren();
+               
+               if (head_record.length == 0) {
+                   //return;
+               } else if (line_record.length == 0) {
+                   //return;
+               } else {
+                   var header = new CompositeMap('header');
+                   var datas = new CompositeMap('datas');
+               
+                   if (head_record[0].filename == undefined) {
+                       header.fileName = '';
+                   } else {
+                       header.fileName = head_record[0].filename;
+                   }
+                   if (head_record[0].filedate == undefined) {
+                       header.yyyymmdd = '';
+                   } else {
+                       header.yyyymmdd = head_record[0].filedate;
+                   }
+                   if (head_record[0].batchid == undefined) {
+                       header.batchNo = '';
+                   } else {
+                       header.batchNo = head_record[0].batchid;
+                   }
+                   if (head_record[0].version == undefined) {
+                       header.version = '';
+                   } else {
+                       header.version = head_record[0].version;
+                   }
+                   if (head_record[0].count == undefined) {
+                       header.count = ;
+                   } else {
+                       header.count = head_record[0].count;
+                   }
+                   if (head_record[0].islast == undefined) {
+                       header.isLast = '';
+                   } else {
+                       header.isLast = head_record[0].islast;
+                   }
+               
+                   header.orgCode = 'CFCar';
+                   header.serviceName = "AUTOFI_APPROVAL_CONTRACT";
+               
+                   for (var i = 0;i < line_record.length;i++) {
+                       var data = new CompositeMap('data');
+                       if (line_record[i].applyno == undefined) {
+                           data.applyNo = '';
+                       } else {
+                           data.applyNo = line_record[i].applyno;
+                       }
+                       if (line_record[i].allowloan == undefined) {
+                           data.allowLoan = '';
+                       } else {
+                           data.allowLoan = line_record[i].allowloan;
+                       }
+               
+                       if (line_record[i].failreason == undefined) {
+                           data.failReason = '';
+                       } else {
+                           data.failReason = line_record[i].failreason;
+                       }
+                       if (line_record[i].reasontype == undefined) {
+                           data.reasonType = '';
+                       } else {
+                           data.reasonType = line_record[i].reasontype;
+                       }
+                       if (line_record[i].applyamount == undefined) {
+                           data.applyAmount = '';
+                       } else {
+                           data.applyAmount = line_record[i].applyamount;
+                       }
+                       if (line_record[i].contractno == undefined) {
+                           data.contractNo = '';
+                       } else {
+                           data.contractNo = line_record[i].contractno;
+                       }
+               
+                       datas.addChild(data);
+                   }
+                   $ctx.parameter.addChild(header.getData());
+                   $ctx.parameter.addChild(datas.getData());
+                   $ctx.parameter.count = line_record.length;
+               }
+           ]]></s:server-script>
+        <p:echo/>
+    </a:init-procedure>
+    <a:service-output output="/parameter"/>
+</a:service>

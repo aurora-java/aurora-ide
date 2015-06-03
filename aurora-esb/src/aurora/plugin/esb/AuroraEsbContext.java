@@ -26,6 +26,8 @@ public class AuroraEsbContext {
 	private AuroraEsbServer server;
 	private List<DirectConfig> task_configs = new ArrayList<DirectConfig>();
 	private DefaultCamelContext context;
+	
+	private boolean isNeedCommandConsole = true;
 
 	private DataStore ds;
 
@@ -36,6 +38,14 @@ public class AuroraEsbContext {
 	private List<ProducerConsumer> producerConsumer = new ArrayList<ProducerConsumer>();
 
 	private AdapterManager adapterManager = new AdapterManager();
+
+	private List<CompositeMap> producerMaps = new ArrayList<CompositeMap>();
+
+	private List<CompositeMap> consumerMaps = new ArrayList<CompositeMap>();
+	
+	private List<CompositeMap> autoStartProducerMaps = new ArrayList<CompositeMap>();
+
+	private List<CompositeMap> autoStartConsumerMaps = new ArrayList<CompositeMap>();
 
 	private String workPath = null;
 	private ILogger mLogger;
@@ -228,8 +238,8 @@ public class AuroraEsbContext {
 		ServiceThreadLocal.setCurrentThreadContext(auroraContext);
 		ServiceInvoker.invokeProcedureWithTransaction(autoLoginProc, proc,
 				serviceFactory, svc, auroraContext);
-//		System.out.println("=================");
-//		System.out.println(auroraContext.toXML());
+		// System.out.println("=================");
+		// System.out.println(auroraContext.toXML());
 		return auroraContext;
 
 		// ServiceThreadLocal.setCurrentThreadContext(auroraContext);
@@ -261,5 +271,45 @@ public class AuroraEsbContext {
 	public void setRegistry(IObjectRegistry registry) {
 		this.registry = registry;
 	}
+
+	public List<CompositeMap> getProducerMaps() {
+		return producerMaps;
+	}
+
+	public void addProducerMap(CompositeMap producerMap) {
+		if(producerMap.getBoolean("autoStart",false)){
+			this.getAutoStartProducerMaps().add(producerMap);
+		}
+		this.producerMaps.add(producerMap);
+	}
+
+	public List<CompositeMap> getConsumerMaps() {
+		return consumerMaps;
+	}
+
+	public void addConsumerMap(CompositeMap consumerMap) {
+		if(consumerMap.getBoolean("autoStart",false)){
+			this.getAutoStartConsumerMaps().add(consumerMap);
+		}
+		this.consumerMaps.add(consumerMap);
+	}
+
+	public boolean isNeedCommandConsole() {
+		return isNeedCommandConsole;
+	}
+
+	public void setNeedCommandConsole(boolean isNeedCommandConsole) {
+		this.isNeedCommandConsole = isNeedCommandConsole;
+	}
+
+	public List<CompositeMap> getAutoStartProducerMaps() {
+		return autoStartProducerMaps;
+	}
+
+
+	public List<CompositeMap> getAutoStartConsumerMaps() {
+		return autoStartConsumerMaps;
+	}
+
 
 }

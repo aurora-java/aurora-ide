@@ -29,9 +29,11 @@ public class CFAliServiceReader {
 	private FileStore fs;
 	private static final String fileName = "read_list";
 
-	public CFAliServiceReader(AuroraEsbContext esbContext) {
-		this.esbContext = esbContext;
+	private String read_proc = "message_recevie";
 
+	public CFAliServiceReader(AuroraEsbContext esbContext, String read_proc) {
+		this.esbContext = esbContext;
+		this.read_proc = read_proc;
 		fs = new FileStore(esbContext.getWorkPath());
 		readHistory = fs.load(fileName);
 	}
@@ -65,8 +67,7 @@ public class CFAliServiceReader {
 		String camelfileabsolutepath = (String) headers
 				.get("camelfileabsolutepath");
 		if (isRead(filenameonly)) {
-
-			// return;
+			return;
 		}
 		// file_status 'YES'表示正常文件，'NO'表示错序文件，下次接着读
 
@@ -192,8 +193,9 @@ public class CFAliServiceReader {
 		}
 
 		try {
-			CompositeMap executeProc = esbContext.executeProc(
-					"message_recevie", header);
+
+			CompositeMap executeProc = esbContext
+					.executeProc(read_proc, header);
 			return executeProc;
 		} catch (Exception e) {
 			e.printStackTrace();

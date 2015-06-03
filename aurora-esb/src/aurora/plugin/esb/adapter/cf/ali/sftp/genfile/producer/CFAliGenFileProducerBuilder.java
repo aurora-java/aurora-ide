@@ -1,7 +1,10 @@
 package aurora.plugin.esb.adapter.cf.ali.sftp.genfile.producer;
 
+import java.util.List;
+
 import org.apache.camel.builder.RouteBuilder;
 
+import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.Producer;
@@ -9,11 +12,9 @@ import aurora.plugin.esb.model.Producer;
 public class CFAliGenFileProducerBuilder extends RouteBuilder {
 
 	private ConsoleLog clog = new ConsoleLog();
-	// private RouteBuilder rb;
 	private AuroraEsbContext esbContext;
-	// private Router r;
-	// private DirectConfig config;
 	private Producer producer;
+	private CompositeMap producerMap;
 
 	public CFAliGenFileProducerBuilder(AuroraEsbContext esbContext,
 			Producer producer) {
@@ -21,20 +22,46 @@ public class CFAliGenFileProducerBuilder extends RouteBuilder {
 		this.producer = producer;
 	}
 
+	public CFAliGenFileProducerBuilder(AuroraEsbContext esbContext,
+			CompositeMap producer) {
+		this.esbContext = esbContext;
+		this.producerMap = producer;
+	}
+
 	@Override
 	public void configure() throws Exception {
 
-//		from("timer://foo?period=10000")
-//				.bean(new GenFile(esbContext,"AUTOFI_APPROVAL_CONTRACT","gen_file_ap"), "genFile")
-//				.to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
+		List childsNotNull = producerMap.getChildsNotNull();
+		for (Object object : childsNotNull) {
+			CompositeMap map = (CompositeMap) object;
 
-		from("quartz2://timerName?cron=0 0 18 * * ?")
-				.bean(new GenFile(esbContext,"AUTOFI_SEND_BILL","gen_file_bill"), "genFile")
-				.to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
+			String timer = map.getString("timer", "timer://foo?period=3000000");
+			String serviceName = map.getString("serviceName",
+					"AUTOFI_APPROVAL_CONTRACT");
+			String proc = map.getString("proc", "gen_file_ap");
+			String saveUrl = map.getString("saveUrl", "");
+			String orgCode = map.getString("orgCode", "");
 
-//		from("timer://foo?period=20000")
-//				.bean(new GenFile(esbContext,"AUTOFI_SEND_BILL","gen_file_bill"), "genFile")
-//				.to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
+			from(timer).bean(new GenFile(esbContext, serviceName, proc,orgCode),
+					"genFile").to(saveUrl);
+		}
+
+		// from("timer://foo?period=10000")
+		// .bean(new GenFile(esbContext, "AUTOFI_APPROVAL_CONTRACT",
+		// "gen_file_ap"), "genFile")
+		// .to("file:/Users/shiliyan/Desktop/esb/upload"
+		// + "?recursive=true&noop=true");
+		//
+		// from("quartz2://timerName?cron=0 0 18 * * ?")
+		// .bean(new GenFile(esbContext, "AUTOFI_SEND_BILL",
+		// "gen_file_bill"), "genFile")
+		// .to("file:/Users/shiliyan/Desktop/esb/upload"
+		// + "?recursive=true&noop=true");
+
+		// from("timer://foo?period=20000")
+		// .bean(new GenFile(esbContext,"AUTOFI_SEND_BILL","gen_file_bill"),
+		// "genFile")
+		// .to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
 
 		// from("timer://foo?period=1000").bean(new
 		// SendBillFile(),"genFile").to("file:/Users/shiliyan/Desktop/esb/upload?recursive=true&noop=true");
@@ -57,15 +84,6 @@ public class CFAliGenFileProducerBuilder extends RouteBuilder {
 		// // move
 		// .log("Uploading file ${file:name}").to(ftp_server_url)
 		// .log("Uploaded file ${file:name} complete.");
-
-		// use system out so it stand out
-		// System.out.println("*********************************************************************************");
-		// System.out.println("Camel will route files from target/upload directory to the FTP server: "
-		// + getContext().resolvePropertyPlaceholders("{{ftp.server}}"));
-		// System.out.println("You can configure the location of the ftp server in the src/main/resources/ftp.properties file.");
-		// System.out.println("If the file upload fails, then the file is moved to the target/error directory.");
-		// System.out.println("Use ctrl + c to stop this application.");
-		// System.out.println("*********************************************************************************");
 
 	}
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import uncertain.composite.CompositeMap;
 import uncertain.core.ILifeCycle;
 import uncertain.core.UncertainEngine;
 import uncertain.logging.ILogger;
@@ -33,6 +34,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 	private String consumer = "";
 	private UncertainEngine uncertainEngine;
 	private IObjectRegistry registry;
+	private boolean isNeedCommandConsole = true;
 	private AuroraEsbContext esbContext = new AuroraEsbContext();
 
 	private ILogger mLogger;
@@ -61,7 +63,6 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 	public boolean startup() {
 		File configDirectory = uncertainEngine.getConfigDirectory();
 		File config = new File(configDirectory, packageName);
-		System.out.println(config);
 		// config
 		esbContext.setWorkPath(workPath);
 		esbContext.setDataStore(new FileDataStore());
@@ -69,6 +70,12 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		loadProducer(config);
 
 		loadConsumer(config);
+		
+		loadProducerMap(config);
+
+		loadConsumerMap(config);
+		
+		
 
 		{
 			esbContext.getAdapterManager().registry(new WSSTDProducerAdapter());
@@ -94,6 +101,25 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		return true;
 	}
 
+	private void loadConsumerMap(File config) {
+
+		List<CompositeMap>  loadDirectConfig = this.loadConfigMap(config,
+				this.getConsumer());
+		for (CompositeMap directConfig : loadDirectConfig) {
+			esbContext.addConsumerMap(directConfig);
+
+		}
+	}
+
+	private void loadProducerMap(File config) {
+		List<CompositeMap> loadDirectConfig = this.loadConfigMap(config,
+				this.getProducer());
+		for (CompositeMap directConfig : loadDirectConfig) {
+			esbContext.addProducerMap(directConfig);
+
+		}		
+	}
+
 	private void loadConsumer(File config) {
 		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
 				this.getConsumer());
@@ -102,7 +128,25 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 
 		}
 	}
-
+	private List<CompositeMap> loadConfigMap(File config, String routers) {
+		String[] split = routers.split(",");
+		List<CompositeMap> dcs = new ArrayList<CompositeMap>();
+		for (String ts : split) {
+			File tf = new File(config, ts);
+			FileInputStream fis;
+			try {
+				fis = new FileInputStream(tf);
+				String inputStream2String = XMLHelper.inputStream2String(fis);
+				CompositeMap dc = XMLHelper.toMap(inputStream2String);
+				dcs.add(dc);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return dcs;
+	}
 	private List<DirectConfig> loadDirectConfig(File config, String routers) {
 		String[] split = routers.split(",");
 		List<DirectConfig> dcs = new ArrayList<DirectConfig>();
@@ -164,6 +208,14 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 
 	public void setConsumer(String consumer) {
 		this.consumer = consumer;
+	}
+
+	public boolean getNeedCommandConsole() {
+		return isNeedCommandConsole;
+	}
+
+	public void setNeedCommandConsole(boolean isNeedCommandConsole) {
+		this.isNeedCommandConsole = isNeedCommandConsole;
 	}
 
 }

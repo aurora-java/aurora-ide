@@ -19,11 +19,13 @@ public class GenFile {
 	private AuroraEsbContext esbContext;
 	private String serviceName;
 	private String procName;
+	private String orgCode;
 
-	public GenFile(AuroraEsbContext esbContext, String serviceName,String procName) {
+	public GenFile(AuroraEsbContext esbContext, String serviceName,String procName,String orgCode) {
 		this.esbContext = esbContext;
 		this.serviceName = serviceName;
 		this.procName = procName;
+		this.orgCode = orgCode;
 	}
 
 	private CompositeMap callProc() {
@@ -36,7 +38,7 @@ public class GenFile {
 //		"AUTOFI_SEND_BILL"
 		header.put("serviceName".toLowerCase(), serviceName);
 
-		header.put("orgCode".toLowerCase(), "CFCar");
+		header.put("orgCode".toLowerCase(), orgCode);
 
 		Date date = new Date();
 		DateFormat format1 = new SimpleDateFormat("yyyyMMdd");

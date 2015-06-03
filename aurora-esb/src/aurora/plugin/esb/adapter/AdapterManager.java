@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.camel.builder.RouteBuilder;
 
+import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.Producer;
@@ -25,6 +26,24 @@ public class AdapterManager {
 		ProducerAdapter producerAdapter = producerAdapters.get(type);
 		if (producerAdapter != null)
 			return producerAdapter.createProducerBuilder(esbContext, producer);
+		return null;
+	}
+	
+	public RouteBuilder createProducerRouteBuilder(AuroraEsbContext esbContext,
+			CompositeMap producer) {
+		String type = producer.getString("type", "");
+		ProducerAdapter producerAdapter = producerAdapters.get(type);
+		if (producerAdapter != null)
+			return producerAdapter.createProducerBuilder(esbContext, producer);
+		return null;
+	}
+	
+	public RouteBuilder createConsumerRouteBuilder(AuroraEsbContext esbContext,
+			CompositeMap consumer) {
+		String type = consumer.getString("type", "");
+		ConsumerAdapter consumerAdapter = consumerAdapters.get(type);
+		if (consumerAdapter != null)
+			return consumerAdapter.createConsumerBuilder(esbContext, consumer);
 		return null;
 	}
 

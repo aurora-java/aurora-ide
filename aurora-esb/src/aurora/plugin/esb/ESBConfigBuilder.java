@@ -19,17 +19,13 @@ package aurora.plugin.esb;
 
 import java.util.List;
 
-import javax.jms.ConnectionFactory;
-
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 
+import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.console.Console;
 import aurora.plugin.esb.model.DirectConfig;
-import aurora.plugin.esb.router.builder.MsgBuilder;
 import aurora.plugin.esb.task.TaskManager;
 
 public final class ESBConfigBuilder {
@@ -45,11 +41,11 @@ public final class ESBConfigBuilder {
 		esbContext.setCamelContext(context);
 		
 		
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
-				"failover:(tcp://127.0.0.1:61616)");
-		// Note we can explicit name the component
-		context.addComponent("test-jms",
-				JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
+//		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+//				"failover:(tcp://127.0.0.1:61616)");
+//		// Note we can explicit name the component
+//		context.addComponent("test-jms",
+//				JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
 
 		configure(context);
 
@@ -64,18 +60,35 @@ public final class ESBConfigBuilder {
 //				from("test-jms:hungup").to("mock:end");
 //			}
 //		});
-		context.addRoutes(new RouteBuilder() {
+		if(esbContext.isNeedCommandConsole()){
+			context.addRoutes(new RouteBuilder() {
 
-			@Override
-			public void configure() throws Exception {
+				@Override
+				public void configure() throws Exception {
 
-				from("stream:in?promptMessage=Aurora : ").bean(
-						new Console(esbContext),"run");
-			}
-		});
+					from("stream:in?promptMessage=Aurora : ").bean(
+							new Console(esbContext),"run");
+				}
+			});	
+		}
+		
 //		context.addRoutes(new MsgBuilder(esbContext));
 //		configRouters(context);
 		// testRouter(context);
+		autoConfigRouters(context);
+	}
+
+	private void autoConfigRouters(DefaultCamelContext context) throws Exception {
+		List<CompositeMap> consumerMaps = esbContext.getAutoStartConsumerMaps();
+		List<CompositeMap> producerMaps = esbContext.getAutoStartProducerMaps();
+		for (CompositeMap m : producerMaps) {
+			RouteBuilder builder = esbContext.getAdapterManager().createProducerRouteBuilder(esbContext, m);
+			context.addRoutes(builder);
+		}
+		for (CompositeMap m : consumerMaps) {
+			RouteBuilder builder = esbContext.getAdapterManager().createConsumerRouteBuilder(esbContext, m);
+			context.addRoutes(builder);
+		}
 	}
 
 	public void configRouters(CamelContext context) throws Exception {
