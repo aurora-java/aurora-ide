@@ -1,6 +1,7 @@
 package aurora.plugin.esb.adapter.cf.ali.sftp.genfile.producer;
 
 import java.util.List;
+import java.util.logging.Level;
 
 import org.apache.camel.builder.RouteBuilder;
 
@@ -36,14 +37,31 @@ public class CFAliGenFileProducerBuilder extends RouteBuilder {
 			CompositeMap map = (CompositeMap) object;
 
 			String timer = map.getString("timer", "timer://foo?period=3000000");
-			String serviceName = map.getString("serviceName",
+			String serviceName = map.getString("serviceName".toLowerCase(),
 					"AUTOFI_APPROVAL_CONTRACT");
 			String proc = map.getString("proc", "gen_file_ap");
-			String saveUrl = map.getString("saveUrl", "");
-			String orgCode = map.getString("orgCode", "");
+			String saveUrl = map.getString("saveUrl".toLowerCase(), "");
+			String orgCode = map.getString("orgCode".toLowerCase(), "");
 
-			from(timer).bean(new GenFile(esbContext, serviceName, proc,orgCode),
+			from(timer).bean(
+					new GenFile(esbContext, serviceName, proc, orgCode),
 					"genFile").to(saveUrl);
+
+			esbContext.getmLogger().log(Level.SEVERE,
+					"" + "[Gen File] " + "Gen File Task Configed");
+			esbContext.getmLogger().log(Level.SEVERE,
+					"" + "[Gen File] " + "Service Name" + serviceName);
+			esbContext.getmLogger().log(Level.SEVERE,
+					"" + "[Gen File] " + "TIMER  " + timer);
+
+			esbContext.getmLogger().log(Level.SEVERE,
+					"" + "[Gen File] " + "SAVE URL " + saveUrl);
+
+			clog.log2Console("[Gen File] " + "Gen File Task Configed");
+			clog.log2Console("[Gen File] " + "Service Name" + serviceName);
+			clog.log2Console("[Gen File] " + "TIMER  " + timer);
+			clog.log2Console("[Gen File] " + "SAVE URL " + saveUrl);
+
 		}
 
 		// from("timer://foo?period=10000")

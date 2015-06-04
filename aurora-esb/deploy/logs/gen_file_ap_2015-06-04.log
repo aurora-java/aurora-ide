@@ -1,0 +1,90 @@
+2015-06-04 15:54:37.736 [uncertain.proc] [CONFIG] [action] DecideStatement
+2015-06-04 15:54:37.739 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-06-04 15:54:37.739 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-06-04 15:54:37.739 [uncertain.proc] [CONFIG] [action] CreateOperationSql
+2015-06-04 15:54:37.739 [uncertain.proc] [CONFIG] [action] PopulateOperationSql
+2015-06-04 15:54:37.739 [uncertain.proc] [FINE] aurora.database.features.WhereClauseCreator.onPopulateOperationSql
+2015-06-04 15:54:37.740 [uncertain.proc] [FINE] aurora.database.features.OrderByClauseCreator.onPopulateOperationSql
+2015-06-04 15:54:37.740 [uncertain.proc] [CONFIG] [action] CreateSqlRunner
+2015-06-04 15:54:37.740 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onCreateSqlRunner
+2015-06-04 15:54:37.740 [uncertain.proc] [CONFIG] [action] ExecuteDmlStatement
+2015-06-04 15:54:37.740 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onExecuteDmlStatement
+2015-06-04 15:54:37.756 [aurora.database] [CONFIG] 
+============= BEGIN [Execute] SQL Statement execution dump ============
+
+        		begin
+        		
+				  ? := tm_interface_pkg.create_contract_approval(p_company_id 	=> 1001,
+				  														   p_user_id		=> -1);
+				
+				end;
+        	
+---------------------Binding info---------------------
+No.1	Access path:@head_id	Data type of passed value :[null]	Value:null	Output:true	Database Type:null	
+
+=============== END [Execute] SQL Statement execution dump ============
+
+2015-06-04 15:54:37.763 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-06-04 15:54:37.763 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-06-04 15:54:37.763 [uncertain.proc] [CONFIG] [action] CreatequeryStatement
+2015-06-04 15:54:37.763 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onCreateQueryStatement
+2015-06-04 15:54:37.763 [uncertain.proc] [CONFIG] [action] PopulatequeryStatement
+2015-06-04 15:54:37.763 [uncertain.proc] [FINE] aurora.database.features.WhereClauseCreator.onPopulateQueryStatement
+2015-06-04 15:54:37.763 [uncertain.proc] [FINE] aurora.database.features.OrderByClauseCreator.onPopulateQueryStatement
+2015-06-04 15:54:37.763 [uncertain.proc] [CONFIG] [action] CreatequerySql
+2015-06-04 15:54:37.763 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onCreateQuerySql
+2015-06-04 15:54:37.763 [uncertain.proc] [CONFIG] [action] ExecuteQuery
+2015-06-04 15:54:37.763 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onExecuteQuery
+2015-06-04 15:54:37.767 [uncertain.proc] [CONFIG] [action] QueryFinish
+2015-06-04 15:54:37.767 [uncertain.proc] [FINE] aurora.database.features.AutoQueryCounter.onQueryFinish
+2015-06-04 15:54:37.767 [uncertain.proc] [CONFIG] [action] FetchResultSet
+2015-06-04 15:54:37.767 [aurora.database] [CONFIG] 
+============= BEGIN [query] SQL Statement execution dump ============
+SELECT t1.HEAD_ID,t1.FILENAME,t1.FILEDATE,t1.BATCHID,t1.VERSION,t1.COUNT,t1.ISLAST,t1.ENABLED_FLAG,t1.SERVICENAME
+FROM TM_INTERFACE_HEADERS t1
+WHERE HEAD_ID = ?
+---------------------Binding info---------------------
+No.1	Access path:@head_id	Data type of passed value :java.lang.Long	Value:775	Output:false	Database Type:null	
+
+=============== END [query] SQL Statement execution dump ============
+
+2015-06-04 15:54:37.774 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-06-04 15:54:37.774 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-06-04 15:54:37.774 [uncertain.proc] [CONFIG] [action] CreatequeryStatement
+2015-06-04 15:54:37.774 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onCreateQueryStatement
+2015-06-04 15:54:37.774 [uncertain.proc] [CONFIG] [action] PopulatequeryStatement
+2015-06-04 15:54:37.774 [uncertain.proc] [FINE] aurora.database.features.WhereClauseCreator.onPopulateQueryStatement
+2015-06-04 15:54:37.774 [uncertain.proc] [FINE] aurora.database.features.OrderByClauseCreator.onPopulateQueryStatement
+2015-06-04 15:54:37.774 [uncertain.proc] [CONFIG] [action] CreatequerySql
+2015-06-04 15:54:37.774 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onCreateQuerySql
+2015-06-04 15:54:37.774 [uncertain.proc] [CONFIG] [action] ExecuteQuery
+2015-06-04 15:54:37.774 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onExecuteQuery
+2015-06-04 15:54:37.778 [uncertain.proc] [CONFIG] [action] QueryFinish
+2015-06-04 15:54:37.778 [uncertain.proc] [FINE] aurora.database.features.AutoQueryCounter.onQueryFinish
+2015-06-04 15:54:37.778 [uncertain.proc] [CONFIG] [action] FetchResultSet
+2015-06-04 15:54:37.778 [aurora.database] [CONFIG] 
+============= BEGIN [query] SQL Statement execution dump ============
+SELECT t1.APPROVAL_LINE_ID,t1.HEAD_ID,t1.APPLYNO,t1.ALLOWLOAN,t1.FAILREASON,t1.REASONTYPE,t1.APPLYAMOUNT,t1.CONTRACTNO,t1.PROCESS_STATUS
+FROM TM_INTERFACE_CON_APPROVAL t1
+WHERE HEAD_ID = ?
+---------------------Binding info---------------------
+No.1	Access path:@head_id	Data type of passed value :java.lang.Long	Value:775	Output:false	Database Type:null	
+
+=============== END [query] SQL Statement execution dump ============
+
+2015-06-04 15:54:37.779 [uncertain.proc] [INFO] <esb_conext SERVICE_LOGGING_FILE="/Users/shiliyan/git/aurora-ide/aurora-esb/deploy/logs/gen_file_ap_2015-06-04.log" __configuration__="uncertain.event.Configuration@578e9e5a" BusinessModel="aurora.bm.BusinessModel@74a6de55" service_name="gen_file_ap" SqlStatementType="query" SqlGenerationMode="AutoGenerate" _instance.uncertain.logging.ILoggerProvider="uncertain.logging.LoggerProvider@37c28a4b" _instance.aurora.service.IService="aurora.service.http.HttpServiceInstance@1e8b948a" sso="(ScriptShareObject : 4 elements)" BusinessModelOperation="query" SqlString="SELECT t1.APPROVAL_LINE_ID,t1.HEAD_ID,t1.APPLYNO,t1.ALLOWLOAN,t1.FAILREASON,t1.REASONTYPE,t1.APPLYAMOUNT,t1.CONTRACTNO,t1.PROCESS_STATUS
+FROM TM_INTERFACE_CON_APPROVAL t1
+WHERE HEAD_ID = ${@head_id}" SqlStatement="aurora.database.sql.SelectStatement@3dd4b54f" current_parameter="{head_id=775}" SqlRunner="aurora.database.SqlRunner@7f4280d6" FetchDescriptor="aurora.database.FetchDescriptor@2d1606dd" __database_all_connection="[com.mchange.v2.c3p0.impl.NewProxyConnection@2b7e3b36]" _instance.uncertain.logging.BasicFileHandler="uncertain.logging.BasicFileHandler@5c71cda7" _instance.java.sql.Connection="com.mchange.v2.c3p0.impl.NewProxyConnection@2b7e3b36" ResultsetConsumer="aurora.database.rsconsumer.CompositeMapCreator@1e9c3d67">
+    <parameter count="2.0" __parameter_parsed__="true" head_id="775">
+        <result orgcode="CFCAR" yyyymmdd="20150604" servicename="AUTOFI_APPROVAL_CONTRACT"/>
+        <header fileName="CFCAR_AUTOFI_APPROVAL_CONTRACT_20150604_76.txt" batchNo="76" isLast="NO" count="2" serviceName="AUTOFI_APPROVAL_CONTRACT" version="1.0" yyyymmdd="20150604" orgCode="CFCAR"/>
+        <datas>
+            <data contractNo="" reasonType="" applyAmount="" allowLoan="NO" applyNo="94012014070100039588S" failReason="凭证无效"/>
+            <data contractNo="" reasonType="" applyAmount="" allowLoan="YES" applyNo="94012014070100039587S" failReason=""/>
+        </datas>
+    </parameter>
+    <session/>
+    <cookie/>
+    <model/>
+</esb_conext>
+

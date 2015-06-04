@@ -6,7 +6,7 @@
             	DECLARE
             	  v_file_status varchar2(50);
                 BEGIN
-				  v_file_status := tm_interface_pkg.save_loan_result(p_head_id         => ${../../@head_id},
+				  v_file_status := tm_interface_pkg.insert_loan_result(p_head_id         => ${../../@head_id},
 				                                        			 p_applyno         => ${@applyno},
 				                                        			 p_loandate		   => ${@loandate},
 				                                        			 p_applyamount 	   => ${@applyamount});

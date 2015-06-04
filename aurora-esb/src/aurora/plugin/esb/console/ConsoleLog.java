@@ -1,5 +1,7 @@
 package aurora.plugin.esb.console;
 
+import java.util.Date;
+
 import org.apache.camel.Exchange;
 
 public class ConsoleLog {
@@ -16,6 +18,6 @@ public class ConsoleLog {
 	}
 
 	public void log2Console(String msg) {
-		System.out.println(msg);
+		System.out.println(new Date() + "  " + msg);
 	}
 }

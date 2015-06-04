@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.camel.ProducerTemplate;
 
+import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.DirectConfig;
@@ -148,10 +149,18 @@ public class Console {
 		for (Producer producer : producers) {
 			System.out.println(producer.getName());
 		}
+		List<CompositeMap> producerMaps = esbContext.getProducerMaps();
+		for (CompositeMap compositeMap : producerMaps) {
+			System.out.println(compositeMap.getString("name", ""));
+		}
 		List<Consumer> consumers = esbContext.getConsumers();
 		System.out.println("============Consumer==============");
 		for (Consumer consumer : consumers) {
 			System.out.println(consumer.getName());
+		}
+		List<CompositeMap> consumerMaps = esbContext.getConsumerMaps();
+		for (CompositeMap compositeMap : consumerMaps) {
+			System.out.println(compositeMap.getString("name", ""));
 		}
 		return "";
 	}
@@ -159,11 +168,30 @@ public class Console {
 	private String bindProducer(String cmd) {
 		String p = cmd.replaceFirst(producer, "");
 		p = p.trim();
+
+		boolean active = esbContext.isActive(p);
+		if (active == true) {
+			return "producer " + p + " is active.";
+		}
+		List<CompositeMap> producerMaps = esbContext.getProducerMaps();
+		for (CompositeMap compositeMap : producerMaps) {
+			String string = compositeMap.getString("name", "");
+			if (p.equals(string)) {
+				try {
+					esbContext.bindProducer(compositeMap);
+					return string + " is activing.";
+				} catch (Exception e) {
+					e.printStackTrace();
+					return "error " + e.getMessage();
+				}
+			}
+		}
 		Producer producer = esbContext.getProducer(p);
+
 		if (producer == null) {
 			return "producer " + p + " is not exist.";
 		}
-		boolean active = esbContext.isActive(producer);
+		active = esbContext.isActive(producer);
 		if (active == true) {
 			return "producer " + p + " is active.";
 		}

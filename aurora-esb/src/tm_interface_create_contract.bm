@@ -6,7 +6,7 @@
             	DECLARE
             	  v_file_status varchar2(50);
                 BEGIN
-				  v_file_status := tm_interface_pkg.save_create_contract(p_head_id         => ${../../@head_id},
+				  v_file_status := tm_interface_pkg.insert_create_contract(p_head_id         => ${../../@head_id},
 				                                        				 p_applyno         => ${@applyno},
 				                                        				 p_name            => ${@name},
 				                                        				 p_certno          => ${@certno},

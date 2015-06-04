@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,12 +18,15 @@ import org.apache.camel.Message;
 import uncertain.composite.CompositeMap;
 import uncertain.logging.ILogger;
 import aurora.plugin.esb.AuroraEsbContext;
+import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.util.FileCopyer;
 import aurora.plugin.esb.util.FileStore;
 
 public class CFAliServiceReader {
 
 	private AuroraEsbContext esbContext;
+
+	private ConsoleLog clog = new ConsoleLog();
 
 	private CompositeMap readHistory;
 
@@ -58,21 +62,28 @@ public class CFAliServiceReader {
 		// exchange.getIn().s
 		Message in = exchange.getIn();
 		Map<String, Object> headers = in.getHeaders();
-		Set<String> keySet = headers.keySet();
-		for (String key : keySet) {
-			System.out.println(key + ":" + headers.get(key));
-		}
-		// exchange.getIn().setFault(true);
+		// Set<String> keySet = headers.keySet();
+		// for (String key : keySet) {
+		// System.out.println(key + ":" + headers.get(key));
+		// }
+		// exchange.getIn().setFault(true);C
 		String filenameonly = (String) headers.get("camelfilenameonly");
 		String camelfileabsolutepath = (String) headers
 				.get("camelfileabsolutepath");
 		if (isRead(filenameonly)) {
+			esbContext.getmLogger().log(Level.SEVERE,
+					"" + "[Reading File] " + " Do Not Need Read Again.");
+			clog.log2Console("[Reading File] " + filenameonly
+					+ " Do Not Need Read Again.");
 			return;
 		}
 		// file_status 'YES'表示正常文件，'NO'表示错序文件，下次接着读
 
 		ServiceFile sn = new ServiceFile(filenameonly);
 		if (sn.isInvalid()) {
+			esbContext.getmLogger().log(Level.SEVERE,
+					"" + "[Reading File] " + filenameonly + " is invalid.");
+			clog.log2Console("[Reading File] " + filenameonly + " is invalid.");
 			return;
 		}
 
@@ -80,6 +91,12 @@ public class CFAliServiceReader {
 		List<String> lines = readBody(body);
 		if (lines.size() < 2) {
 			// hehe
+			esbContext.getmLogger().log(
+					Level.SEVERE,
+					"" + "[Reading File] " + filenameonly
+							+ " is no Data found.");
+			clog.log2Console("[Reading File] " + filenameonly
+					+ " is no Data found.");
 			return;
 		} else {
 			// version:1.0|count:1|isLast:NO
@@ -97,13 +114,19 @@ public class CFAliServiceReader {
 		CompositeMap result = callProc(sn);
 		String file_status = result.getChild("parameter").getString(
 				"file_status", "NO");
-		System.out.println("file_status : " + file_status);
+		clog.log2Console("[Reading] " + filenameonly
+				+ " insert to db. file_status : " + file_status);
 		if ("YES".equals(file_status)) {
 			addHistory(filenameonly, camelfileabsolutepath);
-			log("file " + filenameonly + "loaded  success.");
+			log("[Reading File] " + "File " + filenameonly
+					+ " Loaded  Success.");
+			clog.log2Console("[Reading File] " + "File " + filenameonly
+					+ " Loaded  Success.");
 		} else {
-			log("file " + filenameonly + "loaded  failed.");
+			log("[Reading File] " + "File " + filenameonly + " Loaded  Failed.");
 			exchange.getOut().setFault(true);
+			clog.log2Console("[Reading File] " + "File " + filenameonly
+					+ " Loaded  Failed.");
 		}
 
 		// System.out.println(body);
@@ -144,6 +167,7 @@ public class CFAliServiceReader {
 		CompositeMap createChild = readHistory.createChild("file");
 		createChild.put("file", filenameonly);
 		createChild.put("abPath", camelfileabsolutepath);
+		createChild.put("readDate", new Date());
 		fs.save(readHistory, fileName);
 	}
 

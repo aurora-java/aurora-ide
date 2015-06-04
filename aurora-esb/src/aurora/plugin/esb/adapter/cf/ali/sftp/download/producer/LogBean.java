@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import org.apache.camel.Exchange;
 
 import aurora.plugin.esb.AuroraEsbContext;
+import aurora.plugin.esb.console.ConsoleLog;
 import uncertain.logging.ILogger;
 
 public class LogBean {
@@ -19,7 +20,9 @@ public class LogBean {
 		Object header = exchange.getIn().getHeader("CamelFileName");
 
 		ILogger logger = esbContext.getmLogger();
-		String msg = "Downloaded file " + header + " complete.";
+		String msg = "[Downloaded File] " 
+				+ "Downloaded File " + header + " Complete.";
 		logger.log(Level.SEVERE, "" + msg);
+		new ConsoleLog().log2Console(msg);
 	}
 }

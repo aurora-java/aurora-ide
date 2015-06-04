@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:e="aurora.service.exception" xmlns:o="aurora.database.local.oracle" xmlns:bm="http://www.aurora-framework.org/schema/bm" xmlns:f="aurora.database.features">
+    <bm:operations>
+        <bm:operation name="execute">
+            <bm:parameters>
+                <bm:parameter name="head_id" dataType="java.lang.Long" output="true" outputPath="@head_id"/>
+            </bm:parameters>
+            <bm:update-sql><![CDATA[
+        		begin
+        		
+				  ${@head_id} := tm_interface_pkg.create_contract_approval(p_company_id 	=> 1001,
+				  														   p_user_id		=> -1);
+				
+				end;
+        	]]></bm:update-sql>
+        </bm:operation>
+    </bm:operations>
+</bm:model>

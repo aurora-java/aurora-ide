@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <cf_ali name="ali_gen_file" type="cf.ali.sftp.gen.file" autoStart="true">
-    <genFile  orgCode="CFCar" timer="timer://foo?period=10000" serviceName="AUTOFI_APPROVAL_CONTRACT" proc="gen_file_ap" saveUrl="file:/Users/shiliyan/Desktop/esb/upload">
+    <genFile  orgCode="CFCAR" timer="timer://foo?period=300000" serviceName="AUTOFI_APPROVAL_CONTRACT" proc="gen_file_ap" saveUrl="file:/Users/shiliyan/Desktop/esb/uploading">
     </genFile>
-     <genFile  orgCode="CFCar" timer="quartz2://timerName?cron=0 0 18 * * ?" serviceName="AUTOFI_SEND_BILL" proc="gen_file_bill" saveUrl="file:/Users/shiliyan/Desktop/esb/upload">
+     <genFile  orgCode="CFCAR" timer="timer://foo?period=300000" serviceName="AUTOFI_SEND_BILL" proc="gen_file_bill" saveUrl="file:/Users/shiliyan/Desktop/esb/uploading">
     </genFile>
     </cf_ali>
+
+    <!--quartz2://timerName?cron=0 0 11 * * ?-->

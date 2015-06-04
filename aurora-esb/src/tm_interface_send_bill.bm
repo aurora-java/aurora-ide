@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm" xmlns:f="aurora.database.features" alias="t1" baseTable="TM_INTERFACE_SEND_BILL">
+    <bm:fields>
+        <bm:field name="bill_line_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILL_LINE_ID" prompt="TM_INTERFACE_SEND_BILL.BILL_LINE_ID"/>
+        <bm:field name="head_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="HEAD_ID" prompt="TM_INTERFACE_SEND_BILL.HEAD_ID"/>
+        <bm:field name="applyno" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="APPLYNO" prompt="TM_INTERFACE_SEND_BILL.APPLYNO"/>
+        <bm:field name="orgcode" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="ORGCODE" prompt="TM_INTERFACE_SEND_BILL.ORGCODE"/>
+        <bm:field name="drawdnno" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="DRAWDNNO" prompt="TM_INTERFACE_SEND_BILL.DRAWDNNO"/>
+        <bm:field name="loanlength" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="LOANLENGTH" prompt="TM_INTERFACE_SEND_BILL.LOANLENGTH"/>
+        <bm:field name="loancustomer" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="LOANCUSTOMER" prompt="TM_INTERFACE_SEND_BILL.LOANCUSTOMER"/>
+        <bm:field name="prinamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="PRINAMT" prompt="TM_INTERFACE_SEND_BILL.PRINAMT"/>
+        <bm:field name="intamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="INTAMT" prompt="TM_INTERFACE_SEND_BILL.INTAMT"/>
+        <bm:field name="penaltyamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="PENALTYAMT" prompt="TM_INTERFACE_SEND_BILL.PENALTYAMT"/>
+        <bm:field name="paidprinamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="PAIDPRINAMT" prompt="TM_INTERFACE_SEND_BILL.PAIDPRINAMT"/>
+        <bm:field name="paidintamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="PAIDINTAMT" prompt="TM_INTERFACE_SEND_BILL.PAIDINTAMT"/>
+        <bm:field name="paidpenaltyamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="PAIDPENALTYAMT" prompt="TM_INTERFACE_SEND_BILL.PAIDPENALTYAMT"/>
+        <bm:field name="cleardate" databaseType="DATE" datatype="java.util.Date" physicalName="CLEARDATE" prompt="TM_INTERFACE_SEND_BILL.CLEARDATE"/>
+        <bm:field name="status" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="STATUS" prompt="TM_INTERFACE_SEND_BILL.STATUS"/>
+        <bm:field name="begindate" databaseType="DATE" datatype="java.util.Date" physicalName="BEGINDATE" prompt="TM_INTERFACE_SEND_BILL.BEGINDATE"/>
+        <bm:field name="paymentduedate" databaseType="DATE" datatype="java.util.Date" physicalName="PAYMENTDUEDATE" prompt="TM_INTERFACE_SEND_BILL.PAYMENTDUEDATE"/>
+        <bm:field name="billprinamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLPRINAMT" prompt="TM_INTERFACE_SEND_BILL.BILLPRINAMT"/>
+        <bm:field name="billintamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLINTAMT" prompt="TM_INTERFACE_SEND_BILL.BILLINTAMT"/>
+        <bm:field name="billpenaltyamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLPENALTYAMT" prompt="TM_INTERFACE_SEND_BILL.BILLPENALTYAMT"/>
+        <bm:field name="billpaidprinamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLPAIDPRINAMT" prompt="TM_INTERFACE_SEND_BILL.BILLPAIDPRINAMT"/>
+        <bm:field name="billpaidintamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLPAIDINTAMT" prompt="TM_INTERFACE_SEND_BILL.BILLPAIDINTAMT"/>
+        <bm:field name="billpaidpenaltyamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLPAIDPENALTYAMT" prompt="TM_INTERFACE_SEND_BILL.BILLPAIDPENALTYAMT"/>
+        <bm:field name="billcleardate" databaseType="DATE" datatype="java.util.Date" physicalName="BILLCLEARDATE" prompt="TM_INTERFACE_SEND_BILL.BILLCLEARDATE"/>
+        <bm:field name="billstatus" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="BILLSTATUS" prompt="TM_INTERFACE_SEND_BILL.BILLSTATUS"/>
+        <bm:field name="overduedays" databaseType="NUMBER" datatype="java.lang.Long" physicalName="OVERDUEDAYS" prompt="TM_INTERFACE_SEND_BILL.OVERDUEDAYS"/>
+        <bm:field name="process_status" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="PROCESS_STATUS" prompt="TM_INTERFACE_SEND_BILL.PROCESS_STATUS"/>
+        <bm:field name="termno" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="TERMNO" prompt="TM_INTERFACE_SEND_BILL.TERMNO"/>
+        <bm:field name="enddate" databaseType="DATE" datatype="java.util.Date" physicalName="ENDDATE" prompt="TM_INTERFACE_SEND_BILL.ENDDATE"/>
+        <bm:field name="duedate" databaseType="DATE" datatype="java.util.Date" physicalName="DUEDATE" prompt="TM_INTERFACE_SEND_BILL.DUEDATE"/>
+    </bm:fields>
+    <bm:features>
+        <f:standard-who/>
+    </bm:features>
+    <bm:primary-key>
+        <bm:pk-field name="bill_line_id"/>
+    </bm:primary-key>
+    <bm:query-fields>
+        <bm:query-field field="head_id" queryOperator="="/>
+    </bm:query-fields>
+</bm:model>

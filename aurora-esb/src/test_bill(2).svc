@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:service xmlns:s="aurora.plugin.script" xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" trace="true">
+    <a:init-procedure>
+        <s:server-script><![CDATA[
+               function b(value) {
+                   return value == null || value == undefined ? "" : value;
+               }
+               
+               var result = $bm('tm_create_send_bill').execute({}); //通过一个BM去调用后台pkg去生成文件头
+               var head_id = $ctx.parameter.head_id;
+               
+               var head_bm = $bm('tm_interface_headers');
+               var head_record = head_bm.queryAsMap({
+                   head_id: head_id
+               }).getChildren();
+               
+               var line_bm = $bm('tm_interface_send_bill');
+               var line_record = line_bm.queryAsMap({
+                   head_id: head_id
+               }).getChildren();
+               
+               if (head_record.length == 0) {
+                   //return;
+               } else if (line_record.length == 0) {
+                   //return;
+               } else {
+                   var header = new CompositeMap('header');
+                   var datas = new CompositeMap('datas');
+                   header.fileName = b(head_record[0].filename);
+                   header.yyyymmdd = b(head_record[0].filedate);
+                   header.batchNo = b(head_record[0].batchid);
+                   header.version = b(head_record[0].version);
+                   header.count = b(head_record[0].count);
+                   header.isLast = b(head_record[0].islast);
+               
+                   header.orgCode = 'CFCAR';
+                   header.serviceName = "AUTOFI_SEND_BILL";
+               
+                   for (var i = 0;i < line_record.length;i++) {
+                       var data = new CompositeMap('data');
+               
+                       data.applyNo = b(line_record[i].applyno);
+                       data.orgCode = b(line_record[i].orgcode);
+                       data.drawndnNo = b(line_record[i].drawdnno);
+                       data.loanLength = b(line_record[i].loanlength);
+                       data.loanCustomer = b(line_record[i].loancustomer);
+                       data.prinAmt = b(line_record[i].prinamt);
+                       data.intAmt = b(line_record[i].intamt);
+                       data.penaltyAmt = b(line_record[i].penaltyamt);
+                       //data.disAmt = b(line_record[i].failreason);
+                       data.paidPrinAmt = b(line_record[i].paidprinamt);
+                       data.paidIntAmt = b(line_record[i].paidintamt);
+                       data.paidPenaltyAmt = b(line_record[i].paidpenaltyamt);
+                       data.clearDate = b(line_record[i].cleardate);
+                       data.status = b(line_record[i].status);
+                       data.termNo = b(line_record[i].termno);
+                       data.beginDate = b(line_record[i].begindate);
+                       data.endDate = b(line_record[i].enddate);
+                       data.dueDat = b(line_record[i].duedate);
+                       data.paymentDueDate = b(line_record[i].paymentduedate);
+                       data.billPrinAmt = b(line_record[i].billprinamt);
+                       data.billIntAmt = b(line_record[i].billintamt);
+                       data.billPenaltyAmt = b(line_record[i].billpenaltyamt);
+                       data.billPaidPrinAmt = b(line_record[i].billpaidprinamt);
+                       data.billPaidIntAmt = b(line_record[i].billpaidintamt);
+                       data.billPaidPenaltyAmt = b(line_record[i].billpaidpenaltyamt);
+                       data.billClearDate = b(line_record[i].billcleardate);
+                       data.billStatus = b(line_record[i].billstatus);
+                       data.overdueDays = b(line_record[i].overduedays);
+               
+                       datas.addChild(data);
+                   }
+                   $ctx.parameter.addChild(header.getData());
+                   $ctx.parameter.addChild(datas.getData());
+                   $ctx.parameter.count = line_record.length;
+               }
+           ]]></s:server-script>
+        <p:echo/>
+    </a:init-procedure>
+    <a:service-output output="/parameter"/>
+</a:service>

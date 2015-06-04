@@ -18,6 +18,7 @@ import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.Producer;
 import aurora.plugin.esb.model.ProducerConsumer;
+import aurora.plugin.esb.model.Router;
 import aurora.service.IServiceFactory;
 import aurora.service.ServiceThreadLocal;
 import aurora.service.http.HttpServiceInstance;
@@ -26,7 +27,7 @@ public class AuroraEsbContext {
 	private AuroraEsbServer server;
 	private List<DirectConfig> task_configs = new ArrayList<DirectConfig>();
 	private DefaultCamelContext context;
-	
+
 	private boolean isNeedCommandConsole = true;
 
 	private DataStore ds;
@@ -42,7 +43,7 @@ public class AuroraEsbContext {
 	private List<CompositeMap> producerMaps = new ArrayList<CompositeMap>();
 
 	private List<CompositeMap> consumerMaps = new ArrayList<CompositeMap>();
-	
+
 	private List<CompositeMap> autoStartProducerMaps = new ArrayList<CompositeMap>();
 
 	private List<CompositeMap> autoStartConsumerMaps = new ArrayList<CompositeMap>();
@@ -119,7 +120,10 @@ public class AuroraEsbContext {
 		Producer pro = new Producer();
 		pro.setName(dc.getName());
 		pro.setType(dc.getType());
-		pro.setFrom(dc.getRouter().getFrom());
+		Router router = dc.getRouter();
+		if (router == null)
+			return;
+		pro.setFrom(router.getFrom());
 		this.addProducer(pro);
 	}
 
@@ -127,7 +131,10 @@ public class AuroraEsbContext {
 		Consumer co = new Consumer();
 		co.setName(dc.getName());
 		co.setType(dc.getType());
-		co.setTo(dc.getRouter().getTo());
+		Router router = dc.getRouter();
+		if (router == null)
+			return;
+		co.setTo(router.getTo());
 		this.addConsumer(co);
 	}
 
@@ -163,9 +170,16 @@ public class AuroraEsbContext {
 
 		List<ProducerConsumer> producerConsumer = this.getProducerConsumer();
 		for (ProducerConsumer pc : producerConsumer) {
-			if (name.equals(pc.getProducer().getName())) {
-				return pc;
-			}
+			Producer producer = pc.getProducer();
+			if (producer != null)
+				if (name.equals(producer.getName())) {
+					return pc;
+				}
+			CompositeMap producerMap = pc.getProducerMap();
+			if (producerMap != null)
+				if (name.equals(producerMap.getString("name", ""))) {
+					return pc;
+				}
 		}
 		return null;
 	}
@@ -183,6 +197,11 @@ public class AuroraEsbContext {
 
 	public boolean isActive(Producer producer) {
 		ProducerConsumer pc = this.getProducerConsumer(producer.getName());
+		return pc != null;
+	}
+
+	public boolean isActive(String producer) {
+		ProducerConsumer pc = this.getProducerConsumer(producer);
 		return pc != null;
 	}
 
@@ -277,7 +296,7 @@ public class AuroraEsbContext {
 	}
 
 	public void addProducerMap(CompositeMap producerMap) {
-		if(producerMap.getBoolean("autoStart",false)){
+		if (producerMap.getBoolean("autoStart".toLowerCase(), false)) {
 			this.getAutoStartProducerMaps().add(producerMap);
 		}
 		this.producerMaps.add(producerMap);
@@ -288,7 +307,7 @@ public class AuroraEsbContext {
 	}
 
 	public void addConsumerMap(CompositeMap consumerMap) {
-		if(consumerMap.getBoolean("autoStart",false)){
+		if (consumerMap.getBoolean("autoStart".toLowerCase(), false)) {
 			this.getAutoStartConsumerMaps().add(consumerMap);
 		}
 		this.consumerMaps.add(consumerMap);
@@ -306,10 +325,19 @@ public class AuroraEsbContext {
 		return autoStartProducerMaps;
 	}
 
-
 	public List<CompositeMap> getAutoStartConsumerMaps() {
 		return autoStartConsumerMaps;
 	}
 
+	public void bindProducer(CompositeMap compositeMap) throws Exception {
+
+		ProducerConsumer pc = new ProducerConsumer();
+		pc.setProducerMap(compositeMap);
+		this.getProducerConsumer().add(pc);
+		// this.context.addRoutes(new ProducerBuilder(this, producer));
+		this.context.addRoutes(this.adapterManager.createProducerRouteBuilder(
+				this, compositeMap));
+
+	}
 
 }

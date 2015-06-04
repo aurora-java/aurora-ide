@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm" xmlns:f="aurora.database.features" alias="t1" baseTable="TM_INTERFACE_CON_APPROVAL">
+    <bm:fields>
+        <bm:field name="approval_line_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="APPROVAL_LINE_ID" prompt="TM_INTERFACE_CON_APPROVAL.APPROVAL_LINE_ID"/>
+        <bm:field name="head_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="HEAD_ID" prompt="TM_INTERFACE_CON_APPROVAL.HEAD_ID"/>
+        <bm:field name="applyno" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="APPLYNO" prompt="TM_INTERFACE_CON_APPROVAL.APPLYNO"/>
+        <bm:field name="allowloan" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="ALLOWLOAN" prompt="TM_INTERFACE_CON_APPROVAL.ALLOWLOAN"/>
+        <bm:field name="failreason" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="FAILREASON" prompt="TM_INTERFACE_CON_APPROVAL.FAILREASON"/>
+        <bm:field name="reasontype" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="REASONTYPE" prompt="TM_INTERFACE_CON_APPROVAL.REASONTYPE"/>
+        <bm:field name="applyamount" databaseType="NUMBER" datatype="java.lang.Long" physicalName="APPLYAMOUNT" prompt="TM_INTERFACE_CON_APPROVAL.APPLYAMOUNT"/>
+        <bm:field name="contractno" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="CONTRACTNO" prompt="TM_INTERFACE_CON_APPROVAL.CONTRACTNO"/>
+        <bm:field name="process_status" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="PROCESS_STATUS" prompt="TM_INTERFACE_CON_APPROVAL.PROCESS_STATUS"/>
+    </bm:fields>
+    <bm:features>
+        <f:standard-who/>
+    </bm:features>
+    <bm:primary-key>
+        <bm:pk-field name="approval_line_id"/>
+    </bm:primary-key>
+    <bm:query-fields>
+        <bm:query-field field="process_status" queryOperator="="/>
+        <bm:query-field field="head_id" queryOperator="="/>
+    </bm:query-fields>
+</bm:model>

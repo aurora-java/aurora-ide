@@ -1,5 +1,7 @@
 package aurora.plugin.esb.adapter.cf.ali.sftp.reader.producer;
 
+import java.util.logging.Level;
+
 import org.apache.camel.builder.RouteBuilder;
 
 import uncertain.composite.CompositeMap;
@@ -21,8 +23,9 @@ public class CFAliFileReaderProducerBuilder extends RouteBuilder {
 		this.producer = producer;
 	}
 
-	public CFAliFileReaderProducerBuilder(AuroraEsbContext esbContext2,
+	public CFAliFileReaderProducerBuilder(AuroraEsbContext esbContext,
 			CompositeMap producer) {
+		this.esbContext = esbContext;
 		this.producerMap = producer;
 	}
 
@@ -51,17 +54,34 @@ public class CFAliFileReaderProducerBuilder extends RouteBuilder {
 
 		CompositeMap config = producerMap.getChild("local");
 
-		orgCode = config.getString("orgCode", "");
-		readingPath = config.getString("readingPath", "");
-		readingPara = config.getString("readingPara", "");
-		backupPath = config.getString("backupPath", "");
-		backupPara = config.getString("backupPara", "");
-		String readProc = config.getString("readProc", "");
+		orgCode = config.getString("orgCode".toLowerCase(), "");
+		readingPath = config.getString("readingPath".toLowerCase(), "");
+		readingPara = config.getChild("readingPara") == null ? "" : config
+				.getChild("readingPara").getText();
+		// readingPara = config.getString("readingPara", "");
+		backupPath = config.getString("backupPath".toLowerCase(), "");
 
-		reading_url = readingPath + "/" + orgCode + readingPara;
-		backup_url = backupPath + "/" + orgCode + backupPara;
-		from(reading_url).bean(new CFAliServiceReader(esbContext,readProc), "read").to(
-				backup_url);
+		backupPara = config.getChild("backupPara") == null ? "" : config
+				.getChild("backupPara").getText();
+		// backupPara = config.getString("backupPara", "");
+		String readProc = config.getString("readProc".toLowerCase(), "");
+
+		reading_url = readingPath + "/" + orgCode + readingPara.trim();
+		backup_url = backupPath + "/" + orgCode + backupPara.trim();
+		from(reading_url).bean(new CFAliServiceReader(esbContext, readProc),
+				"read").to(backup_url);
+
+		esbContext.getmLogger().log(Level.SEVERE,
+				"" + "[Reading File] " + "Reading File Task Configed");
+		esbContext.getmLogger().log(Level.SEVERE,
+				"" + "[Reading File] " + "READING_URL  " + reading_url);
+		esbContext.getmLogger().log(Level.SEVERE,
+				"" + "[Reading File] " + "BACKUP_URL  " + backup_url);
+
+		clog.log2Console("[Reading File] " + "Reading File Task Configed");
+		clog.log2Console("[Reading File] " + "READING_URL  " + reading_url);
+		clog.log2Console("[Reading File] " + "BACKUP_URL  " + backup_url);
+
 		// &idempotent=true
 		// .to("file:/Users/shiliyan/Desktop/esb/download" + "/" + "CFCar")
 		// .bean(new LogBean("Downloaded file ${file:name} complete.",
