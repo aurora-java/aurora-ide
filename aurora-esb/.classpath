@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/aurora-plugin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/activemq-core-5.7.0.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/activemq-protobuf-1.1.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aqapi.jar"/>
-	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aurora-esb.jar"/>
-	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aurora-plugin.jar"/>
-	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aurora.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/c3p0-0.9.1.2.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-core-2.15.1.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-ftp-2.15.1.jar"/>
@@ -151,5 +147,11 @@
 	<classpathentry kind="lib" path="deploy/WEB-INF/axis_lib/xml-resolver-1.2.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/axis_lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/axis_lib/XmlSchema-1.4.7.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-stream-2.15.1.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aurora-plugin.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aurora.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aurora-js.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-quartz-2.15.1.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-quartz2-2.15.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

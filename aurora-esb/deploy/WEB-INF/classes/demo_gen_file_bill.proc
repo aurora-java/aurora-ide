@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:s="aurora.plugin.script" trace="true">
+        <s:server-script><![CDATA[
+        
+        // version:1.0|count:12|isLast:YES
+         var header = new CompositeMap('header');
+         header.version="1.0";
+         header.count="12";
+         header.isLast="YES";
+         header.batchNo="1";
+         header.orgCode="CFCar"  ;
+         header.yyyymmdd="20150602";  
+         header.serviceName="AUTOFI_SEND_BILL";
+         
+         
+         var t=['01','02','03','04','05','06','07','08','09','10','11','12'];
+         var d1=['2015-01-05','2015-02-05','2015-03-05','2015-04-05','2015-05-05','2015-06-05','2015-07-05','2015-08-05','2015-09-05','2015-10-05','2015-11-05','2015-12-05'];
+          var d2=['2015-02-04','2015-03-04','2015-04-04','2015-05-04','2015-06-04','2015-07-04','2015-08-04','2015-09-04','2015-10-04','2015-11-04','2015-12-04','2016-01-04'];
+           var d3=['2015-02-15','2015-03-15','2015-04-15','2015-05-15','2015-06-15','2015-07-15','2015-08-15','2015-09-15','2015-10-15','2015-11-15','2015-12-15','2016-01-15'];
+            var d4=['2015-02-20','2015-03-20','2015-04-20','2015-05-20','2015-06-20','2015-07-20','2015-08-20','2015-09-20','2015-10-20','2015-11-20','2015-12-20','2016-01-20'];
+
+            var datas = new CompositeMap('datas');
+            for(var i = 0;i < 12; i++){
+            	var data = new CompositeMap('data');
+                data.applyNo = "94012014070100039589S";
+                data.orgCode = "001";
+                data.drawndnNo = "1234567";
+                data.loanLength = "12";
+                data.loanCustomer = "张三";
+                data.prinAmt = "1200000";
+                
+                data.intAmt = "150000";
+                data.penaltyAmt ="0"; 
+                data.disAmt = "30000";
+                data.paidPrinAmt ="0"; 
+                data.paidIntAmt = "0";
+                data.paidPenaltyAmt ="0"; 
+                data.clearDate = "";
+                data.status = "正常";
+                data.termNo = t[i];
+                data.beginDate = d1[i];
+                
+                 data.endDate = d2[i];
+                data.dueDate = d3[i];
+                data.paymentDueDate =d4[i]; 
+                data.billPrinAmt = "100000";
+                data.billIntAmt = "10000";
+                data.billPenaltyAmt = "0";
+                data.billPaidPrinAmt = "0";
+                data.billPaidIntAmt = "0";
+                data.billPaidPenaltyAmt ="0"; 
+                data.billClearDate = "";
+                
+                 data.billStatus = "正常";
+                 data.overdueDays = "0";
+                
+                datas.addChild(data);
+            }
+             $ctx.parameter.addChild(header.getData());
+            $ctx.parameter.addChild(datas.getData());
+            $ctx.parameter.count = 12;
+		]]></s:server-script>
+        <p:echo/>
+</p:procedure>
+ 

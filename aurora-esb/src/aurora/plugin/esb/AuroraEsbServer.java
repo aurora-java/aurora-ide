@@ -189,7 +189,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 
 	@Override
 	public void shutdown() {
-
+		this.esbContext.shutdown();
 	}
 
 	public String getRouters() {

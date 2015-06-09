@@ -8,5 +8,5 @@ do
 done
 #echo $CLASSPATH
 java -cp $CLASSPATH  aurora.application.admin.StopCommand 18080
-#echo '------------------------------------------------------'
-#echo '³É¹¦¹Ø±Õ'
+echo '------------------------------------------------------'
+echo OK

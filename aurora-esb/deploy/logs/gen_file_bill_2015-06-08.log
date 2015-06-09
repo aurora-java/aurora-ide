@@ -1,0 +1,100 @@
+2015-06-08 14:19:41.541 [uncertain.proc] [CONFIG] [action] DecideStatement
+2015-06-08 14:19:41.544 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-06-08 14:19:41.544 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-06-08 14:19:41.544 [uncertain.proc] [CONFIG] [action] CreateOperationSql
+2015-06-08 14:19:41.544 [uncertain.proc] [CONFIG] [action] PopulateOperationSql
+2015-06-08 14:19:41.544 [uncertain.proc] [FINE] aurora.database.features.WhereClauseCreator.onPopulateOperationSql
+2015-06-08 14:19:41.544 [uncertain.proc] [FINE] aurora.database.features.OrderByClauseCreator.onPopulateOperationSql
+2015-06-08 14:19:41.544 [uncertain.proc] [CONFIG] [action] CreateSqlRunner
+2015-06-08 14:19:41.544 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onCreateSqlRunner
+2015-06-08 14:19:41.545 [uncertain.proc] [CONFIG] [action] ExecuteDmlStatement
+2015-06-08 14:19:41.545 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onExecuteDmlStatement
+2015-06-08 14:19:41.577 [aurora.database] [CONFIG] 
+============= BEGIN [Execute] SQL Statement execution dump ============
+
+        		begin
+        		
+				  ? := tm_interface_pkg.create_send_bill(p_company_id 	=> 1001,
+				  												   p_user_id		=> -1);
+				
+				end;
+        	
+---------------------Binding info---------------------
+No.1	Access path:@head_id	Data type of passed value :[null]	Value:null	Output:true	Database Type:null	
+
+=============== END [Execute] SQL Statement execution dump ============
+
+2015-06-08 14:19:41.588 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-06-08 14:19:41.588 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-06-08 14:19:41.588 [uncertain.proc] [CONFIG] [action] CreatequeryStatement
+2015-06-08 14:19:41.588 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onCreateQueryStatement
+2015-06-08 14:19:41.588 [uncertain.proc] [CONFIG] [action] PopulatequeryStatement
+2015-06-08 14:19:41.588 [uncertain.proc] [FINE] aurora.database.features.WhereClauseCreator.onPopulateQueryStatement
+2015-06-08 14:19:41.589 [uncertain.proc] [FINE] aurora.database.features.OrderByClauseCreator.onPopulateQueryStatement
+2015-06-08 14:19:41.589 [uncertain.proc] [CONFIG] [action] CreatequerySql
+2015-06-08 14:19:41.589 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onCreateQuerySql
+2015-06-08 14:19:41.589 [uncertain.proc] [CONFIG] [action] ExecuteQuery
+2015-06-08 14:19:41.589 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onExecuteQuery
+2015-06-08 14:19:41.606 [uncertain.proc] [CONFIG] [action] QueryFinish
+2015-06-08 14:19:41.606 [uncertain.proc] [FINE] aurora.database.features.AutoQueryCounter.onQueryFinish
+2015-06-08 14:19:41.606 [uncertain.proc] [CONFIG] [action] FetchResultSet
+2015-06-08 14:19:41.606 [aurora.database] [CONFIG] 
+============= BEGIN [query] SQL Statement execution dump ============
+SELECT t1.HEAD_ID,t1.FILENAME,t1.FILEDATE,t1.BATCHID,t1.VERSION,t1.COUNT,t1.ISLAST,t1.ENABLED_FLAG,t1.SERVICENAME
+FROM TM_INTERFACE_HEADERS t1
+WHERE HEAD_ID = ?
+---------------------Binding info---------------------
+No.1	Access path:@head_id	Data type of passed value :java.lang.Long	Value:139757	Output:false	Database Type:null	
+
+=============== END [query] SQL Statement execution dump ============
+
+2015-06-08 14:19:41.619 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-06-08 14:19:41.619 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-06-08 14:19:41.619 [uncertain.proc] [CONFIG] [action] CreatequeryStatement
+2015-06-08 14:19:41.619 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onCreateQueryStatement
+2015-06-08 14:19:41.620 [uncertain.proc] [CONFIG] [action] PopulatequeryStatement
+2015-06-08 14:19:41.620 [uncertain.proc] [FINE] aurora.database.features.WhereClauseCreator.onPopulateQueryStatement
+2015-06-08 14:19:41.620 [uncertain.proc] [FINE] aurora.database.features.OrderByClauseCreator.onPopulateQueryStatement
+2015-06-08 14:19:41.622 [uncertain.proc] [CONFIG] [action] CreatequerySql
+2015-06-08 14:19:41.622 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onCreateQuerySql
+2015-06-08 14:19:41.641 [uncertain.proc] [CONFIG] [action] ExecuteQuery
+2015-06-08 14:19:41.641 [uncertain.proc] [FINE] aurora.bm.QuerySqlCreator.onExecuteQuery
+2015-06-08 14:19:41.652 [uncertain.proc] [CONFIG] [action] QueryFinish
+2015-06-08 14:19:41.652 [uncertain.proc] [FINE] aurora.database.features.AutoQueryCounter.onQueryFinish
+2015-06-08 14:19:41.652 [uncertain.proc] [CONFIG] [action] FetchResultSet
+2015-06-08 14:19:41.652 [aurora.database] [CONFIG] 
+============= BEGIN [query] SQL Statement execution dump ============
+SELECT t1.BILL_LINE_ID,t1.HEAD_ID,t1.APPLYNO,t1.ORGCODE,t1.DRAWDNNO,t1.LOANLENGTH,t1.LOANCUSTOMER,t1.PRINAMT,t1.INTAMT,t1.PENALTYAMT,t1.PAIDPRINAMT,t1.PAIDINTAMT,t1.PAIDPENALTYAMT,t1.CLEARDATE,t1.STATUS,t1.BEGINDATE,t1.PAYMENTDUEDATE,t1.BILLPRINAMT,t1.BILLINTAMT,t1.BILLPENALTYAMT,t1.BILLPAIDPRINAMT,t1.BILLPAIDINTAMT,t1.BILLPAIDPENALTYAMT,t1.BILLCLEARDATE,t1.BILLSTATUS,t1.OVERDUEDAYS,t1.PROCESS_STATUS,t1.TERMNO,t1.ENDDATE,t1.DUEDATE
+FROM TM_INTERFACE_SEND_BILL t1
+WHERE HEAD_ID = ?
+---------------------Binding info---------------------
+No.1	Access path:@head_id	Data type of passed value :java.lang.Long	Value:139757	Output:false	Database Type:null	
+
+=============== END [query] SQL Statement execution dump ============
+
+2015-06-08 14:19:41.660 [uncertain.proc] [INFO] <esb_conext SERVICE_LOGGING_FILE="/Users/shiliyan/git/aurora-ide/aurora-esb/deploy/logs/gen_file_bill_2015-06-08.log" __configuration__="uncertain.event.Configuration@3c33f11" BusinessModel="aurora.bm.BusinessModel@2bb8cc2d" service_name="gen_file_bill" SqlStatementType="query" SqlGenerationMode="AutoGenerate" _instance.uncertain.logging.ILoggerProvider="uncertain.logging.LoggerProvider@39da8157" _instance.aurora.service.IService="aurora.service.http.HttpServiceInstance@2784df7d" sso="(ScriptShareObject : 4 elements)" BusinessModelOperation="query" SqlString="SELECT t1.BILL_LINE_ID,t1.HEAD_ID,t1.APPLYNO,t1.ORGCODE,t1.DRAWDNNO,t1.LOANLENGTH,t1.LOANCUSTOMER,t1.PRINAMT,t1.INTAMT,t1.PENALTYAMT,t1.PAIDPRINAMT,t1.PAIDINTAMT,t1.PAIDPENALTYAMT,t1.CLEARDATE,t1.STATUS,t1.BEGINDATE,t1.PAYMENTDUEDATE,t1.BILLPRINAMT,t1.BILLINTAMT,t1.BILLPENALTYAMT,t1.BILLPAIDPRINAMT,t1.BILLPAIDINTAMT,t1.BILLPAIDPENALTYAMT,t1.BILLCLEARDATE,t1.BILLSTATUS,t1.OVERDUEDAYS,t1.PROCESS_STATUS,t1.TERMNO,t1.ENDDATE,t1.DUEDATE
+FROM TM_INTERFACE_SEND_BILL t1
+WHERE HEAD_ID = ${@head_id}" SqlStatement="aurora.database.sql.SelectStatement@3da5572b" current_parameter="{head_id=139757}" SqlRunner="aurora.database.SqlRunner@50912d16" FetchDescriptor="aurora.database.FetchDescriptor@3fad737f" __database_all_connection="[com.mchange.v2.c3p0.impl.NewProxyConnection@5df07ebd]" _instance.uncertain.logging.BasicFileHandler="uncertain.logging.BasicFileHandler@3dacde6a" _instance.java.sql.Connection="com.mchange.v2.c3p0.impl.NewProxyConnection@5df07ebd" ResultsetConsumer="aurora.database.rsconsumer.CompositeMapCreator@3cd29195">
+    <parameter count="12.0" __parameter_parsed__="true" head_id="139757">
+        <result orgcode="CFCAR" yyyymmdd="20150608" servicename="AUTOFI_SEND_BILL"/>
+        <header fileName="CFCAR_AUTOFI_SEND_BILL_20150608_159.txt" batchNo="159" isLast="YES" count="12" serviceName="AUTOFI_SEND_BILL" version="1.0" yyyymmdd="20150608" orgCode="CFCAR"/>
+        <datas>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="0" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@2bd9852b" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@7279e4db" paymentDueDate="aurora.javascript.NativeJavaObject@297d3b70" billClearDate="aurora.javascript.NativeJavaObject@18b59f3" applyNo="94012014070100039589S" penaltyAmt="0" termNo="01" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="1" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@669c6434" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@5b7e0b00" paymentDueDate="aurora.javascript.NativeJavaObject@1b180da4" billClearDate="aurora.javascript.NativeJavaObject@40878bf5" applyNo="94012014070100039589S" penaltyAmt="0" termNo="02" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="2" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@45bfea15" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@6eb2cfa9" paymentDueDate="aurora.javascript.NativeJavaObject@351c9af6" billClearDate="aurora.javascript.NativeJavaObject@49387783" applyNo="94012014070100039589S" penaltyAmt="0" termNo="03" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="3" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@736dd3f3" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@b5a85b0" paymentDueDate="aurora.javascript.NativeJavaObject@5ac06507" billClearDate="aurora.javascript.NativeJavaObject@50ce85b3" applyNo="94012014070100039589S" penaltyAmt="0" termNo="04" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="4" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@4da12612" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@12095d13" paymentDueDate="aurora.javascript.NativeJavaObject@4bb8fa08" billClearDate="aurora.javascript.NativeJavaObject@6fff1dd1" applyNo="94012014070100039589S" penaltyAmt="0" termNo="05" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="5" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@2b2a378a" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@73131639" paymentDueDate="aurora.javascript.NativeJavaObject@7f77dae9" billClearDate="aurora.javascript.NativeJavaObject@68f14143" applyNo="94012014070100039589S" penaltyAmt="0" termNo="06" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="6" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@121dbdb0" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@79d4c314" paymentDueDate="aurora.javascript.NativeJavaObject@3835fe55" billClearDate="aurora.javascript.NativeJavaObject@5a2c5b49" applyNo="94012014070100039589S" penaltyAmt="0" termNo="07" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="7" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@25238d81" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@7a302652" paymentDueDate="aurora.javascript.NativeJavaObject@6d60a817" billClearDate="aurora.javascript.NativeJavaObject@552e40e1" applyNo="94012014070100039589S" penaltyAmt="0" termNo="08" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="8" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@6c589040" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@1721392f" paymentDueDate="aurora.javascript.NativeJavaObject@7f691bcc" billClearDate="aurora.javascript.NativeJavaObject@58e76588" applyNo="94012014070100039589S" penaltyAmt="0" termNo="09" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="9" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@70152444" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@6e638328" paymentDueDate="aurora.javascript.NativeJavaObject@59635253" billClearDate="aurora.javascript.NativeJavaObject@3acbb7d2" applyNo="94012014070100039589S" penaltyAmt="0" termNo="10" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="10" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@632583cb" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@11ad2644" paymentDueDate="aurora.javascript.NativeJavaObject@521f1fe8" billClearDate="aurora.javascript.NativeJavaObject@350d475e" applyNo="94012014070100039589S" penaltyAmt="0" termNo="11" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+            <data endDate="" dueDat="" billPenaltyAmt="0" billPaidPenaltyAmt="0" orgCode="001" billStatus="正常" overdueDays="11" billPaidPrinAmt="0" prinAmt="1200000" paidPenaltyAmt="0" drawndnNo="1234567" clearDate="aurora.javascript.NativeJavaObject@7af9a1ef" billIntAmt="10000" billPrinAmt="100000" intAmt="150000" paidIntAmt="0" paidPrinAmt="30000" loanLength="12" beginDate="aurora.javascript.NativeJavaObject@21e27f2" paymentDueDate="aurora.javascript.NativeJavaObject@28548806" billClearDate="aurora.javascript.NativeJavaObject@773c0de5" applyNo="94012014070100039589S" penaltyAmt="0" termNo="12" loanCustomer="张三" status="正常" billPaidIntAmt="0"/>
+        </datas>
+    </parameter>
+    <session/>
+    <cookie/>
+    <model/>
+</esb_conext>
+

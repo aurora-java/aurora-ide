@@ -1,8 +1,0 @@
-2015-05-27 15:46:04.208 [uncertain.proc] [INFO] <esb_conext SERVICE_LOGGING_FILE="/Users/shiliyan/git/aurora-ide/aurora-esb/deploy/logs/message_recevie_2015-05-27.log" __configuration__="uncertain.event.Configuration@3728004e" service_name="message_recevie" _instance.uncertain.logging.ILoggerProvider="uncertain.logging.LoggerProvider@6cbbf332" _instance.aurora.service.IService="aurora.service.http.HttpServiceInstance@7357549c" _instance.uncertain.logging.BasicFileHandler="uncertain.logging.BasicFileHandler@35c9cc77">
-    <parameter>
-        <CFCar_AUTOFI_PAYEE_INFO_20150202_1副本 2 fileName="CFCar_AUTOFI_PAYEE_INFO_20150202_1副本 2.txt" isLast="NO" count="1" serviceName="AUTOFI_PAYEE_INFO" version="1.0" yyymmdd="20150202" orgCode="CFCar">
-            <data address="浙江省杭州市西湖区学院路999号" phone="057188888888" applyNo="94012014070100039589S" name="杭州XX经销商"/>
-        </CFCar_AUTOFI_PAYEE_INFO_20150202_1副本 2>
-    </parameter>
-</esb_conext>
-

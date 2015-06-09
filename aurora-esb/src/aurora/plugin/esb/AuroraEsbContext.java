@@ -340,4 +340,13 @@ public class AuroraEsbContext {
 
 	}
 
+	public void shutdown() {
+		if (context != null)
+			try {
+				context.shutdown();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <cf_ali name="ali_read" type="cf.ali.sftp.read" autoStart="true">
+    <cf_ali name="ali_read" type="cf.ali.sftp.read" autoStart="false">
        <local readProc="read_file" orgCode="CFCAR" readingPath="file:/Users/shiliyan/Desktop/esb/download"  backupPath="file:/Users/shiliyan/Desktop/esb/download/read">
         <readingPara><![CDATA[
-        ?delete=true&delay=100s&recursive=true&charset=euc_cn
+        ?delete=true&delay=100s&recursive=true&charset=euc_cn&antInclude=*/**/*txt
           ]]></readingPara>
            <backupPara><![CDATA[
            ?charset=euc_cn

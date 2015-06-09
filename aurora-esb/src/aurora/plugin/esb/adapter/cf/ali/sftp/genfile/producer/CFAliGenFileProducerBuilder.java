@@ -39,7 +39,7 @@ public class CFAliGenFileProducerBuilder extends RouteBuilder {
 			String timer = map.getString("timer", "timer://foo?period=3000000");
 			String serviceName = map.getString("serviceName".toLowerCase(),
 					"AUTOFI_APPROVAL_CONTRACT");
-			String proc = map.getString("proc", "gen_file_ap");
+			String proc = map.getString("proc", "");
 			String saveUrl = map.getString("saveUrl".toLowerCase(), "");
 			String orgCode = map.getString("orgCode".toLowerCase(), "");
 

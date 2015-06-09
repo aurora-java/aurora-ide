@@ -66,22 +66,31 @@ public class GenFile {
 
 		CompositeMap callProc = callProc();
 
+		callProc.toXML();
 		// System.out.println(callProc.toXML());
 
-		esbContext.getmLogger().log(Level.SEVERE,
-				"" + "[Gen File] " + "Genfile Loaded From DB.");
-		new ConsoleLog().log2Console("[Gen File] " + "Genfile Loaded From DB.");
+		esbContext.getmLogger().log(
+				Level.SEVERE,
+				"" + "[Gen File] " + "[" + serviceName + "] "
+						+ "Genfile Loaded From DB.");
+		new ConsoleLog().log2Console("[Gen File] " + "[" + serviceName + "] "
+				+ "Genfile Loaded From DB.");
 
 		CompositeMap parameter = callProc.getChild("parameter");
 		int count = parameter.getInt("count", 0);
 		if (count <= 0) {
 			Message out = exchange.getOut();
-			out.setBody(null);
-			// out.setFault(true);
-			esbContext.getmLogger().log(Level.SEVERE,
-					"" + "[Gen File] " + "GenFile No Data Found From DB.");
-			new ConsoleLog().log2Console("[Gen File] "
-					+ "GenFile No Data Found From DB.");
+			out.setFault(true);
+			out.getBody();
+			out.getHeaders();
+//			out.setHeaders(null);
+//			out.setBody(null);
+			esbContext.getmLogger().log(
+					Level.SEVERE,
+					"" + "[Gen File] " + "[" + serviceName + "] "
+							+ "GenFile No Data Found From DB.");
+			new ConsoleLog().log2Console("[Gen File] " + "[" + serviceName
+					+ "] " + "GenFile No Data Found From DB.");
 			return;
 		}
 		CompositeMap header = parameter.getChild("header");

@@ -53,7 +53,7 @@ public class _ProducerBuilder extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		From from = producer.getFrom();
+		final From from = producer.getFrom();
 		from("direct:" + from.getName())
 				.process(new Processor() {
 

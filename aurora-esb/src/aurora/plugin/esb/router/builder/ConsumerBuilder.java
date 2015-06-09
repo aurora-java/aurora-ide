@@ -60,7 +60,7 @@ public class ConsumerBuilder extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		TO to = consumer.getTo();
+		final TO to = consumer.getTo();
 		from("direct:" + to.getName())
 				.process(new Processor() {
 

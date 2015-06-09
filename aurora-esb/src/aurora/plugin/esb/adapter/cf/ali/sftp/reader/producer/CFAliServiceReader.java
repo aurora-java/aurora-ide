@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 
 import org.apache.camel.Exchange;
@@ -71,8 +70,10 @@ public class CFAliServiceReader {
 		String camelfileabsolutepath = (String) headers
 				.get("camelfileabsolutepath");
 		if (isRead(filenameonly)) {
-			esbContext.getmLogger().log(Level.SEVERE,
-					"" + "[Reading File] " + " Do Not Need Read Again.");
+			esbContext.getmLogger().log(
+					Level.SEVERE,
+					"" + "[Reading File] " + filenameonly
+							+ " Do Not Need Read Again.");
 			clog.log2Console("[Reading File] " + filenameonly
 					+ " Do Not Need Read Again.");
 			return;
@@ -89,7 +90,7 @@ public class CFAliServiceReader {
 
 		String body = in.getBody(String.class);
 		List<String> lines = readBody(body);
-		if (lines.size() < 2) {
+		if (lines.size() <= 2) {
 			// hehe
 			esbContext.getmLogger().log(
 					Level.SEVERE,
@@ -97,6 +98,7 @@ public class CFAliServiceReader {
 							+ " is no Data found.");
 			clog.log2Console("[Reading File] " + filenameonly
 					+ " is no Data found.");
+			//addHistory(filenameonly, camelfileabsolutepath);
 			return;
 		} else {
 			// version:1.0|count:1|isLast:NO
@@ -124,9 +126,9 @@ public class CFAliServiceReader {
 					+ " Loaded  Success.");
 		} else {
 			log("[Reading File] " + "File " + filenameonly + " Loaded  Failed.");
-			exchange.getOut().setFault(true);
 			clog.log2Console("[Reading File] " + "File " + filenameonly
 					+ " Loaded  Failed.");
+			exchange.getOut().setFault(true);
 		}
 
 		// System.out.println(body);

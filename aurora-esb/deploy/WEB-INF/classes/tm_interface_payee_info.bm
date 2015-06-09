@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm">
+    <bm:operations>
+        <bm:operation name="update">
+            <bm:update-sql><![CDATA[
+            	DECLARE
+            	  v_file_status varchar2(50);
+                BEGIN
+				  v_file_status := tm_interface_pkg.insert_payee_info(p_head_id  => ${../../@head_id},
+				                                        		    p_applyno  => ${@applyno},
+				                                        			p_name	   => ${@loandate},
+				                                        			p_address  => ${@applyamount},
+				                                        			p_phone	   => ${@phone});
+				                                        				 
+				  if v_file_status = 'NO' or ${../../@file_status} = 'NO' then
+				  	${@file_status} := 'NO';
+				  else 
+				    ${@file_status} := 'YES';
+				  end if;
+				END;
+            ]]></bm:update-sql>
+            <bm:parameters>
+                <bm:parameter name="file_status" dataType="java.lang.String" input="true" output="true" outputPath="/parameter/@file_status"/>
+            </bm:parameters>
+        </bm:operation>
+    </bm:operations>
+</bm:model>
