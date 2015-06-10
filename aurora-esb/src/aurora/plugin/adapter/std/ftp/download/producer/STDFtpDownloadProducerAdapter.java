@@ -1,4 +1,4 @@
-package aurora.plugin.esb.adapter.cf.ali.sftp.download.producer;
+package aurora.plugin.adapter.std.ftp.download.producer;
 
 import org.apache.camel.builder.RouteBuilder;
 
@@ -7,24 +7,24 @@ import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.adapter.ProducerAdapter;
 import aurora.plugin.esb.model.Producer;
 
-public class CFAliDownloadProducerAdapter implements ProducerAdapter {
+public class STDFtpDownloadProducerAdapter implements ProducerAdapter {
 	
-	public static final String cf_ali = "cf.ali.sftp.download"; 
+	public static final String type = "aurora.std.ftp.download"; 
 
 	@Override
 	public RouteBuilder createProducerBuilder(AuroraEsbContext esbContext,
 			Producer producer) {
-		return new TestCFAliDownloadProducerBuilder(esbContext, producer);
+		return new STDFtpDownloadProducerBuilder(esbContext, producer);
 	}
 
 	@Override
 	public String getType() {
-		return cf_ali;
+		return type;
 	}
 
 	@Override
 	public RouteBuilder createProducerBuilder(AuroraEsbContext esbContext,
 			CompositeMap producer) {
-		return new TestCFAliDownloadProducerBuilder(esbContext, producer);
+		return new STDFtpDownloadProducerBuilder(esbContext, producer);
 	}
 }

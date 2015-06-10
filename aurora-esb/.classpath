@@ -7,7 +7,7 @@
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/aqapi.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/c3p0-0.9.1.2.jar"/>
-	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-core-2.15.1.jar"/>
+	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-core-2.15.1.jar" sourcepath="/Users/shiliyan/Downloads/apache-camel-2.15.1 2/camel-core/src"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-ftp-2.15.1.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-http-2.15.1.jar"/>
 	<classpathentry kind="lib" path="deploy/WEB-INF/lib/camel-jackson-2.15.1.jar"/>

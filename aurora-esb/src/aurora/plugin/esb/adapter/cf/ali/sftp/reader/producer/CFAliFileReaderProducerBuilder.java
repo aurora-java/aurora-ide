@@ -3,10 +3,11 @@ package aurora.plugin.esb.adapter.cf.ali.sftp.reader.producer;
 import java.util.logging.Level;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.JndiRegistry;
 
 import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
-import aurora.plugin.esb.adapter.cf.ali.sftp.download.producer.LogBean;
+import aurora.plugin.esb.adapter.cf.ali.sftp.download.producer.MyFileFilter;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.Producer;
 
@@ -27,6 +28,10 @@ public class CFAliFileReaderProducerBuilder extends RouteBuilder {
 			CompositeMap producer) {
 		this.esbContext = esbContext;
 		this.producerMap = producer;
+//		JndiRegistry registry = esbContext.getCamelContext().getRegistry(JndiRegistry.class);
+//		if (registry instanceof JndiRegistry) {
+//			((JndiRegistry) registry).bind("ReadFilter", new ReadFileFilter(esbContext,producerMap));
+//		}
 	}
 
 	@Override
@@ -66,9 +71,12 @@ public class CFAliFileReaderProducerBuilder extends RouteBuilder {
 		// backupPara = config.getString("backupPara", "");
 		String readProc = config.getString("readProc".toLowerCase(), "");
 
+		String invoiceProc = config.getString("invoiceProc".toLowerCase(), "");
+
+		
 		reading_url = readingPath + "/" + orgCode + readingPara.trim();
 		backup_url = backupPath + "/" + orgCode + backupPara.trim();
-		from(reading_url).bean(new CFAliServiceReader(esbContext, readProc),
+		from(reading_url).bean(new CFAliServiceReader(esbContext, readProc,invoiceProc,backupPath + "/" + orgCode),
 				"read").to(backup_url);
 
 		esbContext.getmLogger().log(Level.SEVERE,

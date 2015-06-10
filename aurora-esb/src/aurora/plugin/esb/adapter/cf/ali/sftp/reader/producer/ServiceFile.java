@@ -19,6 +19,7 @@ public class ServiceFile {
 
 	private boolean invalid;
 
+
 	public ServiceFile(String fileName) {
 		super();
 		this.fileName = fileName;
@@ -27,9 +28,10 @@ public class ServiceFile {
 
 	private void parse(String fileName) {
 		invalid = false;
+
 		if (fileName.endsWith(".txt")) {
 			// 机构编码_AUTOFI_INVOICE_INFO _20150202_1.txt
-			String[] split = fileName.split("_");
+			String[] split = fileName.replace(".txt", "").split("_");
 			if (split.length < 4) {
 				setInvalid(true);
 				return;
@@ -43,11 +45,13 @@ public class ServiceFile {
 			}
 			service = service.replaceFirst("_", "");
 		} else {
+
 			setInvalid(true);
 			return;
 		}
 
 	}
+
 
 	public String getFileName() {
 		return fileName;

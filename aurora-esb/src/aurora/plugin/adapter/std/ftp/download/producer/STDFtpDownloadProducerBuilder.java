@@ -1,35 +1,31 @@
-package aurora.plugin.esb.adapter.cf.ali.sftp.download.producer;
+package aurora.plugin.adapter.std.ftp.download.producer;
 
 import java.util.logging.Level;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.JndiRegistry;
 
 import uncertain.composite.CompositeMap;
-import uncertain.ocm.IObjectRegistry;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.Producer;
 
-public class CFAliDownloadProducerBuilder extends RouteBuilder {
+public class STDFtpDownloadProducerBuilder extends RouteBuilder {
 
 	private ConsoleLog clog = new ConsoleLog();
 	private AuroraEsbContext esbContext;
 	private Producer producer;
 	private CompositeMap producerMap;
 
-	public CFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
+	public STDFtpDownloadProducerBuilder(AuroraEsbContext esbContext,
 			Producer producer) {
 		this.esbContext = esbContext;
 		this.producer = producer;
 	}
 
-	public CFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
+	public STDFtpDownloadProducerBuilder(AuroraEsbContext esbContext,
 			CompositeMap producer) {
 		this.esbContext = esbContext;
 		this.producerMap = producer;
-		
-//		JndiRegistry
 	}
 
 	@Override

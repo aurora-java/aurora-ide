@@ -6,34 +6,39 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
 
 import uncertain.composite.CompositeMap;
-import uncertain.ocm.IObjectRegistry;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.Producer;
 
-public class CFAliDownloadProducerBuilder extends RouteBuilder {
+public class TestCFAliDownloadProducerBuilder extends RouteBuilder {
 
 	private ConsoleLog clog = new ConsoleLog();
 	private AuroraEsbContext esbContext;
 	private Producer producer;
 	private CompositeMap producerMap;
 
-	public CFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
+	public TestCFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
 			Producer producer) {
 		this.esbContext = esbContext;
 		this.producer = producer;
 	}
 
-	public CFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
+	public TestCFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
 			CompositeMap producer) {
 		this.esbContext = esbContext;
 		this.producerMap = producer;
-		
-//		JndiRegistry
+
+		JndiRegistry registry = esbContext.getCamelContext().getRegistry(JndiRegistry.class);
+		if (registry instanceof JndiRegistry) {
+			((JndiRegistry) registry).bind("FileFilter", new MyFileFilter(esbContext,producerMap));
+		}
 	}
 
 	@Override
 	public void configure() throws Exception {
+
+		// esbContext.getCamelContext();
+		getContext();
 
 		String downloadUrl = "sftp://115.124.16.69:22/" + "download";
 		String orgCode = "CFCar";
@@ -51,7 +56,7 @@ public class CFAliDownloadProducerBuilder extends RouteBuilder {
 				.getChild("downloadPara").getText();
 
 		String ftp_server_url = downloadUrl + "/" + orgCode
-				+ downloadPara.trim();
+				+ downloadPara.trim() + "&filter=#FileFilter";
 
 		config = producerMap.getChild("local");
 		local_save_path = config.getString("localSavePath".toLowerCase(), "");
@@ -71,7 +76,7 @@ public class CFAliDownloadProducerBuilder extends RouteBuilder {
 		// # and move downloaded files to a done sub directory
 
 		// lets shutdown faster in case of in-flight messages stack up
-		getContext().getShutdownStrategy().setTimeout(10);
+//		getContext().getShutdownStrategy().setTimeout(10);
 
 		from(ftp_server_url).to(local_url).bean(new LogBean(esbContext), "log")
 				.log("Downloaded file ${file:name} complete.");

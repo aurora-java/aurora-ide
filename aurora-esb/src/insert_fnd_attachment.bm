@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm" alias="t1">
+    <bm:operations>
+        <bm:operation name="update">
+            <bm:update-sql><![CDATA[
+	            begin
+	            	tm_interface_std_pkg.insert_cdd_list(p_applyno  => ${@applyno},
+                            							 p_filepath => ${@abspath},
+                            							 p_filename => ${@filename},
+                            							 p_filesize => ${@filelength});
+	            end;
+	        ]]></bm:update-sql>
+        </bm:operation>
+    </bm:operations>
+</bm:model>

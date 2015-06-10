@@ -8,4 +8,4 @@ do
    CLASSPATH="$CLASSPATH:""$jar" 
 done
 #echo $CLASSPATH
-java -cp $CLASSPATH aurora.application.admin.ServerAdmin 18080 $HOME &
+java -cp $CLASSPATH aurora.application.admin.ServerAdmin 18080 $HOME >>/Users/shiliyan/git/aurora-ide/aurora-esb/logs/out.log &

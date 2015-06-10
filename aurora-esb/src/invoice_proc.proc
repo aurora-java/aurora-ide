@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:jco="aurora.plugin.sap.jco3" trace="true">
+  <a:batch-apply sourcepath="/parameter">
+            <a:model-update model="insert_fnd_attachment" sourcePath="@result" statusField="update"/>
+        </a:batch-apply>         
+        <p:echo />
+</p:procedure>
+ 

@@ -1,4 +1,4 @@
-package aurora.plugin.esb.adapter.cf.ali.sftp.upload.producer;
+package aurora.plugin.adapter.std.ftp.upload.producer;
 
 import java.util.logging.Level;
 
@@ -9,20 +9,20 @@ import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.Producer;
 
-public class CFAliUploadProducerBuilder extends RouteBuilder {
+public class STDFtpUploadProducerBuilder extends RouteBuilder {
 
 	private ConsoleLog clog = new ConsoleLog();
 	private AuroraEsbContext esbContext;
 	private Producer producer;
 	private CompositeMap producerMap;
 
-	public CFAliUploadProducerBuilder(AuroraEsbContext esbContext,
+	public STDFtpUploadProducerBuilder(AuroraEsbContext esbContext,
 			Producer producer) {
 		this.esbContext = esbContext;
 		this.producer = producer;
 	}
 
-	public CFAliUploadProducerBuilder(AuroraEsbContext esbContext,
+	public STDFtpUploadProducerBuilder(AuroraEsbContext esbContext,
 			CompositeMap producer) {
 		this.esbContext = esbContext;
 		this.producerMap = producer;
@@ -82,7 +82,7 @@ public class CFAliUploadProducerBuilder extends RouteBuilder {
 				+ uploaded_para.trim();
 
 		// lets shutdown faster in case of in-flight messages stack up
-		//getContext().getShutdownStrategy().setTimeout(10);
+		getContext().getShutdownStrategy().setTimeout(10);
 		// file:target/upload?moveFailed=../errormove=movedone""
 		// move=../upload
 		// &charset=utf-8

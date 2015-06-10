@@ -68,6 +68,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		esbContext.setDataStore(new FileDataStore());
 		esbContext.setNeedCommandConsole("Y"
 				.equalsIgnoreCase(isNeedCommandConsole));
+		esbContext.loadProperties();
 
 		loadProducer(config);
 

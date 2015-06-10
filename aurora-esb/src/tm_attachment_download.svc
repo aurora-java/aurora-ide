@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:service xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" trace="true">
+    <a:init-procedure>
+        <a:batch-apply sourcepath="/parameter">
+            <a:model-batch-update model="insert_fnd_attachment" sourcePath="@result" statusField="update"/>
+        </a:batch-apply>
+        <p:echo/>
+    </a:init-procedure>
+</a:service>

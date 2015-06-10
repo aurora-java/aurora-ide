@@ -19,11 +19,13 @@ import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.Producer;
 import aurora.plugin.esb.model.ProducerConsumer;
 import aurora.plugin.esb.model.Router;
+import aurora.plugin.esb.util.FileStore;
 import aurora.service.IServiceFactory;
 import aurora.service.ServiceThreadLocal;
 import aurora.service.http.HttpServiceInstance;
 
 public class AuroraEsbContext {
+	private static final String RUNNING_PROPERTIES = "running_properties";
 	private AuroraEsbServer server;
 	private List<DirectConfig> task_configs = new ArrayList<DirectConfig>();
 	private DefaultCamelContext context;
@@ -47,6 +49,21 @@ public class AuroraEsbContext {
 	private List<CompositeMap> autoStartProducerMaps = new ArrayList<CompositeMap>();
 
 	private List<CompositeMap> autoStartConsumerMaps = new ArrayList<CompositeMap>();
+
+	private CompositeMap properties = new CompositeMap(RUNNING_PROPERTIES);
+	private FileStore fs;
+
+	public AuroraEsbContext() {
+	}
+
+	public void loadProperties() {
+		fs = new FileStore(getWorkPath());
+		setProperties(fs.load(RUNNING_PROPERTIES));
+	}
+
+	public void saveProperties() {
+		fs.save(getProperties(), RUNNING_PROPERTIES);
+	}
 
 	private String workPath = null;
 	private ILogger mLogger;
@@ -341,12 +358,21 @@ public class AuroraEsbContext {
 	}
 
 	public void shutdown() {
+		saveProperties();
 		if (context != null)
 			try {
 				context.shutdown();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+	}
+
+	public CompositeMap getProperties() {
+		return properties;
+	}
+
+	public void setProperties(CompositeMap properties) {
+		this.properties = properties;
 	}
 
 }

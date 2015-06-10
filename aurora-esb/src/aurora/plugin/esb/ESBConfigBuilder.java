@@ -22,8 +22,10 @@ import java.util.List;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.JndiRegistry;
 
 import uncertain.composite.CompositeMap;
+import aurora.plugin.esb.adapter.cf.ali.sftp.download.producer.MyFileFilter;
 import aurora.plugin.esb.console.Console;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.task.TaskManager;
@@ -35,9 +37,19 @@ public final class ESBConfigBuilder {
 		this.esbContext = esbContext;
 	}
 
+	
+	 protected JndiRegistry createRegistry() throws Exception {
+	        JndiRegistry jndi = new JndiRegistry();
+//	        jndi.bind("FileFilter", new MyFileFilter());
+//	        jndi.bind("orderSplitter", new OrderSplitter());
+//	        jndi.bind("barista", new Barista());
+//	        jndi.bind("waiter", new Waiter());
+//	        jndi.bind("aggregatorStrategy", new CafeAggregationStrategy());
+	        return jndi;
+	    }
 	public void start() throws Exception {
 		DefaultCamelContext context = new DefaultCamelContext();
-		
+		context.setRegistry(createRegistry());
 		esbContext.setCamelContext(context);
 		
 		

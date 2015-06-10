@@ -34,11 +34,19 @@ public class CFAliServiceReader {
 
 	private String read_proc = "message_recevie";
 
-	public CFAliServiceReader(AuroraEsbContext esbContext, String read_proc) {
+	private String invoice_proc = "message_recevie";
+
+	private String backupPath;
+
+	public CFAliServiceReader(AuroraEsbContext esbContext, String read_proc,
+			String invoiceProc, String backupPath) {
 		this.esbContext = esbContext;
 		this.read_proc = read_proc;
+		this.invoice_proc = invoiceProc;
 		fs = new FileStore(esbContext.getWorkPath());
 		readHistory = fs.load(fileName);
+		this.backupPath = backupPath;
+
 	}
 
 	// log read file;
@@ -78,16 +86,64 @@ public class CFAliServiceReader {
 					+ " Do Not Need Read Again.");
 			return;
 		}
-		// file_status 'YES'表示正常文件，'NO'表示错序文件，下次接着读
 
+		// file_status 'YES'表示正常文件，'NO'表示错序文件，下次接着读
 		ServiceFile sn = new ServiceFile(filenameonly);
-		if (sn.isInvalid()) {
-			esbContext.getmLogger().log(Level.SEVERE,
-					"" + "[Reading File] " + filenameonly + " is invalid.");
-			clog.log2Console("[Reading File] " + filenameonly + " is invalid.");
+
+		if (sn.isInvalid() == false) {
+
+			sendServiceFile(exchange, in, filenameonly, camelfileabsolutepath,
+					sn);
 			return;
 		}
 
+		InvoiceFile inf = new InvoiceFile(exchange, backupPath);
+		if (inf.isInvalid() == false) {
+			sendInvoiceFile(inf);
+			return;
+		}
+
+		esbContext.getmLogger().log(Level.SEVERE,
+				"" + "[Reading File] " + filenameonly + " is invalid.");
+		clog.log2Console("[Reading File] " + filenameonly + " is invalid.");
+		return;
+		// System.out.println(body);
+
+	}
+
+	private void sendInvoiceFile(InvoiceFile inf) {
+
+		CompositeMap header = new CompositeMap("result");
+
+		header.put("fileName".toLowerCase(), inf.getFileName());
+
+		header.put("absPath".toLowerCase(), inf.getAbbackupPath());
+
+		header.put("applyNo".toLowerCase(), inf.getApplyNo());
+
+		header.put("fileLength".toLowerCase(), inf.getFileLength());
+
+		try {
+
+			CompositeMap executeProc = esbContext.executeProc(
+					this.invoice_proc, header);
+			// return executeProc;
+		} catch (Exception e) {
+			log("[Reading File] " + "ApplyNo: " + inf.getApplyNo() + " "
+					+ "File: " + inf.getFileName() + " Loaded  Failed.");
+			clog.log2Console("[Reading File] " + "ApplyNo: " + inf.getApplyNo()
+					+ " " + "File: " + inf.getFileName() + " Loaded  Failed.");
+			e.printStackTrace();
+		}
+		log("[Reading File] " + "ApplyNo: " + inf.getApplyNo() + " " + "File: "
+				+ inf.getFileName() + " Loaded  Success.");
+		clog.log2Console("[Reading File] " + "ApplyNo: " + inf.getApplyNo()
+				+ " " + "File: " + inf.getFileName() + " Loaded  Success.");
+
+	}
+
+	public void sendServiceFile(Exchange exchange, Message in,
+			String filenameonly, String camelfileabsolutepath, ServiceFile sn) {
 		String body = in.getBody(String.class);
 		List<String> lines = readBody(body);
 		if (lines.size() <= 2) {
@@ -98,7 +154,7 @@ public class CFAliServiceReader {
 							+ " is no Data found.");
 			clog.log2Console("[Reading File] " + filenameonly
 					+ " is no Data found.");
-			//addHistory(filenameonly, camelfileabsolutepath);
+			// addHistory(filenameonly, camelfileabsolutepath);
 			return;
 		} else {
 			// version:1.0|count:1|isLast:NO
@@ -130,9 +186,6 @@ public class CFAliServiceReader {
 					+ " Loaded  Failed.");
 			exchange.getOut().setFault(true);
 		}
-
-		// System.out.println(body);
-
 	}
 
 	private void log(String msg) {
@@ -276,5 +329,13 @@ public class CFAliServiceReader {
 		for (String string : split) {
 			System.out.println(string);
 		}
+	}
+
+	public String getInvoice_proc() {
+		return invoice_proc;
+	}
+
+	public void setInvoice_proc(String invoice_proc) {
+		this.invoice_proc = invoice_proc;
 	}
 }

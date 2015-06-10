@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <cf_ali name="ali_download" type="cf.ali.sftp.download" autoStart="false">
-        <sftp downloadUrl="sftp://115.124.16.69:22/download" orgCode="CFCAR">
+    <cf_ali name="ali_download" type="cf.ali.sftp.download" autoStart="true">
+        <sftp downloadUrl="sftp://115.124.16.69:22/download" startDate="20150609" orgCode="CFCAR">
         <downloadPara><![CDATA[
         ?username=cfcar&password=123456&delay=100s&noop=true&recursive=true
           ]]></downloadPara>
         </sftp>
-        <local localSavePath="file:/Users/shiliyan/Desktop/esb/download" orgCode="CFCAR">
+        <local localSavePath="file:/Users/shiliyan/Desktop/esb/download" orgCode="CFCAR"  backupPath="file:/Users/shiliyan/Desktop/esb/download/read" >
         <savePara><![CDATA[
           ]]></savePara>
         </local>

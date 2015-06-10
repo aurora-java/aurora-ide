@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <cf_ali name="ali_upload" type="cf.ali.sftp.upload" autoStart="true">
         <sftp uploadUrl="sftp://115.124.16.69:22/upload" orgCode="CFCAR">
-         <uploadPara><![CDATA[
-      ?username=cfcar&password=123456&delay=300s&noop=true&recursive=true
-          ]]></uploadPara>
+         <uploadPara><![CDATA[?username=cfcar&password=123456&delay=300s&noop=true&recursive=true]]></uploadPara>
         </sftp>
-        <local orgCode="CFCAR" uploadingPath="file:/u01/CF_Leasing/aurora_esb/sftp/uploading" uploadingPara="" uploadedPath="file:/u01/CF_Leasing/aurora_esb/sftp/upload">
-            <uploadingPara><![CDATA[
-     ?delay=10s&recursive=true&delete=true
-          ]]></uploadingPara>
-              <uploadedPara><![CDATA[
-          ]]></uploadedPara>
-        
+        <local orgCode="CFCAR" uploadingPath="file:/u01/CF_Leasing/aurora_esb/sftp/uploading"  uploadedPath="file:/u01/CF_Leasing/aurora_esb/sftp/upload">
+            <uploadingPara><![CDATA[?delay=10s&recursive=true&delete=true]]></uploadingPara>
+            <uploadedPara><![CDATA[]]></uploadedPara>
         </local>
     </cf_ali>
     
