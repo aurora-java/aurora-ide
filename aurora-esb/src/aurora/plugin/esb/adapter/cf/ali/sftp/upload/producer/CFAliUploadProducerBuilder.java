@@ -82,7 +82,7 @@ public class CFAliUploadProducerBuilder extends RouteBuilder {
 				+ uploaded_para.trim();
 
 		// lets shutdown faster in case of in-flight messages stack up
-		//getContext().getShutdownStrategy().setTimeout(10);
+		getContext().getShutdownStrategy().setTimeout(10);
 		// file:target/upload?moveFailed=../errormove=movedone""
 		// move=../upload
 		// &charset=utf-8

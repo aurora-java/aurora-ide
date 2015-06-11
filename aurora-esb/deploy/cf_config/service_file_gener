@@ -3,7 +3,7 @@
      <genFile  orgCode="CFCAR" timer="timer://foo?period=300000" serviceName="AUTOFI_APPROVAL_CONTRACT" proc="gen_file_ap" saveUrl="file:/u01/CF_Leasing/aurora_esb/sftp/uploading">
     </genFile>
     
-     <genFile  orgCode="CFCAR" timer="timer://foo?period=300000" serviceName="AUTOFI_SEND_BILL" proc="gen_file_bill" saveUrl="file:/u01/CF_Leasing/aurora_esb/sftp/uploading">
+     <genFile  orgCode="CFCAR" timer="quartz2://timerName?cron=0 0 3 * * ?" serviceName="AUTOFI_SEND_BILL" proc="gen_file_bill" saveUrl="file:/u01/CF_Leasing/aurora_esb/sftp/uploading">
     </genFile>
     
     </cf_ali>

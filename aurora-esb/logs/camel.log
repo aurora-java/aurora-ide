@@ -1,588 +1,72 @@
-2015-06-10 10:03:34,937 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-10 10:03:34,940 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-10 10:03:35,515 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-10 10:03:36,007 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-10 10:03:36,007 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-10 10:03:36,030 [main           ] INFO  SftpEndpoint                   - Endpoint is configured with noop=true so forcing endpoint to be idempotent as well
-2015-06-10 10:03:36,030 [main           ] INFO  SftpEndpoint                   - Using default memory based idempotent repository with cache max size: 1000
-2015-06-10 10:03:36,222 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://115.124.16.69:22/download/CFCAR?delay=300s&filter=%23FileFilter&noop=true&password=xxxxxx&recursive=true&username=cfcar]
-2015-06-10 10:03:36,222 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-10 10:03:36,229 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.291 seconds
-2015-06-10 10:03:36,351 [main           ] INFO  MLog                           - MLog clients using log4j logging.
-2015-06-10 10:03:36,563 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
-2015-06-10 10:03:37,254 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connecting to 115.124.16.69 port 22
-2015-06-10 10:03:37,282 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connection established
-2015-06-10 10:03:37,300 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_3.9p1
-2015-06-10 10:03:37,300 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
-2015-06-10 10:03:37,300 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
-2015-06-10 10:03:37,782 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
-2015-06-10 10:03:37,782 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
-2015-06-10 10:03:37,811 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
-2015-06-10 10:03:37,875 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-10 10:03:37,876 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
-2015-06-10 10:03:37,877 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
-2015-06-10 10:03:37,887 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
-2015-06-10 10:03:37,887 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
-2015-06-10 10:03:37,938 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
-2015-06-10 10:03:37,945 [/download/CFCAR] WARN  SftpOperations                 - JSCH -> Permanently added '115.124.16.69' (RSA) to the list of known hosts.
-2015-06-10 10:03:37,946 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
-2015-06-10 10:03:37,946 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
-2015-06-10 10:03:37,966 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
-2015-06-10 10:03:37,988 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
-2015-06-10 10:03:38,013 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
-2015-06-10 10:03:38,013 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
-2015-06-10 10:03:38,014 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
-2015-06-10 10:03:38,014 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: password
-2015-06-10 10:03:38,034 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
-2015-06-10 10:03:38,138 [/download/CFCAR] INFO  SftpOperations                 - Connected to sftp://cfcar@115.124.16.69:22
-2015-06-10 10:03:38,138 [/download/CFCAR] INFO  SftpConsumer                   - Connected and logged in to: sftp://cfcar@115.124.16.69:22
-2015-06-10 10:09:08,169 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_110.txt complete.
-2015-06-10 10:09:08,627 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_110.txt complete.
-2015-06-10 10:09:08,866 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_108.txt complete.
-2015-06-10 10:09:09,098 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_109.txt complete.
-2015-06-10 10:14:18,094 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_110.txt complete.
-2015-06-10 10:14:18,376 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_110.txt complete.
-2015-06-10 10:14:18,640 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_110.txt complete.
-2015-06-10 10:19:18,677 [4.16.69 session] INFO  SftpOperations                 - JSCH -> Caught an exception, leaving main loop due to SSH_MSG_DISCONNECT: 2 Timeout, your session not responding. 
-2015-06-10 10:19:18,677 [4.16.69 session] INFO  SftpOperations                 - JSCH -> Disconnecting from 115.124.16.69 port 22
-2015-06-10 10:19:18,683 [/download/CFCAR] WARN  SftpConsumer                   - Consumer Consumer[sftp://115.124.16.69:22/download/CFCAR?delay=300s&filter=%23FileFilter&noop=true&password=xxxxxx&recursive=true&username=cfcar] failed polling endpoint: Endpoint[sftp://115.124.16.69:22/download/CFCAR?delay=300s&filter=%23FileFilter&noop=true&password=xxxxxx&recursive=true&username=cfcar]. Will try again at next poll. Caused by: [org.apache.camel.component.file.GenericFileOperationFailedException - Cannot change directory to: download]
-org.apache.camel.component.file.GenericFileOperationFailedException: Cannot change directory to: download
-	at org.apache.camel.component.file.remote.SftpOperations.doChangeDirectory(SftpOperations.java:542)
-	at org.apache.camel.component.file.remote.SftpOperations.changeCurrentDirectory(SftpOperations.java:530)
-	at org.apache.camel.component.file.remote.SftpConsumer.doPollDirectory(SftpConsumer.java:80)
-	at org.apache.camel.component.file.remote.SftpConsumer.pollDirectory(SftpConsumer.java:52)
-	at org.apache.camel.component.file.GenericFileConsumer.poll(GenericFileConsumer.java:119)
-	at org.apache.camel.impl.ScheduledPollConsumer.doRun(ScheduledPollConsumer.java:174)
-	at org.apache.camel.impl.ScheduledPollConsumer.run(ScheduledPollConsumer.java:101)
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
-	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: 4: 
-	at com.jcraft.jsch.ChannelSftp.cd(ChannelSftp.java:359)
-	at org.apache.camel.component.file.remote.SftpOperations.doChangeDirectory(SftpOperations.java:540)
-	... 13 more
-Caused by: java.io.IOException: inputstream is closed
-	at com.jcraft.jsch.ChannelSftp.fill(ChannelSftp.java:2884)
-	at com.jcraft.jsch.ChannelSftp.header(ChannelSftp.java:2908)
-	at com.jcraft.jsch.ChannelSftp._realpath(ChannelSftp.java:2328)
-	at com.jcraft.jsch.ChannelSftp.cd(ChannelSftp.java:342)
-	... 14 more
-2015-06-10 10:21:13,902 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-10 10:21:13,905 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-10 10:21:14,325 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-10 10:21:14,692 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-10 10:21:14,692 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-10 10:21:14,708 [main           ] INFO  SftpEndpoint                   - Endpoint is configured with noop=true so forcing endpoint to be idempotent as well
-2015-06-10 10:21:14,708 [main           ] INFO  SftpEndpoint                   - Using default memory based idempotent repository with cache max size: 1000
-2015-06-10 10:21:14,822 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://115.124.16.69:22/download/CFCAR?delay=100s&filter=%23FileFilter&noop=true&password=xxxxxx&recursive=true&username=cfcar]
-2015-06-10 10:21:14,823 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-10 10:21:14,834 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.925 seconds
-2015-06-10 10:21:14,913 [main           ] INFO  MLog                           - MLog clients using log4j logging.
-2015-06-10 10:21:15,051 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
-2015-06-10 10:21:15,851 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connecting to 115.124.16.69 port 22
-2015-06-10 10:21:15,870 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connection established
-2015-06-10 10:21:15,885 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_3.9p1
-2015-06-10 10:21:15,885 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
-2015-06-10 10:21:15,885 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
-2015-06-10 10:21:16,229 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
-2015-06-10 10:21:16,229 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
-2015-06-10 10:21:16,229 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
-2015-06-10 10:21:16,283 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
-2015-06-10 10:21:16,283 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-10 10:21:16,284 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
-2015-06-10 10:21:16,285 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
-2015-06-10 10:21:16,295 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
-2015-06-10 10:21:16,295 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
-2015-06-10 10:21:16,351 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
-2015-06-10 10:21:16,358 [/download/CFCAR] WARN  SftpOperations                 - JSCH -> Permanently added '115.124.16.69' (RSA) to the list of known hosts.
-2015-06-10 10:21:16,358 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
-2015-06-10 10:21:16,358 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
-2015-06-10 10:21:16,367 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
-2015-06-10 10:21:16,401 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
-2015-06-10 10:21:16,413 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
-2015-06-10 10:21:16,413 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
-2015-06-10 10:21:16,415 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
-2015-06-10 10:21:16,415 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: password
-2015-06-10 10:21:16,433 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
-2015-06-10 10:21:17,253 [/download/CFCAR] INFO  SftpOperations                 - Connected to sftp://cfcar@115.124.16.69:22
-2015-06-10 10:21:17,253 [/download/CFCAR] INFO  SftpConsumer                   - Connected and logged in to: sftp://cfcar@115.124.16.69:22
-2015-06-10 10:21:25,779 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_109.txt complete.
-2015-06-10 10:21:26,034 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_111.txt complete.
-2015-06-10 10:21:26,293 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_111.txt complete.
-2015-06-10 10:21:26,536 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_104.txt complete.
-2015-06-10 10:21:26,781 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_111.txt complete.
-2015-06-10 10:21:27,038 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_111.txt complete.
-2015-06-10 10:21:27,292 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_112.txt complete.
-2015-06-10 10:26:56,439 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_112.txt complete.
-2015-06-10 10:26:56,719 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_114.txt complete.
-2015-06-10 10:26:56,967 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_113.txt complete.
-2015-06-10 10:26:57,275 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_112.txt complete.
-2015-06-10 10:26:57,521 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_111.txt complete.
-2015-06-10 10:32:23,627 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_113.txt complete.
-2015-06-10 10:32:23,872 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_112.txt complete.
-2015-06-10 10:32:24,116 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_114.txt complete.
-2015-06-10 10:32:24,378 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_113.txt complete.
-2015-06-10 10:36:11,566 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_115.txt complete.
-2015-06-10 10:38:00,540 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_115.txt complete.
-2015-06-10 10:41:39,437 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_115.txt complete.
-2015-06-10 10:41:39,720 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_114.txt complete.
-2015-06-10 10:41:39,987 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_115.txt complete.
-2015-06-10 10:47:05,764 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_117.txt complete.
-2015-06-10 10:47:06,031 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_116.txt complete.
-2015-06-10 10:47:06,276 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_116.txt complete.
-2015-06-10 10:47:06,533 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_117.txt complete.
-2015-06-10 10:47:06,799 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_116.txt complete.
-2015-06-10 10:47:07,089 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_114.txt complete.
-2015-06-10 10:47:07,362 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_116.txt complete.
-2015-06-10 10:47:07,635 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_115.txt complete.
-2015-06-10 10:52:33,057 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_117.txt complete.
-2015-06-10 10:52:33,294 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_114.txt complete.
-2015-06-10 10:56:13,665 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_118.txt complete.
-2015-06-10 10:56:13,929 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_118.txt complete.
-2015-06-10 10:56:14,192 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_113.txt complete.
-2015-06-10 10:56:14,451 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_116.txt complete.
-2015-06-10 11:02:00,355 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_118.txt complete.
-2015-06-10 11:02:00,614 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_118.txt complete.
-2015-06-10 11:11:13,733 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_117.txt complete.
-2015-06-10 11:16:39,502 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_120.txt complete.
-2015-06-10 11:22:05,074 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_121.txt complete.
-2015-06-10 11:22:05,354 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_119.txt complete.
-2015-06-10 11:22:05,629 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_121.txt complete.
-2015-06-10 11:22:05,972 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_120.txt complete.
-2015-06-10 11:22:06,233 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_121.txt complete.
-2015-06-10 11:22:06,476 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_120.txt complete.
-2015-06-10 11:27:37,173 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_122.txt complete.
-2015-06-10 11:27:37,415 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_121.txt complete.
-2015-06-10 11:31:13,107 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_120.txt complete.
-2015-06-10 11:31:13,379 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_121.txt complete.
-2015-06-10 11:31:13,618 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_119.txt complete.
-2015-06-10 11:31:13,861 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_119.txt complete.
-2015-06-10 11:36:37,948 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_124.txt complete.
-2015-06-10 11:36:38,213 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_123.txt complete.
-2015-06-10 11:36:38,489 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_124.txt complete.
-2015-06-10 11:36:38,752 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_123.txt complete.
-2015-06-10 11:36:39,001 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_124.txt complete.
-2015-06-10 11:42:03,755 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_125.txt complete.
-2015-06-10 11:42:04,014 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_119.txt complete.
-2015-06-10 11:42:04,264 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_122.txt complete.
-2015-06-10 11:42:04,504 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_124.txt complete.
-2015-06-10 11:42:04,764 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_122.txt complete.
-2015-06-10 11:47:32,063 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_125.txt complete.
-2015-06-10 11:47:32,339 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_125.txt complete.
-2015-06-10 11:51:10,896 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_124.txt complete.
-2015-06-10 11:51:11,211 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_123.txt complete.
-2015-06-10 11:51:11,505 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_125.txt complete.
-2015-06-10 11:51:11,821 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_127.txt complete.
-2015-06-10 11:56:38,928 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_127.txt complete.
-2015-06-10 11:56:39,224 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_128.txt complete.
-2015-06-10 11:56:39,544 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_128.txt complete.
-2015-06-10 11:56:39,849 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_126.txt complete.
-2015-06-10 12:07:30,839 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_128.txt complete.
-2015-06-10 12:07:31,117 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_123.txt complete.
-2015-06-10 12:07:31,365 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_128.txt complete.
-2015-06-10 12:16:38,166 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_127.txt complete.
-2015-06-10 12:16:38,441 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_126.txt complete.
-2015-06-10 12:16:38,756 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_122.txt complete.
-2015-06-10 12:16:39,078 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_117.txt complete.
-2015-06-10 12:27:40,584 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_123.txt complete.
-2015-06-10 12:27:40,867 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_126.txt complete.
-2015-06-10 12:27:41,129 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_128.txt complete.
-2015-06-10 12:27:41,431 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_126.txt complete.
-2015-06-10 12:31:23,050 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_125.txt complete.
-2015-06-10 12:42:17,171 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_127.txt complete.
-2015-06-10 13:02:09,923 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_127.txt complete.
-2015-06-10 14:51:23,141 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_134.txt complete.
-2015-06-10 14:51:23,414 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_133.txt complete.
-2015-06-10 14:51:23,665 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_139.txt complete.
-2015-06-10 14:51:23,926 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_131.txt complete.
-2015-06-10 14:51:24,187 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_135.txt complete.
-2015-06-10 14:51:24,431 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_137.txt complete.
-2015-06-10 14:51:24,671 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_130.txt complete.
-2015-06-10 14:51:25,017 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_136.txt complete.
-2015-06-10 14:51:25,306 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_138.txt complete.
-2015-06-10 14:51:25,614 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_142.txt complete.
-2015-06-10 14:51:25,979 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_137.txt complete.
-2015-06-10 14:51:26,306 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_131.txt complete.
-2015-06-10 14:51:26,627 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_145.txt complete.
-2015-06-10 14:51:26,922 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_148.txt complete.
-2015-06-10 14:51:27,198 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_129.txt complete.
-2015-06-10 14:51:27,441 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_141.txt complete.
-2015-06-10 14:51:27,698 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_132.txt complete.
-2015-06-10 14:51:28,017 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_133.txt complete.
-2015-06-10 14:51:28,252 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_138.txt complete.
-2015-06-10 14:51:28,545 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_143.txt complete.
-2015-06-10 14:51:28,797 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_137.txt complete.
-2015-06-10 14:51:29,058 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_131.txt complete.
-2015-06-10 14:51:29,391 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_134.txt complete.
-2015-06-10 14:51:29,650 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_135.txt complete.
-2015-06-10 14:51:29,977 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_138.txt complete.
-2015-06-10 14:51:30,258 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_133.txt complete.
-2015-06-10 14:51:30,501 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_147.txt complete.
-2015-06-10 14:51:30,729 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_130.txt complete.
-2015-06-10 14:51:30,973 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_146.txt complete.
-2015-06-10 14:51:31,215 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_148.txt complete.
-2015-06-10 14:51:31,580 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_133.txt complete.
-2015-06-10 14:51:31,864 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_141.txt complete.
-2015-06-10 14:51:32,110 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_145.txt complete.
-2015-06-10 14:51:32,387 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_140.txt complete.
-2015-06-10 14:51:32,623 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_129.txt complete.
-2015-06-10 14:51:32,869 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_136.txt complete.
-2015-06-10 14:51:33,145 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_131.txt complete.
-2015-06-10 14:51:33,404 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_132.txt complete.
-2015-06-10 14:51:33,637 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_137.txt complete.
-2015-06-10 14:51:33,883 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_140.txt complete.
-2015-06-10 14:51:34,119 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_146.txt complete.
-2015-06-10 14:51:34,371 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_131.txt complete.
-2015-06-10 14:51:34,654 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_141.txt complete.
-2015-06-10 14:51:34,905 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_143.txt complete.
-2015-06-10 14:51:35,163 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_147.txt complete.
-2015-06-10 14:51:35,426 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_135.txt complete.
-2015-06-10 14:51:35,676 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_136.txt complete.
-2015-06-10 14:51:35,917 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_148.txt complete.
-2015-06-10 14:51:36,152 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_133.txt complete.
-2015-06-10 14:51:36,405 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_145.txt complete.
-2015-06-10 14:57:04,090 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_140.txt complete.
-2015-06-10 14:57:04,340 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_139.txt complete.
-2015-06-10 14:57:04,588 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_135.txt complete.
-2015-06-10 14:57:04,835 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_136.txt complete.
-2015-06-10 14:57:05,083 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_142.txt complete.
-2015-06-10 14:57:05,391 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_143.txt complete.
-2015-06-10 14:57:05,666 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_147.txt complete.
-2015-06-10 14:57:05,935 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_141.txt complete.
-2015-06-10 14:57:06,197 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_140.txt complete.
-2015-06-10 14:57:06,465 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_145.txt complete.
-2015-06-10 14:57:06,739 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_132.txt complete.
-2015-06-10 14:57:07,019 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_144.txt complete.
-2015-06-10 14:57:07,274 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_130.txt complete.
-2015-06-10 15:02:35,073 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_156.txt complete.
-2015-06-10 15:02:35,342 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_158.txt complete.
-2015-06-10 15:02:35,564 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_155.txt complete.
-2015-06-10 15:02:35,814 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_144.txt complete.
-2015-06-10 15:02:36,051 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_145.txt complete.
-2015-06-10 15:02:36,305 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_140.txt complete.
-2015-06-10 15:02:36,607 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_143.txt complete.
-2015-06-10 15:02:36,863 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_132.txt complete.
-2015-06-10 15:02:37,097 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_129.txt complete.
-2015-06-10 15:02:37,329 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_152.txt complete.
-2015-06-10 15:02:37,642 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_158.txt complete.
-2015-06-10 15:02:37,878 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_157.txt complete.
-2015-06-10 15:02:38,112 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_144.txt complete.
-2015-06-10 15:02:38,359 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_151.txt complete.
-2015-06-10 15:02:38,594 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_134.txt complete.
-2015-06-10 15:02:38,832 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_153.txt complete.
-2015-06-10 15:02:39,068 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_130.txt complete.
-2015-06-10 15:02:39,304 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_149.txt complete.
-2015-06-10 15:02:39,551 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_157.txt complete.
-2015-06-10 15:02:39,797 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_129.txt complete.
-2015-06-10 15:02:40,048 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_130.txt complete.
-2015-06-10 15:02:40,305 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_136.txt complete.
-2015-06-10 15:02:40,568 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_158.txt complete.
-2015-06-10 15:02:40,827 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_155.txt complete.
-2015-06-10 15:02:41,082 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_139.txt complete.
-2015-06-10 15:02:41,339 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_151.txt complete.
-2015-06-10 15:02:41,582 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_158.txt complete.
-2015-06-10 15:02:41,832 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_157.txt complete.
-2015-06-10 15:02:42,082 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_152.txt complete.
-2015-06-10 15:02:42,320 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_150.txt complete.
-2015-06-10 15:02:42,566 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_153.txt complete.
-2015-06-10 15:02:42,810 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_134.txt complete.
-2015-06-10 15:02:43,058 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_156.txt complete.
-2015-06-10 15:02:43,308 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_142.txt complete.
-2015-06-10 15:02:43,564 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_139.txt complete.
-2015-06-10 15:02:43,805 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_132.txt complete.
-2015-06-10 15:02:44,046 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_152.txt complete.
-2015-06-10 15:02:44,317 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_134.txt complete.
-2015-06-10 15:02:44,554 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_129.txt complete.
-2015-06-10 15:02:44,795 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_151.txt complete.
-2015-06-10 15:02:45,023 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_138.txt complete.
-2015-06-10 15:06:45,732 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_154.txt complete.
-2015-06-10 15:06:45,969 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_152.txt complete.
-2015-06-10 15:06:46,211 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_150.txt complete.
-2015-06-10 15:06:46,470 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_151.txt complete.
-2015-06-10 15:06:46,729 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_146.txt complete.
-2015-06-10 15:06:47,004 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_150.txt complete.
-2015-06-10 15:06:47,251 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_149.txt complete.
-2015-06-10 15:06:47,484 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_154.txt complete.
-2015-06-10 15:06:47,760 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_143.txt complete.
-2015-06-10 15:06:47,991 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_156.txt complete.
-2015-06-10 15:06:48,267 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_144.txt complete.
-2015-06-10 15:06:48,512 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_158.txt complete.
-2015-06-10 15:06:48,758 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_150.txt complete.
-2015-06-10 15:06:49,001 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_142.txt complete.
-2015-06-10 15:06:49,233 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_153.txt complete.
-2015-06-10 15:06:49,478 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_157.txt complete.
-2015-06-10 15:12:23,382 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_148.txt complete.
-2015-06-10 15:12:23,672 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_147.txt complete.
-2015-06-10 15:12:23,966 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_146.txt complete.
-2015-06-10 15:16:09,864 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_138.txt complete.
-2015-06-10 15:16:10,143 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_149.txt complete.
-2015-06-10 15:17:59,301 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_141.txt complete.
-2015-06-10 15:17:59,563 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_157.txt complete.
-2015-06-10 15:17:59,863 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_159.txt complete.
-2015-06-10 15:18:00,105 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_153.txt complete.
-2015-06-10 15:18:00,377 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_155.txt complete.
-2015-06-10 15:18:00,646 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_154.txt complete.
-2015-06-10 15:18:00,964 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_156.txt complete.
-2015-06-10 15:18:01,226 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_147.txt complete.
-2015-06-10 15:18:01,480 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_142.txt complete.
-2015-06-10 15:18:01,746 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_159.txt complete.
-2015-06-10 15:18:02,139 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_151.txt complete.
-2015-06-10 15:18:02,396 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_150.txt complete.
-2015-06-10 15:18:02,676 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_156.txt complete.
-2015-06-10 15:18:02,945 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_135.txt complete.
-2015-06-10 15:18:03,221 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_155.txt complete.
-2015-06-10 15:18:03,469 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_159.txt complete.
-2015-06-10 15:18:03,724 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_144.txt complete.
-2015-06-10 15:18:03,991 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_155.txt complete.
-2015-06-10 15:18:04,232 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_154.txt complete.
-2015-06-10 15:21:41,518 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_161.txt complete.
-2015-06-10 15:21:41,781 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_160.txt complete.
-2015-06-10 15:21:42,047 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_146.txt complete.
-2015-06-10 15:21:42,399 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_161.txt complete.
-2015-06-10 15:21:42,663 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_161.txt complete.
-2015-06-10 15:27:10,361 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_149.txt complete.
-2015-06-10 15:27:10,595 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_160.txt complete.
-2015-06-10 15:27:10,842 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_162.txt complete.
-2015-06-10 15:27:11,102 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_163.txt complete.
-2015-06-10 15:27:11,358 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_161.txt complete.
-2015-06-10 15:27:11,619 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_162.txt complete.
-2015-06-10 15:27:11,940 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_159.txt complete.
-2015-06-10 15:27:12,201 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_153.txt complete.
-2015-06-10 15:27:12,471 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_154.txt complete.
-2015-06-10 15:27:12,717 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_160.txt complete.
-2015-06-10 15:27:13,019 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_148.txt complete.
-2015-06-10 15:27:13,293 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_139.txt complete.
-2015-06-10 15:27:13,585 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_162.txt complete.
-2015-06-10 15:27:13,900 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_137.txt complete.
-2015-06-10 15:27:14,168 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_163.txt complete.
-2015-06-10 15:27:14,433 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_149.txt complete.
-2015-06-10 15:27:14,687 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_163.txt complete.
-2015-06-10 15:27:14,961 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_162.txt complete.
-2015-06-10 15:27:15,213 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_159.txt complete.
-2015-06-10 15:27:15,498 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_160.txt complete.
-2015-06-10 15:30:54,665 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_10000.txt complete.
-2015-06-10 15:32:44,796 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_163.txt complete.
-2015-06-10 15:32:45,072 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_164.txt complete.
-2015-06-10 15:32:45,342 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_164.txt complete.
-2015-06-10 15:32:45,648 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_160.txt complete.
-2015-06-10 15:32:45,919 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_10000.txt complete.
-2015-06-10 15:32:46,202 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_164.txt complete.
-2015-06-10 15:32:46,481 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_164.txt complete.
-2015-06-10 15:36:25,309 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_165.txt complete.
-2015-06-10 15:36:25,583 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_164.txt complete.
-2015-06-10 15:36:25,835 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_161.txt complete.
-2015-06-10 15:40:21,622 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_10001.txt complete.
-2015-06-10 15:42:18,703 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_165.txt complete.
-2015-06-10 15:42:18,993 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_162.txt complete.
-2015-06-10 15:42:19,320 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_165.txt complete.
-2015-06-10 15:42:19,593 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_165.txt complete.
-2015-06-10 15:42:19,846 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_166.txt complete.
-2015-06-10 15:42:20,095 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_165.txt complete.
-2015-06-10 15:47:47,380 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_166.txt complete.
-2015-06-10 15:47:47,648 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_167.txt complete.
-2015-06-10 15:47:47,917 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_167.txt complete.
-2015-06-10 15:47:48,334 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_167.txt complete.
-2015-06-10 15:51:31,381 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_167.txt complete.
-2015-06-10 15:51:31,728 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_166.txt complete.
-2015-06-10 15:56:57,438 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_168.txt complete.
-2015-06-10 15:56:57,739 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_166.txt complete.
-2015-06-10 15:56:58,004 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_166.txt complete.
-2015-06-10 15:56:58,257 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_168.txt complete.
-2015-06-10 15:56:58,528 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_168.txt complete.
-2015-06-10 16:02:26,696 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_168.txt complete.
-2015-06-10 16:06:20,323 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_169.txt complete.
-2015-06-10 16:06:20,564 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_169.txt complete.
-2015-06-10 16:06:20,813 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_169.txt complete.
-2015-06-10 16:06:21,102 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_169.txt complete.
-2015-06-10 16:12:16,836 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_170.txt complete.
-2015-06-10 16:12:17,096 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_168.txt complete.
-2015-06-10 16:12:17,412 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_170.txt complete.
-2015-06-10 16:12:17,693 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_169.txt complete.
-2015-06-10 16:12:17,972 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_170.txt complete.
-2015-06-10 16:12:18,228 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_170.txt complete.
-2015-06-10 16:12:18,477 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_170.txt complete.
-2015-06-10 16:16:16,604 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_171.txt complete.
-2015-06-10 16:18:14,464 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_171.txt complete.
-2015-06-10 16:22:03,421 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_171.txt complete.
-2015-06-10 16:22:03,751 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_171.txt complete.
-2015-06-10 16:27:59,314 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_172.txt complete.
-2015-06-10 16:27:59,604 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_172.txt complete.
-2015-06-10 16:27:59,857 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_172.txt complete.
-2015-06-10 16:28:00,143 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_171.txt complete.
-2015-06-10 16:31:53,847 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_173.txt complete.
-2015-06-10 16:31:54,811 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_173.txt complete.
-2015-06-10 16:31:55,315 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_173.txt complete.
-2015-06-10 16:31:55,670 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_173.txt complete.
-2015-06-10 16:31:56,044 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_173.txt complete.
-2015-06-10 16:38:39,682 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-10 16:38:39,685 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-10 16:38:40,345 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-10 16:38:41,101 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-10 16:38:41,101 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-10 16:38:41,125 [main           ] INFO  SftpEndpoint                   - Endpoint is configured with noop=true so forcing endpoint to be idempotent as well
-2015-06-10 16:38:41,125 [main           ] INFO  SftpEndpoint                   - Using default memory based idempotent repository with cache max size: 1000
-2015-06-10 16:38:41,401 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://115.124.16.69:22/download/CFCAR?delay=100s&filter=%23FileFilter&noop=true&password=xxxxxx&recursive=true&username=cfcar]
-2015-06-10 16:38:41,403 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-10 16:38:41,412 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.731 seconds
-2015-06-10 16:38:41,557 [main           ] INFO  MLog                           - MLog clients using log4j logging.
-2015-06-10 16:38:41,859 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
-2015-06-10 16:38:42,434 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connecting to 115.124.16.69 port 22
-2015-06-10 16:38:42,468 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connection established
-2015-06-10 16:38:42,488 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_3.9p1
-2015-06-10 16:38:42,488 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
-2015-06-10 16:38:42,488 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
-2015-06-10 16:38:43,490 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
-2015-06-10 16:38:43,490 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
-2015-06-10 16:38:43,490 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
-2015-06-10 16:38:43,593 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
-2015-06-10 16:38:43,593 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
-2015-06-10 16:38:43,593 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-10 16:38:43,594 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-10 16:38:43,595 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-10 16:38:43,595 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
-2015-06-10 16:38:43,595 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
-2015-06-10 16:38:43,617 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
-2015-06-10 16:38:43,617 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
-2015-06-10 16:38:43,676 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
-2015-06-10 16:38:43,698 [/download/CFCAR] WARN  SftpOperations                 - JSCH -> Permanently added '115.124.16.69' (RSA) to the list of known hosts.
-2015-06-10 16:38:43,698 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
-2015-06-10 16:38:43,699 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
-2015-06-10 16:38:43,715 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
-2015-06-10 16:38:43,753 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
-2015-06-10 16:38:43,765 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
-2015-06-10 16:38:43,766 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
-2015-06-10 16:38:43,767 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
-2015-06-10 16:38:43,767 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: password
-2015-06-10 16:38:43,785 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
-2015-06-10 16:38:43,859 [/download/CFCAR] INFO  SftpOperations                 - Connected to sftp://cfcar@115.124.16.69:22
-2015-06-10 16:38:43,859 [/download/CFCAR] INFO  SftpConsumer                   - Connected and logged in to: sftp://cfcar@115.124.16.69:22
-2015-06-10 16:39:04,748 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_174.txt complete.
-2015-06-10 16:39:05,048 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_174.txt complete.
-2015-06-10 16:39:05,303 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_172.txt complete.
-2015-06-10 16:39:05,584 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_174.txt complete.
-2015-06-10 16:40:40,907 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-10 16:40:40,909 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-10 16:40:41,248 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-10 16:40:41,589 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-10 16:40:41,589 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-10 16:40:41,606 [main           ] INFO  SftpEndpoint                   - Endpoint is configured with noop=true so forcing endpoint to be idempotent as well
-2015-06-10 16:40:41,607 [main           ] INFO  SftpEndpoint                   - Using default memory based idempotent repository with cache max size: 1000
-2015-06-10 16:40:41,696 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://115.124.16.69:22/download/CFCAR?delay=100s&filter=%23FileFilter&noop=true&password=xxxxxx&recursive=true&username=cfcar]
-2015-06-10 16:40:41,697 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-10 16:40:41,702 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.793 seconds
-2015-06-10 16:40:41,754 [main           ] INFO  MLog                           - MLog clients using log4j logging.
-2015-06-10 16:40:41,847 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
-2015-06-10 16:40:42,715 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connecting to 115.124.16.69 port 22
-2015-06-10 16:40:42,733 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connection established
-2015-06-10 16:40:42,753 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_3.9p1
-2015-06-10 16:40:42,753 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
-2015-06-10 16:40:42,754 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
-2015-06-10 16:40:43,111 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
-2015-06-10 16:40:43,111 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
-2015-06-10 16:40:43,111 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
-2015-06-10 16:40:43,182 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
-2015-06-10 16:40:43,182 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
-2015-06-10 16:40:43,182 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-10 16:40:43,183 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-10 16:40:43,184 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
-2015-06-10 16:40:43,184 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
-2015-06-10 16:40:43,190 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
-2015-06-10 16:40:43,190 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
-2015-06-10 16:40:43,249 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
-2015-06-10 16:40:43,254 [/download/CFCAR] WARN  SftpOperations                 - JSCH -> Permanently added '115.124.16.69' (RSA) to the list of known hosts.
-2015-06-10 16:40:43,254 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
-2015-06-10 16:40:43,254 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
-2015-06-10 16:40:43,260 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
-2015-06-10 16:40:43,310 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
-2015-06-10 16:40:43,355 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
-2015-06-10 16:40:43,355 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
-2015-06-10 16:40:43,368 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
-2015-06-10 16:40:43,368 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: password
-2015-06-10 16:40:43,385 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
-2015-06-10 16:40:43,877 [/download/CFCAR] INFO  SftpOperations                 - Connected to sftp://cfcar@115.124.16.69:22
-2015-06-10 16:40:43,877 [/download/CFCAR] INFO  SftpConsumer                   - Connected and logged in to: sftp://cfcar@115.124.16.69:22
-2015-06-10 16:42:42,655 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_175.txt complete.
-2015-06-10 16:42:42,953 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_174.txt complete.
-2015-06-10 16:42:43,183 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_175.txt complete.
-2015-06-10 16:42:43,408 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_174.txt complete.
-2015-06-10 16:42:43,645 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CANCLE_CONTRACT/20150610/CFCAR_AUTOFI_CANCLE_CONTRACT_20150610_172.txt complete.
+2015-06-10 17:06:02,852 [main           ] INFO  AuroraEsbServer                - [Downloaded File] DOWNLOAD Task Configed
+2015-06-10 17:06:02,859 [main           ] INFO  AuroraEsbServer                - [Downloaded File] DOWNLOAD URL sftp://115.124.16.69:22/download/CFCAR?username=cfcar&password=123456&delay=100s&noop=true&recursive=true&filter=#FileFilter
+2015-06-10 17:06:02,859 [main           ] INFO  AuroraEsbServer                - [Downloaded File] SAVE URL file:/Users/shiliyan/Desktop/esb/download/CFCAR
+2015-06-10 17:06:02,866 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-10 17:06:02,867 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-10 17:06:03,215 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-10 17:06:03,590 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-10 17:06:03,591 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-10 17:06:03,602 [main           ] INFO  SftpEndpoint                   - Endpoint is configured with noop=true so forcing endpoint to be idempotent as well
+2015-06-10 17:06:03,602 [main           ] INFO  SftpEndpoint                   - Using default memory based idempotent repository with cache max size: 1000
+2015-06-10 17:06:03,698 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://115.124.16.69:22/download/CFCAR?delay=100s&filter=%23FileFilter&noop=true&password=xxxxxx&recursive=true&username=cfcar]
+2015-06-10 17:06:03,699 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-10 17:06:03,704 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.837 seconds
+2015-06-10 17:06:03,787 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-10 17:06:03,932 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-10 17:06:04,715 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connecting to 115.124.16.69 port 22
+2015-06-10 17:06:04,739 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Connection established
+2015-06-10 17:06:04,761 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_3.9p1
+2015-06-10 17:06:04,761 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
+2015-06-10 17:06:04,761 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
+2015-06-10 17:06:05,090 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
+2015-06-10 17:06:05,090 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
+2015-06-10 17:06:05,090 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
+2015-06-10 17:06:05,140 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
+2015-06-10 17:06:05,140 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
+2015-06-10 17:06:05,140 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+2015-06-10 17:06:05,140 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server: 
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: none
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
+2015-06-10 17:06:05,141 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client: 
+2015-06-10 17:06:05,142 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
+2015-06-10 17:06:05,142 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
+2015-06-10 17:06:05,148 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
+2015-06-10 17:06:05,148 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
+2015-06-10 17:06:05,209 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
+2015-06-10 17:06:05,216 [/download/CFCAR] WARN  SftpOperations                 - JSCH -> Permanently added '115.124.16.69' (RSA) to the list of known hosts.
+2015-06-10 17:06:05,217 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
+2015-06-10 17:06:05,217 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
+2015-06-10 17:06:05,226 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
+2015-06-10 17:06:05,265 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
+2015-06-10 17:06:05,277 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
+2015-06-10 17:06:05,277 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
+2015-06-10 17:06:05,279 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
+2015-06-10 17:06:05,279 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Next authentication method: password
+2015-06-10 17:06:05,304 [/download/CFCAR] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
+2015-06-10 17:06:05,792 [/download/CFCAR] INFO  SftpOperations                 - Connected to sftp://cfcar@115.124.16.69:22
+2015-06-10 17:06:05,793 [/download/CFCAR] INFO  SftpConsumer                   - Connected and logged in to: sftp://cfcar@115.124.16.69:22
+2015-06-10 17:06:15,271 [/download/CFCAR] INFO  AuroraEsbServer                - [Downloaded File] Downloaded File CFCAR_AUTOFI_CREATE_CONTRACT_20150610_179.txt Complete.
+2015-06-10 17:06:15,272 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_CREATE_CONTRACT/20150610/CFCAR_AUTOFI_CREATE_CONTRACT_20150610_179.txt complete.
+2015-06-10 17:06:15,551 [/download/CFCAR] INFO  AuroraEsbServer                - [Downloaded File] Downloaded File CFCAR_AUTOFI_LOAN_RESULT_20150610_179.txt Complete.
+2015-06-10 17:06:15,551 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_LOAN_RESULT/20150610/CFCAR_AUTOFI_LOAN_RESULT_20150610_179.txt complete.
+2015-06-10 17:06:15,816 [/download/CFCAR] INFO  AuroraEsbServer                - [Downloaded File] Downloaded File CFCAR_AUTOFI_INVOICE_INFO_20150610_179.txt Complete.
+2015-06-10 17:06:15,816 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_INVOICE_INFO/20150610/CFCAR_AUTOFI_INVOICE_INFO_20150610_179.txt complete.
+2015-06-10 17:06:16,091 [/download/CFCAR] INFO  AuroraEsbServer                - [Downloaded File] Downloaded File CFCAR_AUTOFI_PAYEE_INFO_20150610_178.txt Complete.
+2015-06-10 17:06:16,091 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_178.txt complete.
+2015-06-10 17:06:16,373 [/download/CFCAR] INFO  AuroraEsbServer                - [Downloaded File] Downloaded File CFCAR_AUTOFI_PAYEE_INFO_20150610_179.txt Complete.
+2015-06-10 17:06:16,374 [/download/CFCAR] INFO  route1                         - Downloaded file AUTOFI_PAYEE_INFO/20150610/CFCAR_AUTOFI_PAYEE_INFO_20150610_179.txt complete.
