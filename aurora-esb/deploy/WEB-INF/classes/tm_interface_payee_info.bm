@@ -8,8 +8,8 @@
                 BEGIN
 				  v_file_status := tm_interface_pkg.insert_payee_info(p_head_id  => ${../../@head_id},
 				                                        		    p_applyno  => ${@applyno},
-				                                        			p_name	   => ${@loandate},
-				                                        			p_address  => ${@applyamount},
+				                                        			p_name	   => ${@name},
+				                                        			p_address  => ${@address},
 				                                        			p_phone	   => ${@phone});
 				                                        				 
 				  if v_file_status = 'NO' or ${../../@file_status} = 'NO' then

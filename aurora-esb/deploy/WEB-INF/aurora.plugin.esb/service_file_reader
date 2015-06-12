@@ -2,11 +2,11 @@
     <cf_ali name="ali_read" type="cf.ali.sftp.read" autoStart="false">
        <local readProc="read_file" invoiceProc="invoice_proc" orgCode="CFCAR" readingPath="file:/Users/shiliyan/Desktop/esb/download"  backupPath="file:/Users/shiliyan/Desktop/esb/download/read">
         <readingPara><![CDATA[
-        ?delete=true&delay=100s&recursive=true&charset=euc_cn
+        ?delete=true&delay=100s&recursive=true&charset=utf-8&antInclude=*/**/*txt
           ]]></readingPara>
           <!--&antInclude=*/**/*txt-->
            <backupPara><![CDATA[
-           ?charset=euc_cn
+           ?charset=utf-8
           ]]></backupPara>
        </local>
     </cf_ali>

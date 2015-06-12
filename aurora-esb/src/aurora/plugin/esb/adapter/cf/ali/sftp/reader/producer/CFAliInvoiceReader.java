@@ -21,31 +21,26 @@ import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.util.FileCopyer;
 import aurora.plugin.esb.util.FileStore;
 
-public class CFAliServiceReader {
+public class CFAliInvoiceReader {
 
 	private AuroraEsbContext esbContext;
 
 	private ConsoleLog clog = new ConsoleLog();
 
-	private CompositeMap readHistory;
-
-	private FileStore fs;
-	private static final String fileName = "read_list";
-
-	private String read_proc = "message_recevie";
+	private static final String fileName = "invoice_list";
 
 	private String invoice_proc = "message_recevie";
 
-	private String backupPath;
+	private CompositeMap readHistory;
 
-	public CFAliServiceReader(AuroraEsbContext esbContext, String read_proc,
-			String invoiceProc, String backupPath) {
+	private FileStore fs;
+
+	public CFAliInvoiceReader(AuroraEsbContext esbContext, String invoiceProc) {
 		this.esbContext = esbContext;
-		this.read_proc = read_proc;
 		this.invoice_proc = invoiceProc;
+
 		fs = new FileStore(esbContext.getWorkPath());
 		readHistory = fs.load(fileName);
-		this.backupPath = backupPath;
 
 	}
 
@@ -77,31 +72,12 @@ public class CFAliServiceReader {
 		String filenameonly = (String) headers.get("camelfilenameonly");
 		String camelfileabsolutepath = (String) headers
 				.get("camelfileabsolutepath");
-		if (isRead(filenameonly)) {
-			esbContext.getmLogger().log(
-					Level.SEVERE,
-					"" + "[Reading File] " + filenameonly
-							+ " Do Not Need Read Again.");
-			clog.log2Console("[Reading File] " + filenameonly
-					+ " Do Not Need Read Again.");
+
+		InvoiceFile inf = new InvoiceFile(exchange);
+		if (inf.isInvalid() == false) {
+			sendInvoiceFile(inf);
 			return;
 		}
-
-		// file_status 'YES'表示正常文件，'NO'表示错序文件，下次接着读
-		ServiceFile sn = new ServiceFile(filenameonly);
-
-		if (sn.isInvalid() == false) {
-
-			sendServiceFile(exchange, in, filenameonly, camelfileabsolutepath,
-					sn);
-			return;
-		}
-
-//		InvoiceFile inf = new InvoiceFile(exchange, backupPath);
-//		if (inf.isInvalid() == false) {
-//			sendInvoiceFile(inf);
-//			return;
-//		}
 
 		esbContext.getmLogger().log(Level.SEVERE,
 				"" + "[Reading File] " + filenameonly + " is invalid.");
@@ -117,13 +93,24 @@ public class CFAliServiceReader {
 
 		header.put("fileName".toLowerCase(), inf.getFileName());
 
-//		header.put("absPath".toLowerCase(), inf.getAbbackupPath());
+		header.put("absPath".toLowerCase(), inf.getAbPath());
 
 		header.put("applyNo".toLowerCase(), inf.getApplyNo());
 
 		header.put("fileLength".toLowerCase(), inf.getFileLength());
 
 		try {
+
+			if (this.isRead(inf.getAbPath())) {
+
+				esbContext.getmLogger().log(
+						Level.SEVERE,
+						"" + "[Reading File] " + inf.getFileName()
+								+ " Do Not Need Read Again.");
+				clog.log2Console("[Reading File] " + inf.getFileName()
+						+ " Do Not Need Read Again.");
+				return;
+			}
 
 			CompositeMap executeProc = esbContext.executeProc(
 					this.invoice_proc, header);
@@ -133,8 +120,12 @@ public class CFAliServiceReader {
 					+ "File: " + inf.getFileName() + " Loaded  Failed.");
 			clog.log2Console("[Reading File] " + "ApplyNo: " + inf.getApplyNo()
 					+ " " + "File: " + inf.getFileName() + " Loaded  Failed.");
-			e.printStackTrace();
+			// e.printStackTrace();
+			return;
 		}
+
+		addHistory(inf.getFileName(), inf.getAbPath());
+
 		log("[Reading File] " + "ApplyNo: " + inf.getApplyNo() + " " + "File: "
 				+ inf.getFileName() + " Loaded  Success.");
 		clog.log2Console("[Reading File] " + "ApplyNo: " + inf.getApplyNo()
@@ -142,80 +133,9 @@ public class CFAliServiceReader {
 
 	}
 
-	public void sendServiceFile(Exchange exchange, Message in,
-			String filenameonly, String camelfileabsolutepath, ServiceFile sn) {
-		String body = in.getBody(String.class);
-		List<String> lines = readBody(body);
-		if (lines.size() <= 2) {
-			// hehe
-			esbContext.getmLogger().log(
-					Level.SEVERE,
-					"" + "[Reading File] " + filenameonly
-							+ " is no Data found.");
-			clog.log2Console("[Reading File] " + filenameonly
-					+ " is no Data found.");
-			// addHistory(filenameonly, camelfileabsolutepath);
-			return;
-		} else {
-			// version:1.0|count:1|isLast:NO
-			String header = lines.get(0);
-			sn.setHeader(header);
-			sn.setHeaders(readHeader(header));
-			// applyNo|name|address|phone
-			String cols = lines.get(1);
-			sn.setCols(cols);
-			// 94012014070100039589S|杭州XX经销商|浙江省杭州市西湖区学院路999号|057188888888
-			for (int i = 2; i < lines.size(); i++) {
-				sn.addData(lines.get(i));
-			}
-		}
-		CompositeMap result = callProc(sn);
-		String file_status = result.getChild("parameter").getString(
-				"file_status", "NO");
-		clog.log2Console("[Reading] " + filenameonly
-				+ " insert to db. file_status : " + file_status);
-		if ("YES".equals(file_status)) {
-			addHistory(filenameonly, camelfileabsolutepath);
-			log("[Reading File] " + "File " + filenameonly
-					+ " Loaded  Success.");
-			clog.log2Console("[Reading File] " + "File " + filenameonly
-					+ " Loaded  Success.");
-		} else {
-			log("[Reading File] " + "File " + filenameonly + " Loaded  Failed.");
-			clog.log2Console("[Reading File] " + "File " + filenameonly
-					+ " Loaded  Failed.");
-			exchange.getOut().setFault(true);
-		}
-	}
-
 	private void log(String msg) {
 		ILogger logger = esbContext.getmLogger();
 		logger.log(Level.SEVERE, "" + msg);
-	}
-
-	private void moveFile(Exchange exchange) {
-		// camelfilename:CFCar_AUTOFI_PAYEE_INFO_20150202_1.txt
-		// exchange.getOut().setHeader("camelfilename",
-		// exchange.getIn().getHeader("camelfilename"));
-		// exchange.getOut().setBody(exchange.getIn().getBody());
-		String f = (String) exchange.getIn().getHeader("camelfileabsolutepath");
-		File from = new File(f);
-		// "
-		// + "/"
-		// + "CFCar"
-		File to = new File("/Users/shiliyan/Desktop/esb/download/read/CFCar"
-				+ f);
-		FileCopyer.copyFile(from, to);
-		deleteFile(exchange);
-	}
-
-	private void deleteFile(Exchange exchange) {
-		//
-		String f = (String) exchange.getIn().getHeader("camelfileabsolutepath");
-		File file = new File(f);
-		if (file.exists() && file.isFile()) {
-			file.delete();
-		}
 	}
 
 	private void addHistory(String filenameonly, String camelfileabsolutepath) {
@@ -226,61 +146,10 @@ public class CFAliServiceReader {
 		fs.save(readHistory, fileName);
 	}
 
-	private boolean isRead(String filenameonly) {
+	private boolean isRead(String camelfileabsolutepath) {
 		CompositeMap childByAttrib = readHistory.getChildByAttrib("file",
-				"file", filenameonly);
+				"abPath", camelfileabsolutepath);
 		return childByAttrib != null;
-	}
-
-	private CompositeMap callProc(ServiceFile sn) {
-		// sn.getFileName()
-		// message_recevie
-		CompositeMap header = new CompositeMap("result");
-		String h = sn.getHeader();
-		String[] split = h.split("\\|");
-		for (String hh : split) {
-			String[] ss = hh.split(":");
-			header.put(ss[0].trim(), ss[1].trim());
-		}
-		header.put("fileName".toLowerCase(), sn.getFileName());
-
-		header.put("serviceName".toLowerCase(), sn.getService());
-
-		header.put("orgCode".toLowerCase(), sn.getOrgCode());
-		header.put("yyymmdd".toLowerCase(), sn.getYymmdd());
-		header.put("batchNo".toLowerCase(), sn.getBatchNo().replace(".txt", ""));
-
-		String cols = sn.getCols();
-
-		String[] ccoolls = cols.split("\\|");
-
-		//
-		CompositeMap datasss = header.createChild("datas");
-		List<String> datas = sn.getDatas();
-		for (String data : datas) {
-			if ("".equals(data.trim()))
-				continue;
-			CompositeMap dddd = datasss.createChild("data");
-			String[] ddd = data.split("\\|");
-			for (int i = 0; i < ddd.length; i++) {
-				String col = ccoolls[i];
-				String d = ddd[i] == null ? "" : ddd[i];
-				dddd.put(col.toLowerCase(), d);
-			}
-			dddd.put("_status", "update");
-			// _status="update"
-		}
-
-		try {
-
-			CompositeMap executeProc = esbContext
-					.executeProc(read_proc, header);
-			return executeProc;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new CompositeMap();
-
 	}
 
 	public Map<String, String> readHeader(String header) {

@@ -52,7 +52,7 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 		String nows = format1.format(now);
 		String startdates = producerMap.getChild("sftp").getString(
 				"startDate".toLowerCase(), nows);
-		if (isAfter(startdates,nows)) {
+		if (isAfter(startdates, nows)) {
 			String fileNameOnly = file.getFileNameOnly();
 			ServiceFile sn = new ServiceFile(fileNameOnly);
 			if (sn.isInvalid() == false) {
@@ -104,18 +104,23 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 
 		String backupPath = config.getString("backupPath".toLowerCase(), "");
 
+		String errorPath = config.getString("errorPath".toLowerCase(), "");
+
 		File sf = new File(local_save_path.replace("file:", ""), orgCode);
 		File bf = new File(backupPath.replace("file:", ""), orgCode);
+		File errf = new File(errorPath.replace("file:", ""));
 
 		File sff = new File(sf, file.getRelativeFilePath());
 		File bff = new File(bf, file.getRelativeFilePath());
+		File errff = new File(errorPath.replace("file:", ""),
+				file.getFileNameOnly());
 		// File sff = new
 		// Path(local_save_path).append(orgCode).append(file.getRelativeFilePath()).makeAbsolute().toFile();
 		// File bff = new
 		// Path(backupPath).append(orgCode).append(file.getRelativeFilePath()).removeFirstSegments(1).toFile();
 		// new
 		// File("File:/Users/shiliyan/Desktop/esb/download/CFCAR/AUTOFI_CREATE_CONTRACT/20150609/CFCAR_AUTOFI_CREATE_CONTRACT_20150609_32.txt").exists();
-		return sff.exists() || bff.exists();
+		return sff.exists() || bff.exists() || errff.exists();
 
 	}
 }

@@ -1,0 +1,37 @@
+2015-06-11 19:42:13,664 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-11 19:42:13,666 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-11 19:42:14,001 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-11 19:42:14,277 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-11 19:42:14,277 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-11 19:42:14,363 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-11 19:42:14,368 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-11 19:42:14,372 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.707 seconds
+2015-06-11 19:42:14,451 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-11 19:42:14,841 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-11 19:42:28,193 [0 - stream://in] INFO  AuroraEsbServer                - [Reading File] Reading File Task Configed
+2015-06-11 19:42:28,198 [0 - stream://in] INFO  AuroraEsbServer                - [Reading File] READING_URL  file:/Users/shiliyan/Desktop/esb/download/CFCAR?delete=true&delay=100s&recursive=true&charset=utf-8&antInclude=*/**/*txt
+2015-06-11 19:42:28,199 [0 - stream://in] INFO  AuroraEsbServer                - [Reading File] BACKUP_URL  file:/Users/shiliyan/Desktop/esb/download/read/CFCAR?charset=utf-8
+2015-06-11 19:42:28,389 [0 - stream://in] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[file:///Users/shiliyan/Desktop/esb/download/CFCAR?antInclude=*%2F**%2F*txt&charset=utf-8&delay=100s&delete=true&recursive=true]
+2015-06-11 19:42:28,395 [0 - stream://in] INFO  FileEndpoint                   - Endpoint is configured with noop=true so forcing endpoint to be idempotent as well
+2015-06-11 19:42:28,395 [0 - stream://in] INFO  FileEndpoint                   - Using default memory based idempotent repository with cache max size: 1000
+2015-06-11 19:42:28,426 [0 - stream://in] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[file:///Users/shiliyan/Desktop/esb/download/CFCAR/invoice%20?delay=300s&noop=true&recursive=true]
+2015-06-11 19:43:27,545 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-11 19:43:27,550 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-11 19:43:27,896 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-11 19:43:28,165 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-11 19:43:28,165 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-11 19:43:28,238 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-11 19:43:28,243 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-11 19:43:28,247 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.702 seconds
+2015-06-11 19:43:28,315 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-11 19:43:28,419 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-11 19:43:38,404 [0 - stream://in] INFO  AuroraEsbServer                - [Reading File] Reading File Task Configed
+2015-06-11 19:43:38,410 [0 - stream://in] INFO  AuroraEsbServer                - [Reading File] READING_URL  file:/Users/shiliyan/Desktop/esb/download/CFCAR?delete=true&delay=100s&recursive=true&charset=utf-8&antInclude=*/**/*txt
+2015-06-11 19:43:38,410 [0 - stream://in] INFO  AuroraEsbServer                - [Reading File] BACKUP_URL  file:/Users/shiliyan/Desktop/esb/download/read/CFCAR?charset=utf-8
+2015-06-11 19:43:38,593 [0 - stream://in] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[file:///Users/shiliyan/Desktop/esb/download/CFCAR?antInclude=*%2F**%2F*txt&charset=utf-8&delay=100s&delete=true&recursive=true]
+2015-06-11 19:43:38,602 [0 - stream://in] INFO  FileEndpoint                   - Endpoint is configured with noop=true so forcing endpoint to be idempotent as well
+2015-06-11 19:43:38,602 [0 - stream://in] INFO  FileEndpoint                   - Using default memory based idempotent repository with cache max size: 1000
+2015-06-11 19:43:38,627 [0 - stream://in] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[file:///Users/shiliyan/Desktop/esb/download/CFCAR/invoice?delay=300s&noop=true&recursive=true]
+2015-06-11 19:44:10,249 [d/CFCAR/invoice] INFO  AuroraEsbServer                - [Reading File] ApplyNo: 94012014070100039601S File: 94012014070100039601S_1.png Loaded  Success.
+2015-06-11 19:44:17,685 [d/CFCAR/invoice] INFO  AuroraEsbServer                - [Reading File] ApplyNo: 94012014070100039601S File: 94012014070100039601S_2.png Loaded  Success.
+2015-06-11 19:49:24,643 [d/CFCAR/invoice] INFO  AuroraEsbServer                - [Reading File] ApplyNo: 94012014070100039601S File: 94012014070100039601S_2副本.png Loaded  Success.

@@ -17,13 +17,9 @@ public class InvoiceFile {
 	private String fileLength;
 	// CamelFileLength
 
-	private boolean invalid;
+	private boolean invalid = false;
 
 	private String abPath;
-
-	private String backupPath;
-
-	private String abbackupPath;
 
 	public String getInvoice() {
 		return invoice;
@@ -81,10 +77,8 @@ public class InvoiceFile {
 		this.abPath = abPath;
 	}
 
-	public InvoiceFile(Exchange exchange, String backupPath) {
-		super();
+	public InvoiceFile(Exchange exchange) {
 		this.exchange = exchange;
-		this.backupPath = backupPath;
 		parse();
 	}
 
@@ -102,31 +96,41 @@ public class InvoiceFile {
 		// CamelFileParent:/Users/shiliyan/Desktop/esb/download/CFCAR/invoice/2015/02/02/94012014070100039587S
 		// CamelFilePath:/Users/shiliyan/Desktop/esb/download/CFCAR/invoice/2015/02/02/94012014070100039587S/IMG_1362.JPG
 		// CamelFileRelativePath:invoice/2015/02/02/94012014070100039587S/IMG_1362.JPG
+
+		// yyyyMMdd/applyNo/
+//		20150611/20150611300000000082510/2015060570/
 		String relativePath = (String) exchange.getIn().getHeader(
 				"CamelFileRelativePath");
 		Path p = new Path(relativePath);
 
 		String[] segments = p.segments();
 
-		if (segments.length != 6) {
-			this.invalid = true;
-			return;
-		}
-		invoice = segments[0];
-		if ("invoice".equalsIgnoreCase(invoice) == false) {
-			this.invalid = true;
-			return;
-		}
-		yyyy = segments[1];
-		mm = segments[2];
-		dd = segments[3];
-		applyNo = segments[4];
-		fileName = segments[5];
+		String temp = segments[segments.length - 2];
+		applyNo = segments[segments.length - 3];
+		fileName = segments[segments.length - 1];
+
+		// String[] segments = segments;
+		//
+		// if (segments.length != 6) {
+		// this.invalid = true;
+		// return;
+		// }
+		// invoice = segments[0];
+		// if ("invoice".equalsIgnoreCase(invoice) == false) {
+		// this.invalid = true;
+		// return;
+		// }
+		// yyyy = segments[1];
+		// mm = segments[2];
+		// dd = segments[3];
+		// applyNo = segments[4];
+		// fileName = segments[5];
 		this.abPath = (String) exchange.getIn().getHeader(
 				"CamelFileAbsolutePath");
+		abPath = abPath.replace("file:", "");
 
-		this.abbackupPath = new Path(backupPath).append(relativePath)
-				.toString();
+		// this.abbackupPath = new Path(backupPath).append(relativePath)
+		// .toString();
 		this.fileLength = "" + exchange.getIn().getHeader("CamelFileLength");
 
 	}
@@ -155,11 +159,4 @@ public class InvoiceFile {
 		this.fileLength = fileLength;
 	}
 
-	public String getAbbackupPath() {
-		return abbackupPath;
-	}
-
-	public void setAbbackupPath(String abbackupPath) {
-		this.abbackupPath = abbackupPath;
-	}
 }

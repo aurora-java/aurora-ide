@@ -75,6 +75,8 @@ public class RemoteLogReader {
 			String x = readBody.get(i);
 			if (x.contains("AuroraEsbServer"))
 				System.out.println(x);
+			if (x.contains("YES") || x.contains("NO"))
+				System.err.println(x);
 		}
 
 		startLine = readBody.size();
