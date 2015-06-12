@@ -2,7 +2,7 @@
     <cf_ali name="ali_read" type="cf.ali.sftp.read" autoStart="true">
        <local readProc="read_file" invoiceProc="invoice_proc" orgCode="CFCAR" readingPath="file:/u01/CF_Leasing/aurora_esb/sftp/download"  backupPath="file:/u01/CF_Leasing/aurora_esb/sftp/download/read">
         <readingPara><![CDATA[
-        ?delete=true&delay=300s&recursive=true&charset=utf-8
+        ?delete=true&delay=300s&recursive=true&charset=utf-8&antInclude=*/**/*txt
           ]]></readingPara>
            <backupPara><![CDATA[
            ?charset=utf-8
