@@ -23,9 +23,7 @@ public class RemoteLogReader {
 				String downloadUrl = "sftp://192.168.1.11:22/"
 						+ "%2Fu01/CF_Leasing/aurora_esb/logs/";
 				String downloadPara = "?username=root&password=123456&delay=10s"
-						+ "&noop=true"
-						+ "&idempotent=false"
-						+ "&fileName=esb.log";
+						+ "&noop=true" + "&idempotent=false" + "&fileName=esb";
 
 				String ftp_server_url = downloadUrl + downloadPara.trim();
 
@@ -73,10 +71,12 @@ public class RemoteLogReader {
 		for (int i = startLine; i < readBody.size(); i++) {
 
 			String x = readBody.get(i);
-			if (x.contains("AuroraEsbServer"))
-				System.out.println(x);
-			if (x.contains("YES") || x.contains("NO"))
-				System.err.println(x);
+			if (x.contains("AuroraEsbServer")) {
+				if (x.contains("YES") || x.contains("NO"))
+					System.err.println(x);
+				else
+					System.out.println(x);
+			}
 		}
 
 		startLine = readBody.size();

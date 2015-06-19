@@ -10,7 +10,9 @@
 				                                        		    p_applyno  => ${@applyno},
 				                                        			p_name	   => ${@name},
 				                                        			p_address  => ${@address},
-				                                        			p_phone	   => ${@phone});
+				                                        			p_phone	   => ${@phone},
+				                                        			p_id	=> ${@id},
+				                                        			p_alipayaccount	=> ${alipayaccount});
 				                                        				 
 				  if v_file_status = 'NO' or ${../../@file_status} = 'NO' then
 				  	${@file_status} := 'NO';

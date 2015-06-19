@@ -78,6 +78,15 @@ public class GenFile {
 				+ "Genfile Loaded From DB.");
 
 		CompositeMap parameter = callProc.getChild("parameter");
+//		if (parameter == null) {
+//			esbContext.getmLogger().log(
+//					Level.SEVERE,
+//					"" + "[Gen File] " + "[" + serviceName + "] "
+//							+ "GenFile No Data Found From DB.");
+//			new ConsoleLog().log2Console("[Gen File] " + "[" + serviceName
+//					+ "] " + "GenFile No Data Found From DB.");
+//			return;
+//		}
 		int count = parameter.getInt("count", 0);
 		CompositeMap header = parameter.getChild("header");
 		if (count <= 0 && header != null) {
@@ -106,8 +115,13 @@ public class GenFile {
 				out.setHeader("camelfilename", camelfilename);
 				String headers = "version:" + version + "|count:" + counts
 						+ "|isLast:" + isLast;
+
 				String datas = makeDatas(parameter);
-				out.setBody(headers + "\n" + datas);
+				String colsText = header.getString("cols_text", "");
+				if ("".equals(datas))
+					out.setBody(headers + "\n" + colsText);
+				else
+					out.setBody(headers + "\n" + datas);
 				// out.setBody(headers);
 				log("[Gen File] " + "File " + fileName + " Generated. ");
 				new ConsoleLog().log2Console("[Gen File] " + "File " + fileName

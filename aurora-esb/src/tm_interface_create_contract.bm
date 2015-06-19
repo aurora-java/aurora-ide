@@ -22,7 +22,9 @@
 				                                        				 p_loanrate        => ${@loanrate},
 				                                        				 p_totalintamt     => ${@totalintamt},
 				                                        				 p_ratetype        => ${@ratetype},
-				                                        				 p_discountamt     => ${@discountamt});
+				                                        				 p_discountamt     => ${@discountamt},
+				                                        				 p_itemid		   => ${@itemid},
+				                                        				 p_cityname		   => ${@cityname});
 				                                        				 
 				  if v_file_status = 'NO' or ${../../@file_status} = 'NO' then
 				  	${@file_status} := 'NO';

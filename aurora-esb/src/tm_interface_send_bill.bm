@@ -15,9 +15,12 @@
         <bm:field name="paidintamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="PAIDINTAMT" prompt="TM_INTERFACE_SEND_BILL.PAIDINTAMT"/>
         <bm:field name="paidpenaltyamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="PAIDPENALTYAMT" prompt="TM_INTERFACE_SEND_BILL.PAIDPENALTYAMT"/>
         <bm:field name="cleardate" databaseType="DATE" datatype="java.util.Date" physicalName="CLEARDATE" prompt="TM_INTERFACE_SEND_BILL.CLEARDATE"/>
+        <bm:field name="cleardate_new" expression="to_char(t1.cleardate,&apos;yyyy-mm-dd&apos;)"/>
         <bm:field name="status" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="STATUS" prompt="TM_INTERFACE_SEND_BILL.STATUS"/>
         <bm:field name="begindate" databaseType="DATE" datatype="java.util.Date" physicalName="BEGINDATE" prompt="TM_INTERFACE_SEND_BILL.BEGINDATE"/>
+        <bm:field name="begindate_new" expression="to_char(t1.begindate,&apos;yyyy-mm-dd&apos;)"/>
         <bm:field name="paymentduedate" databaseType="DATE" datatype="java.util.Date" physicalName="PAYMENTDUEDATE" prompt="TM_INTERFACE_SEND_BILL.PAYMENTDUEDATE"/>
+        <bm:field name="paymentduedate_new" expression="to_char(t1.paymentduedate,&apos;yyyy-mm-dd&apos;)"/>
         <bm:field name="billprinamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLPRINAMT" prompt="TM_INTERFACE_SEND_BILL.BILLPRINAMT"/>
         <bm:field name="billintamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLINTAMT" prompt="TM_INTERFACE_SEND_BILL.BILLINTAMT"/>
         <bm:field name="billpenaltyamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLPENALTYAMT" prompt="TM_INTERFACE_SEND_BILL.BILLPENALTYAMT"/>
@@ -25,12 +28,15 @@
         <bm:field name="billpaidintamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLPAIDINTAMT" prompt="TM_INTERFACE_SEND_BILL.BILLPAIDINTAMT"/>
         <bm:field name="billpaidpenaltyamt" databaseType="NUMBER" datatype="java.lang.Long" physicalName="BILLPAIDPENALTYAMT" prompt="TM_INTERFACE_SEND_BILL.BILLPAIDPENALTYAMT"/>
         <bm:field name="billcleardate" databaseType="DATE" datatype="java.util.Date" physicalName="BILLCLEARDATE" prompt="TM_INTERFACE_SEND_BILL.BILLCLEARDATE"/>
+        <bm:field name="billcleardate_new" expression="to_char(t1.billcleardate,&apos;yyyy-mm-dd&apos;)"/>
         <bm:field name="billstatus" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="BILLSTATUS" prompt="TM_INTERFACE_SEND_BILL.BILLSTATUS"/>
         <bm:field name="overduedays" databaseType="NUMBER" datatype="java.lang.Long" physicalName="OVERDUEDAYS" prompt="TM_INTERFACE_SEND_BILL.OVERDUEDAYS"/>
         <bm:field name="process_status" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="PROCESS_STATUS" prompt="TM_INTERFACE_SEND_BILL.PROCESS_STATUS"/>
         <bm:field name="termno" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="TERMNO" prompt="TM_INTERFACE_SEND_BILL.TERMNO"/>
         <bm:field name="enddate" databaseType="DATE" datatype="java.util.Date" physicalName="ENDDATE" prompt="TM_INTERFACE_SEND_BILL.ENDDATE"/>
+        <bm:field name="enddate_new" expression="to_char(t1.enddate,&apos;yyyy-mm-dd&apos;)"/>
         <bm:field name="duedate" databaseType="DATE" datatype="java.util.Date" physicalName="DUEDATE" prompt="TM_INTERFACE_SEND_BILL.DUEDATE"/>
+        <bm:field name="duedate_new" expression="to_char(t1.duedate,&apos;yyyy-mm-dd&apos;)"/>
     </bm:fields>
     <bm:features>
         <f:standard-who/>

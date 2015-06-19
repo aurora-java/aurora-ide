@@ -33,6 +33,9 @@
                 header.isLast = b(head_record[0].islast);
                 header.orgCode = 'CFCAR';
                 header.serviceName = "AUTOFI_APPROVAL_CONTRACT";
+                if (head_record[0].islast == 'YES'){
+                    header.cols_text = 'applyNo|allowLoan|failReason|contractNo|reasonType|applyAmount';
+                }
             
                 $ctx.parameter.addChild(header.getData());
                 $ctx.parameter.count = b(head_record[0].count);

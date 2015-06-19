@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:s="aurora.plugin.script" trace="true">
-         <s:server-script><![CDATA[
+ <s:server-script><![CDATA[
             function b(value) {
                 return value == null || value == undefined ? "" : value;
             }
@@ -32,6 +32,9 @@
                 header.isLast = b(head_record[0].islast);
                 header.orgCode = 'CFCAR';
                 header.serviceName = "AUTOFI_APPROVAL_CONTRACT";
+                if (head_record[0].islast == 'YES'){
+                    header.cols_text = 'applyNo|allowLoan|failReason|contractNo|reasonType|applyAmount';
+                }
             
                 $ctx.parameter.addChild(header.getData());
                 $ctx.parameter.count = b(head_record[0].count);
@@ -66,6 +69,6 @@
                 $ctx.parameter.count = b(head_record[0].count);
             }
         ]]></s:server-script>
-        <p:echo/>
+                <p:echo/>
 </p:procedure>
  

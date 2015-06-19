@@ -2,6 +2,7 @@
 <a:service xmlns:s="aurora.plugin.script" xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" trace="true">
     <a:init-procedure>
         <s:server-script><![CDATA[
+        	println(123);
             function b(value) {
                 return value == null || value == undefined ? "" : value;
             }
@@ -33,6 +34,9 @@
                 header.orgCode = 'CFCAR';
                 header.serviceName = "AUTOFI_SEND_BILL";
  
+                if (head_record[0].islast == 'YES'){
+                    header.cols_text = 'applyNo|orgCode|drawndnNo|loanLength|loanCustomer|prinAmt|intAmt|penaltyAmt|paidPrinAmt|paidIntAmt|paidPenaltyAmt|clearDate|status|termNo|beginDate|endDate|dueDate|paymentDueDate|billPrinAmt|billIntAmt|billPenaltyAmt|billPaidPrinAmt|billPaidIntAmt|billPaidPenaltyAmt|billClearDate|billStatus|overdueDays';
+                }
                 $ctx.parameter.addChild(header.getData());
                 $ctx.parameter.count = b(head_record[0].count);
             } else {
@@ -50,7 +54,6 @@
             
                 for (var i = 0;i < line_record.length;i++) {
                     var data = new CompositeMap('data');
-            
                     data.applyNo = b(line_record[i].applyno);
                     data.orgCode = b(line_record[i].orgcode);
                     data.drawndnNo = b(line_record[i].drawdnno);
@@ -63,20 +66,20 @@
                     data.paidPrinAmt = b(line_record[i].paidprinamt);
                     data.paidIntAmt = b(line_record[i].paidintamt);
                     data.paidPenaltyAmt = b(line_record[i].paidpenaltyamt);
-                    data.clearDate = b(line_record[i].cleardate);
+                    data.clearDate = b(line_record[i].cleardate_new);
                     data.status = b(line_record[i].status);
                     data.termNo = b(line_record[i].termno);
-                    data.beginDate = b(line_record[i].begindate);
-                    data.endDate = b(line_record[i].enddate);
-                    data.dueDate = b(line_record[i].duedate);
-                    data.paymentDueDate = b(line_record[i].paymentduedate);
+                    data.beginDate = b(line_record[i].begindate_new);
+                    data.endDate = b(line_record[i].enddate_new);
+                    data.dueDate = b(line_record[i].duedate_new);
+                    data.paymentDueDate = b(line_record[i].paymentduedate_new);
                     data.billPrinAmt = b(line_record[i].billprinamt);
                     data.billIntAmt = b(line_record[i].billintamt);
                     data.billPenaltyAmt = b(line_record[i].billpenaltyamt);
                     data.billPaidPrinAmt = b(line_record[i].billpaidprinamt);
                     data.billPaidIntAmt = b(line_record[i].billpaidintamt);
                     data.billPaidPenaltyAmt = b(line_record[i].billpaidpenaltyamt);
-                    data.billClearDate = b(line_record[i].billcleardate);
+                    data.billClearDate = b(line_record[i].billcleardate_new);
                     data.billStatus = b(line_record[i].billstatus);
                     data.overdueDays = b(line_record[i].overduedays);
             
