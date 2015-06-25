@@ -17,6 +17,7 @@ import org.apache.camel.Message;
 import uncertain.composite.CompositeMap;
 import uncertain.logging.ILogger;
 import aurora.plugin.esb.AuroraEsbContext;
+import aurora.plugin.esb.DBLog;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.util.FileCopyer;
 import aurora.plugin.esb.util.FileStore;
@@ -97,11 +98,11 @@ public class CFAliServiceReader {
 			return;
 		}
 
-//		InvoiceFile inf = new InvoiceFile(exchange, backupPath);
-//		if (inf.isInvalid() == false) {
-//			sendInvoiceFile(inf);
-//			return;
-//		}
+		// InvoiceFile inf = new InvoiceFile(exchange, backupPath);
+		// if (inf.isInvalid() == false) {
+		// sendInvoiceFile(inf);
+		// return;
+		// }
 
 		esbContext.getmLogger().log(Level.SEVERE,
 				"" + "[Reading File] " + filenameonly + " is invalid.");
@@ -117,7 +118,7 @@ public class CFAliServiceReader {
 
 		header.put("fileName".toLowerCase(), inf.getFileName());
 
-//		header.put("absPath".toLowerCase(), inf.getAbbackupPath());
+		// header.put("absPath".toLowerCase(), inf.getAbbackupPath());
 
 		header.put("applyNo".toLowerCase(), inf.getApplyNo());
 
@@ -170,8 +171,11 @@ public class CFAliServiceReader {
 			}
 		}
 		CompositeMap result = callProc(sn);
-		String file_status = result.getChild("parameter").getString(
-				"file_status", "NO");
+		String file_status = "NO";
+		if (result != null) {
+			file_status = result.getChild("parameter").getString("file_status",
+					"NO");
+		}
 		clog.log2Console("[Reading] " + filenameonly
 				+ " insert to db. file_status : " + file_status);
 		if ("YES".equals(file_status)) {
@@ -277,7 +281,14 @@ public class CFAliServiceReader {
 					.executeProc(read_proc, header);
 			return executeProc;
 		} catch (Exception e) {
+			String msg = e.getMessage();
+			String mms = "File " + sn.getFileName()
+								+ " Loaded  Failed."
+								+ " errorMSG: " + msg;
+			log("[Reading File] " + mms);
+			clog.log2Console("[Reading File] " + mms);
 			e.printStackTrace();
+			new DBLog(esbContext).log(mms);
 		}
 		return new CompositeMap();
 

@@ -1,0 +1,56 @@
+2015-06-18 09:19:51,432 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
+2015-06-18 09:19:51,433 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
+2015-06-18 09:19:51,433 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-18 09:19:51,434 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
+2015-06-18 09:19:51,441 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo?period=100000]
+2015-06-18 09:19:51,445 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-18 09:19:51,450 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 17 hours 27 minutes
+2015-06-18 09:19:51,450 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.016 seconds
+2015-06-18 11:27:09,616 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-06-18 11:27:10,024 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-18 11:27:10,026 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-18 11:27:10,470 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-18 11:27:10,745 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-18 11:27:10,745 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-18 11:27:10,789 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=100000]
+2015-06-18 11:27:10,794 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-18 11:27:10,798 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.770 seconds
+2015-06-18 11:32:02,554 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-06-18 11:32:03,086 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-18 11:32:03,088 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-18 11:32:03,484 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-18 11:32:03,722 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-18 11:32:03,722 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-18 11:32:03,763 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=100000]
+2015-06-18 11:32:03,769 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-18 11:32:03,782 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.684 seconds
+2015-06-18 11:32:37,701 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-06-18 11:32:38,456 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-18 11:32:38,459 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-18 11:32:38,968 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-18 11:32:39,241 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-18 11:32:39,241 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-18 11:32:39,279 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=100000]
+2015-06-18 11:32:39,289 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-18 11:32:39,297 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.833 seconds
+2015-06-18 11:32:40,322 [0 - timer://foo] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo?period=100000]
+2015-06-18 13:01:00,320 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-06-18 13:01:00,775 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-18 13:01:00,777 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-18 13:01:01,306 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-18 13:01:01,538 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-18 13:01:01,539 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-18 13:01:01,585 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=100000]
+2015-06-18 13:01:01,591 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-18 13:01:01,615 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.816 seconds
+2015-06-18 13:01:02,626 [0 - timer://foo] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo?period=100000]
+2015-06-18 13:01:34,561 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-06-18 13:01:35,150 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-18 13:01:35,152 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-18 13:01:35,796 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-18 13:01:36,054 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-18 13:01:36,054 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-18 13:01:36,102 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
+2015-06-18 13:01:36,107 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-18 13:01:36,113 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.958 seconds
+2015-06-18 13:01:37,139 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo2?period=100000]

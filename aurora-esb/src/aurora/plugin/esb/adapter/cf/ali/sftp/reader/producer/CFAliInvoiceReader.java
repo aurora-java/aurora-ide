@@ -1,7 +1,6 @@
 package aurora.plugin.esb.adapter.cf.ali.sftp.reader.producer;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -17,8 +16,8 @@ import org.apache.camel.Message;
 import uncertain.composite.CompositeMap;
 import uncertain.logging.ILogger;
 import aurora.plugin.esb.AuroraEsbContext;
+import aurora.plugin.esb.DBLog;
 import aurora.plugin.esb.console.ConsoleLog;
-import aurora.plugin.esb.util.FileCopyer;
 import aurora.plugin.esb.util.FileStore;
 
 public class CFAliInvoiceReader {
@@ -116,11 +115,14 @@ public class CFAliInvoiceReader {
 					this.invoice_proc, header);
 			// return executeProc;
 		} catch (Exception e) {
-			log("[Reading File] " + "ApplyNo: " + inf.getApplyNo() + " "
-					+ "File: " + inf.getFileName() + " Loaded  Failed.");
-			clog.log2Console("[Reading File] " + "ApplyNo: " + inf.getApplyNo()
-					+ " " + "File: " + inf.getFileName() + " Loaded  Failed.");
-			// e.printStackTrace();
+			String msg = e.getMessage();
+			String mms = "ApplyNo: " + inf.getApplyNo() + " " + "File: "
+					+ inf.getFileName() + " Loaded  Failed." + " errorMSG: "
+					+ msg;
+			log("[Reading File] " + mms);
+			clog.log2Console("[Reading File] " + mms);
+			e.printStackTrace();
+			new DBLog(esbContext).log(mms);
 			return;
 		}
 

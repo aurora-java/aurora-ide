@@ -1,0 +1,264 @@
+2015-06-16 14:23:46,285 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 14:23:46,288 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 14:23:46,665 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 14:23:46,934 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 14:23:46,935 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 14:23:46,991 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:23:46,992 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 14:23:47,002 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.711 seconds
+2015-06-16 14:23:47,084 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 14:23:47,195 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 14:28:49,775 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 14:28:49,779 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 14:28:49,796 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:28:49,797 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 14:28:49,814 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 5 minutes
+2015-06-16 14:28:49,815 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.038 seconds
+2015-06-16 14:34:38,760 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 14:34:38,763 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 14:34:39,108 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 14:34:39,347 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 14:34:39,347 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 14:34:39,400 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:34:39,400 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 14:34:39,404 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.644 seconds
+2015-06-16 14:34:39,485 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 14:34:39,588 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 14:35:42,168 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 14:35:42,169 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 14:35:42,189 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:35:42,194 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 14:35:42,198 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 1 minute
+2015-06-16 14:35:42,199 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.030 seconds
+2015-06-16 14:37:24,441 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 14:37:24,443 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 14:37:24,774 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 14:37:25,016 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 14:37:25,016 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 14:37:25,067 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:37:25,068 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 14:37:25,072 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.630 seconds
+2015-06-16 14:37:25,156 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 14:37:25,262 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 14:38:01,678 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 14:38:01,679 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 14:38:01,706 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:38:01,738 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 14:38:01,742 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 37.304 seconds
+2015-06-16 14:38:01,742 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.064 seconds
+2015-06-16 14:50:52,023 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 14:50:52,025 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 14:50:52,340 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 14:50:52,657 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 14:50:52,657 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 14:50:52,703 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:50:52,704 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 14:50:52,708 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.686 seconds
+2015-06-16 14:50:52,772 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 14:50:52,910 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 14:51:34,523 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 14:51:34,528 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 14:51:34,968 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 14:51:35,257 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 14:51:35,257 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 14:51:35,317 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:51:35,318 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 14:51:35,322 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.800 seconds
+2015-06-16 14:51:35,442 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 14:51:35,554 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 14:55:11,618 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 14:55:11,621 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 14:55:12,009 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 14:55:12,315 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 14:55:12,315 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 14:55:12,388 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:55:12,388 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 14:55:12,393 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.773 seconds
+2015-06-16 14:55:12,643 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 14:55:12,826 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 14:55:28,010 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 14:55:28,011 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 14:55:28,019 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 14:55:28,020 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 14:55:28,031 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 16.416 seconds
+2015-06-16 14:55:28,032 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.021 seconds
+2015-06-16 15:09:54,601 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:09:54,605 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:09:55,110 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:09:55,366 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:09:55,366 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:09:55,447 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:09:55,449 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:09:55,455 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.851 seconds
+2015-06-16 15:09:55,531 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:09:55,685 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:10:12,560 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:10:12,561 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:10:12,569 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:10:12,570 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:10:12,580 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 17.981 seconds
+2015-06-16 15:10:12,580 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.019 seconds
+2015-06-16 15:11:09,689 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:11:09,706 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:11:10,290 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:11:10,640 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:11:10,641 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:11:10,697 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:11:10,698 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:11:10,703 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.025 seconds
+2015-06-16 15:11:10,808 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:11:10,928 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:11:24,548 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:11:24,549 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:11:24,583 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:11:24,584 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:11:24,615 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 14.942 seconds
+2015-06-16 15:11:24,615 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.068 seconds
+2015-06-16 15:12:48,273 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:12:48,275 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:12:48,690 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:12:49,134 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:12:49,134 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:12:49,221 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:12:49,225 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:12:49,236 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.956 seconds
+2015-06-16 15:12:49,331 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:12:49,441 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:13:02,384 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:13:02,385 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:13:02,410 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:13:02,415 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:13:02,445 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 14.175 seconds
+2015-06-16 15:13:02,445 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.060 seconds
+2015-06-16 15:13:27,878 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:13:27,882 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:13:28,246 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:13:28,582 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:13:28,583 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:13:28,643 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:13:28,645 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:13:28,650 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.772 seconds
+2015-06-16 15:13:28,745 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:13:28,925 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:13:38,482 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:13:38,484 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:13:38,515 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:13:38,518 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:13:38,540 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 10.667 seconds
+2015-06-16 15:13:38,540 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.058 seconds
+2015-06-16 15:14:27,501 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:14:27,504 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:14:27,916 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:14:28,217 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:14:28,217 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:14:28,318 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:14:28,319 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:14:28,329 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.822 seconds
+2015-06-16 15:14:28,402 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:14:28,532 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:14:35,864 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:14:35,865 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:14:35,875 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:14:35,888 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:14:35,904 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 8.407 seconds
+2015-06-16 15:14:35,904 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.040 seconds
+2015-06-16 15:22:25,186 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:22:25,190 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:22:25,552 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:22:25,850 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:22:25,850 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:22:25,910 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:22:25,911 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:22:25,916 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.728 seconds
+2015-06-16 15:22:26,006 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:22:26,104 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:22:34,639 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:22:34,640 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:22:34,647 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:22:34,648 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:22:34,688 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 9.504 seconds
+2015-06-16 15:22:34,688 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.048 seconds
+2015-06-16 15:24:04,508 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:24:04,511 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:24:04,858 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:24:05,169 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:24:05,170 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:24:05,225 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:24:05,226 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:24:05,231 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.721 seconds
+2015-06-16 15:24:05,322 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:24:05,445 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:24:18,472 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:24:18,474 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:24:18,493 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:24:18,506 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:24:18,517 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 14.012 seconds
+2015-06-16 15:24:18,517 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.045 seconds
+2015-06-16 15:24:54,576 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:24:54,578 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:24:54,924 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:24:55,203 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:24:55,203 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:24:55,259 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:24:55,259 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:24:55,272 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.686 seconds
+2015-06-16 15:24:55,362 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:24:55,471 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:25:03,128 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:25:03,129 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:25:03,140 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:25:03,146 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:25:03,160 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 8.587 seconds
+2015-06-16 15:25:03,160 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.032 seconds
+2015-06-16 15:25:46,368 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:25:46,370 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:25:46,719 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:25:46,989 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:25:46,989 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:25:47,041 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:25:47,042 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:25:47,046 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.678 seconds
+2015-06-16 15:25:47,121 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:25:47,219 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:26:07,819 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:26:07,821 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:26:08,180 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:26:08,437 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:26:08,438 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:26:08,492 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:26:08,493 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:26:08,505 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.677 seconds
+2015-06-16 15:26:08,583 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:26:08,676 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:28:21,434 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:28:21,436 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:28:21,780 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:28:22,080 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:28:22,080 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:28:22,181 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:28:22,189 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:28:22,200 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.758 seconds
+2015-06-16 15:28:22,285 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:28:22,410 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:28:41,790 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:28:41,792 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:28:41,854 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:28:41,866 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:28:41,871 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 20.441 seconds
+2015-06-16 15:28:41,872 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.081 seconds
+2015-06-16 15:35:42,883 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-16 15:35:42,890 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-16 15:35:43,610 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-16 15:35:43,878 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-16 15:35:43,878 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-16 15:35:43,927 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:35:43,927 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-16 15:35:43,934 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.049 seconds
+2015-06-16 15:35:44,022 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-06-16 15:35:44,199 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-06-16 15:36:12,012 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-16 15:36:12,013 [Thread-2       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-06-16 15:36:12,026 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-06-16 15:36:12,027 [Thread-2       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-16 15:36:12,091 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 29.213 seconds
+2015-06-16 15:36:12,092 [Thread-2       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.079 seconds

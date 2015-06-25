@@ -32,6 +32,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 	private String routers = "";
 	private String producer = "";
 	private String consumer = "";
+	private String logProc = "";
 	private UncertainEngine uncertainEngine;
 	private IObjectRegistry registry;
 	private String isNeedCommandConsole = "Y";
@@ -65,6 +66,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		File config = new File(configDirectory, packageName);
 		// config
 		esbContext.setWorkPath(workPath);
+		esbContext.setLog_proc(this.getLogProc());
 		esbContext.setDataStore(new FileDataStore());
 		esbContext.setNeedCommandConsole("Y"
 				.equalsIgnoreCase(isNeedCommandConsole));
@@ -135,7 +137,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		List<CompositeMap> dcs = new ArrayList<CompositeMap>();
 		for (String ts : split) {
 			File tf = new File(config, ts);
-			if("".equals(ts.trim()))
+			if ("".equals(ts.trim()))
 				continue;
 			FileInputStream fis;
 			try {
@@ -156,7 +158,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		String[] split = routers.split(",");
 		List<DirectConfig> dcs = new ArrayList<DirectConfig>();
 		for (String ts : split) {
-			if("".equals(ts.trim()))
+			if ("".equals(ts.trim()))
 				continue;
 			File tf = new File(config, ts);
 			FileInputStream fis;
@@ -223,6 +225,14 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 
 	public void setIsNeedCommandConsole(String isNeedCommandConsole) {
 		this.isNeedCommandConsole = isNeedCommandConsole;
+	}
+
+	public String getLogProc() {
+		return logProc;
+	}
+
+	public void setLogProc(String logProc) {
+		this.logProc = logProc;
 	}
 
 }

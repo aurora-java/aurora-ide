@@ -1,556 +1,194 @@
-2015-06-19 10:52:08,989 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 10:52:09,371 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 10:52:09,372 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 10:52:09,899 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 10:52:10,117 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 10:52:10,117 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 10:52:10,155 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 10:52:10,157 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 10:52:10,162 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.787 seconds
-2015-06-19 10:52:11,191 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 10:53:51,186 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 10:55:31,187 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route4 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 10:57:11,196 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route5 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 10:58:51,211 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route6 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:00:31,209 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route7 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:02:11,223 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route8 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:03:51,232 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route9 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:05:31,241 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route10 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:07:11,247 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route11 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:51,256 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route12 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,125 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-19 11:08:55,125 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-19 11:08:55,126 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-19 11:08:55,126 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 12 routes (timeout 300 seconds)
-2015-06-19 11:08:55,135 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route12 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,135 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route11 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,136 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route10 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,136 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route9 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,136 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route8 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,136 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route7 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,136 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route6 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,136 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route5 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,136 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route4 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,137 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route3 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,137 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:08:55,137 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 11:08:55,138 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 12 routes completed in 0 seconds
-2015-06-19 11:08:55,151 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 16 minutes
-2015-06-19 11:08:55,151 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.025 seconds
-2015-06-19 11:09:41,622 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 11:09:42,020 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 11:09:42,021 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 11:09:42,385 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 11:09:42,587 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 11:09:42,587 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 11:09:42,630 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 11:09:42,633 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 11:09:42,637 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.613 seconds
-2015-06-19 11:09:43,678 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:11:23,663 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:13:03,669 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route4 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:14:43,670 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route5 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:15:01,430 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-19 11:15:01,430 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-19 11:15:01,430 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-19 11:15:01,431 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 5 routes (timeout 300 seconds)
-2015-06-19 11:15:01,439 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route5 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:15:01,440 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route4 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:15:01,440 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route3 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:15:01,440 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:15:01,440 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 11:15:01,442 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 5 routes completed in 0 seconds
-2015-06-19 11:15:01,451 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 5 minutes
-2015-06-19 11:15:01,451 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.021 seconds
-2015-06-19 11:15:09,291 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 11:15:09,705 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 11:15:09,707 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 11:15:10,120 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 11:15:10,354 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 11:15:10,354 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 11:15:10,400 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 11:15:10,410 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 11:15:10,415 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.705 seconds
-2015-06-19 11:15:11,458 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:16:51,444 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:18:28,867 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 11:18:29,327 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 11:18:29,329 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 11:18:29,752 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 11:18:30,001 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 11:18:30,002 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 11:18:30,050 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 11:18:30,053 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 11:18:30,065 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.727 seconds
-2015-06-19 11:18:31,104 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:20:22,399 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 11:20:22,885 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 11:20:22,887 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 11:20:23,475 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 11:20:23,698 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 11:20:23,698 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 11:20:23,737 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 11:20:23,742 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 11:20:23,747 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.856 seconds
-2015-06-19 11:20:24,789 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:21:44,689 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 11:21:45,141 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 11:21:45,143 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 11:21:45,708 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 11:21:46,011 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 11:21:46,012 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 11:21:46,070 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 11:21:46,074 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 11:21:46,088 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.934 seconds
-2015-06-19 11:21:47,126 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:33:47,624 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 11:33:48,072 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 11:33:48,074 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 11:33:48,478 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 11:33:48,706 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 11:33:48,706 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 11:33:48,759 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 11:33:48,773 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 11:33:48,777 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.702 seconds
-2015-06-19 11:33:49,820 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:35:29,778 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 11:35:29,791 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:35:29,797 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 11:35:29,801 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:35:29,802 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:35:29,855 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:41:57,194 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 11:41:57,196 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:41:57,197 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 11:41:57,198 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:41:57,199 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:41:57,243 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:42:58,061 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 11:42:58,530 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 11:42:58,531 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 11:42:58,913 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 11:42:59,116 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 11:42:59,116 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 11:42:59,159 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 11:42:59,162 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 11:42:59,166 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.633 seconds
-2015-06-19 11:43:00,199 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:44:40,192 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:46:20,193 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route4 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:48:00,202 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route5 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:49:40,211 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route6 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:51:20,219 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route7 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:53:00,230 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route8 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:54:40,234 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route9 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:56:20,244 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route10 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:58:00,256 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route11 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 11:59:40,264 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route12 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:01:20,271 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route13 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:03:00,278 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route14 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:04:40,293 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route15 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:06:20,298 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route16 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:08:00,308 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route17 started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,238 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-19 12:09:00,238 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-19 12:09:00,238 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-19 12:09:00,239 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 17 routes (timeout 300 seconds)
-2015-06-19 12:09:00,247 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route17 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,247 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route16 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,248 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route15 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,248 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route14 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,248 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route13 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,248 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route12 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,248 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route11 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,248 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route10 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,248 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route9 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,249 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route8 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,249 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route7 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,249 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route6 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,249 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route5 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,249 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route4 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,249 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route3 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,249 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:09:00,250 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 12:09:00,251 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 17 routes completed in 0 seconds
-2015-06-19 12:09:00,267 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 26 minutes
-2015-06-19 12:09:00,267 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.029 seconds
-2015-06-19 12:11:56,444 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 12:11:56,781 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 12:11:56,783 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 12:11:57,181 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 12:11:57,391 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 12:11:57,391 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 12:11:57,430 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 12:11:57,433 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 12:11:57,438 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.652 seconds
-2015-06-19 12:11:58,474 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:13:38,445 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:13:38,453 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:13:38,454 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:13:38,455 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:13:38,456 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:13:38,469 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:15:16,144 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-19 12:15:16,144 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-19 12:15:16,145 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-19 12:15:16,145 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 2 routes (timeout 300 seconds)
-2015-06-19 12:15:16,147 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo2?period=100000]
-2015-06-19 12:15:16,147 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 12:15:16,147 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 2 routes completed in 0 seconds
-2015-06-19 12:15:16,152 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 3 minutes
-2015-06-19 12:15:16,152 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.007 seconds
-2015-06-19 12:16:38,972 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 12:16:39,394 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 12:16:39,396 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 12:16:39,860 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 12:16:40,070 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 12:16:40,070 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 12:16:40,109 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 12:16:40,111 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 12:16:40,117 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.718 seconds
-2015-06-19 12:16:41,155 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 12:18:21,122 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:18:21,130 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 12:18:21,131 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:18:21,133 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 12:18:21,134 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 12:18:21,158 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 12:20:01,132 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:20:01,133 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 12:20:01,133 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:20:01,134 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 12:20:01,135 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 12:20:01,149 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo24?period=100000]
-2015-06-19 12:21:41,140 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:21:41,141 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo24?period=100000]
-2015-06-19 12:21:41,141 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:21:41,142 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo24?period=100000]
-2015-06-19 12:21:41,143 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo24?period=100000]
-2015-06-19 12:21:41,156 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo25?period=100000]
-2015-06-19 12:23:21,150 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:23:21,151 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo25?period=100000]
-2015-06-19 12:23:21,151 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:23:21,152 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo25?period=100000]
-2015-06-19 12:23:21,152 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo25?period=100000]
-2015-06-19 12:23:21,165 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo26?period=100000]
-2015-06-19 12:23:44,731 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-19 12:23:44,731 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-19 12:23:44,731 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-19 12:23:44,732 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 2 routes (timeout 300 seconds)
-2015-06-19 12:23:44,733 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo26?period=100000]
-2015-06-19 12:23:44,733 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 12:23:44,734 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 2 routes completed in 0 seconds
-2015-06-19 12:23:44,740 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 7 minutes
-2015-06-19 12:23:44,740 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.008 seconds
-2015-06-19 12:24:55,871 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 12:24:56,261 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 12:24:56,263 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 12:24:56,646 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 12:24:56,871 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 12:24:56,872 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 12:24:56,919 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 12:24:56,921 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 12:24:56,926 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.660 seconds
-2015-06-19 12:24:57,954 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 12:26:37,932 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:26:37,940 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 12:26:37,941 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:26:37,942 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 12:26:37,943 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 12:26:37,971 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 12:28:17,940 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:28:17,942 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 12:28:17,943 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:28:17,943 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 12:28:17,944 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 12:28:17,961 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo24?period=100000]
-2015-06-19 12:29:57,949 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:29:57,950 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo24?period=100000]
-2015-06-19 12:29:57,950 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:29:57,951 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo24?period=100000]
-2015-06-19 12:29:57,952 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo24?period=100000]
-2015-06-19 12:29:57,964 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo25?period=100000]
-2015-06-19 12:31:37,959 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:31:37,960 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo25?period=100000]
-2015-06-19 12:31:37,960 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:31:37,961 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo25?period=100000]
-2015-06-19 12:31:37,961 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo25?period=100000]
-2015-06-19 12:31:37,974 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo26?period=100000]
-2015-06-19 12:33:17,967 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:33:17,968 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo26?period=100000]
-2015-06-19 12:33:17,968 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:33:17,969 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo26?period=100000]
-2015-06-19 12:33:17,969 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo26?period=100000]
-2015-06-19 12:33:17,981 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo27?period=100000]
-2015-06-19 12:34:57,975 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:34:57,976 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo27?period=100000]
-2015-06-19 12:34:57,976 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:34:57,977 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo27?period=100000]
-2015-06-19 12:34:57,977 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo27?period=100000]
-2015-06-19 12:34:57,994 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo28?period=100000]
-2015-06-19 12:36:37,982 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:36:37,983 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo28?period=100000]
-2015-06-19 12:36:37,983 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:36:37,984 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo28?period=100000]
-2015-06-19 12:36:37,984 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo28?period=100000]
-2015-06-19 12:36:37,998 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo29?period=100000]
-2015-06-19 12:38:17,992 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:38:17,993 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo29?period=100000]
-2015-06-19 12:38:17,993 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:38:17,994 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo29?period=100000]
-2015-06-19 12:38:17,995 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo29?period=100000]
-2015-06-19 12:38:18,012 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo210?period=100000]
-2015-06-19 12:39:57,999 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:39:58,000 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo210?period=100000]
-2015-06-19 12:39:58,003 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:39:58,004 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo210?period=100000]
-2015-06-19 12:39:58,004 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo210?period=100000]
-2015-06-19 12:39:58,014 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo211?period=100000]
-2015-06-19 12:41:38,008 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:41:38,009 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo211?period=100000]
-2015-06-19 12:41:38,010 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:41:38,011 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo211?period=100000]
-2015-06-19 12:41:38,012 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo211?period=100000]
-2015-06-19 12:41:38,026 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo212?period=100000]
-2015-06-19 12:43:18,016 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:43:18,017 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo212?period=100000]
-2015-06-19 12:43:18,018 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:43:18,018 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo212?period=100000]
-2015-06-19 12:43:18,019 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo212?period=100000]
-2015-06-19 12:43:18,045 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo213?period=100000]
-2015-06-19 12:44:58,025 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:44:58,026 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo213?period=100000]
-2015-06-19 12:44:58,026 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:44:58,026 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo213?period=100000]
-2015-06-19 12:44:58,027 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo213?period=100000]
-2015-06-19 12:44:58,055 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo214?period=100000]
-2015-06-19 12:46:38,034 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:46:38,035 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo214?period=100000]
-2015-06-19 12:46:38,036 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:46:38,036 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo214?period=100000]
-2015-06-19 12:46:38,037 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo214?period=100000]
-2015-06-19 12:46:38,047 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo215?period=100000]
-2015-06-19 12:48:18,043 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:48:18,044 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo215?period=100000]
-2015-06-19 12:48:18,044 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:48:18,045 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo215?period=100000]
-2015-06-19 12:48:18,045 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo215?period=100000]
-2015-06-19 12:48:18,059 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo216?period=100000]
-2015-06-19 12:49:58,052 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:49:58,053 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo216?period=100000]
-2015-06-19 12:49:58,053 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:49:58,054 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo216?period=100000]
-2015-06-19 12:49:58,055 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo216?period=100000]
-2015-06-19 12:49:58,064 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo217?period=100000]
-2015-06-19 12:51:38,061 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:51:38,062 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo217?period=100000]
-2015-06-19 12:51:38,062 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:51:38,063 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo217?period=100000]
-2015-06-19 12:51:38,063 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo217?period=100000]
-2015-06-19 12:51:38,079 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo218?period=100000]
-2015-06-19 12:53:18,069 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:53:18,070 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo218?period=100000]
-2015-06-19 12:53:18,071 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:53:18,071 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo218?period=100000]
-2015-06-19 12:53:18,072 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo218?period=100000]
-2015-06-19 12:53:18,081 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo219?period=100000]
-2015-06-19 12:54:58,077 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:54:58,078 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo219?period=100000]
-2015-06-19 12:54:58,078 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:54:58,079 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo219?period=100000]
-2015-06-19 12:54:58,079 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo219?period=100000]
-2015-06-19 12:54:58,091 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo220?period=100000]
-2015-06-19 12:56:38,087 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:56:38,088 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo220?period=100000]
-2015-06-19 12:56:38,088 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:56:38,089 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo220?period=100000]
-2015-06-19 12:56:38,090 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo220?period=100000]
-2015-06-19 12:56:38,101 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo221?period=100000]
-2015-06-19 12:58:18,095 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:58:18,097 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo221?period=100000]
-2015-06-19 12:58:18,097 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:58:18,098 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo221?period=100000]
-2015-06-19 12:58:18,098 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo221?period=100000]
-2015-06-19 12:58:18,106 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo222?period=100000]
-2015-06-19 12:59:58,105 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 12:59:58,106 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo222?period=100000]
-2015-06-19 12:59:58,107 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 12:59:58,108 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo222?period=100000]
-2015-06-19 12:59:58,108 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo222?period=100000]
-2015-06-19 12:59:58,116 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo223?period=100000]
-2015-06-19 13:01:38,113 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:01:38,114 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo223?period=100000]
-2015-06-19 13:01:38,115 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:01:38,115 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo223?period=100000]
-2015-06-19 13:01:38,116 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo223?period=100000]
-2015-06-19 13:01:38,124 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo224?period=100000]
-2015-06-19 13:03:18,121 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:03:18,122 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo224?period=100000]
-2015-06-19 13:03:18,122 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:03:18,123 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo224?period=100000]
-2015-06-19 13:03:18,123 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo224?period=100000]
-2015-06-19 13:03:18,130 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo225?period=100000]
-2015-06-19 13:04:58,131 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:04:58,132 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo225?period=100000]
-2015-06-19 13:04:58,132 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:04:58,133 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is stopped, was consuming from: Endpoint[timer://foo225?period=100000]
-2015-06-19 13:04:58,133 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp is shutdown and removed, was consuming from: Endpoint[timer://foo225?period=100000]
-2015-06-19 13:04:58,142 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo226?period=100000]
-2015-06-19 13:05:15,996 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-19 13:05:15,997 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-19 13:05:15,997 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-19 13:05:15,997 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 2 routes (timeout 300 seconds)
-2015-06-19 13:05:15,998 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo226?period=100000]
-2015-06-19 13:05:15,999 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 13:05:15,999 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 2 routes completed in 0 seconds
-2015-06-19 13:05:16,006 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 40 minutes
-2015-06-19 13:05:16,007 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.009 seconds
-2015-06-19 13:21:35,731 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 13:21:36,060 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 13:21:36,061 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 13:21:36,571 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 13:21:36,788 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 13:21:36,789 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 13:21:36,830 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 13:21:36,833 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 13:21:36,837 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.774 seconds
-2015-06-19 13:21:37,870 [ - timer://foo1] INFO  DefaultCamelContext            - Route: pppppppppp started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:22:09,744 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-19 13:22:09,744 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-19 13:22:09,745 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-19 13:22:09,745 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 2 routes (timeout 300 seconds)
-2015-06-19 13:22:09,755 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: pppppppppp shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:22:09,756 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo1?period=100000]
-2015-06-19 13:22:09,756 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 2 routes completed in 0 seconds
-2015-06-19 13:22:09,763 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 33.704 seconds
-2015-06-19 13:22:09,763 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.018 seconds
-2015-06-19 13:22:25,396 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 13:22:25,790 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 13:22:25,792 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 13:22:26,233 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 13:22:26,600 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 13:22:26,600 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 13:22:26,647 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=50000]
-2015-06-19 13:22:26,654 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 13:22:26,667 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.865 seconds
-2015-06-19 13:22:27,698 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:22:27,704 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:22:27,724 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:22:27,762 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:22:27,765 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:22:27,796 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:23:17,678 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 13:23:17,679 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:23:17,680 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:23:17,683 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:23:17,684 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:23:17,708 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:24:06,220 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 13:24:06,657 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 13:24:06,658 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 13:24:07,207 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 13:24:07,439 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 13:24:07,440 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 13:24:07,482 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=50000]
-2015-06-19 13:24:07,484 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 13:24:07,488 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.828 seconds
-2015-06-19 13:24:08,526 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:24:08,528 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:24:08,536 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:24:08,536 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:24:08,537 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:24:58,510 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 13:24:58,511 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:24:58,513 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:24:58,514 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:24:58,514 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:25:31,963 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-19 13:25:31,963 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-19 13:25:31,963 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-19 13:25:31,963 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 3 routes (timeout 300 seconds)
-2015-06-19 13:25:31,964 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route3 shutdown complete, was consuming from: Endpoint[timer://foo23?period=100000]
-2015-06-19 13:25:31,964 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:25:31,964 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo1?period=50000]
-2015-06-19 13:25:31,966 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 3 routes completed in 0 seconds
-2015-06-19 13:25:31,972 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 1 minute
-2015-06-19 13:25:31,972 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.009 seconds
-2015-06-19 13:27:27,359 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 13:27:27,730 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 13:27:27,731 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 13:27:28,292 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 13:27:28,490 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 13:27:28,490 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 13:27:28,527 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=50000]
-2015-06-19 13:27:28,534 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 13:27:28,539 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.805 seconds
-2015-06-19 13:27:29,576 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:27:29,578 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:27:29,586 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:27:29,586 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:27:29,588 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:27:29,596 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:27:45,471 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-19 13:27:45,471 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-19 13:27:45,472 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-19 13:27:45,472 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 2 routes (timeout 300 seconds)
-2015-06-19 13:27:45,473 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:27:45,473 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo1?period=50000]
-2015-06-19 13:27:45,473 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 2 routes completed in 0 seconds
-2015-06-19 13:27:45,478 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 17.749 seconds
-2015-06-19 13:27:45,478 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.006 seconds
-2015-06-19 13:27:50,239 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 13:27:50,657 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 13:27:50,659 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 13:27:51,071 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 13:27:51,326 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 13:27:51,326 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 13:27:51,457 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=50000]
-2015-06-19 13:27:51,461 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 13:27:51,469 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.805 seconds
-2015-06-19 13:28:05,660 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:28:14,761 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:28:14,782 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:28:14,783 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:28:14,790 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:28:24,132 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:28:54,698 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 13:28:55,177 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 13:28:55,179 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 13:28:55,703 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 13:28:55,950 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 13:28:55,950 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 13:28:55,989 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=50000]
-2015-06-19 13:28:55,997 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 13:28:56,004 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.821 seconds
-2015-06-19 13:29:04,438 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:29:22,586 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:29:22,608 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:29:22,609 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:29:22,625 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:29:25,891 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:29:34,542 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 13:29:34,973 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 13:29:34,975 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 13:29:35,433 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 13:29:35,665 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 13:29:35,665 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 13:29:35,705 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=50000]
-2015-06-19 13:29:35,714 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 13:29:35,719 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.742 seconds
-2015-06-19 13:29:41,121 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:30:51,172 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-19 13:30:51,693 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-19 13:30:51,697 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-19 13:30:52,111 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-19 13:30:52,349 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-19 13:30:52,349 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-19 13:30:52,393 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo1?period=50000]
-2015-06-19 13:30:52,401 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-19 13:30:52,406 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.708 seconds
-2015-06-19 13:30:57,956 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:30:57,959 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
-2015-06-19 13:30:57,972 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route2 shutdown complete, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:30:57,974 [ - timer://foo1] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-19 13:30:57,975 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 is stopped, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:31:02,988 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route2 is shutdown and removed, was consuming from: Endpoint[timer://foo22?period=100000]
-2015-06-19 13:31:43,428 [ - timer://foo1] INFO  DefaultCamelContext            - Route: route3 started and consuming from: Endpoint[timer://foo23?period=100000]
+2015-06-25 20:16:43,694 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-06-25 20:16:44,102 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-25 20:16:44,104 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-25 20:16:44,517 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-25 20:16:44,744 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-25 20:16:44,745 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-25 20:16:44,827 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb&idempotent=false&noop=true&password=xxxxxx&username=root]
+2015-06-25 20:16:44,828 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-25 20:16:44,832 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.726 seconds
+2015-06-25 20:16:45,866 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connecting to 192.168.1.11 port 22
+2015-06-25 20:16:45,887 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connection established
+2015-06-25 20:16:45,894 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_5.3
+2015-06-25 20:16:45,895 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
+2015-06-25 20:16:45,895 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
+2015-06-25 20:16:46,224 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
+2015-06-25 20:16:46,224 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
+2015-06-25 20:16:46,224 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
+2015-06-25 20:16:46,267 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
+2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
+2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
+2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
+2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
+2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
+2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
+2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
+2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
+2015-06-25 20:16:46,278 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
+2015-06-25 20:16:46,278 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
+2015-06-25 20:16:46,297 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
+2015-06-25 20:16:46,303 [urora_esb/logs/] WARN  SftpOperations                 - JSCH -> Permanently added '192.168.1.11' (RSA) to the list of known hosts.
+2015-06-25 20:16:46,303 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
+2015-06-25 20:16:46,303 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
+2015-06-25 20:16:46,309 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
+2015-06-25 20:16:46,311 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
+2015-06-25 20:16:46,318 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: gssapi-with-mic,publickey,keyboard-interactive,password
+2015-06-25 20:16:46,318 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: gssapi-with-mic
+2015-06-25 20:16:46,438 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
+2015-06-25 20:16:46,438 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
+2015-06-25 20:16:46,440 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
+2015-06-25 20:16:46,440 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: password
+2015-06-25 20:16:46,463 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
+2015-06-25 20:16:46,504 [urora_esb/logs/] INFO  SftpOperations                 - Connected to sftp://root@192.168.1.11:22
+2015-06-25 20:16:46,505 [urora_esb/logs/] INFO  SftpConsumer                   - Connected and logged in to: sftp://root@192.168.1.11:22
+2015-06-25 20:43:02,511 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
+2015-06-25 20:43:02,511 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
+2015-06-25 20:43:02,511 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-25 20:43:02,512 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
+2015-06-25 20:43:02,517 [ - ShutdownTask] INFO  SftpOperations                 - JSCH -> Disconnecting from 192.168.1.11 port 22
+2015-06-25 20:43:02,524 [68.1.11 session] INFO  SftpOperations                 - JSCH -> Caught an exception, leaving main loop due to Socket closed
+2015-06-25 20:43:02,525 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb&idempotent=false&noop=true&password=xxxxxx&username=root]
+2015-06-25 20:43:02,526 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-25 20:43:02,529 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 26 minutes
+2015-06-25 20:43:02,529 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.018 seconds
+2015-06-25 21:05:21,395 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-06-25 21:05:21,764 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-25 21:05:21,765 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-25 21:05:22,151 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-25 21:05:22,413 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-25 21:05:22,413 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-25 21:05:22,503 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb&idempotent=false&noop=true&password=xxxxxx&username=root]
+2015-06-25 21:05:22,504 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-25 21:05:22,508 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.741 seconds
+2015-06-25 21:05:23,536 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connecting to 192.168.1.11 port 22
+2015-06-25 21:05:23,549 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connection established
+2015-06-25 21:05:23,566 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_5.3
+2015-06-25 21:05:23,566 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
+2015-06-25 21:05:23,566 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
+2015-06-25 21:05:23,972 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
+2015-06-25 21:05:23,972 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
+2015-06-25 21:05:23,972 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
+2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
+2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
+2015-06-25 21:05:24,031 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
+2015-06-25 21:05:24,031 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
+2015-06-25 21:05:24,051 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
+2015-06-25 21:05:24,057 [urora_esb/logs/] WARN  SftpOperations                 - JSCH -> Permanently added '192.168.1.11' (RSA) to the list of known hosts.
+2015-06-25 21:05:24,057 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
+2015-06-25 21:05:24,057 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
+2015-06-25 21:05:24,062 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
+2015-06-25 21:05:24,075 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
+2015-06-25 21:05:24,089 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: gssapi-with-mic,publickey,keyboard-interactive,password
+2015-06-25 21:05:24,089 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: gssapi-with-mic
+2015-06-25 21:05:24,093 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
+2015-06-25 21:05:24,093 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
+2015-06-25 21:05:24,095 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
+2015-06-25 21:05:24,095 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: password
+2015-06-25 21:05:24,107 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
+2015-06-25 21:05:24,160 [urora_esb/logs/] INFO  SftpOperations                 - Connected to sftp://root@192.168.1.11:22
+2015-06-25 21:05:24,160 [urora_esb/logs/] INFO  SftpConsumer                   - Connected and logged in to: sftp://root@192.168.1.11:22
+2015-06-25 21:06:12,336 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
+2015-06-25 21:06:12,336 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
+2015-06-25 21:06:12,336 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-25 21:06:12,337 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
+2015-06-25 21:06:12,341 [ - ShutdownTask] INFO  SftpOperations                 - JSCH -> Disconnecting from 192.168.1.11 port 22
+2015-06-25 21:06:12,346 [68.1.11 session] INFO  SftpOperations                 - JSCH -> Caught an exception, leaving main loop due to Socket closed
+2015-06-25 21:06:12,348 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb&idempotent=false&noop=true&password=xxxxxx&username=root]
+2015-06-25 21:06:12,350 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-06-25 21:06:12,354 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 50.591 seconds
+2015-06-25 21:06:12,354 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.018 seconds
+2015-06-25 21:06:49,337 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-06-25 21:06:49,708 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-06-25 21:06:49,710 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-06-25 21:06:50,294 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-06-25 21:06:50,572 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-06-25 21:06:50,572 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-06-25 21:06:50,668 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb.log&idempotent=false&noop=true&password=xxxxxx&username=root]
+2015-06-25 21:06:50,669 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-06-25 21:06:50,678 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.961 seconds
+2015-06-25 21:06:51,692 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connecting to 192.168.1.11 port 22
+2015-06-25 21:06:51,706 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connection established
+2015-06-25 21:06:51,714 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_5.3
+2015-06-25 21:06:51,714 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
+2015-06-25 21:06:51,715 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
+2015-06-25 21:06:52,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
+2015-06-25 21:06:52,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
+2015-06-25 21:06:52,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
+2015-06-25 21:06:52,067 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
+2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
+2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
+2015-06-25 21:06:52,077 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
+2015-06-25 21:06:52,077 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
+2015-06-25 21:06:52,096 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
+2015-06-25 21:06:52,102 [urora_esb/logs/] WARN  SftpOperations                 - JSCH -> Permanently added '192.168.1.11' (RSA) to the list of known hosts.
+2015-06-25 21:06:52,103 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
+2015-06-25 21:06:52,103 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
+2015-06-25 21:06:52,110 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
+2015-06-25 21:06:52,112 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
+2015-06-25 21:06:52,118 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: gssapi-with-mic,publickey,keyboard-interactive,password
+2015-06-25 21:06:52,118 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: gssapi-with-mic
+2015-06-25 21:06:52,129 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
+2015-06-25 21:06:52,130 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
+2015-06-25 21:06:52,131 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
+2015-06-25 21:06:52,131 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: password
+2015-06-25 21:06:52,142 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
+2015-06-25 21:06:52,192 [urora_esb/logs/] INFO  SftpOperations                 - Connected to sftp://root@192.168.1.11:22
+2015-06-25 21:06:52,192 [urora_esb/logs/] INFO  SftpConsumer                   - Connected and logged in to: sftp://root@192.168.1.11:22

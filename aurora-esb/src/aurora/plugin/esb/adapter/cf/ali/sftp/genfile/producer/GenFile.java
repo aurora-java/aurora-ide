@@ -14,6 +14,7 @@ import org.apache.camel.Message;
 import uncertain.composite.CompositeMap;
 import uncertain.logging.ILogger;
 import aurora.plugin.esb.AuroraEsbContext;
+import aurora.plugin.esb.DBLog;
 import aurora.plugin.esb.console.ConsoleLog;
 
 public class GenFile {
@@ -58,6 +59,15 @@ public class GenFile {
 			return executeProc;
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			String msg = e.getMessage();
+			String mms = "" + serviceName + " Gen File  Failed."
+					+ " errorMSG: " + msg;
+			log("[Reading File] " + mms);
+			new ConsoleLog().log2Console("[Reading File] " + mms);
+			e.printStackTrace();
+			new DBLog(esbContext).log(mms);
+
 		}
 		return new CompositeMap();
 
@@ -67,7 +77,7 @@ public class GenFile {
 
 		CompositeMap callProc = callProc();
 
-		callProc.toXML();
+		// callProc.toXML();
 		// System.out.println(callProc.toXML());
 
 		esbContext.getmLogger().log(
@@ -78,15 +88,15 @@ public class GenFile {
 				+ "Genfile Loaded From DB.");
 
 		CompositeMap parameter = callProc.getChild("parameter");
-//		if (parameter == null) {
-//			esbContext.getmLogger().log(
-//					Level.SEVERE,
-//					"" + "[Gen File] " + "[" + serviceName + "] "
-//							+ "GenFile No Data Found From DB.");
-//			new ConsoleLog().log2Console("[Gen File] " + "[" + serviceName
-//					+ "] " + "GenFile No Data Found From DB.");
-//			return;
-//		}
+		if (parameter == null) {
+			esbContext.getmLogger().log(
+					Level.SEVERE,
+					"" + "[Gen File] " + "[" + serviceName + "] "
+							+ "GenFile No Data Found From DB.");
+			new ConsoleLog().log2Console("[Gen File] " + "[" + serviceName
+					+ "] " + "GenFile No Data Found From DB.");
+			return;
+		}
 		int count = parameter.getInt("count", 0);
 		CompositeMap header = parameter.getChild("header");
 		if (count <= 0 && header != null) {

@@ -29,6 +29,8 @@ public class AuroraEsbContext {
 	private AuroraEsbServer server;
 	private List<DirectConfig> task_configs = new ArrayList<DirectConfig>();
 	private DefaultCamelContext context;
+	
+	private String log_proc;
 
 	private boolean isNeedCommandConsole = true;
 
@@ -373,6 +375,14 @@ public class AuroraEsbContext {
 
 	public void setProperties(CompositeMap properties) {
 		this.properties = properties;
+	}
+
+	public String getLog_proc() {
+		return log_proc;
+	}
+
+	public void setLog_proc(String log_proc) {
+		this.log_proc = log_proc;
 	}
 
 }

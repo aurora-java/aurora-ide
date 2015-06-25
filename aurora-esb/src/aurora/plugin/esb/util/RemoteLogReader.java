@@ -23,7 +23,7 @@ public class RemoteLogReader {
 				String downloadUrl = "sftp://192.168.1.11:22/"
 						+ "%2Fu01/CF_Leasing/aurora_esb/logs/";
 				String downloadPara = "?username=root&password=123456&delay=10s"
-						+ "&noop=true" + "&idempotent=false" + "&fileName=esb";
+						+ "&noop=true" + "&idempotent=false" + "&fileName=esb.log";
 
 				String ftp_server_url = downloadUrl + downloadPara.trim();
 

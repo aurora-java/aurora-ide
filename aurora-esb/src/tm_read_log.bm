@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm" alias="t1">
+    <bm:operations>
+        <bm:operation name="update">
+            <bm:update-sql><![CDATA[
+    	        BEGIN
+    	            tm_interface_pkg.log(p_log_source     => 'aurora_esb',
+                           p_function_code  => '',
+                           p_interface_name => '',
+                           p_log_text       => file_error_msg,
+                           p_applyno        => '',
+                           p_user_id        => -1);
+    	        END;
+	        ]]></bm:update-sql>
+        </bm:operation>
+    </bm:operations>
+</bm:model>
