@@ -132,29 +132,29 @@ public class MsgBuilder extends RouteBuilder {
 
 			@Override
 			public void process(Exchange exchange) throws Exception {
-				String body = exchange.getIn().getBody(String.class);
-				AMQMsg object = AMQMsg.toObject(body);
-				Task task = object.getTask();
-				exchange.getOut().setHeader("task_id", task.getId());
-				exchange.getOut().setHeader("task_name", task.getName());
-
-				// exchange.getOut().setBody(
-				// WSHelper.loadPara(esbContext.getWorkPath(), task, task
-				// .getRouter().getFrom()));
-
-				List<ProducerConsumer> producerConsumer = esbContext
-						.getProducerConsumer();
-				for (ProducerConsumer pc : producerConsumer) {
-					String name = pc.getProducer().getName();
-					if (task.getName().equals(name)) {
-						List<Consumer> consumers = pc.getConsumers();
-						for (Consumer consumer : consumers) {
-							TO to2 = consumer.getTo();
-							directStartTask(to2.getName(),
-									loadData((ProducerTask) task));
-						}
-					}
-				}
+//				String body = exchange.getIn().getBody(String.class);
+//				AMQMsg object = AMQMsg.toObject(body);
+//				Task task = object.getTask();
+//				exchange.getOut().setHeader("task_id", task.getId());
+//				exchange.getOut().setHeader("task_name", task.getName());
+//
+//				// exchange.getOut().setBody(
+//				// WSHelper.loadPara(esbContext.getWorkPath(), task, task
+//				// .getRouter().getFrom()));
+//
+//				List<ProducerConsumer> producerConsumer = esbContext
+//						.getProducerConsumer();
+//				for (ProducerConsumer pc : producerConsumer) {
+//					String name = pc.getProducer().getName();
+//					if (task.getName().equals(name)) {
+//						List<Consumer> consumers = pc.getConsumers();
+//						for (Consumer consumer : consumers) {
+//							TO to2 = consumer.getTo();
+//							directStartTask(to2.getName(),
+//									loadData((ProducerTask) task));
+//						}
+//					}
+//				}
 
 			}
 

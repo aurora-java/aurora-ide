@@ -26,13 +26,15 @@ public class DataSaveBean {
 		CompositeMap header = new CompositeMap("result");
 		
 		header.put("businessModelName", businessModel.getName());
-		header.setText("abc");
+		String body = exchange.getIn().getBody(String.class);
+		header.setText(body);
 		
 		 try {
 			CompositeMap executeProc = esbContext.executeProc("save_data", header);
 			System.out.println("save2DB");
 		} catch (Exception e) {
 			e.printStackTrace();
+			exchange.getOut().setFault(true);
 		}
 	}
 }

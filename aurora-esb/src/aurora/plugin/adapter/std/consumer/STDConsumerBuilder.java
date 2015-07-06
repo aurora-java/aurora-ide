@@ -6,25 +6,28 @@ import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.BusinessModel;
+import aurora.plugin.esb.model.Consumer;
 import aurora.plugin.esb.model.Producer;
 
 public class STDConsumerBuilder extends RouteBuilder {
 
 	private ConsoleLog clog = new ConsoleLog();
 	private AuroraEsbContext esbContext;
-	private Producer producer;
-	private CompositeMap producerMap;
+	private Consumer consumer;
+	private CompositeMap consumerMap;
 
 	private String name;
 
-	public STDConsumerBuilder(AuroraEsbContext esbContext, Producer producer) {
+	public STDConsumerBuilder(AuroraEsbContext esbContext, Consumer consumer) {
 		this.esbContext = esbContext;
-		this.producer = producer;
+		this.consumer = consumer;
+		this.name = consumer.getName();
 	}
 
-	public STDConsumerBuilder(AuroraEsbContext esbContext, CompositeMap producer) {
+	public STDConsumerBuilder(AuroraEsbContext esbContext, CompositeMap consumer) {
 		this.esbContext = esbContext;
-		this.producerMap = producer;
+		this.consumerMap = consumer;
+		this.name = consumerMap.getString("name", "");
 	}
 
 	public STDConsumerBuilder(String name) {
@@ -36,7 +39,7 @@ public class STDConsumerBuilder extends RouteBuilder {
 
 		BusinessModel businessModel = new BusinessModel("test");
 
-		from("direct:" + name).bean(new Consumer(),"consumer");
+		from("direct:" + name).bean(new ConsumerHolder(), "consumer");
 		//
 		// from("seda:file").bean(new
 		// DataSaveBean(),"save2File").to("seda:consumer");

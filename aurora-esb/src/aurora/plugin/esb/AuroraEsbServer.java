@@ -73,9 +73,9 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 				.equalsIgnoreCase(isNeedCommandConsole));
 		esbContext.loadProperties();
 
-		loadProducer(config);
-
-		loadConsumer(config);
+//		loadProducer(config);
+//
+//		loadConsumer(config);
 
 		loadProducerMap(config);
 
@@ -84,6 +84,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		{
 			esbContext.getAdapterManager().registry(new WSSTDProducerAdapter());
 			esbContext.getAdapterManager().registry(new WSSTDConsumerAdapter());
+			esbContext.getAdapterManager().registry(new STDWSProducerAdapter());
 //			esbContext.getAdapterManager().registry(new STDWSProducerAdapter());
 
 			esbContext.getAdapterManager().registry(
@@ -125,14 +126,14 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		}
 	}
 
-	private void loadConsumer(File config) {
-		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
-				this.getConsumer());
-		for (DirectConfig directConfig : loadDirectConfig) {
-			esbContext.addConsumer(directConfig);
-
-		}
-	}
+//	private void loadConsumer(File config) {
+//		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
+//				this.getConsumer());
+//		for (DirectConfig directConfig : loadDirectConfig) {
+//			esbContext.addConsumer(directConfig);
+//
+//		}
+//	}
 
 	private List<CompositeMap> loadConfigMap(File config, String routers) {
 		String[] split = routers.split(",");
@@ -182,15 +183,15 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		return dcs;
 	}
 
-	public void loadProducer(File config) {
-
-		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
-				this.getProducer());
-		for (DirectConfig directConfig : loadDirectConfig) {
-			esbContext.addProducer(directConfig);
-
-		}
-	}
+//	public void loadProducer(File config) {
+//
+//		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
+//				this.getProducer());
+//		for (DirectConfig directConfig : loadDirectConfig) {
+//			esbContext.addProducer(directConfig);
+//
+//		}
+//	}
 
 	@Override
 	public void shutdown() {

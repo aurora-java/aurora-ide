@@ -7,6 +7,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 import uncertain.composite.CompositeMap;
+import aurora.plugin.adapter.std.producer.ConsumerDispatch;
 import aurora.plugin.adapter.std.producer.PersistData;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
@@ -42,33 +43,31 @@ public class STDWSProducerBuilder extends RouteBuilder {
 	public void configure() throws Exception {
 		final From f = Demo.createFrom();
 		BusinessModel businessModel = new BusinessModel("test");
-//		from("timer://foo?period=30000")
-//				.process(new Processor() {
-//
-//					@Override
-//					public void process(Exchange exchange) throws Exception {
-//						Map<String, Object> paras = WSHelper
-//								.createHeaderOptions(f.getUserName(),
-//										f.getPsd());
-//						exchange.getOut().setHeaders(paras);
-//						exchange.getOut().setBody(f.getParaText());
-//					}
-//				}).to(f.getEndpoint()).recipientList()
-//				.method(new PersistData(businessModel));
+		from("timer://foo?period=30000")
+				.process(new Processor() {
+
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						Map<String, Object> paras = WSHelper
+								.createHeaderOptions(f.getUserName(),
+										f.getPsd());
+						exchange.getOut().setHeaders(paras);
+						exchange.getOut().setBody(f.getParaText());
+					}
+				}).to(f.getEndpoint()).recipientList()
+				.method(new PersistData(businessModel));
 		//
 		// from("direct:file").bean(new
 		// DataSaveBean(),"save2File").to("direct:consumer");
-		from(
-		// "direct:db"
+		from("direct:db"
 
-				"timer://foo?period=30000").bean(
-				new DataSaveBean(esbContext, businessModel), "save2DB");
-		// .to(
-		// "direct:consumer");
+		// "timer://foo?period=30000"
+		).bean(new DataSaveBean(esbContext, businessModel), "save2DB").to(
+				"direct:consumer");
 		//
 		// // BusinessModel.name
 		//
-		// from("direct:consumer").bean(new
-		// ConsumerDispatch(businessModel),"dispatch");
+		from("direct:consumer").bean(new ConsumerDispatch(businessModel),
+				"dispatch");
 	}
 }

@@ -15,7 +15,7 @@ public class ConsumerDispatch {
 	}
 
 	public void dispatch(Exchange exchange) {
-		List<Producer> producers = esbContext.getProducers();
+//		List<Producer> producers = esbContext.getProducers();
 //		esbContext.getCamelContext();
 		
 	}
