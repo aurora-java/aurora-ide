@@ -1,194 +1,35 @@
-2015-06-25 20:16:43,694 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-25 20:16:44,102 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-25 20:16:44,104 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-25 20:16:44,517 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-25 20:16:44,744 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-25 20:16:44,745 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-25 20:16:44,827 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb&idempotent=false&noop=true&password=xxxxxx&username=root]
-2015-06-25 20:16:44,828 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-25 20:16:44,832 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.726 seconds
-2015-06-25 20:16:45,866 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connecting to 192.168.1.11 port 22
-2015-06-25 20:16:45,887 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connection established
-2015-06-25 20:16:45,894 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_5.3
-2015-06-25 20:16:45,895 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
-2015-06-25 20:16:45,895 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
-2015-06-25 20:16:46,224 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
-2015-06-25 20:16:46,224 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
-2015-06-25 20:16:46,224 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
-2015-06-25 20:16:46,267 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-25 20:16:46,268 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
-2015-06-25 20:16:46,269 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
-2015-06-25 20:16:46,278 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
-2015-06-25 20:16:46,278 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
-2015-06-25 20:16:46,297 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
-2015-06-25 20:16:46,303 [urora_esb/logs/] WARN  SftpOperations                 - JSCH -> Permanently added '192.168.1.11' (RSA) to the list of known hosts.
-2015-06-25 20:16:46,303 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
-2015-06-25 20:16:46,303 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
-2015-06-25 20:16:46,309 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
-2015-06-25 20:16:46,311 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
-2015-06-25 20:16:46,318 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: gssapi-with-mic,publickey,keyboard-interactive,password
-2015-06-25 20:16:46,318 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: gssapi-with-mic
-2015-06-25 20:16:46,438 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
-2015-06-25 20:16:46,438 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
-2015-06-25 20:16:46,440 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
-2015-06-25 20:16:46,440 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: password
-2015-06-25 20:16:46,463 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
-2015-06-25 20:16:46,504 [urora_esb/logs/] INFO  SftpOperations                 - Connected to sftp://root@192.168.1.11:22
-2015-06-25 20:16:46,505 [urora_esb/logs/] INFO  SftpConsumer                   - Connected and logged in to: sftp://root@192.168.1.11:22
-2015-06-25 20:43:02,511 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-25 20:43:02,511 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-25 20:43:02,511 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-25 20:43:02,512 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
-2015-06-25 20:43:02,517 [ - ShutdownTask] INFO  SftpOperations                 - JSCH -> Disconnecting from 192.168.1.11 port 22
-2015-06-25 20:43:02,524 [68.1.11 session] INFO  SftpOperations                 - JSCH -> Caught an exception, leaving main loop due to Socket closed
-2015-06-25 20:43:02,525 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb&idempotent=false&noop=true&password=xxxxxx&username=root]
-2015-06-25 20:43:02,526 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-25 20:43:02,529 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 26 minutes
-2015-06-25 20:43:02,529 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.018 seconds
-2015-06-25 21:05:21,395 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-25 21:05:21,764 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-25 21:05:21,765 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-25 21:05:22,151 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-25 21:05:22,413 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-25 21:05:22,413 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-25 21:05:22,503 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb&idempotent=false&noop=true&password=xxxxxx&username=root]
-2015-06-25 21:05:22,504 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-25 21:05:22,508 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.741 seconds
-2015-06-25 21:05:23,536 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connecting to 192.168.1.11 port 22
-2015-06-25 21:05:23,549 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connection established
-2015-06-25 21:05:23,566 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_5.3
-2015-06-25 21:05:23,566 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
-2015-06-25 21:05:23,566 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
-2015-06-25 21:05:23,972 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
-2015-06-25 21:05:23,972 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
-2015-06-25 21:05:23,972 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-25 21:05:24,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
-2015-06-25 21:05:24,025 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
-2015-06-25 21:05:24,031 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
-2015-06-25 21:05:24,031 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
-2015-06-25 21:05:24,051 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
-2015-06-25 21:05:24,057 [urora_esb/logs/] WARN  SftpOperations                 - JSCH -> Permanently added '192.168.1.11' (RSA) to the list of known hosts.
-2015-06-25 21:05:24,057 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
-2015-06-25 21:05:24,057 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
-2015-06-25 21:05:24,062 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
-2015-06-25 21:05:24,075 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
-2015-06-25 21:05:24,089 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: gssapi-with-mic,publickey,keyboard-interactive,password
-2015-06-25 21:05:24,089 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: gssapi-with-mic
-2015-06-25 21:05:24,093 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
-2015-06-25 21:05:24,093 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
-2015-06-25 21:05:24,095 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
-2015-06-25 21:05:24,095 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: password
-2015-06-25 21:05:24,107 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
-2015-06-25 21:05:24,160 [urora_esb/logs/] INFO  SftpOperations                 - Connected to sftp://root@192.168.1.11:22
-2015-06-25 21:05:24,160 [urora_esb/logs/] INFO  SftpConsumer                   - Connected and logged in to: sftp://root@192.168.1.11:22
-2015-06-25 21:06:12,336 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
-2015-06-25 21:06:12,336 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
-2015-06-25 21:06:12,336 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
-2015-06-25 21:06:12,337 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
-2015-06-25 21:06:12,341 [ - ShutdownTask] INFO  SftpOperations                 - JSCH -> Disconnecting from 192.168.1.11 port 22
-2015-06-25 21:06:12,346 [68.1.11 session] INFO  SftpOperations                 - JSCH -> Caught an exception, leaving main loop due to Socket closed
-2015-06-25 21:06:12,348 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb&idempotent=false&noop=true&password=xxxxxx&username=root]
-2015-06-25 21:06:12,350 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
-2015-06-25 21:06:12,354 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 50.591 seconds
-2015-06-25 21:06:12,354 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.018 seconds
-2015-06-25 21:06:49,337 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
-2015-06-25 21:06:49,708 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
-2015-06-25 21:06:49,710 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
-2015-06-25 21:06:50,294 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
-2015-06-25 21:06:50,572 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
-2015-06-25 21:06:50,572 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
-2015-06-25 21:06:50,668 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[sftp://192.168.1.11:22//u01/CF_Leasing/aurora_esb/logs/?delay=10s&fileName=esb.log&idempotent=false&noop=true&password=xxxxxx&username=root]
-2015-06-25 21:06:50,669 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
-2015-06-25 21:06:50,678 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.961 seconds
-2015-06-25 21:06:51,692 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connecting to 192.168.1.11 port 22
-2015-06-25 21:06:51,706 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Connection established
-2015-06-25 21:06:51,714 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Remote version string: SSH-2.0-OpenSSH_5.3
-2015-06-25 21:06:51,714 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Local version string: SSH-2.0-JSCH-0.1.51
-2015-06-25 21:06:51,715 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckCiphers: aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-ctr,arcfour,arcfour128,arcfour256
-2015-06-25 21:06:52,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes256-cbc is not available.
-2015-06-25 21:06:52,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> aes192-cbc is not available.
-2015-06-25 21:06:52,024 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> CheckKexes: diffie-hellman-group14-sha1
-2015-06-25 21:06:52,067 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT sent
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXINIT received
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: ssh-rsa,ssh-dss
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: none,zlib@openssh.com
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server: 
-2015-06-25 21:06:52,068 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: ssh-rsa,ssh-dss
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: hmac-md5,hmac-sha1,hmac-sha2-256,hmac-sha1-96,hmac-md5-96
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: none
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client: 
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: server->client aes128-ctr hmac-md5 none
-2015-06-25 21:06:52,069 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> kex: client->server aes128-ctr hmac-md5 none
-2015-06-25 21:06:52,077 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_KEXDH_INIT sent
-2015-06-25 21:06:52,077 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> expecting SSH_MSG_KEXDH_REPLY
-2015-06-25 21:06:52,096 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> ssh_rsa_verify: signature true
-2015-06-25 21:06:52,102 [urora_esb/logs/] WARN  SftpOperations                 - JSCH -> Permanently added '192.168.1.11' (RSA) to the list of known hosts.
-2015-06-25 21:06:52,103 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS sent
-2015-06-25 21:06:52,103 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_NEWKEYS received
-2015-06-25 21:06:52,110 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_REQUEST sent
-2015-06-25 21:06:52,112 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> SSH_MSG_SERVICE_ACCEPT received
-2015-06-25 21:06:52,118 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: gssapi-with-mic,publickey,keyboard-interactive,password
-2015-06-25 21:06:52,118 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: gssapi-with-mic
-2015-06-25 21:06:52,129 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: publickey,keyboard-interactive,password
-2015-06-25 21:06:52,130 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: publickey
-2015-06-25 21:06:52,131 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentications that can continue: password
-2015-06-25 21:06:52,131 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Next authentication method: password
-2015-06-25 21:06:52,142 [urora_esb/logs/] INFO  SftpOperations                 - JSCH -> Authentication succeeded (password).
-2015-06-25 21:06:52,192 [urora_esb/logs/] INFO  SftpOperations                 - Connected to sftp://root@192.168.1.11:22
-2015-06-25 21:06:52,192 [urora_esb/logs/] INFO  SftpConsumer                   - Connected and logged in to: sftp://root@192.168.1.11:22
+2015-07-03 11:05:11,697 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-03 11:05:11,702 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-03 11:05:12,215 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-03 11:05:12,587 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-03 11:05:12,587 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-03 11:05:12,677 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-07-03 11:05:12,679 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-03 11:05:12,684 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.984 seconds
+2015-07-03 11:05:12,783 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-07-03 11:05:12,918 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-07-03 11:05:59,587 [0 - stream://in] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-03 11:12:33,017 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-03 11:12:33,019 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-03 11:12:33,433 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-03 11:12:33,769 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-03 11:12:33,769 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-03 11:12:33,841 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-07-03 11:12:33,843 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-03 11:12:33,850 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.829 seconds
+2015-07-03 11:12:33,944 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-07-03 11:12:34,077 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-07-03 11:12:41,344 [0 - stream://in] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-03 11:14:12,833 [1 - timer://foo] INFO  AbstractPoolBackedDataSource   - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@7003701 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@774d24fa [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 30000, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 3051ew9amq38pc83o2vi|4748a0f9, idleConnectionTestPeriod -> 120, initialPoolSize -> 3, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 180, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 15, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@76b397f5 [ description -> null, driverClass -> oracle.jdbc.driver.OracleDriver, factoryClassLocation -> null, identityToken -> 3051ew9amq38pc83o2vi|71812481, jdbcUrl -> jdbc:oracle:thin:@192.168.11.65:1521:masdev, properties -> {user=******, password=******} ], preferredTestQuery -> select 1 from dual, propertyCycle -> 0, testConnectionOnCheckin -> true, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> 3051ew9amq38pc83o2vi|4982cc36, numHelperThreads -> 3 ]
+2015-07-03 11:20:58,451 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-03 11:20:58,453 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-03 11:20:58,823 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-03 11:20:59,067 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-03 11:20:59,067 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-03 11:20:59,136 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[stream://in?promptMessage=Aurora+%3A+]
+2015-07-03 11:20:59,137 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-03 11:20:59,141 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.688 seconds
+2015-07-03 11:20:59,214 [main           ] INFO  MLog                           - MLog clients using log4j logging.
+2015-07-03 11:20:59,366 [main           ] INFO  C3P0Registry                   - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-07-03 11:21:07,145 [0 - stream://in] INFO  DefaultCamelContext            - Route: route2 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-03 11:21:08,739 [1 - timer://foo] INFO  AbstractPoolBackedDataSource   - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@380dca6b [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@a85ab864 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 30000, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 3051ew9amqe2kk61lcym|4748a0f9, idleConnectionTestPeriod -> 120, initialPoolSize -> 3, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 180, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 15, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@a7c12b5f [ description -> null, driverClass -> oracle.jdbc.driver.OracleDriver, factoryClassLocation -> null, identityToken -> 3051ew9amqe2kk61lcym|71812481, jdbcUrl -> jdbc:oracle:thin:@192.168.11.65:1521:masdev, properties -> {user=******, password=******} ], preferredTestQuery -> select 1 from dual, propertyCycle -> 0, testConnectionOnCheckin -> true, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> 3051ew9amqe2kk61lcym|4982cc36, numHelperThreads -> 3 ]

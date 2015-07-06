@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:s="aurora.plugin.script" trace="true">
+        <s:server-script><![CDATA[
+            var context = $ctx.getData();
+            var result = new CompositeMap("queryResult");
+         
+         println($ctx.toXML());
+            var para = new Object();
+              para.model_name=  $ctx.parameter.getChild('result').businessModelName;
+           para.data = $ctx.parameter.getChild('result').getData().getText();
+                var bm = $bm('save_data');
+                bm.option = {
+                    updatepassedfieldonly: true
+                };
+                bm.insert(para);
+            function isBlank(p) {
+                return p == null || p == undefined || p == "";
+            }
+        ]]></s:server-script>
+        <p:echo/>
+ </p:procedure>

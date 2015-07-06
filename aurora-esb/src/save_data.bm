@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:o="aurora.database.local.oracle" xmlns:bm="http://www.aurora-framework.org/schema/bm" xmlns:f="aurora.database.features" alias="t1" baseTable="ESB_DATA_LIST">
+    <bm:fields>
+        <bm:field name="list_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="LIST_ID" />
+        <bm:field name="model_name" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="MODEL_NAME" />
+          <bm:field name="data" databaseType="CLOB" datatype="java.sql.Clob" physicalName="DATA" />
+    </bm:fields>
+    <bm:features>
+        <o:sequence-pk/>
+    </bm:features>
+    <bm:primary-key>
+        <bm:pk-field name="list_id"/>
+    </bm:primary-key>
+</bm:model>

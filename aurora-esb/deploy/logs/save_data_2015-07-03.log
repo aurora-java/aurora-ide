@@ -1,0 +1,32 @@
+2015-07-03 11:54:38.382 [uncertain.proc] [CONFIG] [action] DecideStatement
+2015-07-03 11:54:38.383 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-07-03 11:54:38.383 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-07-03 11:54:38.383 [uncertain.proc] [CONFIG] [action] CreateInsertStatement
+2015-07-03 11:54:38.383 [uncertain.proc] [FINE] aurora.bm.InsertSqlCreator.onCreateInsertStatement
+2015-07-03 11:54:38.384 [uncertain.proc] [CONFIG] [action] PopulateInsertStatement
+2015-07-03 11:54:38.384 [uncertain.proc] [FINE] aurora.database.local.oracle.SequencePk.postPopulateInsertStatement
+2015-07-03 11:54:38.384 [uncertain.proc] [CONFIG] [action] CreateInsertSql
+2015-07-03 11:54:38.384 [uncertain.proc] [FINE] aurora.bm.InsertSqlCreator.onCreateInsertSql
+2015-07-03 11:54:38.384 [uncertain.proc] [CONFIG] [action] CreateSqlRunner
+2015-07-03 11:54:38.384 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onCreateSqlRunner
+2015-07-03 11:54:38.384 [uncertain.proc] [CONFIG] [action] ExecuteDmlStatement
+2015-07-03 11:54:38.384 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onExecuteDmlStatement
+2015-07-03 11:54:38.390 [aurora.database] [CONFIG] 
+============= BEGIN [Insert] SQL Statement execution dump ============
+BEGIN INSERT INTO ESB_DATA_LIST ( LIST_ID,MODEL_NAME,DATA) VALUES ( ESB_DATA_LIST_S.NEXTVAL,?,?)  RETURNING LIST_ID INTO ?; END;
+---------------------Binding info---------------------
+No.1	Access path:@model_name	Data type of passed value :java.lang.String	Value:test	Output:false	Database Type:null	
+No.2	Access path:@data	Data type of passed value :java.lang.String	Value:abc	Output:false	Database Type:null	
+No.3	Access path:@list_id	Data type of passed value :[null]	Value:null	Output:true	Database Type:null	
+
+=============== END [Insert] SQL Statement execution dump ============
+
+2015-07-03 11:54:38.391 [uncertain.proc] [INFO] <esb_conext SERVICE_LOGGING_FILE="/Users/shiliyan/git/aurora-ide/aurora-esb/deploy/logs/save_data_2015-07-03.log" __configuration__="uncertain.event.Configuration@3d816b8e" BusinessModel="aurora.bm.BusinessModel@10c1a0b4" service_name="save_data" SqlStatementType="Insert" SqlGenerationMode="AutoGenerate" _instance.uncertain.logging.ILoggerProvider="uncertain.logging.LoggerProvider@5fa20cf4" _instance.aurora.service.IService="aurora.service.http.HttpServiceInstance@543c55e9" sso="(ScriptShareObject : 4 elements)" BusinessModelOperation="Insert" SqlString="BEGIN INSERT INTO ESB_DATA_LIST ( LIST_ID,MODEL_NAME,DATA) VALUES ( ESB_DATA_LIST_S.NEXTVAL,${@model_name},${@data})  RETURNING LIST_ID INTO ${@list_id}; END;" SqlStatement="aurora.database.local.oracle.sql.OracleInsertStatement@5077283f" current_parameter="{data=abc, list_id=68, model_name=test, __parameter_parsed__=true}" SqlRunner="aurora.database.SqlRunner@1960e88b" __database_all_connection="[com.mchange.v2.c3p0.impl.NewProxyConnection@35ac9ce6]" _instance.uncertain.logging.BasicFileHandler="uncertain.logging.BasicFileHandler@2eb61570" _instance.java.sql.Connection="com.mchange.v2.c3p0.impl.NewProxyConnection@35ac9ce6">
+    <parameter>
+        <result businessModelName="test"><![CDATA[abc]]></result>
+    </parameter>
+    <session/>
+    <cookie/>
+    <model/>
+</esb_conext>
+

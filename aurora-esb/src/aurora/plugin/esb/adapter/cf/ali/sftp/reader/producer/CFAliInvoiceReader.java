@@ -74,7 +74,10 @@ public class CFAliInvoiceReader {
 
 		InvoiceFile inf = new InvoiceFile(exchange);
 		if (inf.isInvalid() == false) {
-			sendInvoiceFile(inf);
+			boolean su = sendInvoiceFile(inf);
+			if (su == false) {
+				exchange.getOut().setFault(true);
+			}
 			return;
 		}
 
@@ -86,7 +89,7 @@ public class CFAliInvoiceReader {
 
 	}
 
-	private void sendInvoiceFile(InvoiceFile inf) {
+	private boolean sendInvoiceFile(InvoiceFile inf) {
 
 		CompositeMap header = new CompositeMap("result");
 
@@ -108,11 +111,28 @@ public class CFAliInvoiceReader {
 								+ " Do Not Need Read Again.");
 				clog.log2Console("[Reading File] " + inf.getFileName()
 						+ " Do Not Need Read Again.");
-				return;
+
+				return true;
 			}
 
-			CompositeMap executeProc = esbContext.executeProc(
-					this.invoice_proc, header);
+			CompositeMap result = esbContext.executeProc(this.invoice_proc,
+					header);
+
+			String file_status = "NO";
+			if (result != null) {
+				file_status = result.getChild("parameter").getString(
+						"file_status", "NO");
+			}
+			clog.log2Console("[Reading] " + inf.getFileName()
+					+ " insert to db. file_status : " + file_status);
+			if ("NO".equalsIgnoreCase(file_status)) {
+				log("[Reading File] " + "File " + inf.getFileName()
+						+ " Loaded  Failed.");
+				clog.log2Console("[Reading File] " + "File "
+						+ inf.getFileName() + " Loaded  Failed.");
+				return false;
+			}
+
 			// return executeProc;
 		} catch (Exception e) {
 			String msg = e.getMessage();
@@ -123,7 +143,7 @@ public class CFAliInvoiceReader {
 			clog.log2Console("[Reading File] " + mms);
 			e.printStackTrace();
 			new DBLog(esbContext).log(mms);
-			return;
+			return false;
 		}
 
 		addHistory(inf.getFileName(), inf.getAbPath());
@@ -132,7 +152,7 @@ public class CFAliInvoiceReader {
 				+ inf.getFileName() + " Loaded  Success.");
 		clog.log2Console("[Reading File] " + "ApplyNo: " + inf.getApplyNo()
 				+ " " + "File: " + inf.getFileName() + " Loaded  Success.");
-
+		return true;
 	}
 
 	private void log(String msg) {

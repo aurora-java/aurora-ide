@@ -1,0 +1,20 @@
+2015-06-27 08:11:00,471 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
+2015-06-27 08:11:00,473 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
+2015-06-27 08:11:00,473 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-06-27 08:11:00,475 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
+2015-06-27 08:11:00,481 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 10 seconds.
+2015-06-27 08:11:01,482 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 9 seconds.
+2015-06-27 08:11:02,483 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 8 seconds.
+2015-06-27 08:11:03,484 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 7 seconds.
+2015-06-27 08:11:04,485 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 6 seconds.
+2015-06-27 08:11:05,485 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 5 seconds.
+2015-06-27 08:11:06,486 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 4 seconds.
+2015-06-27 08:11:07,487 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 3 seconds.
+2015-06-27 08:11:08,488 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 2 seconds.
+2015-06-27 08:11:09,489 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Waiting as there are still 1 inflight and pending exchanges to complete, timeout in 1 seconds.
+2015-06-27 08:11:10,482 [Thread-0       ] WARN  DefaultShutdownStrategy        - Timeout occurred during graceful shutdown. Forcing the routes to be shutdown now. Notice: some resources may still be running as graceful shutdown did not complete successfully.
+2015-06-27 08:11:10,482 [ - ShutdownTask] WARN  DefaultShutdownStrategy        - Interrupted while waiting during graceful shutdown, will force shutdown now.
+2015-06-27 08:11:10,483 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 10 seconds
+2015-06-27 08:11:10,483 [ - ShutdownTask] INFO  SftpOperations                 - JSCH -> Disconnecting from 192.168.1.11 port 22
+2015-06-27 08:11:10,496 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 1 day 10 hours
+2015-06-27 08:11:10,497 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 10.022 seconds

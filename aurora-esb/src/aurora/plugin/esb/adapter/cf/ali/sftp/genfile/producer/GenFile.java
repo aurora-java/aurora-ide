@@ -3,7 +3,6 @@ package aurora.plugin.esb.adapter.cf.ali.sftp.genfile.producer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -86,6 +85,17 @@ public class GenFile {
 						+ "Genfile Loaded From DB.");
 		new ConsoleLog().log2Console("[Gen File] " + "[" + serviceName + "] "
 				+ "Genfile Loaded From DB.");
+		if (callProc == null) {
+
+			esbContext.getmLogger().log(
+					Level.SEVERE,
+					"" + "[Gen File] " + "[" + serviceName + "] "
+							+ "GenFile No Data Found From DB.");
+			new ConsoleLog().log2Console("[Gen File] " + "[" + serviceName
+					+ "] " + "GenFile No Data Found From DB.");
+			return;
+
+		}
 
 		CompositeMap parameter = callProc.getChild("parameter");
 		if (parameter == null) {

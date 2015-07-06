@@ -27,7 +27,7 @@ public class DBLog {
 			// return executeProc;
 		} catch (Exception e) {
 			String msg = e.getMessage();
-			log("[LOG ERROR ] " + " errorMSG: " + msg);
+			//log("[LOG ERROR ] " + " errorMSG: " + msg);
 			clog.log2Console("[LOG ERROR ]  " + " errorMSG: " + msg);
 			// e.printStackTrace();
 			return;

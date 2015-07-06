@@ -14,6 +14,7 @@ import uncertain.logging.ILogger;
 import uncertain.logging.LoggingContext;
 import uncertain.ocm.AbstractLocatableObject;
 import uncertain.ocm.IObjectRegistry;
+import aurora.plugin.adapter.std.ws.producer.STDWSProducerAdapter;
 import aurora.plugin.adapter.ws.std.producer.WSSTDProducerAdapter;
 import aurora.plugin.esb.adapter.cf.ali.sftp.download.producer.CFAliDownloadProducerAdapter;
 import aurora.plugin.esb.adapter.cf.ali.sftp.genfile.producer.CFAliGenFileProducerAdapter;
@@ -83,6 +84,7 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		{
 			esbContext.getAdapterManager().registry(new WSSTDProducerAdapter());
 			esbContext.getAdapterManager().registry(new WSSTDConsumerAdapter());
+//			esbContext.getAdapterManager().registry(new STDWSProducerAdapter());
 
 			esbContext.getAdapterManager().registry(
 					new CFAliDownloadProducerAdapter());
