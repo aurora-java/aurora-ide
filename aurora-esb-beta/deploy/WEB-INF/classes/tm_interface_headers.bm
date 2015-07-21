@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm" xmlns:f="aurora.database.features" alias="t1" baseTable="TM_INTERFACE_HEADERS">
+    <bm:fields>
+        <bm:field name="head_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="HEAD_ID" prompt="TM_INTERFACE_HEADERS.HEAD_ID"/>
+        <bm:field name="filename" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="FILENAME" prompt="TM_INTERFACE_HEADERS.FILENAME"/>
+        <bm:field name="filedate" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="FILEDATE" prompt="TM_INTERFACE_HEADERS.FILEDATE"/>
+        <bm:field name="batchid" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="BATCHID" prompt="TM_INTERFACE_HEADERS.BATCHID"/>
+        <bm:field name="version" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="VERSION" prompt="TM_INTERFACE_HEADERS.VERSION"/>
+        <bm:field name="count" databaseType="NUMBER" datatype="java.lang.Long" physicalName="COUNT" prompt="TM_INTERFACE_HEADERS.COUNT"/>
+        <bm:field name="islast" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="ISLAST" prompt="TM_INTERFACE_HEADERS.ISLAST"/>
+        <bm:field name="enabled_flag" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="ENABLED_FLAG" prompt="TM_INTERFACE_HEADERS.ENABLED_FLAG"/>
+        <bm:field name="servicename" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="SERVICENAME" prompt="TM_INTERFACE_HEADERS.SERVICENAME"/>
+    </bm:fields>
+    <bm:features>
+        <f:standard-who/>
+    </bm:features>
+    <bm:primary-key>
+        <bm:pk-field name="head_id"/>
+    </bm:primary-key>
+    <bm:query-fields>
+        <bm:query-field field="head_id" queryOperator="="/>
+    </bm:query-fields>
+    <bm:operations>
+        <bm:operation name="update">
+            <bm:update-sql><![CDATA[
+                BEGIN
+                    ${@head_id} := tm_interface_pkg.insert_tm_interface_headers(p_filename 	=> ${@filename},
+                    										   				  p_filedate 	=> ${@yyymmdd}, 
+                    										   				  p_batchid 	=> ${@batchno}, 
+                    										   				  p_version 	=> ${@version}, 
+                    										   				  p_count 		=> ${@count}, 
+                    										   				  p_islast 	    => ${@isLast},
+                    										   				  p_servicename => ${@servicename});
+                    										   
+                    										   
+                END;
+            ]]></bm:update-sql>
+            <bm:parameters>
+                <bm:parameter name="head_id" dataType="java.lang.Long" output="true" outputPath="@head_id"/>
+            </bm:parameters>
+        </bm:operation>
+    </bm:operations>
+</bm:model>

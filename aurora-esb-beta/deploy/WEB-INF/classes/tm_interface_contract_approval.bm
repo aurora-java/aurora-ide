@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bm:model xmlns:bm="http://www.aurora-framework.org/schema/bm" alias="t1" baseTable="TM_INTERFACE_CONTRACT_APPROVAL">
+    <bm:fields>
+        <bm:field name="approval_line_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="APPROVAL_LINE_ID" prompt="TM_INTERFACE_CONTRACT_APPROVAL.APPROVAL_LINE_ID"/>
+        <bm:field name="head_id" databaseType="NUMBER" datatype="java.lang.Long" physicalName="HEAD_ID" prompt="TM_INTERFACE_CONTRACT_APPROVAL.HEAD_ID"/>
+        <bm:field name="applyno" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="APPLYNO" prompt="TM_INTERFACE_CONTRACT_APPROVAL.APPLYNO"/>
+        <bm:field name="allowloan" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="ALLOWLOAN" prompt="TM_INTERFACE_CONTRACT_APPROVAL.ALLOWLOAN"/>
+        <bm:field name="failreason" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="FAILREASON" prompt="TM_INTERFACE_CONTRACT_APPROVAL.FAILREASON"/>
+        <bm:field name="contractno" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="CONTRACTNO" prompt="TM_INTERFACE_CONTRACT_APPROVAL.CONTRACTNO"/>
+        <bm:field name="reasontype" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="REASONTYPE" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REASONTYPE"/>
+        <bm:field name="applyamount" databaseType="NUMBER" datatype="java.lang.Long" physicalName="APPLYAMOUNT" prompt="TM_INTERFACE_CONTRACT_APPROVAL.APPLYAMOUNT"/>
+        <bm:field name="ref_n01" databaseType="NUMBER" datatype="java.lang.Long" physicalName="REF_N01" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_N01"/>
+        <bm:field name="ref_n02" databaseType="NUMBER" datatype="java.lang.Long" physicalName="REF_N02" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_N02"/>
+        <bm:field name="ref_n03" databaseType="NUMBER" datatype="java.lang.Long" physicalName="REF_N03" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_N03"/>
+        <bm:field name="ref_n04" databaseType="NUMBER" datatype="java.lang.Long" physicalName="REF_N04" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_N04"/>
+        <bm:field name="ref_n05" databaseType="NUMBER" datatype="java.lang.Long" physicalName="REF_N05" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_N05"/>
+        <bm:field name="ref_v01" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="REF_V01" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_V01"/>
+        <bm:field name="ref_v02" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="REF_V02" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_V02"/>
+        <bm:field name="ref_v03" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="REF_V03" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_V03"/>
+        <bm:field name="ref_v04" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="REF_V04" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_V04"/>
+        <bm:field name="ref_v05" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="REF_V05" prompt="TM_INTERFACE_CONTRACT_APPROVAL.REF_V05"/>
+        <bm:field name="process_status" databaseType="VARCHAR2" datatype="java.lang.String" physicalName="PROCESS_STATUS" prompt="TM_INTERFACE_CONTRACT_APPROVAL.PROCESS_STATUS"/>
+    </bm:fields>
+    <bm:features>
+        <f:standard-who xmlns:f="aurora.database.features"/>
+    </bm:features>
+    <bm:primary-key>
+        <bm:pk-field name="approval_line_id"/>
+    </bm:primary-key>
+     <bm:query-fields >
+        <bm:query-field field="process_status" queryOperator="=" />
+    </bm:query-fields>
+</bm:model>

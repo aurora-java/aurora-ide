@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <cf_ali name="ali_upload" type="cf.ali.sftp.upload" autoStart="false">
+        <sftp uploadUrl="sftp://115.124.16.69:22/upload" orgCode="CFCAR">
+         <uploadPara><![CDATA[
+      ?username=cfcar&password=123456&delay=100s&noop=true&recursive=true
+          ]]></uploadPara>
+        </sftp>
+        <local orgCode="CFCAR" uploadingPath="file:/Users/shiliyan/Desktop/esb/uploading" uploadingPara="" uploadedPath="file:/Users/shiliyan/Desktop/esb/upload">
+            <uploadingPara><![CDATA[
+     ?delay=10s&recursive=true&delete=true
+          ]]></uploadingPara>
+              <uploadedPara><![CDATA[
+          ]]></uploadedPara>
+        
+        </local>
+    </cf_ali>
+    

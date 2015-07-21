@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:jco="aurora.plugin.sap.jco3" trace="true">
+    
+   <!-- <a:model-execute model="test"/>-->
+    
+   <a:batch-apply sourcepath="/parameter">
+            <p:switch test="@current_parameter/@servicename">
+                <p:case value="AUTOFI_CREATE_CONTRACT">
+                    <a:model-update model="tm_interface_headers"/>
+                    <a:model-batch-update model="tm_interface_create_contract" sourcePath="@current_parameter/datas"/>
+                </p:case>
+                <p:case value="AUTOFI_CANCLE_CONTRACT">
+                    <a:model-update model="tm_interface_headers"/>
+                    <a:model-batch-update model="tm_interface_contract_cancel" sourcePath="@current_parameter/datas"/>
+                </p:case>
+                <p:case value="AUTOFI_PAYEE_INFO">
+                    <a:model-update model="tm_interface_headers"/>
+                    <a:model-batch-update model="tm_interface_payee_info" sourcePath="@current_parameter/datas"/>
+                </p:case>
+                <p:case value="AUTOFI_INVOICE_INFO">
+                    <a:model-update model="tm_interface_headers"/>
+                    <a:model-batch-update model="tm_interface_invoice_info" sourcePath="@current_parameter/datas"/>
+                </p:case>
+                <p:case value="AUTOFI_LOAN_RESULT">
+                    <a:model-update model="tm_interface_headers"/>
+                    <a:model-batch-update model="tm_interface_loan_result" sourcePath="@current_parameter/datas"/>
+                </p:case>
+                <p:case value="AUTOFI_PAYMENT_RESULT">
+                    <a:model-update model="tm_interface_headers"/>
+                    <a:model-batch-update model="tm_interface_payment_result" sourcePath="@current_parameter/datas"/>
+                </p:case>
+            </p:switch>
+        </a:batch-apply>
+         
+        <p:echo />
+</p:procedure>
+ 

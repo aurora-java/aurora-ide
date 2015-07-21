@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:procedure xmlns:a="http://www.aurora-framework.org/application" xmlns:p="uncertain.proc" xmlns:s="aurora.plugin.script" trace="true">
+         <s:server-script><![CDATA[
+            function b(value) {
+                return value == null || value == undefined ? "" : value;
+            }
+            
+            var result = $bm('tm_create_contract_approval').execute($ctx.parameter); //通过一个BM去调用后台pkg去生成文件头
+            var head_id = $ctx.parameter.head_id;
+            
+            
+            var head_bm = $bm('tm_interface_headers');
+            var head_record = head_bm.queryAsMap({
+                head_id: head_id
+            }).getChildren();
+            
+            var line_bm = $bm('tm_interface_con_approval');
+            var line_record = line_bm.queryAsMap({
+                head_id: head_id
+            }).getChildren();
+            
+            if (head_record.length == 0) {
+                //return;
+            } else if (line_record.length == 0) {
+                var header = new CompositeMap('header');
+            
+                header.fileName = b(head_record[0].filename);
+                header.yyyymmdd = b(head_record[0].filedate);
+                header.batchNo = b(head_record[0].batchid);
+                header.version = b(head_record[0].version);
+                header.count = b(head_record[0].count);
+                header.isLast = b(head_record[0].islast);
+                header.orgCode = 'CFCAR';
+                header.serviceName = "AUTOFI_APPROVAL_CONTRACT";
+            
+                $ctx.parameter.addChild(header.getData());
+                $ctx.parameter.count = b(head_record[0].count);
+            } else {
+                var header = new CompositeMap('header');
+                var datas = new CompositeMap('datas');
+            
+                header.fileName = b(head_record[0].filename);
+                header.yyyymmdd = b(head_record[0].filedate);
+                header.batchNo = b(head_record[0].batchid);
+                header.version = b(head_record[0].version);
+                header.count = b(head_record[0].count);
+                header.isLast = b(head_record[0].islast);
+                header.orgCode = 'CFCAR';
+                header.serviceName = "AUTOFI_APPROVAL_CONTRACT";
+            
+                for (var i = 0;i < line_record.length;i++) {
+                    var data = new CompositeMap('data');
+            
+                    data.applyNo = b(line_record[i].applyno);
+                    data.allowLoan = b(line_record[i].allowloan);
+                    data.failReason = b(line_record[i].failreason);
+                    data.reasonType = b(line_record[i].reasontype);
+                    data.applyAmount = b(line_record[i].applyamount);
+                    data.contractNo = b(line_record[i].contractno);
+            
+                    datas.addChild(data);
+                }
+            
+                $ctx.parameter.addChild(header.getData());
+                $ctx.parameter.addChild(datas.getData());
+                $ctx.parameter.count = b(head_record[0].count);
+            }
+        ]]></s:server-script>
+        <p:echo/>
+</p:procedure>
+ 

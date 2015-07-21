@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dc:data-source-config xmlns:dc="aurora.datasource" useTransactionManager="false">
+    <dc:database-connections>           
+        <dc:database-connection driverClass="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@192.168.1.100:1521:ORCL" userName="travel" password="travel" pool="false" initSql="BEGIN sys_nls_language_pkg.set_nls_language(p_nls_language => ${/session/@lang}); END;">        
+			<dc:properties>
+				minPoolSize=1
+				maxPoolSize=20
+				testConnectionOnCheckin=true
+				checkoutTimeout=3000
+				idleConnectionTestPeriod=60
+				maxIdleTime=120
+				preferredTestQuery=select 1 from dual
+			</dc:properties>        
+        </dc:database-connection>
+        <!--
+        <dc:database-connection driverClass="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@172.20.0.124:1521:PROD" userName="cloudtrain" password="handcloudtrain" pool="false" initSql="BEGIN sys_nls_language_pkg.set_nls_language(p_nls_language => ${/session/@lang}); END;">        
+			<dc:properties>
+				minPoolSize=1
+				maxPoolSize=20
+				testConnectionOnCheckin=true
+				checkoutTimeout=3000
+				idleConnectionTestPeriod=60
+				maxIdleTime=120
+				preferredTestQuery=select 1 from dual
+			</dc:properties>        
+        </dc:database-connection>
+-->
+    </dc:database-connections>  
+</dc:data-source-config>

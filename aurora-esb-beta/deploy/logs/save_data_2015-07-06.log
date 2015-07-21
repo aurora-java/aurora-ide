@@ -1,0 +1,56 @@
+2015-07-06 16:08:21.369 [uncertain.proc] [CONFIG] [action] DecideStatement
+2015-07-06 16:08:21.372 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-07-06 16:08:21.372 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-07-06 16:08:21.372 [uncertain.proc] [CONFIG] [action] CreateInsertStatement
+2015-07-06 16:08:21.372 [uncertain.proc] [FINE] aurora.bm.InsertSqlCreator.onCreateInsertStatement
+2015-07-06 16:08:21.372 [uncertain.proc] [CONFIG] [action] PopulateInsertStatement
+2015-07-06 16:08:21.372 [uncertain.proc] [FINE] aurora.database.local.oracle.SequencePk.postPopulateInsertStatement
+2015-07-06 16:08:21.372 [uncertain.proc] [CONFIG] [action] CreateInsertSql
+2015-07-06 16:08:21.372 [uncertain.proc] [FINE] aurora.bm.InsertSqlCreator.onCreateInsertSql
+2015-07-06 16:08:21.372 [uncertain.proc] [CONFIG] [action] CreateSqlRunner
+2015-07-06 16:08:21.372 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onCreateSqlRunner
+2015-07-06 16:08:21.373 [uncertain.proc] [CONFIG] [action] ExecuteDmlStatement
+2015-07-06 16:08:21.373 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onExecuteDmlStatement
+2015-07-06 16:08:21.385 [aurora.database] [CONFIG] 
+============= BEGIN [Insert] SQL Statement execution dump ============
+BEGIN INSERT INTO ESB_DATA_LIST ( LIST_ID,MODEL_NAME,DATA) VALUES ( ESB_DATA_LIST_S.NEXTVAL,?,?)  RETURNING LIST_ID INTO ?; END;
+---------------------Binding info---------------------
+No.1	Access path:@model_name	Data type of passed value :java.lang.String	Value:test	Output:false	Database Type:null	
+No.2	Access path:@data	Data type of passed value :java.lang.String	Value:<?xml version='1.0' encoding='UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+        <soapenv:Envelope success="true">
+            <queryResult bpmSize="10.0" serviceType="saveBPM"/>
+        </soapenv:Envelope>
+    </soapenv:Body>
+</soapenv:Envelope>
+	Output:false	Database Type:null	
+No.3	Access path:@list_id	Data type of passed value :[null]	Value:null	Output:true	Database Type:null	
+
+=============== END [Insert] SQL Statement execution dump ============
+
+2015-07-06 16:08:21.386 [uncertain.proc] [INFO] <esb_conext SERVICE_LOGGING_FILE="/Users/shiliyan/git/aurora-ide/aurora-esb/deploy/logs/save_data_2015-07-06.log" __configuration__="uncertain.event.Configuration@6df593da" BusinessModel="aurora.bm.BusinessModel@4bbb83c1" service_name="save_data" SqlStatementType="Insert" SqlGenerationMode="AutoGenerate" _instance.uncertain.logging.ILoggerProvider="uncertain.logging.LoggerProvider@2fa067db" _instance.aurora.service.IService="aurora.service.http.HttpServiceInstance@7f8bbb12" sso="(ScriptShareObject : 4 elements)" BusinessModelOperation="Insert" SqlString="BEGIN INSERT INTO ESB_DATA_LIST ( LIST_ID,MODEL_NAME,DATA) VALUES ( ESB_DATA_LIST_S.NEXTVAL,${@model_name},${@data})  RETURNING LIST_ID INTO ${@list_id}; END;" SqlStatement="aurora.database.local.oracle.sql.OracleInsertStatement@68906342" current_parameter="{data=&lt;?xml version=&apos;1.0&apos; encoding=&apos;UTF-8&apos;?&gt;
+&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+    &lt;soapenv:Body&gt;
+        &lt;soapenv:Envelope success=&quot;true&quot;&gt;
+            &lt;queryResult bpmSize=&quot;10.0&quot; serviceType=&quot;saveBPM&quot;/&gt;
+        &lt;/soapenv:Envelope&gt;
+    &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+, list_id=101, model_name=test, __parameter_parsed__=true}" SqlRunner="aurora.database.SqlRunner@7c3383f2" __database_all_connection="[com.mchange.v2.c3p0.impl.NewProxyConnection@21db422d]" _instance.uncertain.logging.BasicFileHandler="uncertain.logging.BasicFileHandler@1d7bf918" _instance.java.sql.Connection="com.mchange.v2.c3p0.impl.NewProxyConnection@21db422d">
+    <parameter>
+        <result businessModelName="test"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+        <soapenv:Envelope success="true">
+            <queryResult bpmSize="10.0" serviceType="saveBPM"/>
+        </soapenv:Envelope>
+    </soapenv:Body>
+</soapenv:Envelope>
+]]></result>
+    </parameter>
+    <session/>
+    <cookie/>
+    <model/>
+</esb_conext>
+

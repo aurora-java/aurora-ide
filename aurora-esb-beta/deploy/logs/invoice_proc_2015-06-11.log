@@ -1,0 +1,31 @@
+2015-06-11 16:29:47.22 [aurora.database] [CONFIG] Running batch-apply with data from path /parameter, total 1 records
+2015-06-11 16:29:47.23 [aurora.database] [CONFIG] Executing batch-apply on parameter No.0
+2015-06-11 16:29:47.39 [uncertain.proc] [CONFIG] [action] DecideStatement
+2015-06-11 16:29:47.42 [uncertain.proc] [CONFIG] [action] DecideSqlGenerationMode
+2015-06-11 16:29:47.42 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onDecideSqlGenerationMode
+2015-06-11 16:29:47.42 [uncertain.proc] [CONFIG] [action] CreateOperationSql
+2015-06-11 16:29:47.42 [uncertain.proc] [CONFIG] [action] PopulateOperationSql
+2015-06-11 16:29:47.42 [uncertain.proc] [FINE] aurora.database.features.OrderByClauseCreator.onPopulateOperationSql
+2015-06-11 16:29:47.42 [uncertain.proc] [FINE] aurora.database.features.WhereClauseCreator.onPopulateOperationSql
+2015-06-11 16:29:47.43 [uncertain.proc] [CONFIG] [action] CreateSqlRunner
+2015-06-11 16:29:47.43 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onCreateSqlRunner
+2015-06-11 16:29:47.43 [uncertain.proc] [CONFIG] [action] ExecuteDmlStatement
+2015-06-11 16:29:47.43 [uncertain.proc] [FINE] aurora.database.service.BusinessModelService.onExecuteDmlStatement
+2015-06-11 16:29:47.97 [aurora.database] [CONFIG] 
+============= BEGIN [Update] SQL Statement execution dump ============
+
+	            begin
+	            	tm_interface_std_pkg.insert_cdd_list(p_applyno  => ?,
+                            							 p_filepath => ?,
+                            							 p_filename => ?,
+                            							 p_filesize => ?);
+	            end;
+	        
+---------------------Binding info---------------------
+No.1	Access path:@applyno	Data type of passed value :java.lang.String	Value:94012014070100039601S	Output:false	Database Type:null	
+No.2	Access path:@abspath	Data type of passed value :java.lang.String	Value:file:/Users/shiliyan/Desktop/esb/download/read/CFCAR/invoice/2015/06/10/94012014070100039601S/租赁物件验收及所有权转移证明书94012014070100039601S_1.png	Output:false	Database Type:null	
+No.3	Access path:@filename	Data type of passed value :java.lang.String	Value:租赁物件验收及所有权转移证明书94012014070100039601S_1.png	Output:false	Database Type:null	
+No.4	Access path:@filelength	Data type of passed value :java.lang.String	Value:61973	Output:false	Database Type:null	
+
+=============== END [Update] SQL Statement execution dump ============
+

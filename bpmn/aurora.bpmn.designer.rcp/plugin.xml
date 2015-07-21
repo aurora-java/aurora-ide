@@ -185,7 +185,6 @@
    <!--
 		<dataType name="EColor" class="org.eclipse.bpmn2.modeler.ui.property.EColorConversionDelegate"/>
 		<dataType name="EFont" class="org.eclipse.bpmn2.modeler.ui.property.EFontConversionDelegate"/>
--->
 		<modelExtension
 			id="aurora.bpmn2.ext.xxx"
 			uri="http://test.com/bpmn2/ex"
@@ -199,7 +198,7 @@
 				</value>
 			</property>
 		</modelExtension>
-		
+		-->
 		
 		<!--
 		<propertyTab

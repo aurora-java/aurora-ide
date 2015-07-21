@@ -1,0 +1,1853 @@
+2015-07-14 10:45:20,494 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:45:20,887 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:45:20,888 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:45:21,323 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:45:21,581 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 10:45:21,581 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 10:45:21,676 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:45:21,679 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 10:45:21,680 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.792 seconds
+2015-07-14 10:45:23,346 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52116-1436841920613-0-3 on ExchangeId: ID-bogon-52116-1436841920613-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       659]
+[route1            ] [process1          ] [Processor@0x2765748d                                                          ] [         8]
+[route1            ] [to1               ] [http://api.rubicware.com/                                                     ] [       645]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52116-1436841920613-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                ?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={}
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:45:23,351 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={}]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:45:52,717 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52116-1436841920613-0-6 on ExchangeId: ID-bogon-52116-1436841920613-0-5). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        34]
+[route1            ] [process1          ] [Processor@0x2765748d                                                          ] [         1]
+[route1            ] [to1               ] [http://api.rubicware.com/                                                     ] [        33]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52116-1436841920613-0-5
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                ?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={}
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:45:52,718 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={}]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:46:22,713 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52116-1436841920613-0-9 on ExchangeId: ID-bogon-52116-1436841920613-0-8). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        26]
+[route1            ] [process1          ] [Processor@0x2765748d                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/                                                     ] [        26]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52116-1436841920613-0-8
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                ?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={}
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:46:22,714 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={}]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:46:30,916 [Thread-0       ] INFO  MainSupport$HangupInterceptor  - Received hang up - stopping the main instance.
+2015-07-14 10:46:30,918 [Thread-0       ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
+2015-07-14 10:46:30,918 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-07-14 10:46:30,919 [Thread-0       ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 300 seconds)
+2015-07-14 10:46:30,929 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:46:30,929 [Thread-0       ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2015-07-14 10:46:30,936 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 1 minute
+2015-07-14 10:46:30,936 [Thread-0       ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.018 seconds
+2015-07-14 10:46:50,532 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:46:50,955 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:46:50,957 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:46:51,425 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:46:51,696 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 10:46:51,696 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 10:46:51,829 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:46:51,837 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 10:46:51,849 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.882 seconds
+2015-07-14 10:46:53,744 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52142-1436842010622-0-3 on ExchangeId: ID-bogon-52142-1436842010622-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B%7D with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       897]
+[route1            ] [process1          ] [Processor@0x7b76c098                                                          ] [         9]
+[route1            ] [to1               ] [http://api.rubicware.com/                                                     ] [       882]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52142-1436842010622-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:46:53,750 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B%7D with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:47:22,881 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52142-1436842010622-0-6 on ExchangeId: ID-bogon-52142-1436842010622-0-5). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B%7D with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        40]
+[route1            ] [process1          ] [Processor@0x7b76c098                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/                                                     ] [        40]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52142-1436842010622-0-5
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:47:22,882 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B%7D with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:48:00,965 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:48:01,512 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:48:01,514 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:48:02,529 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:48:02,972 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 10:48:02,972 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 10:48:03,061 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:48:03,068 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 10:48:03,070 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.555 seconds
+2015-07-14 10:48:06,031 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52164-1436842081096-0-3 on ExchangeId: ID-bogon-52164-1436842081096-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [      1939]
+[route1            ] [process1          ] [Processor@0x23df8a93                                                          ] [         9]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [      1924]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52164-1436842081096-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:48:06,048 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:48:34,098 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52164-1436842081096-0-6 on ExchangeId: ID-bogon-52164-1436842081096-0-5). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        26]
+[route1            ] [process1          ] [Processor@0x23df8a93                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        25]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52164-1436842081096-0-5
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:48:34,099 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:49:04,099 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52164-1436842081096-0-9 on ExchangeId: ID-bogon-52164-1436842081096-0-8). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        25]
+[route1            ] [process1          ] [Processor@0x23df8a93                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        23]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52164-1436842081096-0-8
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:49:04,099 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%22begin_date%22%3A%222014-11-11+10%3A00%3A00%22%2C%22end_date%22%3A%222014-11-28+16%3A31%3A00%22%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:50:08,224 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:50:08,649 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:50:08,651 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:50:09,145 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:50:09,524 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 10:50:09,524 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 10:50:09,615 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:50:09,620 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 10:50:09,623 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.972 seconds
+2015-07-14 10:50:11,768 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-3 on ExchangeId: ID-bogon-52195-1436842208351-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [      1130]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [        12]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [      1111]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:50:11,775 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:50:40,713 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-6 on ExchangeId: ID-bogon-52195-1436842208351-0-5). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        87]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        87]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-5
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:50:40,714 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:51:10,653 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-9 on ExchangeId: ID-bogon-52195-1436842208351-0-8). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        26]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        26]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-8
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:51:10,654 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:51:40,659 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-12 on ExchangeId: ID-bogon-52195-1436842208351-0-11). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        30]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        28]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-11
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:51:40,659 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:52:10,675 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-15 on ExchangeId: ID-bogon-52195-1436842208351-0-14). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        43]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        43]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-14
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:52:10,676 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:52:40,691 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-18 on ExchangeId: ID-bogon-52195-1436842208351-0-17). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        57]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        57]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-17
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:52:40,691 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:53:10,661 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-21 on ExchangeId: ID-bogon-52195-1436842208351-0-20). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        24]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        24]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-20
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:53:10,662 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:53:40,684 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-24 on ExchangeId: ID-bogon-52195-1436842208351-0-23). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        44]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         0]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        44]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-23
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:53:40,685 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:54:10,691 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-27 on ExchangeId: ID-bogon-52195-1436842208351-0-26). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        49]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         1]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        47]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-26
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:54:10,692 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:54:40,682 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-30 on ExchangeId: ID-bogon-52195-1436842208351-0-29). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        36]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         1]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        35]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-29
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:54:40,682 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:55:10,674 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52195-1436842208351-0-33 on ExchangeId: ID-bogon-52195-1436842208351-0-32). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        25]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [         1]
+[route1            ] [to1               ] [http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14 10] [        24]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52195-1436842208351-0-32
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:55:10,679 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?data=%7B%27begin_date%27%3A%272014-11-11+10%3A00%3A00%27%2C%27end_date%27%3A%272014-11-28+16%3A31%3A00%27%7D&datetime=2015-07-14+10%3A27%3A10&method=searchOrder&owner=test&sign=10DF1D5890D4851B300CDF90FE4D67B4 with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:55:25,461 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:55:25,969 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:55:25,971 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:55:26,462 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:55:26,790 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutting down
+2015-07-14 10:55:26,802 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) uptime 0.825 seconds
+2015-07-14 10:55:26,802 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is shutdown in 0.003 seconds
+2015-07-14 10:55:26,802 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 stopping
+2015-07-14 10:56:12,312 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:56:12,725 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:56:12,727 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:56:13,155 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:56:13,442 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 10:56:13,442 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 10:56:13,510 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:56:13,525 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 10:56:13,535 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.800 seconds
+2015-07-14 10:56:15,465 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52303-1436842572423-0-3 on ExchangeId: ID-bogon-52303-1436842572423-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       929]
+[route1            ] [process1          ] [Processor@0x238d7bb3                                                          ] [         9]
+[route1            ] [to1               ] [http://www.baidu.com                                                          ] [       913]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52303-1436842572423-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:56:15,473 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:56:44,631 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52303-1436842572423-0-6 on ExchangeId: ID-bogon-52303-1436842572423-0-5). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       103]
+[route1            ] [process1          ] [Processor@0x238d7bb3                                                          ] [         0]
+[route1            ] [to1               ] [http://www.baidu.com                                                          ] [       102]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52303-1436842572423-0-5
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:56:44,632 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:57:14,608 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52303-1436842572423-0-9 on ExchangeId: ID-bogon-52303-1436842572423-0-8). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        77]
+[route1            ] [process1          ] [Processor@0x238d7bb3                                                          ] [         0]
+[route1            ] [to1               ] [http://www.baidu.com                                                          ] [        77]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52303-1436842572423-0-8
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=?method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:57:14,609 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/??method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:57:32,640 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:57:33,145 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:57:33,147 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:57:33,745 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:57:34,124 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 10:57:34,125 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 10:57:34,210 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:57:34,216 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 10:57:34,221 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.072 seconds
+2015-07-14 10:57:36,209 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52327-1436842652780-0-3 on ExchangeId: ID-bogon-52327-1436842652780-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       980]
+[route1            ] [process1          ] [Processor@0x31451150                                                          ] [         8]
+[route1            ] [to1               ] [http://www.baidu.com                                                          ] [       965]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52327-1436842652780-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:57:36,221 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://www.baidu.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:58:05,315 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52327-1436842652780-0-6 on ExchangeId: ID-bogon-52327-1436842652780-0-5). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        95]
+[route1            ] [process1          ] [Processor@0x31451150                                                          ] [         0]
+[route1            ] [to1               ] [http://www.baidu.com                                                          ] [        93]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52327-1436842652780-0-5
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:58:05,316 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://www.baidu.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:58:29,980 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:58:30,415 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:58:30,417 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:58:30,934 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:58:31,220 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 10:58:31,220 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 10:58:31,296 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:58:31,302 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 10:58:31,311 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.888 seconds
+2015-07-14 10:58:32,631 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52346-1436842710125-0-3 on ExchangeId: ID-bogon-52346-1436842710125-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       312]
+[route1            ] [process1          ] [Processor@0x1cf4b560                                                          ] [         8]
+[route1            ] [to1               ] [http://www.baidu.com                                                          ] [       297]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52346-1436842710125-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            null
+	Body                [Body is null]
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:58:32,639 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: [Body is null]]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:59:10,504 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:59:11,040 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:59:11,043 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:59:11,575 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:59:11,919 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 10:59:11,919 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 10:59:12,021 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:59:12,026 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 10:59:12,031 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.987 seconds
+2015-07-14 10:59:43,103 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52360-1436842750636-0-5 on ExchangeId: ID-bogon-52360-1436842750636-0-4). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [        72]
+[route1            ] [process1          ] [Processor@0x1bc7093b                                                          ] [         0]
+[route1            ] [to1               ] [http://www.baidu.com                                                          ] [        70]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52360-1436842750636-0-4
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:59:43,112 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:59:48,181 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 10:59:48,599 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 10:59:48,601 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 10:59:49,107 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 10:59:49,549 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 10:59:49,550 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 10:59:49,621 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 10:59:49,633 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 10:59:49,635 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.034 seconds
+2015-07-14 10:59:51,324 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52372-1436842788288-0-3 on ExchangeId: ID-bogon-52372-1436842788288-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       678]
+[route1            ] [process1          ] [Processor@0x31451150                                                          ] [         9]
+[route1            ] [to1               ] [http://www.baidu.com                                                          ] [       663]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52372-1436842788288-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 10:59:51,334 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:00:35,367 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:00:35,788 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:00:35,794 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:00:36,275 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:00:36,615 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:00:36,616 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:00:36,706 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:00:36,722 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:00:36,725 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.934 seconds
+2015-07-14 11:00:38,439 [0 - timer://foo] INFO  HttpMethodDirector             - I/O exception (org.apache.commons.httpclient.NoHttpResponseException) caught when processing request: The server www.baidu.com failed to respond
+2015-07-14 11:00:38,440 [0 - timer://foo] INFO  HttpMethodDirector             - Retrying request
+2015-07-14 11:00:38,548 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52386-1436842835500-0-3 on ExchangeId: ID-bogon-52386-1436842835500-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       814]
+[route1            ] [process1          ] [Processor@0x5795f4fd                                                          ] [         5]
+[route1            ] [to1               ] [http://www.baidu.com                                                          ] [       803]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52386-1436842835500-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:00:38,555 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://www.baidu.com/ with statusCode: 302, redirectLocation: http://www.baidu.com/search/error.html
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:223)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:01:51,388 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:01:51,874 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:01:51,877 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:01:52,390 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:01:52,848 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:01:52,848 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:01:52,961 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:01:52,966 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:01:52,982 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.092 seconds
+2015-07-14 11:02:48,453 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:02:48,896 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:02:48,898 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:02:49,344 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:02:49,655 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:02:49,655 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:02:49,766 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:02:49,774 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:02:49,776 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.879 seconds
+2015-07-14 11:04:17,416 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:04:17,966 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:04:17,968 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:04:18,513 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:04:18,942 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:04:18,942 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:04:19,054 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:04:19,058 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:04:19,065 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.093 seconds
+2015-07-14 11:04:21,064 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52565-1436843057581-0-3 on ExchangeId: ID-bogon-52565-1436843057581-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       994]
+[route1            ] [process1          ] [Processor@0xe341aca                                                           ] [        11]
+[route1            ] [to1               ] [http://api.rubicware.com/                                                     ] [       973]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52565-1436843057581-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:04:21,080 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/ with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:04:59,150 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:04:59,706 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:04:59,708 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:05:00,315 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:05:00,712 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:05:00,712 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:05:00,834 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:05:00,845 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:05:00,848 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.139 seconds
+2015-07-14 11:05:02,066 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52581-1436843099295-0-3 on ExchangeId: ID-bogon-52581-1436843099295-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       209]
+[route1            ] [process1          ] [Processor@0x7a2bd2f1                                                          ] [        24]
+[route1            ] [to1               ] [http://api.rubicware.com/                                                     ] [       176]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52581-1436843099295-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            null
+	Body                [Body is null]
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:05:02,078 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: [Body is null]]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:05:26,365 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:05:26,903 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:05:26,905 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:05:27,474 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:05:27,912 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:05:27,912 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:05:28,052 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:05:28,084 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:05:28,105 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.181 seconds
+2015-07-14 11:05:46,963 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:05:47,435 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:05:47,437 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:05:47,934 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:05:48,288 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:05:48,288 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:05:48,374 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:05:48,393 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:05:48,402 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.958 seconds
+2015-07-14 11:05:49,682 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52601-1436843147089-0-3 on ExchangeId: ID-bogon-52601-1436843147089-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       278]
+[route1            ] [process1          ] [Processor@0x440dcb91                                                          ] [        17]
+[route1            ] [to1               ] [http://api.rubicware.com/                                                     ] [       255]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52601-1436843147089-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:05:49,692 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: ]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:06:15,261 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:06:15,732 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:06:15,734 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:06:16,276 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:06:16,605 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:06:16,605 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:06:16,684 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:06:16,695 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:06:16,700 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.964 seconds
+2015-07-14 11:06:18,384 [0 - timer://foo] ERROR DefaultErrorHandler            - Failed delivery for (MessageId: ID-bogon-52611-1436843175435-0-3 on ExchangeId: ID-bogon-52611-1436843175435-0-2). Exhausted after delivery attempt: 1 caught: org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[route1            ] [route1            ] [timer://foo?period=30000                                                      ] [       659]
+[route1            ] [process1          ] [Processor@0x6431eacb                                                          ] [         9]
+[route1            ] [to1               ] [http://api.rubicware.com/                                                     ] [       644]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-bogon-52611-1436843175435-0-2
+	ExchangePattern     InOnly
+	Headers             {CamelHttpMethod=POST, CamelHttpQuery=method=searchOrder&owner=test&datetime=2015-07-14 10:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data={'begin_date':'2014-11-11 10:00:00','end_date':'2014-11-28 16:31:00'}, CamelRedelivered=false, CamelRedeliveryCounter=0}
+	BodyType            String
+	Body                a
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:06:18,420 [0 - timer://foo] WARN  TimerConsumer                  - Error processing exchange. Exchange[Message: a]. Caused by: [org.apache.camel.component.http.HttpOperationFailedException - HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500]
+org.apache.camel.component.http.HttpOperationFailedException: HTTP operation failed invoking http://api.rubicware.com/?method=searchOrder&owner=test&datetime=2015-07-14%2010:27:10&sign=10DF1D5890D4851B300CDF90FE4D67B4&data=%7B'begin_date':'2014-11-11%2010:00:00','end_date':'2014-11-28%2016:31:00'%7D with statusCode: 500
+	at org.apache.camel.component.http.HttpProducer.populateHttpOperationFailedException(HttpProducer.java:230)
+	at org.apache.camel.component.http.HttpProducer.process(HttpProducer.java:156)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:129)
+	at org.apache.camel.management.InstrumentationProcessor.process(InstrumentationProcessor.java:77)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:191)
+	at org.apache.camel.component.timer.TimerConsumer.sendTimerExchange(TimerConsumer.java:165)
+	at org.apache.camel.component.timer.TimerConsumer$1.run(TimerConsumer.java:73)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2015-07-14 11:07:03,736 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:07:04,337 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:07:04,339 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:07:04,954 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:07:05,378 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:07:05,378 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:07:05,470 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:07:05,474 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:07:05,490 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 1.138 seconds
+2015-07-14 11:12:32,767 [main           ] INFO  MainSupport                    - Apache Camel 2.15.1 starting
+2015-07-14 11:12:33,272 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) is starting
+2015-07-14 11:12:33,274 [main           ] INFO  ManagedManagementStrategy      - JMX is enabled
+2015-07-14 11:12:33,727 [main           ] INFO  DefaultTypeConverter           - Loaded 193 type converters
+2015-07-14 11:12:34,076 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2015-07-14 11:12:34,077 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2015-07-14 11:12:34,183 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[timer://foo?period=30000]
+2015-07-14 11:12:34,201 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 is started.
+2015-07-14 11:12:34,204 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.15.1 (CamelContext: camel-1) started in 0.926 seconds
