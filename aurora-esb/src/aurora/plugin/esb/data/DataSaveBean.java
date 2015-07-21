@@ -1,6 +1,7 @@
 package aurora.plugin.esb.data;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.model.BusinessModel;
@@ -32,6 +33,10 @@ public class DataSaveBean {
 		 try {
 			CompositeMap executeProc = esbContext.executeProc("save_data", header);
 			System.out.println("save2DB");
+			Message inin = exchange.getIn();
+			exchange.getOut().setHeaders(inin.getHeaders());
+			exchange.getOut().setBody(body);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			exchange.getOut().setFault(true);

@@ -57,8 +57,8 @@ public class STDWSProducerBuilder extends RouteBuilder {
 				}).to(f.getEndpoint()).recipientList()
 				.method(new PersistData(businessModel));
 		//
-		// from("direct:file").bean(new
-		// DataSaveBean(),"save2File").to("direct:consumer");
+		from("direct:file").bean(new DataSaveBean(esbContext, businessModel),
+				"save2File").to("direct:consumer");
 		from("direct:db"
 
 		// "timer://foo?period=30000"

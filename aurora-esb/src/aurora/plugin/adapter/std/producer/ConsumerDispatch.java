@@ -34,7 +34,9 @@ public class ConsumerDispatch {
 
 			ProducerTemplate template = context.createProducerTemplate();
 			// Router createRouter = directConfig.getRouter();
-			template.sendBody("direct:" + consumer, exchange.getIn().getBody());
+			String body = exchange.getIn().getBody(String.class);
+			System.out.println(body);
+			template.sendBody("direct:" + consumer, body);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
