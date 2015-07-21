@@ -412,4 +412,13 @@ public class AuroraEsbContext {
 
 	}
 
+	public void restartRoute(String routeId){
+		try {
+			this.context.stopRoute(routeId);
+			this.context.startRoute(routeId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
