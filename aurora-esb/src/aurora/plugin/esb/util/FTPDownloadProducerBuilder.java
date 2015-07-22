@@ -1,5 +1,6 @@
 package aurora.plugin.esb.util;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
@@ -12,6 +13,7 @@ import org.apache.camel.model.RouteDefinition;
 
 public class FTPDownloadProducerBuilder extends RouteBuilder {
 
+	private long lastDownloadTime;
 	@Override
 	public void configure() throws Exception {
 
@@ -55,21 +57,34 @@ public class FTPDownloadProducerBuilder extends RouteBuilder {
 
 		// lets shutdown faster in case of in-flight messages stack up
 		getContext().getShutdownStrategy().setTimeout(10);
-
+		lastDownloadTime = new Date().getTime();
 		RouteDefinition from = from(ftp_server_url);
 		from.setCustomId(true);
 		from.setId("abc.efg");
-		from.to(local_url);
-
+		from.to(local_url).process(new Processor() {
+			
+			@Override
+			public void process(Exchange exchange) throws Exception {
+				lastDownloadTime = new Date().getTime();
+				
+			}
+		});
+		final long retryTime = 1000 *100;
 		from("timer://foo?period=30000").process(new Processor() {
 
 			@Override
 			public void process(Exchange exchange) throws Exception {
 
 				CamelContext context = exchange.getContext();
+
+				long time = new Date().getTime() - lastDownloadTime - retryTime;
+				if (time > 0) {
+					context.stopRoute("abc.efg");
+					context.startRoute("abc.efg");
+				}
 				// context.getRoute("abc.efg");
-				context.stopRoute("abc.efg");
-				context.startRoute("abc.efg");
+				// context.stopRoute("abc.efg");
+				// context.startRoute("abc.efg");
 			}
 		});
 

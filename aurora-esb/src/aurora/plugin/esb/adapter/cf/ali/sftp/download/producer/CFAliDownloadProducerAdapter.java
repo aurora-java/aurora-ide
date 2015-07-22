@@ -14,7 +14,7 @@ public class CFAliDownloadProducerAdapter implements ProducerAdapter {
 	@Override
 	public RouteBuilder createProducerBuilder(AuroraEsbContext esbContext,
 			Producer producer) {
-		return new TestCFAliDownloadProducerBuilder(esbContext, producer);
+		return new FileFilterCFAliDownloadProducerBuilder(esbContext, producer);
 	}
 
 	@Override
@@ -25,6 +25,6 @@ public class CFAliDownloadProducerAdapter implements ProducerAdapter {
 	@Override
 	public RouteBuilder createProducerBuilder(AuroraEsbContext esbContext,
 			CompositeMap producer) {
-		return new TestCFAliDownloadProducerBuilder(esbContext, producer);
+		return new FileFilterCFAliDownloadProducerBuilder(esbContext, producer);
 	}
 }

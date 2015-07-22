@@ -1,44 +1,53 @@
 package aurora.plugin.esb.adapter.cf.ali.sftp.download.producer;
 
+import java.util.Date;
 import java.util.logging.Level;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
+import org.apache.camel.model.RouteDefinition;
 
 import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.Producer;
 
-public class TestCFAliDownloadProducerBuilder extends RouteBuilder {
+public class FileFilterCFAliDownloadProducerBuilder extends RouteBuilder {
 
+	private static final String CF_ALI_CAR_FTP_DOWNLOAD = "cf.ali.car.ftp.download";
 	private ConsoleLog clog = new ConsoleLog();
 	private AuroraEsbContext esbContext;
 	private Producer producer;
 	private CompositeMap producerMap;
 
-	public TestCFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
+	public FileFilterCFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
 			Producer producer) {
 		this.esbContext = esbContext;
 		this.producer = producer;
 	}
 
-	public TestCFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
+	public FileFilterCFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
 			CompositeMap producer) {
 		this.esbContext = esbContext;
 		this.producerMap = producer;
 
-		JndiRegistry registry = esbContext.getCamelContext().getRegistry(JndiRegistry.class);
+		JndiRegistry registry = esbContext.getCamelContext().getRegistry(
+				JndiRegistry.class);
 		if (registry instanceof JndiRegistry) {
-			((JndiRegistry) registry).bind("FileFilter", new MyFileFilter(esbContext,producerMap));
+			((JndiRegistry) registry).bind("FileFilter", new MyFileFilter(
+					esbContext, producerMap));
 		}
 	}
+
+	private long lastDownloadTime;
 
 	@Override
 	public void configure() throws Exception {
 
 		// esbContext.getCamelContext();
-		getContext();
 
 		String downloadUrl = "sftp://115.124.16.69:22/" + "download";
 		String orgCode = "CFCar";
@@ -76,10 +85,21 @@ public class TestCFAliDownloadProducerBuilder extends RouteBuilder {
 		// # and move downloaded files to a done sub directory
 
 		// lets shutdown faster in case of in-flight messages stack up
-//		getContext().getShutdownStrategy().setTimeout(10);
+		getContext().getShutdownStrategy().setTimeout(10);
+		RouteDefinition from = from(ftp_server_url);
 
-		from(ftp_server_url).to(local_url).bean(new LogBean(esbContext), "log")
-				.log("Downloaded file ${file:name} complete.");
+		from.setCustomId(true);
+		from.setId(CF_ALI_CAR_FTP_DOWNLOAD);
+
+		from.to(local_url).bean(new LogBean(esbContext), "log")
+				.log("Downloaded file ${file:name} complete.")
+				.process(new Processor() {
+
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						lastDownloadTime = new Date().getTime();
+					}
+				});
 
 		esbContext.getmLogger().log(Level.SEVERE,
 				"" + "[Downloaded File] " + "DOWNLOAD Task Configed");
@@ -91,6 +111,25 @@ public class TestCFAliDownloadProducerBuilder extends RouteBuilder {
 		clog.log2Console("[Downloaded File] " + "DOWNLOAD URL "
 				+ ftp_server_url);
 		clog.log2Console("[Downloaded File] " + "SAVE URL " + local_url);
+		final long retryTime = 1000*60*60;
+//		6000000;
+		lastDownloadTime = new Date().getTime();
+		from("timer://foo?period=" + retryTime/3).process(new Processor() {
+
+			@Override
+			public void process(Exchange exchange) throws Exception {
+
+				CamelContext context = exchange.getContext();
+				// context.getRoute("abc.efg");
+				long time = new Date().getTime() - lastDownloadTime - retryTime;
+				if (time > 0) {
+					context.stopRoute(CF_ALI_CAR_FTP_DOWNLOAD);
+					context.startRoute(CF_ALI_CAR_FTP_DOWNLOAD);
+					clog.log2Console("[Downloaded File] "
+							+ "DOWNLOAD Task Configed...");
+				}
+			}
+		});
 
 	}
 }

@@ -2,8 +2,12 @@ package aurora.plugin.esb.adapter.cf.ali.sftp.download.producer;
 
 import java.util.logging.Level;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
+import org.apache.camel.model.RouteDefinition;
 
 import uncertain.composite.CompositeMap;
 import uncertain.ocm.IObjectRegistry;
@@ -73,7 +77,10 @@ public class CFAliDownloadProducerBuilder extends RouteBuilder {
 		// lets shutdown faster in case of in-flight messages stack up
 		getContext().getShutdownStrategy().setTimeout(10);
 
-		from(ftp_server_url).to(local_url).bean(new LogBean(esbContext), "log")
+		RouteDefinition from = from(ftp_server_url);
+		from.setCustomId(true);
+		from.setId("cf.ali.car.ftp.download");
+		from.to(local_url).bean(new LogBean(esbContext), "log")
 				.log("Downloaded file ${file:name} complete.");
 
 		esbContext.getmLogger().log(Level.SEVERE,
@@ -86,6 +93,20 @@ public class CFAliDownloadProducerBuilder extends RouteBuilder {
 		clog.log2Console("[Downloaded File] " + "DOWNLOAD URL "
 				+ ftp_server_url);
 		clog.log2Console("[Downloaded File] " + "SAVE URL " + local_url);
+		
+		
+		from("timer://foo?period=600000").process(new Processor() {
+
+			@Override
+			public void process(Exchange exchange) throws Exception {
+
+				CamelContext context = exchange.getContext();
+				// context.getRoute("abc.efg");
+				context.stopRoute("cf.ali.car.ftp.download");
+				context.startRoute("cf.ali.car.ftp.download");
+				clog.log2Console("[Downloaded File] " + "DOWNLOAD Task Configed...");
+			}
+		});
 
 	}
 }
