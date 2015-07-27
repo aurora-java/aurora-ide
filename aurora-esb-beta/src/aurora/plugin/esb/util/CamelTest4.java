@@ -17,8 +17,8 @@ import org.apache.camel.spi.RouteContext;
 import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.spi.RuntimeEndpointRegistry;
 
-import aurora.plugin.adapter.std.consumer.STDConsumerBuilder;
 import aurora.plugin.adapter.std.producer.STDProducerBuilder;
+import aurora.plugin.adapter.std.ws.consumer.STDConsumerBuilder;
 
 public class CamelTest4 {
 

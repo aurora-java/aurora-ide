@@ -11,10 +11,8 @@ import aurora.plugin.esb.model.BusinessModel;
 
 public class ConsumerDispatch {
 
-	private BusinessModel businessModel;
 
-	public ConsumerDispatch(BusinessModel businessModel) {
-		this.businessModel = businessModel;
+	public ConsumerDispatch() {
 	}
 
 	public void dispatch(Exchange exchange) {

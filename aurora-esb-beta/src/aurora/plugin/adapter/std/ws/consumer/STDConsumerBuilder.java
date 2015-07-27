@@ -1,4 +1,4 @@
-package aurora.plugin.adapter.std.consumer;
+package aurora.plugin.adapter.std.ws.consumer;
 
 import org.apache.camel.builder.RouteBuilder;
 

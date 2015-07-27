@@ -15,6 +15,8 @@ import uncertain.ocm.IObjectRegistry;
 import uncertain.proc.IProcedureManager;
 import uncertain.proc.Procedure;
 import aurora.plugin.esb.adapter.AdapterManager;
+import aurora.plugin.esb.adapter.RouteCheckBuilder;
+import aurora.plugin.esb.adapter.RouteStatusChecker;
 import aurora.plugin.esb.config.DataStore;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.util.FileStore;
@@ -34,13 +36,6 @@ public class AuroraEsbContext {
 
 	private DataStore ds;
 
-	// private List<Producer> producers = new ArrayList<Producer>();
-	//
-	// private List<Consumer> consumers = new ArrayList<Consumer>();
-	//
-	// private List<ProducerConsumer> producerConsumer = new
-	// ArrayList<ProducerConsumer>();
-
 	private AdapterManager adapterManager = new AdapterManager();
 
 	private List<CompositeMap> producerMaps = new ArrayList<CompositeMap>();
@@ -56,6 +51,8 @@ public class AuroraEsbContext {
 
 	private CompositeMap properties = new CompositeMap(RUNNING_PROPERTIES);
 	private FileStore fs;
+
+	private RouteCheckBuilder ecb = new RouteCheckBuilder();
 
 	public AuroraEsbContext() {
 	}
@@ -112,128 +109,6 @@ public class AuroraEsbContext {
 		else
 			this.workPath = workPath + "/";
 	}
-
-	// public List<Producer> getProducers() {
-	// return producers;
-	// }
-	//
-	// public void addProducer(Producer producer) {
-	// this.producers.add(producer);
-	// }
-	//
-	// public List<Consumer> getConsumers() {
-	// return consumers;
-	// }
-	//
-	// public void addConsumer(Consumer consumer) {
-	// // producer.addConsumer(consumer);
-	// // consumer.setProducer(producer);
-	// this.consumers.add(consumer);
-	// }
-	//
-	// public void removeConsumer(Consumer consumer) {
-	// // consumer.setProducer(null);
-	// // producer.removeConsumer(consumer);
-	// this.consumers.remove(consumer);
-	// }
-
-	// public void addProducer(DirectConfig dc) {
-	// Producer pro = new Producer();
-	// pro.setName(dc.getName());
-	// pro.setType(dc.getType());
-	// Router router = dc.getRouter();
-	// if (router == null)
-	// return;
-	// pro.setFrom(router.getFrom());
-	// this.addProducer(pro);
-	// }
-	//
-	// public void addConsumer(DirectConfig dc) {
-	// Consumer co = new Consumer();
-	// co.setName(dc.getName());
-	// co.setType(dc.getType());
-	// Router router = dc.getRouter();
-	// if (router == null)
-	// return;
-	// co.setTo(router.getTo());
-	// this.addConsumer(co);
-	// }
-
-	// public List<ProducerConsumer> getProducerConsumer() {
-	// return producerConsumer;
-	// }
-	//
-	// public void setProducerConsumer(ProducerConsumer producerConsumer) {
-	// this.producerConsumer.add(producerConsumer);
-	// }
-	//
-	// public Producer getProducer(String p_name) {
-	// List<Producer> producers = this.getProducers();
-	// for (Producer producer : producers) {
-	// if (p_name.equals(producer.getName())) {
-	// return producer;
-	// }
-	// }
-	// return null;
-	// }
-	//
-	// public Consumer getConsumer(String c_name) {
-	// List<Consumer> consumers = this.getConsumers();
-	// for (Consumer consumer : consumers) {
-	// if (c_name.equals(consumer.getName())) {
-	// return consumer;
-	// }
-	// }
-	// return null;
-	// }
-
-	// public ProducerConsumer getProducerConsumer(String name) {
-	//
-	// List<ProducerConsumer> producerConsumer = this.getProducerConsumer();
-	// for (ProducerConsumer pc : producerConsumer) {
-	// Producer producer = pc.getProducer();
-	// if (producer != null)
-	// if (name.equals(producer.getName())) {
-	// return pc;
-	// }
-	// CompositeMap producerMap = pc.getProducerMap();
-	// if (producerMap != null)
-	// if (name.equals(producerMap.getString("name", ""))) {
-	// return pc;
-	// }
-	// }
-	// return null;
-	// }
-	//
-	// public void bind(Producer producer, Consumer consumer) throws Exception {
-	// ProducerConsumer pc = this.getProducerConsumer(producer.getName());
-	// if (pc != null) {
-	// pc.addConsumer(consumer);
-	// // this.context.addRoutes(new ConsumerBuilder(this, consumer));
-	// this.context.addRoutes(this.adapterManager.createRouteBuilder(this,
-	// consumer));
-	// }
-	//
-	// }
-	//
-	// public boolean isActive(Producer producer) {
-	// ProducerConsumer pc = this.getProducerConsumer(producer.getName());
-	// return pc != null;
-	// }
-
-	// public boolean isActive(String producer) {
-	// ProducerConsumer pc = this.getProducerConsumer(producer);
-	// return pc != null;
-	// }
-
-	// public void bind(Producer producer) throws Exception {
-	// ProducerConsumer pc = new ProducerConsumer();
-	// pc.setProducer(producer);
-	// this.getProducerConsumer().add(pc);
-	// // this.context.addRoutes(new ProducerBuilder(this, producer));
-	// this.context.addRoutes(this.adapterManager.createRouteBuilder(this,
-	// producer));
-	// }
 
 	public DataStore getDataStore() {
 		return ds;
@@ -412,7 +287,7 @@ public class AuroraEsbContext {
 
 	}
 
-	public void restartRoute(String routeId){
+	public void restartRoute(String routeId) {
 		try {
 			this.context.stopRoute(routeId);
 			this.context.startRoute(routeId);
@@ -420,5 +295,13 @@ public class AuroraEsbContext {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void addRouteChecker(String routeId, RouteStatusChecker checker) {
+		this.ecb.addRouteChecker(routeId, checker);
+	}
+
+	public void removeRouteChecker(String routeId, RouteStatusChecker checker) {
+		this.ecb.removeRouteChecker(routeId, checker);
+	}
+
 }

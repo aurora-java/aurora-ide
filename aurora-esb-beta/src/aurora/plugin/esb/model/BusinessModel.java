@@ -1,10 +1,15 @@
 package aurora.plugin.esb.model;
 
+import uncertain.composite.CompositeMap;
+
 public class BusinessModel {
 
 	private String name;
 	private String type;
 	private Object data;
+	
+	private CompositeMap dataMap;
+	//name,category,id
 
 	public BusinessModel(String name) {
 		this.name = name;

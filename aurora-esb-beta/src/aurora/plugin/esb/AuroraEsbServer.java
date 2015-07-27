@@ -14,7 +14,7 @@ import uncertain.logging.ILogger;
 import uncertain.logging.LoggingContext;
 import uncertain.ocm.AbstractLocatableObject;
 import uncertain.ocm.IObjectRegistry;
-import aurora.plugin.adapter.std.consumer.STDWSConsumerAdapter;
+import aurora.plugin.adapter.std.ws.consumer.STDWSConsumerAdapter;
 import aurora.plugin.adapter.std.ws.producer.STDWSProducerAdapter;
 import aurora.plugin.esb.config.FileDataStore;
 import aurora.plugin.esb.model.DirectConfig;
