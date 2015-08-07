@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<uncertain-engine defaultLogLevel="INFO">
-	<path-config logPath="/Users/shishiliyan/Desktop/work/aurora/workspace/runtime-aurora_protype/aurora_project/logs" uiPackageBasePath="/Users/shishiliyan/Desktop/work/aurora/workspace/aurora/AuroraUI/src" /> 
-</uncertain-engine>

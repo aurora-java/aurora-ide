@@ -1,6 +1,7 @@
 package aurora.plugin.pdf.jpg;
 
 import java.util.List;
+import java.util.Set;
 
 import uncertain.composite.CompositeMap;
 import uncertain.ocm.IObjectRegistry;
@@ -42,6 +43,7 @@ public class PdfJpg extends AbstractEntry {
 		String _pdfPath = getValue(pdfPath, model, "pdfPath");
 		String _savePath = getValue(savePath, model, "savePath");
 		String _jpgName = getValue(jpgName, model, "jpgName");
+		
 
 		List<String> jpgs = Pdf2Jpg.setup(_pdfPath, _savePath, _jpgName);
 

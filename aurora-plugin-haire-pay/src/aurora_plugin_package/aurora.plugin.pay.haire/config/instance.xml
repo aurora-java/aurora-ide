@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<u:instance-config xmlns:u="uncertain.pkg">
+<!-- 	<u:instances>
+		<u:configurable-instance configFile="dblog.config">
+			<u:description>idoc db log</u:description>
+			<u:required-instances>
+				<u:type typeName="javax.sql.DataSource" />
+			</u:required-instances>
+		</u:configurable-instance>	
+	</u:instances> -->
+</u:instance-config>

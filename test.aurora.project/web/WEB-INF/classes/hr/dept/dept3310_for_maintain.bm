@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bm:model alias="e" extend="hr.dept.dept3310" extendMode="override" xmlns:bm="http://www.aurora-framework.org/schema/bm">
-    <bm:fields>
-        <bm:field name="dept3310_pk"/>
-        <bm:field name="dep_c1"/>
-        <bm:field name="dep_c2"/>
-    </bm:fields>
-</bm:model>

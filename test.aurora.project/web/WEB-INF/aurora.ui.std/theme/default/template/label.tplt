@@ -1,5 +1,0 @@
-<DIV class="${wrapClass}" style="width:${width}px;${style}" id="${id}"></DIV>
-<script>
-	new Aurora.Label(${config});
-	${binding}
-</script>

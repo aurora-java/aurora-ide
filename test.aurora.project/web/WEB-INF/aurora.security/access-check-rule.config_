@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<s:access-check-rule-config xmlns:s="aurora.security">
-	<access-check-rules>
-		<s:access-check-rule name="wflInstanceCheck" description="工作流实例检查，看当前用户是否在该实例的审批列表以及通知列表里面" checkBM="security.wfl_instance_permission_check" checkField="@IS_VALID" successValue="Y" />
-		<s:access-check-rule name="financeCheck" description="财务人员查看权限" checkBM="security.finance_permission_check" checkField="@IS_VALID" successValue="Y"/>
-	</access-check-rules>	
-</s:access-check-rule-config>	

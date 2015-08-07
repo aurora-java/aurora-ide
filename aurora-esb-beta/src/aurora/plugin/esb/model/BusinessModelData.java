@@ -24,6 +24,13 @@ public class BusinessModelData {
 		getDataMap().put("data", data);
 	}
 
+	public String getId() {
+		return dataMap.getString("id", "");
+	}
+	
+	public String getData(){
+		return dataMap.getString("data", "NO DATA FOUND");
+	}
 	public CompositeMap getDataMap() {
 		return dataMap;
 	}

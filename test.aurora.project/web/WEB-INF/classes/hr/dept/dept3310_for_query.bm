@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bm:model alias="e" extend="hr.dept.dept3310" extendMode="override" xmlns:bm="http://www.aurora-framework.org/schema/bm"/>

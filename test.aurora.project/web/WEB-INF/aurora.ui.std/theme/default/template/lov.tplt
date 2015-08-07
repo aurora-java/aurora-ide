@@ -1,8 +1,0 @@
-<DIV class="${wrapClass}" style="width:${width}px;${style}" id="${id}">
-	<INPUT class="item-textField" atype="field.input" style="width: ${inputwidth}px;" autocomplete="off"/>
-	<DIV class="item-trigger item-lovButton" atype="triggerfield.trigger" hideFocus></DIV>
-</DIV>
-<script>
-	new Aurora.Lov(${config});
-	${binding}
-</script>	

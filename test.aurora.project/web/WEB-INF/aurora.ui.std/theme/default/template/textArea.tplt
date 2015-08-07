@@ -1,5 +1,0 @@
-<textarea class="${wrapClass}" autocomplete="off" atype="input" style="width:${width}px;height:${height}px;${style}" id="${id}"></textarea>
-<script>
-	new Aurora.TextArea(${config});
-	${binding}
-</script>

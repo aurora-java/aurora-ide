@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<uncertain-engine name="hec">
-	<packages>
-		<package-path classPath="aurora_plugin_package/aurora.plugin.jms"/>
-		<package-path classPath="aurora_plugin_package/aurora.plugin.memcached"/>
-		<package-path classPath="aurora_plugin_package/aurora.plugin.dataimport"/>
-		<package-path classPath="aurora_plugin_package/aurora.plugin.export"/>
-	</packages>
-</uncertain-engine>

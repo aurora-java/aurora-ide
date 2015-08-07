@@ -27,13 +27,13 @@ public class STDProducerBuilder extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		BusinessModel businessModel = new BusinessModel("test");
-		from("file:/Users/shiliyan/Desktop/esb/test/files").recipientList().method(new PersistData(businessModel)); 
+//		from("file:/Users/shiliyan/Desktop/esb/test/files").recipientList().method(new PersistData(businessModel)); 
 		
-		from("direct:file").bean(new DataSaveBean(esbContext, businessModel),"save2File").to("direct:consumer");
-		from("direct:db").bean(new DataSaveBean(esbContext, businessModel),"save2DB").to("direct:consumer");
-		
-//		BusinessModel.name
-		
-		from("direct:consumer").bean(new ConsumerDispatch(businessModel),"dispatch");
+//		from("direct:file").bean(new DataSaveBean(esbContext, businessModel),"save2File").to("direct:consumer");
+//		from("direct:db").bean(new DataSaveBean(esbContext, businessModel),"save2DB").to("direct:consumer");
+//		
+////		BusinessModel.name
+//		
+//		from("direct:consumer").bean(new ConsumerDispatch(businessModel),"dispatch");
 	}
 }

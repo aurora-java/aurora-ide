@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bm:model alias="e" extend="hr.emp.job3310" extendMode="reference" xmlns:bm="http://www.aurora-framework.org/schema/bm">
-    <bm:fields>
-        <bm:field name="job3310_pk" forDisplay="true"/>
-        <bm:field name="job_c1" forDisplay="true" forQuery="true"/>
-        <bm:field name="job_c2" forDisplay="true" forQuery="true"/>
-    </bm:fields>
-    <bm:query-fields/>
-</bm:model>

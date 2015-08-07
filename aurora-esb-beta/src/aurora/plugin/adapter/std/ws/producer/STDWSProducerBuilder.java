@@ -13,9 +13,11 @@ import aurora.plugin.adapter.std.producer.PersistData;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.data.DataSaveBean;
+import aurora.plugin.esb.model.BusinessModelConsumer;
 import aurora.plugin.esb.model.BusinessModelProducer;
 import aurora.plugin.esb.model.Demo;
 import aurora.plugin.esb.model.From;
+import aurora.plugin.esb.util.BusinessModelUtil;
 import aurora.plugin.esb.ws.WSHelper;
 
 public class STDWSProducerBuilder extends RouteBuilder {
@@ -36,9 +38,10 @@ public class STDWSProducerBuilder extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		final From f = Demo.createFrom();
-		// BusinessModel businessModel = new BusinessModel("test");
-		BusinessModelProducer businessModelProducer = new BusinessModelProducer();
-		businessModelProducer.set("001", "test", "001_producer");
+
+		String id = producerMap.getString("id","");
+		BusinessModelProducer businessModelProducer = BusinessModelUtil.getBusinessModelProducer(id);
+
 		RouteDefinition from = from("timer://foo?period=30000");
 		from.process(new Processor() {
 
@@ -61,6 +64,6 @@ public class STDWSProducerBuilder extends RouteBuilder {
 		//
 		// // BusinessModel.name
 		//
-		from("direct:consumer").bean(new ConsumerDispatch(), "dispatch");
+		from("direct:consumer").bean(new ConsumerDispatch(businessModelProducer), "dispatch");
 	}
 }

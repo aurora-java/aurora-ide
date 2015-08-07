@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bm:model alias="e" extend="hr.emp.emp3310" extendMode="override" xmlns:bm="http://www.aurora-framework.org/schema/bm">
-    <bm:ref-fields>
-        <bm:ref-field name="dep_c1_ref" relationName="d_e" sourceField="dep_c1"/>
-        <bm:ref-field name="job_c1_ref" relationName="e_j" sourceField="job_c1"/>
-    </bm:ref-fields>
-</bm:model>

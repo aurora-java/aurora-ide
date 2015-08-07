@@ -19,6 +19,7 @@ import aurora.plugin.adapter.std.ws.producer.STDWSProducerAdapter;
 import aurora.plugin.esb.config.FileDataStore;
 import aurora.plugin.esb.model.DirectConfig;
 import aurora.plugin.esb.model.xml.XMLHelper;
+import aurora.plugin.esb.util.BusinessModelUtil;
 
 public class AuroraEsbServer extends AbstractLocatableObject implements
 		ILifeCycle {
@@ -68,28 +69,33 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 				.equalsIgnoreCase(isNeedCommandConsole));
 		esbContext.loadProperties();
 
-//		loadProducer(config);
-//
-//		loadConsumer(config);
+		// loadProducer(config);
+		//
+		// loadConsumer(config);
 
 		loadProducerMap(config);
 
 		loadConsumerMap(config);
-
 		{
-//			esbContext.getAdapterManager().registry(new WSSTDProducerAdapter());
-//			esbContext.getAdapterManager().registry(new WSSTDConsumerAdapter());
+
+			BusinessModelUtil.startup(esbContext);
+		}
+		{
+			// esbContext.getAdapterManager().registry(new
+			// WSSTDProducerAdapter());
+			// esbContext.getAdapterManager().registry(new
+			// WSSTDConsumerAdapter());
 			esbContext.getAdapterManager().registry(new STDWSProducerAdapter());
 			esbContext.getAdapterManager().registry(new STDWSConsumerAdapter());
 
-//			esbContext.getAdapterManager().registry(
-//					new CFAliDownloadProducerAdapter());
-//			esbContext.getAdapterManager().registry(
-//					new CFAliUploadProducerAdapter());
-//			esbContext.getAdapterManager().registry(
-//					new CFAliFileReaderProducerAdapter());
-//			esbContext.getAdapterManager().registry(
-//					new CFAliGenFileProducerAdapter());
+			// esbContext.getAdapterManager().registry(
+			// new CFAliDownloadProducerAdapter());
+			// esbContext.getAdapterManager().registry(
+			// new CFAliUploadProducerAdapter());
+			// esbContext.getAdapterManager().registry(
+			// new CFAliFileReaderProducerAdapter());
+			// esbContext.getAdapterManager().registry(
+			// new CFAliGenFileProducerAdapter());
 
 		}
 
@@ -117,18 +123,17 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 				this.getProducer());
 		for (CompositeMap directConfig : loadDirectConfig) {
 			esbContext.addProducerMap(directConfig);
-
 		}
 	}
 
-//	private void loadConsumer(File config) {
-//		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
-//				this.getConsumer());
-//		for (DirectConfig directConfig : loadDirectConfig) {
-//			esbContext.addConsumer(directConfig);
-//
-//		}
-//	}
+	// private void loadConsumer(File config) {
+	// List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
+	// this.getConsumer());
+	// for (DirectConfig directConfig : loadDirectConfig) {
+	// esbContext.addConsumer(directConfig);
+	//
+	// }
+	// }
 
 	private List<CompositeMap> loadConfigMap(File config, String routers) {
 		String[] split = routers.split(",");
@@ -178,15 +183,15 @@ public class AuroraEsbServer extends AbstractLocatableObject implements
 		return dcs;
 	}
 
-//	public void loadProducer(File config) {
-//
-//		List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
-//				this.getProducer());
-//		for (DirectConfig directConfig : loadDirectConfig) {
-//			esbContext.addProducer(directConfig);
-//
-//		}
-//	}
+	// public void loadProducer(File config) {
+	//
+	// List<DirectConfig> loadDirectConfig = this.loadDirectConfig(config,
+	// this.getProducer());
+	// for (DirectConfig directConfig : loadDirectConfig) {
+	// esbContext.addProducer(directConfig);
+	//
+	// }
+	// }
 
 	@Override
 	public void shutdown() {

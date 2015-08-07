@@ -6,7 +6,6 @@ public class BusinessModel {
 
 	private String name;
 	private String type;
-	private Object data;
 	
 	private CompositeMap dataMap;
 	//name,category,id
@@ -29,14 +28,6 @@ public class BusinessModel {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public Object getData() {
-		return data;
-	}
-
-	public void setData(Object data) {
-		this.data = data;
 	}
 
 }
