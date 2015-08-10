@@ -39,13 +39,13 @@ public class HttpUtils {
    * @throws IOException
    * @return List
    */
-  public static List URLGet(String strUrl, Map map) throws IOException {
+  public static List URLGet(String strUrl, Map map,String enc) throws IOException {
     String strtTotalURL = "";
     List result = new ArrayList();
     if(strtTotalURL.indexOf("?") == -1) {
-      strtTotalURL = strUrl + "?" + getUrl(map);
+      strtTotalURL = strUrl + "?" + getUrl(map,enc);
     } else {
-      strtTotalURL = strUrl + "&" + getUrl(map);
+      strtTotalURL = strUrl + "&" + getUrl(map,enc);
     }
 //    log.debug("strtTotalURL:" + strtTotalURL);
     URL url = new URL(strtTotalURL);
@@ -75,10 +75,10 @@ public class HttpUtils {
    * @throws IOException
    * @return List
    */
-	public static List URLPost(String strUrl, Map map) throws IOException {
+	public static List URLPost(String strUrl, Map map,String enc) throws IOException {
 
     String content = "";
-    content = getUrl(map);
+    content = getUrl(map,enc);
     String totalURL = null;
     if(strUrl.indexOf("?") == -1) {
       totalURL = strUrl + "?" + content;
@@ -117,7 +117,7 @@ public class HttpUtils {
    * @param map Map
    * @return String
    */
-  private static String getUrl(Map map) {
+  private static String getUrl(Map map,String enc) {
     if (null == map || map.keySet().size() == 0) {
       return ("");
     }
@@ -129,7 +129,8 @@ public class HttpUtils {
     	 Object val = map.get(key);
     	 String str = val!=null?val.toString():"";
     	 try {
-			str = URLEncoder.encode(str, "GBK");
+//			String enc = "GBK";
+			str = URLEncoder.encode(str, enc);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

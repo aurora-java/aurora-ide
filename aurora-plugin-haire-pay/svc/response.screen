@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:screen xmlns:w="aurora.plugin.export.word" xmlns:p="uncertain.proc" xmlns:hp="aurora.plugin.pay.haire" xmlns:a="http://www.aurora-framework.org/application" xmlns:pj="aurora.plugin.pdf.jpg" trace="true">
+    <a:init-procedure>
+        <!-- <p:set field="/session/@user_id" sourceField="/model/r_sys_user/record/@user_id"/> -->
+        <p:set field="/pay/@notify_id" sourceField="/parameter/@notify_id"/>
+        <p:set field="/pay/@notify_type" sourceField="/parameter/@notify_type"/>
+        <p:set field="/pay/@notify_time" sourceField="/parameter/@notify_time"/>
+        <p:set field="/pay/@_input_charset" sourceField="/parameter/@_input_charset"/>
+        <p:set field="/pay/@sign" sourceField="/parameter/@sign"/>
+        <p:set field="/pay/@sign_type" sourceField="/parameter/@sign_type"/>
+        <p:set field="/pay/@version" sourceField="/parameter/@version"/>
+        <p:set field="/pay/@outer_trade_no" sourceField="/parameter/@outer_trade_no"/>
+        <p:set field="/pay/@inner_trade_no" sourceField="/parameter/@inner_trade_no"/>
+        <p:set field="/pay/@trade_status" sourceField="/parameter/@trade_status"/>
+        <p:set field="/pay/@trade_amount" sourceField="/parameter/@trade_amount"/>
+        <p:set field="/pay/@gmt_create" sourceField="/parameter/@gmt_create"/>
+        <p:set field="/pay/@gmt_payment" sourceField="/parameter/@gmt_payment"/>
+        <p:set field="/pay/@gmt_close" sourceField="/parameter/@gmt_close"/>
+        <hp:haire-verify signField="notify_id,notify_type,notify_time,_input_charset,sign,sign_type,version,outer_trade_no,inner_trade_no,trade_status,trade_amount,gmt_create,gmt_payment,gmt_close"><![CDATA[
+        ]]></hp:haire-verify>
+        <!-- 
+	CompositeMap haire_pay_result = model.createChild("haire_pay_result");
+		haire_pay_result.put("trade_status", tradeStatus);
+		haire_pay_result.put("verify_result", result.isSuccess());
+	
+         -->
+        <p:echo/>
+    </a:init-procedure>
+    <a:view><![CDATA[
+    ]]></a:view>
+</a:screen>

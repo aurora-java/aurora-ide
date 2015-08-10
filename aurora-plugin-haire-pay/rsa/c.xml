@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:screen xmlns:a="http://www.aurora-framework.org/application" trace="true">
+    <a:init-procedure></a:init-procedure>
+    <a:view template="default" package="aurora.ui.std">
+        <script language="javascript">
+        <![CDATA[
+            function openDemo(url){
+                window.open(url,'_blank')            
+            }
+            
+            
+            
+            function demo1(){
+                openDemo("word1.screen")
+            }
+            function demo2(){
+                openDemo("word2.screen")
+            }
+            function demo3(){
+                openDemo("word3.screen")
+            }
+            function demo4(){
+                openDemo("word4.screen")
+            }
+            function demo5(){
+                openDemo("word5.screen")
+            }
+            function demo6(){
+                openDemo("word6.screen")
+            }
+            function demo7(){
+                openDemo("word7.screen")
+            }
+            function demo8(){
+                openDemo("word8.screen")
+            }
+            function demo9(){
+                openDemo("word9.screen")
+            }
+            function demo10(){
+                openDemo("word10.screen")
+            }
+        ]]>
+        </script>
+        <table border="1" width="800" cellpadding="3">
+            <tr>
+                <td width="700" style="background-color:#eeeeee;font-size:16px;" align="center">描述</td>
+                <td width="100" style="background-color:#eeeeee;font-size:16px;" align="center">Demo</td>
+            </tr>
+            <tr height="30">
+                <td>演示一个简单的hello word</td>
+                <td align="center">
+                    <a:button text="Demo1" click="demo1"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td>创建一个简单的表格</td>
+                <td align="center">
+                    <a:button text="Demo2" click="demo2"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td>从model中填充内容</td>
+                <td align="center">
+                    <a:button text="Demo3" click="demo3"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td>页眉页脚</td>
+                <td align="center">
+                    <a:button text="Demo4" click="demo4"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td>页眉嵌入图片</td>
+                <td align="center">
+                    <a:button text="Demo5" click="demo5"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td>嵌入水印</td>
+                <td align="center">
+                    <a:button text="Demo6" click="demo6"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td>嵌入图片</td>
+                <td align="center">
+                    <a:button text="Demo7" click="demo7"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td>嵌入一段html片段</td>
+                <td align="center">
+                    <a:button text="Demo8" click="demo8"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td>目录，目录结构</td>
+                <td align="center">
+                    <a:button text="Demo9" click="demo9"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td>水平翻转</td>
+                <td align="center">
+                    <a:button text="Demo10" click="demo10"/>
+                </td>
+            </tr>
+        </table>
+    </a:view>
+</a:screen>

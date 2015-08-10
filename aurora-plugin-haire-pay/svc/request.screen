@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:screen xmlns:w="aurora.plugin.export.word" xmlns:p="uncertain.proc" xmlns:hp="aurora.plugin.pay.haire" xmlns:a="http://www.aurora-framework.org/application" xmlns:pj="aurora.plugin.pdf.jpg" trace="true">
+    <a:init-procedure>
+        <!-- <p:set field="/session/@user_id" sourceField="/model/r_sys_user/record/@user_id"/> -->
+        <p:set field="/pay/@outer_trade_no" value="200000030006"/>
+        <p:set field="/pay/@user_name" value="曾某某"/>
+        <p:set field="/pay/@certificates_type" value="1"/>
+        <p:set field="/pay/@certificates_number" value="203980187208171829"/>
+        <p:set field="/pay/@outer_trade_no" value="200000030006"/>
+        <p:set field="/pay/@card_no" value="4567874365729987"/>
+        <p:set field="/pay/@bank_code" value="ABC"/>
+        <p:set field="/pay/@payable_amount" value="776.1"/>
+        <p:set field="/pay/@notify_url" value=""/>
+        <p:set field="/pay/@submit_time" value="www.baidu.com"/>
+        <p:set field="/pay/@_input_charset" value="UTF-8"/>
+        <p:set field="/pay/@memo" value=""/>
+        <p:set field="/pay/@partner_id" value="200000030006"/>
+        <p:set field="/pay/@return_url" value="www.baidu.com"/>
+        <p:set field="/pay/@service" value="create_bank_withholding"/>
+        <p:set field="/pay/@sign_type" value="MD5"/>
+        <p:set field="/pay/@version" value="1.0"/>
+        <hp:haire-pay request_url="https://zmag.kjtpay.com/mag/gateway/receiveOrder.do" signField="service,version,partner_id,_input_charset,return_url,memo,outer_trade_no,user_name,certificates_type,certificates_number,card_no,bank_code,payable_amount,submit_time,notify_url,sign_type"><![CDATA[
+        ]]></hp:haire-pay>
+        <!-- 
+	CompositeMap haire_pay_result = model.createChild("haire_pay_result");
+         -->
+        <p:echo/>
+    </a:init-procedure>
+    <a:view><![CDATA[
+    ]]></a:view>
+</a:screen>

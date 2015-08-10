@@ -1,11 +1,12 @@
 package aurora.plugin.pay.haire;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import uncertain.composite.CompositeMap;
 import uncertain.ocm.IObjectRegistry;
@@ -15,87 +16,9 @@ import aurora.service.ServiceContext;
 
 public class HairePay extends AbstractEntry {
 
-	private String service;
-
-	private String version;
-
-	private String partner_id;
-
-	private String _input_charset;
-
-	private String sign;
-
-	private String sign_type;
-
-	private String return_url;
-
-	private String memo;
-
 	private String request_url;
 
-	public String getService() {
-		return service;
-	}
-
-	public void setService(String service) {
-		this.service = service;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public String getPartner_id() {
-		return partner_id;
-	}
-
-	public void setPartner_id(String partner_id) {
-		this.partner_id = partner_id;
-	}
-
-	public String get_input_charset() {
-		return _input_charset;
-	}
-
-	public void set_input_charset(String _input_charset) {
-		this._input_charset = _input_charset;
-	}
-
-	public String getSign() {
-		return sign;
-	}
-
-	public void setSign(String sign) {
-		this.sign = sign;
-	}
-
-	public String getSign_type() {
-		return sign_type;
-	}
-
-	public void setSign_type(String sign_type) {
-		this.sign_type = sign_type;
-	}
-
-	public String getReturn_url() {
-		return return_url;
-	}
-
-	public void setReturn_url(String return_url) {
-		this.return_url = return_url;
-	}
-
-	public String getMemo() {
-		return memo;
-	}
-
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}
+	private String signField;
 
 	public String getRequest_url() {
 		return request_url;
@@ -141,47 +64,43 @@ public class HairePay extends AbstractEntry {
 		Map<String, String> para = new HashMap<String, String>();
 
 		String message = "";
-		String _service = getValue(this.service, model, "service");
-		message = appendParam(message, "service", _service);
-		para.put("service", _service);
+		CompositeMap pay = context.getChild("pay");
+		String __input_charset = pay.getString("_input_charset", "UTF-8");
 
-		String _version = getValue(version, model, "version");
-		message = appendParam(message, "version", _version);
-		para.put("version", _version);
+		String[] fileds = signField.split(",");
+		for (String f : fileds) {
+			String v = pay.getString(f, "");
+//			message = appendParam(message, f, v, __input_charset);
+			para.put(f, v);
+		}
 
-		String _partner_id = getValue(partner_id, model, "partner_id");
-		message = appendParam(message, "partner_id", _partner_id);
-		para.put("partner_id", _partner_id);
-
-		String __input_charset = getValue(this._input_charset, model,
-				"_input_charset");
-		message = appendParam(message, "_input_charset", __input_charset);
-		para.put("_input_charset", __input_charset);
-
-		String _sign_type = getValue(sign_type, model, "sign_type");
-		String _return_url = getValue(return_url, model, "return_url");
-		message = appendParam(message, "return_url", _return_url);
-		para.put("return_url", _return_url);
-
-		String _memo = getValue(this.memo, model, "memo");
-		message = appendParam(message, "memo", _memo);
-		para.put("memo", _memo);
+//		Set keySet = pay.keySet();
+//		for (Object key : keySet) {
+//			String value = pay.getString(key, "");
+//			para.put("" + key, value);
+//		}
 
 		String _request_url = getValue(request_url, model, "request_url");
 
-		CompositeMap pay = context.getChild("pay");
-		Set keySet = pay.keySet();
-		for (Object key : keySet) {
-			String value = pay.getString(key, "");
-			message = appendParam(message, "" + key, value);
-			para.put("" + key, value);
-		}
+		String signKey = pay.getString("sign_key", "");
+		String signType = pay.getString("sign_type", "");
+		String inputCharset = pay.getString("_input_charset", "");
 
-		String _sign = getMd5(message);
-		para.put("sign", _sign);
-		para.put("sign_type", _sign_type);
+		Map<String, String> map = com.client.util.Core.buildRequestPara(para,
+				signType, signKey, inputCharset);
 
-		List urlPost = HttpUtils.URLPost(_request_url, para);
+		// String _sign = MD5Util.md5Hex(message);
+		// para.put("sign", _sign);
+		// para = encode(para);
+
+		para = map;
+
+		System.out.println(para);
+		// System.out.println(message);
+		// System.out.println(_sign);
+		System.out.println("===================================");
+
+		List urlPost = HttpUtils.URLPost(_request_url, para, __input_charset);
 		// is_success=F&_input_charset=UTF-8&error_code=PARTNER_ID_NOT_EXIST&error_message=合作方Id不存在
 		CompositeMap haire_pay_result = model.createChild("haire_pay_result");
 		for (Object object : urlPost) {
@@ -205,8 +124,10 @@ public class HairePay extends AbstractEntry {
 	}
 
 	static public String appendParam(String returnStr, String paramId,
-			String paramValue) {
+			String paramValue, String enc) throws UnsupportedEncodingException {
 		paramValue = paramValue == null ? "" : paramValue;
+		// String enc = "GBK";
+		// paramValue = URLEncoder.encode(paramValue, enc);
 		if (!returnStr.equals("")) {
 			returnStr = returnStr + "&" + paramId + "=" + paramValue;
 		} else {
@@ -243,6 +164,99 @@ public class HairePay extends AbstractEntry {
 			return null;
 		}
 
+	}
+
+	public static Map<String, String> encode(Map<String, String> sArray) {
+
+		Map<String, String> result = new HashMap<String, String>();
+
+		if (sArray == null || sArray.size() <= 0) {
+			return result;
+		}
+		String charset = sArray.get("_input_charset");
+		for (String key : sArray.keySet()) {
+			String value = sArray.get(key);
+			if (value != null && !value.equals("")) {
+				try {
+					value = URLEncoder.encode(value, charset);
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+			}
+
+			result.put(key, value);
+		}
+
+		return result;
+	}
+
+	public String getSignField() {
+		return signField;
+	}
+
+	public void setSignField(String signField) {
+		this.signField = signField;
+	}
+
+	public static void main(String[] args) {
+		// 访问地址
+		// String gatewayUrl =
+		// "http://localhost:9080/mag/gateway/receiveOrder.do";
+		String gatewayUrl = "https://zmag.kjtpay.com/mag/gateway/receiveOrder.do";
+
+		Map<String, String> sParaTemp = new HashMap<String, String>();
+		sParaTemp.put("service", "create_bank_withholding");
+		sParaTemp.put("version", "1.0");
+		sParaTemp.put("partner_id", "200000030006");
+		sParaTemp.put("_input_charset", "UTF-8");
+		sParaTemp.put("sign", "");
+		sParaTemp.put("sign_type", "MD5");
+		sParaTemp.put("return_url", "www.baidu.com");
+		sParaTemp.put("memo", "");
+
+		// 银行卡号加密
+		// String cardNo =
+		// com.client.util.Core.encryptData(request.getParameter("card_no"),inputCharset);
+		// //证件号加密
+		// String certificatesNumber =
+		// com.client.util.Core.encryptData(request.getParameter("certificates_number"),inputCharset);
+
+		sParaTemp.put("outer_trade_no", "200000030006");
+		sParaTemp.put("user_name", "曾某某");
+		sParaTemp.put("certificates_type", "1");
+		sParaTemp.put("certificates_number", "203980187208171829");
+		sParaTemp.put("bank_code", "ABC");
+		sParaTemp.put("card_no", "4567874365729987");
+		sParaTemp.put("payable_amount", "776.1");
+		sParaTemp.put("submit_time", "");
+		sParaTemp.put("notify_url", "www.baidu.com");
+
+		String signKey = "a";
+		String signType = "MD5";
+		// 参数加密
+		try {
+			Map<String, String> map = com.client.util.Core.buildRequestPara(
+					sParaTemp, signType, signKey, "UTF-8");
+			List urlPost = HttpUtils.URLPost(gatewayUrl, sParaTemp, "UTF-8");
+			// is_success=F&_input_charset=UTF-8&error_code=PARTNER_ID_NOT_EXIST&error_message=合作方Id不存在
+			CompositeMap haire_pay_result = new CompositeMap("haire_pay_result");
+			for (Object object : urlPost) {
+				String r = "" + object;
+				String[] split = r.split("&");
+				for (String s : split) {
+					String[] split2 = s.split("=");
+					if (split2.length == 2) {
+						haire_pay_result.put(split2[0], split2[1]);
+					}
+					if (split2.length == 1) {
+						haire_pay_result.put(split2[0], "");
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
