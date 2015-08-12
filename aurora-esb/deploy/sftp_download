@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <cf_ali name="ali_download" type="cf.ali.sftp.download" autoStart="true">
+        <sftp downloadUrl="sftp://sftp.alipay.com:22/download" startDate="20150811" orgCode="CFCAR">
+        <downloadPara><![CDATA[
+        ?username=autofinanceprodcfcar&password=9PUX31&delay=20s&noop=true&recursive=true
+          ]]></downloadPara>
+        </sftp>
+        <local localSavePath="file:/u01/CF_Leasing/aurora_esb/sftp/download" orgCode="CFCAR" backupPath="file:/u01/CF_Leasing/aurora_esb/sftp/download/read" errorPath="file:/u01/CF_Leasing/aurora_esb/sftp/download/error">
+        <savePara><![CDATA[
+          ]]></savePara>
+        </local>
+        
+    </cf_ali>

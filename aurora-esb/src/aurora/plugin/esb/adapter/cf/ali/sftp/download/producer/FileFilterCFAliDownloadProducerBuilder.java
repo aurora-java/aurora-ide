@@ -1,5 +1,7 @@
 package aurora.plugin.esb.adapter.cf.ali.sftp.download.producer;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 
@@ -43,6 +45,7 @@ public class FileFilterCFAliDownloadProducerBuilder extends RouteBuilder {
 	}
 
 	private long lastDownloadTime;
+	private String lastymd;
 
 	@Override
 	public void configure() throws Exception {
@@ -98,6 +101,9 @@ public class FileFilterCFAliDownloadProducerBuilder extends RouteBuilder {
 					@Override
 					public void process(Exchange exchange) throws Exception {
 						lastDownloadTime = new Date().getTime();
+						Date now = new Date();
+						DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+						lastymd = format1.format(now);
 					}
 				});
 
@@ -111,25 +117,43 @@ public class FileFilterCFAliDownloadProducerBuilder extends RouteBuilder {
 		clog.log2Console("[Downloaded File] " + "DOWNLOAD URL "
 				+ ftp_server_url);
 		clog.log2Console("[Downloaded File] " + "SAVE URL " + local_url);
-		final long retryTime = 1000*60*60;
-//		6000000;
+		final long retryTime = 1000 * 60 * 60 * 6;
+		// 6000000;
 		lastDownloadTime = new Date().getTime();
-		from("timer://foo?period=" + retryTime/3).process(new Processor() {
+		Date now = new Date();
+		DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		lastymd = format1.format(now);
 
-			@Override
-			public void process(Exchange exchange) throws Exception {
+		from("timer://reRouteDownload?period=" + retryTime / 3).process(
+				new Processor() {
 
-				CamelContext context = exchange.getContext();
-				// context.getRoute("abc.efg");
-				long time = new Date().getTime() - lastDownloadTime - retryTime;
-				if (time > 0) {
-					context.stopRoute(CF_ALI_CAR_FTP_DOWNLOAD);
-					context.startRoute(CF_ALI_CAR_FTP_DOWNLOAD);
-					clog.log2Console("[Downloaded File] "
-							+ "DOWNLOAD Task Configed...");
-				}
-			}
-		});
+					@Override
+					public void process(Exchange exchange) throws Exception {
+
+						CamelContext context = exchange.getContext();
+						// context.getRoute("abc.efg");
+						long time = new Date().getTime() - lastDownloadTime
+								- retryTime;
+						if (time > 0) {
+							JndiRegistry registry = esbContext
+									.getCamelContext().getRegistry(
+											JndiRegistry.class);
+							if (registry instanceof JndiRegistry) {
+								Object lookupByName = ((JndiRegistry) registry)
+										.lookupByName("FileFilter");
+								if (lookupByName instanceof MyFileFilter) {
+									((MyFileFilter) lookupByName).setStartdates(lastymd);
+								}
+								// .bind("FileFilter", new MyFileFilter(
+								// esbContext, producerMap));
+							}
+							context.stopRoute(CF_ALI_CAR_FTP_DOWNLOAD);
+							context.startRoute(CF_ALI_CAR_FTP_DOWNLOAD);
+							clog.log2Console("[Downloaded File] "
+									+ "DOWNLOAD Task Configed...");
+						}
+					}
+				});
 
 	}
 }

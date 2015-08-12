@@ -12,15 +12,24 @@ import org.apache.camel.component.file.GenericFileFilter;
 import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
 import aurora.plugin.esb.adapter.cf.ali.sftp.reader.producer.ServiceFile;
+import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.source.gen.Path;
 
 public class MyFileFilter<T> implements GenericFileFilter<T> {
 	private AuroraEsbContext esbContext;
 	private CompositeMap producerMap;
 
+	private String startdates;
+	
+	
 	public MyFileFilter(AuroraEsbContext esbContext, CompositeMap producerMap) {
 		this.esbContext = esbContext;
 		this.producerMap = producerMap;
+		Date now = new Date();
+		DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		String nows = format1.format(now);
+		startdates = producerMap.getChild("sftp").getString(
+				"startDate".toLowerCase(), nows);
 	}
 
 	private boolean isAfter(String date, String when) {
@@ -43,15 +52,32 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 
 	public boolean accept(GenericFile<T> file) {
 		// we want all directories
-		if (file.isDirectory()) {
-			return true;
-		}
-
 		Date now = new Date();
 		DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 		String nows = format1.format(now);
-		String startdates = producerMap.getChild("sftp").getString(
-				"startDate".toLowerCase(), nows);
+//		String startdates = producerMap.getChild("sftp").getString(
+//				"startDate".toLowerCase(), nows);
+		if (file.isDirectory()) {
+			String d = file.getFileNameOnly();
+//			new ConsoleLog().log2Console("[MyFileFilter Folder] "
+//					+ file.getFileNameOnly());
+			if (d.startsWith("20") && d.length() == 8) {
+				try {
+					int parseInt = Integer.parseInt(d);
+					if (isAfter(startdates, d) == false) {
+						return false;
+					}
+
+				} catch (NumberFormatException e) {
+				}
+			}
+
+			// 20150627
+			// file.getf
+			return true;
+		}
+//		new ConsoleLog()
+//				.log2Console("[MyFileFilter] " + file.getFileNameOnly());
 		if (isAfter(startdates, nows)) {
 			String fileNameOnly = file.getFileNameOnly();
 			ServiceFile sn = new ServiceFile(fileNameOnly);
@@ -122,5 +148,13 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 		// File("File:/Users/shiliyan/Desktop/esb/download/CFCAR/AUTOFI_CREATE_CONTRACT/20150609/CFCAR_AUTOFI_CREATE_CONTRACT_20150609_32.txt").exists();
 		return sff.exists() || bff.exists() || errff.exists();
 
+	}
+
+	public String getStartdates() {
+		return startdates;
+	}
+
+	public void setStartdates(String startdates) {
+		this.startdates = startdates;
 	}
 }
