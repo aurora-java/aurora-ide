@@ -24,12 +24,15 @@ import com.itrus.util.Base64;
 
 public class Core {
 
-
     public static SenderBcImpl sender;
     public static RecipientBcImpl recipient;
     public static String pfxFileName = Config.pfxPath;
-    public static String certFileName = Config.get("certPath");
+//    		"/Users/shiliyan/git/aurora-ide/aurora-plugin-haire-pay/rsa/kjt_20150811.pfx";
+    public static String certFileName =Config.certPath;
+//    		"/Users/shiliyan/git/aurora-ide/aurora-plugin-haire-pay/rsa/zgongyao.cer";
     public static String keyPassword = Config.pfxKey;
+//    		"pay1234567890";
+    
     static{
     	sender = new SenderBcImpl();
     	recipient = new RecipientBcImpl();
@@ -99,11 +102,6 @@ public class Core {
               if (value != null && !value.equals("") ) {
               	try {
                       value = URLEncoder.encode(value, charset);
-                  
-              		  //改成以下两句
-//                      byte [] changString=value.getBytes("iso8859-1");
-//                      value=new String(changString);
-                      
                   } catch (UnsupportedEncodingException e) {
                       e.printStackTrace();
                   }
@@ -114,14 +112,14 @@ public class Core {
 
           return result;
       }
-      /**
-       * 把数组所有元素排序，并按照“参数=参数值”的模式用“&”字符拼接成字符串
-       *
-       * @param params
-       *            需要排序并参与字符拼接的参数组
-       * @param encode 是否需要urlEncode
-       * @return 拼接后字符串
-       */
+    /**
+     * 把数组所有元素排序，并按照“参数=参数值”的模式用“&”字符拼接成字符串
+     *
+     * @param params
+     *            需要排序并参与字符拼接的参数组
+     * @param encode 是否需要urlEncode
+     * @return 拼接后字符串
+     */
     public static String createLinkString(Map<String, String> params, boolean encode) {
 
         List<String> keys = new ArrayList<String>(params.keySet());
@@ -136,15 +134,12 @@ public class Core {
             if (encode) {
                 try {
                     value = URLEncoder.encode(value, charset);
-                    
-                	
-                    
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
             }
 
-            if (i == keys.size() - 1) {// 
+            if (i == keys.size() - 1) {// 拼接时，不包括最后一个&字符
                 prestr = prestr + key + "=" + value;
             } else {
                 prestr = prestr + key + "=" + value + "&";
@@ -156,16 +151,10 @@ public class Core {
 
    
 
-    public static String buildRequest(Map<String, String> sPara,String signType,String inputCharset) throws Exception {
-    	String prestr = createLinkString(sPara, false); // 
-    	System.out.println(prestr);
-    	if(signType.equals("MD5")){
-    		String mysign = MD5.sign(prestr, Config.MD5_KEY, inputCharset);
-            return mysign;
-    	}else{
-    		String mysign = sender.signMessage(prestr);
-            return mysign;
-    	}
+    public static String buildRequest(Map<String, String> sPara) throws Exception {
+    	String prestr = createLinkString(sPara, false); // 把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
+        String mysign = sender.signMessage(prestr);
+        return mysign;
     }
 
     /**
@@ -179,7 +168,7 @@ public class Core {
         Map<String, String> sPara = paraFilter(sParaTemp);
         if(StringUtils.isBlank(signType))return sPara;
         // 生成签名结果
-        String mysign = buildRequest(sPara,signType,inputCharset);
+        String mysign = buildRequest(sPara);
         // 签名结果与签名方式加入请求提交参数组中
         sPara.put("sign", mysign);
         sPara.put("sign_type", signType);

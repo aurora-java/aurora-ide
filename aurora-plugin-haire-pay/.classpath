@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="res"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/aurora"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/aurora-plugin"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/uncertain"/>
@@ -27,5 +28,8 @@
 	<classpathentry kind="lib" path="lib/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/iTrusCertAPI_2.9.2_jdk15.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="lib/local_policy.jar"/>
+	<classpathentry kind="lib" path="lib/US_export_policy.jar"/>
+	<classpathentry kind="lib" path="lib/aurora-plugin-haire-pay.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

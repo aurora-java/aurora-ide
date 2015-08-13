@@ -10,6 +10,8 @@ public final class Config {
 	
 	public static final String pfxPath = get("pfxPath");
 	
+	public static final String certPath = get("certPath");
+	
 	public static final String pfxKey = get("pfxKey");
 	
 	public static final String MD5_KEY = get("MD5_KEY");

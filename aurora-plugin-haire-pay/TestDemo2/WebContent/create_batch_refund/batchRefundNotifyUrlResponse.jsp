@@ -13,13 +13,13 @@
 	sParaTemp.put("notify_type", request.getParameter("notify_type"));
 	sParaTemp.put("notify_time", request.getParameter("notify_time"));
 	sParaTemp.put("_input_charset",
-			request.getParameter("_input_charset"));
+	request.getParameter("_input_charset"));
 	sParaTemp.put("sign", request.getParameter("sign"));
 	sParaTemp.put("sign_type", request.getParameter("sign_type"));
 	sParaTemp.put("version", request.getParameter("version"));
 	
 	sParaTemp.put("orig_outer_trade_no",
-			request.getParameter("orig_outer_trade_no"));
+	request.getParameter("orig_outer_trade_no"));
 	sParaTemp.put("outer_trade_no", request.getParameter("outer_trade_no"));
 	sParaTemp.put("inner_trade_no", request.getParameter("inner_trade_no"));
 	sParaTemp.put("refund_amount", request.getParameter("refund_amount"));
@@ -30,15 +30,15 @@
 	String inputCharset = request.getParameter("_input_charset");
 
 	//参数加密
-	VerifyResult result = com.client.verify.verifyClient.verifyBasic(
-			inputCharset, signType, sParaTemp);
+	VerifyResult result = com.client.verify.VerifyClient.verifyBasic(
+	inputCharset, signType, sParaTemp);
 	if (result.isSuccess()) {
 		//out.println("通知成功！");
 		String tradeStatus = request.getParameter("refund_status");
 		if (tradeStatus.equals("REFUND_SUCCESS")) {
-			out.println("退款成功！");
+	out.println("退款成功！");
 		} else if (tradeStatus.endsWith("REFUND_FAIL")) {
-			out.println("退款失败！");
+	out.println("退款失败！");
 	} else {
 		out.println("通知失败！");
 	  }

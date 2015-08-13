@@ -49,6 +49,7 @@ public class ITrus implements Signer{
 			}
 		
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			logger.error(ex.getMessage());
 		} 
 	}

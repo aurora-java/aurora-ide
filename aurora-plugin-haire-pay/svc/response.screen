@@ -18,6 +18,11 @@
         <p:set field="/pay/@gmt_close" sourceField="/parameter/@gmt_close"/>
         <hp:haire-verify signField="notify_id,notify_type,notify_time,_input_charset,sign,sign_type,version,outer_trade_no,inner_trade_no,trade_status,trade_amount,gmt_create,gmt_payment,gmt_close"><![CDATA[
         ]]></hp:haire-verify>
+        <p:switch test="/model/haire_pay_result/@verify_result">
+            <p:case Value="true">
+                <hp:response-write text="success"/>
+            </p:case>
+        </p:switch>
         <!-- 
 	CompositeMap haire_pay_result = model.createChild("haire_pay_result");
 		haire_pay_result.put("trade_status", tradeStatus);

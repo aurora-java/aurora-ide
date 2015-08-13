@@ -1,5 +1,4 @@
-<%@page import="com.client.pojo.VerifyResult"%><%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%><%
-	try {
+<%@page import="com.client.pojo.VerifyResult"%><%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%><%try {
 		request.setCharacterEncoding("UTF-8");
 	} catch (java.io.UnsupportedEncodingException e1) {
 		e1.printStackTrace();
@@ -23,7 +22,7 @@
 	String signType = request.getParameter("sign_type");
 	String inputCharset = request.getParameter("_input_charset");
 	//签名验证
-	VerifyResult result = com.client.verify.verifyClient.verifyBasic(
+	VerifyResult result = com.client.verify.VerifyClient.verifyBasic(
 			inputCharset,  sParaTemp);
 	if (result.isSuccess()) {
 		//out.println("签名验证成功！");
@@ -47,7 +46,6 @@
 	} else 
 	{
 		out.write("签名验证失败！");
-	}
-%>
+	}%>
 
 

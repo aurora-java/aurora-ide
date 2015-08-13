@@ -73,6 +73,14 @@ public class HairePay extends AbstractEntry {
 //			message = appendParam(message, f, v, __input_charset);
 			para.put(f, v);
 		}
+		
+		String cardNo = com.client.util.Core.encryptData(pay.getString("card_no", ""),__input_charset);	
+//		//证件号加密
+		String certificatesNumber = com.client.util.Core.encryptData(pay.getString("certificates_number", ""),__input_charset);
+//		
+		para.put("certificates_number", certificatesNumber);
+		para.put("card_no", cardNo);
+		
 
 //		Set keySet = pay.keySet();
 //		for (Object key : keySet) {
