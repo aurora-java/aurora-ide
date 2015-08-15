@@ -56,6 +56,8 @@ public class AuroraEsbContext {
 
 	private CompositeMap properties = new CompositeMap(RUNNING_PROPERTIES);
 	private FileStore fs;
+	
+	private boolean starting = true;
 
 	public AuroraEsbContext() {
 	}
@@ -419,6 +421,14 @@ public class AuroraEsbContext {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean isStarting() {
+		return starting;
+	}
+
+	public void setStarting(boolean starting) {
+		this.starting = starting;
 	}
 	
 }

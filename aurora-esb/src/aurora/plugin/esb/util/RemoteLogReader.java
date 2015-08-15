@@ -20,9 +20,9 @@ public class RemoteLogReader {
 			@Override
 			public void configure() throws Exception {
 
-				String downloadUrl = "sftp://192.168.1.11:22/"
+				String downloadUrl = "sftp://remote_connector1234@192.168.101.122:16691/"
 						+ "%2Fu01/CF_Leasing/aurora_esb/logs/";
-				String downloadPara = "?username=root&password=123456&delay=10s"
+				String downloadPara = "?password=Hand1234#Machine1234&delay=10s&stepwise=false"
 						+ "&noop=true" + "&idempotent=false" + "&fileName=esb.log";
 
 				String ftp_server_url = downloadUrl + downloadPara.trim();

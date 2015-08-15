@@ -20,19 +20,19 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 	private CompositeMap producerMap;
 
 	private String startdates;
-	
-	
+
 	public MyFileFilter(AuroraEsbContext esbContext, CompositeMap producerMap) {
 		this.esbContext = esbContext;
 		this.producerMap = producerMap;
-		Date now = new Date();
-		DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		String nows = format1.format(now);
-		startdates = producerMap.getChild("sftp").getString(
-				"startDate".toLowerCase(), nows);
+		// Date now = new Date();
+		// DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		// String nows = format1.format(now);
+		// startdates = producerMap.getChild("sftp").getString(
+		// "startDate".toLowerCase(), nows);
+		this.resetStartDate();
 	}
 
-	private boolean isAfter(String date, String when) {
+	static private boolean isAfter(String date, String when) {
 
 		if (date.equals(when))
 			return true;
@@ -51,16 +51,24 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 	}
 
 	public boolean accept(GenericFile<T> file) {
+		boolean acc = acc(file);
+		System.out.println(new Date() + "  [MyFileFilter Folder&File] "
+				+ file.getFileNameOnly() + "   " + acc);
+		// new ConsoleLog().log2Console();
+		return acc;
+	}
+
+	public boolean acc(GenericFile<T> file) {
 		// we want all directories
 		Date now = new Date();
 		DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 		String nows = format1.format(now);
-//		String startdates = producerMap.getChild("sftp").getString(
-//				"startDate".toLowerCase(), nows);
+		// String startdates = producerMap.getChild("sftp").getString(
+		// "startDate".toLowerCase(), nows);
 		if (file.isDirectory()) {
 			String d = file.getFileNameOnly();
-//			new ConsoleLog().log2Console("[MyFileFilter Folder] "
-//					+ file.getFileNameOnly());
+			// new ConsoleLog().log2Console("[MyFileFilter Folder] "
+			// + file.getFileNameOnly());
 			if (d.startsWith("20") && d.length() == 8) {
 				try {
 					int parseInt = Integer.parseInt(d);
@@ -71,15 +79,18 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 				} catch (NumberFormatException e) {
 				}
 			}
-
-			// 20150627
-			// file.getf
+			new ConsoleLog().log2Console("[MyFileFilter Folder] "
+					+ file.getAbsoluteFilePath() + " true" + "startdates : "
+					+ startdates);
 			return true;
 		}
-//		new ConsoleLog()
-//				.log2Console("[MyFileFilter] " + file.getFileNameOnly());
+		String fileNameOnly = file.getFileNameOnly();
+		if (fileNameOnly.endsWith(".tmp"))
+			return false;
+		// new ConsoleLog()
+		// .log2Console("[MyFileFilter] " + file.getFileNameOnly());
 		if (isAfter(startdates, nows)) {
-			String fileNameOnly = file.getFileNameOnly();
+			// String fileNameOnly = file.getFileNameOnly();
 			ServiceFile sn = new ServiceFile(fileNameOnly);
 			if (sn.isInvalid() == false) {
 				String batchNo = sn.getBatchNo();
@@ -88,9 +99,6 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 				if (isAfter(startdates, yymmdd)) {
 					// return new File().exists()
 					return isExists(file) == false;
-
-					// return Integer.parseInt(batchNo) - Integer.parseInt(pn) >
-					// 0;
 				}
 			} else {
 				return isExists(file) == false;
@@ -98,26 +106,8 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 		}
 
 		// we dont accept any files starting with skip in the name
-		// System.out.println("fffffffffffffffff");
-		// return fileNameOnly.contains("20150609");
 		return false;
-		// return !file.getFileName().startsWith("skip");
 	}
-
-	//
-	// ServiceFile sn = new ServiceFile(header.toString());
-	// if(sn.isInvalid()==false){
-	// CompositeMap properties = esbContext.getProperties();
-	// String service = sn.getService();
-	// String batchNo = sn.getBatchNo();
-	// String yymmdd = sn.getYymmdd();
-	// CompositeMap serviceNode = properties.getChild(service);
-	// if(serviceNode==null)
-	// serviceNode = properties.createChild(service);
-	// serviceNode.put("batchno", batchNo);
-	// serviceNode.put("yymmdd", yymmdd);
-	// esbContext.saveProperties();
-	// }
 
 	private boolean isExists(GenericFile<T> file) {
 
@@ -140,14 +130,78 @@ public class MyFileFilter<T> implements GenericFileFilter<T> {
 		File bff = new File(bf, file.getRelativeFilePath());
 		File errff = new File(errorPath.replace("file:", ""),
 				file.getFileNameOnly());
-		// File sff = new
-		// Path(local_save_path).append(orgCode).append(file.getRelativeFilePath()).makeAbsolute().toFile();
-		// File bff = new
-		// Path(backupPath).append(orgCode).append(file.getRelativeFilePath()).removeFirstSegments(1).toFile();
-		// new
-		// File("File:/Users/shiliyan/Desktop/esb/download/CFCAR/AUTOFI_CREATE_CONTRACT/20150609/CFCAR_AUTOFI_CREATE_CONTRACT_20150609_32.txt").exists();
 		return sff.exists() || bff.exists() || errff.exists();
 
+	}
+
+	private String defaultStartDate() {
+		CompositeMap config = producerMap.getChild("local");
+		String local_save_path = config.getString(
+				"localSavePath".toLowerCase(), "");
+		String orgCode = config.getString("orgCode".toLowerCase(), "");
+
+		String local_url = local_save_path + "/" + orgCode;
+		File CFCAR = new File(local_url.replace("file:", ""));
+		File AUTOFI_CREATE_CONTRACT = new File(CFCAR, "AUTOFI_CREATE_CONTRACT");
+		String[] list = AUTOFI_CREATE_CONTRACT.list();
+		int max = 0;
+		if (list == null) {
+			return "" + max;
+		}
+		for (String d : list) {
+			if (d.startsWith("20") && d.length() == 8) {
+				try {
+					int parseInt = Integer.parseInt(d);
+					max = Math.max(max, parseInt);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return "" + max;
+		// AUTOFI_CANCLE_CONTRACT
+		// AUTOFI_CREATE_CONTRACT
+		// AUTOFI_INVOICE
+		// AUTOFI_INVOICE_INFO
+		// AUTOFI_LOAN_RESULT
+		// AUTOFI_PAYEE_INFO
+		// AUTOFI_PAYMENT_RESULT
+	}
+
+	public static void main(String[] args) {
+
+		String defaultStartDate = "20150812";
+		String _startdates = "20150813";
+		String r = "0";
+
+		if (isAfter(_startdates, defaultStartDate)) {
+			r = defaultStartDate;
+		} else {
+			r = _startdates;
+		}
+		System.out.println(r);
+	}
+
+	public void resetStartDate() {
+		String defaultStartDate = this.defaultStartDate();
+		Date now = new Date();
+		DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		String nows = format1.format(now);
+		String _startdates = producerMap.getChild("sftp").getString(
+				"startDate".toLowerCase(), nows);
+		if ("0".equals(defaultStartDate)) {
+			startdates = _startdates;
+		} else {
+			if (isAfter(_startdates, defaultStartDate)) {
+				startdates = defaultStartDate;
+			} else {
+				startdates = _startdates;
+			}
+		}
+		new ConsoleLog().log2Console("[MyFileFilter Folder] resetStartDate "
+				+ startdates);
 	}
 
 	public String getStartdates() {

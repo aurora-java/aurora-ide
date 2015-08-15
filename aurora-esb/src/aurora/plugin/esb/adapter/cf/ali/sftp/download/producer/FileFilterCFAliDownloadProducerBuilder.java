@@ -14,6 +14,7 @@ import org.apache.camel.model.RouteDefinition;
 
 import uncertain.composite.CompositeMap;
 import aurora.plugin.esb.AuroraEsbContext;
+import aurora.plugin.esb.adapter.cf.ali.sftp.genfile.producer.GenFile;
 import aurora.plugin.esb.console.ConsoleLog;
 import aurora.plugin.esb.model.Producer;
 
@@ -24,6 +25,8 @@ public class FileFilterCFAliDownloadProducerBuilder extends RouteBuilder {
 	private AuroraEsbContext esbContext;
 	private Producer producer;
 	private CompositeMap producerMap;
+
+	private boolean starting = true;
 
 	public FileFilterCFAliDownloadProducerBuilder(AuroraEsbContext esbContext,
 			Producer producer) {
@@ -101,9 +104,11 @@ public class FileFilterCFAliDownloadProducerBuilder extends RouteBuilder {
 					@Override
 					public void process(Exchange exchange) throws Exception {
 						lastDownloadTime = new Date().getTime();
-						Date now = new Date();
-						DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-						lastymd = format1.format(now);
+						// Date now = new Date();
+						// DateFormat format1 = new
+						// SimpleDateFormat("yyyyMMdd");
+						// lastymd = format1.format(now);
+						starting = false;
 					}
 				});
 
@@ -117,7 +122,7 @@ public class FileFilterCFAliDownloadProducerBuilder extends RouteBuilder {
 		clog.log2Console("[Downloaded File] " + "DOWNLOAD URL "
 				+ ftp_server_url);
 		clog.log2Console("[Downloaded File] " + "SAVE URL " + local_url);
-		final long retryTime = 1000 * 60 * 60 * 6;
+		final long retryTime = 1000 * 60 * 30;
 		// 6000000;
 		lastDownloadTime = new Date().getTime();
 		Date now = new Date();
@@ -130,6 +135,11 @@ public class FileFilterCFAliDownloadProducerBuilder extends RouteBuilder {
 					@Override
 					public void process(Exchange exchange) throws Exception {
 
+						if (starting){
+							clog.log2Console("[Downloaded File] "
+									+ "DOWNLOAD Task Starting... ");
+							return;
+						}
 						CamelContext context = exchange.getContext();
 						// context.getRoute("abc.efg");
 						long time = new Date().getTime() - lastDownloadTime
@@ -142,18 +152,45 @@ public class FileFilterCFAliDownloadProducerBuilder extends RouteBuilder {
 								Object lookupByName = ((JndiRegistry) registry)
 										.lookupByName("FileFilter");
 								if (lookupByName instanceof MyFileFilter) {
-									((MyFileFilter) lookupByName).setStartdates(lastymd);
+									((MyFileFilter) lookupByName)
+											.resetStartDate();
 								}
-								// .bind("FileFilter", new MyFileFilter(
-								// esbContext, producerMap));
 							}
 							context.stopRoute(CF_ALI_CAR_FTP_DOWNLOAD);
+							starting = true;
 							context.startRoute(CF_ALI_CAR_FTP_DOWNLOAD);
 							clog.log2Console("[Downloaded File] "
 									+ "DOWNLOAD Task Configed...");
 						}
 					}
 				});
+		
+		
+		 from("quartz2://update?cron=0 0 2 * * ?").process(new Processor() {
+			
+			@Override
+			public void process(Exchange exchange) throws Exception {
+				JndiRegistry registry = esbContext
+						.getCamelContext().getRegistry(
+								JndiRegistry.class);
+				if (registry instanceof JndiRegistry) {
+					Object lookupByName = ((JndiRegistry) registry)
+							.lookupByName("FileFilter");
+					if (lookupByName instanceof MyFileFilter) {
+						((MyFileFilter) lookupByName)
+								.resetStartDate();
+					}
+				}
+			}
+		});
+	
+	}
 
+	public boolean isStarting() {
+		return starting;
+	}
+
+	public void setStarting(boolean starting) {
+		this.starting = starting;
 	}
 }

@@ -70,11 +70,11 @@ public class CFAliGenFileProducerBuilder extends RouteBuilder {
 		// .to("file:/Users/shiliyan/Desktop/esb/upload"
 		// + "?recursive=true&noop=true");
 		//
-		// from("quartz2://timerName?cron=0 0 18 * * ?")
-		// .bean(new GenFile(esbContext, "AUTOFI_SEND_BILL",
-		// "gen_file_bill"), "genFile")
-		// .to("file:/Users/shiliyan/Desktop/esb/upload"
-		// + "?recursive=true&noop=true");
+//		 from("quartz2://timerName?cron=0 0 18 * * ?")
+//		 .bean(new GenFile(esbContext, "AUTOFI_SEND_BILL",
+//		 "gen_file_bill"), "genFile")
+//		 .to("file:/Users/shiliyan/Desktop/esb/upload"
+//		 + "?recursive=true&noop=true");
 
 		// from("timer://foo?period=20000")
 		// .bean(new GenFile(esbContext,"AUTOFI_SEND_BILL","gen_file_bill"),
