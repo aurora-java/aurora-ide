@@ -8,4 +8,21 @@
            <files desc="ConfigFile" extentionNames="xml, proc, config"/> 
            <files desc="PrototypeFile" extentionNames="bmq, uip,code,prototype"/> 
     </extension>
+    <extension
+         point="org.eclipse.ui.popupMenus">
+    
+    <objectContribution
+          adaptable="true"
+          id="aurora.ide.navigator.action.CreateAllFunctionRegister"
+          objectClass="org.eclipse.core.resources.IContainer">
+       	<action
+             class="aurora.ide.navigator.action.CreateAllFunctionRegister"
+             enablesFor="1"
+             icon="icons/aurora.gif"
+             id="aurora.ide.navigator.action.CreateAllFunctionRegister.action"
+             label="导出功能注册脚本"
+             menubarPath="additions">
+       </action>
+    </objectContribution> 
+       </extension>
 </plugin>
